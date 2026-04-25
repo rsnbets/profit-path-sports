@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kelly Criterion Calculator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+<!-- Favicon: SVG lightning bolt -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230a0f1c'/%3E%3Cpath d='M18 4L8 18h6l-2 10 10-14h-6z' fill='%23ffb020' stroke='%23ff8c00' stroke-width='0.5'/%3E%3C/svg%3E">
+
+<style>
+  :root {
+    --bg: #0a0f1c;
+    --panel: #0f1524;
+    --panel-inset: #141a2b;
+    --panel-deep: #0c1120;
+    --border: #1e2638;
+    --border-soft: #141c30;
+    --text: #e5e7eb;
+    --muted: #8b94a8;
+    --dim: #6b7689;
+    --blue: #3d8bff;
+    --blue-glow: rgba(61, 139, 255, 0.15);
+    --yellow: #f5b545;
+    --yellow-glow: rgba(245, 181, 69, 0.15);
+    --green: #4ade80;
+    --green-glow: rgba(74, 222, 128, 0.15);
+    --red: #f87171;
+    --purple: #BC8CFF;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: radial-gradient(ellipse at top, #111a2e 0%, var(--bg) 60%);
+    color: var(--text);
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 820px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.02) inset;
+  }
+
+  .header {
+    text-align: center;
+    padding: 32px 20px 28px;
+    border-bottom: 1px solid var(--border);
+    background: linear-gradient(180deg, #0d1220 0%, #0b0f1d 100%);
+    position: relative;
+  }
+
+  .header::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--blue), transparent);
+    opacity: 0.6;
+  }
+
+  .header h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--blue);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .bolt { font-size: 20px; filter: drop-shadow(0 0 8px rgba(245, 181, 69, 0.6)); }
+
+  .back-link {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--dim);
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.15s;
+  }
+
+  .back-link:hover { color: var(--blue); }
+
+  .body { padding: 32px; }
+
+  .section-label {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 11px;
+    letter-spacing: 2.5px;
+    color: var(--dim);
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .section-label::before {
+    content: '▸';
+    color: var(--blue);
+    font-size: 10px;
+  }
+
+  .section-label.green::before { color: var(--green); }
+  .section-label.yellow::before { color: var(--yellow); }
+  .section-label.purple::before { color: var(--purple); }
+
+  /* ── Mode toggle ── */
+  .mode-toggle {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    background: var(--panel-inset);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 4px;
+    margin-bottom: 22px;
+  }
+
+  .mode-btn {
+    background: transparent;
+    border: none;
+    color: var(--muted);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    padding: 12px 8px;
+    border-radius: 7px;
+    cursor: pointer;
+    transition: all 0.15s;
+    text-transform: uppercase;
+  }
+
+  .mode-btn:hover { color: var(--text); background: rgba(255, 255, 255, 0.03); }
+
+  .mode-btn.active {
+    background: var(--blue);
+    color: #06101e;
+    box-shadow: 0 0 12px var(--blue-glow);
+  }
+
+  /* ── Inputs grid ── */
+  .inputs {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 28px;
+  }
+
+  .field-label {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+
+  .input-wrap {
+    position: relative;
+    background: var(--panel-inset);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .input-wrap::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--blue);
+    box-shadow: 0 0 12px var(--blue-glow);
+  }
+
+  .input-wrap.yellow::after {
+    background: var(--yellow);
+    box-shadow: 0 0 12px var(--yellow-glow);
+  }
+
+  .input-wrap.purple::after {
+    background: var(--purple);
+    box-shadow: 0 0 12px rgba(188, 140, 255, 0.2);
+  }
+
+  .input-wrap.green::after {
+    background: var(--green);
+    box-shadow: 0 0 12px var(--green-glow);
+  }
+
+  .input-wrap input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    color: var(--blue);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 26px;
+    font-weight: 700;
+    padding: 16px 14px;
+    text-align: center;
+    outline: none;
+    letter-spacing: 1px;
+  }
+
+  .input-wrap.yellow input { color: var(--yellow); }
+  .input-wrap.purple input { color: var(--purple); }
+  .input-wrap.green input { color: var(--green); }
+
+  .input-wrap.error::after { background: var(--red); }
+  .input-wrap.error input { color: var(--red); }
+
+  .hint {
+    text-align: center;
+    margin-top: 8px;
+    font-size: 11px;
+    color: var(--dim);
+    letter-spacing: 0.5px;
+  }
+
+  .hint strong { color: var(--text); font-weight: 700; }
+
+  /* ── Fraction toggle ── */
+  .frac-section {
+    background: var(--panel-deep);
+    border: 1px solid var(--border-soft);
+    border-radius: 12px;
+    padding: 18px;
+    margin-bottom: 28px;
+  }
+
+  .frac-toggle {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    background: var(--panel-inset);
+    border-radius: 10px;
+    padding: 4px;
+  }
+
+  .frac-btn {
+    background: transparent;
+    border: none;
+    color: var(--muted);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    padding: 10px 6px;
+    border-radius: 7px;
+    cursor: pointer;
+    transition: all 0.15s;
+    text-transform: uppercase;
+  }
+
+  .frac-btn:hover { color: var(--text); background: rgba(255, 255, 255, 0.03); }
+
+  .frac-btn.active {
+    background: var(--blue);
+    color: #06101e;
+    box-shadow: 0 0 12px var(--blue-glow);
+  }
+
+  .frac-sub {
+    text-align: center;
+    margin-top: 12px;
+    font-size: 11px;
+    color: var(--dim);
+    letter-spacing: 0.5px;
+    line-height: 1.6;
+  }
+
+  .frac-sub strong { color: var(--text); }
+
+  /* ── Output ── */
+  .output-bar {
+    background: linear-gradient(135deg, #1a1a24 0%, var(--panel-deep) 100%);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px;
+    margin-bottom: 18px;
+  }
+
+  .output-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 18px;
+  }
+
+  .output-stat { text-align: center; }
+
+  .output-stat .label {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 10px;
+    letter-spacing: 1.8px;
+    color: var(--dim);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    font-weight: 700;
+  }
+
+  .output-stat .value {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 30px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+
+  .output-stat .value.empty { color: var(--dim); font-weight: 400; }
+  .output-stat .value.bet-size { color: var(--green); }
+  .output-stat .value.percent { color: var(--blue); }
+  .output-stat .value.edge { color: var(--yellow); }
+
+  .output-stat .sub {
+    font-size: 10px;
+    color: var(--muted);
+    margin-top: 4px;
+    letter-spacing: 0.3px;
+  }
+
+  /* ── Status banner ── */
+  .status-banner {
+    background: var(--panel-deep);
+    border: 1px solid var(--border-soft);
+    border-radius: 12px;
+    padding: 14px 18px;
+    text-align: center;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 12px;
+    letter-spacing: 1.5px;
+    color: var(--muted);
+    text-transform: uppercase;
+    font-weight: 700;
+    transition: all 0.3s;
+  }
+
+  .status-banner.positive {
+    background: rgba(74, 222, 128, 0.08);
+    border-color: rgba(74, 222, 128, 0.3);
+    color: var(--green);
+  }
+
+  .status-banner.negative {
+    background: rgba(248, 113, 113, 0.08);
+    border-color: rgba(248, 113, 113, 0.3);
+    color: var(--red);
+  }
+
+  .status-banner.neutral {
+    background: rgba(245, 181, 69, 0.08);
+    border-color: rgba(245, 181, 69, 0.3);
+    color: var(--yellow);
+  }
+
+  .help {
+    margin-top: 24px;
+    padding: 14px 18px;
+    background: var(--panel-inset);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    font-size: 11px;
+    color: var(--muted);
+    line-height: 1.7;
+    letter-spacing: 0.3px;
+  }
+
+  .help strong { color: var(--blue); font-weight: 700; }
+  .help .formula {
+    display: block;
+    margin: 8px 0;
+    color: var(--text);
+    font-family: 'JetBrains Mono', monospace;
+    text-align: center;
+    font-size: 12px;
+    letter-spacing: 1px;
+  }
+
+  @media (max-width: 720px) {
+    .inputs { grid-template-columns: 1fr; }
+    .output-grid { grid-template-columns: 1fr; gap: 20px; }
+    .frac-toggle { grid-template-columns: repeat(2, 1fr); }
+    .body { padding: 22px; }
+    .header h1 { font-size: 16px; letter-spacing: 2px; }
+    .input-wrap input { font-size: 22px; }
+    .output-stat .value { font-size: 24px; }
+  }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="header">
+    <a href="index.html" class="back-link">← Hub</a>
+    <h1><span class="bolt">⚡</span> Kelly Criterion Calculator <span class="bolt">⚡</span></h1>
+  </div>
+
+  <div class="body">
+    <!-- MODE TOGGLE -->
+    <div class="section-label">Input Mode</div>
+    <div class="mode-toggle">
+      <button class="mode-btn active" data-mode="ev">EV % + Odds</button>
+      <button class="mode-btn" data-mode="prob">Probability + Odds</button>
+    </div>
+
+    <!-- INPUTS -->
+    <div class="section-label">Inputs</div>
+    <div class="inputs">
+      <div>
+        <div class="field-label">Bankroll ($)</div>
+        <div class="input-wrap" id="wrapBankroll">
+          <input type="text" id="bankroll" value="1000" autocomplete="off" spellcheck="false" />
+        </div>
+        <div class="hint">Total betting capital</div>
+      </div>
+      <div>
+        <div class="field-label">American Odds</div>
+        <div class="input-wrap yellow" id="wrapOdds">
+          <input type="text" id="odds" value="+150" autocomplete="off" spellcheck="false" />
+        </div>
+        <div class="hint">Decimal: <strong id="oddsDec">2.50</strong></div>
+      </div>
+      <div id="dynamicField">
+        <div class="field-label" id="dynamicLabel">EV % of Bet</div>
+        <div class="input-wrap green" id="wrapDynamic">
+          <input type="text" id="dynamicInput" value="3.0" autocomplete="off" spellcheck="false" />
+        </div>
+        <div class="hint" id="dynamicHint">Edge from your EV calc (e.g. <strong>3.0</strong>)</div>
+      </div>
+    </div>
+
+    <!-- FRACTION TOGGLE -->
+    <div class="section-label yellow">Kelly Fraction</div>
+    <div class="frac-section">
+      <div class="frac-toggle">
+        <button class="frac-btn" data-frac="0.25">¼ Kelly</button>
+        <button class="frac-btn active" data-frac="0.5">½ Kelly</button>
+        <button class="frac-btn" data-frac="0.75">¾ Kelly</button>
+        <button class="frac-btn" data-frac="1">Full Kelly</button>
+      </div>
+      <div class="frac-sub" id="fracExplain">
+        <strong>½ Kelly</strong> — most common for serious bettors. Cuts variance by ~50% with ~75% of full Kelly's growth.
+      </div>
+    </div>
+
+    <!-- OUTPUT -->
+    <div class="section-label green">Recommended Bet</div>
+    <div class="output-bar">
+      <div class="output-grid">
+        <div class="output-stat">
+          <div class="label">Edge</div>
+          <div class="value edge" id="edgeOut">—</div>
+          <div class="sub">EV per $1 wagered</div>
+        </div>
+        <div class="output-stat">
+          <div class="label">Bet Size</div>
+          <div class="value bet-size" id="betSize">—</div>
+          <div class="sub">Of bankroll</div>
+        </div>
+        <div class="output-stat">
+          <div class="label">% of Bankroll</div>
+          <div class="value percent" id="betPct">—</div>
+          <div class="sub" id="kellyType">½ Kelly applied</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="status-banner neutral" id="statusBanner">Enter your edge and odds to calculate</div>
+
+    <div class="help">
+      <strong>How Kelly works:</strong>
+      <span class="formula">f* = (bp − q) / b</span>
+      Where <strong>b</strong> = decimal odds − 1, <strong>p</strong> = your true win probability, <strong>q</strong> = 1 − p.
+      Full Kelly maximizes long-term bankroll growth but with high variance. Most pros use <strong>¼ or ½ Kelly</strong> to reduce drawdowns. If your edge is negative, the calculator will tell you not to bet.
+    </div>
+  </div>
+</div>
+
+<script>
+  const modeBtns = document.querySelectorAll('.mode-btn');
+  const bankroll = document.getElementById('bankroll');
+  const odds = document.getElementById('odds');
+  const oddsDec = document.getElementById('oddsDec');
+  const dynamicInput = document.getElementById('dynamicInput');
+  const dynamicLabel = document.getElementById('dynamicLabel');
+  const dynamicHint = document.getElementById('dynamicHint');
+  const wrapBankroll = document.getElementById('wrapBankroll');
+  const wrapOdds = document.getElementById('wrapOdds');
+  const wrapDynamic = document.getElementById('wrapDynamic');
+  const edgeOut = document.getElementById('edgeOut');
+  const betSize = document.getElementById('betSize');
+  const betPct = document.getElementById('betPct');
+  const kellyType = document.getElementById('kellyType');
+  const statusBanner = document.getElementById('statusBanner');
+  const fracExplain = document.getElementById('fracExplain');
+  const fracBtns = document.querySelectorAll('.frac-btn');
+
+  let mode = 'ev';
+  let kellyFraction = 0.5;
+
+  const FRAC_LABELS = {
+    '0.25': '¼ Kelly',
+    '0.5':  '½ Kelly',
+    '0.75': '¾ Kelly',
+    '1':    'Full Kelly'
+  };
+
+  const FRAC_EXPLAIN = {
+    '0.25': '<strong>¼ Kelly</strong> — conservative. Lowest variance, best for survivability through losing streaks.',
+    '0.5':  '<strong>½ Kelly</strong> — most common for serious bettors. Cuts variance by ~50% with ~75% of full Kelly\'s growth.',
+    '0.75': '<strong>¾ Kelly</strong> — aggressive. Higher growth but expect significant drawdowns.',
+    '1':    '<strong>Full Kelly</strong> — theoretically optimal growth, but extreme variance. Only use with 100% confidence in your probability estimate.'
+  };
+
+  function americanToDecimal(o) {
+    const n = parseFloat(o);
+    if (isNaN(n) || n === 0 || Math.abs(n) < 100) return null;
+    return n > 0 ? 1 + n / 100 : 1 + 100 / Math.abs(n);
+  }
+
+  function americanToProb(o) {
+    const n = parseFloat(o);
+    if (isNaN(n) || n === 0 || Math.abs(n) < 100) return null;
+    return n > 0 ? 100 / (n + 100) : Math.abs(n) / (Math.abs(n) + 100);
+  }
+
+  function parseOdds(str) {
+    if (!str) return null;
+    const clean = str.trim().replace(/^\+/, '');
+    const n = parseInt(clean, 10);
+    if (isNaN(n) || n === 0 || Math.abs(n) < 100) return null;
+    return n;
+  }
+
+  function fmtMoney(n) { return '$' + Math.abs(n).toFixed(2); }
+  function fmtPct(n) { return (n * 100).toFixed(2) + '%'; }
+
+  function clearOutputs() {
+    edgeOut.textContent = '—'; edgeOut.classList.add('empty');
+    betSize.textContent = '—'; betSize.classList.add('empty');
+    betPct.textContent = '—'; betPct.classList.add('empty');
+  }
+
+  function setStatus(text, type) {
+    statusBanner.textContent = text;
+    statusBanner.className = 'status-banner ' + type;
+  }
+
+  // Mode switching — swaps the third input field's role
+  modeBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      modeBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      mode = btn.dataset.mode;
+      if (mode === 'ev') {
+        dynamicLabel.textContent = 'EV % of Bet';
+        dynamicHint.innerHTML = 'Edge from your EV calc (e.g. <strong>3.0</strong>)';
+        wrapDynamic.classList.remove('purple');
+        wrapDynamic.classList.add('green');
+        dynamicInput.value = '3.0';
+      } else {
+        dynamicLabel.textContent = 'Win Probability %';
+        dynamicHint.innerHTML = 'Your estimated true win rate (e.g. <strong>45</strong>)';
+        wrapDynamic.classList.remove('green');
+        wrapDynamic.classList.add('purple');
+        dynamicInput.value = '45';
+      }
+      calculate();
+    });
+  });
+
+  function calculate() {
+    const bankrollVal = parseFloat(bankroll.value);
+    const oddsVal = parseOdds(odds.value);
+    const dynVal = parseFloat(dynamicInput.value);
+
+    wrapBankroll.classList.toggle('error', bankroll.value.trim() && (isNaN(bankrollVal) || bankrollVal <= 0));
+    wrapOdds.classList.toggle('error', odds.value.trim() && oddsVal === null);
+
+    const decOdds = oddsVal !== null ? americanToDecimal(oddsVal) : null;
+    oddsDec.textContent = decOdds !== null ? decOdds.toFixed(3) : '—';
+
+    if (oddsVal === null || isNaN(bankrollVal) || bankrollVal <= 0 || isNaN(dynVal)) {
+      wrapDynamic.classList.toggle('error', dynamicInput.value.trim() && isNaN(dynVal));
+      clearOutputs();
+      setStatus('Enter valid bankroll, odds, and ' + (mode === 'ev' ? 'EV %' : 'win probability'), 'neutral');
+      return;
+    }
+
+    let p, edge;
+    const b = decOdds - 1;
+
+    if (mode === 'ev') {
+      // Derive p from EV%: EV = p*decimal - 1, so p = (EV+1)/decimal
+      const evDecimal = dynVal / 100;
+      p = (evDecimal + 1) / decOdds;
+      edge = evDecimal;
+
+      if (p <= 0 || p >= 1) {
+        wrapDynamic.classList.add('error');
+        clearOutputs();
+        setStatus('⚠️  EV % is impossible at these odds', 'negative');
+        return;
+      }
+      wrapDynamic.classList.remove('error');
+    } else {
+      if (dynVal <= 0 || dynVal >= 100) {
+        wrapDynamic.classList.add('error');
+        clearOutputs();
+        setStatus('Win probability must be between 0 and 100', 'neutral');
+        return;
+      }
+      wrapDynamic.classList.remove('error');
+      p = dynVal / 100;
+      edge = b * p - (1 - p);
+    }
+
+    const kellyFull = edge / b;
+
+    edgeOut.classList.remove('empty');
+    edgeOut.textContent = (edge >= 0 ? '+' : '') + (edge * 100).toFixed(2) + '%';
+
+    if (kellyFull <= 0) {
+      betSize.classList.remove('empty');
+      betSize.textContent = '$0.00';
+      betPct.classList.remove('empty');
+      betPct.textContent = '0.00%';
+      kellyType.textContent = 'No bet recommended';
+      setStatus('❌  Negative Edge — Do Not Bet', 'negative');
+      return;
+    }
+
+    const adjustedKelly = kellyFull * kellyFraction;
+    const betDollar = bankrollVal * adjustedKelly;
+
+    betSize.classList.remove('empty');
+    betSize.textContent = fmtMoney(betDollar);
+    betPct.classList.remove('empty');
+    betPct.textContent = (adjustedKelly * 100).toFixed(2) + '%';
+    kellyType.textContent = FRAC_LABELS[kellyFraction.toString()] + ' applied';
+
+    if (edge > 0.05) {
+      setStatus('🔥  Strong Edge — Bet ' + (adjustedKelly * 100).toFixed(2) + '% of bankroll', 'positive');
+    } else if (edge > 0.02) {
+      setStatus('✅  Solid Edge — Bet ' + (adjustedKelly * 100).toFixed(2) + '% of bankroll', 'positive');
+    } else {
+      setStatus('⚠️  Thin Edge — Bet ' + (adjustedKelly * 100).toFixed(2) + '% of bankroll', 'neutral');
+    }
+  }
+
+  fracBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      fracBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      kellyFraction = parseFloat(btn.dataset.frac);
+      fracExplain.innerHTML = FRAC_EXPLAIN[btn.dataset.frac];
+      calculate();
+    });
+  });
+
+  [bankroll, odds, dynamicInput].forEach(el => {
+    el.addEventListener('input', calculate);
+    el.addEventListener('focus', () => el.select());
+  });
+
+  calculate();
+</script>
+</body>
+</html>
