@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Devig Calculator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0f1c;
+    --panel: #0f1524;
+    --panel-inset: #141a2b;
+    --panel-deep: #0c1120;
+    --border: #1e2638;
+    --border-soft: #141c30;
+    --text: #e5e7eb;
+    --muted: #8b94a8;
+    --dim: #6b7689;
+    --blue: #3d8bff;
+    --blue-glow: rgba(61, 139, 255, 0.15);
+    --yellow: #f5b545;
+    --yellow-glow: rgba(245, 181, 69, 0.15);
+    --green: #4ade80;
+    --green-glow: rgba(74, 222, 128, 0.15);
+    --red: #f87171;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: radial-gradient(ellipse at top, #111a2e 0%, var(--bg) 60%);
+    color: var(--text);
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 820px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.02) inset;
+  }
+
+  .header {
+    text-align: center;
+    padding: 32px 20px 28px;
+    border-bottom: 1px solid var(--border);
+    background: linear-gradient(180deg, #0d1220 0%, #0b0f1d 100%);
+    position: relative;
+  }
+
+  .header::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--blue), transparent);
+    opacity: 0.6;
+  }
+
+  .header h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--blue);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .bolt { font-size: 20px; filter: drop-shadow(0 0 8px rgba(245, 181, 69, 0.6)); }
+
+  .back-link {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--dim);
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.15s;
+  }
+
+  .back-link:hover { color: var(--blue); }
+
+  .body { padding: 32px; }
+
+  .section-label {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 11px;
+    letter-spacing: 2.5px;
+    color: var(--dim);
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .section-label::before {
+    content: '▸';
+    color: var(--blue);
+    font-size: 10px;
+  }
+
+  .section-label.green::before { color: var(--green); }
+  .section-label.yellow::before { color: var(--yellow); }
+
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 28px;
+  }
+
+  .col-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .side {
+    background: var(--panel-deep);
+    border: 1px solid var(--border-soft);
+    border-radius: 12px;
+    padding: 18px;
+  }
+
+  .side-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+
+  .side-label {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--muted);
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+
+  .format-tag {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    color: var(--dim);
+    text-transform: uppercase;
+    padding: 3px 8px;
+    background: var(--panel-inset);
+    border-radius: 4px;
+    border: 1px solid var(--border);
+  }
+
+  .format-tag.active { color: var(--blue); border-color: var(--blue); }
+
+  /* Input styling */
+  .input-wrap {
+    position: relative;
+    background: var(--panel-inset);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .input-wrap::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--blue);
+    box-shadow: 0 0 12px var(--blue-glow);
+  }
+
+  .input-wrap input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    color: var(--blue);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 28px;
+    font-weight: 700;
+    padding: 18px 20px;
+    text-align: center;
+    outline: none;
+    letter-spacing: 1px;
+  }
+
+  .input-wrap input::placeholder { color: #2e3a54; }
+
+  .input-wrap.error::after { background: var(--red); box-shadow: 0 0 12px rgba(248, 113, 113, 0.25); }
+  .input-wrap.error input { color: var(--red); }
+
+  /* Output styling */
+  .side.output { background: var(--panel-deep); }
+
+  .output-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .output-box {
+    background: var(--panel-inset);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 10px;
+    text-align: center;
+  }
+
+  .output-box .label {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    color: var(--dim);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .output-box .value {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--green);
+    letter-spacing: 0.5px;
+  }
+
+  .output-box .value.empty { color: var(--dim); font-weight: 400; }
+
+  /* Vig summary */
+  .vig-bar {
+    margin-top: 8px;
+    padding: 20px;
+    background: linear-gradient(135deg, #1a1a24 0%, var(--panel-deep) 100%);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+    text-align: center;
+  }
+
+  .vig-stat .label {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    color: var(--dim);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .vig-stat .value {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--yellow);
+  }
+
+  .vig-stat .value.neutral { color: var(--text); }
+  .vig-stat .value.empty { color: var(--dim); font-weight: 400; }
+
+  .help {
+    margin-top: 24px;
+    padding: 14px 18px;
+    background: var(--panel-inset);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    font-size: 11px;
+    color: var(--muted);
+    line-height: 1.7;
+    letter-spacing: 0.3px;
+  }
+
+  .help strong { color: var(--blue); font-weight: 700; }
+  .help .sep { color: var(--dim); margin: 0 8px; }
+
+  @media (max-width: 720px) {
+    .two-col { grid-template-columns: 1fr; gap: 18px; }
+    .vig-bar { grid-template-columns: 1fr; gap: 16px; }
+    .body { padding: 22px; }
+    .header h1 { font-size: 16px; letter-spacing: 2px; }
+    .input-wrap input { font-size: 22px; }
+    .output-box .value { font-size: 18px; }
+  }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="header">
+    <a href="index.html" class="back-link">← Hub</a>
+    <h1><span class="bolt">⚡</span> Devig Calculator <span class="bolt">⚡</span></h1>
+  </div>
+
+  <div class="body">
+    <div class="two-col">
+      <!-- INPUT COLUMN -->
+      <div>
+        <div class="section-label">Input Odds</div>
+        <div class="col-inner">
+          <div class="side">
+            <div class="side-header">
+              <div class="side-label">Side 1</div>
+              <div class="format-tag" id="format1">—</div>
+            </div>
+            <div class="input-wrap" id="wrap1">
+              <input type="text" id="input1" placeholder="ex. -175" autocomplete="off" spellcheck="false" />
+            </div>
+          </div>
+          <div class="side">
+            <div class="side-header">
+              <div class="side-label">Side 2</div>
+              <div class="format-tag" id="format2">—</div>
+            </div>
+            <div class="input-wrap" id="wrap2">
+              <input type="text" id="input2" placeholder="ex. +135" autocomplete="off" spellcheck="false" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- OUTPUT COLUMN -->
+      <div>
+        <div class="section-label green">Fair No-Vig</div>
+        <div class="col-inner">
+          <div class="side output">
+            <div class="side-header">
+              <div class="side-label">Side 1</div>
+            </div>
+            <div class="output-grid">
+              <div class="output-box">
+                <div class="label">No-Vig Odds</div>
+                <div class="value empty" id="out1Odds">—</div>
+              </div>
+              <div class="output-box">
+                <div class="label">No-Vig %</div>
+                <div class="value empty" id="out1Pct">—</div>
+              </div>
+            </div>
+          </div>
+          <div class="side output">
+            <div class="side-header">
+              <div class="side-label">Side 2</div>
+            </div>
+            <div class="output-grid">
+              <div class="output-box">
+                <div class="label">No-Vig Odds</div>
+                <div class="value empty" id="out2Odds">—</div>
+              </div>
+              <div class="output-box">
+                <div class="label">No-Vig %</div>
+                <div class="value empty" id="out2Pct">—</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIG BAR -->
+    <div class="section-label yellow">Market Analysis</div>
+    <div class="vig-bar">
+      <div class="vig-stat">
+        <div class="label">Total Implied</div>
+        <div class="value neutral empty" id="totalImplied">—</div>
+      </div>
+      <div class="vig-stat">
+        <div class="label">Market Vig</div>
+        <div class="value empty" id="vigDisplay">—</div>
+      </div>
+      <div class="vig-stat">
+        <div class="label">Hold %</div>
+        <div class="value empty" id="holdDisplay">—</div>
+      </div>
+    </div>
+
+    <div class="help">
+      <strong>American</strong> → integer (e.g. <code>-175</code>, <code>+135</code>)
+      <span class="sep">·</span>
+      <strong>Decimal</strong> → contains a dot (e.g. <code>1.57</code>, <code>2.35</code>)
+      <span class="sep">·</span>
+      <strong>Probability</strong> → append % (e.g. <code>63.64%</code>)
+    </div>
+  </div>
+</div>
+
+<script>
+  const input1 = document.getElementById('input1');
+  const input2 = document.getElementById('input2');
+  const wrap1 = document.getElementById('wrap1');
+  const wrap2 = document.getElementById('wrap2');
+  const format1 = document.getElementById('format1');
+  const format2 = document.getElementById('format2');
+  const out1Odds = document.getElementById('out1Odds');
+  const out1Pct = document.getElementById('out1Pct');
+  const out2Odds = document.getElementById('out2Odds');
+  const out2Pct = document.getElementById('out2Pct');
+  const totalImplied = document.getElementById('totalImplied');
+  const vigDisplay = document.getElementById('vigDisplay');
+  const holdDisplay = document.getElementById('holdDisplay');
+
+  // Parse ANY odds format → implied probability as decimal (0-1)
+  function parseOdds(str) {
+    if (!str) return { prob: null, format: null, valid: false };
+    const s = str.trim();
+    if (!s) return { prob: null, format: null, valid: false };
+
+    // Probability: "63.64%"
+    if (s.endsWith('%')) {
+      const p = parseFloat(s.slice(0, -1));
+      if (isNaN(p) || p <= 0 || p >= 100) return { prob: null, format: 'prob', valid: false };
+      return { prob: p / 100, format: 'prob', valid: true };
+    }
+
+    // Decimal: contains "."
+    if (s.includes('.')) {
+      const d = parseFloat(s);
+      if (isNaN(d) || d <= 1) return { prob: null, format: 'dec', valid: false };
+      return { prob: 1 / d, format: 'dec', valid: true };
+    }
+
+    // American: integer
+    const clean = s.replace(/^\+/, '');
+    const n = parseInt(clean, 10);
+    if (isNaN(n) || n === 0) return { prob: null, format: 'am', valid: false };
+    if (Math.abs(n) < 100) return { prob: null, format: 'am', valid: false };
+    const prob = n > 0 ? 100 / (n + 100) : -n / (-n + 100);
+    return { prob, format: 'am', valid: true };
+  }
+
+  function probToAmerican(p) {
+    if (p <= 0 || p >= 1) return null;
+    if (p === 0.5) return 100;
+    if (p > 0.5) return -Math.round((p / (1 - p)) * 100);
+    return Math.round(((1 - p) / p) * 100);
+  }
+
+  function formatAmerican(n) {
+    if (n === null || isNaN(n)) return '—';
+    return (n > 0 ? '+' : '') + n;
+  }
+
+  const FORMAT_LABELS = { am: 'American', dec: 'Decimal', prob: 'Probability' };
+
+  function updateFormatTag(tag, parsed) {
+    if (!parsed.format) {
+      tag.textContent = '—';
+      tag.classList.remove('active');
+      return;
+    }
+    tag.textContent = FORMAT_LABELS[parsed.format];
+    tag.classList.toggle('active', parsed.valid);
+  }
+
+  function updateInputState(wrap, parsed, rawEmpty) {
+    wrap.classList.remove('error');
+    if (!rawEmpty && !parsed.valid) wrap.classList.add('error');
+  }
+
+  function clearOutputs() {
+    [out1Odds, out1Pct, out2Odds, out2Pct].forEach(el => {
+      el.textContent = '—';
+      el.classList.add('empty');
+    });
+    [totalImplied, vigDisplay, holdDisplay].forEach(el => {
+      el.textContent = '—';
+      el.classList.add('empty');
+    });
+  }
+
+  function calculate() {
+    const raw1 = input1.value.trim();
+    const raw2 = input2.value.trim();
+    const p1 = parseOdds(raw1);
+    const p2 = parseOdds(raw2);
+
+    updateFormatTag(format1, p1);
+    updateFormatTag(format2, p2);
+    updateInputState(wrap1, p1, !raw1);
+    updateInputState(wrap2, p2, !raw2);
+
+    if (!p1.valid || !p2.valid) { clearOutputs(); return; }
+
+    const total = p1.prob + p2.prob;
+    const fair1 = p1.prob / total;
+    const fair2 = p2.prob / total;
+    const vig = (total - 1) * 100;
+    const hold = ((total - 1) / total) * 100;
+
+    out1Odds.textContent = formatAmerican(probToAmerican(fair1));
+    out1Pct.textContent = (fair1 * 100).toFixed(2) + '%';
+    out2Odds.textContent = formatAmerican(probToAmerican(fair2));
+    out2Pct.textContent = (fair2 * 100).toFixed(2) + '%';
+
+    [out1Odds, out1Pct, out2Odds, out2Pct].forEach(el => el.classList.remove('empty'));
+
+    totalImplied.textContent = (total * 100).toFixed(2) + '%';
+    vigDisplay.textContent = (vig >= 0 ? '+' : '') + vig.toFixed(2) + '%';
+    holdDisplay.textContent = hold.toFixed(2) + '%';
+    [totalImplied, vigDisplay, holdDisplay].forEach(el => el.classList.remove('empty'));
+  }
+
+  input1.addEventListener('input', calculate);
+  input2.addEventListener('input', calculate);
+
+  [input1, input2].forEach(el => {
+    el.addEventListener('focus', () => el.select());
+  });
+</script>
+</body>
+</html>

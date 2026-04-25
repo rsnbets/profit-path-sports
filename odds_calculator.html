@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Implied Odds Calculator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0f1c;
+    --panel: #0f1524;
+    --panel-inset: #141a2b;
+    --border: #1e2638;
+    --border-hover: #2a3650;
+    --text: #e5e7eb;
+    --muted: #8b94a8;
+    --dim: #6b7689;
+    --blue: #3d8bff;
+    --blue-glow: rgba(61, 139, 255, 0.15);
+    --yellow: #f5b545;
+    --yellow-glow: rgba(245, 181, 69, 0.15);
+    --green: #4ade80;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: radial-gradient(ellipse at top, #111a2e 0%, var(--bg) 60%);
+    color: var(--text);
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 720px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.02) inset;
+  }
+
+  .header {
+    text-align: center;
+    padding: 32px 20px 28px;
+    border-bottom: 1px solid var(--border);
+    background: linear-gradient(180deg, #0d1220 0%, #0b0f1d 100%);
+    position: relative;
+  }
+
+  .header::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--blue), transparent);
+    opacity: 0.6;
+  }
+
+  .header h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--blue);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .bolt { font-size: 20px; filter: drop-shadow(0 0 8px rgba(245, 181, 69, 0.6)); }
+
+  .body { padding: 32px; }
+
+  .section-label {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 11px;
+    letter-spacing: 2.5px;
+    color: var(--dim);
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .section-label::before {
+    content: '▸';
+    color: var(--blue);
+    font-size: 10px;
+  }
+
+  .field { margin-bottom: 28px; }
+
+  .field-label {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+
+  .input-wrap {
+    position: relative;
+    background: var(--panel-inset);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: all 0.2s;
+  }
+
+  .input-wrap::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--blue);
+    box-shadow: 0 0 12px var(--blue-glow);
+  }
+
+  .field.yellow .input-wrap::after {
+    background: var(--yellow);
+    box-shadow: 0 0 12px var(--yellow-glow);
+  }
+
+  .input-wrap:focus-within { background: #181f33; }
+
+  .field input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    color: var(--blue);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 34px;
+    font-weight: 700;
+    padding: 22px 20px;
+    text-align: center;
+    outline: none;
+    letter-spacing: 1px;
+  }
+
+  .field.yellow input { color: var(--yellow); }
+
+  .hint {
+    text-align: center;
+    margin-top: 12px;
+    font-size: 13px;
+    color: var(--muted);
+    letter-spacing: 0.5px;
+  }
+
+  .hint strong {
+    color: var(--text);
+    font-weight: 700;
+    margin-left: 6px;
+  }
+
+  .divider {
+    height: 1px;
+    background: var(--border);
+    margin: 8px 0 28px;
+    position: relative;
+  }
+
+  .divider::before {
+    content: '⇅';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--panel);
+    padding: 4px 10px;
+    color: var(--dim);
+    font-size: 14px;
+  }
+
+  .quick-ref {
+    margin-top: 8px;
+    padding-top: 28px;
+    border-top: 1px solid var(--border);
+  }
+
+  .buttons {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+  }
+
+  .btn {
+    background: var(--panel-inset);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 6px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    text-align: center;
+    user-select: none;
+  }
+
+  .btn:hover {
+    background: #1a2236;
+    border-color: var(--blue);
+    transform: translateY(-1px);
+  }
+
+  .btn:active { transform: translateY(0); }
+
+  .btn-odds {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--blue);
+  }
+
+  .btn-prob {
+    font-size: 10px;
+    color: var(--dim);
+    margin-top: 4px;
+    letter-spacing: 0.5px;
+  }
+
+  .footer-note {
+    text-align: center;
+    margin-top: 24px;
+    font-size: 11px;
+    color: var(--dim);
+    letter-spacing: 1px;
+  }
+
+  @media (max-width: 600px) {
+    .body { padding: 22px; }
+    .buttons { grid-template-columns: repeat(2, 1fr); }
+    .header h1 { font-size: 16px; letter-spacing: 2px; }
+    .field input { font-size: 28px; }
+  }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="header">
+    <h1><span class="bolt">⚡</span> Implied Odds Calculator <span class="bolt">⚡</span></h1>
+  </div>
+
+  <div class="body">
+    <div class="section-label">Converter</div>
+
+    <div class="field">
+      <div class="field-label">American Odds</div>
+      <div class="input-wrap">
+        <input type="text" id="americanOdds" value="+100" autocomplete="off" spellcheck="false" />
+      </div>
+      <div class="hint">Implied Probability: <strong id="americanImplied">50.00%</strong></div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="field yellow">
+      <div class="field-label">Implied Probability %</div>
+      <div class="input-wrap">
+        <input type="text" id="impliedProb" value="50.00" autocomplete="off" spellcheck="false" />
+      </div>
+      <div class="hint">American Odds: <strong id="probAmerican">+100</strong></div>
+    </div>
+
+    <div class="footer-note">Edit either field — the other updates automatically</div>
+  </div>
+</div>
+
+<script>
+  const americanInput = document.getElementById('americanOdds');
+  const probInput = document.getElementById('impliedProb');
+  const americanImpliedLabel = document.getElementById('americanImplied');
+  const probAmericanLabel = document.getElementById('probAmerican');
+
+  // American odds → implied probability (%)
+  function americanToProb(odds) {
+    const n = parseFloat(odds);
+    if (isNaN(n) || n === 0) return null;
+    // Valid American odds must be >= 100 or <= -100
+    const abs = Math.abs(n);
+    if (abs < 100) return null;
+    if (n > 0) return (100 / (n + 100)) * 100;
+    return (-n / (-n + 100)) * 100;
+  }
+
+  // Implied probability (%) → American odds
+  function probToAmerican(prob) {
+    const p = parseFloat(prob);
+    if (isNaN(p) || p <= 0 || p >= 100) return null;
+    if (p === 50) return 100;
+    if (p > 50) return -Math.round((p / (100 - p)) * 100);
+    return Math.round(((100 - p) / p) * 100);
+  }
+
+  function formatAmerican(n) {
+    if (n === null || isNaN(n)) return '—';
+    return (n > 0 ? '+' : '') + n;
+  }
+
+  // User edits American odds field
+  function handleAmericanInput() {
+    const raw = americanInput.value.trim().replace(/^\+/, '');
+    const prob = americanToProb(raw);
+    if (prob === null) {
+      americanImpliedLabel.textContent = '—';
+      probAmericanLabel.textContent = '—';
+      return;
+    }
+    americanImpliedLabel.textContent = prob.toFixed(2) + '%';
+    // Update the probability field without triggering its listener loop
+    probInput.value = prob.toFixed(2);
+    probAmericanLabel.textContent = formatAmerican(probToAmerican(prob));
+  }
+
+  // User edits Probability field
+  function handleProbInput() {
+    const p = parseFloat(probInput.value);
+    const a = probToAmerican(p);
+    if (a === null) {
+      probAmericanLabel.textContent = '—';
+      americanImpliedLabel.textContent = '—';
+      return;
+    }
+    probAmericanLabel.textContent = formatAmerican(a);
+    americanInput.value = formatAmerican(a);
+    americanImpliedLabel.textContent = p.toFixed(2) + '%';
+  }
+
+  americanInput.addEventListener('input', handleAmericanInput);
+  probInput.addEventListener('input', handleProbInput);
+
+  // Select-all on focus for quick editing
+  [americanInput, probInput].forEach(el => {
+    el.addEventListener('focus', () => el.select());
+  });
+</script>
+</body>
+</html>

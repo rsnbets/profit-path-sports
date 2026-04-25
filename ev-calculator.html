@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>⚡ EV Bet Calculator</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:       #0D1117;
+    --surface:  #161B22;
+    --inset:    #1C2430;
+    --border:   #30363D;
+    --blue:     #58A6FF;
+    --gold:     #D29922;
+    --green:    #3FB950;
+    --red:      #F85149;
+    --text:     #E6EDF3;
+    --muted:    #8B949E;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Rajdhani', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1rem;
+  }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    width: 100%;
+    max-width: 720px;
+    overflow: hidden;
+  }
+
+  /* ── Header ── */
+  .header {
+    background: var(--bg);
+    padding: 1.75rem 2rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+  }
+  .header::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--blue), transparent);
+  }
+  .title {
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--blue);
+    text-transform: uppercase;
+    text-align: center;
+  }
+  .title span { opacity: 0.8; }
+
+  /* ── Main grid ── */
+  .main {
+    display: grid;
+    grid-template-columns: 1fr 1px 1fr;
+    gap: 0;
+  }
+  .divider { background: var(--border); }
+
+  .panel { padding: 1.5rem 1.75rem; }
+
+  .section-label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 1rem;
+  }
+
+  /* ── Inputs ── */
+  .input-group { margin-bottom: 1rem; }
+  .input-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.35rem;
+  }
+  .input-wrap {
+    position: relative;
+  }
+  .odds-input {
+    width: 100%;
+    background: var(--inset);
+    border: none;
+    border-bottom: 2px solid var(--border);
+    color: var(--text);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 1.6rem;
+    font-weight: 600;
+    padding: 0.5rem 0.75rem;
+    border-radius: 6px 6px 0 0;
+    outline: none;
+    transition: border-color 0.2s;
+    text-align: center;
+  }
+  .odds-input:focus { border-bottom-color: var(--blue); }
+  #yourLine  { color: var(--blue); border-bottom-color: var(--blue); }
+  #bookLine  { color: var(--gold); border-bottom-color: var(--gold); }
+  #yourLine:focus { border-bottom-color: var(--blue); }
+  #bookLine:focus  { border-bottom-color: var(--gold); }
+
+  .prob-badge {
+    margin-top: 0.4rem;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--muted);
+    text-align: center;
+    letter-spacing: 0.05em;
+  }
+  .prob-badge strong { color: var(--text); }
+
+  /* ── EV display ── */
+  .ev-number {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 3rem;
+    font-weight: 600;
+    text-align: center;
+    padding: 1rem;
+    background: var(--inset);
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.02em;
+    transition: color 0.3s;
+  }
+  .signal {
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    padding: 0.5rem;
+    border-radius: 6px;
+    background: var(--inset);
+    margin-bottom: 1.25rem;
+  }
+
+  /* ── Payout section ── */
+  .stake-wrap {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--inset);
+    border-radius: 6px 6px 0 0;
+    border-bottom: 2px solid var(--blue);
+    padding: 0.4rem 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+  .stake-prefix {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 1.1rem;
+    color: var(--muted);
+  }
+  #stake {
+    background: none;
+    border: none;
+    outline: none;
+    color: var(--blue);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 1.4rem;
+    font-weight: 600;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .payout-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.45rem 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.9rem;
+  }
+  .payout-row:last-child { border-bottom: none; }
+  .payout-label { color: var(--muted); letter-spacing: 0.05em; }
+  .payout-val {
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 600;
+    font-size: 1rem;
+  }
+
+  /* ── Quick ref ── */
+  .ref-section {
+    border-top: 1px solid var(--border);
+    padding: 1.25rem 1.75rem;
+  }
+  .ref-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 6px;
+    margin-top: 0.75rem;
+  }
+  .ref-pill {
+    background: var(--inset);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 0.4rem 0.3rem;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .ref-pill:hover { border-color: var(--blue); background: #1e2d40; }
+  .ref-pill .odds {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--blue);
+  }
+  .ref-pill .prob {
+    font-size: 0.7rem;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 560px) {
+    .main { grid-template-columns: 1fr; }
+    .divider { height: 1px; width: auto; }
+    .ref-grid { grid-template-columns: repeat(3, 1fr); }
+    .ev-number { font-size: 2.2rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+
+  <div class="header">
+    <div class="title"><span>⚡</span> EV Bet Calculator <span>⚡</span></div>
+  </div>
+
+  <div class="main">
+
+    <!-- LEFT: Inputs + Probability -->
+    <div class="panel">
+      <div class="section-label">▸ Inputs</div>
+
+      <div class="input-group">
+        <div class="input-label">Your Available Line</div>
+        <input class="odds-input" id="yourLine" type="number" value="-122" />
+        <div class="prob-badge" id="yourProb">Implied: <strong>—</strong></div>
+      </div>
+
+      <div class="input-group">
+        <div class="input-label">Book Market Line</div>
+        <input class="odds-input" id="bookLine" type="number" value="-150" />
+        <div class="prob-badge" id="bookProb">Implied: <strong>—</strong></div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- RIGHT: EV + Payout -->
+    <div class="panel">
+      <div class="section-label">▸ EV Analysis</div>
+
+      <div class="ev-number" id="evDisplay">—</div>
+      <div class="signal" id="signalDisplay">Enter odds to calculate</div>
+
+      <div class="section-label" style="margin-top:1rem;">▸ Payout Calculator</div>
+
+      <div class="stake-wrap">
+        <span class="stake-prefix">$</span>
+        <input id="stake" type="number" value="100" min="0" />
+      </div>
+
+      <div class="payout-row">
+        <span class="payout-label">Profit if Win</span>
+        <span class="payout-val" id="profit" style="color:var(--green)">—</span>
+      </div>
+      <div class="payout-row">
+        <span class="payout-label">EV in Dollars</span>
+        <span class="payout-val" id="evDollar" style="color:var(--blue)">—</span>
+      </div>
+      <div class="payout-row">
+        <span class="payout-label">Total Return</span>
+        <span class="payout-val" id="totalReturn">—</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Quick Reference -->
+  <div class="ref-section">
+    <div class="section-label">▸ Quick Reference — click to load</div>
+    <div class="ref-grid" id="refGrid"></div>
+  </div>
+
+</div>
+
+<script>
+  const refs = [
+    {odds:-110,side:'fav'},{odds:-120,side:'fav'},{odds:-150,side:'fav'},
+    {odds:-200,side:'fav'},{odds:-300,side:'fav'},
+    {odds:110,side:'dog'},{odds:120,side:'dog'},{odds:150,side:'dog'},
+    {odds:200,side:'dog'},{odds:300,side:'dog'},
+  ];
+
+  function toProb(o) {
+    o = parseFloat(o);
+    if (isNaN(o)) return null;
+    return o < 0 ? Math.abs(o) / (Math.abs(o) + 100) : 100 / (o + 100);
+  }
+
+  function fmt(n, decimals=2) {
+    return (n >= 0 ? '+' : '') + (n * 100).toFixed(decimals) + '%';
+  }
+
+  function fmtProb(n) {
+    return (n * 100).toFixed(2) + '%';
+  }
+
+  function fmtMoney(n) {
+    return (n >= 0 ? '+$' : '-$') + Math.abs(n).toFixed(2);
+  }
+
+  function calc() {
+    const your = parseFloat(document.getElementById('yourLine').value);
+    const book = parseFloat(document.getElementById('bookLine').value);
+    const stake = parseFloat(document.getElementById('stake').value) || 0;
+
+    const yourP = toProb(your);
+    const bookP = toProb(book);
+
+    document.getElementById('yourProb').innerHTML =
+      yourP !== null ? `Implied: <strong>${fmtProb(yourP)}</strong>` : 'Implied: <strong>—</strong>';
+    document.getElementById('bookProb').innerHTML =
+      bookP !== null ? `Implied: <strong>${fmtProb(bookP)}</strong>` : 'Implied: <strong>—</strong>';
+
+    if (yourP === null || bookP === null) return;
+
+    const edge = bookP - yourP;
+    const evEl = document.getElementById('evDisplay');
+    const sigEl = document.getElementById('signalDisplay');
+
+    evEl.textContent = fmt(edge);
+
+    if (edge > 0.03) {
+      evEl.style.color = 'var(--green)';
+      sigEl.textContent = '🔥  Strong Edge  (>3%)';
+      sigEl.style.color = 'var(--green)';
+    } else if (edge > 0.01) {
+      evEl.style.color = 'var(--green)';
+      sigEl.textContent = '✅  Moderate Edge  (1–3%)';
+      sigEl.style.color = 'var(--green)';
+    } else if (edge > 0) {
+      evEl.style.color = 'var(--gold)';
+      sigEl.textContent = '⚠️  Thin Edge  (<1%)';
+      sigEl.style.color = 'var(--gold)';
+    } else if (edge === 0) {
+      evEl.style.color = 'var(--muted)';
+      sigEl.textContent = '➡️  No Edge';
+      sigEl.style.color = 'var(--muted)';
+    } else {
+      evEl.style.color = 'var(--red)';
+      sigEl.textContent = '❌  Negative Edge';
+      sigEl.style.color = 'var(--red)';
+    }
+
+    const profit = your < 0 ? stake * (100 / Math.abs(your)) : stake * (your / 100);
+    const evDollar = edge * stake;
+    const totalReturn = stake + profit;
+
+    document.getElementById('profit').textContent = fmtMoney(profit);
+    document.getElementById('evDollar').textContent = fmtMoney(evDollar);
+    document.getElementById('totalReturn').textContent = '$' + totalReturn.toFixed(2);
+    document.getElementById('evDollar').style.color = evDollar >= 0 ? 'var(--green)' : 'var(--red)';
+  }
+
+  // Build quick ref pills
+  const grid = document.getElementById('refGrid');
+  refs.forEach(r => {
+    const p = toProb(r.odds);
+    const div = document.createElement('div');
+    div.className = 'ref-pill';
+    div.innerHTML = `<div class="odds">${r.odds > 0 ? '+' : ''}${r.odds}</div><div class="prob">${fmtProb(p)}</div>`;
+    div.addEventListener('click', () => {
+      if (r.side === 'fav') document.getElementById('yourLine').value = r.odds;
+      else document.getElementById('bookLine').value = r.odds;
+      calc();
+    });
+    grid.appendChild(div);
+  });
+
+  document.getElementById('yourLine').addEventListener('input', calc);
+  document.getElementById('bookLine').addEventListener('input', calc);
+  document.getElementById('stake').addEventListener('input', calc);
+
+  calc();
+</script>
+</body>
+</html>

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>⚡ Bonus Bet Converter</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg:#0D1117;--surface:#161B22;--inset:#1C2430;--border:#30363D;
+    --blue:#58A6FF;--gold:#D29922;--green:#3FB950;--red:#F85149;--purple:#BC8CFF;
+    --text:#E6EDF3;--muted:#8B949E;
+  }
+  body { background:var(--bg);color:var(--text);font-family:'Rajdhani',sans-serif;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:2rem 1rem; }
+  .card { background:var(--surface);border:1px solid var(--border);border-radius:16px;width:100%;max-width:680px;overflow:hidden; }
+  .header { background:var(--bg);padding:1.75rem 2rem 1.5rem;border-bottom:1px solid var(--border);text-align:center;position:relative; }
+  .header::after { content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--blue),transparent); }
+  .title { font-size:2rem;font-weight:700;letter-spacing:0.08em;color:var(--blue);text-transform:uppercase; }
+  .status-bar { padding:0.65rem 1.75rem;font-size:0.78rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;text-align:center;background:var(--inset);border-bottom:1px solid var(--border);color:var(--muted);transition:color 0.3s,background 0.3s; }
+  .section { padding:1.3rem 1.75rem;border-bottom:1px solid var(--border); }
+  .section:last-child { border-bottom:none; }
+  .section-label { font-size:0.68rem;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin-bottom:0.9rem; }
+  .inputs-grid { display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem; }
+  .input-label { font-size:0.7rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);margin-bottom:0.3rem; }
+  .odds-input { width:100%;background:var(--inset);border:none;border-bottom:2px solid var(--border);font-family:'IBM Plex Mono',monospace;font-size:1.5rem;font-weight:600;padding:0.4rem 0.6rem;border-radius:6px 6px 0 0;outline:none;text-align:center;transition:border-color 0.2s; }
+  #bonusAmt  { color:var(--gold);  border-bottom-color:var(--gold); }
+  #bonusOdds { color:var(--blue);  border-bottom-color:var(--blue); }
+  #hedgeOdds { color:var(--purple);border-bottom-color:var(--purple); }
+  .sub { margin-top:0.3rem;font-family:'IBM Plex Mono',monospace;font-size:0.72rem;color:var(--muted);text-align:center; }
+  .sub strong { color:var(--text); }
+  .row-label { font-size:0.65rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:0.5rem;margin-top:0.9rem; }
+  .row-label:first-of-type { margin-top:0; }
+  .results-grid { display:grid;grid-template-columns:repeat(4,1fr);gap:0.6rem; }
+  .rc { background:var(--inset);border:1px solid var(--border);border-radius:8px;padding:0.65rem 0.6rem;text-align:center; }
+  .rc-lbl { font-size:0.62rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);margin-bottom:0.3rem; }
+  .rc-val { font-family:'IBM Plex Mono',monospace;font-size:1.15rem;font-weight:600; }
+  .outcome-grid { display:grid;grid-template-columns:1fr 1fr;gap:0.75rem; }
+  .oc { background:var(--inset);border:1px solid var(--border);border-radius:8px;padding:0.7rem 0.85rem; }
+  .oc-title { font-size:0.65rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:0.5rem; }
+  .oc-row { display:flex;justify-content:space-between;font-size:0.85rem;padding:0.22rem 0;color:var(--muted);border-bottom:1px solid var(--border); }
+  .oc-row:last-child { border-bottom:none;padding-top:0.4rem; }
+  .oc-row span:last-child { font-family:'IBM Plex Mono',monospace;font-weight:600;color:var(--text); }
+  .oc-row.profit span:last-child { color:var(--green); }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="header"><div class="title">⚡ Bonus Bet Converter ⚡</div></div>
+  <div class="status-bar" id="statusBar">Enter your bonus details to calculate conversion rate</div>
+
+  <div class="section">
+    <div class="section-label">▸ Input Data</div>
+    <div class="inputs-grid">
+      <div>
+        <div class="input-label">Bonus Amount ($)</div>
+        <input class="odds-input" id="bonusAmt" type="number" value="25" min="0" />
+        <div class="sub">Free bet size</div>
+      </div>
+      <div>
+        <div class="input-label">Bonus Bet Odds</div>
+        <input class="odds-input" id="bonusOdds" type="number" value="-236" />
+        <div class="sub" id="bonusDec">Decimal: <strong>—</strong></div>
+      </div>
+      <div>
+        <div class="input-label">Hedge Odds</div>
+        <input class="odds-input" id="hedgeOdds" type="number" value="300" />
+        <div class="sub" id="hedgeDec">Decimal: <strong>—</strong></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">▸ Results</div>
+    <div class="row-label">Exact Optimal</div>
+    <div class="results-grid">
+      <div class="rc"><div class="rc-lbl">Bonus Payout</div><div class="rc-val" id="ePayout" style="color:var(--gold)">—</div></div>
+      <div class="rc"><div class="rc-lbl">Hedge Bet</div><div class="rc-val" id="eHedge" style="color:var(--purple)">—</div></div>
+      <div class="rc"><div class="rc-lbl">Net Profit</div><div class="rc-val" id="eProfit">—</div></div>
+      <div class="rc"><div class="rc-lbl">Conv. Rate</div><div class="rc-val" id="eRate">—</div></div>
+    </div>
+    <div class="row-label">Rounded (nearest $1)</div>
+    <div class="results-grid">
+      <div class="rc"><div class="rc-lbl">Bonus Payout</div><div class="rc-val" id="rPayout" style="color:var(--gold)">—</div></div>
+      <div class="rc"><div class="rc-lbl">Hedge Bet</div><div class="rc-val" id="rHedge" style="color:var(--purple)">—</div></div>
+      <div class="rc"><div class="rc-lbl">Net Profit</div><div class="rc-val" id="rProfit">—</div></div>
+      <div class="rc"><div class="rc-lbl">Conv. Rate</div><div class="rc-val" id="rRate">—</div></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">▸ Outcome Breakdown</div>
+    <div class="row-label" style="margin-top:0;">Exact Optimal</div>
+    <div class="outcome-grid">
+      <div class="oc">
+        <div class="oc-title">✅ Bonus Bet Wins</div>
+        <div class="oc-row"><span>Bonus payout</span><span id="ob1a">—</span></div>
+        <div class="oc-row"><span>Hedge loss</span><span id="ob1b">—</span></div>
+        <div class="oc-row profit"><span>Net profit</span><span id="ob1c">—</span></div>
+      </div>
+      <div class="oc">
+        <div class="oc-title">❌ Bonus Bet Loses</div>
+        <div class="oc-row"><span>Hedge return</span><span id="ob2a">—</span></div>
+        <div class="oc-row"><span>Hedge cost</span><span id="ob2b">—</span></div>
+        <div class="oc-row profit"><span>Net profit</span><span id="ob2c">—</span></div>
+      </div>
+    </div>
+    <div class="row-label">Rounded (nearest $1)</div>
+    <div class="outcome-grid">
+      <div class="oc">
+        <div class="oc-title">✅ Bonus Bet Wins</div>
+        <div class="oc-row"><span>Bonus payout</span><span id="rb1a">—</span></div>
+        <div class="oc-row"><span>Hedge loss</span><span id="rb1b">—</span></div>
+        <div class="oc-row profit"><span>Net profit</span><span id="rb1c">—</span></div>
+      </div>
+      <div class="oc">
+        <div class="oc-title">❌ Bonus Bet Loses</div>
+        <div class="oc-row"><span>Hedge return</span><span id="rb2a">—</span></div>
+        <div class="oc-row"><span>Hedge cost</span><span id="rb2b">—</span></div>
+        <div class="oc-row profit"><span>Net profit</span><span id="rb2c">—</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function toDec(o) { o=parseFloat(o); if(isNaN(o)||o===0) return null; return o<0?100/Math.abs(o)+1:o/100+1; }
+  function fm(n)  { return '$'+Math.abs(n).toFixed(2); }
+  function fmp(n) { return (n>=0?'+$':'-$')+Math.abs(n).toFixed(2); }
+  function fpc(n) { return (n*100).toFixed(2)+'%'; }
+  function rc(r)  { return r>=0.7?'var(--green)':r>=0.6?'var(--gold)':'var(--red)'; }
+  function gp(payout, hedge, decH) { return Math.min(payout-hedge, hedge*(decH-1)); }
+
+  function calc() {
+    const amt  = parseFloat(document.getElementById('bonusAmt').value)||0;
+    const decB = toDec(document.getElementById('bonusOdds').value);
+    const decH = toDec(document.getElementById('hedgeOdds').value);
+    document.getElementById('bonusDec').innerHTML = decB?'Decimal: <strong>'+decB.toFixed(4)+'</strong>':'Decimal: <strong>—</strong>';
+    document.getElementById('hedgeDec').innerHTML = decH?'Decimal: <strong>'+decH.toFixed(4)+'</strong>':'Decimal: <strong>—</strong>';
+    if(!decB||!decH||amt<=0) return;
+
+    const payout = amt*(decB-1);
+    const hedge  = payout/decH;
+    const eNet   = gp(payout,hedge,decH);
+    const eRate  = eNet/amt;
+
+    document.getElementById('ePayout').textContent = fm(payout);
+    document.getElementById('eHedge').textContent  = fm(hedge);
+    document.getElementById('eProfit').textContent = fmp(eNet);
+    document.getElementById('eProfit').style.color = eNet>=0?'var(--green)':'var(--red)';
+    document.getElementById('eRate').textContent   = fpc(eRate);
+    document.getElementById('eRate').style.color   = rc(eRate);
+
+    const hF=Math.max(1,Math.floor(hedge)), hC=Math.max(1,Math.ceil(hedge));
+    const best=[hF,hC].map(r=>({r,p:gp(payout,r,decH)})).sort((a,b)=>b.p-a.p)[0];
+    const rNet=best.p, rRate=rNet/amt;
+    document.getElementById('rPayout').textContent = fm(payout);
+    document.getElementById('rHedge').textContent  = fm(best.r);
+    document.getElementById('rProfit').textContent = fmp(rNet);
+    document.getElementById('rProfit').style.color = rNet>=0?'var(--green)':'var(--red)';
+    document.getElementById('rRate').textContent   = fpc(rRate);
+    document.getElementById('rRate').style.color   = rc(rRate);
+
+    const bar=document.getElementById('statusBar');
+    const label=eRate>=0.7?'🔥  Excellent (≥70%)':eRate>=0.6?'✅  Good (60–70%)':'⚠️  Low (<60%) — not worth converting';
+    bar.textContent=label+' — '+fpc(eRate)+' of '+fm(amt)+' bonus = '+fm(eNet)+' guaranteed';
+    bar.style.color=eRate>=0.7?'var(--green)':eRate>=0.6?'var(--gold)':'var(--red)';
+    bar.style.background=eRate>=0.7?'#0d2317':eRate>=0.6?'#1f1a0d':'#2d0f0f';
+
+    document.getElementById('ob1a').textContent = '+'+fm(payout);
+    document.getElementById('ob1b').textContent = '-'+fm(hedge);
+    document.getElementById('ob1c').textContent = fmp(payout-hedge);
+    document.getElementById('ob2a').textContent = '+'+fm(hedge*decH);
+    document.getElementById('ob2b').textContent = '-'+fm(hedge);
+    document.getElementById('ob2c').textContent = fmp(hedge*(decH-1));
+
+    document.getElementById('rb1a').textContent = '+'+fm(payout);
+    document.getElementById('rb1b').textContent = '-'+fm(best.r);
+    document.getElementById('rb1c').textContent = fmp(payout-best.r);
+    document.getElementById('rb2a').textContent = '+'+fm(best.r*decH);
+    document.getElementById('rb2b').textContent = '-'+fm(best.r);
+    document.getElementById('rb2c').textContent = fmp(best.r*(decH-1));
+
+  }
+
+  ['bonusAmt','bonusOdds','hedgeOdds'].forEach(id=>document.getElementById(id).addEventListener('input',calc));
+  calc();
+</script>
+</body>
+</html>

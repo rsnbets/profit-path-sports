@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>⚡ Arb Calculator</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:      #0D1117;
+    --surface: #161B22;
+    --inset:   #1C2430;
+    --border:  #30363D;
+    --blue:    #58A6FF;
+    --gold:    #D29922;
+    --green:   #3FB950;
+    --red:     #F85149;
+    --purple:  #BC8CFF;
+    --text:    #E6EDF3;
+    --muted:   #8B949E;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Rajdhani', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1rem;
+  }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    width: 100%;
+    max-width: 820px;
+    overflow: hidden;
+  }
+
+  /* ── Header ── */
+  .header {
+    background: var(--bg);
+    padding: 1.75rem 2rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    text-align: center;
+  }
+  .header::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--blue), transparent);
+  }
+  .title {
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--blue);
+    text-transform: uppercase;
+  }
+
+  /* ── Status banner ── */
+  .status-bar {
+    padding: 0.6rem 1.75rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-align: center;
+    background: var(--inset);
+    border-bottom: 1px solid var(--border);
+    transition: color 0.3s, background 0.3s;
+  }
+
+  /* ── Inputs row ── */
+  .inputs-section {
+    padding: 1.4rem 1.75rem 1rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 1rem;
+  }
+  .inputs-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
+  }
+  .input-group {}
+  .input-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.35rem;
+  }
+  .odds-input {
+    width: 100%;
+    background: var(--inset);
+    border: none;
+    border-bottom: 2px solid var(--border);
+    color: var(--text);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 1.5rem;
+    font-weight: 600;
+    padding: 0.45rem 0.75rem;
+    border-radius: 6px 6px 0 0;
+    outline: none;
+    transition: border-color 0.2s;
+    text-align: center;
+  }
+  #book1Odds  { color: var(--blue);   border-bottom-color: var(--blue); }
+  #book2Odds  { color: var(--purple); border-bottom-color: var(--purple); }
+  #totalStake { color: var(--gold);   border-bottom-color: var(--gold); }
+  #book1Odds:focus  { border-bottom-color: var(--blue); }
+  #book2Odds:focus  { border-bottom-color: var(--purple); }
+  #totalStake:focus { border-bottom-color: var(--gold); }
+
+  .implied-prob {
+    margin-top: 0.35rem;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--muted);
+    text-align: center;
+  }
+  .implied-prob strong { color: var(--text); }
+
+  /* ── Results grid ── */
+  .results-section {
+    display: grid;
+    grid-template-columns: 1fr 1px 1fr;
+    border-bottom: 1px solid var(--border);
+  }
+  .results-divider { background: var(--border); }
+  .results-panel { padding: 1.4rem 1.75rem; }
+
+  .results-cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .result-card {
+    background: var(--inset);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.65rem 0.75rem;
+  }
+  .result-card-label {
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.2rem;
+  }
+  .result-card-val {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
+
+  .result-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+    border-top: 1px solid var(--border);
+  }
+  .result-row-label { color: var(--muted); font-size: 0.88rem; letter-spacing: 0.04em; }
+  .result-row-val {
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 600;
+    font-size: 1rem;
+  }
+
+  .profit-big {
+    background: var(--inset);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 0.75rem;
+    text-align: center;
+    margin-top: 0.5rem;
+  }
+  .profit-big-label {
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.2rem;
+  }
+  .profit-big-val {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 2rem;
+    font-weight: 600;
+  }
+
+
+  /* ── Fixed stake section ── */
+  .fixed-section { border-top:1px solid var(--border); padding:1.4rem 1.75rem; }
+  .fixed-table {
+    display: grid;
+    grid-template-columns: 200px 1fr 1fr;
+    gap: 0 1rem;
+    margin-top: 0.75rem;
+  }
+  .ft-input-hdr, .ft-col-hdr {
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 0.5rem;
+  }
+  .ft-col-hdr { text-align: center; }
+  .ft-input-cell { padding-right: 0.5rem; }
+  .ft-result-cell {
+    background: var(--inset);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.5rem 0.75rem;
+  }
+  .ft-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.4rem 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.88rem;
+  }
+  .ft-row.last { border-bottom: none; }
+  .ft-lbl { color: var(--muted); }
+  .ft-val { font-family:"IBM Plex Mono",monospace; font-weight:600; font-size:0.95rem; }
+  .fixed-input-row {
+    display: flex; align-items: center; gap: 0.5rem;
+    background: var(--inset); border-radius: 6px 6px 0 0;
+    border-bottom: 2px solid var(--blue);
+    padding: 0.4rem 0.75rem; margin-bottom: 0.5rem;
+  }
+  .fixed-prefix { font-family:"IBM Plex Mono",monospace; font-size:1rem; color:var(--muted); }
+  .fixed-input {
+    background: none; border: none; outline: none;
+    font-family:"IBM Plex Mono",monospace;
+    font-size: 1.3rem; font-weight: 600; width: 100%; min-width: 0;
+  }
+  #fixedBook1Stake { color: var(--blue); }
+  #fixedBook2Stake { color: var(--purple); }
+  .fixed-result-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.45rem 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.88rem;
+  }
+  .fixed-result-row:last-child { border-bottom: none; }
+  .fixed-result-label { color: var(--muted); letter-spacing: 0.04em; }
+  .fixed-result-val {
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 600;
+    font-size: 1rem;
+  }
+
+  @media (max-width: 600px) {
+    .inputs-grid { grid-template-columns: 1fr; }
+    .results-section { grid-template-columns: 1fr; }
+    .results-divider { height: 1px; width: auto; }
+    .ref-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+
+  <div class="header">
+    <div class="title"><span>⚡</span> Arb Calculator <span>⚡</span></div>
+  </div>
+
+  <div class="status-bar" id="statusBar">Enter odds to check for arbitrage</div>
+
+  <!-- Inputs -->
+  <div class="inputs-section">
+    <div class="section-label">▸ Input Data</div>
+    <div class="inputs-grid">
+      <div class="input-group">
+        <div class="input-label">Book 1 Odds</div>
+        <input class="odds-input" id="book1Odds" type="number" value="-650" />
+        <div class="implied-prob" id="prob1">Implied: <strong>—</strong></div>
+      </div>
+      <div class="input-group">
+        <div class="input-label">Book 2 Odds</div>
+        <input class="odds-input" id="book2Odds" type="number" value="1100" />
+        <div class="implied-prob" id="prob2">Implied: <strong>—</strong></div>
+      </div>
+      <div class="input-group">
+        <div class="input-label">Total Stake ($)</div>
+        <input class="odds-input" id="totalStake" type="number" value="10" min="0" />
+        <div class="implied-prob">&nbsp;</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Results -->
+  <div class="results-section">
+
+    <!-- Max Arb -->
+    <div class="results-panel">
+      <div class="section-label">▸ Max Arb — Optimal Split</div>
+      <div class="results-cols">
+        <div class="result-card">
+          <div class="result-card-label">Book 1 Stake</div>
+          <div class="result-card-val" id="maxBook1" style="color:var(--blue)">—</div>
+        </div>
+        <div class="result-card">
+          <div class="result-card-label">Book 2 Stake</div>
+          <div class="result-card-val" id="maxBook2" style="color:var(--purple)">—</div>
+        </div>
+      </div>
+      <div class="result-row">
+        <span class="result-row-label">% Arb</span>
+        <span class="result-row-val" id="maxArbPct">—</span>
+      </div>
+      <div class="profit-big">
+        <div class="profit-big-label">Guaranteed Profit</div>
+        <div class="profit-big-val" id="maxProfit">—</div>
+      </div>
+    </div>
+
+    <div class="results-divider"></div>
+
+    <!-- Rounded -->
+    <div class="results-panel">
+      <div class="section-label">▸ Rounded — Easy to Place</div>
+      <div class="results-cols">
+        <div class="result-card">
+          <div class="result-card-label">Book 1 Stake</div>
+          <div class="result-card-val" id="rndBook1" style="color:var(--blue)">—</div>
+        </div>
+        <div class="result-card">
+          <div class="result-card-label">Book 2 Stake</div>
+          <div class="result-card-val" id="rndBook2" style="color:var(--purple)">—</div>
+        </div>
+      </div>
+      <div class="result-row">
+        <span class="result-row-label">% Arb</span>
+        <span class="result-row-val" id="rndArbPct">—</span>
+      </div>
+      <div class="profit-big">
+        <div class="profit-big-label">Guaranteed Profit</div>
+        <div class="profit-big-val" id="rndProfit">—</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Fixed Stake -->
+  <div class="fixed-section">
+    <div class="section-label">&#9658;&nbsp; Already Placed a Bet? &mdash; Enter Your Stake to Find Optimal Counter</div>
+
+    <div class="fixed-table">
+
+      <!-- Column headers -->
+      <div class="ft-input-hdr"></div>
+      <div class="ft-col-hdr">Exact Optimal</div>
+      <div class="ft-col-hdr">Rounded (nearest $1)</div>
+
+      <!-- Book 1 row -->
+      <div class="ft-input-cell">
+        <div class="input-label" style="margin-bottom:0.35rem;">I bet on Book 1</div>
+        <div class="fixed-input-row">
+          <span class="fixed-prefix">$</span>
+          <input class="fixed-input" id="fixedBook1Stake" type="number" placeholder="0.00" min="0" style="color:var(--blue)" />
+        </div>
+      </div>
+      <div class="ft-result-cell" id="b1ExactCol">
+        <div class="ft-row"><span class="ft-lbl">Book 2 Stake</span><span class="ft-val" id="optBook2" style="color:var(--purple)">—</span></div>
+        <div class="ft-row"><span class="ft-lbl">Arb %</span><span class="ft-val" id="fixedArbPct1">—</span></div>
+        <div class="ft-row"><span class="ft-lbl">Profit</span><span class="ft-val" id="fixedProfit1">—</span></div>
+        <div class="ft-row last"><span class="ft-lbl">Total Risk</span><span class="ft-val" id="fixedRisk1" style="color:var(--muted)">—</span></div>
+      </div>
+      <div class="ft-result-cell" id="b1RndCol">
+        <div class="ft-row"><span class="ft-lbl">Book 2 Stake</span><span class="ft-val" id="rndOptBook2" style="color:var(--purple)">—</span></div>
+        <div class="ft-row"><span class="ft-lbl">Arb %</span><span class="ft-val" id="rndArbPct1">—</span></div>
+        <div class="ft-row"><span class="ft-lbl">Profit</span><span class="ft-val" id="rndProfit1">—</span></div>
+        <div class="ft-row last"><span class="ft-lbl">Total Risk</span><span class="ft-val" id="rndRisk1" style="color:var(--muted)">—</span></div>
+      </div>
+
+      <!-- Divider -->
+      <div style="grid-column:1/-1; height:1px; background:var(--border); margin:0.25rem 0;"></div>
+
+      <!-- Book 2 row -->
+      <div class="ft-input-cell">
+        <div class="input-label" style="margin-bottom:0.35rem;">I bet on Book 2</div>
+        <div class="fixed-input-row" style="border-bottom-color:var(--purple)">
+          <span class="fixed-prefix">$</span>
+          <input class="fixed-input" id="fixedBook2Stake" type="number" placeholder="0.00" min="0" style="color:var(--purple)" />
+        </div>
+      </div>
+      <div class="ft-result-cell" id="b2ExactCol">
+        <div class="ft-row"><span class="ft-lbl">Book 1 Stake</span><span class="ft-val" id="optBook1" style="color:var(--blue)">—</span></div>
+        <div class="ft-row"><span class="ft-lbl">Arb %</span><span class="ft-val" id="fixedArbPct2">—</span></div>
+        <div class="ft-row"><span class="ft-lbl">Profit</span><span class="ft-val" id="fixedProfit2">—</span></div>
+        <div class="ft-row last"><span class="ft-lbl">Total Risk</span><span class="ft-val" id="fixedRisk2" style="color:var(--muted)">—</span></div>
+      </div>
+      <div class="ft-result-cell" id="b2RndCol">
+        <div class="ft-row"><span class="ft-lbl">Book 1 Stake</span><span class="ft-val" id="rndOptBook1" style="color:var(--blue)">—</span></div>
+        <div class="ft-row"><span class="ft-lbl">Arb %</span><span class="ft-val" id="rndArbPct2">—</span></div>
+        <div class="ft-row"><span class="ft-lbl">Profit</span><span class="ft-val" id="rndProfit2">—</span></div>
+        <div class="ft-row last"><span class="ft-lbl">Total Risk</span><span class="ft-val" id="rndRisk2" style="color:var(--muted)">—</span></div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<script>
+  function toDecimal(american) {
+    const o = parseFloat(american);
+    if (isNaN(o)) return null;
+    return o < 0 ? (100 / Math.abs(o)) + 1 : (o / 100) + 1;
+  }
+
+  function toImplied(american) {
+    const dec = toDecimal(american);
+    return dec ? 1 / dec : null;
+  }
+
+  function fmtMoney(n) {
+    return '$' + Math.abs(n).toFixed(2);
+  }
+
+  function fmtPct(n) {
+    return (n * 100).toFixed(2) + '%';
+  }
+
+  function calcArb(s1, s2, dec1, dec2) {
+    const ret1 = s1 * dec1;
+    const ret2 = s2 * dec2;
+    const total = s1 + s2;
+    const minReturn = Math.min(ret1, ret2);
+    const profit = minReturn - total;
+    const pct = profit / total;
+    return { profit, pct };
+  }
+
+  function calc() {
+    const o1 = parseFloat(document.getElementById('book1Odds').value);
+    const o2 = parseFloat(document.getElementById('book2Odds').value);
+    const total = parseFloat(document.getElementById('totalStake').value) || 0;
+
+    const dec1 = toDecimal(o1);
+    const dec2 = toDecimal(o2);
+    const impl1 = toImplied(o1);
+    const impl2 = toImplied(o2);
+
+    // Update implied probs
+    document.getElementById('prob1').innerHTML =
+      impl1 !== null ? `Implied: <strong>${fmtPct(impl1)}</strong>` : 'Implied: <strong>—</strong>';
+    document.getElementById('prob2').innerHTML =
+      impl2 !== null ? `Implied: <strong>${fmtPct(impl2)}</strong>` : 'Implied: <strong>—</strong>';
+
+    if (!dec1 || !dec2 || total <= 0) return;
+
+    const margin = impl1 + impl2;
+    const isArb = margin < 1;
+
+    // ── Status bar ─────────────────────────────────────────────────────────
+    const statusEl = document.getElementById('statusBar');
+    if (isArb) {
+      const arbPct = ((1 - margin) / margin * 100).toFixed(2);
+      statusEl.textContent = `✅  ARB DETECTED — ${arbPct}% guaranteed return`;
+      statusEl.style.color = 'var(--green)';
+      statusEl.style.background = '#0d2317';
+    } else {
+      const overround = ((margin - 1) * 100).toFixed(2);
+      statusEl.textContent = `❌  No Arb — Overround ${overround}% (books have ${(margin * 100).toFixed(2)}% combined margin)`;
+      statusEl.style.color = 'var(--red)';
+      statusEl.style.background = '#2d0f0f';
+    }
+
+    // ── Max Arb ─────────────────────────────────────────────────────────────
+    const s1Max = total * (impl1 / margin);
+    const s2Max = total * (impl2 / margin);
+    const maxArb = calcArb(s1Max, s2Max, dec1, dec2);
+    const maxPct = (1 - margin) / margin;
+
+    document.getElementById('maxBook1').textContent = fmtMoney(s1Max);
+    document.getElementById('maxBook2').textContent = fmtMoney(s2Max);
+    document.getElementById('maxArbPct').textContent = fmtPct(Math.abs(maxPct));
+    document.getElementById('maxArbPct').style.color = isArb ? 'var(--green)' : 'var(--red)';
+
+    const maxProfitEl = document.getElementById('maxProfit');
+    maxProfitEl.textContent = (maxArb.profit >= 0 ? '+' : '') + '$' + maxArb.profit.toFixed(2);
+    maxProfitEl.style.color = maxArb.profit >= 0 ? 'var(--green)' : 'var(--red)';
+
+    // ── Rounded ──────────────────────────────────────────────────────────────
+    // Try all 4 floor/ceil combos, pick the one with best guaranteed profit
+    const nearest = total < 20 ? 0.5 : 1;
+    const s1F = Math.max(nearest, Math.floor(s1Max / nearest) * nearest);
+    const s1C = Math.max(nearest, Math.ceil(s1Max  / nearest) * nearest);
+    const s2F = Math.max(nearest, Math.floor(s2Max / nearest) * nearest);
+    const s2C = Math.max(nearest, Math.ceil(s2Max  / nearest) * nearest);
+    const best = [[s1F,s2F],[s1F,s2C],[s1C,s2F],[s1C,s2C]]
+      .map(([a,b]) => ({ a, b, ...calcArb(a, b, dec1, dec2) }))
+      .sort((x,y) => y.profit - x.profit)[0];
+    const s1Rnd = best.a;
+    const s2Rnd = best.b;
+    const rndArb = { profit: best.profit };
+    const rndPct = best.profit / (s1Rnd + s2Rnd);
+
+    document.getElementById('rndBook1').textContent = fmtMoney(s1Rnd);
+    document.getElementById('rndBook2').textContent = fmtMoney(s2Rnd);
+    document.getElementById('rndArbPct').textContent = fmtPct(Math.abs(rndPct));
+    document.getElementById('rndArbPct').style.color = rndArb.profit >= 0 ? 'var(--green)' : 'var(--red)';
+
+    const rndProfitEl = document.getElementById('rndProfit');
+    rndProfitEl.textContent = (rndArb.profit >= 0 ? '+' : '') + '$' + rndArb.profit.toFixed(2);
+    rndProfitEl.style.color = rndArb.profit >= 0 ? 'var(--green)' : 'var(--red)';
+  }
+
+
+  function guaranteedProfit(sA, decA, sB, decB) {
+    const total = sA + sB;
+    return Math.min(sA * decA, sB * decB) - total;
+  }
+
+  function bestRounded(sFixed, decFixed, decOther) {
+    const opt = sFixed * decFixed / decOther;
+    const lo = Math.max(1, Math.floor(opt));
+    const hi = Math.max(1, Math.ceil(opt));
+    return [lo, hi]
+      .map(r => ({ r, profit: guaranteedProfit(sFixed, decFixed, r, decOther) }))
+      .sort((a, b) => b.profit - a.profit)[0];
+  }
+
+  function setFixed(ids, vals) {
+    ids.forEach((id, i) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const v = vals[i];
+      if (v === null) { el.textContent = '—'; el.style.color = ''; return; }
+      el.textContent = v.text;
+      if (v.color) el.style.color = v.color;
+    });
+  }
+
+  function calcFixed() {
+    const o1 = parseFloat(document.getElementById('book1Odds').value);
+    const o2 = parseFloat(document.getElementById('book2Odds').value);
+    const dec1 = toDecimal(o1);
+    const dec2 = toDecimal(o2);
+    const clearIds1 = ['optBook2','fixedArbPct1','fixedProfit1','fixedRisk1','rndOptBook2','rndArbPct1','rndProfit1','rndRisk1'];
+    const clearIds2 = ['optBook1','fixedArbPct2','fixedProfit2','fixedRisk2','rndOptBook1','rndArbPct2','rndProfit2','rndRisk2'];
+    if (!dec1 || !dec2) { clearIds1.concat(clearIds2).forEach(id => { document.getElementById(id).textContent='—'; }); return; }
+
+    // ── Book 1 fixed ──────────────────────────────────────────────────────────
+    const f1 = parseFloat(document.getElementById('fixedBook1Stake').value);
+    if (!isNaN(f1) && f1 > 0) {
+      const opt2 = f1 * dec1 / dec2;
+      const exactProfit1 = guaranteedProfit(f1, dec1, opt2, dec2);
+      const exactRisk1   = f1 + opt2;
+      const exactPct1    = exactProfit1 / exactRisk1;
+      const rnd2         = bestRounded(f1, dec1, dec2);
+      const rndRisk1     = f1 + rnd2.r;
+      const rndPct1      = rnd2.profit / rndRisk1;
+      const c = (n) => n >= 0 ? 'var(--green)' : 'var(--red)';
+      setFixed(
+        ['optBook2','fixedArbPct1','fixedProfit1','fixedRisk1'],
+        [
+          { text: '$'+opt2.toFixed(2), color: 'var(--purple)' },
+          { text: (exactPct1*100).toFixed(2)+'%', color: c(exactProfit1) },
+          { text: (exactProfit1>=0?'+':'')+' $'+exactProfit1.toFixed(2), color: c(exactProfit1) },
+          { text: '$'+exactRisk1.toFixed(2), color: '' }
+        ]
+      );
+      setFixed(
+        ['rndOptBook2','rndArbPct1','rndProfit1','rndRisk1'],
+        [
+          { text: '$'+rnd2.r.toFixed(2), color: 'var(--purple)' },
+          { text: (rndPct1*100).toFixed(2)+'%', color: c(rnd2.profit) },
+          { text: (rnd2.profit>=0?'+':'')+' $'+rnd2.profit.toFixed(2), color: c(rnd2.profit) },
+          { text: '$'+rndRisk1.toFixed(2), color: '' }
+        ]
+      );
+    } else {
+      clearIds1.forEach(id => { document.getElementById(id).textContent='—'; document.getElementById(id).style.color=''; });
+    }
+
+    // ── Book 2 fixed ──────────────────────────────────────────────────────────
+    const f2 = parseFloat(document.getElementById('fixedBook2Stake').value);
+    if (!isNaN(f2) && f2 > 0) {
+      const opt1 = f2 * dec2 / dec1;
+      const exactProfit2 = guaranteedProfit(opt1, dec1, f2, dec2);
+      const exactRisk2   = opt1 + f2;
+      const exactPct2    = exactProfit2 / exactRisk2;
+      const rnd1         = bestRounded(f2, dec2, dec1);
+      const rndRisk2     = rnd1.r + f2;
+      const rndPct2      = rnd1.profit / rndRisk2;
+      const c = (n) => n >= 0 ? 'var(--green)' : 'var(--red)';
+      setFixed(
+        ['optBook1','fixedArbPct2','fixedProfit2','fixedRisk2'],
+        [
+          { text: '$'+opt1.toFixed(2), color: 'var(--blue)' },
+          { text: (exactPct2*100).toFixed(2)+'%', color: c(exactProfit2) },
+          { text: (exactProfit2>=0?'+':'')+' $'+exactProfit2.toFixed(2), color: c(exactProfit2) },
+          { text: '$'+exactRisk2.toFixed(2), color: '' }
+        ]
+      );
+      setFixed(
+        ['rndOptBook1','rndArbPct2','rndProfit2','rndRisk2'],
+        [
+          { text: '$'+rnd1.r.toFixed(2), color: 'var(--blue)' },
+          { text: (rndPct2*100).toFixed(2)+'%', color: c(rnd1.profit) },
+          { text: (rnd1.profit>=0?'+':'')+' $'+rnd1.profit.toFixed(2), color: c(rnd1.profit) },
+          { text: '$'+rndRisk2.toFixed(2), color: '' }
+        ]
+      );
+    } else {
+      clearIds2.forEach(id => { document.getElementById(id).textContent='—'; document.getElementById(id).style.color=''; });
+    }
+  }
+
+
+
+  document.getElementById('book1Odds').addEventListener('input', () => { calc(); calcFixed(); });
+  document.getElementById('book2Odds').addEventListener('input', () => { calc(); calcFixed(); });
+  document.getElementById('totalStake').addEventListener('input', calc);
+  document.getElementById('fixedBook1Stake').addEventListener('input', calcFixed);
+  document.getElementById('fixedBook2Stake').addEventListener('input', calcFixed);
+
+  calc();
+</script>
+</body>
+</html>

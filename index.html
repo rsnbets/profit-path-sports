@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Profit Path Sports — Tools, Education & Edge</title>
+<meta name="description" content="Free, professional-grade calculators and education for sports bettors. EV, arbitrage, devig, bonus conversion, and more. No paywall, no signup.">
+
+<!-- Favicon: SVG lightning bolt -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230a0f1c'/%3E%3Cpath d='M18 4L8 18h6l-2 10 10-14h-6z' fill='%23ffb020' stroke='%23ff8c00' stroke-width='0.5'/%3E%3C/svg%3E">
+
+<!-- Open Graph / Social sharing -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Profit Path Sports — Tools, Education & Edge">
+<meta property="og:description" content="Free, professional-grade calculators and education for sports bettors. EV, arbitrage, devig, bonus conversion, and more. No paywall, no signup.">
+<meta property="og:site_name" content="Profit Path Sports">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Profit Path Sports — Tools, Education & Edge">
+<meta name="twitter:description" content="Free, professional-grade calculators and education for sports bettors. EV, arbitrage, devig, bonus conversion, and more. No paywall, no signup.">
+
+<!-- Theme color for mobile browser chrome -->
+<meta name="theme-color" content="#0a0f1c">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;800;900&family=JetBrains+Mono:wght@400;500;700&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0f1c;
+    --panel: #0f1524;
+    --panel-inset: #141a2b;
+    --panel-deep: #0c1120;
+    --border: #1e2638;
+    --border-soft: #141c30;
+    --text: #e5e7eb;
+    --muted: #8b94a8;
+    --dim: #6b7689;
+    --blue: #3d8bff;
+    --blue-glow: rgba(61, 139, 255, 0.15);
+    --yellow: #f5b545;
+    --yellow-glow: rgba(245, 181, 69, 0.15);
+    --green: #4ade80;
+    --green-glow: rgba(74, 222, 128, 0.15);
+    --purple: #BC8CFF;
+    --red: #f87171;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: radial-gradient(ellipse at top, #111a2e 0%, var(--bg) 60%);
+    color: var(--text);
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    min-height: 100vh;
+    padding: 24px 16px 60px;
+  }
+
+  .wrap { max-width: 1100px; margin: 0 auto; }
+
+  /* ── Hero ── */
+  .hero {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.02) inset;
+    margin-bottom: 28px;
+    position: relative;
+  }
+
+  .hero-inner {
+    text-align: center;
+    padding: 56px 24px 48px;
+    background: linear-gradient(180deg, #0d1220 0%, #0b0f1d 100%);
+    position: relative;
+  }
+
+  .hero-inner::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--blue), transparent);
+    opacity: 0.6;
+  }
+
+  .brand-mark {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 18px;
+  }
+
+  .brand-mark .bolt {
+    font-size: 42px;
+    color: #ffb020;
+    filter: drop-shadow(0 0 14px rgba(255, 176, 32, 0.85)) drop-shadow(0 0 4px rgba(255, 140, 0, 0.6));
+  }
+
+  .brand-name {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 32px;
+    font-weight: 900;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    background: linear-gradient(135deg, var(--blue) 0%, #6ba6ff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .tagline {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 12px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--yellow);
+    margin-bottom: 22px;
+    font-weight: 700;
+  }
+
+  .hero-pitch {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 19px;
+    line-height: 1.6;
+    color: var(--text);
+    max-width: 620px;
+    margin: 0 auto 28px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+  }
+
+  .hero-pitch strong {
+    color: var(--blue);
+    font-weight: 700;
+  }
+
+  .hero-cta {
+    display: inline-flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .btn-cta {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 700;
+    text-decoration: none;
+    padding: 13px 22px;
+    border-radius: 10px;
+    transition: all 0.15s;
+    border: 1px solid transparent;
+    cursor: pointer;
+  }
+
+  .btn-cta.primary {
+    background: var(--blue);
+    color: #06101e;
+    box-shadow: 0 0 20px var(--blue-glow);
+  }
+
+  .btn-cta.primary:hover {
+    background: #5fa1ff;
+    transform: translateY(-1px);
+  }
+
+  .btn-cta.ghost {
+    background: var(--panel-inset);
+    color: var(--text);
+    border-color: var(--border);
+  }
+
+  .btn-cta.ghost:hover {
+    border-color: var(--blue);
+    color: var(--blue);
+  }
+
+  /* ── Section header ── */
+  .section {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 32px 28px;
+    margin-bottom: 28px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.02) inset;
+  }
+
+  .section-head {
+    margin-bottom: 24px;
+  }
+
+  .section-eyebrow {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 11px;
+    letter-spacing: 2.5px;
+    color: var(--dim);
+    text-transform: uppercase;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+
+  .section-eyebrow::before {
+    content: '▸';
+    color: var(--blue);
+    font-size: 10px;
+  }
+
+  .section-eyebrow.gold::before { color: var(--yellow); }
+  .section-eyebrow.green::before { color: var(--green); }
+  .section-eyebrow.purple::before { color: var(--purple); }
+
+  .section-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    color: var(--text);
+    text-transform: uppercase;
+  }
+
+  .section-sub {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 16px;
+    color: var(--muted);
+    margin-top: 6px;
+    letter-spacing: 0.3px;
+  }
+
+  /* ── About ── */
+  .about-body {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 17px;
+    line-height: 1.7;
+    color: var(--muted);
+    letter-spacing: 0.3px;
+    max-width: 780px;
+  }
+
+  .about-body p { margin-bottom: 14px; }
+  .about-body p:last-of-type { margin-bottom: 0; }
+  .about-body strong { color: var(--text); font-weight: 600; }
+
+  .about-sig {
+    margin-top: 22px;
+    padding-top: 18px;
+    border-top: 1px solid var(--border);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 13px;
+    letter-spacing: 2px;
+    color: var(--yellow);
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+
+  /* ── Tools grid ── */
+  .tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 14px;
+  }
+
+  .tool-card {
+    background: var(--panel-deep);
+    border: 1px solid var(--border-soft);
+    border-radius: 14px;
+    padding: 22px 20px;
+    text-decoration: none;
+    color: var(--text);
+    transition: all 0.18s;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .tool-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--blue);
+    opacity: 0;
+    transition: opacity 0.2s;
+    box-shadow: 0 0 12px var(--blue-glow);
+  }
+
+  .tool-card:hover {
+    border-color: var(--blue);
+    background: var(--panel-inset);
+    transform: translateY(-2px);
+  }
+
+  .tool-card:hover::before { opacity: 1; }
+
+  .tool-card .icon {
+    font-size: 22px;
+    filter: drop-shadow(0 0 6px rgba(245, 181, 69, 0.4));
+  }
+
+  .tool-name {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    color: var(--blue);
+    text-transform: uppercase;
+  }
+
+  .tool-desc {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.5;
+    flex: 1;
+  }
+
+  .tool-cta {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--dim);
+    margin-top: 6px;
+    transition: color 0.15s;
+  }
+
+  .tool-card:hover .tool-cta { color: var(--blue); }
+
+  /* ── Sportsbook grid ── */
+  .book-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+  }
+
+  .book-card {
+    background: var(--panel-deep);
+    border: 1px solid var(--border-soft);
+    border-radius: 12px;
+    padding: 20px 16px;
+    text-decoration: none;
+    color: var(--text);
+    transition: all 0.15s;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    align-items: center;
+  }
+
+  .book-card:hover {
+    border-color: var(--yellow);
+    background: var(--panel-inset);
+    transform: translateY(-1px);
+  }
+
+  .book-name {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    color: var(--text);
+    text-transform: uppercase;
+  }
+
+  .book-bonus {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--yellow);
+    letter-spacing: 0.5px;
+  }
+
+  .book-tag {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--dim);
+    margin-top: 4px;
+  }
+
+  /* ── Donate section ── */
+  .donate-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 14px;
+  }
+
+  .donate-card {
+    background: var(--panel-deep);
+    border: 1px solid var(--border-soft);
+    border-radius: 12px;
+    padding: 22px 20px;
+    text-decoration: none;
+    color: var(--text);
+    transition: all 0.15s;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .donate-card:hover {
+    border-color: var(--green);
+    background: var(--panel-inset);
+    transform: translateY(-1px);
+  }
+
+  .donate-icon {
+    width: 44px; height: 44px;
+    background: var(--panel-inset);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+  }
+
+  .donate-info { flex: 1; min-width: 0; }
+
+  .donate-name {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    color: var(--green);
+    text-transform: uppercase;
+    margin-bottom: 3px;
+  }
+
+  .donate-handle {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--muted);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* ── Coming soon ── */
+  .coming-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 14px;
+  }
+
+  .coming-card {
+    background: var(--panel-deep);
+    border: 1px dashed var(--border);
+    border-radius: 12px;
+    padding: 22px 20px;
+    position: relative;
+    opacity: 0.85;
+  }
+
+  .coming-card .badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 8px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--purple);
+    background: rgba(188, 140, 255, 0.1);
+    border: 1px solid rgba(188, 140, 255, 0.3);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-weight: 700;
+  }
+
+  .coming-icon { font-size: 24px; margin-bottom: 10px; }
+
+  .coming-name {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    color: var(--purple);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .coming-desc {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  /* ── Footer ── */
+  .footer {
+    text-align: center;
+    padding: 28px 20px;
+    color: var(--dim);
+    font-size: 11px;
+    letter-spacing: 1px;
+    line-height: 1.7;
+  }
+
+  .footer .disclaimer {
+    max-width: 720px;
+    margin: 0 auto 14px;
+    color: var(--dim);
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.3px;
+  }
+
+  .footer a { color: var(--muted); text-decoration: none; }
+  .footer a:hover { color: var(--blue); }
+
+  /* ── Mobile ── */
+  @media (max-width: 600px) {
+    .hero-inner { padding: 40px 18px 36px; }
+    .brand-name { font-size: 24px; letter-spacing: 3px; }
+    .hero-pitch { font-size: 16px; }
+    .section { padding: 24px 18px; }
+    .section-title { font-size: 18px; }
+    .tool-name, .book-name, .donate-name, .coming-name { font-size: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-inner">
+      <div class="brand-mark">
+        <span class="bolt">⚡</span>
+        <span class="brand-name">Profit Path Sports</span>
+        <span class="bolt">⚡</span>
+      </div>
+      <p class="hero-pitch">
+        Free, professional-grade tools and education for sports bettors who want to <strong>understand the math</strong>, not just chase picks. Build the skills. Find your edge. Profit on your own terms.
+      </p>
+      <div class="hero-cta">
+        <a href="#tools" class="btn-cta primary">⚡ Open the Toolbox</a>
+        <a href="#books" class="btn-cta ghost">Sportsbook Offers</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <div class="section" id="about">
+    <div class="section-head">
+      <div class="section-eyebrow">About</div>
+      <div class="section-title">Why This Exists</div>
+    </div>
+    <div class="about-body">
+      <p>The sports betting world is full of pick-sellers, paywalls, and people charging you for tools that should be free. That's not what this is.</p>
+      <p><strong>Profit Path Sports is built to help you bet smarter — not chase someone else's picks.</strong> Every calculator here is the same kind of tool sharp bettors actually use. The goal is to put the math in your hands so you can find your own edges, manage your own bankroll, and stop guessing.</p>
+      <p>More tools, video lessons, and strategy guides are coming. Everything stays free. If it helps you, tip the jar — but you never have to.</p>
+      <div class="about-sig">— Dr. Rob</div>
+    </div>
+  </div>
+
+  <!-- TOOLS -->
+  <div class="section" id="tools">
+    <div class="section-head">
+      <div class="section-eyebrow">Free Tools</div>
+      <div class="section-title">The Toolbox</div>
+      <div class="section-sub">Every calculator a +EV bettor needs. No paywall, no signup.</div>
+    </div>
+
+    <div class="tools-grid">
+      <a class="tool-card" href="ev-calculator.html">
+        <div class="icon">📈</div>
+        <div class="tool-name">EV Calculator</div>
+        <div class="tool-desc">Compare your line to the market and instantly see your edge in % and dollars.</div>
+        <div class="tool-cta">Launch →</div>
+      </a>
+
+      <a class="tool-card" href="arb-calculator.html">
+        <div class="icon">🔀</div>
+        <div class="tool-name">Arbitrage Calculator</div>
+        <div class="tool-desc">Find guaranteed-profit opportunities and size both sides perfectly.</div>
+        <div class="tool-cta">Launch →</div>
+      </a>
+
+      <a class="tool-card" href="devig_calculator.html">
+        <div class="icon">⚖️</div>
+        <div class="tool-name">Devig Calculator</div>
+        <div class="tool-desc">Strip the vig from any market to reveal the true no-vig fair odds.</div>
+        <div class="tool-cta">Launch →</div>
+      </a>
+
+      <a class="tool-card" href="bonus-converter.html">
+        <div class="icon">🎁</div>
+        <div class="tool-name">Bonus Bet Converter</div>
+        <div class="tool-desc">Hedge bonus bets into guaranteed cash and maximize your conversion rate.</div>
+        <div class="tool-cta">Launch →</div>
+      </a>
+
+      <a class="tool-card" href="odds_calculator.html">
+        <div class="icon">🎯</div>
+        <div class="tool-name">Implied Odds</div>
+        <div class="tool-desc">Convert American odds to implied probability and back, instantly.</div>
+        <div class="tool-cta">Launch →</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- SPORTSBOOKS -->
+  <div class="section" id="books">
+    <div class="section-head">
+      <div class="section-eyebrow gold">Sportsbook Offers</div>
+      <div class="section-title">Where to Bet</div>
+      <div class="section-sub">Sign up through these links to support the site — same offers, no extra cost to you.</div>
+    </div>
+
+    <div class="book-grid">
+      <a class="book-card" href="https://sportsbook.draftkings.com/r/sb/strictly_chronic/US-CO-SB/US-CO" target="_blank" rel="nofollow noopener">
+        <div class="book-name">DraftKings</div>
+        <div class="book-bonus">Welcome Offer</div>
+        <div class="book-tag">Sign Up →</div>
+      </a>
+      <a class="book-card" href="https://fndl.co/7sydzrs" target="_blank" rel="nofollow noopener">
+        <div class="book-name">FanDuel</div>
+        <div class="book-bonus">Welcome Offer</div>
+        <div class="book-tag">Sign Up →</div>
+      </a>
+      <a class="book-card" href="https://playmgmsports.onelink.me/TkMx?af_xp=custom&pid=RAF&c=BMGM_RAF&af_ios_url=https%3A%2F%2Fwww.betmgm.com%2Fen%2Fmobileportal%2Finvitefriendssignup%3FinvID%3D14180543&af_android_url=https%3A%2F%2Fwww.betmgm.com%2Fen%2Fmobileportal%2Finvitefriendssignup%3FinvID%3D14180543&af_web_dp=https%3A%2F%2Fwww.betmgm.com%2Fen%2Fmobileportal%2Finvitefriendssignup%3FinvID%3D14180543&af_dp=playmgmsportswrp%3A%2F%2Fnavigation%3Fscheme%3Dhttps%26url%3Dwww.betmgm.com%2Fen%2Fmobileportal%2Finvitefriendssignup%3FinvID%3D14180543" target="_blank" rel="nofollow noopener">
+        <div class="book-name">BetMGM</div>
+        <div class="book-bonus">Welcome Offer</div>
+        <div class="book-tag">Sign Up →</div>
+      </a>
+      <a class="book-card" href="https://hrb.onelink.me/aSsa?af_js_web=true&af_ss_ver=2&pid=af_web_invites&c=refer_a_friend-both-multi-sportsbook-wom-share-standard_2022_05_18&af_channel=refer_a_friend&accountId=442225407651741956&af_siteid=com.hardrockdigital.web" target="_blank" rel="nofollow noopener">
+        <div class="book-name">Hard Rock Bet</div>
+        <div class="book-bonus">Bonus Bet up to $50</div>
+        <div class="book-tag">Sign Up →</div>
+      </a>
+      <a class="book-card" href="https://sportsbook.bet105.ag/join?referredBy=I6A4A2Y3&utm_source=invite&utm_term=I6A4A2Y3" target="_blank" rel="nofollow noopener">
+        <div class="book-name">Bet105</div>
+        <div class="book-bonus">Reduced Juice</div>
+        <div class="book-tag">Sign Up →</div>
+      </a>
+      <a class="book-card" href="https://be.bookmaker.eu/en/signup?raf=-AAQZCcgJwXMhCe6v6_Lbd0HqSTjvtA96JwVMPSyqEU-_" target="_blank" rel="nofollow noopener">
+        <div class="book-name">Bookmaker</div>
+        <div class="book-bonus">Sharp Lines & Limits</div>
+        <div class="book-tag">Sign Up →</div>
+      </a>
+      <a class="book-card" href="https://play.underdogfantasy.com/profitpath-bbbdfc02f9d75f4b" target="_blank" rel="nofollow noopener">
+        <div class="book-name">Underdog</div>
+        <div class="book-bonus">Code: PROFITPATH</div>
+        <div class="book-tag">Sign Up →</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- DONATE -->
+  <div class="section" id="support">
+    <div class="section-head">
+      <div class="section-eyebrow green">Support the Site</div>
+      <div class="section-title">Tip the Bartender</div>
+      <div class="section-sub">If the tools made you money, tips help keep this stuff free and pay for new features.</div>
+    </div>
+
+    <div class="donate-grid">
+      <a class="donate-card" href="https://venmo.com/u/YOUR-VENMO-HANDLE" target="_blank" rel="noopener">
+        <div class="donate-icon">💸</div>
+        <div class="donate-info">
+          <div class="donate-name">Venmo</div>
+          <div class="donate-handle">@YOUR-VENMO-HANDLE</div>
+        </div>
+      </a>
+      <a class="donate-card" href="https://paypal.me/YOUR-PAYPAL" target="_blank" rel="noopener">
+        <div class="donate-icon">💳</div>
+        <div class="donate-info">
+          <div class="donate-name">PayPal</div>
+          <div class="donate-handle">paypal.me/YOUR-PAYPAL</div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- COMING SOON -->
+  <div class="section" id="coming">
+    <div class="section-head">
+      <div class="section-eyebrow purple">Coming Soon</div>
+      <div class="section-title">More on the Way</div>
+      <div class="section-sub">Building this out into a full education resource. Here's what's next.</div>
+    </div>
+
+    <div class="coming-grid">
+      <div class="coming-card">
+        <div class="badge">Soon</div>
+        <div class="coming-icon">🎬</div>
+        <div class="coming-name">Video Lessons</div>
+        <div class="coming-desc">Walkthroughs on EV, arbitrage, bankroll management, and bonus bet strategy.</div>
+      </div>
+      <div class="coming-card">
+        <div class="badge">Soon</div>
+        <div class="coming-icon">📚</div>
+        <div class="coming-name">Strategy Guides</div>
+        <div class="coming-desc">Written deep-dives on the concepts every profitable bettor needs to master.</div>
+      </div>
+      <div class="coming-card">
+        <div class="badge">Soon</div>
+        <div class="coming-icon">📊</div>
+        <div class="coming-name">More Tools</div>
+        <div class="coming-desc">Kelly calculator, parlay devigger, hold/CLV trackers — all free, all coming.</div>
+      </div>
+      <div class="coming-card">
+        <div class="badge">Soon</div>
+        <div class="coming-icon">📰</div>
+        <div class="coming-name">Newsletter</div>
+        <div class="coming-desc">Occasional drops with new tools, lessons, and the best book promos worth chasing.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="disclaimer">
+      Profit Path Sports is an educational resource. Nothing here is a guarantee, and sports betting carries financial risk. Bet responsibly. If gambling is a problem for you, call <strong>1-800-GAMBLER</strong>. Must be 21+ where legal.
+    </div>
+    <div>© 2026 Profit Path Sports</div>
+  </div>
+
+</div>
+
+</body>
+</html>
