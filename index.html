@@ -833,6 +833,37 @@
   }
   .path-step:hover .path-tool { color: var(--yellow); }
 
+  /* ── Collapsible lane sections ── */
+  details.section { display: block; }
+  details.section > summary {
+    cursor: pointer;
+    list-style: none;
+    position: relative;
+    padding-right: 40px;
+  }
+  details.section > summary::-webkit-details-marker { display: none; }
+  details.section > summary::marker { content: ''; }
+
+  details.section:not([open]) > summary.section-head { margin-bottom: 0; }
+
+  details.section > summary::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 4px;
+    transform: translateY(-60%);
+    width: 0; height: 0;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-top: 9px solid var(--muted);
+    transition: transform 0.2s, border-top-color 0.2s;
+  }
+  details.section[open] > summary::after {
+    transform: translateY(-50%) rotate(180deg);
+  }
+  details.section > summary:hover::after { border-top-color: var(--blue); }
+  details.section > summary:hover .section-title { color: var(--blue); transition: color 0.15s; }
+
   /* ── Mobile ── */
   @media (max-width: 600px) {
     .hero-inner { padding: 40px 18px 36px; }
@@ -928,12 +959,12 @@
   </div>
 
   <!-- LANE 01 · PROMO PLAYBOOK -->
-  <div class="section" id="bonus">
-    <div class="section-head">
+  <details class="section" id="bonus">
+    <summary class="section-head">
       <div class="section-eyebrow green">Lane 01 · Bonus Hunter</div>
       <div class="section-title">The Promo Playbook</div>
       <div class="section-sub">Sportsbooks throw thousands in welcome offers at every new user. With the right tools, most of it converts to real, withdrawable cash. No betting knowledge required — just math.</div>
-    </div>
+    </summary>
 
     <div class="path-grid bonus">
       <a class="path-step" href="#books">
@@ -972,15 +1003,15 @@
         <div class="path-tool">Bet Tracker →</div>
       </a>
     </div>
-  </div>
+  </details>
 
   <!-- LANE 02 · NEW BETTOR -->
-  <div class="section" id="start">
-    <div class="section-head">
+  <details class="section" id="start">
+    <summary class="section-head">
       <div class="section-eyebrow">Lane 02 · New Bettor</div>
       <div class="section-title">Bet Smart From Day One</div>
       <div class="section-sub">Six lessons. The foundation every winning bettor builds before placing serious money. Start here if you're new — or if no one ever taught you the math.</div>
-    </div>
+    </summary>
 
     <div class="path-grid learn">
       <a class="path-step" href="learn-odds.html">
@@ -1037,15 +1068,15 @@
         <div class="path-tool">Lesson 06 →</div>
       </a>
     </div>
-  </div>
+  </details>
 
   <!-- LANE 03 · LOSING BETTOR -->
-  <div class="section" id="fix">
-    <div class="section-head">
+  <details class="section" id="fix">
+    <summary class="section-head">
       <div class="section-eyebrow gold">Lane 03 · Losing Bettor</div>
       <div class="section-title">From Losing To +EV</div>
       <div class="section-sub">Already betting and bleeding chips? Rebuild your bankroll with free promo money first — then go back and learn the math you were never taught.</div>
-    </div>
+    </summary>
 
     <div class="path-grid">
       <a class="path-step" href="#bonus">
@@ -1093,15 +1124,15 @@
         <div class="path-tool">Kelly Lesson →</div>
       </a>
     </div>
-  </div>
+  </details>
 
   <!-- TOOLS -->
-  <div class="section" id="tools">
-    <div class="section-head">
+  <details class="section" id="tools">
+    <summary class="section-head">
       <div class="section-eyebrow purple">Lane 04 · Sharp</div>
       <div class="section-title">The Toolbox</div>
       <div class="section-sub">All ten calculators — free, no signup, no paywall. Walk through them via a Lane, or skip straight to the one you need.</div>
-    </div>
+    </summary>
 
     <div class="tools-grid">
       <a class="tool-card" href="bet-tracker.html">
@@ -1185,7 +1216,7 @@
       -->
 
     </div>
-  </div>
+  </details>
 
   <!-- ABOUT -->
   <div class="section" id="about">
@@ -1312,6 +1343,21 @@
   </div>
 
 </div>
+
+<script>
+  function openLaneFromHash() {
+    var hash = window.location.hash.slice(1);
+    if (!hash) return;
+    var el = document.getElementById(hash);
+    if (el && el.tagName.toLowerCase() === 'details') {
+      el.open = true;
+      // re-scroll once expanded so the section header lands at the top
+      requestAnimationFrame(function () { el.scrollIntoView({ behavior: 'smooth', block: 'start' }); });
+    }
+  }
+  window.addEventListener('hashchange', openLaneFromHash);
+  document.addEventListener('DOMContentLoaded', openLaneFromHash);
+</script>
 
 </body>
 </html>
