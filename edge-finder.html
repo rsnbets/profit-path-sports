@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>⚡ EV Calculator — Profit Path Sports</title>
+  <title>⚡ Edge Finder — Profit Path Sports</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Space+Mono:wght@400;700&family=Barlow+Condensed:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
@@ -36,16 +36,13 @@
     .form-input{background:var(--bg);border:1px solid var(--border);color:var(--text);padding:9px 12px;font-family:var(--mono);font-size:13px;border-radius:4px;outline:none;transition:border-color 0.15s;width:100%;}
     .form-input:focus{border-color:var(--accent);}
     .form-hint{font-size:11px;font-family:var(--mono);min-height:14px;color:var(--blue);}
-    .form-hint a{color:var(--blue);text-decoration:none;border-bottom:1px dashed var(--blue);}
-    .form-hint a:hover{color:var(--accent);border-color:var(--accent);}
 
     .form-divider{grid-column:span 4;height:1px;background:var(--border);margin:4px 0;}
     .form-section-label{grid-column:span 4;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent);font-family:var(--mono);padding-top:4px;}
 
-    .scenario-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:2px;}
-    .scenario-pill{padding:8px 14px;border-radius:4px;font-size:12px;font-weight:600;letter-spacing:0.05em;text-transform:uppercase;font-family:var(--display);cursor:pointer;border:1px solid var(--border);color:var(--muted);background:none;transition:all 0.15s;white-space:nowrap;}
-    .scenario-pill.active{background:var(--accent);color:var(--bg);border-color:var(--accent);}
-    .scenario-pill:hover:not(.active){border-color:var(--accent);color:var(--accent);}
+    .quick-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;}
+    .quick-pill{padding:6px 11px;border-radius:4px;font-size:11px;font-weight:600;letter-spacing:0.05em;font-family:var(--mono);cursor:pointer;border:1px solid var(--border);color:var(--muted);background:none;transition:all 0.15s;white-space:nowrap;}
+    .quick-pill:hover{border-color:var(--blue);color:var(--blue);}
 
     /* Intro */
     .intro{padding:22px 24px;background:var(--bg);border-bottom:1px solid var(--border);}
@@ -57,16 +54,14 @@
     .intro-body .hl{color:var(--accent);font-weight:600;}
     .intro-body a{color:var(--blue);text-decoration:none;border-bottom:1px dashed var(--blue);}
     .intro-body a:hover{color:var(--accent);border-color:var(--accent);}
-    .intro-list{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px;}
-    .intro-card{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:12px 14px;}
-    .intro-card-title{font-family:var(--mono);font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--blue);margin-bottom:6px;}
-    .intro-card-body{font-family:var(--display);font-size:13px;line-height:1.5;color:var(--muted);}
 
     .back-bar{padding:10px 20px;background:var(--bg);border-bottom:1px solid var(--border);}
     .back-bar a{color:var(--muted);font-family:var(--mono);font-size:12px;text-decoration:none;letter-spacing:0.06em;}
     .back-bar a:hover{color:var(--text);}
 
     .disclaimer{text-align:center;padding:20px;font-size:11px;color:var(--muted);font-family:var(--mono);border-top:1px solid var(--border);line-height:1.6;}
+    .disclaimer a{color:var(--blue);text-decoration:none;}
+    .disclaimer a:hover{color:var(--accent);}
 
     @media(max-width:640px){
       .bt-stats{grid-template-columns:repeat(3,1fr);}
@@ -75,7 +70,6 @@
       .bt-brand-text{font-size:18px;}
       .bt-sub{font-size:9px;}
       .stat-cell:nth-child(4),.stat-cell:nth-child(5),.stat-cell:nth-child(6){border-top:1px solid var(--border);}
-      .intro-list{grid-template-columns:1fr;}
       .intro-headline{font-size:18px;}
       .intro-body{font-size:14px;}
     }
@@ -87,152 +81,139 @@
 
   <div class="bt-header">
     <div class="bt-brand-text"><span class="bolt">⚡</span> Profit Path Sports <span class="bolt">⚡</span></div>
-    <div class="bt-sub">EV Calculator</div>
+    <div class="bt-sub">Edge Finder</div>
   </div>
 
   <div class="intro">
     <div class="intro-inner">
       <div class="intro-eyebrow">⚡ What This Tool Does</div>
-      <div class="intro-headline">Calculate the true expected value of any bet.</div>
+      <div class="intro-headline">Compare your available line to a sharper market line.</div>
       <div class="intro-body">
-        Plug in the odds you're getting, the <span class="hl">fair (no-vig) odds</span>, and your stake. The calculator returns true <strong>EV %</strong> and <strong>EV $</strong> — the average amount you'd profit per bet if you placed this same wager thousands of times.
+        Drop in the odds you can bet (your softer book) and the odds you'd see at a <strong>sharp market</strong> (Pinnacle, Circa, an exchange). Edge Finder shows the <span class="hl">probability gap</span> between the two — the bigger the gap in your favor, the better your line is relative to where the market thinks the true price sits.
       </div>
       <div class="intro-body">
-        Need fair odds? Use the <a href="devig_calculator.html">Devig Calculator</a> to strip the vig out of a 2-way market first. Once you have a no-vig price, drop it in below and the EV math is exact.
-      </div>
-      <div class="intro-list">
-        <div class="intro-card">
-          <div class="intro-card-title">⚡ EV Formula</div>
-          <div class="intro-card-body">EV = p × (decimal odds − 1) − (1 − p), where p is your true win probability (1 ÷ fair decimal odds).</div>
-        </div>
-        <div class="intro-card">
-          <div class="intro-card-title">⚡ Positive EV</div>
-          <div class="intro-card-body">Means you'll profit on average over many bets. Even +1% EV is meaningful when stacked across hundreds of plays.</div>
-        </div>
-        <div class="intro-card">
-          <div class="intro-card-title">⚡ Kelly Sizing</div>
-          <div class="intro-card-body">The Kelly bet shows how much of your bankroll to wager based on your edge. Most bettors use ½ or ¼ Kelly to soften variance.</div>
-        </div>
+        This is a fast line-shopping check, not true EV. For real EV, you need a fair (no-vig) probability — strip the vig with the <a href="devig_calculator.html">Devig Calculator</a> first, then plug it into the <a href="ev-calculator.html">EV Calculator</a>. The "Approx EV" stat below assumes the sharp line is the fair price, which is close but not exact (sharp books still bake in a small vig).
       </div>
     </div>
   </div>
 
   <div class="bt-stats">
-    <div class="stat-cell"><div class="stat-label">True Win Prob</div><div class="stat-value blue" id="s-prob">—</div></div>
-    <div class="stat-cell"><div class="stat-label">EV %</div><div class="stat-value" id="s-evpct">—</div></div>
-    <div class="stat-cell"><div class="stat-label">EV $</div><div class="stat-value" id="s-evdol">—</div></div>
-    <div class="stat-cell"><div class="stat-label">Profit if Win</div><div class="stat-value accent" id="s-profit">—</div></div>
-    <div class="stat-cell"><div class="stat-label">Kelly Bet</div><div class="stat-value" id="s-kdol">—</div></div>
-    <div class="stat-cell"><div class="stat-label">% of Bankroll</div><div class="stat-value" id="s-kpct">—</div></div>
+    <div class="stat-cell"><div class="stat-label">Your Implied %</div><div class="stat-value blue" id="s-yours">—</div></div>
+    <div class="stat-cell"><div class="stat-label">Sharp Implied %</div><div class="stat-value accent" id="s-sharp">—</div></div>
+    <div class="stat-cell"><div class="stat-label">Probability Gap</div><div class="stat-value" id="s-gap">—</div></div>
+    <div class="stat-cell"><div class="stat-label">Approx EV %</div><div class="stat-value" id="s-evpct">—</div></div>
+    <div class="stat-cell"><div class="stat-label">Approx EV $</div><div class="stat-value" id="s-evdol">—</div></div>
+    <div class="stat-cell"><div class="stat-label">Verdict</div><div class="stat-value" id="s-verdict" style="font-size:13px;">—</div></div>
   </div>
 
   <div class="form-panel">
     <div class="form-grid">
 
-      <div class="form-section-label">⚡ The Bet</div>
+      <div class="form-section-label">⚡ Lines</div>
 
-      <div class="form-group">
-        <label class="form-label">Your Odds (American)</label>
+      <div class="form-group wide">
+        <label class="form-label">Your Available Line (American)</label>
         <input type="number" class="form-input" id="f-yours" value="-110" oninput="calc()">
         <div class="form-hint" id="hint-yours"></div>
       </div>
-      <div class="form-group">
-        <label class="form-label">Fair / No-Vig Odds (American)</label>
-        <input type="number" class="form-input" id="f-fair" value="-120" oninput="calc()">
-        <div class="form-hint" id="hint-fair"><a href="devig_calculator.html">Need fair odds? → Devig</a></div>
+      <div class="form-group wide">
+        <label class="form-label">Sharp / Market Line (American)</label>
+        <input type="number" class="form-input" id="f-sharp" value="-120" oninput="calc()">
+        <div class="form-hint" id="hint-sharp"></div>
       </div>
+
+      <div class="form-group full">
+        <label class="form-label">Quick Load Sharp Line</label>
+        <div class="quick-row" id="quick-row"></div>
+      </div>
+
+      <div class="form-divider"></div>
+      <div class="form-section-label">⚡ Stake</div>
+
       <div class="form-group">
         <label class="form-label">Stake ($)</label>
         <input type="number" class="form-input" id="f-stake" value="100" min="0" oninput="calc()">
+      </div>
+      <div class="form-group wide">
+        <label class="form-label">Profit if Win</label>
+        <div class="form-input" id="profit-disp" style="background:var(--surface2);color:var(--green);cursor:default;">—</div>
       </div>
       <div class="form-group">
         <label class="form-label">Total Return</label>
         <div class="form-input" id="return-disp" style="background:var(--surface2);color:var(--text);cursor:default;">—</div>
       </div>
-
-      <div class="form-divider"></div>
-      <div class="form-section-label">⚡ Bankroll & Kelly Sizing</div>
-
-      <div class="form-group">
-        <label class="form-label">Bankroll ($)</label>
-        <input type="number" class="form-input" id="f-bankroll" value="1000" min="0" oninput="calc()">
-      </div>
-      <div class="form-group full" style="grid-column:span 3;">
-        <label class="form-label">Kelly Fraction</label>
-        <div class="scenario-row">
-          <button class="scenario-pill" onclick="setKelly(1,this)">Full Kelly</button>
-          <button class="scenario-pill" onclick="setKelly(0.75,this)">3/4 Kelly</button>
-          <button class="scenario-pill active" onclick="setKelly(0.5,this)">1/2 Kelly</button>
-          <button class="scenario-pill" onclick="setKelly(0.25,this)">1/4 Kelly</button>
-        </div>
-      </div>
     </div>
   </div>
 
   <div class="disclaimer">
-    EV math assumes the fair odds you enter are accurate — garbage in, garbage out. Use the <a href="devig_calculator.html" style="color:var(--blue)">Devig Calculator</a> to compute fair odds from a market.<br><br>
+    Edge Finder estimates value by comparing two lines — it's a quick line-shopping tool, not a true EV calculator.<br>
+    For real EV, devig the market with the <a href="devig_calculator.html">Devig Calculator</a> and feed the fair odds into the <a href="ev-calculator.html">EV Calculator</a>.<br><br>
     Profit Path Sports is an educational resource. Bet responsibly. 21+ where legal. 1-800-GAMBLER.
   </div>
 
   <script>
-    let kellyFrac = 0.5;
-
     function americanToDecimal(o){o=Number(o);if(!o||isNaN(o))return null;return o>0?(o/100)+1:(100/Math.abs(o))+1;}
     function impliedProb(o){o=Number(o);if(!o||isNaN(o))return null;return o>0?100/(o+100):Math.abs(o)/(Math.abs(o)+100);}
-
-    function setKelly(f,btn){
-      kellyFrac=f;
-      document.querySelectorAll('.scenario-pill').forEach(p=>p.classList.remove('active'));
-      btn.classList.add('active');
-      calc();
-    }
+    function fmtAmerican(o){return (o>0?'+':'')+o;}
 
     function calc(){
-      const y=document.getElementById('f-yours').value, f=document.getElementById('f-fair').value;
+      const y=document.getElementById('f-yours').value, s=document.getElementById('f-sharp').value;
       const stake=Number(document.getElementById('f-stake').value)||0;
-      const bankroll=Number(document.getElementById('f-bankroll').value)||0;
+      const py=impliedProb(y), ps=impliedProb(s), dy=americanToDecimal(y);
 
-      const dy=americanToDecimal(y), df=americanToDecimal(f);
       const setStat=(id,text,cls)=>{const el=document.getElementById(id);el.textContent=text;el.className='stat-value'+(cls?' '+cls:'');};
+      const hintY=document.getElementById('hint-yours'), hintS=document.getElementById('hint-sharp');
+      hintY.textContent=py!==null?`Decimal: ${americanToDecimal(y).toFixed(3)}`:'';
+      hintS.textContent=ps!==null?`Decimal: ${americanToDecimal(s).toFixed(3)}`:'';
 
-      document.getElementById('hint-yours').textContent=dy?`Decimal: ${dy.toFixed(3)}`:'';
-      // keep the devig link, only show decimal alongside
-      const fHint=document.getElementById('hint-fair');
-      if(df) fHint.innerHTML=`Decimal: ${df.toFixed(3)} &nbsp;·&nbsp; <a href="devig_calculator.html">Need fair? → Devig</a>`;
-      else fHint.innerHTML=`<a href="devig_calculator.html">Need fair odds? → Devig</a>`;
+      // implied probs
+      if(py!==null) setStat('s-yours',`${(py*100).toFixed(2)}%`,'blue');
+      else setStat('s-yours','—');
+      if(ps!==null) setStat('s-sharp',`${(ps*100).toFixed(2)}%`,'accent');
+      else setStat('s-sharp','—');
 
-      if(!dy||!df){
-        ['s-prob','s-evpct','s-evdol','s-profit','s-kdol','s-kpct'].forEach(id=>setStat(id,'—'));
+      if(py===null||ps===null||!dy){
+        setStat('s-gap','—');setStat('s-evpct','—');setStat('s-evdol','—');setStat('s-verdict','—');
+        document.getElementById('s-verdict').style.fontSize='13px';
+        document.getElementById('profit-disp').textContent='—';
         document.getElementById('return-disp').textContent='—';
         return;
       }
 
-      const p = 1/df;                    // true win probability from no-vig
-      const b = dy - 1;                  // net decimal payout per $1
-      const evPerDollar = p*dy - 1;      // == p*b - (1-p)
-      const evDol = evPerDollar * stake;
-      const profit = b * stake;
+      const gap = ps - py;                  // probability gap
+      const evPct = (ps - py) * dy;         // approx EV per $1 if sharp is fair
+      const evDol = evPct * stake;
+      const profit = (dy-1)*stake;
       const totalReturn = profit + stake;
 
-      const evPctNum = evPerDollar * 100;
-      setStat('s-prob',`${(p*100).toFixed(2)}%`,'blue');
+      const gapPct = gap*100, evPctNum = evPct*100;
+      setStat('s-gap',`${gapPct>=0?'+':''}${gapPct.toFixed(2)}%`,gapPct>=0?'pos':'neg');
       setStat('s-evpct',`${evPctNum>=0?'+':''}${evPctNum.toFixed(2)}%`,evPctNum>=0?'pos':'neg');
       setStat('s-evdol',`${evDol>=0?'+$':'-$'}${Math.abs(evDol).toFixed(2)}`,evDol>=0?'pos':'neg');
-      setStat('s-profit',`+$${profit.toFixed(2)}`,'accent');
-      document.getElementById('return-disp').textContent=`$${totalReturn.toFixed(2)}`;
 
-      // Kelly
-      const fullKelly = (b*p - (1-p))/b;   // = evPerDollar / b
-      const adj = fullKelly * kellyFrac;
-      if(fullKelly<=0 || bankroll<=0){
-        setStat('s-kdol','$0.00');
-        setStat('s-kpct','0.00%');
-      } else {
-        const dol = bankroll * adj;
-        setStat('s-kdol',`$${dol.toFixed(2)}`,'pos');
-        setStat('s-kpct',`${(adj*100).toFixed(2)}%`,'pos');
-      }
+      let verdict='', vCls='';
+      if(evPctNum>=3){verdict='🔥 Strong';vCls='pos';}
+      else if(evPctNum>=1){verdict='✅ Moderate';vCls='pos';}
+      else if(evPctNum>0){verdict='⚠️ Thin';vCls='accent';}
+      else if(evPctNum===0){verdict='➡️ Even';vCls='';}
+      else {verdict='❌ Negative';vCls='neg';}
+      setStat('s-verdict',verdict,vCls);
+      document.getElementById('s-verdict').style.fontSize='14px';
+
+      document.getElementById('profit-disp').textContent=`+$${profit.toFixed(2)}`;
+      document.getElementById('return-disp').textContent=`$${totalReturn.toFixed(2)}`;
     }
+
+    // Quick load sharp pills
+    const quicks=[-200,-150,-130,-110,+100,+110,+130,+150,+200];
+    const qRow=document.getElementById('quick-row');
+    quicks.forEach(o=>{
+      const b=document.createElement('button');
+      b.className='quick-pill';
+      b.textContent=fmtAmerican(o);
+      b.onclick=()=>{document.getElementById('f-sharp').value=o;calc();};
+      qRow.appendChild(b);
+    });
 
     calc();
   </script>
