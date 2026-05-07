@@ -90,33 +90,6 @@
     <div class="bt-sub">EV Calculator</div>
   </div>
 
-  <div class="intro">
-    <div class="intro-inner">
-      <div class="intro-eyebrow">⚡ What This Tool Does</div>
-      <div class="intro-headline">Calculate the true expected value of any bet.</div>
-      <div class="intro-body">
-        Plug in the odds you're getting, the <span class="hl">fair (no-vig) odds</span>, and your stake. The calculator returns true <strong>EV %</strong> and <strong>EV $</strong> — the average amount you'd profit per bet if you placed this same wager thousands of times.
-      </div>
-      <div class="intro-body">
-        Need fair odds? Use the <a href="devig_calculator.html">Devig Calculator</a> to strip the vig out of a 2-way market first. Once you have a no-vig price, drop it in below and the EV math is exact.
-      </div>
-      <div class="intro-list">
-        <div class="intro-card">
-          <div class="intro-card-title">⚡ EV Formula</div>
-          <div class="intro-card-body">EV = p × (decimal odds − 1) − (1 − p), where p is your true win probability (1 ÷ fair decimal odds).</div>
-        </div>
-        <div class="intro-card">
-          <div class="intro-card-title">⚡ Positive EV</div>
-          <div class="intro-card-body">Means you'll profit on average over many bets. Even +1% EV is meaningful when stacked across hundreds of plays.</div>
-        </div>
-        <div class="intro-card">
-          <div class="intro-card-title">⚡ Kelly Sizing</div>
-          <div class="intro-card-body">The Kelly bet shows how much of your bankroll to wager based on your edge. Most bettors use ½ or ¼ Kelly to soften variance.</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <div class="bt-stats">
     <div class="stat-cell"><div class="stat-label">True Win Prob</div><div class="stat-value blue" id="s-prob">—</div></div>
     <div class="stat-cell"><div class="stat-label">EV %</div><div class="stat-value" id="s-evpct">—</div></div>
@@ -164,6 +137,33 @@
           <button class="scenario-pill" onclick="setKelly(0.75,this)">3/4 Kelly</button>
           <button class="scenario-pill active" onclick="setKelly(0.5,this)">1/2 Kelly</button>
           <button class="scenario-pill" onclick="setKelly(0.25,this)">1/4 Kelly</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="intro">
+    <div class="intro-inner">
+      <div class="intro-eyebrow">⚡ What This Tool Does</div>
+      <div class="intro-headline">Calculate the true expected value of any bet.</div>
+      <div class="intro-body">
+        Plug in the odds you're getting, the <span class="hl">fair (no-vig) odds</span>, and your stake. The calculator returns true <strong>EV %</strong> and <strong>EV $</strong> — the average amount you'd profit per bet if you placed this same wager thousands of times.
+      </div>
+      <div class="intro-body">
+        Need fair odds? Use the <a href="devig_calculator.html">Devig Calculator</a> to strip the vig out of a 2-way market first. Once you have a no-vig price, drop it into the form above and the EV math is exact.
+      </div>
+      <div class="intro-list">
+        <div class="intro-card">
+          <div class="intro-card-title">⚡ EV Formula</div>
+          <div class="intro-card-body">EV = p × (decimal odds − 1) − (1 − p), where p is your true win probability (1 ÷ fair decimal odds).</div>
+        </div>
+        <div class="intro-card">
+          <div class="intro-card-title">⚡ Positive EV</div>
+          <div class="intro-card-body">Means you'll profit on average over many bets. Even +1% EV is meaningful when stacked across hundreds of plays.</div>
+        </div>
+        <div class="intro-card">
+          <div class="intro-card-title">⚡ Kelly Sizing</div>
+          <div class="intro-card-body">The Kelly bet shows how much of your bankroll to wager based on your edge. Most bettors use ½ or ¼ Kelly to soften variance.</div>
         </div>
       </div>
     </div>
