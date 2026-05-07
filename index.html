@@ -7,7 +7,7 @@
 <meta name="description" content="Free, professional-grade calculators and education for sports bettors. EV, arbitrage, devig, bonus conversion, and more. No paywall, no signup.">
 
 <!-- Favicon: SVG lightning bolt -->
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230a0f1c'/%3E%3Cpath d='M18 4L8 18h6l-2 10 10-14h-6z' fill='%23ffb020' stroke='%23ff8c00' stroke-width='0.5'/%3E%3C/svg%3E">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230a0f1c'/%3E%3Cpolyline points='5,24 12,16 16,19 22,9 27,5' fill='none' stroke='%23ffb020' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
 
 <!-- Open Graph / Social sharing -->
 <meta property="og:type" content="website">
@@ -94,11 +94,16 @@
     margin-bottom: 18px;
   }
 
-  .brand-mark .bolt {
-    font-size: 42px;
+  .brand-chart {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     color: #ffb020;
-    filter: drop-shadow(0 0 14px rgba(255, 176, 32, 0.85)) drop-shadow(0 0 4px rgba(255, 140, 0, 0.6));
+    filter: drop-shadow(0 0 10px rgba(255, 176, 32, 0.65)) drop-shadow(0 0 3px rgba(255, 140, 0, 0.5));
+    width: 36px;
+    height: 28px;
   }
+  .brand-chart svg { width: 100%; height: 100%; }
 
   .brand-name {
     font-family: 'Orbitron', sans-serif;
@@ -709,8 +714,8 @@
   }
 
   /* ── Demoted brand + headline-led hero ── */
-  .brand-mark.small { margin-bottom: 8px; opacity: 0.85; }
-  .brand-mark.small .bolt { font-size: 26px; }
+  .brand-mark.small { margin-bottom: 8px; opacity: 0.9; }
+  .brand-mark.small .brand-chart { width: 28px; height: 22px; }
   .brand-mark.small .brand-name { font-size: 18px; letter-spacing: 3px; }
 
   .brand-tagline {
@@ -855,9 +860,12 @@
   <div class="hero">
     <div class="hero-inner">
       <div class="brand-mark small">
-        <span class="bolt">⚡</span>
+        <span class="brand-chart" aria-hidden="true">
+          <svg viewBox="0 0 28 22" xmlns="http://www.w3.org/2000/svg" fill="none">
+            <polyline points="2,18 8,12 12,15 18,7 26,3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
         <span class="brand-name">Profit Path Sports</span>
-        <span class="bolt">⚡</span>
       </div>
       <div class="brand-tagline">Learn to beat the sportsbooks at their own game</div>
       <h1 class="hero-headline">
