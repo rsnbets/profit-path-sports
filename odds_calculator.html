@@ -66,6 +66,21 @@
     opacity: 0.6;
   }
 
+  .back-link, .learn-link {
+    position: absolute;
+    top: 20px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--dim);
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.15s;
+  }
+  .back-link { left: 20px; }
+  .learn-link { right: 20px; }
+  .back-link:hover, .learn-link:hover { color: var(--blue); }
+
   .header h1 {
     font-family: 'Orbitron', sans-serif;
     font-size: 22px;
@@ -252,6 +267,8 @@
 <body>
 <div class="card">
   <div class="header">
+    <a href="index.html" class="back-link">← Hub</a>
+    <a href="learn-implied.html" class="learn-link">Learn the math →</a>
     <h1><span class="bolt">⚡</span> Implied Odds Calculator <span class="bolt">⚡</span></h1>
   </div>
 
