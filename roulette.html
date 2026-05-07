@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>⚡ Virtual Roulette — Profit Path Sports</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Space+Mono:wght@400;700&family=Barlow+Condensed:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+  <style>
+    :root {
+      --bg:#0a0f1c;--surface:#111827;--surface2:#1a2335;--border:#1e2d45;
+      --accent:#f0a030;--blue:#3b82f6;--green:#22c55e;--red:#ef4444;
+      --rt-red:#c0392b;--rt-black:#1c2231;--rt-green:#0e7c4a;
+      --text:#e8edf5;--muted:#6b7fa3;
+      --mono:'Space Mono',monospace;--display:'Barlow Condensed',sans-serif;--title:'Orbitron',sans-serif;
+    }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{background:var(--bg);color:var(--text);font-family:var(--display);min-height:100vh;}
+
+    /* Header */
+    .bt-header{background:var(--surface);border-bottom:1px solid var(--border);padding:22px 20px 16px;display:flex;flex-direction:column;align-items:center;gap:6px;}
+    .bt-brand-text{font-family:var(--title);font-size:28px;font-weight:900;letter-spacing:0.08em;text-transform:uppercase;color:var(--blue);white-space:nowrap;}
+    .bt-brand-text .bolt{color:var(--accent);}
+    .bt-sub{font-family:var(--title);font-size:11px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);}
+
+    /* Back link */
+    .back-bar{padding:10px 20px;background:var(--bg);border-bottom:1px solid var(--border);}
+    .back-bar a{color:var(--muted);font-family:var(--mono);font-size:12px;text-decoration:none;letter-spacing:0.06em;}
+    .back-bar a:hover{color:var(--text);}
+
+    /* Intro */
+    .intro{padding:22px 24px;background:var(--bg);border-bottom:1px solid var(--border);}
+    .intro-inner{max-width:820px;margin:0 auto;}
+    .intro-eyebrow{font-family:var(--mono);font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--accent);margin-bottom:10px;}
+    .intro-headline{font-family:var(--display);font-size:22px;font-weight:700;color:var(--text);line-height:1.3;margin-bottom:12px;letter-spacing:0.01em;}
+    .intro-body{font-family:var(--display);font-size:15px;line-height:1.6;color:var(--muted);margin-bottom:14px;}
+    .intro-body strong{color:var(--text);font-weight:600;}
+    .intro-body .hl{color:var(--accent);font-weight:600;}
+    .intro-list{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px;}
+    .intro-card{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:12px 14px;}
+    .intro-card-title{font-family:var(--mono);font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--blue);margin-bottom:6px;}
+    .intro-card-body{font-family:var(--display);font-size:13px;line-height:1.5;color:var(--muted);}
+
+    /* Stats bar */
+    .bt-stats{display:grid;grid-template-columns:repeat(6,1fr);border-bottom:1px solid var(--border);}
+    .stat-cell{padding:12px 10px;border-right:1px solid var(--border);text-align:center;}
+    .stat-cell:last-child{border-right:none;}
+    .stat-label{font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:4px;font-family:var(--mono);}
+    .stat-value{font-size:19px;font-weight:700;color:var(--text);}
+    .stat-value.pos{color:var(--green);}.stat-value.neg{color:var(--red);}.stat-value.accent{color:var(--accent);}
+
+    /* Panels */
+    .panel{padding:18px 20px;background:var(--surface);border-bottom:1px solid var(--border);}
+    .panel-title{font-family:var(--mono);font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent);margin-bottom:12px;}
+
+    /* Mode tabs */
+    .tabs{display:flex;gap:0;background:var(--surface);border-bottom:1px solid var(--border);}
+    .tab{flex:1;padding:14px 16px;text-align:center;font-family:var(--display);font-size:14px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);cursor:pointer;background:none;border:none;border-bottom:2px solid transparent;transition:all 0.15s;}
+    .tab.active{color:var(--accent);border-bottom-color:var(--accent);background:var(--surface2);}
+    .tab:hover:not(.active){color:var(--text);}
+
+    /* Wheel toggle pills */
+    .pill-row{display:flex;flex-wrap:wrap;gap:6px;}
+    .pill{padding:8px 14px;border-radius:4px;font-size:12px;font-weight:600;letter-spacing:0.05em;text-transform:uppercase;font-family:var(--display);cursor:pointer;border:1px solid var(--border);color:var(--muted);background:none;transition:all 0.15s;white-space:nowrap;}
+    .pill.active{background:var(--accent);color:var(--bg);border-color:var(--accent);}
+    .pill:hover:not(.active){border-color:var(--accent);color:var(--accent);}
+
+    /* Roulette table */
+    .table-wrap{overflow-x:auto;padding-bottom:6px;}
+    .roulette-table{display:grid;grid-template-columns:60px repeat(12,minmax(38px,1fr)) 60px;gap:3px;min-width:780px;font-family:var(--mono);}
+    .num-cell{aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#fff;cursor:pointer;border:1px solid transparent;transition:all 0.1s;border-radius:3px;user-select:none;}
+    .num-cell.red{background:var(--rt-red);}
+    .num-cell.black{background:var(--rt-black);}
+    .num-cell.green{background:var(--rt-green);}
+    .num-cell:hover{border-color:var(--accent);transform:scale(1.05);}
+    .num-cell.has-bet{box-shadow:inset 0 0 0 2px var(--accent);}
+    .num-cell.flash{animation:flashWin 1.2s ease-out;}
+    @keyframes flashWin{0%{box-shadow:0 0 0 0 var(--accent);}50%{box-shadow:0 0 0 8px rgba(240,160,48,0.6);}100%{box-shadow:inset 0 0 0 2px var(--accent);}}
+    .zero-cell{grid-row:span 3;}
+    .col-bet{display:flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);background:var(--surface2);border:1px solid var(--border);border-radius:3px;cursor:pointer;font-family:var(--mono);font-weight:700;transition:all 0.1s;}
+    .col-bet:hover{border-color:var(--accent);color:var(--accent);}
+    .col-bet.has-bet{box-shadow:inset 0 0 0 2px var(--accent);color:var(--accent);}
+
+    .outside-grid{display:grid;grid-template-columns:60px repeat(12,minmax(38px,1fr)) 60px;gap:3px;min-width:780px;margin-top:3px;font-family:var(--mono);}
+    .outside-cell{padding:11px 6px;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;text-align:center;background:var(--surface2);border:1px solid var(--border);border-radius:3px;cursor:pointer;color:var(--muted);font-weight:700;transition:all 0.1s;}
+    .outside-cell:hover{border-color:var(--accent);color:var(--accent);}
+    .outside-cell.has-bet{box-shadow:inset 0 0 0 2px var(--accent);color:var(--accent);}
+    .outside-cell.dozen{grid-column:span 4;}
+    .outside-cell.eo{grid-column:span 2;}
+    .outside-cell.color{grid-column:span 2;color:#fff;}
+    .outside-cell.color.red{background:var(--rt-red);border-color:var(--rt-red);}
+    .outside-cell.color.black{background:var(--rt-black);border-color:#2a3550;}
+    .outside-cell.color:hover{opacity:0.8;}
+    .outside-cell.lo,.outside-cell.hi{grid-column:span 2;}
+    .outside-spacer{grid-column:1;}
+    .outside-spacer-end{grid-column:14;}
+
+    /* Combo bet form */
+    .combo-form{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:8px;}
+    .form-group{display:flex;flex-direction:column;gap:5px;}
+    .form-label{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);font-family:var(--mono);}
+    .form-input,.form-select{background:var(--bg);border:1px solid var(--border);color:var(--text);padding:9px 12px;font-family:var(--mono);font-size:13px;border-radius:4px;outline:none;transition:border-color 0.15s;width:100%;}
+    .form-input:focus,.form-select:focus{border-color:var(--accent);}
+    .form-hint{font-size:11px;font-family:var(--mono);min-height:14px;color:var(--blue);}
+
+    /* Stake row */
+    .stake-row{display:grid;grid-template-columns:160px 1fr auto;gap:10px;align-items:end;margin-top:14px;}
+    .chip-row{display:flex;flex-wrap:wrap;gap:6px;}
+    .chip{padding:8px 12px;border-radius:4px;font-family:var(--mono);font-size:12px;font-weight:700;cursor:pointer;border:1px solid var(--border);color:var(--muted);background:none;transition:all 0.15s;}
+    .chip:hover{border-color:var(--accent);color:var(--accent);}
+    .chip.active{background:var(--accent);color:var(--bg);border-color:var(--accent);}
+
+    /* Buttons */
+    .btn-add{background:var(--accent);color:var(--bg);border:none;padding:11px 28px;font-family:var(--display);font-size:14px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;border-radius:4px;cursor:pointer;transition:opacity 0.15s;}
+    .btn-add:hover{opacity:0.85;}
+    .btn-add:disabled{opacity:0.4;cursor:not-allowed;}
+    .btn-clear{background:none;color:var(--muted);border:1px solid var(--border);padding:11px 18px;font-family:var(--display);font-size:13px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;border-radius:4px;cursor:pointer;transition:all 0.15s;}
+    .btn-clear:hover{border-color:var(--red);color:var(--red);}
+    .btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;}
+
+    /* Active bets list */
+    .bets-list{display:flex;flex-direction:column;gap:6px;margin-top:8px;max-height:220px;overflow-y:auto;}
+    .bet-item{display:grid;grid-template-columns:1fr auto auto auto;gap:10px;align-items:center;padding:8px 10px;background:var(--bg);border:1px solid var(--border);border-radius:4px;font-family:var(--mono);font-size:12px;}
+    .bet-type{color:var(--accent);font-weight:700;text-transform:uppercase;letter-spacing:0.05em;}
+    .bet-detail{color:var(--text);}
+    .bet-stake{color:var(--green);font-weight:700;}
+    .bet-remove{background:none;border:none;color:var(--muted);cursor:pointer;font-size:18px;line-height:1;padding:0 6px;transition:color 0.15s;}
+    .bet-remove:hover{color:var(--red);}
+    .bets-empty{padding:20px;text-align:center;color:var(--muted);font-family:var(--mono);font-size:12px;}
+    .bets-summary{display:flex;justify-content:space-between;padding:8px 10px;background:var(--surface2);border:1px solid var(--border);border-radius:4px;font-family:var(--mono);font-size:12px;color:var(--muted);margin-top:8px;}
+    .bets-summary strong{color:var(--text);}
+
+    /* Result display (single mode) */
+    .result-panel{padding:24px 20px;background:var(--surface2);border-bottom:1px solid var(--border);text-align:center;}
+    .result-big{display:inline-flex;align-items:center;justify-content:center;width:120px;height:120px;border-radius:50%;font-family:var(--title);font-size:48px;font-weight:900;color:#fff;border:4px solid var(--accent);transition:all 0.3s;}
+    .result-big.red{background:var(--rt-red);}
+    .result-big.black{background:var(--rt-black);}
+    .result-big.green{background:var(--rt-green);}
+    .result-pl{margin-top:14px;font-family:var(--title);font-size:22px;font-weight:700;letter-spacing:0.04em;}
+    .result-detail{margin-top:6px;font-family:var(--mono);font-size:12px;color:var(--muted);}
+    .history-row{display:flex;flex-wrap:wrap;justify-content:center;gap:5px;margin-top:18px;}
+    .history-num{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:4px;font-family:var(--mono);font-size:13px;font-weight:700;color:#fff;}
+    .history-num.red{background:var(--rt-red);}
+    .history-num.black{background:var(--rt-black);}
+    .history-num.green{background:var(--rt-green);}
+    .history-label{font-family:var(--mono);font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin-top:14px;}
+
+    /* Chart panel */
+    .chart-panel{padding:20px;background:var(--surface);border-bottom:1px solid var(--border);}
+    .chart-wrap{position:relative;height:380px;}
+    canvas{width:100%!important;border-radius:4px;}
+    .chart-empty{text-align:center;padding:60px 20px;color:var(--muted);font-family:var(--mono);font-size:13px;line-height:1.7;}
+    .chart-empty .big{font-size:34px;margin-bottom:10px;}
+    .chart-legend{display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin-top:14px;font-family:var(--mono);font-size:11px;color:var(--muted);}
+    .chart-legend .swatch{display:inline-block;width:18px;height:3px;vertical-align:middle;margin-right:6px;}
+
+    /* Multi-spin punchline */
+    .punchline{margin:14px 0 0;padding:14px 16px;background:var(--bg);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:4px;font-family:var(--display);font-size:14px;line-height:1.5;color:var(--muted);}
+    .punchline strong{color:var(--text);}
+    .punchline .neg{color:var(--red);font-weight:700;}
+    .punchline .pos{color:var(--green);font-weight:700;}
+    .punchline .gold{color:var(--accent);font-weight:700;}
+
+    /* Spin counter input */
+    .spin-input-row{display:grid;grid-template-columns:200px 1fr;gap:14px;align-items:end;margin-top:8px;}
+
+    /* Disclaimer */
+    .disclaimer{text-align:center;padding:20px;font-size:11px;color:var(--muted);font-family:var(--mono);border-top:1px solid var(--border);line-height:1.6;}
+
+    /* Hidden helper */
+    .hidden{display:none!important;}
+
+    @media(max-width:760px){
+      .bt-stats{grid-template-columns:repeat(3,1fr);}
+      .stat-cell:nth-child(4),.stat-cell:nth-child(5),.stat-cell:nth-child(6){border-top:1px solid var(--border);}
+      .combo-form{grid-template-columns:1fr 1fr;}
+      .stake-row{grid-template-columns:1fr;}
+      .spin-input-row{grid-template-columns:1fr;}
+      .intro-list{grid-template-columns:1fr;}
+      .bt-brand-text{font-size:18px;}
+      .num-cell{font-size:12px;}
+      .chart-wrap{height:300px;}
+      .result-big{width:90px;height:90px;font-size:34px;}
+    }
+  </style>
+</head>
+<body>
+
+  <div class="back-bar"><a href="index.html">← Back to Profit Path Sports</a></div>
+
+  <div class="bt-header">
+    <div class="bt-brand-text"><span class="bolt">⚡</span> Profit Path Sports <span class="bolt">⚡</span></div>
+    <div class="bt-sub">Virtual Roulette</div>
+  </div>
+
+  <div class="intro">
+    <div class="intro-inner">
+      <div class="intro-eyebrow">⚡ What This Tool Does</div>
+      <div class="intro-headline">A built-in house edge means you can't out-play roulette.</div>
+      <div class="intro-body">
+        Place real bets on a virtual table — single spin, or run the same bet across thousands of spins to see what the math does to your bankroll. Toggle between the <span class="hl">American (0/00) wheel</span> and the <span class="hl">European (single 0) wheel</span> to see how a tiny rule difference compounds into a very different outcome.
+      </div>
+      <div class="intro-body">
+        Roulette pays out as if there were no zeros — but the zeros exist. That gap is the <strong>house edge</strong>: <span class="hl">5.26%</span> on American, <span class="hl">2.70%</span> on European. Over enough spins, your expected loss equals your total wagered times that edge — no system, betting pattern, or "due" number changes that.
+      </div>
+      <div class="intro-list">
+        <div class="intro-card">
+          <div class="intro-card-title">⚡ Why It Matters</div>
+          <div class="intro-card-body">Sports betting at fair prices can be +EV. Casino games can't. This tool shows you the difference, in dollars, on a simulated bankroll.</div>
+        </div>
+        <div class="intro-card">
+          <div class="intro-card-title">⚡ House Edge</div>
+          <div class="intro-card-body">Every payout is one unit short of fair. American (5.26%) is nearly 2× as costly as European (2.70%) per spin.</div>
+        </div>
+        <div class="intro-card">
+          <div class="intro-card-title">⚡ Read the Stats</div>
+          <div class="intro-card-body">Compare your actual loss to "expected loss" (wagered × edge). At low spin counts, variance dominates. At high counts, the edge wins.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bt-stats">
+    <div class="stat-cell"><div class="stat-label">Bankroll</div><div class="stat-value accent" id="s-bank">$1,000</div></div>
+    <div class="stat-cell"><div class="stat-label">Total Wagered</div><div class="stat-value" id="s-wager">$0</div></div>
+    <div class="stat-cell"><div class="stat-label">Spins</div><div class="stat-value" id="s-spins">0</div></div>
+    <div class="stat-cell"><div class="stat-label">Net P&amp;L</div><div class="stat-value" id="s-pl">$0</div></div>
+    <div class="stat-cell"><div class="stat-label">Biggest Win</div><div class="stat-value pos" id="s-bigwin">$0</div></div>
+    <div class="stat-cell"><div class="stat-label">Biggest Loss</div><div class="stat-value neg" id="s-bigloss">$0</div></div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" id="tab-single" onclick="switchTab('single')">Single Spin</button>
+    <button class="tab" id="tab-multi" onclick="switchTab('multi')">Multi-Spin (Show The Edge)</button>
+  </div>
+
+  <div class="panel">
+    <div class="panel-title">⚡ Wheel Type</div>
+    <div class="pill-row">
+      <button class="pill active" data-wheel="american" onclick="setWheel('american',this)">American (0 / 00)</button>
+      <button class="pill" data-wheel="european" onclick="setWheel('european',this)">European (single 0)</button>
+      <button class="pill" data-wheel="compare" onclick="setWheel('compare',this)" id="pill-compare">Compare Both <span style="font-size:9px;opacity:0.7;">(multi-spin only)</span></button>
+    </div>
+    <div class="form-hint" id="wheel-hint" style="margin-top:8px;">House edge: <strong style="color:var(--red)">5.26%</strong> &nbsp;·&nbsp; Slots: 38 &nbsp;·&nbsp; Wheel: American</div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-title">⚡ Place Bets — Click The Table</div>
+    <div class="table-wrap">
+      <div class="roulette-table" id="roulette-table"></div>
+      <div class="outside-grid">
+        <div class="outside-spacer"></div>
+        <div class="outside-cell dozen" data-bet="dozen" data-numbers="1-12">1st 12</div>
+        <div class="outside-cell dozen" data-bet="dozen" data-numbers="13-24">2nd 12</div>
+        <div class="outside-cell dozen" data-bet="dozen" data-numbers="25-36">3rd 12</div>
+        <div class="outside-spacer-end"></div>
+
+        <div class="outside-spacer"></div>
+        <div class="outside-cell lo" data-bet="low">1 to 18</div>
+        <div class="outside-cell eo" data-bet="even">Even</div>
+        <div class="outside-cell color red" data-bet="red">Red</div>
+        <div class="outside-cell color black" data-bet="black">Black</div>
+        <div class="outside-cell eo" data-bet="odd">Odd</div>
+        <div class="outside-cell hi" data-bet="high">19 to 36</div>
+        <div class="outside-spacer-end"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-title">⚡ Combination Bet Builder (Splits / Streets / Corners / Lines)</div>
+    <div class="combo-form">
+      <div class="form-group">
+        <label class="form-label">Bet Type</label>
+        <select class="form-select" id="combo-type" onchange="onComboTypeChange()">
+          <option value="split">Split (2 numbers, 17:1)</option>
+          <option value="street">Street (3 numbers, 11:1)</option>
+          <option value="corner">Corner (4 numbers, 8:1)</option>
+          <option value="line">Line (6 numbers, 5:1)</option>
+        </select>
+      </div>
+      <div class="form-group" style="grid-column:span 2;">
+        <label class="form-label">Numbers (comma-separated)</label>
+        <input type="text" class="form-input" id="combo-nums" placeholder="e.g. 5, 8">
+        <div class="form-hint" id="combo-hint">Enter 2 adjacent numbers (1-36)</div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">&nbsp;</label>
+        <button class="btn-add" onclick="addComboBet()" style="padding:9px 18px;">⚡ Add Bet</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-title">⚡ Stake Per Bet</div>
+    <div class="stake-row">
+      <div class="form-group">
+        <label class="form-label">Amount ($)</label>
+        <input type="number" class="form-input" id="stake-input" value="10" min="0.01" step="any">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Quick Chips</label>
+        <div class="chip-row">
+          <button class="chip" onclick="setStake(1)">$1</button>
+          <button class="chip" onclick="setStake(5)">$5</button>
+          <button class="chip active" onclick="setStake(10,this)">$10</button>
+          <button class="chip" onclick="setStake(25)">$25</button>
+          <button class="chip" onclick="setStake(100)">$100</button>
+          <button class="chip" onclick="setStake(500)">$500</button>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:6px;font-family:var(--mono);font-size:11px;color:var(--muted);">
+      Set this <em>before</em> clicking a number/outside bet — that's the stake the new bet will use.
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-title">⚡ Active Bets</div>
+    <div class="bets-list" id="bets-list">
+      <div class="bets-empty">No bets placed. Click a number on the table or an outside bet above to add one.</div>
+    </div>
+    <div class="bets-summary">
+      <div>Total Risk: <strong id="bets-total">$0</strong></div>
+      <div>Bets Placed: <strong id="bets-count">0</strong></div>
+      <div>Max Win: <strong id="bets-maxwin">$0</strong></div>
+    </div>
+    <div class="btn-row">
+      <button class="btn-clear" onclick="clearBets()">Clear Bets</button>
+      <button class="btn-clear" onclick="resetBankroll()">Reset Bankroll</button>
+    </div>
+  </div>
+
+  <!-- SINGLE-SPIN MODE -->
+  <div id="single-mode">
+    <div class="panel">
+      <div class="btn-row" style="margin-top:0;">
+        <button class="btn-add" id="btn-spin" onclick="spinOnce()">⚡ Spin</button>
+      </div>
+    </div>
+
+    <div class="result-panel" id="result-panel" style="display:none;">
+      <div class="result-big" id="result-big">—</div>
+      <div class="result-pl" id="result-pl"></div>
+      <div class="result-detail" id="result-detail"></div>
+      <div class="history-label">Recent Spins (newest first)</div>
+      <div class="history-row" id="history-row"></div>
+    </div>
+  </div>
+
+  <!-- MULTI-SPIN MODE -->
+  <div id="multi-mode" class="hidden">
+    <div class="panel">
+      <div class="panel-title">⚡ Multi-Spin Settings</div>
+      <div class="spin-input-row">
+        <div class="form-group">
+          <label class="form-label"># of Spins</label>
+          <input type="number" class="form-input" id="multi-spins" value="1000" min="1" max="100000" step="1">
+          <div class="form-hint">Max 100,000</div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Quick</label>
+          <div class="chip-row">
+            <button class="chip" onclick="setSpins(100)">100</button>
+            <button class="chip" onclick="setSpins(1000,this)">1,000</button>
+            <button class="chip" onclick="setSpins(5000)">5,000</button>
+            <button class="chip" onclick="setSpins(10000)">10,000</button>
+            <button class="chip" onclick="setSpins(50000)">50,000</button>
+          </div>
+        </div>
+      </div>
+      <div class="btn-row">
+        <button class="btn-add" id="btn-run" onclick="runMulti()">⚡ Run Spins</button>
+      </div>
+      <div style="margin-top:10px;font-family:var(--mono);font-size:11px;color:var(--muted);">
+        Multi-spin replays your active bets every spin. If your bankroll can't cover the total risk on a spin, the run stops.
+      </div>
+    </div>
+
+    <div class="chart-panel">
+      <div class="chart-wrap">
+        <canvas id="sim-chart"></canvas>
+      </div>
+      <div class="chart-legend" id="chart-legend" style="display:none;">
+        <span><span class="swatch" style="background:#ef4444"></span>American (0/00)</span>
+        <span id="legend-eu"><span class="swatch" style="background:#3b82f6"></span>European (single 0)</span>
+        <span><span class="swatch" style="background:#6b7fa3;border-bottom:1px dashed #6b7fa3;height:1px;"></span>Starting bankroll</span>
+      </div>
+      <div class="chart-empty" id="chart-empty">
+        <div class="big">📉</div>
+        Place a bet, set spin count, then click <strong>Run Spins</strong> to watch the house edge drain your bankroll over time.
+      </div>
+      <div class="punchline hidden" id="punchline"></div>
+    </div>
+  </div>
+
+  <div class="disclaimer">
+    Virtual roulette. No real money. House edge is exact: 5.26% on American (2/38), 2.70% on European (1/37).<br>
+    Profit Path Sports is an educational resource. Bet responsibly. 21+ where legal. 1-800-GAMBLER.
+  </div>
+
+  <script>
+    // ---------- STATE ----------
+    const RED_NUMS = new Set([1,3,5,7,9,12,14,16,18,19,21,23,25,27,30,32,34,36]);
+    const isRed = n => n>=1 && RED_NUMS.has(n);
+    const isBlack = n => n>=1 && !RED_NUMS.has(n);
+    const colorOf = n => n===0 || n===-1 ? 'green' : (isRed(n) ? 'red' : 'black');
+    const labelOf = n => n===-1 ? '00' : String(n);
+
+    const PAYOUTS = {
+      straight:35, split:17, street:11, corner:8, line:5,
+      column:2, dozen:2,
+      red:1, black:1, odd:1, even:1, low:1, high:1
+    };
+
+    const STARTING_BANK = 1000;
+    let state = {
+      bank: STARTING_BANK,
+      wagered: 0,
+      spins: 0,
+      pl: 0,
+      bigWin: 0,
+      bigLoss: 0,
+      bets: [],            // {id,type,numbers,stake,label}
+      stake: 10,
+      wheel: 'american',
+      mode: 'single',
+      history: [],         // recent spin numbers, -1 = 00
+      betIdSeq: 1,
+      chart: null
+    };
+
+    // ---------- BUILD TABLE ----------
+    function buildTable(){
+      const t = document.getElementById('roulette-table');
+      t.innerHTML = '';
+      // 0 / 00 column (left)
+      const zero00 = document.createElement('div');
+      zero00.className = 'num-cell green';
+      zero00.style.gridRow = 'span 1';
+      zero00.dataset.num = '-1';
+      zero00.textContent = '00';
+      zero00.onclick = () => placeStraight(-1);
+      t.appendChild(zero00);
+
+      // top row numbers (3,6,9,...,36) — n%3===0
+      for(let c=0;c<12;c++){
+        const n = (c+1)*3;
+        t.appendChild(makeNumCell(n));
+      }
+      // top right column bet
+      const cb1 = document.createElement('div');
+      cb1.className = 'col-bet';
+      cb1.dataset.bet = 'column';
+      cb1.dataset.numbers = 'col1'; // top row → 3,6,9... but standard "column 1" depends on orientation
+      cb1.textContent = '2:1';
+      cb1.title = 'Column: 3,6,9,12,15,18,21,24,27,30,33,36';
+      cb1.onclick = () => placeOutside('column','col-top','3,6,9,12,15,18,21,24,27,30,33,36');
+      t.appendChild(cb1);
+
+      // 0 (single zero) — spans 2 rows visually under 00? Standard layout has 0 left of all rows.
+      const zeroCell = document.createElement('div');
+      zeroCell.className = 'num-cell green';
+      zeroCell.dataset.num = '0';
+      zeroCell.textContent = '0';
+      zeroCell.style.gridRow = 'span 2';
+      zeroCell.onclick = () => placeStraight(0);
+      t.appendChild(zeroCell);
+
+      // middle row (n%3===2): 2,5,8,...,35
+      for(let c=0;c<12;c++){
+        const n = (c+1)*3 - 1;
+        t.appendChild(makeNumCell(n));
+      }
+      const cb2 = document.createElement('div');
+      cb2.className = 'col-bet';
+      cb2.textContent = '2:1';
+      cb2.title = 'Column: 2,5,8,11,14,17,20,23,26,29,32,35';
+      cb2.onclick = () => placeOutside('column','col-mid','2,5,8,11,14,17,20,23,26,29,32,35');
+      t.appendChild(cb2);
+
+      // bottom row (n%3===1): 1,4,7,...,34
+      // skip first cell (zero already spans)
+      const filler = document.createElement('div');
+      filler.style.gridColumn = '1';
+      // We can't have a true filler here — the zero already used row 3 via span:2. But layout may break.
+      // Simpler: use a placeholder grid item for the empty left slot of bottom row.
+      // Actually the 0-cell spans 2 rows so row 3 col 1 is free; let's leave as empty space:
+      filler.style.visibility='hidden';
+      filler.className='num-cell';
+      t.appendChild(filler);
+      for(let c=0;c<12;c++){
+        const n = (c+1)*3 - 2;
+        t.appendChild(makeNumCell(n));
+      }
+      const cb3 = document.createElement('div');
+      cb3.className = 'col-bet';
+      cb3.textContent = '2:1';
+      cb3.title = 'Column: 1,4,7,10,13,16,19,22,25,28,31,34';
+      cb3.onclick = () => placeOutside('column','col-bot','1,4,7,10,13,16,19,22,25,28,31,34');
+      t.appendChild(cb3);
+    }
+
+    function makeNumCell(n){
+      const el = document.createElement('div');
+      el.className = 'num-cell ' + colorOf(n);
+      el.dataset.num = n;
+      el.textContent = n;
+      el.onclick = () => placeStraight(n);
+      return el;
+    }
+
+    // outside cell wiring
+    function wireOutside(){
+      document.querySelectorAll('[data-bet]').forEach(el => {
+        const type = el.dataset.bet;
+        if(type==='column' || type==='dozen'){
+          const ranges = el.dataset.numbers; // "1-12" etc
+          el.onclick = () => placeOutside(type, ranges, ranges);
+        } else if(['red','black','odd','even','low','high'].includes(type)){
+          el.onclick = () => placeOutside(type, null, null);
+        }
+      });
+    }
+
+    // ---------- BET HELPERS ----------
+    function rangeNumbers(spec){
+      // "1-12" → [1..12]
+      if(spec.includes('-')){
+        const [a,b] = spec.split('-').map(Number);
+        const out=[]; for(let i=a;i<=b;i++) out.push(i); return out;
+      }
+      return spec.split(',').map(s=>Number(s.trim())).filter(n=>!isNaN(n));
+    }
+
+    function placeStraight(n){
+      const stake = currentStake(); if(stake===null) return;
+      addBet({type:'straight', numbers:[n], stake, label:labelOf(n)});
+    }
+
+    function placeOutside(type, key, numbersSpec){
+      const stake = currentStake(); if(stake===null) return;
+      let numbers = [];
+      let label = '';
+      if(type==='column'){
+        numbers = rangeNumbers(numbersSpec);
+        if(key==='col-top') label='Col (top)';
+        else if(key==='col-mid') label='Col (mid)';
+        else if(key==='col-bot') label='Col (bot)';
+        else label='Column';
+      } else if(type==='dozen'){
+        numbers = rangeNumbers(numbersSpec);
+        label = key; // "1-12" etc.
+      } else {
+        // red/black/odd/even/low/high — no numbers list needed
+        label = type.charAt(0).toUpperCase()+type.slice(1);
+        if(type==='low') label='1-18';
+        if(type==='high') label='19-36';
+      }
+      addBet({type, numbers, stake, label});
+    }
+
+    function currentStake(){
+      const v = Number(document.getElementById('stake-input').value);
+      if(!v || v<=0){ alert('Set a stake amount above 0.'); return null; }
+      return v;
+    }
+
+    function addBet(b){
+      b.id = state.betIdSeq++;
+      state.bets.push(b);
+      renderBets();
+    }
+
+    function removeBet(id){
+      state.bets = state.bets.filter(b=>b.id!==id);
+      renderBets();
+    }
+
+    function clearBets(){
+      state.bets = [];
+      renderBets();
+    }
+
+    function renderBets(){
+      const list = document.getElementById('bets-list');
+      list.innerHTML = '';
+      if(state.bets.length===0){
+        list.innerHTML = '<div class="bets-empty">No bets placed. Click a number on the table or an outside bet above to add one.</div>';
+      } else {
+        state.bets.forEach(b => {
+          const row = document.createElement('div');
+          row.className = 'bet-item';
+          const detail = b.type==='straight' ? labelOf(b.numbers[0])
+            : b.type==='split' || b.type==='street' || b.type==='corner' || b.type==='line'
+              ? b.numbers.join(', ')
+              : b.label;
+          row.innerHTML =
+            '<span><span class="bet-type">'+b.type+'</span> &nbsp; <span class="bet-detail">'+detail+'</span></span>'+
+            '<span class="bet-stake">$'+b.stake.toFixed(2)+'</span>'+
+            '<span style="color:var(--muted);font-size:11px;">pays '+PAYOUTS[b.type]+':1</span>'+
+            '<button class="bet-remove" title="Remove">×</button>';
+          row.querySelector('.bet-remove').onclick = ()=>removeBet(b.id);
+          list.appendChild(row);
+        });
+      }
+      const total = state.bets.reduce((s,b)=>s+b.stake,0);
+      const maxWin = state.bets.reduce((s,b)=>s+b.stake*PAYOUTS[b.type],0);
+      document.getElementById('bets-total').textContent = '$'+total.toFixed(2);
+      document.getElementById('bets-count').textContent = state.bets.length;
+      document.getElementById('bets-maxwin').textContent = '$'+maxWin.toFixed(2);
+
+      // refresh table highlights
+      document.querySelectorAll('.num-cell').forEach(el => el.classList.remove('has-bet'));
+      document.querySelectorAll('.outside-cell, .col-bet').forEach(el => el.classList.remove('has-bet'));
+      const straightNums = new Set();
+      state.bets.forEach(b => {
+        if(b.type==='straight') straightNums.add(String(b.numbers[0]));
+      });
+      straightNums.forEach(n => {
+        const cell = document.querySelector('.num-cell[data-num="'+n+'"]');
+        if(cell) cell.classList.add('has-bet');
+      });
+      // outside highlights for unique types
+      const outsideTypes = new Set(state.bets.filter(b=>['red','black','odd','even','low','high'].includes(b.type)).map(b=>b.type));
+      outsideTypes.forEach(t => {
+        const el = document.querySelector('.outside-cell[data-bet="'+t+'"]');
+        if(el) el.classList.add('has-bet');
+      });
+    }
+
+    // ---------- COMBO BET ----------
+    function onComboTypeChange(){
+      const t = document.getElementById('combo-type').value;
+      const hint = document.getElementById('combo-hint');
+      const counts = {split:'2 adjacent',street:'3 in a row',corner:'4 in a square',line:'6 across two rows'};
+      const n = {split:2,street:3,corner:4,line:6}[t];
+      hint.textContent = 'Enter '+n+' numbers ('+counts[t]+'). 1-36 only.';
+    }
+
+    function addComboBet(){
+      const t = document.getElementById('combo-type').value;
+      const raw = document.getElementById('combo-nums').value.trim();
+      const need = {split:2,street:3,corner:4,line:6}[t];
+      const nums = raw.split(/[\s,]+/).map(Number).filter(x=>!isNaN(x));
+      if(nums.length!==need){
+        alert(t+' needs exactly '+need+' numbers. You entered '+nums.length+'.');
+        return;
+      }
+      if(nums.some(n=>n<1||n>36||!Number.isInteger(n))){
+        alert('All numbers must be integers 1-36.');
+        return;
+      }
+      if(new Set(nums).size!==nums.length){
+        alert('Duplicate numbers — each number must appear once.');
+        return;
+      }
+      const stake = currentStake(); if(stake===null) return;
+      addBet({type:t, numbers:nums.sort((a,b)=>a-b), stake, label:nums.join(',')});
+      document.getElementById('combo-nums').value = '';
+    }
+
+    // ---------- STAKE / SPINS QUICK ----------
+    function setStake(v, btn){
+      document.getElementById('stake-input').value = v;
+      document.querySelectorAll('.chip-row').forEach(row => {
+        // only mark active in stake row (first chip-row in stake-row)
+      });
+      // mark button active in its row
+      if(btn){
+        btn.parentNode.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
+        btn.classList.add('active');
+      } else {
+        // find the chip with matching value in stake row
+        document.querySelectorAll('.stake-row .chip').forEach(c => {
+          c.classList.toggle('active', c.textContent.replace(/[^\d]/g,'') == String(v));
+        });
+      }
+    }
+    function setSpins(v, btn){
+      document.getElementById('multi-spins').value = v;
+      if(btn){
+        btn.parentNode.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
+        btn.classList.add('active');
+      } else {
+        document.querySelectorAll('#multi-mode .chip').forEach(c => {
+          c.classList.toggle('active', Number(c.textContent.replace(/[^\d]/g,''))===v);
+        });
+      }
+    }
+
+    // ---------- WHEEL ----------
+    function setWheel(w, btn){
+      state.wheel = w;
+      document.querySelectorAll('.pill[data-wheel]').forEach(p=>p.classList.remove('active'));
+      btn.classList.add('active');
+      const hint = document.getElementById('wheel-hint');
+      if(w==='american'){
+        hint.innerHTML = 'House edge: <strong style="color:var(--red)">5.26%</strong> &nbsp;·&nbsp; Slots: 38 &nbsp;·&nbsp; Wheel: American';
+      } else if(w==='european'){
+        hint.innerHTML = 'House edge: <strong style="color:var(--red)">2.70%</strong> &nbsp;·&nbsp; Slots: 37 &nbsp;·&nbsp; Wheel: European';
+      } else {
+        hint.innerHTML = 'Compare mode: same bets run on both wheels in parallel — multi-spin only.';
+      }
+    }
+
+    // ---------- SPIN LOGIC ----------
+    function spinNumber(wheel){
+      if(wheel==='american'){
+        const r = Math.floor(Math.random()*38);
+        return r===37 ? -1 : r; // -1 represents 00
+      } else {
+        return Math.floor(Math.random()*37); // 0..36
+      }
+    }
+
+    function evalBetOutcome(bet, n){
+      // Returns net change for that bet given winning number n (-1=00).
+      const win = (cond) => cond ? bet.stake * PAYOUTS[bet.type] : -bet.stake;
+      switch(bet.type){
+        case 'straight': return win(bet.numbers[0]===n);
+        case 'split': case 'street': case 'corner': case 'line': return win(bet.numbers.includes(n));
+        case 'column': case 'dozen': return win(n>=1 && bet.numbers.includes(n));
+        case 'red': return win(n>=1 && RED_NUMS.has(n));
+        case 'black': return win(n>=1 && !RED_NUMS.has(n));
+        case 'odd': return win(n>=1 && n%2===1);
+        case 'even': return win(n>=1 && n%2===0);
+        case 'low': return win(n>=1 && n<=18);
+        case 'high': return win(n>=19 && n<=36);
+      }
+      return 0;
+    }
+
+    // ---------- SINGLE SPIN ----------
+    function spinOnce(){
+      if(state.bets.length===0){ alert('Place at least one bet first.'); return; }
+      const totalRisk = state.bets.reduce((s,b)=>s+b.stake,0);
+      if(totalRisk > state.bank){ alert('Total bet risk ($'+totalRisk.toFixed(2)+') exceeds your bankroll ($'+state.bank.toFixed(2)+').'); return; }
+      const wheel = state.wheel === 'compare' ? 'american' : state.wheel;
+      const n = spinNumber(wheel);
+      let net = 0;
+      state.bets.forEach(b => { net += evalBetOutcome(b, n); });
+
+      state.bank += net;
+      state.wagered += totalRisk;
+      state.spins += 1;
+      state.pl += net;
+      if(net > state.bigWin) state.bigWin = net;
+      if(net < state.bigLoss) state.bigLoss = net;
+      state.history.unshift(n);
+      if(state.history.length>20) state.history.pop();
+
+      updateStats();
+      showResult(n, net);
+    }
+
+    function showResult(n, net){
+      const rp = document.getElementById('result-panel');
+      rp.style.display = 'block';
+      const big = document.getElementById('result-big');
+      big.textContent = labelOf(n);
+      big.className = 'result-big '+colorOf(n);
+      const pl = document.getElementById('result-pl');
+      pl.innerHTML = (net>=0 ? '<span style="color:var(--green)">+$'+net.toFixed(2)+'</span>' : '<span style="color:var(--red)">-$'+Math.abs(net).toFixed(2)+'</span>');
+      const detail = document.getElementById('result-detail');
+      let descr = labelOf(n);
+      if(n===0||n===-1) descr += ' — Green (zero)';
+      else descr += ' — '+(isRed(n)?'Red':'Black')+', '+(n%2===0?'Even':'Odd')+', '+(n<=18?'Low (1-18)':'High (19-36)');
+      detail.textContent = descr;
+      // history
+      const hr = document.getElementById('history-row');
+      hr.innerHTML = '';
+      state.history.forEach(h => {
+        const el = document.createElement('span');
+        el.className = 'history-num '+colorOf(h);
+        el.textContent = labelOf(h);
+        hr.appendChild(el);
+      });
+      // flash winning cell
+      document.querySelectorAll('.num-cell.flash').forEach(el=>el.classList.remove('flash'));
+      const winCell = document.querySelector('.num-cell[data-num="'+n+'"]');
+      if(winCell){ winCell.classList.add('flash'); }
+    }
+
+    // ---------- MULTI SPIN ----------
+    function runMulti(){
+      if(state.bets.length===0){ alert('Place at least one bet first.'); return; }
+      const N = Math.max(1, Math.min(100000, Math.floor(Number(document.getElementById('multi-spins').value)||0)));
+      document.getElementById('multi-spins').value = N;
+      const totalRisk = state.bets.reduce((s,b)=>s+b.stake,0);
+      if(totalRisk > state.bank){ alert('Per-spin risk ($'+totalRisk.toFixed(2)+') already exceeds your bankroll. Lower stakes or reset bankroll.'); return; }
+
+      const wheels = state.wheel==='compare' ? ['american','european'] : [state.wheel];
+      const results = {};
+      let netTotalForState = 0;
+
+      // For state-tracking we use the active wheel (or american in compare mode)
+      const trackingWheel = state.wheel==='compare' ? 'american' : state.wheel;
+      const startingBank = state.bank;
+
+      const sampleEvery = Math.max(1, Math.floor(N/250)); // cap chart points
+
+      wheels.forEach(w => {
+        const bankSeries = [startingBank];
+        let bk = startingBank;
+        let wagered = 0;
+        let spinsDone = 0;
+        let bigWin = 0, bigLoss = 0;
+        let netSum = 0;
+        for(let i=0;i<N;i++){
+          if(bk < totalRisk){ break; }
+          const n = spinNumber(w);
+          let net = 0;
+          state.bets.forEach(b => { net += evalBetOutcome(b, n); });
+          bk += net;
+          wagered += totalRisk;
+          spinsDone++;
+          netSum += net;
+          if(net>bigWin) bigWin=net;
+          if(net<bigLoss) bigLoss=net;
+          if(i%sampleEvery===0 || i===N-1) bankSeries.push(bk);
+        }
+        results[w] = {bankSeries, finalBank:bk, wagered, spinsDone, bigWin, bigLoss, netSum};
+        if(w===trackingWheel){
+          netTotalForState = netSum;
+          state.bank = bk;
+          state.wagered += wagered;
+          state.spins += spinsDone;
+          state.pl += netSum;
+          if(bigWin > state.bigWin) state.bigWin = bigWin;
+          if(bigLoss < state.bigLoss) state.bigLoss = bigLoss;
+        }
+      });
+
+      updateStats();
+      drawChart(results, N, totalRisk, startingBank);
+    }
+
+    function drawChart(results, requestedN, totalRisk, startingBank){
+      document.getElementById('chart-empty').style.display = 'none';
+      document.getElementById('chart-legend').style.display = 'flex';
+      const compare = state.wheel==='compare';
+      document.getElementById('legend-eu').style.display = (compare || state.wheel==='european') ? 'inline' : 'none';
+
+      const labels = [];
+      const longest = Math.max(...Object.values(results).map(r=>r.bankSeries.length));
+      for(let i=0;i<longest;i++) labels.push(i);
+      const datasets = [];
+      if(results.american){
+        datasets.push({
+          label:'American (0/00)', data:results.american.bankSeries,
+          borderColor:'#ef4444', backgroundColor:'rgba(239,68,68,0.08)',
+          borderWidth:2, pointRadius:0, fill:true, tension:0.1
+        });
+      }
+      if(results.european){
+        datasets.push({
+          label:'European (single 0)', data:results.european.bankSeries,
+          borderColor:'#3b82f6', backgroundColor:'rgba(59,130,246,0.08)',
+          borderWidth:2, pointRadius:0, fill:true, tension:0.1
+        });
+      }
+      // starting bankroll reference
+      const startRef = new Array(longest).fill(startingBank);
+      datasets.push({
+        label:'Starting bankroll', data:startRef,
+        borderColor:'#6b7fa3', borderWidth:1, borderDash:[6,4],
+        pointRadius:0, fill:false, tension:0
+      });
+
+      const ctx = document.getElementById('sim-chart').getContext('2d');
+      if(state.chart) state.chart.destroy();
+      state.chart = new Chart(ctx, {
+        type:'line',
+        data:{labels, datasets},
+        options:{
+          responsive:true, maintainAspectRatio:false, animation:false,
+          plugins:{
+            legend:{display:false},
+            tooltip:{
+              mode:'index', intersect:false,
+              backgroundColor:'#111827', borderColor:'#1e2d45', borderWidth:1,
+              titleColor:'#6b7fa3', bodyColor:'#e8edf5',
+              callbacks:{
+                title:items=>'Sample '+items[0].label,
+                label:c=>c.dataset.label+': $'+Number(c.raw).toFixed(0)
+              }
+            }
+          },
+          scales:{
+            x:{title:{display:true,text:'Spins (sampled)',color:'#6b7fa3',font:{family:'Space Mono',size:11}},grid:{color:'#1e2d45'},ticks:{color:'#6b7fa3',font:{family:'Space Mono',size:10},maxTicksLimit:10}},
+            y:{title:{display:true,text:'Bankroll ($)',color:'#6b7fa3',font:{family:'Space Mono',size:11}},grid:{color:'#1e2d45'},ticks:{color:'#6b7fa3',font:{family:'Space Mono',size:10},callback:v=>'$'+Math.round(v).toLocaleString()}}
+          }
+        }
+      });
+
+      // punchline
+      const pl = document.getElementById('punchline');
+      pl.classList.remove('hidden');
+      let html = '';
+      Object.entries(results).forEach(([w,r])=>{
+        const edge = w==='american'?0.0526:0.0270;
+        const expectedLoss = r.wagered * edge;
+        const actual = r.netSum; // negative = loss
+        const stoppedEarly = r.spinsDone < requestedN;
+        const wheelLabel = w==='american'?'American (0/00)':'European (single 0)';
+        const wColor = w==='american'?'var(--red)':'var(--blue)';
+        html += '<div style="margin-bottom:10px;"><strong style="color:'+wColor+'">'+wheelLabel+'</strong> · '+
+          r.spinsDone.toLocaleString()+' spins · wagered <strong>$'+r.wagered.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g,',')+'</strong>'+
+          '<br>Expected loss (wagered × '+(edge*100).toFixed(2)+'%): <span class="neg">-$'+expectedLoss.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g,',')+'</span> · '+
+          'Actual net: <span class="'+(actual>=0?'pos':'neg')+'">'+(actual>=0?'+':'-')+'$'+Math.abs(actual).toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g,',')+'</span>'+
+          (stoppedEarly?' · <span class="gold">stopped early — bankrupt</span>':'')+'</div>';
+      });
+      if(state.wheel==='compare' && results.american && results.european){
+        const diff = results.american.netSum - results.european.netSum;
+        html += '<div style="margin-top:6px;border-top:1px solid var(--border);padding-top:10px;">'+
+          'Wheel difference (European − American): <span class="'+(diff<=0?'pos':'neg')+'">'+
+          (diff<=0?'+':'-')+'$'+Math.abs(diff).toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g,',')+'</span>'+
+          ' — at scale, the European wheel costs you about half as much. The expected gap on '+
+          results.american.wagered.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g,',')+
+          ' wagered is <span class="gold">$'+(results.american.wagered*(0.0526-0.0270)).toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g,',')+'</span>.</div>';
+      }
+      pl.innerHTML = html;
+    }
+
+    // ---------- STATS ----------
+    function fmt$(v){
+      const sign = v<0 ? '-' : '';
+      return sign+'$'+Math.abs(v).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g,',').replace(/\.00$/,'');
+    }
+    function updateStats(){
+      document.getElementById('s-bank').textContent = fmt$(state.bank);
+      document.getElementById('s-wager').textContent = fmt$(state.wagered);
+      document.getElementById('s-spins').textContent = state.spins.toLocaleString();
+      const plEl = document.getElementById('s-pl');
+      plEl.textContent = (state.pl>=0?'+':'') + fmt$(state.pl);
+      plEl.className = 'stat-value '+(state.pl>0?'pos':state.pl<0?'neg':'');
+      document.getElementById('s-bigwin').textContent = '+'+fmt$(state.bigWin);
+      document.getElementById('s-bigloss').textContent = state.bigLoss<0 ? fmt$(state.bigLoss) : '$0';
+    }
+
+    function resetBankroll(){
+      if(!confirm('Reset bankroll to $'+STARTING_BANK+' and clear history?')) return;
+      state.bank = STARTING_BANK;
+      state.wagered = 0;
+      state.spins = 0;
+      state.pl = 0;
+      state.bigWin = 0;
+      state.bigLoss = 0;
+      state.history = [];
+      updateStats();
+      document.getElementById('result-panel').style.display = 'none';
+      document.getElementById('chart-empty').style.display = 'block';
+      document.getElementById('chart-legend').style.display = 'none';
+      document.getElementById('punchline').classList.add('hidden');
+      if(state.chart){ state.chart.destroy(); state.chart=null; }
+    }
+
+    // ---------- TABS ----------
+    function switchTab(t){
+      state.mode = t;
+      document.getElementById('tab-single').classList.toggle('active', t==='single');
+      document.getElementById('tab-multi').classList.toggle('active', t==='multi');
+      document.getElementById('single-mode').classList.toggle('hidden', t!=='single');
+      document.getElementById('multi-mode').classList.toggle('hidden', t!=='multi');
+      // compare mode only valid in multi
+      if(t==='single' && state.wheel==='compare'){
+        document.querySelector('.pill[data-wheel="american"]').click();
+      }
+    }
+
+    // ---------- INIT ----------
+    buildTable();
+    wireOutside();
+    onComboTypeChange();
+    updateStats();
+  </script>
+</body>
+</html>
