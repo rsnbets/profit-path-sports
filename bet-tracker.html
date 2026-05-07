@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>⚡ Bet Tracker — Profit Path Sports</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Space+Mono:wght@400;700&family=Barlow+Condensed:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+  <style>
+    :root {
+      --bg:#0a0f1c;--surface:#111827;--surface2:#1a2335;--border:#1e2d45;
+      --accent:#f0a030;--blue:#3b82f6;--green:#22c55e;--red:#ef4444;
+      --text:#e8edf5;--muted:#6b7fa3;
+      --mono:'Space Mono',monospace;--display:'Barlow Condensed',sans-serif;--title:'Orbitron',sans-serif;
+    }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{background:var(--bg);color:var(--text);font-family:var(--display);min-height:100vh;}
+
+    /* Header */
+    .bt-header{background:var(--surface);border-bottom:1px solid var(--border);padding:22px 20px 16px;display:flex;flex-direction:column;align-items:center;gap:6px;}
+    .bt-brand-text{font-family:var(--title);font-size:28px;font-weight:900;letter-spacing:0.08em;text-transform:uppercase;color:var(--blue);white-space:nowrap;}
+    .bt-brand-text .bolt{color:var(--accent);}
+    .bt-sub{font-family:var(--title);font-size:11px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);}
+
+    /* Stats bar */
+    .bt-stats{display:grid;grid-template-columns:repeat(6,1fr);border-bottom:1px solid var(--border);}
+    .stat-cell{padding:12px 10px;border-right:1px solid var(--border);text-align:center;}
+    .stat-cell:last-child{border-right:none;}
+    .stat-label{font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:4px;font-family:var(--mono);}
+    .stat-value{font-size:19px;font-weight:700;color:var(--text);}
+    .stat-value.pos{color:var(--green);}.stat-value.neg{color:var(--red);}.stat-value.accent{color:var(--accent);}
+
+    /* Tabs */
+    .bt-tabs{display:flex;background:var(--surface);border-bottom:1px solid var(--border);}
+    .tab-btn{padding:12px 20px;font-family:var(--display);font-size:13px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;background:none;border:none;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;transition:all 0.15s;}
+    .tab-btn.active{color:var(--accent);border-bottom-color:var(--accent);}
+    .tab-btn:hover:not(.active){color:var(--text);}
+    .tab-panel{display:none;}.tab-panel.active{display:block;}
+
+    /* Form */
+    .form-panel{padding:20px;background:var(--surface);border-bottom:1px solid var(--border);}
+    .form-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
+    .form-group{display:flex;flex-direction:column;gap:5px;}
+    .form-group.wide{grid-column:span 2;}.form-group.full{grid-column:span 4;}
+    .form-label{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);font-family:var(--mono);}
+    .form-input,.form-select{background:var(--bg);border:1px solid var(--border);color:var(--text);padding:9px 12px;font-family:var(--mono);font-size:13px;border-radius:4px;outline:none;transition:border-color 0.15s;width:100%;}
+    .form-input:focus,.form-select:focus{border-color:var(--accent);}
+    .form-select option{background:var(--surface);}
+    .odds-display{font-size:11px;font-family:var(--mono);min-height:16px;margin-top:2px;color:var(--blue);}
+    .odds-display-sub{font-size:11px;font-family:var(--mono);min-height:14px;color:var(--muted);}
+
+    /* Scenario pills */
+    .scenario-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:2px;}
+    .scenario-pill{padding:5px 10px;border-radius:4px;font-size:11px;font-weight:600;letter-spacing:0.05em;text-transform:uppercase;font-family:var(--display);cursor:pointer;border:1px solid var(--border);color:var(--muted);background:none;transition:all 0.15s;white-space:nowrap;}
+    .scenario-pill.active{background:var(--accent);color:var(--bg);border-color:var(--accent);}
+    .scenario-pill:hover:not(.active){border-color:var(--accent);color:var(--accent);}
+    .scenario-hint{font-size:10px;color:var(--muted);font-family:var(--mono);margin-top:4px;min-height:14px;font-style:italic;}
+    .boost-field{display:none;}.boost-field.visible{display:flex;flex-direction:column;gap:5px;}
+
+    /* Buttons */
+    .btn-add{background:var(--accent);color:var(--bg);border:none;padding:10px 24px;font-family:var(--display);font-size:14px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;border-radius:4px;cursor:pointer;transition:opacity 0.15s;align-self:flex-end;}
+    .btn-add:hover{opacity:0.85;}
+    .btn-clear{background:none;color:var(--muted);border:1px solid var(--border);padding:10px 16px;font-family:var(--display);font-size:13px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;border-radius:4px;cursor:pointer;transition:all 0.15s;align-self:flex-end;}
+    .btn-clear:hover{border-color:var(--red);color:var(--red);}
+
+    /* Form sections */
+    .form-divider{grid-column:span 4;height:1px;background:var(--border);margin:4px 0;}
+    .form-section-label{grid-column:span 4;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent);font-family:var(--mono);padding-top:4px;}
+
+    /* Bets table */
+    .bets-panel{padding:0;}
+    .bets-table{width:100%;border-collapse:collapse;}
+    .bets-table th{font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);font-family:var(--mono);font-weight:400;padding:10px 11px;text-align:left;background:var(--surface);border-bottom:1px solid var(--border);white-space:nowrap;}
+    .bets-table td{padding:10px 11px;font-size:12px;border-bottom:1px solid var(--border);vertical-align:middle;font-family:var(--mono);}
+    .bets-table tr:hover td{background:var(--surface2);}
+    .sport-tag{display:inline-block;padding:2px 6px;border-radius:3px;font-size:10px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;border:1px solid var(--border);color:var(--muted);}
+    .scenario-tag{display:inline-block;padding:2px 6px;border-radius:3px;font-size:9px;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;}
+    .tag-normal{background:rgba(107,127,163,0.1);color:var(--muted);}
+    .tag-bonus{background:rgba(240,160,48,0.15);color:var(--accent);}
+    .tag-nosweat{background:rgba(59,130,246,0.15);color:var(--blue);}
+    .tag-boost{background:rgba(34,197,94,0.15);color:var(--green);}
+    .del-btn{background:none;border:none;color:var(--border);cursor:pointer;font-size:16px;padding:2px 6px;border-radius:3px;transition:all 0.15s;font-family:var(--mono);}
+    .del-btn:hover{color:var(--red);background:rgba(239,68,68,0.1);}
+
+    /* Empty state */
+    .empty-state{text-align:center;padding:48px 20px;color:var(--muted);}
+    .empty-state .big{font-size:32px;margin-bottom:12px;}
+    .empty-state p{font-size:14px;line-height:1.6;font-family:var(--mono);}
+
+    /* Chart */
+    .chart-panel{padding:20px;}
+    canvas{width:100%!important;border-radius:4px;}
+
+    /* Filter bar */
+    .filter-bar{display:flex;gap:8px;padding:12px 16px;background:var(--surface);border-bottom:1px solid var(--border);flex-wrap:wrap;align-items:center;}
+    .filter-select{background:var(--bg);border:1px solid var(--border);color:var(--text);padding:6px 10px;font-family:var(--mono);font-size:12px;border-radius:4px;outline:none;}
+    .filter-label{font-size:11px;color:var(--muted);font-family:var(--mono);letter-spacing:0.08em;}
+    .result-pos{color:var(--green);}.result-neg{color:var(--red);}
+    .clv-pos{color:var(--green);font-size:10px;}.clv-neg{color:var(--red);font-size:10px;}
+
+    /* Back link */
+    .back-bar{padding:10px 20px;background:var(--bg);border-bottom:1px solid var(--border);}
+    .back-bar a{color:var(--muted);font-family:var(--mono);font-size:12px;text-decoration:none;letter-spacing:0.06em;}
+    .back-bar a:hover{color:var(--text);}
+
+    /* Disclaimer */
+    .disclaimer{text-align:center;padding:20px;font-size:11px;color:var(--muted);font-family:var(--mono);border-top:1px solid var(--border);line-height:1.6;}
+
+    @media(max-width:640px){
+      .bt-stats{grid-template-columns:repeat(3,1fr);}
+      .form-grid{grid-template-columns:repeat(2,1fr);}
+      .form-group.wide,.form-divider,.form-section-label{grid-column:span 2;}
+      .bt-brand-text{font-size:18px;}
+      .bt-sub{font-size:9px;}
+      .stat-cell:nth-child(4),.stat-cell:nth-child(5),.stat-cell:nth-child(6){border-top:1px solid var(--border);}
+    }
+  </style>
+</head>
+<body>
+
+  <div class="back-bar"><a href="index.html">← Back to Profit Path Sports</a></div>
+
+  <div class="bt-header">
+    <div class="bt-brand-text"><span class="bolt">⚡</span> Profit Path Sports <span class="bolt">⚡</span></div>
+    <div class="bt-sub">Bet Tracker</div>
+  </div>
+
+  <div class="bt-stats">
+    <div class="stat-cell"><div class="stat-label">Total Bets</div><div class="stat-value accent" id="s-total">0</div></div>
+    <div class="stat-cell"><div class="stat-label">Record</div><div class="stat-value" id="s-record">0-0</div></div>
+    <div class="stat-cell"><div class="stat-label">Win Rate</div><div class="stat-value" id="s-winrate">—</div></div>
+    <div class="stat-cell"><div class="stat-label">Net P/L</div><div class="stat-value" id="s-pl">$0</div></div>
+    <div class="stat-cell"><div class="stat-label">ROI</div><div class="stat-value" id="s-roi">—</div></div>
+    <div class="stat-cell"><div class="stat-label">Avg CLV</div><div class="stat-value" id="s-clv">—</div></div>
+  </div>
+
+  <div class="bt-tabs">
+    <button class="tab-btn active" onclick="switchTab('log')">Log Bet</button>
+    <button class="tab-btn" onclick="switchTab('bets')">My Bets</button>
+    <button class="tab-btn" onclick="switchTab('chart')">P/L Chart</button>
+  </div>
+
+  <!-- LOG BET -->
+  <div class="tab-panel active" id="tab-log">
+    <div class="form-panel">
+      <div class="form-grid">
+        <div class="form-group">
+          <label class="form-label">Date</label>
+          <input type="date" class="form-input" id="f-date">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Sport</label>
+          <select class="form-select" id="f-sport">
+            <option>MLB</option><option>NBA</option><option>NFL</option><option>NHL</option>
+            <option>NCAAF</option><option>NCAAB</option><option>Soccer</option><option>UFC/MMA</option><option>Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Bet Type</label>
+          <select class="form-select" id="f-type">
+            <option>Moneyline</option><option>Spread</option><option>Total</option>
+            <option>Player Prop</option><option>Team Prop</option><option>Parlay</option><option>Teaser</option><option>Future</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Sportsbook</label>
+          <select class="form-select" id="f-book">
+            <option>DraftKings</option><option>FanDuel</option><option>BetMGM</option><option>Caesars</option>
+            <option>Hard Rock</option><option>Bet105</option><option>Bookmaker</option><option>Underdog</option><option>Other</option>
+          </select>
+        </div>
+        <div class="form-group full">
+          <label class="form-label">Description</label>
+          <input type="text" class="form-input" id="f-desc" placeholder="e.g. Shohei Ohtani Over 1.5 TB">
+        </div>
+
+        <div class="form-divider"></div>
+        <div class="form-section-label">⚡ Odds & Edge</div>
+
+        <div class="form-group">
+          <label class="form-label">Original Odds</label>
+          <input type="number" class="form-input" id="f-odds" placeholder="-110" oninput="onOddsChange()">
+          <div class="odds-display" id="odds-implied"></div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Fair / No-Vig Odds</label>
+          <input type="number" class="form-input" id="f-fair" placeholder="-105" oninput="updateEVDisplay()">
+          <div class="odds-display" id="ev-display"></div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Closing Odds (CLV)</label>
+          <input type="number" class="form-input" id="f-close" placeholder="-115" oninput="updateCLVDisplay()">
+          <div class="odds-display" id="clv-display"></div>
+          <div class="odds-display-sub" id="clv-implied"></div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Stake ($)</label>
+          <input type="number" class="form-input" id="f-stake" placeholder="50" min="0" oninput="onStakeChange()">
+        </div>
+
+        <div class="form-divider"></div>
+        <div class="form-section-label">⚡ Bet Scenario</div>
+
+        <div class="form-group full">
+          <label class="form-label">Type</label>
+          <div class="scenario-row">
+            <button class="scenario-pill active" onclick="setScenario('normal',this)">Normal</button>
+            <button class="scenario-pill" onclick="setScenario('bonus',this)">Bonus Bet</button>
+            <button class="scenario-pill" onclick="setScenario('nosweat',this)">No Sweat</button>
+            <button class="scenario-pill" onclick="setScenario('odds_boost',this)">Odds Boost</button>
+            <button class="scenario-pill" onclick="setScenario('profit_boost',this)">Profit Boost</button>
+            <button class="scenario-pill" onclick="setScenario('parlay_ins',this)">Parlay Insurance</button>
+          </div>
+          <div class="scenario-hint" id="scenario-hint">Standard bet — stake is at risk, returned on win.</div>
+        </div>
+
+        <div class="form-group boost-field" id="boost-pct-wrap">
+          <label class="form-label" id="boost-label">Boost %</label>
+          <input type="number" class="form-input" id="f-boost" placeholder="25" min="0" max="500" oninput="onBoostChange()">
+          <div class="odds-display" id="boost-preview"></div>
+        </div>
+        <div class="form-group boost-field" id="boost-cap-wrap">
+          <label class="form-label">Boost Cap ($) <span style="color:var(--muted);font-size:9px">optional</span></label>
+          <input type="number" class="form-input" id="f-boost-cap" placeholder="no cap" min="0" oninput="onBoostChange()">
+          <div class="odds-display" id="boost-cap-preview"></div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Result</label>
+          <select class="form-select" id="f-result" onchange="updatePayoutPreview()">
+            <option>Pending</option><option>Win</option><option>Loss</option><option>Push</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Payout Preview</label>
+          <div class="form-input" id="payout-preview" style="color:var(--muted);cursor:default;background:var(--surface2);">—</div>
+        </div>
+        <div class="form-group" style="align-self:flex-end">
+          <button class="btn-add" onclick="addBet()">⚡ Add Bet</button>
+        </div>
+        <div class="form-group" style="align-self:flex-end">
+          <button class="btn-clear" onclick="clearForm()">Clear</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MY BETS -->
+  <div class="tab-panel" id="tab-bets">
+    <div class="filter-bar">
+      <span class="filter-label">Filter:</span>
+      <select class="filter-select" id="fil-sport" onchange="renderBets()">
+        <option value="">All Sports</option>
+        <option>MLB</option><option>NBA</option><option>NFL</option><option>NHL</option>
+        <option>NCAAF</option><option>NCAAB</option><option>Soccer</option><option>UFC/MMA</option><option>Other</option>
+      </select>
+      <select class="filter-select" id="fil-result" onchange="renderBets()">
+        <option value="">All Results</option>
+        <option>Win</option><option>Loss</option><option>Pending</option><option>Push</option>
+      </select>
+      <select class="filter-select" id="fil-book" onchange="renderBets()">
+        <option value="">All Books</option>
+        <option>DraftKings</option><option>FanDuel</option><option>BetMGM</option><option>Caesars</option>
+        <option>Hard Rock</option><option>Bet105</option><option>Bookmaker</option><option>Underdog</option>
+      </select>
+      <select class="filter-select" id="fil-scenario" onchange="renderBets()">
+        <option value="">All Scenarios</option>
+        <option value="normal">Normal</option><option value="bonus">Bonus Bet</option>
+        <option value="nosweat">No Sweat</option><option value="odds_boost">Odds Boost</option>
+        <option value="profit_boost">Profit Boost</option><option value="parlay_ins">Parlay Insurance</option>
+      </select>
+    </div>
+    <div class="bets-panel">
+      <table class="bets-table">
+        <thead>
+          <tr>
+            <th>Date</th><th>Sport</th><th>Description</th><th>Book</th>
+            <th>Odds</th><th>CLV</th><th>Scenario</th><th>Stake</th><th>Result</th><th>P/L</th><th></th>
+          </tr>
+        </thead>
+        <tbody id="bets-tbody"></tbody>
+      </table>
+      <div id="empty-state" class="empty-state" style="display:none">
+        <div class="big">📋</div>
+        <p>No bets logged yet.<br>Head to Log Bet to add your first one.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHART -->
+  <div class="tab-panel" id="tab-chart">
+    <div class="chart-panel">
+      <canvas id="pl-chart" height="300"></canvas>
+      <div id="no-chart-data" style="text-align:center;padding:40px;color:var(--muted);font-family:var(--mono);font-size:13px;display:none">
+        Log some settled bets to see your P/L chart.
+      </div>
+    </div>
+  </div>
+
+  <div class="disclaimer">
+    Data is saved locally in your browser. Clear your cache and it's gone — no account, no backup.<br>
+    Profit Path Sports is an educational resource. Bet responsibly. 21+ where legal. 1-800-GAMBLER.
+  </div>
+
+  <script>
+    let bets=[], chart=null, currentScenario='normal';
+    const SCENARIOS={
+      normal:{hint:'Standard bet — stake is at risk, returned on win.'},
+      bonus:{hint:'Stake NOT returned on win — only profit paid out. Loss = $0 cost.'},
+      nosweat:{hint:'Stake returned as site credit if you lose.'},
+      odds_boost:{hint:'Enter original odds + boost %. Boosted odds calculated automatically.'},
+      profit_boost:{hint:'Enter original odds + boost %. Boosted profit previewed automatically.'},
+      parlay_ins:{hint:'Stake refunded as bonus bet if exactly one leg loses.'},
+    };
+    const SCENARIO_TAG={
+      normal:'<span class="scenario-tag tag-normal">Normal</span>',
+      bonus:'<span class="scenario-tag tag-bonus">Bonus</span>',
+      nosweat:'<span class="scenario-tag tag-nosweat">No Sweat</span>',
+      odds_boost:'<span class="scenario-tag tag-boost">Odds Boost</span>',
+      profit_boost:'<span class="scenario-tag tag-boost">Profit Boost</span>',
+      parlay_ins:'<span class="scenario-tag tag-nosweat">Parlay Ins.</span>',
+    };
+
+    function loadBets(){try{bets=JSON.parse(localStorage.getItem('pps_bet_tracker_v1')||'[]');}catch(e){bets=[];}}
+    function saveBets(){localStorage.setItem('pps_bet_tracker_v1',JSON.stringify(bets));}
+    function americanToDecimal(o){o=Number(o);if(!o)return null;return o>0?(o/100)+1:(100/Math.abs(o))+1;}
+    function decimalToAmerican(d){if(!d||d<=1)return null;d=Number(d);return d>=2?Math.round((d-1)*100):Math.round(-100/(d-1));}
+    function impliedProb(o){o=Number(o);if(!o)return null;return o>0?100/(o+100):Math.abs(o)/(Math.abs(o)+100);}
+    function applyOddsBoost(odds,pct){const d=americanToDecimal(odds);if(!d||!pct)return null;return decimalToAmerican(1+(d-1)*(1+pct/100));}
+    function getBaseProfit(odds,stake){const d=americanToDecimal(odds);if(!d||!stake)return 0;return(d-1)*Number(stake);}
+
+    function calcPL(originalOdds,stake,result,scenario,boostPct,boostCap){
+      const dec=americanToDecimal(originalOdds);if(!dec||!stake)return 0;
+      let profit=(dec-1)*stake;
+      if(scenario==='odds_boost'&&boostPct){const b=applyOddsBoost(originalOdds,boostPct);const bd=americanToDecimal(b);if(bd)profit=(bd-1)*stake;}
+      if(scenario==='profit_boost'&&boostPct){const base=(dec-1)*stake;const extra=base*(boostPct/100);profit=base+(boostCap?Math.min(extra,boostCap):extra);}
+      if(result==='Win')return parseFloat(profit.toFixed(2));
+      if(result==='Loss'){if(scenario==='nosweat'||scenario==='parlay_ins'||scenario==='bonus')return 0;return-parseFloat(Number(stake).toFixed(2));}
+      return 0;
+    }
+    function calcCLV(yo,co){const p=impliedProb(co),d=americanToDecimal(yo);if(!p||!d)return null;return((p*(d-1))-(1-p))*100;}
+    function calcEV(yo,fo){const p=impliedProb(fo),d=americanToDecimal(yo);if(!p||!d)return null;return((p*(d-1))-(1-p))*100;}
+
+    function onOddsChange(){
+      const o=document.getElementById('f-odds').value,p=impliedProb(o);
+      const el=document.getElementById('odds-implied');
+      el.textContent=p?`Implied: ${(p*100).toFixed(1)}%`:'';el.style.color='var(--blue)';
+      updateEVDisplay();updateCLVDisplay();updateBoostPreview();updatePayoutPreview();
+    }
+    function onStakeChange(){updateBoostPreview();updatePayoutPreview();}
+    function onBoostChange(){updateBoostPreview();updatePayoutPreview();}
+
+    function updateBoostPreview(){
+      const odds=document.getElementById('f-odds').value,stake=Number(document.getElementById('f-stake').value||0);
+      const bp=Number(document.getElementById('f-boost').value||0),bc=Number(document.getElementById('f-boost-cap').value||0);
+      const pEl=document.getElementById('boost-preview'),cEl=document.getElementById('boost-cap-preview');
+      pEl.textContent='';cEl.textContent='';
+      if(!odds||!bp)return;
+      if(currentScenario==='odds_boost'){
+        const b=applyOddsBoost(odds,bp);
+        if(b!==null){pEl.textContent=`Boosted: ${b>0?'+':''}${b}`;pEl.style.color='var(--green)';}
+      }
+      if(currentScenario==='profit_boost'){
+        const base=getBaseProfit(odds,stake||100),extra=base*(bp/100),boosted=base+(bc?Math.min(extra,bc):extra);
+        if(stake){
+          pEl.textContent=`Boosted profit: +$${boosted.toFixed(2)} (+$${(bc?Math.min(extra,bc):extra).toFixed(2)} boost)`;
+          pEl.style.color='var(--green)';
+          if(bc&&extra>bc){cEl.textContent=`Cap hit — $${(extra-bc).toFixed(2)} uncapped`;cEl.style.color='var(--muted)';}
+          else if(bc){cEl.textContent='Under cap';cEl.style.color='var(--green)';}
+        } else {pEl.textContent=`+${bp}% added to winnings`;pEl.style.color='var(--green)';}
+      }
+    }
+
+    function updateEVDisplay(){
+      const yo=document.getElementById('f-odds').value,fo=document.getElementById('f-fair').value,el=document.getElementById('ev-display');
+      if(!fo){el.textContent='';return;}
+      const p=impliedProb(fo);
+      if(yo&&fo){const ev=calcEV(yo,fo);if(ev!==null){el.textContent=`EV: ${ev>=0?'+':''}${ev.toFixed(2)}%`;el.style.color=ev>=0?'var(--green)':'var(--red)';return;}}
+      el.textContent=p?`Fair: ${(p*100).toFixed(1)}%`:'';el.style.color='var(--blue)';
+    }
+
+    function updateCLVDisplay(){
+      const yo=document.getElementById('f-odds').value,co=document.getElementById('f-close').value;
+      const clvEl=document.getElementById('clv-display'),impEl=document.getElementById('clv-implied');
+      const p=impliedProb(co);
+      impEl.textContent=p?`Implied: ${(p*100).toFixed(1)}%`:'';
+      if(!co){clvEl.textContent='';impEl.textContent='';return;}
+      if(yo&&co){const clv=calcCLV(yo,co);if(clv!==null){clvEl.textContent=`CLV: ${clv>=0?'+':''}${clv.toFixed(2)}%`;clvEl.style.color=clv>=0?'var(--green)':'var(--red)';return;}}
+      clvEl.textContent='';
+    }
+
+    function updatePayoutPreview(){
+      const odds=document.getElementById('f-odds').value,stake=Number(document.getElementById('f-stake').value);
+      const result=document.getElementById('f-result').value,bp=Number(document.getElementById('f-boost').value||0),bc=Number(document.getElementById('f-boost-cap').value||0);
+      const el=document.getElementById('payout-preview');
+      if(!odds||!stake){el.textContent='—';el.style.color='var(--muted)';return;}
+      if(result==='Pending'){el.textContent=`To win: +$${calcPL(odds,stake,'Win',currentScenario,bp,bc).toFixed(2)}`;el.style.color='var(--blue)';}
+      else{const pl=calcPL(odds,stake,result,currentScenario,bp,bc);el.textContent=`${pl>=0?'+':''}$${pl.toFixed(2)}`;el.style.color=pl>0?'var(--green)':pl<0?'var(--red)':'var(--muted)';}
+    }
+
+    function setScenario(name,btn){
+      currentScenario=name;
+      document.querySelectorAll('.scenario-pill').forEach(p=>p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('scenario-hint').textContent=SCENARIOS[name].hint;
+      const showBoost=name==='odds_boost'||name==='profit_boost',showCap=name==='profit_boost';
+      document.getElementById('boost-pct-wrap').className='form-group boost-field'+(showBoost?' visible':'');
+      document.getElementById('boost-cap-wrap').className='form-group boost-field'+(showCap?' visible':'');
+      document.getElementById('boost-label').textContent=name==='profit_boost'?'Profit Boost %':'Boost %';
+      document.getElementById('boost-preview').textContent='';
+      document.getElementById('boost-cap-preview').textContent='';
+      updateBoostPreview();updatePayoutPreview();
+    }
+
+    function addBet(){
+      const desc=document.getElementById('f-desc').value.trim(),odds=document.getElementById('f-odds').value,stake=document.getElementById('f-stake').value;
+      if(!desc||!odds||!stake){alert('Please fill in Description, Odds, and Stake.');return;}
+      const result=document.getElementById('f-result').value,fo=document.getElementById('f-fair').value,co=document.getElementById('f-close').value;
+      const bp=Number(document.getElementById('f-boost').value||0),bc=Number(document.getElementById('f-boost-cap').value||0);
+      let effectiveOdds=Number(odds);
+      if(currentScenario==='odds_boost'&&bp)effectiveOdds=applyOddsBoost(odds,bp)||Number(odds);
+      const pl=calcPL(odds,stake,result,currentScenario,bp,bc);
+      bets.unshift({id:Date.now(),date:document.getElementById('f-date').value||new Date().toISOString().slice(0,10),sport:document.getElementById('f-sport').value,type:document.getElementById('f-type').value,book:document.getElementById('f-book').value,desc,odds:Number(odds),effectiveOdds,fair:fo?Number(fo):null,close:co?Number(co):null,ev:(odds&&fo)?calcEV(effectiveOdds,fo):null,clv:(odds&&co)?calcCLV(effectiveOdds,co):null,stake:Number(stake),result,scenario:currentScenario,boostPct:bp,boostCap:bc,pl});
+      saveBets();updateStats();renderBets();clearForm();switchTab('bets');
+    }
+
+    function deleteBet(id){if(!confirm('Delete this bet?'))return;bets=bets.filter(b=>b.id!==id);saveBets();updateStats();renderBets();}
+    function updateResult(id,r){const b=bets.find(b=>b.id===id);if(!b)return;b.result=r;b.pl=calcPL(b.odds,b.stake,r,b.scenario,b.boostPct,b.boostCap);saveBets();updateStats();renderBets();}
+
+    function clearForm(){
+      ['f-desc','f-odds','f-fair','f-close','f-stake','f-boost','f-boost-cap'].forEach(id=>document.getElementById(id).value='');
+      document.getElementById('f-result').value='Pending';
+      ['odds-implied','ev-display','clv-display','clv-implied','boost-preview','boost-cap-preview'].forEach(id=>document.getElementById(id).textContent='');
+      document.getElementById('payout-preview').textContent='—';
+      setScenario('normal',document.querySelector('.scenario-pill'));
+    }
+
+    function updateStats(){
+      const wins=bets.filter(b=>b.result==='Win').length,losses=bets.filter(b=>b.result==='Loss').length;
+      const settled=bets.filter(b=>b.result==='Win'||b.result==='Loss');
+      const totalPL=bets.reduce((s,b)=>s+b.pl,0);
+      const totalStaked=settled.filter(b=>b.scenario!=='bonus'&&b.scenario!=='nosweat'&&b.scenario!=='parlay_ins').reduce((s,b)=>s+b.stake,0);
+      const roi=totalStaked>0?(totalPL/totalStaked)*100:null,wr=settled.length>0?(wins/settled.length)*100:null;
+      const clvBets=bets.filter(b=>b.clv!==null&&b.clv!==undefined);
+      const avgCLV=clvBets.length>0?clvBets.reduce((s,b)=>s+b.clv,0)/clvBets.length:null;
+      document.getElementById('s-total').textContent=bets.length;
+      document.getElementById('s-record').textContent=`${wins}-${losses}`;
+      document.getElementById('s-winrate').textContent=wr!==null?`${wr.toFixed(1)}%`:'—';
+      const plEl=document.getElementById('s-pl');plEl.textContent=`${totalPL>=0?'+':''}$${totalPL.toFixed(0)}`;plEl.className='stat-value '+(totalPL>=0?'pos':'neg');
+      const rEl=document.getElementById('s-roi');rEl.textContent=roi!==null?`${roi>=0?'+':''}${roi.toFixed(1)}%`:'—';rEl.className='stat-value '+(roi===null?'':roi>=0?'pos':'neg');
+      const cEl=document.getElementById('s-clv');cEl.textContent=avgCLV!==null?`${avgCLV>=0?'+':''}${avgCLV.toFixed(2)}%`:'—';cEl.className='stat-value '+(avgCLV===null?'':avgCLV>=0?'pos':'neg');
+    }
+
+    function renderBets(){
+      const tbody=document.getElementById('bets-tbody'),empty=document.getElementById('empty-state');
+      const sf=document.getElementById('fil-sport').value,rf=document.getElementById('fil-result').value,bf=document.getElementById('fil-book').value,scf=document.getElementById('fil-scenario').value;
+      const filtered=bets.filter(b=>(!sf||b.sport===sf)&&(!rf||b.result===rf)&&(!bf||b.book===bf)&&(!scf||b.scenario===scf));
+      if(!filtered.length){tbody.innerHTML='';empty.style.display='block';return;}
+      empty.style.display='none';
+      tbody.innerHTML=filtered.map(b=>{
+        const plStr=b.result==='Pending'?'—':`${b.pl>=0?'+':''}$${b.pl.toFixed(2)}`,plClass=b.pl>0?'result-pos':b.pl<0?'result-neg':'';
+        const dispOdds=b.effectiveOdds||b.odds,oddsStr=dispOdds>0?`+${dispOdds}`:`${dispOdds}`;
+        const origStr=(b.scenario==='odds_boost'&&b.boostPct)?`<br><span style="font-size:9px;color:var(--muted)">orig: ${b.odds>0?'+':''}${b.odds}</span>`:'';
+        const boostStr=(b.scenario==='profit_boost'&&b.boostPct)?`<br><span style="font-size:9px;color:var(--green)">+${b.boostPct}% profit</span>`:'';
+        const evStr=b.ev!==null?` <span style="font-size:9px;color:${b.ev>=0?'var(--green)':'var(--red)'}">${b.ev>=0?'+':''}${b.ev.toFixed(1)}%</span>`:'';
+        let clvStr='—';
+        if(b.clv!==null&&b.clv!==undefined){
+          const cs=b.close?(b.close>0?`+${b.close}`:`${b.close}`):'';
+          clvStr=`<span class="${b.clv>=0?'clv-pos':'clv-neg'}">${b.clv>=0?'+':''}${b.clv.toFixed(1)}%</span>${cs?`<br><span style="font-size:9px;color:var(--muted)">${cs}</span>`:''}`;
+        }
+        return `<tr><td style="color:var(--muted)">${b.date}</td><td><span class="sport-tag">${b.sport}</span></td><td style="max-width:150px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis" title="${b.desc}">${b.desc}</td><td style="color:var(--muted);font-size:11px">${b.book}</td><td>${oddsStr}${origStr}${boostStr}${evStr}</td><td>${clvStr}</td><td>${SCENARIO_TAG[b.scenario]||SCENARIO_TAG.normal}</td><td>$${b.stake}</td><td><select onchange="updateResult(${b.id},this.value)" style="background:none;border:none;color:inherit;font-family:var(--mono);font-size:12px;cursor:pointer;padding:0">${['Pending','Win','Loss','Push'].map(r=>`<option value="${r}"${b.result===r?' selected':''}>${r}</option>`).join('')}</select></td><td class="${plClass}" style="font-weight:700">${plStr}</td><td><button class="del-btn" onclick="deleteBet(${b.id})">×</button></td></tr>`;
+      }).join('');
+      renderChart();
+    }
+
+    function renderChart(){
+      const settled=[...bets].filter(b=>b.result==='Win'||b.result==='Loss').sort((a,b)=>a.date.localeCompare(b.date));
+      const noData=document.getElementById('no-chart-data'),canvas=document.getElementById('pl-chart');
+      if(!settled.length){canvas.style.display='none';noData.style.display='block';return;}
+      canvas.style.display='block';noData.style.display='none';
+      let running=0;const labels=[],data=[];
+      settled.forEach((b,i)=>{running+=b.pl;labels.push(`Bet ${i+1}`);data.push(parseFloat(running.toFixed(2)));});
+      const ctx=canvas.getContext('2d');if(chart)chart.destroy();
+      const color=(data[data.length-1]||0)>=0?'#22c55e':'#ef4444';
+      chart=new Chart(ctx,{type:'line',data:{labels,datasets:[{label:'Cumulative P/L ($)',data,borderColor:color,backgroundColor:color+'18',borderWidth:2,pointRadius:data.length>30?0:3,pointHoverRadius:5,pointBackgroundColor:color,fill:true,tension:0.3}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{backgroundColor:'#111827',borderColor:'#1e2d45',borderWidth:1,titleColor:'#6b7fa3',bodyColor:'#e8edf5',callbacks:{label:c=>`P/L: ${c.raw>=0?'+':''}$${c.raw.toFixed(2)}`}}},scales:{x:{grid:{color:'#1e2d45'},ticks:{color:'#6b7fa3',font:{family:"Space Mono",size:10},maxTicksLimit:10}},y:{grid:{color:'#1e2d45'},ticks:{color:'#6b7fa3',font:{family:"Space Mono",size:10},callback:v=>`$${v}`}}}}});
+    }
+
+    function switchTab(name){
+      document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+      document.getElementById('tab-'+name).classList.add('active');
+      const map={log:0,bets:1,chart:2};
+      document.querySelectorAll('.tab-btn')[map[name]].classList.add('active');
+      if(name==='chart')renderChart();
+    }
+
+    document.getElementById('f-date').value=new Date().toISOString().slice(0,10);
+    loadBets();updateStats();renderBets();
+  </script>
+</body>
+</html>
