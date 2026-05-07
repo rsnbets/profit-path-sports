@@ -24,7 +24,7 @@
 <meta name="theme-color" content="#0a0f1c">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;800;900&family=JetBrains+Mono:wght@400;500;700&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Orbitron:wght@700;800;900&family=JetBrains+Mono:wght@400;500;700&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #0a0f1c;
@@ -892,6 +892,240 @@
     .lane-grid { grid-template-columns: 1fr; }
     .hero-paths { grid-template-columns: repeat(2, 1fr); max-width: 600px; }
   }
+
+  /* ─────────────────────────────────────────────────
+     RESTYLE PASS — Inter, less all-caps, no card-chrome
+     Reversible by removing this block.
+     ───────────────────────────────────────────────── */
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    padding: 0;
+  }
+  .wrap { max-width: 1080px; padding: 0 24px 80px; }
+
+  /* Drop the "page within a page" chrome on hero and sections */
+  .hero {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    border-radius: 0;
+    overflow: visible;
+    margin-bottom: 0;
+  }
+  .hero-inner {
+    background: none;
+    padding: 80px 0 56px;
+  }
+  .hero-inner::after { display: none; }
+
+  .section {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    border-radius: 0;
+    padding: 64px 0;
+    margin-bottom: 0;
+    border-bottom: 1px solid var(--border-soft);
+  }
+  .section:last-of-type { border-bottom: none; }
+  details.section > summary { padding-right: 40px; }
+
+  /* Brand */
+  .brand-name {
+    font-family: 'Inter', sans-serif;
+    font-size: 30px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    text-transform: none;
+    background: none;
+    -webkit-text-fill-color: var(--text);
+    color: var(--text);
+  }
+  .brand-mark.small .brand-name { font-size: 22px; letter-spacing: -0.005em; }
+  .brand-chart { filter: drop-shadow(0 0 4px rgba(255, 176, 32, 0.4)); width: 32px; height: 26px; }
+  .brand-mark.small .brand-chart { width: 24px; height: 20px; }
+  .brand-mark.small { gap: 12px; margin-bottom: 14px; opacity: 1; }
+  .brand-tagline {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    letter-spacing: 0;
+    text-transform: none;
+    font-weight: 500;
+    color: var(--muted);
+    opacity: 1;
+    margin-bottom: 28px;
+  }
+
+  /* Hero copy */
+  .hero-headline {
+    font-family: 'Inter', sans-serif;
+    font-size: 52px;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1.1;
+    max-width: 720px;
+    margin: 0 auto 18px;
+    color: var(--text);
+  }
+  .hero-headline .accent { background: none; -webkit-text-fill-color: var(--text); color: var(--text); }
+  .hero-pitch {
+    font-family: 'Inter', sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 1.55;
+    color: var(--muted);
+    max-width: 620px;
+  }
+  .hero-pitch strong { color: var(--text); font-weight: 600; }
+  .hero-manifesto { display: none; }
+
+  /* Lane buttons */
+  .hero-path-btn {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    letter-spacing: 0;
+    text-transform: none;
+    font-weight: 600;
+  }
+  .hero-path-desc {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  /* Generic CTAs */
+  .btn-cta {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    letter-spacing: 0;
+    text-transform: none;
+    font-weight: 600;
+  }
+
+  /* Section heads */
+  .section-eyebrow {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    font-weight: 600;
+  }
+  .section-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 28px;
+    letter-spacing: -0.02em;
+    text-transform: none;
+    font-weight: 700;
+  }
+  .section-sub {
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 1.55;
+    color: var(--muted);
+    margin-top: 8px;
+    max-width: 720px;
+  }
+  details.section[open] > summary { margin-bottom: 24px; }
+
+  /* Path step cards */
+  .path-num {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    text-shadow: none;
+  }
+  .path-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 17px;
+    font-weight: 600;
+    letter-spacing: 0;
+  }
+  .path-blurb { font-family: 'Inter', sans-serif; font-size: 14px; color: var(--muted); line-height: 1.55; }
+  .path-tool {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    letter-spacing: 0;
+    text-transform: none;
+    font-weight: 600;
+    color: var(--dim);
+  }
+
+  /* Tool cards */
+  .tool-name {
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    letter-spacing: 0;
+    text-transform: none;
+    font-weight: 600;
+    color: var(--text);
+  }
+  .tool-desc { font-family: 'Inter', sans-serif; font-size: 14px; color: var(--muted); line-height: 1.55; }
+  .tool-cta {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    letter-spacing: 0;
+    text-transform: none;
+    font-weight: 600;
+  }
+
+  /* Sportsbook cards */
+  .book-name {
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    letter-spacing: 0;
+    text-transform: none;
+    font-weight: 600;
+  }
+  .book-bonus { font-family: 'Inter', sans-serif; font-size: 13px; }
+  .book-tag {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    letter-spacing: 0;
+    text-transform: none;
+    font-weight: 600;
+  }
+
+  /* Donate / Coming Soon */
+  .donate-name, .coming-name {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    letter-spacing: 0;
+    text-transform: none;
+    font-weight: 600;
+  }
+  .donate-handle { font-family: 'JetBrains Mono', monospace; font-size: 12px; }
+  .coming-desc { font-family: 'Inter', sans-serif; font-size: 14px; line-height: 1.55; }
+  .coming-card .badge {
+    font-family: 'Inter', sans-serif;
+    letter-spacing: 0.06em;
+    font-weight: 600;
+  }
+
+  /* About */
+  .about-body { font-family: 'Inter', sans-serif; font-size: 16px; line-height: 1.7; }
+  .about-sig {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.04em;
+    text-transform: none;
+    font-weight: 600;
+    color: var(--muted);
+  }
+
+  /* Footer */
+  .footer { font-family: 'Inter', sans-serif; }
+  .footer .disclaimer { font-family: 'Inter', sans-serif; font-size: 13px; }
+
+  @media (max-width: 600px) {
+    .hero-inner { padding: 56px 0 40px; }
+    .section { padding: 48px 0; }
+    .hero-headline { font-size: 36px; letter-spacing: -0.02em; }
+    .section-title { font-size: 22px; }
+  }
 </style>
 </head>
 <body>
@@ -915,15 +1149,9 @@
         </span>
       </div>
       <div class="brand-tagline">Learn to beat the sportsbooks at their own game</div>
-      <h1 class="hero-headline">
-        It's not bad luck.<br>
-        <span class="accent">It's the math.</span>
-      </h1>
+      <h1 class="hero-headline">Sports betting math, made simple.</h1>
       <p class="hero-pitch">
-        Sportsbooks beat you with <strong>math, not magic</strong>. Learn the math — and use the same tools sharps use to flip the edge. Always free. No picks to sell.
-      </p>
-      <p class="hero-manifesto">
-        Wherever you are on the path — first +EV bet or ten-thousandth — <strong>your next move is sharper from here.</strong>
+        Free calculators, structured lessons, and welcome-offer playbooks for serious sports bettors. <strong>No paywalls, no picks, no signup.</strong>
       </p>
       <div class="hero-paths">
         <a class="hero-path green" href="#bonus">
