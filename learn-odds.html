@@ -3,14 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CLV — The Only Proof You're +EV | Profit Path Sports</title>
-<meta name="description" content="Closing line value (CLV) is the only short-term metric that doesn't lie. Learn why every winning bettor tracks CLV, not unit profit.">
+<title>Reading the Odds — What -115 Actually Means | Profit Path Sports</title>
+<meta name="description" content="The plus and minus numbers on every line, explained. Once you can read a moneyline, you can read every bet on the board.">
 
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230a0f1c'/%3E%3Cpolyline points='5,24 12,16 16,19 22,9 27,5' fill='none' stroke='%23ffb020' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
 
 <meta property="og:type" content="article">
-<meta property="og:title" content="CLV — The Only Proof You're +EV | Profit Path Sports">
-<meta property="og:description" content="The only short-term metric that doesn't lie about whether you're a winning bettor.">
+<meta property="og:title" content="Reading the Odds — What -115 Actually Means | Profit Path Sports">
+<meta property="og:description" content="Plus, minus, moneylines — the absolute basics of every bet.">
 <meta property="og:site_name" content="Profit Path Sports">
 <meta name="theme-color" content="#0a0f1c">
 
@@ -46,7 +46,8 @@
   .math-block .label { color: var(--dim); font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; display: block; margin-bottom: 10px; }
   .math-block .accent { color: var(--blue); font-weight: 700; }
   .math-block .pos { color: var(--green); font-weight: 700; }
-  .math-block .neg { color: var(--red); font-weight: 700; }
+  .math-block .neg { color: var(--yellow); font-weight: 700; }
+  .math-block .dim { color: var(--dim); }
   .cta-card { background: linear-gradient(135deg, rgba(61, 139, 255, 0.08), rgba(61, 139, 255, 0.02)); border: 1px solid var(--blue); border-radius: 16px; padding: 32px 28px; margin: 44px 0 32px; text-align: center; box-shadow: 0 0 40px rgba(61, 139, 255, 0.08), 0 20px 60px rgba(0, 0, 0, 0.3); }
   .cta-eyebrow { font-family: 'Orbitron', sans-serif; font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--blue); font-weight: 700; margin-bottom: 10px; }
   .cta-title { font-family: 'Rajdhani', sans-serif; font-size: 26px; font-weight: 700; color: var(--text); margin-bottom: 8px; letter-spacing: 0.3px; }
@@ -60,8 +61,6 @@
   .next-nav-card .nav-label { font-family: 'Orbitron', sans-serif; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--dim); margin-bottom: 6px; }
   .next-nav-card .nav-title { font-family: 'Rajdhani', sans-serif; font-size: 17px; font-weight: 700; color: var(--text); }
   .next-nav-card.next { text-align: right; }
-  .next-nav-card.complete { border-color: var(--purple); background: rgba(188, 140, 255, 0.06); }
-  .next-nav-card.complete .nav-label { color: var(--purple); }
   .footer { text-align: center; margin-top: 60px; padding: 28px 20px 0; color: var(--dim); font-size: 11px; letter-spacing: 1px; line-height: 1.7; border-top: 1px solid var(--border-soft); }
   .footer .disclaimer { max-width: 720px; margin: 0 auto 14px; color: var(--dim); font-family: 'Rajdhani', sans-serif; font-size: 13px; letter-spacing: 0.3px; }
   .footer a { color: var(--muted); text-decoration: none; }
@@ -100,70 +99,83 @@
 <div class="wrap">
 
   <div class="lesson-hero">
-    <div class="lesson-eyebrow">Lane 02 · Lesson 05</div>
-    <h1 class="lesson-title">CLV</h1>
-    <p class="lesson-sub">Closing line value — the only proof that you're actually +EV.</p>
+    <div class="lesson-eyebrow">Lane 02 · Lesson 01</div>
+    <h1 class="lesson-title">Reading the Odds</h1>
+    <p class="lesson-sub">What −115 and +105 actually mean — and why it's the foundation of every bet you'll make.</p>
   </div>
 
   <section class="lesson-section">
     <h3>What is it?</h3>
     <div class="lesson-body">
-      <p>You can place a hundred <a href="/learn-ev.html" style="color:var(--blue)">+EV bets</a> and still be down 8 units after a month. Variance is real. So how do you know — actually <em>know</em> — that you're a winning bettor and not just running good or running bad?</p>
-      <p><strong>CLV. Closing Line Value.</strong></p>
-      <p>The closing line is the price the market lands on right before tip-off. It represents the sharpest, most-informed estimate the entire market could come up with — every sharp bettor, every model, every piece of late-breaking information baked in. By the time the line closes, almost all the noise has been squeezed out.</p>
-      <p>If you bet a line and it moves <em>toward</em> you by the time it closes — i.e. you got a price the closing market thinks was too good for you — you got positive CLV. You beat the close. Beating the close, over and over, is the only reliable proof you're +EV.</p>
+      <p>Open any sportsbook and you'll see lines like:</p>
+
+      <div class="math-block">
+        <span class="label">A typical moneyline matchup</span>
+        Mavericks   <span class="neg">−115</span><br>
+        Spurs       <span class="pos">+105</span>
+      </div>
+
+      <p>That's a <strong>moneyline bet</strong> — the simplest possible bet in sports. No spread, no total. Just: who wins?</p>
+      <p>The number next to each team is the <strong>price</strong> — it tells you how much you risk and how much you'd win. Once you can read a moneyline, you can read every other bet on the board: spreads, totals, props, parlays. They all use the same convention.</p>
     </div>
   </section>
 
   <section class="lesson-section">
-    <h3>The math behind it</h3>
+    <h3>Reading minus odds (favorites)</h3>
     <div class="lesson-body">
-      <p>You bet Mavs +6.5 at −110. By tip-off, the line has moved to Mavs +5.5 −110. The closing market is paying you on a number worse than what you got. Devig the close to get the fair price the market thinks +6.5 is worth — say, −125. Now compare:</p>
+      <p>A <strong>minus sign</strong> means you're betting on the <em>favorite</em> — the side the market thinks is more likely to win. The number tells you <strong>how much you have to risk to win $100.</strong></p>
 
       <div class="math-block">
-        <span class="label">Your CLV on this bet</span>
-        Price you got     :  <span class="accent">−110</span>  (decimal 1.91)<br>
-        Fair price at close:  <span class="accent">−125</span>  (decimal 1.80)<br>
-        ────────────────────────────────────<br>
-        CLV  =  (1.91 / 1.80) − 1  =  <span class="pos">+6.4%</span>
+        <span class="label">Reading minus odds</span>
+        <span class="neg">−110</span>  =  risk $110  to win $100<br>
+        <span class="neg">−150</span>  =  risk $150  to win $100<br>
+        <span class="neg">−300</span>  =  risk $300  to win $100  <span class="dim">(heavy favorite)</span>
       </div>
 
-      <p>The bet itself might lose. The Mavs might cover by 1, or not at all. CLV doesn't care. It's measuring the quality of the <em>price</em> you got, not the outcome.</p>
+      <p>The bigger the minus number, the bigger the favorite — and the more you have to put up to win the same $100. Whatever you risk, you also get back if you win, so a winning $110 bet at −110 returns $210 total ($110 stake + $100 profit).</p>
+    </div>
+  </section>
+
+  <section class="lesson-section">
+    <h3>Reading plus odds (underdogs)</h3>
+    <div class="lesson-body">
+      <p>A <strong>plus sign</strong> means you're betting on the <em>underdog</em> — the side the market thinks is less likely to win. The number tells you <strong>how much you'd win on a $100 bet.</strong></p>
+
+      <div class="math-block">
+        <span class="label">Reading plus odds</span>
+        <span class="pos">+110</span>  =  risk $100  to win $110<br>
+        <span class="pos">+200</span>  =  risk $100  to win $200<br>
+        <span class="pos">+400</span>  =  risk $100  to win $400  <span class="dim">(heavy underdog)</span>
+      </div>
+
+      <p>The bigger the plus number, the bigger the underdog — and the bigger the payout if it hits. A winning $100 bet at +200 returns $300 total ($100 stake + $200 profit).</p>
     </div>
   </section>
 
   <section class="lesson-section">
     <h3>Why it matters more than you think</h3>
     <div class="lesson-body">
-      <p>A bettor who's running <strong>+5% CLV over 200 bets</strong> is almost certainly a winning bettor — even if they're sitting at −3 units on the year. Variance just hasn't caught up yet.</p>
-      <p>A bettor who's running <strong>−2% CLV over 200 bets</strong> is almost certainly a losing bettor — even if they're sitting at +12 units on the year. They got lucky. Variance always catches up.</p>
-      <p>CLV is the only short-term metric that doesn't lie. Profit is too noisy. Win rate is too noisy. CLV is signal — at the cost of being slightly less satisfying than counting your winnings on a hot week.</p>
-    </div>
-  </section>
-
-  <section class="lesson-section">
-    <h3>What sharps do about it</h3>
-    <div class="lesson-body">
-      <p>They review every bet at close. They track CLV obsessively, not unit profit. If their CLV is positive, they keep doing what they're doing — even on losing weeks. If their CLV turns negative, they investigate <em>before</em> blaming bad luck.</p>
-      <p>You can't always win. You can always check whether you're picking sharper than the market — and that's the only thing that tells you if winning is on the way.</p>
+      <p>Almost every other bet you'll see uses these same rules. Spread bets, totals (over/under), player props, futures — they're all priced in the same +/− format. <strong>Once you can read a moneyline, you can read every line on a sportsbook's board.</strong></p>
+      <p>Sharp bettors stop thinking about "$X to win $Y" pretty quickly. Instead, they translate odds into <em>implied probability</em> — what win-rate the price is asking you to beat. A line of −115 says you have to win 53.5% of the time to break even. A line of +105 says you only have to win 48.8% of the time.</p>
+      <p>That conversion — from price to probability — is where the next lesson begins. Because every line on the board is priced with a tax baked in, and that tax is the reason most bettors lose.</p>
     </div>
   </section>
 
   <div class="cta-card">
-    <div class="cta-eyebrow">Track your edge</div>
-    <div class="cta-title">Log every bet, watch your CLV.</div>
-    <p class="cta-blurb">The Bet Tracker logs every bet you place, captures the closing line automatically, and shows you your running CLV over time. No account needed — data lives in your browser. The number that matters most is the one you can finally see.</p>
-    <a href="/bet-tracker.html" class="cta-btn">Open the Bet Tracker →</a>
+    <div class="cta-eyebrow">Translate any line</div>
+    <div class="cta-title">See odds in plain language.</div>
+    <p class="cta-blurb">Plug in any American odds. The Implied Odds Calculator returns the decimal odds, the implied probability, and the dollar risk-vs-payout — so your eye gets fluent fast.</p>
+    <a href="/odds_calculator.html" class="cta-btn">Open the Implied Odds Calculator →</a>
   </div>
 
   <div class="next-nav">
-    <a class="next-nav-card" href="/learn-kelly.html">
+    <a class="next-nav-card disabled" href="#">
       <div class="nav-label">← Previous</div>
-      <div class="nav-title">Lesson 04 · Kelly Sizing</div>
+      <div class="nav-title">Start of the Lane</div>
     </a>
-    <a class="next-nav-card next complete" href="/index.html#tools">
-      <div class="nav-label">Lane Complete →</div>
-      <div class="nav-title">Open the Toolbox</div>
+    <a class="next-nav-card next" href="/learn-vig.html">
+      <div class="nav-label">Next →</div>
+      <div class="nav-title">Lesson 02 · The Vig</div>
     </a>
   </div>
 
