@@ -521,6 +521,76 @@
   .footer a { color: var(--muted); text-decoration: none; }
   .footer a:hover { color: var(--blue); }
 
+  /* ── In-hero three-button path picker ── */
+  .hero-paths {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    max-width: 820px;
+    margin: 30px auto 0;
+  }
+
+  .hero-path {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-decoration: none;
+  }
+
+  .hero-path-btn {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 700;
+    padding: 16px 18px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    background: var(--panel-deep);
+    color: var(--text);
+    transition: all 0.18s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-path-btn::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--lane-accent, var(--blue));
+    opacity: 0.5;
+    transition: opacity 0.2s;
+  }
+
+  .hero-path:hover .hero-path-btn {
+    background: var(--panel-inset);
+    border-color: var(--lane-accent, var(--blue));
+    transform: translateY(-2px);
+  }
+
+  .hero-path:hover .hero-path-btn::before { opacity: 1; }
+
+  .hero-path-icon { font-size: 18px; line-height: 1; }
+
+  .hero-path.green { --lane-accent: var(--green); }
+  .hero-path.gold  { --lane-accent: var(--yellow); }
+  .hero-path.blue  { --lane-accent: var(--blue); }
+
+  .hero-path-desc {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.5;
+    text-align: center;
+    letter-spacing: 0.2px;
+    padding: 0 4px;
+  }
+
   /* ── Three-lane picker ── */
   .lane-grid {
     display: grid;
@@ -639,9 +709,20 @@
   }
 
   /* ── Demoted brand + headline-led hero ── */
-  .brand-mark.small { margin-bottom: 26px; opacity: 0.85; }
+  .brand-mark.small { margin-bottom: 8px; opacity: 0.85; }
   .brand-mark.small .bolt { font-size: 26px; }
   .brand-mark.small .brand-name { font-size: 18px; letter-spacing: 3px; }
+
+  .brand-tagline {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--yellow);
+    font-weight: 700;
+    margin-bottom: 30px;
+    opacity: 0.85;
+  }
 
   .hero-headline {
     font-family: 'Rajdhani', sans-serif;
@@ -758,6 +839,8 @@
     .path-tool { grid-column: 1 / -1; margin-top: 10px; font-size: 9px; text-align: right; }
     .lane-grid { grid-template-columns: 1fr; }
     .lane-card { padding: 22px 20px; }
+    .hero-paths { grid-template-columns: 1fr; gap: 14px; max-width: 360px; }
+    .hero-path-desc { font-size: 13px; }
   }
   @media (min-width: 601px) and (max-width: 900px) {
     .lane-grid { grid-template-columns: 1fr; }
@@ -774,7 +857,9 @@
       <div class="brand-mark small">
         <span class="bolt">⚡</span>
         <span class="brand-name">Profit Path Sports</span>
+        <span class="bolt">⚡</span>
       </div>
+      <div class="brand-tagline">Learn to beat the sportsbooks at their own game</div>
       <h1 class="hero-headline">
         It's not bad luck.<br>
         <span class="accent">It's the math.</span>
@@ -785,44 +870,29 @@
       <p class="hero-manifesto">
         Wherever you are on the path — first +EV bet or ten-thousandth — <strong>your next move is sharper from here.</strong>
       </p>
-      <div class="hero-cta">
-        <a href="#paths" class="btn-cta primary">Pick Your Path →</a>
+      <div class="hero-paths">
+        <a class="hero-path green" href="#bonus">
+          <div class="hero-path-btn">
+            <span class="hero-path-icon">💰</span>
+            Bonus Hunter
+          </div>
+          <div class="hero-path-desc">Convert sportsbook promos and bonus bets into guaranteed cash — no betting knowledge needed.</div>
+        </a>
+        <a class="hero-path gold" href="#start">
+          <div class="hero-path-btn">
+            <span class="hero-path-icon">🎯</span>
+            New Bettor
+          </div>
+          <div class="hero-path-desc">Losing and not sure why? Learn the math behind +EV — and how to flip the edge.</div>
+        </a>
+        <a class="hero-path blue" href="#tools">
+          <div class="hero-path-btn">
+            <span class="hero-path-icon">⚡</span>
+            Sharp
+          </div>
+          <div class="hero-path-desc">Already +EV? Skip the lessons and head straight to the ten free calculators.</div>
+        </a>
       </div>
-    </div>
-  </div>
-
-  <!-- PICK YOUR PATH -->
-  <div class="section" id="paths">
-    <div class="section-head">
-      <div class="section-eyebrow">Pick Your Path</div>
-      <div class="section-title">Three Lanes, One Site</div>
-      <div class="section-sub">Whatever brought you here, there's a clear next step. Pick the lane that fits — you can always change lanes later.</div>
-    </div>
-
-    <div class="lane-grid">
-      <a class="lane-card green" href="#bonus">
-        <div class="lane-icon">💰</div>
-        <div class="lane-eyebrow">Lane 01</div>
-        <div class="lane-title">Bonus Hunter</div>
-        <div class="lane-blurb">Don't care about sports betting? Convert sportsbook welcome offers and bonus bets into guaranteed cash. Low risk, no betting knowledge needed.</div>
-        <div class="lane-cta">The Promo Playbook →</div>
-      </a>
-
-      <a class="lane-card gold" href="#start">
-        <div class="lane-icon">🎯</div>
-        <div class="lane-eyebrow">Lane 02</div>
-        <div class="lane-title">New Bettor</div>
-        <div class="lane-blurb">Losing and not sure why? Learn the math sportsbooks bake into every line — and use the same tools sharps use to flip the edge back.</div>
-        <div class="lane-cta">From Losing to +EV →</div>
-      </a>
-
-      <a class="lane-card blue" href="#tools">
-        <div class="lane-icon">⚡</div>
-        <div class="lane-eyebrow">Lane 03</div>
-        <div class="lane-title">Sharp</div>
-        <div class="lane-blurb">Already +EV? Skip the lessons and head straight for the calculators. Ten free tools — devig, EV, Kelly, hedge, CLV — no signup, no paywall.</div>
-        <div class="lane-cta">The Toolbox →</div>
-      </a>
     </div>
   </div>
 
