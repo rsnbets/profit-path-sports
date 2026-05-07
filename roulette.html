@@ -246,7 +246,12 @@
   </div>
 
   <div class="panel">
-    <div class="panel-title">⚡ Place Bets — Click The Table</div>
+    <div class="panel-title">⚡ Place Bets</div>
+    <div style="font-family:var(--display);font-size:14px;color:var(--text);margin-bottom:12px;line-height:1.5;">
+      <strong style="color:var(--accent);">Click any number</strong> on the table for a straight-up bet (35:1) ·
+      <strong style="color:var(--accent);">Click an outside box</strong> below for Red/Black, Even/Odd, dozens, columns, or 1-18/19-36 ·
+      <strong style="color:var(--accent);">Use the bet builder</strong> further down for splits, streets, corners, or lines.
+    </div>
     <div class="table-wrap">
       <div class="roulette-table" id="roulette-table"></div>
       <div class="outside-grid">
@@ -269,11 +274,12 @@
   </div>
 
   <div class="panel">
-    <div class="panel-title">⚡ Combination Bet Builder (Splits / Streets / Corners / Lines)</div>
+    <div class="panel-title">⚡ Bet Builder (Type Numbers)</div>
     <div class="combo-form">
       <div class="form-group">
         <label class="form-label">Bet Type</label>
         <select class="form-select" id="combo-type" onchange="onComboTypeChange()">
+          <option value="straight">Straight Up (1 number, 35:1)</option>
           <option value="split">Split (2 numbers, 17:1)</option>
           <option value="street">Street (3 numbers, 11:1)</option>
           <option value="corner">Corner (4 numbers, 8:1)</option>
@@ -634,14 +640,36 @@
     function onComboTypeChange(){
       const t = document.getElementById('combo-type').value;
       const hint = document.getElementById('combo-hint');
-      const counts = {split:'2 adjacent',street:'3 in a row',corner:'4 in a square',line:'6 across two rows'};
-      const n = {split:2,street:3,corner:4,line:6}[t];
-      hint.textContent = 'Enter '+n+' numbers ('+counts[t]+'). 1-36 only.';
+      const input = document.getElementById('combo-nums');
+      if(t==='straight'){
+        hint.textContent = 'Enter 1 number (0, 00, or 1-36).';
+        input.placeholder = 'e.g. 17  or  00';
+      } else {
+        const counts = {split:'2 adjacent',street:'3 in a row',corner:'4 in a square',line:'6 across two rows'};
+        const n = {split:2,street:3,corner:4,line:6}[t];
+        hint.textContent = 'Enter '+n+' numbers ('+counts[t]+'). 1-36 only.';
+        input.placeholder = 'e.g. ' + (n===2?'5, 8':n===3?'1, 2, 3':n===4?'5, 6, 8, 9':'1, 2, 3, 4, 5, 6');
+      }
     }
 
     function addComboBet(){
       const t = document.getElementById('combo-type').value;
       const raw = document.getElementById('combo-nums').value.trim();
+      const stake = currentStake(); if(stake===null) return;
+
+      if(t==='straight'){
+        const norm = raw.toLowerCase().replace(/\s+/g,'');
+        let n;
+        if(norm==='00') n = -1;
+        else if(/^-?\d+$/.test(norm)){
+          n = Number(norm);
+          if(n<0||n>36){ alert('Enter 0, 00, or a number 1-36.'); return; }
+        } else { alert('Enter 0, 00, or a number 1-36.'); return; }
+        addBet({type:'straight', numbers:[n], stake, label:labelOf(n)});
+        document.getElementById('combo-nums').value = '';
+        return;
+      }
+
       const need = {split:2,street:3,corner:4,line:6}[t];
       const nums = raw.split(/[\s,]+/).map(Number).filter(x=>!isNaN(x));
       if(nums.length!==need){
@@ -656,7 +684,6 @@
         alert('Duplicate numbers — each number must appear once.');
         return;
       }
-      const stake = currentStake(); if(stake===null) return;
       addBet({type:t, numbers:nums.sort((a,b)=>a-b), stake, label:nums.join(',')});
       document.getElementById('combo-nums').value = '';
     }
