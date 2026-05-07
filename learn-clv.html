@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CLV — The Only Proof You're +EV | Profit Path Sports</title>
+<meta name="description" content="Closing line value (CLV) is the only short-term metric that doesn't lie. Learn why every winning bettor tracks CLV, not unit profit.">
+
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230a0f1c'/%3E%3Cpolyline points='5,24 12,16 16,19 22,9 27,5' fill='none' stroke='%23ffb020' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="CLV — The Only Proof You're +EV | Profit Path Sports">
+<meta property="og:description" content="The only short-term metric that doesn't lie about whether you're a winning bettor.">
+<meta property="og:site_name" content="Profit Path Sports">
+<meta name="theme-color" content="#0a0f1c">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;800;900&family=JetBrains+Mono:wght@400;500;700&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root { --bg: #0a0f1c; --panel: #0f1524; --panel-inset: #141a2b; --panel-deep: #0c1120; --border: #1e2638; --border-soft: #141c30; --text: #e5e7eb; --muted: #8b94a8; --dim: #6b7689; --blue: #3d8bff; --blue-glow: rgba(61, 139, 255, 0.18); --yellow: #f5b545; --green: #4ade80; --red: #f87171; --purple: #BC8CFF; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: radial-gradient(ellipse at top, #111a2e 0%, var(--bg) 60%); color: var(--text); font-family: 'JetBrains Mono', ui-monospace, monospace; min-height: 100vh; line-height: 1.5; }
+  .topnav { border-bottom: 1px solid var(--border-soft); background: rgba(10, 15, 28, 0.85); backdrop-filter: blur(8px); position: sticky; top: 0; z-index: 10; }
+  .topnav-inner { max-width: 1100px; margin: 0 auto; padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+  .nav-brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; color: var(--blue); font-family: 'Orbitron', sans-serif; font-size: 13px; letter-spacing: 2.5px; font-weight: 800; text-transform: uppercase; }
+  .nav-brand-chart { display: inline-flex; width: 22px; height: 18px; color: #ffb020; filter: drop-shadow(0 0 6px rgba(255, 176, 32, 0.55)); }
+  .nav-brand-chart svg { width: 100%; height: 100%; }
+  .nav-back { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--muted); text-decoration: none; letter-spacing: 0.5px; transition: color 0.15s; }
+  .nav-back:hover { color: var(--blue); }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 32px 20px 80px; }
+  .lesson-hero { margin-bottom: 36px; }
+  .lesson-eyebrow { font-family: 'Orbitron', sans-serif; font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--blue); font-weight: 700; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+  .lesson-eyebrow::before { content: '▸'; color: var(--blue); font-size: 10px; }
+  .lesson-title { font-family: 'Orbitron', sans-serif; font-size: 44px; font-weight: 900; letter-spacing: 3px; color: var(--text); text-transform: uppercase; line-height: 1.05; margin-bottom: 14px; }
+  .lesson-sub { font-family: 'Rajdhani', sans-serif; font-size: 22px; color: var(--muted); font-weight: 500; letter-spacing: 0.4px; line-height: 1.4; }
+  .lesson-section { margin-bottom: 36px; }
+  .lesson-section h3 { font-family: 'Orbitron', sans-serif; font-size: 18px; letter-spacing: 2px; text-transform: uppercase; color: var(--text); font-weight: 800; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--border-soft); }
+  .lesson-body { font-family: 'Rajdhani', sans-serif; font-size: 18px; line-height: 1.7; color: var(--text); letter-spacing: 0.2px; }
+  .lesson-body p { margin-bottom: 16px; }
+  .lesson-body p:last-child { margin-bottom: 0; }
+  .lesson-body strong { color: var(--text); font-weight: 700; }
+  .lesson-body em { color: var(--blue); font-style: normal; font-weight: 600; }
+  .math-block { background: var(--panel-deep); border: 1px solid var(--border-soft); border-left: 3px solid var(--blue); border-radius: 10px; padding: 20px 24px; font-family: 'JetBrains Mono', monospace; font-size: 15px; color: var(--text); margin: 18px 0; line-height: 1.8; overflow-x: auto; }
+  .math-block .label { color: var(--dim); font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; display: block; margin-bottom: 10px; }
+  .math-block .accent { color: var(--blue); font-weight: 700; }
+  .math-block .pos { color: var(--green); font-weight: 700; }
+  .math-block .neg { color: var(--red); font-weight: 700; }
+  .cta-card { background: linear-gradient(135deg, rgba(61, 139, 255, 0.08), rgba(61, 139, 255, 0.02)); border: 1px solid var(--blue); border-radius: 16px; padding: 32px 28px; margin: 44px 0 32px; text-align: center; box-shadow: 0 0 40px rgba(61, 139, 255, 0.08), 0 20px 60px rgba(0, 0, 0, 0.3); }
+  .cta-eyebrow { font-family: 'Orbitron', sans-serif; font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--blue); font-weight: 700; margin-bottom: 10px; }
+  .cta-title { font-family: 'Rajdhani', sans-serif; font-size: 26px; font-weight: 700; color: var(--text); margin-bottom: 8px; letter-spacing: 0.3px; }
+  .cta-blurb { font-family: 'Rajdhani', sans-serif; font-size: 16px; color: var(--muted); line-height: 1.55; max-width: 480px; margin: 0 auto 22px; }
+  .cta-btn { display: inline-flex; align-items: center; gap: 10px; font-family: 'Orbitron', sans-serif; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; font-weight: 800; text-decoration: none; padding: 14px 26px; border-radius: 10px; background: var(--blue); color: #06101e; box-shadow: 0 0 20px var(--blue-glow); transition: all 0.15s; }
+  .cta-btn:hover { background: #5fa1ff; transform: translateY(-1px); box-shadow: 0 0 28px rgba(61, 139, 255, 0.35); }
+  .next-nav { display: flex; justify-content: space-between; align-items: stretch; gap: 14px; margin-top: 32px; }
+  .next-nav-card { flex: 1; background: var(--panel-deep); border: 1px solid var(--border-soft); border-radius: 12px; padding: 18px 20px; text-decoration: none; color: var(--text); transition: all 0.15s; }
+  .next-nav-card:hover { border-color: var(--blue); background: var(--panel-inset); }
+  .next-nav-card.disabled { opacity: 0.4; pointer-events: none; }
+  .next-nav-card .nav-label { font-family: 'Orbitron', sans-serif; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--dim); margin-bottom: 6px; }
+  .next-nav-card .nav-title { font-family: 'Rajdhani', sans-serif; font-size: 17px; font-weight: 700; color: var(--text); }
+  .next-nav-card.next { text-align: right; }
+  .next-nav-card.complete { border-color: var(--purple); background: rgba(188, 140, 255, 0.06); }
+  .next-nav-card.complete .nav-label { color: var(--purple); }
+  .footer { text-align: center; margin-top: 60px; padding: 28px 20px 0; color: var(--dim); font-size: 11px; letter-spacing: 1px; line-height: 1.7; border-top: 1px solid var(--border-soft); }
+  .footer .disclaimer { max-width: 720px; margin: 0 auto 14px; color: var(--dim); font-family: 'Rajdhani', sans-serif; font-size: 13px; letter-spacing: 0.3px; }
+  .footer a { color: var(--muted); text-decoration: none; }
+  .footer a:hover { color: var(--blue); }
+  @media (max-width: 600px) {
+    .topnav-inner { padding: 12px 16px; }
+    .nav-brand { font-size: 11px; letter-spacing: 2px; }
+    .wrap { padding: 24px 16px 60px; }
+    .lesson-title { font-size: 32px; letter-spacing: 2px; }
+    .lesson-sub { font-size: 18px; }
+    .lesson-body { font-size: 16px; }
+    .lesson-section h3 { font-size: 15px; }
+    .cta-card { padding: 26px 20px; }
+    .cta-title { font-size: 22px; }
+    .next-nav { flex-direction: column; }
+    .next-nav-card.next { text-align: left; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a class="nav-brand" href="/index.html">
+      <span class="nav-brand-chart" aria-hidden="true">
+        <svg viewBox="0 0 28 22" xmlns="http://www.w3.org/2000/svg" fill="none">
+          <polyline points="2,18 8,12 12,15 18,7 26,3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      Profit Path Sports
+    </a>
+    <a class="nav-back" href="/index.html#start">← Back to Lanes</a>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <div class="lesson-hero">
+    <div class="lesson-eyebrow">Lane 02 · Lesson 04</div>
+    <h1 class="lesson-title">CLV</h1>
+    <p class="lesson-sub">Closing line value — the only proof that you're actually +EV.</p>
+  </div>
+
+  <section class="lesson-section">
+    <h3>What is it?</h3>
+    <div class="lesson-body">
+      <p>You can place a hundred <a href="/learn-ev.html" style="color:var(--blue)">+EV bets</a> and still be down 8 units after a month. Variance is real. So how do you know — actually <em>know</em> — that you're a winning bettor and not just running good or running bad?</p>
+      <p><strong>CLV. Closing Line Value.</strong></p>
+      <p>The closing line is the price the market lands on right before tip-off. It represents the sharpest, most-informed estimate the entire market could come up with — every sharp bettor, every model, every piece of late-breaking information baked in. By the time the line closes, almost all the noise has been squeezed out.</p>
+      <p>If you bet a line and it moves <em>toward</em> you by the time it closes — i.e. you got a price the closing market thinks was too good for you — you got positive CLV. You beat the close. Beating the close, over and over, is the only reliable proof you're +EV.</p>
+    </div>
+  </section>
+
+  <section class="lesson-section">
+    <h3>The math behind it</h3>
+    <div class="lesson-body">
+      <p>You bet Mavs +6.5 at −110. By tip-off, the line has moved to Mavs +5.5 −110. The closing market is paying you on a number worse than what you got. Devig the close to get the fair price the market thinks +6.5 is worth — say, −125. Now compare:</p>
+
+      <div class="math-block">
+        <span class="label">Your CLV on this bet</span>
+        Price you got     :  <span class="accent">−110</span>  (decimal 1.91)<br>
+        Fair price at close:  <span class="accent">−125</span>  (decimal 1.80)<br>
+        ────────────────────────────────────<br>
+        CLV  =  (1.91 / 1.80) − 1  =  <span class="pos">+6.4%</span>
+      </div>
+
+      <p>The bet itself might lose. The Mavs might cover by 1, or not at all. CLV doesn't care. It's measuring the quality of the <em>price</em> you got, not the outcome.</p>
+    </div>
+  </section>
+
+  <section class="lesson-section">
+    <h3>Why it matters more than you think</h3>
+    <div class="lesson-body">
+      <p>A bettor who's running <strong>+5% CLV over 200 bets</strong> is almost certainly a winning bettor — even if they're sitting at −3 units on the year. Variance just hasn't caught up yet.</p>
+      <p>A bettor who's running <strong>−2% CLV over 200 bets</strong> is almost certainly a losing bettor — even if they're sitting at +12 units on the year. They got lucky. Variance always catches up.</p>
+      <p>CLV is the only short-term metric that doesn't lie. Profit is too noisy. Win rate is too noisy. CLV is signal — at the cost of being slightly less satisfying than counting your winnings on a hot week.</p>
+    </div>
+  </section>
+
+  <section class="lesson-section">
+    <h3>What sharps do about it</h3>
+    <div class="lesson-body">
+      <p>They review every bet at close. They track CLV obsessively, not unit profit. If their CLV is positive, they keep doing what they're doing — even on losing weeks. If their CLV turns negative, they investigate <em>before</em> blaming bad luck.</p>
+      <p>You can't always win. You can always check whether you're picking sharper than the market — and that's the only thing that tells you if winning is on the way.</p>
+    </div>
+  </section>
+
+  <div class="cta-card">
+    <div class="cta-eyebrow">Track your edge</div>
+    <div class="cta-title">Log every bet, watch your CLV.</div>
+    <p class="cta-blurb">The Bet Tracker logs every bet you place, captures the closing line automatically, and shows you your running CLV over time. No account needed — data lives in your browser. The number that matters most is the one you can finally see.</p>
+    <a href="/bet-tracker.html" class="cta-btn">Open the Bet Tracker →</a>
+  </div>
+
+  <div class="next-nav">
+    <a class="next-nav-card" href="/learn-kelly.html">
+      <div class="nav-label">← Previous</div>
+      <div class="nav-title">Lesson 03 · Kelly Sizing</div>
+    </a>
+    <a class="next-nav-card next complete" href="/index.html#tools">
+      <div class="nav-label">Lane Complete →</div>
+      <div class="nav-title">Open the Toolbox</div>
+    </a>
+  </div>
+
+  <div class="footer">
+    <div class="disclaimer">
+      Profit Path Sports is an educational resource. Nothing here is a guarantee, and sports betting carries financial risk. Bet responsibly. If gambling is a problem for you, call <strong>1-800-GAMBLER</strong>. Must be 21+ where legal.
+    </div>
+    <div>© 2026 Profit Path Sports · <a href="/index.html">Home</a> · <a href="/index.html#start">New Bettor Lane</a></div>
+  </div>
+
+</div>
+
+</body>
+</html>
