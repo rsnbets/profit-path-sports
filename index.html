@@ -521,14 +521,246 @@
   .footer a { color: var(--muted); text-decoration: none; }
   .footer a:hover { color: var(--blue); }
 
+  /* ── Three-lane picker ── */
+  .lane-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
+
+  .lane-card {
+    background: var(--panel-deep);
+    border: 1px solid var(--border-soft);
+    border-radius: 16px;
+    padding: 28px 24px;
+    text-decoration: none;
+    color: var(--text);
+    transition: all 0.2s;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .lane-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--lane-accent, var(--blue));
+    opacity: 0.5;
+    transition: opacity 0.2s;
+  }
+
+  .lane-card:hover {
+    background: var(--panel-inset);
+    border-color: var(--lane-accent, var(--blue));
+    transform: translateY(-3px);
+  }
+
+  .lane-card:hover::before { opacity: 1; }
+
+  .lane-card.green { --lane-accent: var(--green); }
+  .lane-card.gold { --lane-accent: var(--yellow); }
+  .lane-card.blue { --lane-accent: var(--blue); }
+
+  .lane-icon {
+    font-size: 30px;
+    margin-bottom: 4px;
+  }
+
+  .lane-eyebrow {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 10px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--lane-accent, var(--dim));
+    font-weight: 700;
+  }
+
+  .lane-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 17px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+
+  .lane-blurb {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 15px;
+    color: var(--muted);
+    line-height: 1.55;
+    flex: 1;
+  }
+
+  .lane-cta {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--dim);
+    margin-top: 14px;
+    font-weight: 700;
+    transition: color 0.15s;
+  }
+
+  .lane-card:hover .lane-cta { color: var(--lane-accent, var(--blue)); }
+
+  /* ── Bonus playbook variant of the path-step ── */
+  .path-grid.bonus .path-step:hover { border-color: var(--green); }
+  .path-grid.bonus .path-num {
+    color: var(--green);
+    text-shadow: 0 0 14px rgba(74, 222, 128, 0.45);
+  }
+  .path-grid.bonus .path-step:hover .path-tool { color: var(--green); }
+
+  /* ── Inclusive manifesto line ── */
+  .hero-manifesto {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 15.5px;
+    font-style: italic;
+    color: var(--muted);
+    margin: 0 auto 26px;
+    max-width: 580px;
+    line-height: 1.6;
+    letter-spacing: 0.3px;
+    padding: 14px 18px;
+    border-top: 1px solid var(--border-soft);
+    border-bottom: 1px solid var(--border-soft);
+  }
+  .hero-manifesto strong {
+    color: var(--yellow);
+    font-weight: 600;
+    font-style: normal;
+  }
+
+  /* ── Demoted brand + headline-led hero ── */
+  .brand-mark.small { margin-bottom: 26px; opacity: 0.85; }
+  .brand-mark.small .bolt { font-size: 26px; }
+  .brand-mark.small .brand-name { font-size: 18px; letter-spacing: 3px; }
+
+  .hero-headline {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 58px;
+    font-weight: 700;
+    line-height: 1.04;
+    letter-spacing: -0.5px;
+    color: var(--text);
+    margin: 0 auto 18px;
+    max-width: 720px;
+  }
+
+  .hero-headline .accent {
+    background: linear-gradient(135deg, var(--yellow) 0%, #ffd57a 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .skip-link {
+    display: inline-block;
+    margin-top: 22px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--dim);
+    text-decoration: none;
+    letter-spacing: 0.5px;
+    border-bottom: 1px dashed transparent;
+    transition: color 0.15s, border-color 0.15s;
+  }
+  .skip-link:hover {
+    color: var(--blue);
+    border-bottom-color: var(--blue);
+  }
+
+  /* ── Start Here learning path ── */
+  .path-grid { display: grid; gap: 14px; }
+
+  .path-step {
+    display: grid;
+    grid-template-columns: 64px 1fr auto;
+    align-items: center;
+    gap: 18px;
+    background: var(--panel-deep);
+    border: 1px solid var(--border-soft);
+    border-radius: 14px;
+    padding: 22px 24px;
+    text-decoration: none;
+    color: var(--text);
+    transition: all 0.18s;
+    position: relative;
+  }
+  .path-step:hover {
+    border-color: var(--yellow);
+    background: var(--panel-inset);
+    transform: translateX(2px);
+  }
+
+  .path-num {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 30px;
+    font-weight: 800;
+    color: var(--yellow);
+    text-align: center;
+    text-shadow: 0 0 14px rgba(245, 181, 69, 0.45);
+  }
+
+  .path-body { min-width: 0; }
+
+  .path-title {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 4px;
+    letter-spacing: 0.2px;
+  }
+
+  .path-blurb {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 15px;
+    color: var(--muted);
+    line-height: 1.55;
+  }
+
+  .path-tool {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--dim);
+    white-space: nowrap;
+    transition: color 0.15s;
+  }
+  .path-step:hover .path-tool { color: var(--yellow); }
+
   /* ── Mobile ── */
   @media (max-width: 600px) {
     .hero-inner { padding: 40px 18px 36px; }
     .brand-name { font-size: 24px; letter-spacing: 3px; }
+    .brand-mark.small .brand-name { font-size: 14px; letter-spacing: 2px; }
+    .brand-mark.small .bolt { font-size: 22px; }
+    .hero-headline { font-size: 36px; line-height: 1.1; }
     .hero-pitch { font-size: 16px; }
     .section { padding: 24px 18px; }
     .section-title { font-size: 18px; }
     .tool-name, .book-name, .donate-name, .coming-name { font-size: 12px; }
+    .path-step {
+      grid-template-columns: 40px 1fr;
+      align-items: start;
+      padding: 18px 18px;
+    }
+    .path-num { font-size: 22px; line-height: 1.2; padding-top: 2px; }
+    .path-tool { grid-column: 1 / -1; margin-top: 10px; font-size: 9px; text-align: right; }
+    .lane-grid { grid-template-columns: 1fr; }
+    .lane-card { padding: 22px 20px; }
+  }
+  @media (min-width: 601px) and (max-width: 900px) {
+    .lane-grid { grid-template-columns: 1fr; }
   }
 </style>
 </head>
@@ -539,41 +771,170 @@
   <!-- HERO -->
   <div class="hero">
     <div class="hero-inner">
-      <div class="brand-mark">
+      <div class="brand-mark small">
         <span class="bolt">⚡</span>
         <span class="brand-name">Profit Path Sports</span>
-        <span class="bolt">⚡</span>
       </div>
+      <h1 class="hero-headline">
+        It's not bad luck.<br>
+        <span class="accent">It's the math.</span>
+      </h1>
       <p class="hero-pitch">
-        Free, professional-grade tools and education for sports bettors who want to <strong>understand the math</strong>, not just chase picks. Build the skills. Find your edge. Profit on your own terms.
+        Sportsbooks beat you with <strong>math, not magic</strong>. Learn the math — and use the same tools sharps use to flip the edge. Always free. No picks to sell.
+      </p>
+      <p class="hero-manifesto">
+        Wherever you are on the path — first +EV bet or ten-thousandth — <strong>your next move is sharper from here.</strong>
       </p>
       <div class="hero-cta">
-        <a href="#tools" class="btn-cta primary">⚡ Open the Toolbox</a>
-        <a href="#books" class="btn-cta ghost">Sportsbook Offers</a>
+        <a href="#paths" class="btn-cta primary">Pick Your Path →</a>
       </div>
     </div>
   </div>
 
-  <!-- ABOUT -->
-  <div class="section" id="about">
+  <!-- PICK YOUR PATH -->
+  <div class="section" id="paths">
     <div class="section-head">
-      <div class="section-eyebrow">About</div>
-      <div class="section-title">Why This Exists</div>
+      <div class="section-eyebrow">Pick Your Path</div>
+      <div class="section-title">Three Lanes, One Site</div>
+      <div class="section-sub">Whatever brought you here, there's a clear next step. Pick the lane that fits — you can always change lanes later.</div>
     </div>
-    <div class="about-body">
-      <p>The sports betting world is full of pick-sellers, paywalls, and people charging you for tools that should be free. That's not what this is.</p>
-      <p><strong>Profit Path Sports is built to help you bet smarter — not chase someone else's picks.</strong> Every calculator here is the same kind of tool sharp bettors actually use. The goal is to put the math in your hands so you can find your own edges, manage your own bankroll, and stop guessing.</p>
-      <p>More tools, video lessons, and strategy guides are coming. Everything stays free. If it helps you, tip the jar — but you never have to.</p>
-      <div class="about-sig">— Dr. Rob</div>
+
+    <div class="lane-grid">
+      <a class="lane-card green" href="#bonus">
+        <div class="lane-icon">💰</div>
+        <div class="lane-eyebrow">Lane 01</div>
+        <div class="lane-title">Bonus Hunter</div>
+        <div class="lane-blurb">Don't care about sports betting? Convert sportsbook welcome offers and bonus bets into guaranteed cash. Low risk, no betting knowledge needed.</div>
+        <div class="lane-cta">The Promo Playbook →</div>
+      </a>
+
+      <a class="lane-card gold" href="#start">
+        <div class="lane-icon">🎯</div>
+        <div class="lane-eyebrow">Lane 02</div>
+        <div class="lane-title">New Bettor</div>
+        <div class="lane-blurb">Losing and not sure why? Learn the math sportsbooks bake into every line — and use the same tools sharps use to flip the edge back.</div>
+        <div class="lane-cta">From Losing to +EV →</div>
+      </a>
+
+      <a class="lane-card blue" href="#tools">
+        <div class="lane-icon">⚡</div>
+        <div class="lane-eyebrow">Lane 03</div>
+        <div class="lane-title">Sharp</div>
+        <div class="lane-blurb">Already +EV? Skip the lessons and head straight for the calculators. Ten free tools — devig, EV, Kelly, hedge, CLV — no signup, no paywall.</div>
+        <div class="lane-cta">The Toolbox →</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- LANE 01 · PROMO PLAYBOOK -->
+  <div class="section" id="bonus">
+    <div class="section-head">
+      <div class="section-eyebrow green">Lane 01 · Bonus Hunter</div>
+      <div class="section-title">The Promo Playbook</div>
+      <div class="section-sub">Sportsbooks throw thousands in welcome offers at every new user. With the right tools, most of it converts to real, withdrawable cash. No betting knowledge required — just math.</div>
+    </div>
+
+    <div class="path-grid bonus">
+      <a class="path-step" href="#books">
+        <div class="path-num">01</div>
+        <div class="path-body">
+          <div class="path-title">Pick a sign-up bonus.</div>
+          <div class="path-blurb">Every legal sportsbook has a welcome offer — first-bet matches, deposit bonuses, or free bets. The bigger the offer, the more value to extract.</div>
+        </div>
+        <div class="path-tool">Sportsbook Offers →</div>
+      </a>
+
+      <a class="path-step" href="hedge-calculator.html">
+        <div class="path-num">02</div>
+        <div class="path-body">
+          <div class="path-title">Hedge the qualifying bet.</div>
+          <div class="path-blurb">Most welcome offers require a real bet first. Place the opposite side at a second book to lock in near-zero risk — whichever side wins, you walk away close to even.</div>
+        </div>
+        <div class="path-tool">Hedge Calculator →</div>
+      </a>
+
+      <a class="path-step" href="bonus-converter.html">
+        <div class="path-num">03</div>
+        <div class="path-body">
+          <div class="path-title">Convert the bonus to cash.</div>
+          <div class="path-blurb">Bonus bets aren't withdrawable. But hedge them on a second book at the right ratio and you can convert roughly 70% of their face value into actual money.</div>
+        </div>
+        <div class="path-tool">Bonus Converter →</div>
+      </a>
+
+      <a class="path-step" href="bet-tracker.html">
+        <div class="path-num">04</div>
+        <div class="path-body">
+          <div class="path-title">Repeat across books — and track it all.</div>
+          <div class="path-blurb">Every legal book is another welcome offer. Log what you've claimed, what's pending, and what's left on the table. Same playbook, repeated, scales fast.</div>
+        </div>
+        <div class="path-tool">Bet Tracker →</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- LANE 02 · FROM LOSING TO +EV -->
+  <div class="section" id="start">
+    <div class="section-head">
+      <div class="section-eyebrow gold">Lane 02 · New Bettor</div>
+      <div class="section-title">From Losing To +EV</div>
+      <div class="section-sub">Five steps. The same path every winning bettor walked. No picks, no shortcuts — just the math sportsbooks would rather you didn't know.</div>
+    </div>
+
+    <div class="path-grid">
+      <a class="path-step" href="bet-tracker.html">
+        <div class="path-num">01</div>
+        <div class="path-body">
+          <div class="path-title">Find out if you're actually losing.</div>
+          <div class="path-blurb">Most bettors think they're break-even. Most aren't. Track every bet for 30 days and see the real number — including the ones you'd rather forget.</div>
+        </div>
+        <div class="path-tool">Bet Tracker →</div>
+      </a>
+
+      <a class="path-step" href="devig_calculator.html">
+        <div class="path-num">02</div>
+        <div class="path-body">
+          <div class="path-title">See the trap: the vig.</div>
+          <div class="path-blurb">Every line is priced so the book wins long-term — even on a coin flip. Strip the vig out and see the true probability behind any market.</div>
+        </div>
+        <div class="path-tool">Devig Calculator →</div>
+      </a>
+
+      <a class="path-step" href="ev-calculator.html">
+        <div class="path-num">03</div>
+        <div class="path-body">
+          <div class="path-title">Spot a winning bet.</div>
+          <div class="path-blurb">A bet is +EV when the price you're getting beats the true odds. This is the one calculation every winning bettor makes before clicking "place bet."</div>
+        </div>
+        <div class="path-tool">EV Calculator →</div>
+      </a>
+
+      <a class="path-step" href="kelly-calculator.html">
+        <div class="path-num">04</div>
+        <div class="path-body">
+          <div class="path-title">Don't bet too much (or too little).</div>
+          <div class="path-blurb">Good bets still lose. Kelly tells you how much to risk so a cold streak doesn't wipe you out — and so you actually get paid when you're right.</div>
+        </div>
+        <div class="path-tool">Kelly Calculator →</div>
+      </a>
+
+      <a class="path-step" href="bonus-converter.html">
+        <div class="path-num">05</div>
+        <div class="path-body">
+          <div class="path-title">Turn bonus bets into real money.</div>
+          <div class="path-blurb">Bonus bets aren't cash — but they can be. Hedge them on a second book and convert most of their value to actual withdrawable dollars, guaranteed.</div>
+        </div>
+        <div class="path-tool">Bonus Converter →</div>
+      </a>
     </div>
   </div>
 
   <!-- TOOLS -->
   <div class="section" id="tools">
     <div class="section-head">
-      <div class="section-eyebrow">Free Tools</div>
+      <div class="section-eyebrow">Lane 03 · Sharp</div>
       <div class="section-title">The Toolbox</div>
-      <div class="section-sub">Every calculator a +EV bettor needs. No paywall, no signup.</div>
+      <div class="section-sub">All ten calculators — free, no signup, no paywall. Walk through them via a Lane, or skip straight to the one you need.</div>
     </div>
 
     <div class="tools-grid">
@@ -649,6 +1010,20 @@
     </div>
   </div>
 
+  <!-- ABOUT -->
+  <div class="section" id="about">
+    <div class="section-head">
+      <div class="section-eyebrow">About</div>
+      <div class="section-title">Why This Exists</div>
+    </div>
+    <div class="about-body">
+      <p>The sports betting world is full of pick-sellers, paywalls, and people charging you for tools that should be free. That's not what this is.</p>
+      <p><strong>Profit Path Sports is built to help you bet smarter — not chase someone else's picks.</strong> Every calculator here is the same kind of tool sharp bettors actually use. The goal is to put the math in your hands so you can find your own edges, manage your own bankroll, and stop guessing.</p>
+      <p>More tools, video lessons, and strategy guides are coming. Everything stays free. If it helps you, tip the jar — but you never have to.</p>
+      <div class="about-sig">— Dr. Rob</div>
+    </div>
+  </div>
+
   <!-- SPORTSBOOKS -->
   <div class="section" id="books">
     <div class="section-head">
@@ -705,18 +1080,11 @@
     </div>
 
     <div class="donate-grid">
-      <a class="donate-card" href="https://venmo.com/u/YOUR-VENMO-HANDLE" target="_blank" rel="noopener">
+      <a class="donate-card" href="https://venmo.com/u/RobNoelke" target="_blank" rel="noopener">
         <div class="donate-icon">💸</div>
         <div class="donate-info">
           <div class="donate-name">Venmo</div>
-          <div class="donate-handle">@YOUR-VENMO-HANDLE</div>
-        </div>
-      </a>
-      <a class="donate-card" href="https://paypal.me/YOUR-PAYPAL" target="_blank" rel="noopener">
-        <div class="donate-icon">💳</div>
-        <div class="donate-info">
-          <div class="donate-name">PayPal</div>
-          <div class="donate-handle">paypal.me/YOUR-PAYPAL</div>
+          <div class="donate-handle">@RobNoelke</div>
         </div>
       </a>
     </div>
@@ -747,7 +1115,7 @@
         <div class="badge">Soon</div>
         <div class="coming-icon">📊</div>
         <div class="coming-name">More Tools</div>
-        <div class="coming-desc">Kelly calculator, parlay devigger, hold/CLV trackers — all free, all coming.</div>
+        <div class="coming-desc">Parlay devigger, multi-book CLV tracker, freeroll/hold calculator — all free, all coming.</div>
       </div>
       <div class="coming-card">
         <div class="badge">Soon</div>
