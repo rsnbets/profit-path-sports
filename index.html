@@ -528,75 +528,124 @@
   .footer a { color: var(--muted); text-decoration: none; }
   .footer a:hover { color: var(--blue); }
 
-  /* ── In-hero four-button path picker ── */
+  /* ── Hero lane buttons (big 2x2 grid, lanes link to dedicated pages) ── */
   .hero-paths {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 14px;
-    max-width: 1080px;
-    margin: 30px auto 0;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+    max-width: 940px;
+    margin: 36px auto 0;
   }
 
   .hero-path {
+    background: var(--panel-deep);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px 28px 22px;
+    text-decoration: none;
+    color: var(--text);
+    transition: all 0.2s;
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    text-decoration: none;
-  }
-
-  .hero-path-btn {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 12px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    font-weight: 700;
-    padding: 16px 18px;
-    border-radius: 12px;
-    border: 1px solid var(--border);
-    background: var(--panel-deep);
-    color: var(--text);
-    transition: all 0.18s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
+    text-align: left;
     position: relative;
     overflow: hidden;
   }
 
-  .hero-path-btn::before {
+  .hero-path::before {
     content: '';
     position: absolute;
     top: 0; left: 0; right: 0;
-    height: 2px;
+    height: 3px;
     background: var(--lane-accent, var(--blue));
-    opacity: 0.5;
+    opacity: 0.6;
     transition: opacity 0.2s;
   }
 
-  .hero-path:hover .hero-path-btn {
+  .hero-path:hover {
     background: var(--panel-inset);
     border-color: var(--lane-accent, var(--blue));
-    transform: translateY(-2px);
+    transform: translateY(-3px);
+    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.35);
   }
-
-  .hero-path:hover .hero-path-btn::before { opacity: 1; }
-
-  .hero-path-icon { font-size: 18px; line-height: 1; }
+  .hero-path:hover::before { opacity: 1; }
 
   .hero-path.green  { --lane-accent: var(--green); }
   .hero-path.gold   { --lane-accent: var(--yellow); }
   .hero-path.blue   { --lane-accent: var(--blue); }
   .hero-path.purple { --lane-accent: var(--purple); }
 
+  .hero-path-icon {
+    font-size: 38px;
+    line-height: 1;
+    margin-bottom: 14px;
+  }
+
+  .hero-path-eyebrow {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 10px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--lane-accent, var(--blue));
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .hero-path-title {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    color: var(--text);
+    margin-bottom: 10px;
+  }
+
   .hero-path-desc {
-    font-family: 'Rajdhani', sans-serif;
-    font-size: 14px;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 15px;
     color: var(--muted);
+    line-height: 1.55;
+    margin-bottom: 18px;
+    text-align: left;
+    letter-spacing: 0;
+    padding: 0;
+  }
+
+  .hero-path-list {
+    list-style: none;
+    margin: 0 0 20px;
+    padding: 0;
+  }
+  .hero-path-list li {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 13px;
+    color: var(--dim);
+    padding: 4px 0 4px 20px;
+    position: relative;
     line-height: 1.5;
-    text-align: center;
-    letter-spacing: 0.2px;
-    padding: 0 4px;
+  }
+  .hero-path-list li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    top: 4px;
+    color: var(--lane-accent, var(--blue));
+    font-size: 11px;
+  }
+
+  .hero-path-cta {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--dim);
+    margin-top: auto;
+    padding-top: 8px;
+    transition: color 0.15s;
+  }
+  .hero-path:hover .hero-path-cta {
+    color: var(--lane-accent, var(--blue));
   }
 
   /* ── Three-lane picker ── */
@@ -903,8 +952,11 @@
     .path-tool { grid-column: 1 / -1; margin-top: 10px; font-size: 9px; text-align: right; }
     .lane-grid { grid-template-columns: 1fr; }
     .lane-card { padding: 22px 20px; }
-    .hero-paths { grid-template-columns: 1fr; gap: 14px; max-width: 360px; }
-    .hero-path-desc { font-size: 13px; }
+    .hero-paths { grid-template-columns: 1fr; gap: 14px; max-width: 100%; }
+    .hero-path { padding: 24px 22px 20px; }
+    .hero-path-icon { font-size: 32px; }
+    .hero-path-title { font-size: 22px; }
+    .hero-path-desc { font-size: 14px; }
   }
   @media (min-width: 601px) and (max-width: 980px) {
     .lane-grid { grid-template-columns: 1fr; }
@@ -984,21 +1036,6 @@
   }
   .hero-pitch strong { color: var(--text); font-weight: 600; }
   .hero-manifesto { display: none; }
-
-  /* Lane buttons */
-  .hero-path-btn {
-    font-family: 'IBM Plex Sans', sans-serif;
-    font-size: 14px;
-    letter-spacing: 0;
-    text-transform: none;
-    font-weight: 600;
-  }
-  .hero-path-desc {
-    font-family: 'IBM Plex Sans', sans-serif;
-    font-size: 14px;
-    color: var(--muted);
-    line-height: 1.5;
-  }
 
   /* Generic CTAs */
   .btn-cta {
@@ -1341,337 +1378,63 @@
           </svg>
         </span>
       </div>
-      <div class="brand-tagline">Learn to beat the sportsbooks at their own game</div>
-      <h1 class="hero-headline">Sports betting math, made simple.</h1>
+      <div class="brand-tagline">Where casual bettors become sharp ones</div>
+      <h1 class="hero-headline">Sports betting, taken seriously.</h1>
       <p class="hero-pitch">
-        Free calculators, structured lessons, and welcome-offer playbooks for serious sports bettors. <strong>No paywalls, no picks, no signup.</strong>
+        Eleven calculators. Structured lesson curriculums. Welcome-offer playbooks. Honest reviews of every sportsbook worth using. <strong>Always free. No paywalls, no picks, no signup.</strong>
       </p>
       <div class="hero-paths">
-        <a class="hero-path green" href="#bonus">
-          <div class="hero-path-btn">
-            <span class="hero-path-icon">💰</span>
-            Bonus Hunter
-          </div>
-          <div class="hero-path-desc">Convert sportsbook promos into guaranteed cash. No betting knowledge needed.</div>
+        <a class="hero-path green" href="lane-bonus.html">
+          <div class="hero-path-icon">💰</div>
+          <div class="hero-path-eyebrow">Lane 01</div>
+          <div class="hero-path-title">Bonus Hunter</div>
+          <div class="hero-path-desc">Convert sportsbook welcome offers and bonus bets into guaranteed cash. No betting knowledge required.</div>
+          <ul class="hero-path-list">
+            <li>3 concept lessons + walkthrough</li>
+            <li>4-step playbook to convert</li>
+            <li>Caesars + ProphetX starting pair</li>
+          </ul>
+          <div class="hero-path-cta">Enter Lane 01 →</div>
         </a>
-        <a class="hero-path blue" href="#start">
-          <div class="hero-path-btn">
-            <span class="hero-path-icon">🎓</span>
-            New Bettor
-          </div>
-          <div class="hero-path-desc">New to betting? Learn the math behind +EV before you risk a dollar.</div>
+        <a class="hero-path blue" href="lane-new.html">
+          <div class="hero-path-icon">🎓</div>
+          <div class="hero-path-eyebrow">Lane 02</div>
+          <div class="hero-path-title">New Bettor</div>
+          <div class="hero-path-desc">Learn the math sportsbooks bake into every line — and how to use it before you place your first real bet.</div>
+          <ul class="hero-path-list">
+            <li>6-lesson curriculum</li>
+            <li>Reading odds → CLV</li>
+            <li>Concept first, math second</li>
+          </ul>
+          <div class="hero-path-cta">Enter Lane 02 →</div>
         </a>
-        <a class="hero-path gold" href="#fix">
-          <div class="hero-path-btn">
-            <span class="hero-path-icon">🔍</span>
-            Losing Bettor
-          </div>
-          <div class="hero-path-desc">Already losing? Find what's broken and rebuild the right way.</div>
+        <a class="hero-path gold" href="lane-losing.html">
+          <div class="hero-path-icon">🔍</div>
+          <div class="hero-path-eyebrow">Lane 03</div>
+          <div class="hero-path-title">Losing Bettor</div>
+          <div class="hero-path-desc">Already losing and not sure why? Rebuild your bankroll first, then learn what's been quietly draining it.</div>
+          <ul class="hero-path-list">
+            <li>Stop the bleeding (bonus restart)</li>
+            <li>Diagnostic Bet Tracker</li>
+            <li>Vig + EV + Kelly lessons</li>
+          </ul>
+          <div class="hero-path-cta">Enter Lane 03 →</div>
         </a>
-        <a class="hero-path purple" href="#tools">
-          <div class="hero-path-btn">
-            <span class="hero-path-icon">⚡</span>
-            Sharp
-          </div>
-          <div class="hero-path-desc">Already +EV? Skip the lessons — head straight to the ten calculators.</div>
+        <a class="hero-path purple" href="lane-sharp.html">
+          <div class="hero-path-icon">⚡</div>
+          <div class="hero-path-eyebrow">Lane 04</div>
+          <div class="hero-path-title">Sharp</div>
+          <div class="hero-path-desc">The toolkit you already use, free and no-signup. Eleven calculators built around the math sharps actually run.</div>
+          <ul class="hero-path-list">
+            <li>11 free calculators</li>
+            <li>Same math, no premium tier</li>
+            <li>Bet Tracker stays in your browser</li>
+          </ul>
+          <div class="hero-path-cta">Open the Toolbox →</div>
         </a>
       </div>
     </div>
   </div>
-
-  <!-- LANE 01 · PROMO PLAYBOOK -->
-  <details class="section" id="bonus">
-    <summary class="section-head">
-      <div class="section-eyebrow green">Lane 01 · Bonus Hunter</div>
-      <div class="section-title">The Promo Playbook</div>
-      <div class="section-sub">Sportsbooks throw thousands in welcome offers at every new user. With the right tools, most of it converts to real, withdrawable cash. No betting knowledge required — just math.</div>
-    </summary>
-
-    <div class="path-grid bonus">
-      <a class="path-step" href="learn-bonus.html">
-        <div class="path-num">01</div>
-        <div class="path-body">
-          <div class="path-title">Understand what you're claiming.</div>
-          <div class="path-blurb">Welcome offers, bonus bets, conversion math — the concepts behind why this works before you sign up for anything.</div>
-        </div>
-        <div class="path-tool">Concept →</div>
-      </a>
-
-      <a class="path-step" href="learn-bonus-types.html">
-        <div class="path-num">02</div>
-        <div class="path-body">
-          <div class="path-title">Know the offer types.</div>
-          <div class="path-blurb">Bet &amp; Get, risk-free first bet, deposit match, odds boosts — each format has different math and a different play.</div>
-        </div>
-        <div class="path-tool">Offer Types →</div>
-      </a>
-
-      <a class="path-step" href="learn-bonus-traps.html">
-        <div class="path-num">03</div>
-        <div class="path-body">
-          <div class="path-title">Pitfalls to watch for.</div>
-          <div class="path-blurb">Pushes that void your bonus, rollover requirements, stake restrictions, account pitfalls — what kills promo runs and how to avoid each.</div>
-        </div>
-        <div class="path-tool">Pitfalls →</div>
-      </a>
-
-      <a class="path-step" href="learn-bonus-walkthrough.html">
-        <div class="path-num">04</div>
-        <div class="path-body">
-          <div class="path-title">Build the bankroll, book by book.</div>
-          <div class="path-blurb">A practical walkthrough — which two books to start with (Caesars + ProphetX), when to add the next, and why each new book multiplies your hedge options. Plus realistic 8-week math.</div>
-        </div>
-        <div class="path-tool">Walkthrough →</div>
-      </a>
-
-      <a class="path-step" href="hedge-calculator.html">
-        <div class="path-num">05</div>
-        <div class="path-body">
-          <div class="path-title">Hedge the qualifying bet.</div>
-          <div class="path-blurb">Most welcome offers require a real bet first. Place the opposite side at a second book to lock in near-zero risk — whichever side wins, you walk away close to even.</div>
-        </div>
-        <div class="path-tool">Hedge Calculator →</div>
-      </a>
-
-      <a class="path-step" href="bonus-converter.html">
-        <div class="path-num">06</div>
-        <div class="path-body">
-          <div class="path-title">Convert the bonus to cash.</div>
-          <div class="path-blurb">Bonus bets aren't withdrawable. But hedge them on a second book at the right ratio and you can convert roughly 70% of their face value into actual money.</div>
-        </div>
-        <div class="path-tool">Bonus Converter →</div>
-      </a>
-
-      <a class="path-step" href="bet-tracker.html">
-        <div class="path-num">07</div>
-        <div class="path-body">
-          <div class="path-title">Repeat across books — and track it all.</div>
-          <div class="path-blurb">Every legal book is another welcome offer. Log what you've claimed, what's pending, and what's left on the table. Same playbook, repeated, scales fast.</div>
-        </div>
-        <div class="path-tool">Bet Tracker →</div>
-      </a>
-    </div>
-  </details>
-
-  <!-- LANE 02 · NEW BETTOR -->
-  <details class="section" id="start">
-    <summary class="section-head">
-      <div class="section-eyebrow">Lane 02 · New Bettor</div>
-      <div class="section-title">Bet Smart From Day One</div>
-      <div class="section-sub">Six lessons. The foundation every winning bettor builds before placing serious money. Start here if you're new — or if no one ever taught you the math.</div>
-    </summary>
-
-    <div class="path-grid learn">
-      <a class="path-step" href="learn-odds.html">
-        <div class="path-num">01</div>
-        <div class="path-body">
-          <div class="path-title">Read the odds.</div>
-          <div class="path-blurb">−115, +105, decimal odds, dollar payouts — what every number on a sportsbook actually means. Once you can read a moneyline, you can read every bet on the board.</div>
-        </div>
-        <div class="path-tool">Lesson 01 →</div>
-      </a>
-
-      <a class="path-step" href="learn-implied.html">
-        <div class="path-num">02</div>
-        <div class="path-body">
-          <div class="path-title">Translate odds into probability.</div>
-          <div class="path-blurb">Every odds price is a percentage in disguise. Once you can see the probability behind the line, you stop thinking in dollars and start thinking like a sharp.</div>
-        </div>
-        <div class="path-tool">Lesson 02 →</div>
-      </a>
-
-      <a class="path-step" href="learn-vig.html">
-        <div class="path-num">03</div>
-        <div class="path-body">
-          <div class="path-title">Know what you're up against: the vig.</div>
-          <div class="path-blurb">Sportsbooks aren't selling you fair odds — they're selling you fair odds plus a tax. Learn to spot the tax on every line before you ever place a bet.</div>
-        </div>
-        <div class="path-tool">Lesson 03 →</div>
-      </a>
-
-      <a class="path-step" href="learn-ev.html">
-        <div class="path-num">04</div>
-        <div class="path-body">
-          <div class="path-title">The only bet worth placing: +EV.</div>
-          <div class="path-blurb">Most bets lose long-term — by design. A +EV bet is one where the price you're getting beats the true odds. Anything less and you're paying the house to gamble.</div>
-        </div>
-        <div class="path-tool">Lesson 04 →</div>
-      </a>
-
-      <a class="path-step" href="learn-kelly.html">
-        <div class="path-num">05</div>
-        <div class="path-body">
-          <div class="path-title">Size every bet correctly.</div>
-          <div class="path-blurb">Even +EV bets lose more than half the time. Kelly tells you how much to risk so variance doesn't blow up your bankroll — and so you actually grow when you win.</div>
-        </div>
-        <div class="path-tool">Lesson 05 →</div>
-      </a>
-
-      <a class="path-step" href="learn-clv.html">
-        <div class="path-num">06</div>
-        <div class="path-body">
-          <div class="path-title">Track from day one.</div>
-          <div class="path-blurb">Don't be the bettor who "thinks" they're break-even. Log every bet from your first one, watch your CLV, and know — not guess — whether you're actually +EV.</div>
-        </div>
-        <div class="path-tool">Lesson 06 →</div>
-      </a>
-    </div>
-  </details>
-
-  <!-- LANE 03 · LOSING BETTOR -->
-  <details class="section" id="fix">
-    <summary class="section-head">
-      <div class="section-eyebrow gold">Lane 03 · Losing Bettor</div>
-      <div class="section-title">From Losing To +EV</div>
-      <div class="section-sub">Already betting and bleeding chips? Rebuild your bankroll with free promo money first — then go back and learn the math you were never taught.</div>
-    </summary>
-
-    <div class="path-grid">
-      <a class="path-step" href="#bonus">
-        <div class="path-num">01</div>
-        <div class="path-body">
-          <div class="path-title">Stop the bleeding first.</div>
-          <div class="path-blurb">Before you place another bet — walk Lane 01 and convert every welcome offer on the table. Real, withdrawable cash that rebuilds your bankroll without risking a dollar of your own. Start the rest of this lane with chips, not shame.</div>
-        </div>
-        <div class="path-tool">Promo Playbook ↗</div>
-      </a>
-
-      <a class="path-step" href="bet-tracker.html">
-        <div class="path-num">02</div>
-        <div class="path-body">
-          <div class="path-title">Now find out how much you've been down.</div>
-          <div class="path-blurb">Bonus money in hand, log every bet from the past month — the wins, the losses, the ones you'd rather forget. The number stings less when you've just rebuilt your bankroll, and now you know exactly what you're up against.</div>
-        </div>
-        <div class="path-tool">Bet Tracker →</div>
-      </a>
-
-      <a class="path-step" href="learn-vig.html">
-        <div class="path-num">03</div>
-        <div class="path-body">
-          <div class="path-title">See the trap: the vig.</div>
-          <div class="path-blurb">Every line is priced so the book wins long-term — even on a coin flip. Strip the vig out and see the true probability behind any market.</div>
-        </div>
-        <div class="path-tool">Vig Lesson →</div>
-      </a>
-
-      <a class="path-step" href="learn-ev.html">
-        <div class="path-num">04</div>
-        <div class="path-body">
-          <div class="path-title">Spot a winning bet.</div>
-          <div class="path-blurb">A bet is +EV when the price you're getting beats the true odds. This is the one calculation every winning bettor makes before clicking "place bet."</div>
-        </div>
-        <div class="path-tool">EV Lesson →</div>
-      </a>
-
-      <a class="path-step" href="learn-kelly.html">
-        <div class="path-num">05</div>
-        <div class="path-body">
-          <div class="path-title">Don't bet too much (or too little).</div>
-          <div class="path-blurb">Good bets still lose. Kelly tells you how much to risk so a cold streak doesn't wipe you out — and so you actually get paid when you're right.</div>
-        </div>
-        <div class="path-tool">Kelly Lesson →</div>
-      </a>
-    </div>
-  </details>
-
-  <!-- TOOLS -->
-  <details class="section" id="tools" open>
-    <summary class="section-head">
-      <div class="section-eyebrow purple">Lane 04 · Sharp</div>
-      <div class="section-title">The Toolbox</div>
-      <div class="section-sub">All eleven calculators — free, no signup, no paywall. Walk through them via a Lane, or skip straight to the one you need.</div>
-    </summary>
-
-    <div class="tools-grid">
-      <a class="tool-card" href="bet-tracker.html">
-        <div class="icon">📊</div>
-        <div class="tool-name">Bet Tracker</div>
-        <div class="tool-desc">Log every bet, track CLV, monitor your ROI, and measure your edge over time. No account needed — data saves in your browser.</div>
-        <div class="tool-cta">Launch →</div>
-      </a>
-
-      <a class="tool-card" href="odds_calculator.html">
-        <div class="icon">🎯</div>
-        <div class="tool-name">Implied Odds</div>
-        <div class="tool-desc">Convert American odds to implied probability and back, instantly.</div>
-        <div class="tool-cta">Launch →</div>
-      </a>
-
-      <a class="tool-card" href="devig_calculator.html">
-        <div class="icon">⚖️</div>
-        <div class="tool-name">Devig Calculator</div>
-        <div class="tool-desc">Strip the vig from any market to reveal the true no-vig fair odds.</div>
-        <div class="tool-cta">Launch →</div>
-      </a>
-
-      <a class="tool-card" href="ev-calculator.html">
-        <div class="icon">💵</div>
-        <div class="tool-name">EV Calculator</div>
-        <div class="tool-desc">Plug in your odds and the fair (no-vig) odds to get true expected value in % and dollars, plus Kelly sizing.</div>
-        <div class="tool-cta">Launch →</div>
-      </a>
-
-      <a class="tool-card" href="kelly-calculator.html">
-        <div class="icon">💰</div>
-        <div class="tool-name">Kelly Calculator</div>
-        <div class="tool-desc">Size your bets optimally based on your edge and bankroll. Supports fractional Kelly.</div>
-        <div class="tool-cta">Launch →</div>
-      </a>
-
-      <a class="tool-card" href="edge-finder.html">
-        <div class="icon">🔍</div>
-        <div class="tool-name">Edge Finder</div>
-        <div class="tool-desc">Compare your available line to a sharper market line. Quick line-shopping check — see the probability gap at a glance.</div>
-        <div class="tool-cta">Launch →</div>
-      </a>
-
-      <a class="tool-card" href="arb-calculator.html">
-        <div class="icon">🔀</div>
-        <div class="tool-name">Arbitrage Calculator</div>
-        <div class="tool-desc">Find guaranteed-profit opportunities and size both sides perfectly.</div>
-        <div class="tool-cta">Launch →</div>
-      </a>
-
-      <a class="tool-card" href="hedge-calculator.html">
-        <div class="icon">🛡️</div>
-        <div class="tool-name">Hedge Calculator</div>
-        <div class="tool-desc">Lock in profit or limit risk on live bets and futures. Optimal or custom hedge sizing.</div>
-        <div class="tool-cta">Launch →</div>
-      </a>
-
-      <a class="tool-card" href="bonus-converter.html">
-        <div class="icon">🎁</div>
-        <div class="tool-name">Bonus Bet Converter</div>
-        <div class="tool-desc">Hedge bonus bets into guaranteed cash and maximize your conversion rate.</div>
-        <div class="tool-cta">Launch →</div>
-      </a>
-
-      <a class="tool-card" href="long-run-simulator.html">
-        <div class="icon">📈</div>
-        <div class="tool-name">Long Run Simulator</div>
-        <div class="tool-desc">Run your edge through a Monte Carlo simulation. See realistic best, worst, and median bankroll outcomes over thousands of bets.</div>
-        <div class="tool-cta">Launch →</div>
-      </a>
-
-      <a class="tool-card" href="parlay-calculator.html">
-        <div class="icon">🧩</div>
-        <div class="tool-name">Parlay Calculator</div>
-        <div class="tool-desc">Combine 2-10 legs into one ticket. See combined odds, payout, and — when fair odds are entered — the true EV after compounded vig.</div>
-        <div class="tool-cta">Launch →</div>
-      </a>
-
-      <!-- Virtual Roulette: hidden from homepage while still being polished. Uncomment to relist. -->
-      <!--
-      <a class="tool-card" href="roulette.html">
-        <div class="icon">🎰</div>
-        <div class="tool-name">Virtual Roulette</div>
-        <div class="tool-desc">Play roulette on a virtual table — single spin or thousands at once. Compare American vs. European wheels and watch the house edge drain your bankroll.</div>
-        <div class="tool-cta">Launch →</div>
-      </a>
-      -->
-
-    </div>
-  </details>
 
   <!-- WHERE TO BET — combined disclosure -->
   <details class="section" id="books">
