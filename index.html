@@ -1212,9 +1212,13 @@
     font-family: 'IBM Plex Sans', sans-serif;
     font-size: 14px;
     color: var(--muted);
-    line-height: 1.55;
+    line-height: 1.6;
     margin-top: 4px;
   }
+  .warn-desc p { margin: 0 0 12px; }
+  .warn-desc p:last-child { margin-bottom: 0; }
+  .warn-desc strong { color: var(--text); font-weight: 600; }
+  .warn-desc strong.label { color: var(--red); font-weight: 700; letter-spacing: 0.02em; text-transform: uppercase; font-size: 11px; }
 
   @media (max-width: 700px) {
     .paid-grid { grid-template-columns: 1fr; }
@@ -1691,7 +1695,14 @@
       <div class="warn-card">
         <div class="warn-tag">⚠ Avoid</div>
         <div class="warn-name">Bovada</div>
-        <div class="warn-desc">Offshore book with a track record of voiding winning bets, slow or refused withdrawals, and aggressive limiting of any bettor who looks remotely sharp. Operating from Curaçao puts you outside U.S. legal protections — if they refuse to pay, there's no realistic path to recovery. We don't link them because we've personally been burned. If you do choose to use them, deposit small, withdraw fast, and don't keep meaningful balances on the platform.</div>
+        <div class="warn-desc">
+          <p>Offshore book operating out of Curaçao — outside U.S. legal protections. If they refuse to pay, there's no realistic path to recovery.</p>
+          <p><strong class="label">Personal experience</strong></p>
+          <p>I deposited, claimed a deposit bonus, and got about halfway through the rollover when Bovada limited my account. Bets started showing <em>"under review"</em> — they'd pend for a minute, then the odds would change. Eventually they disabled the account entirely. After <strong>five months</strong> of emails and support tickets, they re-opened it — but by then the rollover window had passed, so the funds were effectively locked. Never got that money out.</p>
+          <p>This isn't a one-off. Search matched-betting forums and you'll see the same pattern repeatedly: deposit bonus claimed → halfway through rollover → account limited → funds inaccessible.</p>
+          <p><strong class="label">If you use them anyway</strong></p>
+          <p>Deposit small, withdraw fast, and never claim a rollover-attached bonus. Don't keep meaningful balances on the platform.</p>
+        </div>
       </div>
     </div>
   </div>
