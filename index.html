@@ -1176,6 +1176,59 @@
   }
   .paid-code strong { color: var(--yellow); font-weight: 700; letter-spacing: 1px; }
 
+  /* Strategy Guides — topical lessons outside the structured lanes */
+  .guide-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 14px;
+    margin-top: 24px;
+  }
+  .guide-card {
+    background: var(--panel-deep);
+    border: 1px solid var(--border-soft);
+    border-radius: 14px;
+    padding: 22px 22px;
+    text-decoration: none;
+    color: var(--text);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    transition: all 0.18s;
+  }
+  .guide-card:hover {
+    border-color: var(--blue);
+    background: var(--panel-inset);
+    transform: translateY(-2px);
+  }
+  .guide-icon {
+    font-size: 22px;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .guide-name {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -0.005em;
+  }
+  .guide-desc {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.55;
+    flex: 1;
+  }
+  .guide-cta {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--dim);
+    margin-top: 10px;
+    transition: color 0.15s;
+  }
+  .guide-card:hover .guide-cta { color: var(--blue); }
+
   /* Warning / "books to avoid" cards */
   .warn-grid {
     display: grid;
@@ -1583,6 +1636,24 @@
 
     </div>
   </details>
+
+  <!-- STRATEGY GUIDES -->
+  <div class="section" id="guides">
+    <div class="section-head">
+      <div class="section-eyebrow">Strategy Guides</div>
+      <div class="section-title">Topics &amp; deep dives</div>
+      <div class="section-sub">Standalone lessons on specific concepts — outside the structured lanes. Read in any order, return whenever you want a refresher.</div>
+    </div>
+
+    <div class="guide-grid">
+      <a class="guide-card" href="learn-parlays.html">
+        <div class="guide-icon">🧩</div>
+        <div class="guide-name">Parlays &amp; SGPs</div>
+        <div class="guide-desc">How parlay vig compounds, why same-game parlays are priced even worse than they look, and when (rarely) parlays make sense.</div>
+        <div class="guide-cta">Read →</div>
+      </a>
+    </div>
+  </div>
 
   <!-- PAID TOOLS -->
   <div class="section" id="paid">
