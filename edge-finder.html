@@ -5,13 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>⚡ Edge Finder — Profit Path Sports</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Space+Mono:wght@400;700&family=Barlow+Condensed:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg:#0a0f1c;--surface:#111827;--surface2:#1a2335;--border:#1e2d45;
-      --accent:#f0a030;--blue:#3b82f6;--green:#22c55e;--red:#ef4444;
-      --text:#e8edf5;--muted:#6b7fa3;
-      --mono:'Space Mono',monospace;--display:'Barlow Condensed',sans-serif;--title:'Orbitron',sans-serif;
+      --bg:#0a0f1c;--surface:#0f1524;--surface2:#141a2b;--border:#1e2638;
+      --accent:#f5b545;--blue:#3d8bff;--green:#4ade80;--red:#f87171;
+      --text:#e5e7eb;--muted:#8b94a8;--dim:#6b7689;
+      --mono:'JetBrains Mono',ui-monospace,monospace;--display:'JetBrains Mono',ui-monospace,monospace;--title:'Orbitron',sans-serif;
     }
     *{box-sizing:border-box;margin:0;padding:0;}
     body{background:var(--bg);color:var(--text);font-family:var(--display);min-height:100vh;}
@@ -24,17 +24,17 @@
     .bt-stats{display:grid;grid-template-columns:repeat(6,1fr);border-bottom:1px solid var(--border);}
     .stat-cell{padding:12px 10px;border-right:1px solid var(--border);text-align:center;}
     .stat-cell:last-child{border-right:none;}
-    .stat-label{font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:4px;font-family:var(--mono);}
-    .stat-value{font-size:19px;font-weight:700;color:var(--text);}
+    .stat-label{font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:4px;font-family:var(--title);font-weight:700;}
+    .stat-value{font-size:22px;font-weight:700;color:var(--text);font-family:var(--mono);letter-spacing:0.02em;}
     .stat-value.pos{color:var(--green);}.stat-value.neg{color:var(--red);}.stat-value.accent{color:var(--accent);}.stat-value.blue{color:var(--blue);}
 
     .form-panel{padding:20px;background:var(--surface);border-bottom:1px solid var(--border);}
     .form-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
     .form-group{display:flex;flex-direction:column;gap:5px;}
     .form-group.wide{grid-column:span 2;}.form-group.full{grid-column:span 4;}
-    .form-label{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);font-family:var(--mono);}
-    .form-input{background:var(--bg);border:1px solid var(--border);color:var(--text);padding:9px 12px;font-family:var(--mono);font-size:13px;border-radius:4px;outline:none;transition:border-color 0.15s;width:100%;}
-    .form-input:focus{border-color:var(--accent);}
+    .form-label{font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);font-family:var(--title);font-weight:700;}
+    .form-input{background:var(--bg);border:1px solid var(--border);color:var(--text);padding:12px 14px;font-family:var(--mono);font-size:18px;font-weight:600;letter-spacing:0.02em;border-radius:8px;outline:none;transition:border-color 0.15s;width:100%;}
+    .form-input:focus{border-color:var(--blue);}
     .form-hint{font-size:11px;font-family:var(--mono);min-height:14px;color:var(--blue);}
 
     .form-divider{grid-column:span 4;height:1px;background:var(--border);margin:4px 0;}
