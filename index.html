@@ -1229,6 +1229,26 @@
   }
   .guide-card:hover .guide-cta { color: var(--blue); }
 
+  /* Sub-sections inside the "Where to Bet" disclosure */
+  .subsection { margin-top: 36px; }
+  .subsection:first-of-type { margin-top: 24px; }
+  .subsection-head { margin-bottom: 14px; }
+  .subsection-title {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -0.01em;
+    margin-top: 4px;
+  }
+  .subsection-sub {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.55;
+    margin-top: 4px;
+  }
+
   /* Warning / "books to avoid" cards */
   .warn-grid {
     display: grid;
@@ -1637,15 +1657,21 @@
     </div>
   </details>
 
-  <!-- SPORTSBOOKS -->
-  <div class="section" id="books">
-    <div class="section-head">
-      <div class="section-eyebrow gold">Sportsbook Offers</div>
-      <div class="section-title">Where to Bet</div>
-      <div class="section-sub">Sign up through these links to support the site — same offers, no extra cost to you.</div>
-    </div>
+  <!-- WHERE TO BET — combined disclosure -->
+  <details class="section" id="books">
+    <summary class="section-head">
+      <div class="section-eyebrow gold">Where to Bet</div>
+      <div class="section-title">Sportsbooks &amp; sign-up offers</div>
+      <div class="section-sub">Recommended books with affiliate offers, others worth claiming, and ones to avoid. Click to expand.</div>
+    </summary>
 
-    <div class="book-grid">
+    <div class="subsection">
+      <div class="subsection-head">
+        <div class="section-eyebrow gold">Sportsbook Offers</div>
+        <div class="subsection-title">Books we recommend</div>
+        <div class="subsection-sub">Sign up through these links to support the site — same offers, no extra cost to you.</div>
+      </div>
+      <div class="book-grid">
       <a class="book-card" href="book-draftkings.html">
         <div class="book-name">DraftKings</div>
         <div class="book-bonus">Welcome Offer</div>
@@ -1701,18 +1727,16 @@
         <div class="book-bonus">Code: PR-7XTLOUF</div>
         <div class="book-tag">Sign Up →</div>
       </a>
-    </div>
-  </div>
-
-  <!-- OTHER BOOKS — NO PPS REFERRAL -->
-  <div class="section" id="other-books">
-    <div class="section-head">
-      <div class="section-eyebrow">No PPS Referral</div>
-      <div class="section-title">Other books worth claiming</div>
-      <div class="section-sub">Welcome offers worth claiming, but we don't have referral links here — sign up direct, the bonus is the same. Listed because they're solid options where available.</div>
+      </div>
     </div>
 
-    <div class="book-grid">
+    <div class="subsection">
+      <div class="subsection-head">
+        <div class="section-eyebrow">No PPS Referral</div>
+        <div class="subsection-title">Other books worth claiming</div>
+        <div class="subsection-sub">Welcome offers worth claiming, but we don't have referral links here — sign up direct, the bonus is the same.</div>
+      </div>
+      <div class="book-grid">
       <a class="book-card" href="https://www.bet365.com/" target="_blank" rel="nofollow noopener">
         <div class="book-name">bet365</div>
         <div class="book-bonus">Welcome Offer</div>
@@ -1733,18 +1757,16 @@
         <div class="book-bonus">Sharp Lines &amp; High Limits</div>
         <div class="book-tag">Direct signup →</div>
       </a>
-    </div>
-  </div>
-
-  <!-- BOOKS TO AVOID -->
-  <div class="section" id="avoid">
-    <div class="section-head">
-      <div class="section-eyebrow red">Warning</div>
-      <div class="section-title">Books to avoid</div>
-      <div class="section-sub">Some books have track records that aren't worth the risk — affiliate dollars or not. We don't link these because we don't recommend them.</div>
+      </div>
     </div>
 
-    <div class="warn-grid">
+    <div class="subsection">
+      <div class="subsection-head">
+        <div class="section-eyebrow red">Warning</div>
+        <div class="subsection-title">Books to avoid</div>
+        <div class="subsection-sub">Some books have track records that aren't worth the risk — affiliate dollars or not. We don't link these because we don't recommend them.</div>
+      </div>
+      <div class="warn-grid">
       <div class="warn-card">
         <div class="warn-tag">⚠ Avoid</div>
         <div class="warn-name">Bovada</div>
@@ -1757,8 +1779,9 @@
           <p>Deposit small, withdraw fast, and never claim a rollover-attached bonus. Don't keep meaningful balances on the platform.</p>
         </div>
       </div>
+      </div>
     </div>
-  </div>
+  </details>
 
   <!-- STRATEGY GUIDES -->
   <div class="section" id="guides">
