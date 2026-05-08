@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Probability Gap vs. Expected Value — Two Different Ways to Measure Edge | Profit Path Sports</title>
+<meta name="description" content="A 5% probability gap is not 5% EV. The difference matters — for sizing, for comparing bets, and for not undervaluing dogs. Here's how the two metrics diverge and when to use each.">
+
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230a0f1c'/%3E%3Cpolyline points='5,24 12,16 16,19 22,9 27,5' fill='none' stroke='%23ffb020' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="Probability Gap vs. Expected Value">
+<meta property="og:description" content="Two ways to measure 'edge' that look the same and aren't. Why a 5% gap on a +400 dog crushes a 5% gap on a -300 favorite.">
+<meta property="og:site_name" content="Profit Path Sports">
+<meta name="theme-color" content="#0a0f1c">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;800;900&family=JetBrains+Mono:wght@400;500;700&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root { --bg: #0a0f1c; --panel: #0f1524; --panel-inset: #141a2b; --panel-deep: #0c1120; --border: #1e2638; --border-soft: #141c30; --text: #e5e7eb; --muted: #8b94a8; --dim: #6b7689; --blue: #3d8bff; --blue-glow: rgba(61, 139, 255, 0.18); --yellow: #f5b545; --green: #4ade80; --red: #f87171; --purple: #BC8CFF; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: radial-gradient(ellipse at top, #111a2e 0%, var(--bg) 60%); color: var(--text); font-family: 'JetBrains Mono', ui-monospace, monospace; min-height: 100vh; line-height: 1.5; }
+  .topnav { border-bottom: 1px solid var(--border-soft); background: rgba(10, 15, 28, 0.85); backdrop-filter: blur(8px); position: sticky; top: 0; z-index: 10; }
+  .topnav-inner { max-width: 1100px; margin: 0 auto; padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+  .nav-brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; color: var(--blue); font-family: 'Orbitron', sans-serif; font-size: 13px; letter-spacing: 2.5px; font-weight: 800; text-transform: uppercase; }
+  .nav-brand-chart { display: inline-flex; width: 22px; height: 18px; color: #ffb020; filter: drop-shadow(0 0 6px rgba(255, 176, 32, 0.55)); }
+  .nav-brand-chart svg { width: 100%; height: 100%; }
+  .nav-back { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--muted); text-decoration: none; letter-spacing: 0.5px; transition: color 0.15s; }
+  .nav-back:hover { color: var(--blue); }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 32px 20px 80px; }
+  .lesson-hero { margin-bottom: 36px; }
+  .lesson-eyebrow { font-family: 'Orbitron', sans-serif; font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--blue); font-weight: 700; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+  .lesson-eyebrow::before { content: '▸'; color: var(--blue); font-size: 10px; }
+  .lesson-title { font-family: 'Orbitron', sans-serif; font-size: 40px; font-weight: 900; letter-spacing: 2px; color: var(--text); text-transform: uppercase; line-height: 1.05; margin-bottom: 14px; }
+  .lesson-sub { font-family: 'Rajdhani', sans-serif; font-size: 22px; color: var(--muted); font-weight: 500; letter-spacing: 0.4px; line-height: 1.4; }
+  .lesson-section { margin-bottom: 36px; }
+  .lesson-section h3 { font-family: 'Orbitron', sans-serif; font-size: 18px; letter-spacing: 2px; text-transform: uppercase; color: var(--text); font-weight: 800; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--border-soft); }
+  .lesson-body { font-family: 'Rajdhani', sans-serif; font-size: 18px; line-height: 1.7; color: var(--text); letter-spacing: 0.2px; }
+  .lesson-body p { margin-bottom: 16px; }
+  .lesson-body p:last-child { margin-bottom: 0; }
+  .lesson-body strong { color: var(--text); font-weight: 700; }
+  .lesson-body em { color: var(--blue); font-style: normal; font-weight: 600; }
+  .lesson-body a { color: var(--blue); text-decoration: none; border-bottom: 1px dashed transparent; transition: border-color 0.15s; }
+  .lesson-body a:hover { border-bottom-color: var(--blue); }
+  .lesson-body ul { margin: 12px 0 18px; padding-left: 22px; }
+  .lesson-body ul li { margin-bottom: 8px; }
+
+  .example-block { background: var(--panel-deep); border: 1px solid var(--border-soft); border-left: 3px solid var(--blue); border-radius: 12px; padding: 22px 26px; font-family: 'Rajdhani', sans-serif; font-size: 17px; color: var(--text); margin: 22px 0; line-height: 1.7; letter-spacing: 0.2px; font-variant-numeric: tabular-nums; }
+  .example-block.purple { border-left-color: var(--purple); }
+  .example-block.purple .label { color: var(--purple); }
+  .example-block .label { font-family: 'Orbitron', sans-serif; color: var(--blue); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; display: block; margin-bottom: 16px; font-weight: 700; }
+  .example-block .row { display: flex; flex-wrap: wrap; gap: 6px 12px; align-items: baseline; padding: 4px 0; }
+  .example-block .row .src { min-width: 130px; color: var(--muted); font-weight: 600; }
+  .example-block .row .body { flex: 1; }
+  .example-block .row .note { color: var(--dim); font-size: 15px; font-style: italic; }
+  .example-block hr { border: none; border-top: 1px solid var(--border-soft); margin: 12px 0; }
+  .example-block .conclusion { margin-top: 4px; color: var(--text); }
+  .example-block .accent { color: var(--blue); font-weight: 700; }
+  .example-block .pos { color: var(--green); font-weight: 700; }
+  .example-block .neg { color: var(--red); font-weight: 700; }
+  .example-block .yel { color: var(--yellow); font-weight: 700; }
+  .example-block .pur { color: var(--purple); font-weight: 700; }
+
+  .compare-table { width: 100%; border-collapse: collapse; margin: 22px 0; font-family: 'Rajdhani', sans-serif; font-size: 16px; font-variant-numeric: tabular-nums; }
+  .compare-table caption { font-family: 'Orbitron', sans-serif; color: var(--blue); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; font-weight: 700; padding-bottom: 14px; text-align: left; }
+  .compare-table th, .compare-table td { padding: 11px 14px; text-align: left; border-bottom: 1px solid var(--border-soft); }
+  .compare-table th { font-family: 'Orbitron', sans-serif; font-size: 10px; letter-spacing: 1.8px; text-transform: uppercase; color: var(--dim); font-weight: 700; background: var(--panel-deep); }
+  .compare-table th:not(:first-child), .compare-table td:not(:first-child) { text-align: right; }
+  .compare-table tr:last-child td { border-bottom: none; }
+  .compare-table .pos { color: var(--green); font-weight: 700; }
+  .compare-table .neg { color: var(--red); font-weight: 700; }
+  .compare-table .yel { color: var(--yellow); font-weight: 700; }
+  .compare-table .pur { color: var(--purple); font-weight: 700; }
+  .compare-table .accent { color: var(--blue); font-weight: 700; }
+
+  .warn-block { background: var(--panel-deep); border: 1px solid var(--border-soft); border-left: 3px solid var(--red); border-radius: 10px; padding: 18px 22px; font-family: 'Rajdhani', sans-serif; font-size: 17px; color: var(--text); margin: 18px 0; line-height: 1.6; }
+  .warn-block strong { color: var(--red); }
+  .tip-block { background: var(--panel-deep); border: 1px solid var(--border-soft); border-left: 3px solid var(--green); border-radius: 10px; padding: 18px 22px; font-family: 'Rajdhani', sans-serif; font-size: 17px; color: var(--text); margin: 18px 0; line-height: 1.6; }
+  .tip-block strong { color: var(--green); }
+  .pull-quote { font-family: 'Rajdhani', sans-serif; font-size: 20px; font-style: italic; color: var(--text); border-left: 3px solid var(--yellow); padding: 4px 0 4px 22px; margin: 24px 0; line-height: 1.5; }
+  .cta-card { background: linear-gradient(135deg, rgba(61, 139, 255, 0.08), rgba(61, 139, 255, 0.02)); border: 1px solid var(--blue); border-radius: 16px; padding: 32px 28px; margin: 44px 0 32px; text-align: center; box-shadow: 0 0 40px rgba(61, 139, 255, 0.08), 0 20px 60px rgba(0, 0, 0, 0.3); }
+  .cta-eyebrow { font-family: 'Orbitron', sans-serif; font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--blue); font-weight: 700; margin-bottom: 10px; }
+  .cta-title { font-family: 'Rajdhani', sans-serif; font-size: 26px; font-weight: 700; color: var(--text); margin-bottom: 8px; letter-spacing: 0.3px; }
+  .cta-blurb { font-family: 'Rajdhani', sans-serif; font-size: 16px; color: var(--muted); line-height: 1.55; max-width: 480px; margin: 0 auto 22px; }
+  .cta-btn { display: inline-flex; align-items: center; gap: 10px; font-family: 'Orbitron', sans-serif; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; font-weight: 800; text-decoration: none; padding: 14px 26px; border-radius: 10px; background: var(--blue); color: #06101e; box-shadow: 0 0 20px var(--blue-glow); transition: all 0.15s; }
+  .cta-btn:hover { background: #5fa1ff; transform: translateY(-1px); box-shadow: 0 0 28px rgba(61, 139, 255, 0.35); }
+  .footer { text-align: center; margin-top: 60px; padding: 28px 20px 0; color: var(--dim); font-size: 11px; letter-spacing: 1px; line-height: 1.7; border-top: 1px solid var(--border-soft); }
+  .footer .disclaimer { max-width: 720px; margin: 0 auto 14px; color: var(--dim); font-family: 'Rajdhani', sans-serif; font-size: 13px; letter-spacing: 0.3px; }
+  .footer a { color: var(--muted); text-decoration: none; }
+  .footer a:hover { color: var(--blue); }
+  @media (max-width: 600px) {
+    .topnav-inner { padding: 12px 16px; }
+    .nav-brand { font-size: 11px; letter-spacing: 2px; }
+    .wrap { padding: 24px 16px 60px; }
+    .lesson-title { font-size: 28px; letter-spacing: 1.5px; }
+    .lesson-sub { font-size: 18px; }
+    .lesson-body { font-size: 16px; }
+    .lesson-section h3 { font-size: 15px; }
+    .cta-card { padding: 26px 20px; }
+    .cta-title { font-size: 22px; }
+    .pull-quote { font-size: 17px; padding-left: 16px; }
+    .compare-table th, .compare-table td { padding: 9px 8px; font-size: 14px; }
+    .example-block .row .src { min-width: 100px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a class="nav-brand" href="/index.html">
+      <span class="nav-brand-chart" aria-hidden="true">
+        <svg viewBox="0 0 28 22" xmlns="http://www.w3.org/2000/svg" fill="none">
+          <polyline points="2,18 8,12 12,15 18,7 26,3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      Profit Path Sports
+    </a>
+    <a class="nav-back" href="/ev-calculator.html">← EV Calculator</a>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <div class="lesson-hero">
+    <div class="lesson-eyebrow">Concept · Edge Math</div>
+    <h1 class="lesson-title">Probability Gap vs. EV</h1>
+    <p class="lesson-sub">A 5% probability gap is not 5% expected value. They look like the same number, they get used interchangeably, and treating them as the same will quietly cost you money on every dog you skip and every favorite you overweight.</p>
+  </div>
+
+  <section class="lesson-section">
+    <h3>The two metrics in one paragraph</h3>
+    <div class="lesson-body">
+      <p><strong>Probability gap</strong> is how far the book's implied probability is from the true probability. It's measured in <em>probability points</em>. <em>"I think this hits 55% of the time, the book has it at 50%, that's a 5-point gap."</em></p>
+      <p><strong>Expected value (EV)</strong> is how much you actually expect to make per dollar staked. It's measured in <em>return on stake</em>. EV bakes in the price you're getting paid — the same probability gap on a +400 dog is worth far more in EV than the same gap on a −300 favorite.</p>
+      <p>Both are valid. They measure different things. Conflating them is the most common math mistake in +EV betting.</p>
+    </div>
+  </section>
+
+  <section class="lesson-section">
+    <h3>The formulas, side by side</h3>
+    <div class="lesson-body">
+      <div class="example-block">
+        <span class="label">Probability gap</span>
+        <div class="row"><span class="src">Definition</span><span class="body">Your true probability minus the market's implied probability.</span></div>
+        <div class="row"><span class="src">Formula</span><span class="body"><span class="accent">Gap = P_true − P_implied</span></span></div>
+        <div class="row"><span class="src">Units</span><span class="body">Probability points (e.g., +5%, −2%).</span></div>
+        <div class="row"><span class="src">What it ignores</span><span class="body">The price. Treats a +5% gap on −300 the same as +5% on +400.</span></div>
+      </div>
+
+      <div class="example-block purple">
+        <span class="label">Expected Value (EV%)</span>
+        <div class="row"><span class="src">Definition</span><span class="body">Expected return per dollar staked, accounting for both the probability and the payout.</span></div>
+        <div class="row"><span class="src">Formula</span><span class="body"><span class="pur">EV% = P_true × (decimal_odds − 1) − (1 − P_true)</span></span></div>
+        <div class="row"><span class="src">Units</span><span class="body">% return on stake (e.g., +6.5% means $6.50 expected profit per $100 risked).</span></div>
+        <div class="row"><span class="src">What it captures</span><span class="body">The price. A +5% gap at +400 is worth far more EV than the same gap at −300.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="lesson-section">
+    <h3>Why they diverge — the payout multiplier</h3>
+    <div class="lesson-body">
+      <p>EV multiplies your probability edge by the payout. The bigger the payout per win, the bigger your edge converts into actual return.</p>
+      <p>A favorite at −300 pays 0.33 to 1. A dog at +400 pays 4 to 1. Same dollar staked, very different consequences when you win.</p>
+      <p>That's why <strong>the same probability gap produces different EV at different prices</strong>. Watch the same +5% gap travel across the price ladder:</p>
+
+      <table class="compare-table">
+        <caption>Same +5% probability gap, different prices</caption>
+        <thead>
+          <tr><th>Market price</th><th>Implied prob</th><th>True prob (+5% gap)</th><th>Decimal odds</th><th>EV%</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>−300</td><td>75.0%</td><td>80.0%</td><td>1.333</td><td class="pos">+6.7%</td></tr>
+          <tr><td>−200</td><td>66.7%</td><td>71.7%</td><td>1.500</td><td class="pos">+7.5%</td></tr>
+          <tr><td>−110</td><td>52.4%</td><td>57.4%</td><td>1.909</td><td class="pos">+9.5%</td></tr>
+          <tr><td>+100</td><td>50.0%</td><td>55.0%</td><td>2.000</td><td class="pos">+10.0%</td></tr>
+          <tr><td>+200</td><td>33.3%</td><td>38.3%</td><td>3.000</td><td class="pos">+15.0%</td></tr>
+          <tr><td>+400</td><td>20.0%</td><td>25.0%</td><td>5.000</td><td class="pos">+25.0%</td></tr>
+          <tr><td>+700</td><td>12.5%</td><td>17.5%</td><td>8.000</td><td class="pos">+40.0%</td></tr>
+        </tbody>
+      </table>
+
+      <p>Same gap. Same opinion ("the book is 5 points off"). Wildly different EV. The +400 dog returns nearly <strong>4x the EV</strong> of the −300 favorite — purely because the price pays you more per win.</p>
+      <p class="pull-quote">Probability gap measures how wrong the book is. EV measures how much that being-wrong is worth to you.</p>
+    </div>
+  </section>
+
+  <section class="lesson-section">
+    <h3>The "looks the same, isn't" trap</h3>
+    <div class="lesson-body">
+      <p>Two bets land in your tracker the same week:</p>
+
+      <div class="example-block">
+        <span class="label">Bet A — coin-flip favorite</span>
+        <div class="row"><span class="src">Market</span><span class="body">−110 (52.4% implied)</span></div>
+        <div class="row"><span class="src">Your read</span><span class="body">57.4% true</span></div>
+        <div class="row"><span class="src">Probability gap</span><span class="body"><span class="accent">+5.0%</span></span></div>
+        <div class="row"><span class="src">EV%</span><span class="body"><span class="pos">+9.5%</span></span></div>
+      </div>
+
+      <div class="example-block purple">
+        <span class="label">Bet B — long-odds dog</span>
+        <div class="row"><span class="src">Market</span><span class="body">+400 (20.0% implied)</span></div>
+        <div class="row"><span class="src">Your read</span><span class="body">25.0% true</span></div>
+        <div class="row"><span class="src">Probability gap</span><span class="body"><span class="accent">+5.0%</span></span></div>
+        <div class="row"><span class="src">EV%</span><span class="body"><span class="pur">+25.0%</span></span></div>
+      </div>
+
+      <p>Identical probability gaps. Bet B is <strong>2.6x more profitable per dollar wagered</strong> in expectation. If you're sizing both the same — flat 1 unit, say — you're underweighting the dog. If you're sizing by gap-only Kelly, same problem. <strong>Sizing has to use EV (or true probability + price together), not gap alone.</strong></p>
+      <p>This is also why "5% edge" tools that only show one number can mislead. Always check whether that "edge" means gap or EV. Most reputable tools show both — or just EV — because EV is the one that maps to dollars.</p>
+    </div>
+  </section>
+
+  <section class="lesson-section">
+    <h3>When to use each one</h3>
+    <div class="lesson-body">
+      <ul>
+        <li><strong>Use probability gap when you're checking your own model accuracy.</strong> Did I project Player X correctly? The clean answer is in probability units — did I beat the market by 4 points or did I miss by 2? That's a gap question.</li>
+        <li><strong>Use EV when you're deciding whether to bet, and how much.</strong> Bet sizing, comparing opportunities, ranking your daily card, calculating expected return on a bankroll — all EV. Always EV.</li>
+        <li><strong>Use Kelly stake sizing on top of EV, not on gap alone.</strong> Full <a href="/learn-kelly.html">Kelly</a> = (bp − q) / b, where b is decimal-odds-minus-one, p is true probability, q is 1 − p. The decimal-odds factor is what makes the dog get sized bigger than the favorite at the same gap.</li>
+      </ul>
+
+      <div class="tip-block">
+        <strong>Practical rule:</strong> if the number's about to influence a stake size or a "should I bet this?" decision, it had better be EV. If it's about checking whether your model is calibrated, gap is fine.
+      </div>
+    </div>
+  </section>
+
+  <section class="lesson-section">
+    <h3>Common mistakes</h3>
+    <div class="lesson-body">
+      <ul>
+        <li><strong>"This bet has 5% edge" — edge in what?</strong> If the tool reports gap, the actual EV could be 3% on a heavy favorite or 25% on a long shot. Always know which number you're looking at.</li>
+        <li><strong>Skipping dogs because the "edge looks the same."</strong> The most expensive habit in +EV betting. Long-shot edges are EV gold; gap-only thinking buries them.</li>
+        <li><strong>Overweighting heavy favorites.</strong> A −400 favorite with a +3% gap is barely +3% EV. Sizing it like a +200 dog with the same gap is leaking money on every favorite.</li>
+        <li><strong>Confusing EV% with hit rate.</strong> A +25% EV bet still loses 75% of the time at +400. The EV is the long-run average, not a per-game prediction. Variance still wins quarters, EV wins seasons.</li>
+        <li><strong>Comparing two bets by gap.</strong> "Both have a 4% gap, I'll bet whichever I like more." No — bet whichever has more EV, every time. The gap is a diagnostic, not a decision metric.</li>
+      </ul>
+
+      <p class="pull-quote">If a metric isn't priced in dollars, it's not telling you what the bet is worth. Probability gap is a diagnostic. EV is the answer.</p>
+    </div>
+  </section>
+
+  <section class="lesson-section">
+    <h3>One more wrinkle: vig vs. true edge</h3>
+    <div class="lesson-body">
+      <p>The standard mistake assumes the book's price equals their honest opinion. It doesn't — the price has <a href="/learn-vig.html">vig</a> baked in. The book's <em>true</em> opinion is the no-vig (fair) probability, not the implied probability.</p>
+      <p>To find your real probability gap, you should be comparing your true probability against the <strong>no-vig fair</strong>, not the raw implied. Otherwise the gap looks bigger than it is — because part of it is just the vig you'd be paying anyway.</p>
+
+      <div class="example-block">
+        <span class="label">Raw gap vs. no-vig gap</span>
+        <div class="row"><span class="src">Market</span><span class="body">−110 / −110 (both sides)</span></div>
+        <div class="row"><span class="src">Raw implied (over)</span><span class="body">52.4%</span></div>
+        <div class="row"><span class="src">No-vig fair (over)</span><span class="body">50.0%</span><span class="note">vig stripped</span></div>
+        <div class="row"><span class="src">Your read</span><span class="body">53.0%</span></div>
+        <hr>
+        <div class="conclusion">Raw gap: 53.0 − 52.4 = +0.6%  →  looks like a tiny edge.<br>No-vig gap: 53.0 − 50.0 = <span class="pos">+3.0%</span>  →  the actual edge after accounting for vig.</div>
+      </div>
+
+      <p>EV calculations done off the raw market price already account for this — you'll be paying the vig on the bet, so it's correctly priced into your expected return. The no-vig benchmark is for measuring your <em>opinion's</em> edge against the market's honest opinion. Don't double-count the vig in either direction.</p>
+    </div>
+  </section>
+
+  <div class="cta-card">
+    <div class="cta-eyebrow">Run the math on your next bet</div>
+    <div class="cta-title">EV is the number that pays you.</div>
+    <p class="cta-blurb">Plug your true probability and the market price into the EV calculator. Watch what happens to EV as the price changes — same opinion, totally different bet sizes.</p>
+    <a href="/ev-calculator.html" class="cta-btn">Open the EV Calculator →</a>
+  </div>
+
+  <div class="footer">
+    <div class="disclaimer">
+      Profit Path Sports is an educational resource. EV calculations assume your true probability estimate is correct — model risk applies. Sports betting carries financial risk. Bet responsibly. If gambling is a problem for you, call <strong>1-800-GAMBLER</strong>. Must be 21+ where legal.
+    </div>
+    <div>© 2026 Profit Path Sports · <a href="/index.html">Home</a> · <a href="/ev-calculator.html">EV Calculator</a> · <a href="/kelly-calculator.html">Kelly Calculator</a></div>
+  </div>
+
+</div>
+
+</body>
+</html>
