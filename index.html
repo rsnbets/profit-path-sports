@@ -1216,6 +1216,62 @@
     transition: color 0.15s;
   }
   .paid-card:hover .paid-cta { color: var(--yellow); }
+
+  /* Free Tools — green-themed third-party recommendations */
+  .free-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-top: 24px;
+  }
+  .free-card {
+    background: var(--panel-deep);
+    border: 1px solid var(--border-soft);
+    border-radius: 14px;
+    padding: 24px;
+    text-decoration: none;
+    color: var(--text);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    transition: all 0.18s;
+  }
+  .free-card:hover {
+    border-color: var(--green);
+    background: var(--panel-inset);
+    transform: translateY(-2px);
+  }
+  .free-name {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -0.01em;
+  }
+  .free-tagline {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 12px;
+    color: var(--green);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+  }
+  .free-desc {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.55;
+    flex: 1;
+    margin-top: 4px;
+  }
+  .free-cta {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--dim);
+    margin-top: 14px;
+    transition: color 0.15s;
+  }
+  .free-card:hover .free-cta { color: var(--green); }
   .paid-code {
     font-family: 'JetBrains Mono', monospace;
     font-size: 12px;
@@ -1348,6 +1404,7 @@
 
   @media (max-width: 700px) {
     .paid-grid { grid-template-columns: 1fr; }
+    .free-grid { grid-template-columns: 1fr; }
   }
 
   @media (max-width: 600px) {
@@ -1697,6 +1754,24 @@
       </a>
     </div>
   </details>
+
+  <!-- FREE THIRD-PARTY TOOLS -->
+  <div class="section" id="free-tools">
+    <div class="section-head">
+      <div class="section-eyebrow green">Free Tools</div>
+      <div class="section-title">Other free tools I actually use</div>
+      <div class="section-sub">Third-party tools that are free or have a usable free tier. Not affiliated, not sponsored — just stuff that earns its spot in my workflow.</div>
+    </div>
+
+    <div class="free-grid">
+      <a class="free-card" href="https://picktheodds.app" target="_blank" rel="noopener">
+        <div class="free-name">Pick the Odds ↗</div>
+        <div class="free-tagline">+EV scanner · line shopping · free tier</div>
+        <div class="free-desc">Live odds across most US books in one screen, with a +EV finder, arbitrage scanner, and line-shopping view. The free tier is genuinely usable — I open it daily. Premium unlocks more sports, faster refresh, and additional filters when you're ready for it.</div>
+        <div class="free-cta">Open Pick the Odds →</div>
+      </a>
+    </div>
+  </div>
 
   <!-- PAID TOOLS -->
   <div class="section" id="paid">
