@@ -1,0 +1,1395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Full Flow Calculator — Devig → EV → Kelly → Reality Check | Profit Path Sports</title>
+<meta name="description" content="The complete bet-evaluation pipeline in one tool. Devig the market, calculate EV, size with Kelly, sanity-check the outcome — then preview CLV, risk of ruin, and sensitivity to model error.">
+
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230a0f1c'/%3E%3Cpolyline points='5,24 12,16 16,19 22,9 27,5' fill='none' stroke='%234ade80' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;800;900&family=JetBrains+Mono:wght@400;500;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg: #0a0f1c;
+    --panel: #0f1524;
+    --panel-inset: #141a2b;
+    --panel-deep: #0c1120;
+    --border: #1e2638;
+    --border-soft: #141c30;
+    --text: #e5e7eb;
+    --muted: #8b94a8;
+    --dim: #6b7689;
+    --blue: #3d8bff;
+    --blue-glow: rgba(61, 139, 255, 0.18);
+    --yellow: #f5b545;
+    --yellow-glow: rgba(245, 181, 69, 0.18);
+    --green: #4ade80;
+    --green-glow: rgba(74, 222, 128, 0.18);
+    --red: #f87171;
+    --purple: #BC8CFF;
+    --purple-glow: rgba(188, 140, 255, 0.18);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: radial-gradient(ellipse at top, #111a2e 0%, var(--bg) 60%);
+    color: var(--text);
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    min-height: 100vh;
+    padding: 24px;
+  }
+  .card {
+    width: 100%;
+    max-width: 980px;
+    margin: 0 auto;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+  }
+  .header {
+    text-align: center;
+    padding: 32px 20px 26px;
+    border-bottom: 1px solid var(--border);
+    background: linear-gradient(180deg, #0d1220 0%, #0b0f1d 100%);
+    position: relative;
+  }
+  .header::after {
+    content: '';
+    position: absolute;
+    bottom: -1px; left: 10%; right: 10%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--blue), transparent);
+    opacity: 0.6;
+  }
+  .header h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--blue);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .bolt { font-size: 20px; filter: drop-shadow(0 0 8px rgba(74, 222, 128, 0.6)); }
+  .tagline {
+    margin-top: 10px;
+    color: var(--muted);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.2px;
+  }
+  .back-link, .help-pill {
+    position: absolute;
+    top: 20px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.15s;
+  }
+  .back-link { left: 20px; color: var(--dim); }
+  .back-link:hover { color: var(--blue); }
+  .help-pill {
+    right: 20px;
+    color: var(--blue);
+    border: 1px solid var(--blue);
+    border-radius: 999px;
+    padding: 7px 14px;
+    background: rgba(61, 139, 255, 0.08);
+    cursor: pointer;
+    font-weight: 700;
+  }
+  .help-pill:hover { background: rgba(61, 139, 255, 0.18); }
+
+  .body { padding: 28px; }
+
+  /* Step blocks */
+  .step {
+    background: var(--panel-deep);
+    border: 1px solid var(--border-soft);
+    border-radius: 14px;
+    padding: 22px 24px;
+    margin-bottom: 0;
+  }
+  .step.blue   { border-left: 3px solid var(--blue); }
+  .step.yellow { border-left: 3px solid var(--yellow); }
+  .step.green  { border-left: 3px solid var(--green); }
+  .step.purple { border-left: 3px solid var(--purple); }
+
+  .step-head {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border-soft);
+  }
+  .step-num {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 4px;
+    background: var(--panel-inset);
+  }
+  .step.blue   .step-num { color: var(--blue); }
+  .step.yellow .step-num { color: var(--yellow); }
+  .step.green  .step-num { color: var(--green); }
+  .step.purple .step-num { color: var(--purple); }
+
+  .step-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 14px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text);
+    font-weight: 800;
+  }
+  .step-sub {
+    flex: 1;
+    text-align: right;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 12.5px;
+    color: var(--muted);
+    font-weight: 500;
+  }
+
+  .connector {
+    height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--dim);
+    font-size: 14px;
+    letter-spacing: 4px;
+  }
+  .connector::before { content: '↓'; font-size: 18px; opacity: 0.5; }
+
+  /* Sub-toggles within steps */
+  .sub-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 14px;
+  }
+  .sub-label {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 9px;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    color: var(--dim);
+    font-weight: 700;
+  }
+  .pill-group { display: inline-flex; gap: 4px; padding: 3px; background: var(--panel-inset); border: 1px solid var(--border); border-radius: 8px; }
+  .pill {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--muted);
+    padding: 7px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    transition: all 0.12s;
+  }
+  .pill:hover { color: var(--text); }
+  .step.blue   .pill.active { background: var(--blue); color: #06101e; }
+  .step.yellow .pill.active { background: var(--yellow); color: #181208; }
+  .step.green  .pill.active { background: var(--green); color: #06160c; }
+  .step.purple .pill.active { background: var(--purple); color: #1a0f2a; }
+
+  /* Input grids */
+  .inputs-row {
+    display: grid;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+  .inputs-row.cols-2 { grid-template-columns: 1fr 1fr; }
+  .inputs-row.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+  .input-cell label {
+    display: block;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 9px;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    color: var(--dim);
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .input-cell input,
+  .input-cell select {
+    width: 100%;
+    background: var(--panel-inset);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 18px;
+    font-weight: 600;
+    padding: 11px 14px;
+    border-radius: 8px;
+    outline: none;
+    text-align: center;
+    letter-spacing: 0.5px;
+  }
+  .input-cell input::placeholder { color: var(--dim); font-weight: 400; }
+  .step.blue   .input-cell input:focus { border-color: var(--blue); }
+  .step.yellow .input-cell input:focus { border-color: var(--yellow); }
+  .step.green  .input-cell input:focus { border-color: var(--green); }
+  .step.purple .input-cell input:focus { border-color: var(--purple); }
+
+  /* Output grid */
+  .outputs-grid {
+    display: grid;
+    gap: 10px;
+    margin-top: 14px;
+  }
+  .outputs-grid.cols-2 { grid-template-columns: 1fr 1fr; }
+  .outputs-grid.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+  .outputs-grid.cols-4 { grid-template-columns: repeat(4, 1fr); }
+  .out-box {
+    background: var(--panel-inset);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 10px;
+    text-align: center;
+  }
+  .out-box .out-label {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    color: var(--dim);
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .out-box .out-value {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    color: var(--text);
+  }
+  .out-box .out-value.empty { color: var(--dim); font-weight: 400; }
+  .out-box .out-sub {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 4px;
+    letter-spacing: 0.3px;
+  }
+  .step.blue   .out-box .out-value.accent { color: var(--blue); }
+  .step.yellow .out-box .out-value.accent { color: var(--yellow); }
+  .step.green  .out-box .out-value.accent { color: var(--green); }
+  .step.purple .out-box .out-value.accent { color: var(--purple); }
+  .out-box .out-value.pos { color: var(--green); }
+  .out-box .out-value.neg { color: var(--red); }
+
+  /* Help text strips */
+  .help-strip {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.55;
+    padding: 9px 13px;
+    background: rgba(61, 139, 255, 0.04);
+    border-left: 2px solid var(--blue);
+    border-radius: 4px;
+    margin: 4px 0 14px;
+  }
+  .step.yellow .help-strip { background: rgba(245, 181, 69, 0.05); border-left-color: var(--yellow); }
+  .step.green  .help-strip { background: rgba(74, 222, 128, 0.05); border-left-color: var(--green); }
+  .step.purple .help-strip { background: rgba(188, 140, 255, 0.05); border-left-color: var(--purple); }
+  .help-strip strong { color: var(--text); font-weight: 700; }
+
+  /* Verdict banner */
+  .verdict {
+    margin-top: 16px;
+    padding: 16px 20px;
+    border-radius: 10px;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 15px;
+    line-height: 1.5;
+    background: var(--panel-inset);
+    border: 1px solid var(--border);
+  }
+  .verdict-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .verdict.strong { border-color: var(--green); background: rgba(74, 222, 128, 0.05); }
+  .verdict.strong .verdict-title { color: var(--green); }
+  .verdict.solid { border-color: var(--blue); background: rgba(61, 139, 255, 0.05); }
+  .verdict.solid .verdict-title { color: var(--blue); }
+  .verdict.marginal { border-color: var(--yellow); background: rgba(245, 181, 69, 0.05); }
+  .verdict.marginal .verdict-title { color: var(--yellow); }
+  .verdict.thin { border-color: var(--dim); }
+  .verdict.thin .verdict-title { color: var(--dim); }
+  .verdict.bad { border-color: var(--red); background: rgba(248, 113, 113, 0.05); }
+  .verdict.bad .verdict-title { color: var(--red); }
+  .verdict-body { color: var(--text); }
+
+  /* Tables (alt-Kelly compare, sensitivity) */
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    font-variant-numeric: tabular-nums;
+  }
+  .compare-table th, .compare-table td {
+    padding: 9px 12px;
+    text-align: right;
+    border-bottom: 1px solid var(--border-soft);
+  }
+  .compare-table th:first-child, .compare-table td:first-child { text-align: left; }
+  .compare-table th {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--dim);
+    font-weight: 700;
+  }
+  .compare-table tbody tr:hover { background: rgba(61, 139, 255, 0.04); }
+  .compare-table tbody tr.highlight { background: rgba(74, 222, 128, 0.07); }
+  .compare-table .pos { color: var(--green); font-weight: 700; }
+  .compare-table .neg { color: var(--red); font-weight: 700; }
+  .compare-table .accent-text { color: var(--blue); font-weight: 700; }
+
+  /* Bonus tools */
+  .bonus-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 0;
+  }
+  .bonus-card {
+    background: var(--panel-deep);
+    border: 1px solid var(--border-soft);
+    border-radius: 12px;
+    padding: 18px 20px;
+  }
+  .bonus-card h4 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--blue);
+    font-weight: 800;
+    margin-bottom: 12px;
+  }
+  .bonus-card .input-cell { margin-bottom: 12px; }
+  .copy-area {
+    width: 100%;
+    background: var(--panel-inset);
+    border: 1px solid var(--border);
+    color: var(--green);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    padding: 12px;
+    border-radius: 8px;
+    resize: none;
+    outline: none;
+    line-height: 1.6;
+  }
+  .copy-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 8px;
+    padding: 8px 14px;
+    background: transparent;
+    border: 1px solid var(--green);
+    color: var(--green);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-weight: 700;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .copy-btn:hover { background: rgba(74, 222, 128, 0.1); }
+  .copy-btn.copied { background: var(--green); color: #06160c; }
+
+  /* How to use */
+  .how-to {
+    margin-top: 24px;
+    background: var(--panel-deep);
+    border: 1px solid var(--border-soft);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .how-to summary {
+    padding: 16px 20px;
+    cursor: pointer;
+    list-style: none;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--blue);
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .how-to summary::-webkit-details-marker { display: none; }
+  .how-to summary::after { content: '▾'; color: var(--dim); transition: transform 0.15s; }
+  .how-to[open] summary::after { transform: rotate(180deg); }
+  .how-to-body {
+    padding: 0 22px 22px;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 14.5px;
+    line-height: 1.65;
+    color: var(--text);
+  }
+  .how-to-body p { margin-bottom: 12px; }
+  .how-to-body strong { color: var(--green); font-weight: 700; }
+  .how-to-body em { color: var(--blue); font-style: normal; font-weight: 600; }
+  .how-to-body ul { padding-left: 20px; margin-bottom: 12px; }
+  .how-to-body ul li { margin-bottom: 6px; }
+  .how-to-body a { color: var(--blue); text-decoration: none; border-bottom: 1px dashed transparent; }
+  .how-to-body a:hover { border-bottom-color: var(--blue); }
+
+  .footer {
+    text-align: center;
+    margin-top: 28px;
+    padding: 18px;
+    color: var(--dim);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.3px;
+  }
+  .footer a { color: var(--muted); text-decoration: none; }
+  .footer a:hover { color: var(--blue); }
+
+  @media (max-width: 760px) {
+    .body { padding: 22px 16px; }
+    .step { padding: 18px 16px; }
+    .step-head { flex-wrap: wrap; }
+    .step-sub { text-align: left; flex-basis: 100%; }
+    .inputs-row.cols-2,
+    .inputs-row.cols-3 { grid-template-columns: 1fr; }
+    .outputs-grid.cols-2,
+    .outputs-grid.cols-3,
+    .outputs-grid.cols-4 { grid-template-columns: 1fr 1fr; }
+    .bonus-grid { grid-template-columns: 1fr; }
+    .compare-table { font-size: 12px; }
+    .compare-table th, .compare-table td { padding: 7px 8px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <div class="header">
+    <a href="/index.html" class="back-link">← Back</a>
+    <button class="help-pill" onclick="document.getElementById('howto').open = !document.getElementById('howto').open; document.getElementById('howto').scrollIntoView({behavior:'smooth', block:'nearest'});">How to use this ↓</button>
+    <h1><span class="bolt">🔁</span> Full Flow</h1>
+    <div class="tagline">Devig → EV → Kelly → Reality Check. The whole pipeline in one place.</div>
+  </div>
+
+  <div class="body">
+
+    <!-- ──────────────────────────────────────────────── -->
+    <!-- STEP 1: FAIR PRICE                              -->
+    <!-- ──────────────────────────────────────────────── -->
+    <div class="step blue" id="step1">
+      <div class="step-head">
+        <span class="step-num">Step 01</span>
+        <span class="step-title">Fair Price</span>
+        <span class="step-sub">What is this bet actually worth?</span>
+      </div>
+
+      <div class="sub-toolbar">
+        <span class="sub-label">Source</span>
+        <div class="pill-group" id="sourceGroup">
+          <button class="pill active" data-source="market">Sharp market (devig)</button>
+          <button class="pill" data-source="model">My own model</button>
+        </div>
+        <span class="sub-label" id="methodLabel" style="margin-left: auto;">Devig method</span>
+        <div class="pill-group" id="methodGroup" data-vis="market">
+          <button class="pill active" data-method="multiplicative">Proportional</button>
+          <button class="pill" data-method="additive">Additive</button>
+        </div>
+      </div>
+
+      <div id="marketInputs" class="inputs-row cols-2">
+        <div class="input-cell">
+          <label>Sharp side A odds</label>
+          <input type="text" inputmode="numeric" id="sharpA" placeholder="−110">
+        </div>
+        <div class="input-cell">
+          <label>Sharp side B odds</label>
+          <input type="text" inputmode="numeric" id="sharpB" placeholder="−110">
+        </div>
+      </div>
+
+      <div id="modelInputs" class="inputs-row cols-2" style="display:none;">
+        <div class="input-cell">
+          <label>Your true probability</label>
+          <input type="text" inputmode="decimal" id="modelProb" placeholder="55">
+        </div>
+        <div class="input-cell">
+          <label>Format</label>
+          <select id="modelProbFormat">
+            <option value="pct" selected>Percent (e.g. 55)</option>
+            <option value="dec">Decimal (e.g. 0.55)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="outputs-grid cols-3">
+        <div class="out-box">
+          <div class="out-label">Fair %</div>
+          <div class="out-value accent empty" id="fairPct">—</div>
+          <div class="out-sub" id="fairPctSub">—</div>
+        </div>
+        <div class="out-box">
+          <div class="out-label">Fair (no-vig) odds</div>
+          <div class="out-value accent empty" id="fairAmer">—</div>
+          <div class="out-sub" id="fairAmerSub">— decimal</div>
+        </div>
+        <div class="out-box">
+          <div class="out-label">Vig in market</div>
+          <div class="out-value empty" id="marketVig">—</div>
+          <div class="out-sub">total juice</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="connector"></div>
+
+    <!-- ──────────────────────────────────────────────── -->
+    <!-- STEP 2: YOUR BET                                -->
+    <!-- ──────────────────────────────────────────────── -->
+    <div class="step yellow" id="step2">
+      <div class="step-head">
+        <span class="step-num">Step 02</span>
+        <span class="step-title">Your Bet</span>
+        <span class="step-sub">What is the book offering?</span>
+      </div>
+
+      <div class="sub-toolbar" id="sideToolbar">
+        <span class="sub-label">Side I'm betting</span>
+        <div class="pill-group" id="sideGroup">
+          <button class="pill active" data-side="A">Side A</button>
+          <button class="pill" data-side="B">Side B</button>
+        </div>
+      </div>
+
+      <div class="inputs-row cols-2">
+        <div class="input-cell">
+          <label>Your book's price (American)</label>
+          <input type="text" inputmode="numeric" id="bookPrice" placeholder="+105">
+        </div>
+        <div class="input-cell">
+          <label>Sportsbook (optional)</label>
+          <input type="text" id="bookName" placeholder="e.g. BetMGM">
+        </div>
+      </div>
+
+      <div class="outputs-grid cols-4">
+        <div class="out-box">
+          <div class="out-label">Implied %</div>
+          <div class="out-value empty" id="bookImplied">—</div>
+        </div>
+        <div class="out-box">
+          <div class="out-label">Probability gap</div>
+          <div class="out-value empty" id="probGap">—</div>
+        </div>
+        <div class="out-box">
+          <div class="out-label">EV%</div>
+          <div class="out-value accent empty" id="evPct">—</div>
+        </div>
+        <div class="out-box">
+          <div class="out-label">EV per $100</div>
+          <div class="out-value accent empty" id="evDollar">—</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="connector"></div>
+
+    <!-- ──────────────────────────────────────────────── -->
+    <!-- STEP 3: KELLY SIZING                            -->
+    <!-- ──────────────────────────────────────────────── -->
+    <div class="step green" id="step3">
+      <div class="step-head">
+        <span class="step-num">Step 03</span>
+        <span class="step-title">Kelly Sizing</span>
+        <span class="step-sub">How much should you actually bet?</span>
+      </div>
+
+      <div class="sub-toolbar">
+        <span class="sub-label">Kelly fraction</span>
+        <div class="pill-group" id="kellyGroup">
+          <button class="pill" data-kelly="1.0">Full</button>
+          <button class="pill active" data-kelly="0.5">Half</button>
+          <button class="pill" data-kelly="0.25">Quarter</button>
+          <button class="pill" data-kelly="0.125">Eighth</button>
+        </div>
+      </div>
+
+      <div class="inputs-row cols-2">
+        <div class="input-cell">
+          <label>Bankroll ($)</label>
+          <input type="text" inputmode="decimal" id="bankroll" placeholder="1000" value="1000">
+        </div>
+        <div class="input-cell">
+          <label>Custom Kelly fraction (overrides preset)</label>
+          <input type="text" inputmode="decimal" id="kellyCustom" placeholder="0.5">
+        </div>
+      </div>
+
+      <div class="outputs-grid cols-4">
+        <div class="out-box">
+          <div class="out-label">Recommended stake</div>
+          <div class="out-value accent empty" id="recStake">—</div>
+        </div>
+        <div class="out-box">
+          <div class="out-label">Full Kelly stake</div>
+          <div class="out-value empty" id="fullKellyStake">—</div>
+          <div class="out-sub">reference</div>
+        </div>
+        <div class="out-box">
+          <div class="out-label">Expected profit</div>
+          <div class="out-value pos empty" id="expectedProfit">—</div>
+        </div>
+        <div class="out-box">
+          <div class="out-label">If it loses</div>
+          <div class="out-value neg empty" id="lossAmount">—</div>
+        </div>
+      </div>
+
+      <details style="margin-top: 16px;">
+        <summary style="cursor: pointer; font-family: 'Orbitron', sans-serif; font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--dim); padding: 8px 0;">Compare alternate Kelly fractions ▾</summary>
+        <table class="compare-table" id="kellyTable">
+          <thead>
+            <tr><th>Fraction</th><th>Stake</th><th>EV $</th><th>If wins</th><th>If loses</th></tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </details>
+    </div>
+
+    <div class="connector"></div>
+
+    <!-- ──────────────────────────────────────────────── -->
+    <!-- STEP 4: REALITY CHECK                           -->
+    <!-- ──────────────────────────────────────────────── -->
+    <div class="step purple" id="step4">
+      <div class="step-head">
+        <span class="step-num">Step 04</span>
+        <span class="step-title">Reality Check</span>
+        <span class="step-sub">Is this bet as good as the EV says?</span>
+      </div>
+
+      <div class="outputs-grid cols-4">
+        <div class="out-box">
+          <div class="out-label">Breakeven hit rate</div>
+          <div class="out-value empty" id="breakevenRate">—</div>
+          <div class="out-sub">at this price</div>
+        </div>
+        <div class="out-box">
+          <div class="out-label">Your projected rate</div>
+          <div class="out-value accent empty" id="yourRate">—</div>
+          <div class="out-sub">true prob</div>
+        </div>
+        <div class="out-box">
+          <div class="out-label">Margin of safety</div>
+          <div class="out-value empty" id="marginOfSafety">—</div>
+          <div class="out-sub">your − breakeven</div>
+        </div>
+        <div class="out-box">
+          <div class="out-label">Loss frequency</div>
+          <div class="out-value empty" id="lossFreq">—</div>
+          <div class="out-sub">expect to lose this often</div>
+        </div>
+      </div>
+
+      <div class="outputs-grid cols-2" style="margin-top: 10px;">
+        <div class="out-box">
+          <div class="out-label">Long-run profit · 100 bets</div>
+          <div class="out-value accent empty" id="longrun100">—</div>
+          <div class="out-sub">at recommended stake</div>
+        </div>
+        <div class="out-box">
+          <div class="out-label">Long-run profit · 1000 bets</div>
+          <div class="out-value accent empty" id="longrun1000">—</div>
+          <div class="out-sub">if edge holds</div>
+        </div>
+      </div>
+
+      <h4 style="font-family: 'Orbitron', sans-serif; font-size: 10px; letter-spacing: 1.8px; color: var(--dim); margin: 18px 0 8px; text-transform: uppercase;">Sensitivity — what if your true probability is off?</h4>
+      <table class="compare-table" id="sensitivityTable">
+        <thead>
+          <tr><th>If true prob is</th><th>EV%</th><th>EV $</th><th>Recommended stake</th></tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+
+      <div class="verdict thin" id="verdictBanner">
+        <div class="verdict-title">Awaiting inputs</div>
+        <div class="verdict-body" id="verdictText">Fill in the steps above to get a verdict.</div>
+      </div>
+    </div>
+
+    <div class="connector"></div>
+
+    <!-- ──────────────────────────────────────────────── -->
+    <!-- BONUS TOOLS                                     -->
+    <!-- ──────────────────────────────────────────────── -->
+    <div class="bonus-grid">
+
+      <!-- CLV PREVIEW -->
+      <div class="bonus-card">
+        <h4>CLV Preview</h4>
+        <p style="font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; color: var(--muted); line-height: 1.5; margin-bottom: 12px;">Enter the price you expect this market to close at. We'll show whether you beat the close — the strongest sign of a sustainable edge.</p>
+        <div class="input-cell">
+          <label>Expected closing line (your side)</label>
+          <input type="text" inputmode="numeric" id="closePrice" placeholder="−115">
+        </div>
+        <div class="outputs-grid cols-2">
+          <div class="out-box">
+            <div class="out-label">CLV %</div>
+            <div class="out-value empty" id="clvPct">—</div>
+          </div>
+          <div class="out-box">
+            <div class="out-label">Beat the close?</div>
+            <div class="out-value empty" id="beatClose">—</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RISK OF RUIN -->
+      <div class="bonus-card">
+        <h4>Risk of Ruin</h4>
+        <p style="font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; color: var(--muted); line-height: 1.5; margin-bottom: 12px;">Estimated probability of dropping below 50% of starting bankroll over <span id="rorN">1000</span> bets, betting at the recommended stake. Lower is better.</p>
+        <div class="input-cell">
+          <label>Bet horizon (number of bets)</label>
+          <input type="text" inputmode="numeric" id="rorBets" placeholder="1000" value="1000">
+        </div>
+        <div class="outputs-grid cols-2">
+          <div class="out-box">
+            <div class="out-label">P(50% drawdown)</div>
+            <div class="out-value empty" id="rorPct">—</div>
+          </div>
+          <div class="out-box">
+            <div class="out-label">Drawdown verdict</div>
+            <div class="out-value empty" id="rorVerdict">—</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- COPY AS JSON -->
+    <div class="bonus-card" style="margin-top: 16px;">
+      <h4>Copy this bet as JSON</h4>
+      <p style="font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; color: var(--muted); line-height: 1.5; margin-bottom: 12px;">Snapshot of the current pipeline state — paste into your tracker, a notes file, or share for review.</p>
+      <textarea class="copy-area" id="jsonOut" rows="8" readonly></textarea>
+      <button class="copy-btn" id="copyJsonBtn" onclick="copyJson()">📋 Copy JSON</button>
+    </div>
+
+    <!-- HOW TO USE -->
+    <details class="how-to" id="howto">
+      <summary>How to use this</summary>
+      <div class="how-to-body">
+        <p><strong>What it does.</strong> One calculator that runs the full sharp-betting pipeline: devig the market to get the fair price, compute your edge against your book's price, size with Kelly, then sanity-check the result with hit-rate, variance, sensitivity, CLV, and risk of ruin.</p>
+
+        <p><strong>Step 1 — Fair Price.</strong> Two ways in:</p>
+        <ul>
+          <li><em>Sharp market</em>: enter both sides of a 2-way market from a sharp source (Pinnacle, Circa, or our <a href="/consensus-calculator.html">Consensus Calc</a>). The page strips the vig and outputs the fair % for both sides.</li>
+          <li><em>My own model</em>: enter your true probability directly (in % or decimal). Skip the devig.</li>
+        </ul>
+
+        <p><strong>Step 2 — Your Bet.</strong> Pick the side you're betting (only relevant in market mode), enter the price your book is offering, optionally tag the book name. Output: probability gap, EV%, and EV per $100.</p>
+
+        <p><strong>Step 3 — Kelly Sizing.</strong> Set bankroll and Kelly fraction. Half-Kelly is the default — most pros bet quarter or half, never full. Output: recommended stake, full Kelly reference, expected profit, potential loss. Expand the compare table to see all four common fractions side by side.</p>
+
+        <p><strong>Step 4 — Reality Check.</strong> The most underrated step:</p>
+        <ul>
+          <li><em>Breakeven hit rate</em>: how often you need to win to break even at this price.</li>
+          <li><em>Margin of safety</em>: how much room your projection has before the bet flips negative.</li>
+          <li><em>Loss frequency</em>: how often this exact bet will lose. Important for variance expectations — a +EV +400 dog still loses 75% of the time.</li>
+          <li><em>Long-run profit</em>: where this edge takes you over 100 and 1000 bets.</li>
+          <li><em>Sensitivity table</em>: what your EV becomes if your true-prob estimate is off by ±2% / ±5%. If a thin edge collapses to negative under a 2% miss, the bet isn't robust.</li>
+          <li><em>Verdict</em>: plain-English sanity check — strong, solid, marginal, or skip.</li>
+        </ul>
+
+        <p><strong>Bonus — CLV preview.</strong> Enter the price you expect this market to close at. Beating the close (CLV) is the single best long-run indicator that you're actually +EV.</p>
+
+        <p><strong>Bonus — Risk of ruin.</strong> Estimates probability of a 50% bankroll drawdown over your bet horizon at the recommended stake. Full Kelly produces big drawdowns even when the edge is real — this is why fractional Kelly exists.</p>
+
+        <p><strong>Bonus — JSON export.</strong> Snapshot the entire pipeline state to paste into your tracker or notes.</p>
+
+        <p><strong>Caveats.</strong></p>
+        <ul>
+          <li>Garbage in, garbage out. If your true probability is wrong, every downstream number is wrong. Devig from the sharpest market available.</li>
+          <li>Risk of ruin uses a normal-approximation rule of thumb. Real-world variance can be larger on heavy-favorite or long-shot ladders.</li>
+          <li>Sensitivity uses fixed bumps (±2%, ±5%). For very long-shot bets, the relevant model error is bigger — interpret accordingly.</li>
+        </ul>
+      </div>
+    </details>
+
+  </div>
+</div>
+
+<div class="footer">
+  © 2026 Profit Path Sports · <a href="/index.html">Home</a> · <a href="/devig_calculator.html">Devig</a> · <a href="/ev-calculator.html">EV</a> · <a href="/kelly-calculator.html">Kelly</a> · <a href="/consensus-calculator.html">Consensus</a>
+</div>
+
+<script>
+  // ────────────────────────────────────────────────────────────
+  // State
+  // ────────────────────────────────────────────────────────────
+  let state = {
+    source: 'market',          // 'market' or 'model'
+    method: 'multiplicative',  // 'multiplicative' or 'additive'
+    side: 'A',                 // 'A' or 'B'
+    kellyFrac: 0.5,            // 1, 0.5, 0.25, 0.125, or custom
+    kellyCustom: null
+  };
+
+  // ────────────────────────────────────────────────────────────
+  // Math helpers
+  // ────────────────────────────────────────────────────────────
+  function americanToImplied(american) {
+    const a = parseFloat(american);
+    if (!isFinite(a) || a === 0) return null;
+    if (a > 0) return 100 / (a + 100);
+    return Math.abs(a) / (Math.abs(a) + 100);
+  }
+  function americanToDecimal(american) {
+    const a = parseFloat(american);
+    if (!isFinite(a) || a === 0) return null;
+    if (a > 0) return 1 + a / 100;
+    return 1 + 100 / Math.abs(a);
+  }
+  function impliedToAmerican(p) {
+    if (!p || p <= 0 || p >= 1) return null;
+    const dec = 1 / p;
+    if (dec >= 2) return Math.round((dec - 1) * 100);
+    return Math.round(-100 / (dec - 1));
+  }
+  function fmtAmerican(n) {
+    if (n === null || !isFinite(n)) return '—';
+    return n > 0 ? '+' + n : '' + n;
+  }
+  function fmtPct(p, d = 2) {
+    if (p === null || !isFinite(p)) return '—';
+    return (p * 100).toFixed(d) + '%';
+  }
+  function fmtDollar(n, d = 2) {
+    if (n === null || !isFinite(n)) return '—';
+    const sign = n < 0 ? '−' : '';
+    return sign + '$' + Math.abs(n).toFixed(d);
+  }
+  function devigPair(pA, pB, m) {
+    if (pA === null || pB === null) return [null, null];
+    if (m === 'multiplicative') {
+      const sum = pA + pB;
+      if (sum <= 0) return [null, null];
+      return [pA / sum, pB / sum];
+    } else {
+      const half = (pA + pB - 1) / 2;
+      return [Math.max(0.0001, Math.min(0.9999, pA - half)),
+              Math.max(0.0001, Math.min(0.9999, pB - half))];
+    }
+  }
+  function parseAmerican(s) {
+    if (s === null || s === undefined) return null;
+    const cleaned = String(s).replace(/[−–—]/g, '-').replace(/\s/g, '').replace(/[^\d.\-+]/g, '');
+    if (cleaned === '' || cleaned === '-' || cleaned === '+') return null;
+    const n = parseFloat(cleaned);
+    if (!isFinite(n) || n === 0) return null;
+    if (n > -100 && n < 100) return null;
+    return n;
+  }
+  function parseNumeric(s, fallback = null) {
+    if (s === null || s === undefined) return fallback;
+    const n = parseFloat(String(s).replace(/[^\d.\-+]/g, ''));
+    return isFinite(n) ? n : fallback;
+  }
+  function evPct(pTrue, decOdds) {
+    return pTrue * (decOdds - 1) - (1 - pTrue);
+  }
+  function fullKellyFraction(pTrue, decOdds) {
+    const b = decOdds - 1;
+    if (b <= 0) return 0;
+    return (b * pTrue - (1 - pTrue)) / b;
+  }
+
+  // ────────────────────────────────────────────────────────────
+  // Pipeline compute
+  // ────────────────────────────────────────────────────────────
+  function getTrueProb() {
+    if (state.source === 'market') {
+      const a = parseAmerican(document.getElementById('sharpA').value);
+      const b = parseAmerican(document.getElementById('sharpB').value);
+      if (a === null || b === null) return { fairA: null, fairB: null, vig: null, side: state.side };
+      const ipa = americanToImplied(a);
+      const ipb = americanToImplied(b);
+      const [fA, fB] = devigPair(ipa, ipb, state.method);
+      const vig = (ipa + ipb - 1);
+      return { fairA: fA, fairB: fB, vig, side: state.side };
+    } else {
+      const raw = document.getElementById('modelProb').value;
+      const fmt = document.getElementById('modelProbFormat').value;
+      let p = parseNumeric(raw);
+      if (p === null) return { fairA: null, fairB: null, vig: null, side: 'A' };
+      if (fmt === 'pct') p = p / 100;
+      if (p <= 0 || p >= 1) return { fairA: null, fairB: null, vig: null, side: 'A' };
+      // In model mode the entered prob IS side A (the side we want to bet).
+      return { fairA: p, fairB: 1 - p, vig: 0, side: 'A' };
+    }
+  }
+
+  function effectiveKellyFraction() {
+    const cVal = document.getElementById('kellyCustom').value.trim();
+    if (cVal !== '') {
+      const c = parseNumeric(cVal);
+      if (c !== null && c > 0 && c <= 2) return c;
+    }
+    return state.kellyFrac;
+  }
+
+  function classifyVerdict(evPctVal, marginOfSafety) {
+    if (evPctVal === null) return ['thin', 'Awaiting inputs', 'Fill in the steps above to get a verdict.'];
+    if (evPctVal < 0) return ['bad', '−EV — pass', 'The book is offering worse-than-fair odds. Don\'t bet at this price.'];
+    if (evPctVal < 0.005) return ['thin', 'Edge too thin', 'EV is barely positive. Likely lost in noise from your model error or stale lines. Pass unless you\'re very confident.'];
+    if (evPctVal < 0.02) return ['marginal', 'Marginal +EV', 'Real edge but small. Bet at recommended size only if you trust your read; consider passing if your model is shaky.'];
+    if (evPctVal < 0.05) return ['solid', 'Solid +EV', 'Healthy edge. Size with confidence at the recommended stake. This is the bread and butter of profitable betting.'];
+    return ['strong', 'Strong +EV', 'Big edge. Size confidently. Track these — and stay alert for stale lines that might disappear before you click bet.'];
+  }
+
+  function recompute() {
+    const tp = getTrueProb();
+    const sideA = state.source === 'market' ? state.side === 'A' : true;
+    const pTrue = sideA ? tp.fairA : tp.fairB;
+    const otherP = sideA ? tp.fairB : tp.fairA;
+
+    // Step 1 outputs
+    const fairPctEl = document.getElementById('fairPct');
+    const fairPctSubEl = document.getElementById('fairPctSub');
+    const fairAmerEl = document.getElementById('fairAmer');
+    const fairAmerSubEl = document.getElementById('fairAmerSub');
+    const vigEl = document.getElementById('marketVig');
+
+    if (pTrue !== null && pTrue > 0 && pTrue < 1) {
+      fairPctEl.textContent = fmtPct(pTrue, 2);
+      fairPctEl.classList.remove('empty');
+      fairPctSubEl.textContent = state.source === 'market' ? `Side ${state.side} fair` : 'Your projection';
+      const fairAmer = impliedToAmerican(pTrue);
+      const fairDec = 1 / pTrue;
+      fairAmerEl.textContent = fmtAmerican(fairAmer);
+      fairAmerEl.classList.remove('empty');
+      fairAmerSubEl.textContent = fairDec.toFixed(3) + ' decimal';
+      if (tp.vig !== null && state.source === 'market') {
+        vigEl.textContent = (tp.vig * 100).toFixed(2) + '%';
+        vigEl.classList.remove('empty');
+      } else {
+        vigEl.textContent = '—';
+        vigEl.classList.add('empty');
+      }
+    } else {
+      fairPctEl.textContent = '—'; fairPctEl.classList.add('empty');
+      fairPctSubEl.textContent = '—';
+      fairAmerEl.textContent = '—'; fairAmerEl.classList.add('empty');
+      fairAmerSubEl.textContent = '— decimal';
+      vigEl.textContent = '—'; vigEl.classList.add('empty');
+    }
+
+    // Step 2 outputs
+    const bookPriceRaw = document.getElementById('bookPrice').value;
+    const bookAmer = parseAmerican(bookPriceRaw);
+    const bookDec = bookAmer !== null ? americanToDecimal(bookAmer) : null;
+    const bookImpl = bookAmer !== null ? americanToImplied(bookAmer) : null;
+
+    const bookImpliedEl = document.getElementById('bookImplied');
+    const probGapEl = document.getElementById('probGap');
+    const evPctEl = document.getElementById('evPct');
+    const evDollarEl = document.getElementById('evDollar');
+
+    let evPctVal = null;
+    let evPer100 = null;
+
+    if (bookImpl !== null) {
+      bookImpliedEl.textContent = (bookImpl * 100).toFixed(2) + '%';
+      bookImpliedEl.classList.remove('empty');
+    } else {
+      bookImpliedEl.textContent = '—'; bookImpliedEl.classList.add('empty');
+    }
+
+    if (pTrue !== null && bookImpl !== null) {
+      const gap = pTrue - bookImpl;
+      probGapEl.textContent = (gap >= 0 ? '+' : '') + (gap * 100).toFixed(2) + '%';
+      probGapEl.classList.remove('empty');
+      probGapEl.style.color = gap >= 0 ? 'var(--green)' : 'var(--red)';
+    } else {
+      probGapEl.textContent = '—'; probGapEl.classList.add('empty');
+      probGapEl.style.color = '';
+    }
+
+    if (pTrue !== null && bookDec !== null) {
+      evPctVal = evPct(pTrue, bookDec);
+      evPer100 = evPctVal * 100;
+      evPctEl.textContent = (evPctVal >= 0 ? '+' : '') + (evPctVal * 100).toFixed(2) + '%';
+      evPctEl.classList.remove('empty');
+      evPctEl.classList.toggle('pos', evPctVal >= 0);
+      evPctEl.classList.toggle('neg', evPctVal < 0);
+      evDollarEl.textContent = fmtDollar(evPer100, 2);
+      evDollarEl.classList.remove('empty');
+      evDollarEl.classList.toggle('pos', evPer100 >= 0);
+      evDollarEl.classList.toggle('neg', evPer100 < 0);
+    } else {
+      evPctEl.textContent = '—'; evPctEl.classList.add('empty');
+      evPctEl.classList.remove('pos','neg');
+      evDollarEl.textContent = '—'; evDollarEl.classList.add('empty');
+      evDollarEl.classList.remove('pos','neg');
+    }
+
+    // Step 3 — Kelly
+    const bankroll = parseNumeric(document.getElementById('bankroll').value, 0);
+    const fullK = pTrue !== null && bookDec !== null ? fullKellyFraction(pTrue, bookDec) : null;
+    const kFrac = effectiveKellyFraction();
+
+    const recStakeEl = document.getElementById('recStake');
+    const fullKellyStakeEl = document.getElementById('fullKellyStake');
+    const expProfitEl = document.getElementById('expectedProfit');
+    const lossAmtEl = document.getElementById('lossAmount');
+
+    let recStake = null;
+    if (fullK !== null && fullK > 0 && bankroll > 0) {
+      const fullStake = fullK * bankroll;
+      recStake = Math.max(0, fullStake * kFrac);
+      recStakeEl.textContent = fmtDollar(recStake, 2);
+      recStakeEl.classList.remove('empty');
+      fullKellyStakeEl.textContent = fmtDollar(fullStake, 2);
+      fullKellyStakeEl.classList.remove('empty');
+      const winProfit = recStake * (bookDec - 1);
+      const expProfit = recStake * evPctVal;
+      expProfitEl.textContent = fmtDollar(expProfit, 2);
+      expProfitEl.classList.remove('empty');
+      expProfitEl.classList.toggle('pos', expProfit >= 0);
+      expProfitEl.classList.toggle('neg', expProfit < 0);
+      lossAmtEl.textContent = fmtDollar(-recStake, 2);
+      lossAmtEl.classList.remove('empty');
+    } else {
+      recStakeEl.textContent = fullK !== null && fullK <= 0 ? '$0' : '—';
+      if (fullK !== null && fullK <= 0) {
+        recStakeEl.classList.remove('empty');
+      } else {
+        recStakeEl.classList.add('empty');
+      }
+      fullKellyStakeEl.textContent = '—'; fullKellyStakeEl.classList.add('empty');
+      expProfitEl.textContent = '—'; expProfitEl.classList.add('empty');
+      expProfitEl.classList.remove('pos','neg');
+      lossAmtEl.textContent = '—'; lossAmtEl.classList.add('empty');
+    }
+
+    // Kelly compare table
+    const kellyTbody = document.querySelector('#kellyTable tbody');
+    kellyTbody.innerHTML = '';
+    const presets = [
+      { label: 'Full',    f: 1.0 },
+      { label: 'Half',    f: 0.5 },
+      { label: 'Quarter', f: 0.25 },
+      { label: 'Eighth',  f: 0.125 }
+    ];
+    presets.forEach(p => {
+      const tr = document.createElement('tr');
+      if (Math.abs(kFrac - p.f) < 0.001 && document.getElementById('kellyCustom').value.trim() === '') {
+        tr.classList.add('highlight');
+      }
+      if (fullK !== null && fullK > 0 && bankroll > 0 && bookDec !== null) {
+        const stake = fullK * bankroll * p.f;
+        const evD = stake * evPctVal;
+        const winD = stake * (bookDec - 1);
+        const lossD = -stake;
+        tr.innerHTML = `<td>${p.label} (${p.f}×)</td><td>${fmtDollar(stake)}</td><td class="${evD >= 0 ? 'pos' : 'neg'}">${fmtDollar(evD)}</td><td class="pos">+${fmtDollar(winD).replace('$','$')}</td><td class="neg">${fmtDollar(lossD)}</td>`;
+      } else {
+        tr.innerHTML = `<td>${p.label} (${p.f}×)</td><td>—</td><td>—</td><td>—</td><td>—</td>`;
+      }
+      kellyTbody.appendChild(tr);
+    });
+
+    // Step 4 — Reality check
+    const breakEvenEl = document.getElementById('breakevenRate');
+    const yourRateEl = document.getElementById('yourRate');
+    const marginEl = document.getElementById('marginOfSafety');
+    const lossFreqEl = document.getElementById('lossFreq');
+    const lr100El = document.getElementById('longrun100');
+    const lr1000El = document.getElementById('longrun1000');
+
+    if (bookImpl !== null && pTrue !== null) {
+      breakEvenEl.textContent = (bookImpl * 100).toFixed(2) + '%';
+      breakEvenEl.classList.remove('empty');
+      yourRateEl.textContent = (pTrue * 100).toFixed(2) + '%';
+      yourRateEl.classList.remove('empty');
+      const margin = (pTrue - bookImpl) * 100;
+      marginEl.textContent = (margin >= 0 ? '+' : '') + margin.toFixed(2) + '%';
+      marginEl.classList.remove('empty');
+      marginEl.style.color = margin >= 0 ? 'var(--green)' : 'var(--red)';
+      const lossFreq = (1 - pTrue) * 100;
+      lossFreqEl.textContent = lossFreq.toFixed(1) + '%';
+      lossFreqEl.classList.remove('empty');
+      lossFreqEl.style.color = lossFreq > 70 ? 'var(--yellow)' : 'var(--text)';
+    } else {
+      [breakEvenEl, yourRateEl, marginEl, lossFreqEl].forEach(el => {
+        el.textContent = '—'; el.classList.add('empty'); el.style.color = '';
+      });
+    }
+
+    if (recStake !== null && evPctVal !== null) {
+      const lr100 = recStake * evPctVal * 100;
+      const lr1000 = recStake * evPctVal * 1000;
+      lr100El.textContent = fmtDollar(lr100, 2);
+      lr100El.classList.remove('empty');
+      lr100El.style.color = lr100 >= 0 ? 'var(--green)' : 'var(--red)';
+      lr1000El.textContent = fmtDollar(lr1000, 2);
+      lr1000El.classList.remove('empty');
+      lr1000El.style.color = lr1000 >= 0 ? 'var(--green)' : 'var(--red)';
+    } else {
+      lr100El.textContent = '—'; lr100El.classList.add('empty'); lr100El.style.color = '';
+      lr1000El.textContent = '—'; lr1000El.classList.add('empty'); lr1000El.style.color = '';
+    }
+
+    // Sensitivity table
+    const sensTbody = document.querySelector('#sensitivityTable tbody');
+    sensTbody.innerHTML = '';
+    const bumps = [
+      { label: '−5%',  delta: -0.05 },
+      { label: '−2%',  delta: -0.02 },
+      { label: 'Your estimate', delta: 0, highlight: true },
+      { label: '+2%',  delta: +0.02 },
+      { label: '+5%',  delta: +0.05 }
+    ];
+    bumps.forEach(b => {
+      const tr = document.createElement('tr');
+      if (b.highlight) tr.classList.add('highlight');
+      if (pTrue !== null && bookDec !== null && fullK !== null && bankroll > 0) {
+        const p = Math.max(0.0001, Math.min(0.9999, pTrue + b.delta));
+        const ev = evPct(p, bookDec);
+        const evD = (recStake !== null) ? recStake * ev : 0;
+        const fk = fullKellyFraction(p, bookDec);
+        const stk = Math.max(0, fk * bankroll * kFrac);
+        tr.innerHTML = `<td>${b.label} (${(p * 100).toFixed(1)}%)</td>` +
+                       `<td class="${ev >= 0 ? 'pos' : 'neg'}">${(ev >= 0 ? '+' : '') + (ev * 100).toFixed(2)}%</td>` +
+                       `<td class="${evD >= 0 ? 'pos' : 'neg'}">${fmtDollar(evD, 2)}</td>` +
+                       `<td>${fmtDollar(stk, 2)}</td>`;
+      } else {
+        tr.innerHTML = `<td>${b.label}</td><td>—</td><td>—</td><td>—</td>`;
+      }
+      sensTbody.appendChild(tr);
+    });
+
+    // Verdict
+    const verdictBanner = document.getElementById('verdictBanner');
+    const verdictText = document.getElementById('verdictText');
+    const margin = (bookImpl !== null && pTrue !== null) ? (pTrue - bookImpl) : null;
+    const [vClass, vTitle, vBody] = classifyVerdict(evPctVal, margin);
+    verdictBanner.className = 'verdict ' + vClass;
+    verdictBanner.querySelector('.verdict-title').textContent = vTitle;
+    verdictText.textContent = vBody;
+
+    // Bonus — CLV preview
+    const closeAmer = parseAmerican(document.getElementById('closePrice').value);
+    const closeDec = closeAmer !== null ? americanToDecimal(closeAmer) : null;
+    const clvPctEl = document.getElementById('clvPct');
+    const beatCloseEl = document.getElementById('beatClose');
+    if (bookDec !== null && closeDec !== null) {
+      const clv = (bookDec / closeDec - 1) * 100;
+      clvPctEl.textContent = (clv >= 0 ? '+' : '') + clv.toFixed(2) + '%';
+      clvPctEl.classList.remove('empty');
+      clvPctEl.style.color = clv >= 0 ? 'var(--green)' : 'var(--red)';
+      const beat = bookDec > closeDec;
+      beatCloseEl.textContent = beat ? '✓ Yes' : '✗ No';
+      beatCloseEl.classList.remove('empty');
+      beatCloseEl.style.color = beat ? 'var(--green)' : 'var(--red)';
+    } else {
+      clvPctEl.textContent = '—'; clvPctEl.classList.add('empty'); clvPctEl.style.color = '';
+      beatCloseEl.textContent = '—'; beatCloseEl.classList.add('empty'); beatCloseEl.style.color = '';
+    }
+
+    // Bonus — Risk of ruin (rough approximation)
+    // P(drawdown to 0.5*bankroll) using Kelly-criterion approximation:
+    // For fractional Kelly f, expected log-growth per bet is approx f*(1-f/2)*K_full_growth.
+    // P(drawdown > X) over N bets approximated by exp(-2 * (drawdown_logs)^2 / (N * variance_per_bet))
+    // We use a simpler practical heuristic: Kelly-fraction-based + horizon scaling.
+    const rorBets = parseNumeric(document.getElementById('rorBets').value, 1000);
+    const rorPctEl = document.getElementById('rorPct');
+    const rorVerdictEl = document.getElementById('rorVerdict');
+    document.getElementById('rorN').textContent = rorBets;
+
+    if (fullK !== null && fullK > 0 && bookDec !== null && pTrue !== null && bankroll > 0 && rorBets > 0) {
+      // Per-bet log-growth at fractional Kelly f of full Kelly:
+      // g(f) = p*ln(1 + f*K*b) + q*ln(1 - f*K)  (approx with K = full Kelly fraction)
+      // Variance per bet (log) approx f^2 * K^2 * b (heuristic Gaussian model).
+      // P(min over N hits log(0.5)) ~ exp(-2*g*N / (N*var)) = exp(-2g/var).
+      // For practical purposes give a 0-100% estimate that scales with Kelly fraction and N.
+      const f = kFrac;
+      const b = bookDec - 1;
+      const p = pTrue;
+      const q = 1 - p;
+      const K = fullK;
+      const muPerBet = p * Math.log(Math.max(1e-9, 1 + f * K * b)) + q * Math.log(Math.max(1e-9, 1 - f * K));
+      const varPerBet = p * Math.pow(Math.log(Math.max(1e-9, 1 + f * K * b)) - muPerBet, 2)
+                       + q * Math.pow(Math.log(Math.max(1e-9, 1 - f * K)) - muPerBet, 2);
+      // Probability of reaching log(0.5) drawdown over N bets, normal approx (very rough):
+      let ror;
+      if (muPerBet <= 0 || varPerBet <= 0) {
+        ror = 1;
+      } else {
+        // Use the "ballot problem"-style approx: P(min < -d) ~ exp(-2*d*mu/var) for random walk with drift.
+        const d = -Math.log(0.5);
+        ror = Math.exp(-2 * d * muPerBet / varPerBet);
+        ror = Math.max(0, Math.min(1, ror));
+      }
+      // Adjust for finite horizon: scale ror by saturation function.
+      const horizonAdjust = 1 - Math.exp(-rorBets * Math.max(varPerBet, 1e-6));
+      const rorAdj = ror * horizonAdjust;
+      rorPctEl.textContent = (rorAdj * 100).toFixed(1) + '%';
+      rorPctEl.classList.remove('empty');
+      let verdictColor = 'var(--green)';
+      let verdictTxt = 'Acceptable';
+      if (rorAdj > 0.5) { verdictColor = 'var(--red)'; verdictTxt = 'Very high'; }
+      else if (rorAdj > 0.25) { verdictColor = 'var(--yellow)'; verdictTxt = 'High'; }
+      else if (rorAdj > 0.10) { verdictColor = 'var(--yellow)'; verdictTxt = 'Moderate'; }
+      else if (rorAdj > 0.03) { verdictColor = 'var(--green)'; verdictTxt = 'Low'; }
+      else { verdictColor = 'var(--green)'; verdictTxt = 'Very low'; }
+      rorVerdictEl.textContent = verdictTxt;
+      rorVerdictEl.classList.remove('empty');
+      rorVerdictEl.style.color = verdictColor;
+      rorPctEl.style.color = verdictColor;
+    } else {
+      rorPctEl.textContent = '—'; rorPctEl.classList.add('empty'); rorPctEl.style.color = '';
+      rorVerdictEl.textContent = '—'; rorVerdictEl.classList.add('empty'); rorVerdictEl.style.color = '';
+    }
+
+    // JSON export
+    const json = {
+      generated_at: new Date().toISOString(),
+      source: state.source,
+      devig_method: state.method,
+      side: state.side,
+      sharp_price_A: state.source === 'market' ? document.getElementById('sharpA').value : null,
+      sharp_price_B: state.source === 'market' ? document.getElementById('sharpB').value : null,
+      model_probability: state.source === 'model' ? document.getElementById('modelProb').value + ' (' + document.getElementById('modelProbFormat').value + ')' : null,
+      fair_probability: pTrue !== null ? +(pTrue.toFixed(4)) : null,
+      fair_american: pTrue !== null ? impliedToAmerican(pTrue) : null,
+      book_name: document.getElementById('bookName').value || null,
+      book_price: document.getElementById('bookPrice').value || null,
+      book_implied: bookImpl !== null ? +(bookImpl.toFixed(4)) : null,
+      ev_pct: evPctVal !== null ? +(evPctVal * 100).toFixed(3) : null,
+      ev_per_100: evPer100 !== null ? +evPer100.toFixed(2) : null,
+      bankroll: bankroll || null,
+      kelly_fraction: kFrac,
+      recommended_stake: recStake !== null ? +recStake.toFixed(2) : null,
+      full_kelly_stake: (fullK !== null && bankroll > 0) ? +(fullK * bankroll).toFixed(2) : null,
+      breakeven_hit_rate: bookImpl !== null ? +(bookImpl * 100).toFixed(2) : null,
+      verdict: vTitle
+    };
+    document.getElementById('jsonOut').value = JSON.stringify(json, null, 2);
+  }
+
+  // ────────────────────────────────────────────────────────────
+  // UI wire-up
+  // ────────────────────────────────────────────────────────────
+  document.getElementById('sourceGroup').addEventListener('click', e => {
+    if (!e.target.classList.contains('pill')) return;
+    document.querySelectorAll('#sourceGroup .pill').forEach(p => p.classList.remove('active'));
+    e.target.classList.add('active');
+    state.source = e.target.dataset.source;
+    document.getElementById('marketInputs').style.display = state.source === 'market' ? 'grid' : 'none';
+    document.getElementById('modelInputs').style.display = state.source === 'model' ? 'grid' : 'none';
+    document.getElementById('methodGroup').style.display = state.source === 'market' ? 'inline-flex' : 'none';
+    document.getElementById('methodLabel').style.display = state.source === 'market' ? 'inline' : 'none';
+    document.getElementById('sideToolbar').style.display = state.source === 'market' ? 'flex' : 'none';
+    recompute();
+  });
+
+  document.getElementById('methodGroup').addEventListener('click', e => {
+    if (!e.target.classList.contains('pill')) return;
+    document.querySelectorAll('#methodGroup .pill').forEach(p => p.classList.remove('active'));
+    e.target.classList.add('active');
+    state.method = e.target.dataset.method;
+    recompute();
+  });
+
+  document.getElementById('sideGroup').addEventListener('click', e => {
+    if (!e.target.classList.contains('pill')) return;
+    document.querySelectorAll('#sideGroup .pill').forEach(p => p.classList.remove('active'));
+    e.target.classList.add('active');
+    state.side = e.target.dataset.side;
+    recompute();
+  });
+
+  document.getElementById('kellyGroup').addEventListener('click', e => {
+    if (!e.target.classList.contains('pill')) return;
+    document.querySelectorAll('#kellyGroup .pill').forEach(p => p.classList.remove('active'));
+    e.target.classList.add('active');
+    state.kellyFrac = parseFloat(e.target.dataset.kelly);
+    document.getElementById('kellyCustom').value = '';
+    recompute();
+  });
+
+  // All inputs trigger recompute on input
+  ['sharpA','sharpB','modelProb','modelProbFormat','bookPrice','bookName','bankroll','kellyCustom','closePrice','rorBets'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener('input', () => {
+      // If kellyCustom is touched, deselect kelly group highlight
+      if (id === 'kellyCustom' && el.value.trim() !== '') {
+        document.querySelectorAll('#kellyGroup .pill').forEach(p => p.classList.remove('active'));
+      } else if (id === 'kellyCustom' && el.value.trim() === '') {
+        // Re-highlight current preset
+        document.querySelectorAll('#kellyGroup .pill').forEach(p => {
+          if (parseFloat(p.dataset.kelly) === state.kellyFrac) p.classList.add('active');
+        });
+      }
+      recompute();
+    });
+    if (el && el.tagName === 'SELECT') el.addEventListener('change', recompute);
+  });
+
+  function copyJson() {
+    const ta = document.getElementById('jsonOut');
+    ta.select();
+    document.execCommand('copy');
+    const btn = document.getElementById('copyJsonBtn');
+    btn.classList.add('copied');
+    btn.textContent = '✓ Copied';
+    setTimeout(() => {
+      btn.classList.remove('copied');
+      btn.textContent = '📋 Copy JSON';
+    }, 1400);
+  }
+
+  // Initial state
+  recompute();
+</script>
+
+</body>
+</html>
