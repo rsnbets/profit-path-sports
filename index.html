@@ -1161,6 +1161,18 @@
     transition: color 0.15s;
   }
   .paid-card:hover .paid-cta { color: var(--yellow); }
+  .paid-code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--muted);
+    background: rgba(245, 181, 69, 0.08);
+    border: 1px dashed rgba(245, 181, 69, 0.35);
+    border-radius: 8px;
+    padding: 8px 12px;
+    margin-top: 12px;
+    letter-spacing: 0.4px;
+  }
+  .paid-code strong { color: var(--yellow); font-weight: 700; letter-spacing: 1px; }
 
   @media (max-width: 700px) {
     .paid-grid { grid-template-columns: 1fr; }
@@ -1501,10 +1513,11 @@
     </div>
 
     <div class="paid-grid">
-      <a class="paid-card" href="https://pikkit.com/?ref=TOUCHDOWN64990" target="_blank" rel="nofollow noopener sponsored">
+      <a class="paid-card" href="https://pikkit.com" target="_blank" rel="nofollow noopener sponsored">
         <div class="paid-name">Pikkit</div>
         <div class="paid-tagline">Automated bet tracking</div>
         <div class="paid-desc">Connects to your sportsbooks and pulls every bet automatically — no more spreadsheets. Tracks CLV, ROI, and edge across every book in one place. If you're betting at more than two books, this saves real time.</div>
+        <div class="paid-code">Use code <strong>TOUCHDOWN64990</strong> at signup</div>
         <div class="paid-cta">Try Pikkit →</div>
       </a>
       <a class="paid-card" href="https://fas.st/t/RFjb8MmR" target="_blank" rel="nofollow noopener sponsored">
