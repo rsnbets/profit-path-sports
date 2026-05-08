@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Top-Down vs. Bottom-Up Betting — Two Routes to +EV | Profit Path Sports</title>
+<meta name="description" content="Top-down bettors trust the market and shop for soft prices. Bottom-up bettors build their own projections and bet against the market. Both work — for very different reasons.">
+
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230a0f1c'/%3E%3Cpolyline points='5,24 12,16 16,19 22,9 27,5' fill='none' stroke='%23ffb020' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="Top-Down vs. Bottom-Up Betting">
+<meta property="og:description" content="Two routes to +EV. One trusts the market. The other beats it. Here's when each one works.">
+<meta property="og:site_name" content="Profit Path Sports">
+<meta name="theme-color" content="#0a0f1c">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;800;900&family=JetBrains+Mono:wght@400;500;700&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root { --bg: #0a0f1c; --panel: #0f1524; --panel-inset: #141a2b; --panel-deep: #0c1120; --border: #1e2638; --border-soft: #141c30; --text: #e5e7eb; --muted: #8b94a8; --dim: #6b7689; --blue: #3d8bff; --blue-glow: rgba(61, 139, 255, 0.18); --yellow: #f5b545; --green: #4ade80; --red: #f87171; --purple: #BC8CFF; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: radial-gradient(ellipse at top, #111a2e 0%, var(--bg) 60%); color: var(--text); font-family: 'JetBrains Mono', ui-monospace, monospace; min-height: 100vh; line-height: 1.5; }
+  .topnav { border-bottom: 1px solid var(--border-soft); background: rgba(10, 15, 28, 0.85); backdrop-filter: blur(8px); position: sticky; top: 0; z-index: 10; }
+  .topnav-inner { max-width: 1100px; margin: 0 auto; padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+  .nav-brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; color: var(--blue); font-family: 'Orbitron', sans-serif; font-size: 13px; letter-spacing: 2.5px; font-weight: 800; text-transform: uppercase; }
+  .nav-brand-chart { display: inline-flex; width: 22px; height: 18px; color: #ffb020; filter: drop-shadow(0 0 6px rgba(255, 176, 32, 0.55)); }
+  .nav-brand-chart svg { width: 100%; height: 100%; }
+  .nav-back { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--muted); text-decoration: none; letter-spacing: 0.5px; transition: color 0.15s; }
+  .nav-back:hover { color: var(--blue); }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 32px 20px 80px; }
+  .lesson-hero { margin-bottom: 36px; }
+  .lesson-eyebrow { font-family: 'Orbitron', sans-serif; font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--blue); font-weight: 700; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+  .lesson-eyebrow::before { content: '▸'; color: var(--blue); font-size: 10px; }
+  .lesson-title { font-family: 'Orbitron', sans-serif; font-size: 40px; font-weight: 900; letter-spacing: 2px; color: var(--text); text-transform: uppercase; line-height: 1.05; margin-bottom: 14px; }
+  .lesson-sub { font-family: 'Rajdhani', sans-serif; font-size: 22px; color: var(--muted); font-weight: 500; letter-spacing: 0.4px; line-height: 1.4; }
+  .lesson-section { margin-bottom: 36px; }
+  .lesson-section h3 { font-family: 'Orbitron', sans-serif; font-size: 18px; letter-spacing: 2px; text-transform: uppercase; color: var(--text); font-weight: 800; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--border-soft); }
+  .lesson-body { font-family: 'Rajdhani', sans-serif; font-size: 18px; line-height: 1.7; color: var(--text); letter-spacing: 0.2px; }
+  .lesson-body p { margin-bottom: 16px; }
+  .lesson-body p:last-child { margin-bottom: 0; }
+  .lesson-body strong { color: var(--text); font-weight: 700; }
+  .lesson-body em { color: var(--blue); font-style: normal; font-weight: 600; }
+  .lesson-body a { color: var(--blue); text-decoration: none; border-bottom: 1px dashed transparent; transition: border-color 0.15s; }
+  .lesson-body a:hover { border-bottom-color: var(--blue); }
+  .lesson-body ul { margin: 12px 0 18px; padding-left: 22px; }
+  .lesson-body ul li { margin-bottom: 8px; }
+  .math-block { background: var(--panel-deep); border: 1px solid var(--border-soft); border-left: 3px solid var(--blue); border-radius: 10px; padding: 20px 24px; font-family: 'JetBrains Mono', monospace; font-size: 14px; color: var(--text); margin: 18px 0; line-height: 1.8; overflow-x: auto; }
+  .math-block .label { color: var(--dim); font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; display: block; margin-bottom: 10px; }
+  .math-block .accent { color: var(--blue); font-weight: 700; }
+  .math-block .pos { color: var(--green); font-weight: 700; }
+  .math-block .neg { color: var(--red); font-weight: 700; }
+  .math-block .yel { color: var(--yellow); font-weight: 700; }
+  .math-block .pur { color: var(--purple); font-weight: 700; }
+  .warn-block { background: var(--panel-deep); border: 1px solid var(--border-soft); border-left: 3px solid var(--red); border-radius: 10px; padding: 18px 22px; font-family: 'Rajdhani', sans-serif; font-size: 17px; color: var(--text); margin: 18px 0; line-height: 1.6; }
+  .warn-block strong { color: var(--red); }
+  .tip-block { background: var(--panel-deep); border: 1px solid var(--border-soft); border-left: 3px solid var(--green); border-radius: 10px; padding: 18px 22px; font-family: 'Rajdhani', sans-serif; font-size: 17px; color: var(--text); margin: 18px 0; line-height: 1.6; }
+  .tip-block strong { color: var(--green); }
+  .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 18px 0; }
+  .compare-card { background: var(--panel-deep); border: 1px solid var(--border-soft); border-radius: 10px; padding: 18px 20px; }
+  .compare-card.left { border-left: 3px solid var(--blue); }
+  .compare-card.right { border-left: 3px solid var(--purple); }
+  .compare-card h4 { font-family: 'Orbitron', sans-serif; font-size: 12px; letter-spacing: 1.8px; text-transform: uppercase; font-weight: 800; margin-bottom: 12px; color: var(--text); }
+  .compare-card.left h4 { color: var(--blue); }
+  .compare-card.right h4 { color: var(--purple); }
+  .compare-card ul { font-family: 'Rajdhani', sans-serif; font-size: 16px; line-height: 1.55; color: var(--text); padding-left: 18px; margin: 0; }
+  .compare-card ul li { margin-bottom: 7px; }
+  .compare-card ul li:last-child { margin-bottom: 0; }
+  @media (max-width: 600px) { .compare-grid { grid-template-columns: 1fr; } }
+  .pull-quote { font-family: 'Rajdhani', sans-serif; font-size: 20px; font-style: italic; color: var(--text); border-left: 3px solid var(--yellow); padding: 4px 0 4px 22px; margin: 24px 0; line-height: 1.5; }
+  .cta-card { background: linear-gradient(135deg, rgba(61, 139, 255, 0.08), rgba(61, 139, 255, 0.02)); border: 1px solid var(--blue); border-radius: 16px; padding: 32px 28px; margin: 44px 0 32px; text-align: center; box-shadow: 0 0 40px rgba(61, 139, 255, 0.08), 0 20px 60px rgba(0, 0, 0, 0.3); }
+  .cta-eyebrow { font-family: 'Orbitron', sans-serif; font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--blue); font-weight: 700; margin-bottom: 10px; }
+  .cta-title { font-family: 'Rajdhani', sans-serif; font-size: 26px; font-weight: 700; color: var(--text); margin-bottom: 8px; letter-spacing: 0.3px; }
+  .cta-blurb { font-family: 'Rajdhani', sans-serif; font-size: 16px; color: var(--muted); line-height: 1.55; max-width: 480px; margin: 0 auto 22px; }
+  .cta-btn { display: inline-flex; align-items: center; gap: 10px; font-family: 'Orbitron', sans-serif; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; font-weight: 800; text-decoration: none; padding: 14px 26px; border-radius: 10px; background: var(--blue); color: #06101e; box-shadow: 0 0 20px var(--blue-glow); transition: all 0.15s; }
+  .cta-btn:hover { background: #5fa1ff; transform: translateY(-1px); box-shadow: 0 0 28px rgba(61, 139, 255, 0.35); }
+  .footer { text-align: center; margin-top: 60px; padding: 28px 20px 0; color: var(--dim); font-size: 11px; letter-spacing: 1px; line-height: 1.7; border-top: 1px solid var(--border-soft); }
+  .footer .disclaimer { max-width: 720px; margin: 0 auto 14px; color: var(--dim); font-family: 'Rajdhani', sans-serif; font-size: 13px; letter-spacing: 0.3px; }
+  .footer a { color: var(--muted); text-decoration: none; }
+  .footer a:hover { color: var(--blue); }
+  @media (max-width: 600px) {
+    .topnav-inner { padding: 12px 16px; }
+    .nav-brand { font-size: 11px; letter-spacing: 2px; }
+    .wrap { padding: 24px 16px 60px; }
+    .lesson-title { font-size: 28px; letter-spacing: 1.5px; }
+    .lesson-sub { font-size: 18px; }
+    .lesson-body { font-size: 16px; }
+    .lesson-section h3 { font-size: 15px; }
+    .cta-card { padding: 26px 20px; }
+    .cta-title { font-size: 22px; }
+    .pull-quote { font-size: 17px; padding-left: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a class="nav-brand" href="/index.html">
+      <span class="nav-brand-chart" aria-hidden="true">
+        <svg viewBox="0 0 28 22" xmlns="http://www.w3.org/2000/svg" fill="none">
+          <polyline points="2,18 8,12 12,15 18,7 26,3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      Profit Path Sports
+    </a>
+    <a class="nav-back" href="/index.html#guides">← Strategy Guides</a>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <div class="lesson-hero">
+    <div class="lesson-eyebrow">Concept · Betting Style</div>
+    <h1 class="lesson-title">Top-Down vs. Bottom-Up</h1>
+    <p class="lesson-sub">Two completely different routes to +EV. One trusts the market and shops the cracks. The other builds its own number and bets against the market. Both work — for opposite reasons. Knowing which one you're doing is the first step to actually doing it well.</p>
+  </div>
+
+  <section class="lesson-section">
+    <h3>The two routes</h3>
+    <div class="lesson-body">
+      <p>Every profitable sports bettor is doing one of two things — or some blend of the two:</p>
+
+      <div class="compare-grid">
+        <div class="compare-card left">
+          <h4>Top-Down</h4>
+          <ul>
+            <li>Start from a sharp benchmark (Pinnacle, Circa, no-vig market consensus).</li>
+            <li>Treat that benchmark as "fair" — the market is your model.</li>
+            <li>Shop other books for prices that disagree with the benchmark.</li>
+            <li>Bet whichever side is mispriced.</li>
+            <li><em>You don't need an opinion on the game.</em></li>
+          </ul>
+        </div>
+        <div class="compare-card right">
+          <h4>Bottom-Up</h4>
+          <ul>
+            <li>Build your own projection for a player, team, or game.</li>
+            <li>Convert that projection into a fair price.</li>
+            <li>Compare your fair price to market prices.</li>
+            <li>Bet wherever the market disagrees with you.</li>
+            <li><em>You're betting <strong>against</strong> market consensus, not with it.</em></li>
+          </ul>
+        </div>
+      </div>
+
+      <p>Both can be +EV. Both can be very profitable. They live or die on completely different things.</p>
+    </div>
+  </section>
+
+  <section class="lesson-section">
+    <h3>How top-down works</h3>
+    <div class="lesson-body">
+      <p>Top-down rests on one assumption: <strong>the sharp market is approximately right.</strong></p>
+      <p>That's a defensible assumption for big-volume markets — NFL spreads, NBA totals, MLB moneylines, EPL match odds. Pinnacle and Circa take huge action from sharp bettors and adjust quickly. Their no-vig price is, on average, the best estimate of the true probability available anywhere.</p>
+      <p>If you trust that benchmark, the rest is mechanical:</p>
+      <ul>
+        <li>Take the sharp price (or no-vig consensus across 5+ tight books).</li>
+        <li>Convert to fair probability via an <a href="/odds_calculator.html">odds calculator</a>.</li>
+        <li>Scan softer books for any line that prices the same outcome at a worse implied probability.</li>
+        <li>Bet the gap.</li>
+      </ul>
+
+      <div class="math-block">
+        <span class="label">Top-down example — NFL Sunday total</span>
+        Pinnacle:        Over 47.5 at <span class="accent">−110</span>  (no-vig 50.0% true)<br>
+        DraftKings:      Over 47.5 at <span class="accent">−108</span>  (51.9% implied — fair)<br>
+        Hard Rock:       Over 47.5 at <span class="pos">+105</span>     (48.8% implied)<br>
+        ──────────────────────────────<br>
+        Hard Rock's price implies the market is wrong about this total.<br>
+        Top-down says: <span class="pos">trust the market, bet Hard Rock's Over.</span>  ~2.4% edge.
+      </div>
+
+      <p>You didn't watch a single snap. You didn't read an injury report. You didn't pull a single advanced stat. The bet is profitable as long as Pinnacle is closer to truth than Hard Rock — and on volume, Pinnacle wins that battle.</p>
+      <p>This is what most modern +EV tools (OddsJam, Unabated, Betstamp, etc.) do. They're top-down engines — surfacing prices that disagree with consensus.</p>
+    </div>
+  </section>
+
+  <section class="lesson-section">
+    <h3>How bottom-up works</h3>
+    <div class="lesson-body">
+      <p>Bottom-up flips the assumption: <strong>the market is wrong, and I know why.</strong></p>
+      <p>That's a much harder claim. To make it credibly, you need to build a model — formal or informal — that produces a number for the prop or game. Then you bet wherever the market price disagrees with your number.</p>
+      <p>Examples:</p>
+      <ul>
+        <li><strong>Player props.</strong> You build a hits projection for an MLB hitter using batter-vs-pitcher matchup, ballpark, weather, recent form. Your model says he's 78% to record a hit. Market says 70%. You bet his Over 0.5 hits.</li>
+        <li><strong>Strikeout props.</strong> Pitcher Ks are notoriously model-friendly — opposing lineup K rate, plate-discipline data, expected pitch count, ump zone. A solid K projection model produces 5%+ edges routinely on lower-volume markets.</li>
+        <li><strong>NCAA / niche sports.</strong> College basketball and football, lower-tier soccer, NHL props — markets where Pinnacle isn't booking and the sharp consensus is thin. Your model can <em>be</em> the sharp number.</li>
+        <li><strong>Live betting.</strong> In-game models that price the next-drive moneyline, next-half total, etc. — books often lag obvious context (red-zone position, possession arrow) by several seconds, and your model exploits the lag.</li>
+      </ul>
+
+      <div class="math-block">
+        <span class="label">Bottom-up example — pitcher strikeout prop</span>
+        Your K model output:    Cole projects 6.4 Ks tonight<br>
+                                P(7+ Ks)  =  <span class="pur">42%</span><br>
+        Market (consensus):     Cole Over 6.5 Ks at <span class="neg">−140</span>  (58% implied)<br>
+        ──────────────────────────────<br>
+        Your model says <span class="yel">Under 6.5 is +EV.</span><br>
+        Market says you're wrong. Bet anyway — that's bottom-up.
+      </div>
+
+      <p>The math is the same shape (compare your fair to the market and bet the gap). The risk is completely different. <strong>If your model is broken, every bet you place is −EV — and you won't know.</strong></p>
+    </div>
+  </section>
+
+  <section class="lesson-section">
+    <h3>Pros and cons</h3>
+    <div class="lesson-body">
+      <div class="compare-grid">
+        <div class="compare-card left">
+          <h4>Top-Down — Pros</h4>
+          <ul>
+            <li>Low effort per bet. Tools surface the spots.</li>
+            <li>Hard to be flat-out wrong — you're using the best estimate available.</li>
+            <li>Scales: you can place 50+ bets per day across many books.</li>
+            <li>Works without expertise in any specific sport.</li>
+          </ul>
+        </div>
+        <div class="compare-card right">
+          <h4>Top-Down — Cons</h4>
+          <ul>
+            <li>You're hitting the same prices everyone using the same tools is hitting.</li>
+            <li>Limits drop fast. Books recognize the pattern.</li>
+            <li>Edge per bet is usually small (1-4%). Volume matters.</li>
+            <li>Useless when no sharp benchmark exists (niche markets, illiquid props).</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="compare-grid">
+        <div class="compare-card left">
+          <h4>Bottom-Up — Pros</h4>
+          <ul>
+            <li>Edges can be huge (5-15%+) on softer markets where market is thin.</li>
+            <li>Books struggle to flag you — your action looks like a sharp opinion, not a price-arb pattern.</li>
+            <li>Scales with the depth of your model, not with the number of books.</li>
+            <li>Works in places where top-down has no signal (NCAA, esports, in-game).</li>
+          </ul>
+        </div>
+        <div class="compare-card right">
+          <h4>Bottom-Up — Cons</h4>
+          <ul>
+            <li>Model risk. You can be confidently wrong for months.</li>
+            <li>Requires sport-specific data and discipline to backtest.</li>
+            <li>Slow. Prop-by-prop work is hours of effort for a daily slate.</li>
+            <li>Easy to fool yourself. Variance can mask both edges and leaks.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="lesson-section">
+    <h3>When each one wins</h3>
+    <div class="lesson-body">
+      <p>The two approaches have wildly different sweet spots. Roughly:</p>
+
+      <div class="math-block">
+        <span class="label">Where each approach has the most edge</span>
+        Market type                          Top-Down    Bottom-Up<br>
+        ──────────────────────────────────────────────────────<br>
+        NFL spread / total                   <span class="pos">★★★</span>         <span class="dim">★</span><br>
+        NBA spread / total                   <span class="pos">★★★</span>         <span class="dim">★</span><br>
+        MLB moneyline                        <span class="pos">★★★</span>         <span class="dim">★</span><br>
+        Mainstream player props (NBA pts)    <span class="pos">★★</span>          <span class="pur">★★</span><br>
+        MLB hitter / pitcher props           <span class="dim">★</span>           <span class="pur">★★★</span><br>
+        NCAAB / NCAAF                        <span class="dim">★</span>           <span class="pur">★★★</span><br>
+        NHL props                            <span class="dim">★</span>           <span class="pur">★★★</span><br>
+        Niche sports (MLS, esports)          <span class="dim">·</span>           <span class="pur">★★★</span><br>
+        In-game / live                       <span class="dim">★</span>           <span class="pur">★★★</span>
+      </div>
+
+      <p class="pull-quote">Top-down works where the market is sharp. Bottom-up works where it isn't.</p>
+
+      <p>The same bettor can use both, on the same night. Top-down the NFL games, bottom-up the NCAA props your model covers. The wrong move is to use one approach in a market suited to the other — top-down on a market with no sharp benchmark, or bottom-up on a market where Pinnacle already nailed it.</p>
+    </div>
+  </section>
+
+  <section class="lesson-section">
+    <h3>The hybrid approach</h3>
+    <div class="lesson-body">
+      <p>Most full-time pros are some blend. They run a top-down operation across ~20 books for the easy edges, <em>and</em> they have one or two markets where they've built a real edge from scratch. The hybrid lets them:</p>
+      <ul>
+        <li><strong>Pay the bills with top-down.</strong> Steady volume, smaller per-bet edge, lots of books to spread the action.</li>
+        <li><strong>Find the big scores with bottom-up.</strong> A pitcher-K model that's 4-5% sharper than market prices on its target slate produces edges other approaches can't reach.</li>
+        <li><strong>Diversify the flagging risk.</strong> If books cap your top-down action, your bottom-up bets keep producing on books that haven't yet noticed.</li>
+      </ul>
+
+      <div class="tip-block">
+        <strong>Practical sequence:</strong> start top-down. It's the lower-risk on-ramp because the math is mechanical and you're not betting your own opinion against Pinnacle. Once you're consistently profitable and you've identified a market where you have edge or interest, layer bottom-up on top.
+      </div>
+    </div>
+  </section>
+
+  <section class="lesson-section">
+    <h3>How to tell which one you're doing</h3>
+    <div class="lesson-body">
+      <p>Most casual bettors think they're bottom-up but they're really doing neither. Three quick checks:</p>
+      <ul>
+        <li><strong>Top-down test:</strong> Could you describe the bet you just placed in one sentence as "Pinnacle says 55%, this book is implying 48%, so I bet"? If yes — you're top-down.</li>
+        <li><strong>Bottom-up test:</strong> Could you write down the projection your model produced and the inputs that led to it? If yes — you're bottom-up.</li>
+        <li><strong>Neither test:</strong> Did you bet because "the matchup looks good" or "the spread feels off" or "I have a feeling about the under"? <em>That's not a strategy.</em> That's gambling on intuition. Variance will tell you you're great for two weeks, then take it all back.</li>
+      </ul>
+      <p>Knowing which one you're doing — explicitly — is the difference between profitable betting and recreational betting wearing a profitability costume.</p>
+    </div>
+  </section>
+
+  <section class="lesson-section">
+    <h3>Caveats</h3>
+    <div class="lesson-body">
+      <ul>
+        <li><strong>Top-down isn't free.</strong> Books drop limits aggressively on top-down patterns. Your $200 bet today might cap at $11 next week. Plan for that.</li>
+        <li><strong>Bottom-up isn't a license to bet your gut.</strong> A "model" written down in a notebook with no backtest is gut-feel with extra steps. The discipline is in the data, not the format.</li>
+        <li><strong>Edge size lies.</strong> A 7% calculated edge means nothing if your model is biased. Check it against actual outcomes over hundreds of bets.</li>
+        <li><strong>The market gets sharper over time.</strong> Edges that exist now (especially top-down at smaller books) won't last forever. Bottom-up edges in niche markets persist longer because fewer people are looking.</li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="cta-card">
+    <div class="cta-eyebrow">Pick your starting point</div>
+    <div class="cta-title">Start top-down. Layer bottom-up later.</div>
+    <p class="cta-blurb">Use the odds calculator to convert prices to fair probability and surface gaps between sharp books and softer ones. That's top-down in one tool. Bottom-up comes when you find the market you actually know better than they do.</p>
+    <a href="/odds_calculator.html" class="cta-btn">Open the Odds Calculator →</a>
+  </div>
+
+  <div class="footer">
+    <div class="disclaimer">
+      Profit Path Sports is an educational resource. Edge magnitudes, tool recommendations, and book-specific behavior described here reflect typical industry patterns — actual results vary by market, timing, and book. Sports betting carries financial risk. Bet responsibly. If gambling is a problem for you, call <strong>1-800-GAMBLER</strong>. Must be 21+ where legal.
+    </div>
+    <div>© 2026 Profit Path Sports · <a href="/index.html">Home</a> · <a href="/odds_calculator.html">Odds Calculator</a></div>
+  </div>
+
+</div>
+
+</body>
+</html>
