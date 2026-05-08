@@ -39,6 +39,7 @@
     color: var(--text);
     font-family: 'JetBrains Mono', ui-monospace, monospace;
     min-height: 100vh;
+    flex-direction: column;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -483,6 +484,19 @@
     letter-spacing: 1px;
   }
 
+  /* "How to use" pieces */
+  .how-to-jump { display: block; text-align: center; width: fit-content; margin: 14px auto 0; font-family: 'Orbitron', sans-serif; font-size: 10px; letter-spacing: 2px; color: var(--muted); text-decoration: none; text-transform: uppercase; padding: 10px 18px; border: 1px solid var(--border); border-radius: 8px; background: var(--panel-deep); transition: all 0.15s; }
+  .how-to-jump:hover { color: var(--blue); border-color: var(--blue); transform: translateY(-1px); }
+  .how-to-use { max-width: 720px; margin: 24px auto 60px; padding: 28px 32px; background: var(--panel); border: 1px solid var(--border); border-radius: 16px; scroll-margin-top: 20px; }
+  .how-to-eyebrow { font-family: 'Orbitron', sans-serif; font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--blue); font-weight: 700; margin-bottom: 8px; }
+  .how-to-use h3 { font-family: 'Orbitron', sans-serif; font-size: 17px; font-weight: 800; letter-spacing: 1.5px; color: var(--text); margin: 0 0 16px; text-transform: uppercase; }
+  .how-to-steps { margin: 0 0 18px; padding-left: 22px; font-family: system-ui, -apple-system, sans-serif; font-size: 15px; line-height: 1.65; color: var(--text); }
+  .how-to-steps li { margin-bottom: 8px; }
+  .how-to-steps strong { color: var(--blue); font-weight: 600; }
+  .how-to-note { font-family: system-ui, -apple-system, sans-serif; font-size: 14px; line-height: 1.55; color: var(--muted); background: var(--panel-deep); border-left: 3px solid var(--blue); border-radius: 0 8px 8px 0; padding: 14px 18px; }
+  .how-to-note em { color: var(--blue); font-style: normal; font-weight: 600; }
+  .how-to-note strong { color: var(--text); font-weight: 600; }
+
   @media (max-width: 720px) {
     .inputs { grid-template-columns: 1fr; }
     .output-grid { grid-template-columns: 1fr; gap: 20px; }
@@ -502,6 +516,7 @@
     <a href="index.html" class="back-link">← Hub</a>
     <a href="learn-kelly.html" class="learn-link">Learn Kelly →</a>
     <h1><span class="bolt">⚡</span> Kelly Criterion Calculator <span class="bolt">⚡</span></h1>
+    <a href="#how-to-use" class="how-to-jump">How to use this ↓</a>
   </div>
 
   <div class="body">
@@ -594,6 +609,20 @@
       Where <strong>b</strong> = decimal odds − 1, <strong>p</strong> = your true win probability, <strong>q</strong> = 1 − p.
       Full Kelly maximizes long-term bankroll growth but with high variance. Most pros use <strong>¼ or ½ Kelly</strong> to reduce drawdowns. If your edge is negative, the calculator will tell you not to bet.
     </div>
+  </div>
+</div>
+
+<div class="how-to-use" id="how-to-use">
+  <div class="how-to-eyebrow">How to use this</div>
+  <h3>Find your Kelly stake</h3>
+  <ol class="how-to-steps">
+    <li>Enter your current <strong>bankroll</strong>.</li>
+    <li>Enter the <strong>odds</strong> of the bet (American or decimal).</li>
+    <li>Enter your estimated <strong>true probability</strong> of winning — the no-vig fair probability. Use the <a href="/devig_calculator.html" style="color:var(--blue);text-decoration:none;border-bottom:1px dashed transparent;">Devig Calculator</a> if you don't have it.</li>
+    <li>Read <strong>Full / ½ / ¼ Kelly</strong> stakes side-by-side.</li>
+  </ol>
+  <div class="how-to-note">
+    <strong>Why this version helps:</strong> Most Kelly calculators give you one number. We show <em>full, half, and quarter Kelly</em> at once so you can pick the variance tolerance you can actually live with. Full Kelly maximizes growth but with brutal swings; quarter Kelly gives ~75% of the long-run growth with about a third of the volatility — and most pros run quarter or half.
   </div>
 </div>
 

@@ -73,6 +73,19 @@
       .intro-headline{font-size:18px;}
       .intro-body{font-size:14px;}
     }
+
+    /* "How to use" pieces */
+    .how-to-jump { display: block; text-align: center; width: fit-content; margin: 10px auto 0; font-family: 'Orbitron', sans-serif; font-size: 10px; letter-spacing: 2px; color: var(--muted); text-decoration: none; text-transform: uppercase; padding: 8px 16px; border: 1px solid var(--border); border-radius: 8px; background: var(--bg); transition: all 0.15s; }
+    .how-to-jump:hover { color: var(--blue); border-color: var(--blue); transform: translateY(-1px); }
+    .how-to-use { max-width: 720px; margin: 24px auto 60px; padding: 28px 32px; background: var(--surface); border: 1px solid var(--border); border-radius: 16px; scroll-margin-top: 20px; }
+    .how-to-eyebrow { font-family: 'Orbitron', sans-serif; font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--blue); font-weight: 700; margin-bottom: 8px; }
+    .how-to-use h3 { font-family: 'Orbitron', sans-serif; font-size: 17px; font-weight: 800; letter-spacing: 1.5px; color: var(--text); margin: 0 0 16px; text-transform: uppercase; }
+    .how-to-steps { margin: 0 0 18px; padding-left: 22px; font-family: system-ui, -apple-system, sans-serif; font-size: 15px; line-height: 1.65; color: var(--text); }
+    .how-to-steps li { margin-bottom: 8px; }
+    .how-to-steps strong { color: var(--blue); font-weight: 600; }
+    .how-to-note { font-family: system-ui, -apple-system, sans-serif; font-size: 14px; line-height: 1.55; color: var(--muted); background: var(--bg); border-left: 3px solid var(--blue); border-radius: 0 8px 8px 0; padding: 14px 18px; }
+    .how-to-note em { color: var(--blue); font-style: normal; font-weight: 600; }
+    .how-to-note strong { color: var(--text); font-weight: 600; }
   </style>
 </head>
 <body>
@@ -82,6 +95,7 @@
   <div class="bt-header">
     <div class="bt-brand-text"><span class="bolt">⚡</span> Profit Path Sports <span class="bolt">⚡</span></div>
     <div class="bt-sub">Edge Finder</div>
+    <a href="#how-to-use" class="how-to-jump">How to use this ↓</a>
   </div>
 
   <div class="bt-stats">
@@ -142,6 +156,21 @@
       <div class="intro-body">
         This is a fast line-shopping check, not true EV. For real EV, you need a fair (no-vig) probability — strip the vig with the <a href="devig_calculator.html">Devig Calculator</a> first, then plug it into the <a href="ev-calculator.html">EV Calculator</a>. The "Approx EV" stat above assumes the sharp line is the fair price, which is close but not exact (sharp books still bake in a small vig).
       </div>
+    </div>
+  </div>
+
+  <div class="how-to-use" id="how-to-use">
+    <div class="how-to-eyebrow">How to use this</div>
+    <h3>Spot the gap between your line and the sharp market</h3>
+    <ol class="how-to-steps">
+      <li>Enter the <strong>line you're being offered</strong> at a softer book (DraftKings, FanDuel, etc.).</li>
+      <li>Enter the <strong>sharp market line</strong> for the same bet — Pinnacle, Circa, ProphetX, or whatever sharp source you have.</li>
+      <li>Read the <strong>probability gap</strong> and <strong>approximate EV %</strong> — if positive, your softer book is offering a better number than the sharp consensus.</li>
+      <li>Use as a fast +EV scan when you don't have time to devig the full market.</li>
+    </ol>
+    <div class="how-to-note">
+      <strong>Why this version helps:</strong> When you're scrolling odds boards in real time, opening Devig + EV in two separate tabs slows you down. Edge Finder is a <em>one-input shortcut</em> — paste your line vs. the sharp line, get a quick read, decide whether to dig deeper. <br><br>
+      <strong>Important caveat:</strong> the sharp line still has a small vig in it, so "Approx EV" overstates the true edge slightly. For precision before placing real money, devig the sharp market and run the result through the <a href="ev-calculator.html" style="color:var(--blue);">EV Calculator</a>.
     </div>
   </div>
 

@@ -12,7 +12,18 @@
     --blue:#58A6FF;--gold:#D29922;--green:#3FB950;--red:#F85149;--purple:#BC8CFF;
     --text:#E6EDF3;--muted:#8B949E;
   }
-  body { background:var(--bg);color:var(--text);font-family:'Rajdhani',sans-serif;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:2rem 1rem; }
+  body { background:var(--bg);color:var(--text);font-family:'Rajdhani',sans-serif;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem 1rem; }
+  .how-to-jump { display: block; text-align: center; width: fit-content; margin: 14px auto 0; font-family: 'Orbitron', sans-serif; font-size: 10px; letter-spacing: 2px; color: var(--muted); text-decoration: none; text-transform: uppercase; padding: 10px 18px; border: 1px solid var(--border); border-radius: 8px; background: var(--inset, var(--bg)); transition: all 0.15s; }
+  .how-to-jump:hover { color: var(--blue); border-color: var(--blue); transform: translateY(-1px); }
+  .how-to-use { max-width: 720px; margin: 24px auto 60px; padding: 28px 32px; background: var(--surface); border: 1px solid var(--border); border-radius: 16px; scroll-margin-top: 20px; }
+  .how-to-eyebrow { font-family: 'Orbitron', sans-serif; font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--blue); font-weight: 700; margin-bottom: 8px; }
+  .how-to-use h3 { font-family: 'Orbitron', sans-serif; font-size: 17px; font-weight: 800; letter-spacing: 1.5px; color: var(--text); margin: 0 0 16px; text-transform: uppercase; }
+  .how-to-steps { margin: 0 0 18px; padding-left: 22px; font-family: system-ui, -apple-system, sans-serif; font-size: 15px; line-height: 1.65; color: var(--text); }
+  .how-to-steps li { margin-bottom: 8px; }
+  .how-to-steps strong { color: var(--blue); font-weight: 600; }
+  .how-to-note { font-family: system-ui, -apple-system, sans-serif; font-size: 14px; line-height: 1.55; color: var(--muted); background: var(--bg); border-left: 3px solid var(--blue); border-radius: 0 8px 8px 0; padding: 14px 18px; }
+  .how-to-note em { color: var(--blue); font-style: normal; font-weight: 600; }
+  .how-to-note strong { color: var(--text); font-weight: 600; }
   .card { background:var(--surface);border:1px solid var(--border);border-radius:16px;width:100%;max-width:680px;overflow:hidden; }
   .header { background:var(--bg);padding:1.75rem 2rem 1.5rem;border-bottom:1px solid var(--border);text-align:center;position:relative; }
   .header::after { content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--blue),transparent); }
@@ -46,7 +57,10 @@
 </head>
 <body>
 <div class="card">
-  <div class="header"><div class="title">⚡ Bonus Bet Converter ⚡</div></div>
+  <div class="header">
+    <div class="title">⚡ Bonus Bet Converter ⚡</div>
+    <a href="#how-to-use" class="how-to-jump">How to use this ↓</a>
+  </div>
   <div class="status-bar" id="statusBar">Enter your bonus details to calculate conversion rate</div>
 
   <div class="section">
@@ -120,6 +134,21 @@
         <div class="oc-row profit"><span>Net profit</span><span id="rb2c">—</span></div>
       </div>
     </div>
+  </div>
+</div>
+
+<div class="how-to-use" id="how-to-use">
+  <div class="how-to-eyebrow">How to use this</div>
+  <h3>Convert bonus bets to cash</h3>
+  <ol class="how-to-steps">
+    <li>Enter your <strong>bonus bet amount</strong> (e.g. $200).</li>
+    <li>Enter the <strong>long-odds line</strong> you'll bet the bonus on at Book A — typically <strong>+300 or longer</strong>, since long odds maximize conversion.</li>
+    <li>Enter the <strong>hedge line</strong> at Book B — the favorite at the matching odds (e.g. −300 to −400 if the bonus is on +400).</li>
+    <li>Read your <strong>hedge stake</strong> and the <strong>net profit</strong> locked in regardless of which side wins.</li>
+  </ol>
+  <div class="how-to-note">
+    <strong>Why this version helps:</strong> We show both the <em>exact</em> hedge stake and a <em>rounded-to-the-nearest-dollar</em> version, since real-world stakes are easier to place. We also show profit on both outcomes side-by-side so you can sanity-check the lock before placing the bets. <br><br>
+    <strong>Pro tip:</strong> hedge on a sharp book or peer-to-peer exchange (ProphetX) for tightest pricing — and to avoid being flagged for matched-betting at recreational books.
   </div>
 </div>
 

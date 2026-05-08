@@ -28,10 +28,24 @@
     font-family: 'Rajdhani', sans-serif;
     min-height: 100vh;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     padding: 2rem 1rem;
   }
+
+  /* "How to use" pieces */
+  .how-to-jump { display: block; text-align: center; width: fit-content; margin: 14px auto 0; font-family: 'Orbitron', sans-serif; font-size: 10px; letter-spacing: 2px; color: var(--muted); text-decoration: none; text-transform: uppercase; padding: 10px 18px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface, var(--bg)); transition: all 0.15s; }
+  .how-to-jump:hover { color: var(--blue, #3d8bff); border-color: var(--blue, #3d8bff); transform: translateY(-1px); }
+  .how-to-use { max-width: 720px; margin: 24px auto 60px; padding: 28px 32px; background: var(--surface); border: 1px solid var(--border); border-radius: 16px; scroll-margin-top: 20px; }
+  .how-to-eyebrow { font-family: 'Orbitron', sans-serif; font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--blue, #3d8bff); font-weight: 700; margin-bottom: 8px; }
+  .how-to-use h3 { font-family: 'Orbitron', sans-serif; font-size: 17px; font-weight: 800; letter-spacing: 1.5px; color: var(--text); margin: 0 0 16px; text-transform: uppercase; }
+  .how-to-steps { margin: 0 0 18px; padding-left: 22px; font-family: system-ui, -apple-system, sans-serif; font-size: 15px; line-height: 1.65; color: var(--text); }
+  .how-to-steps li { margin-bottom: 8px; }
+  .how-to-steps strong { color: var(--blue, #3d8bff); font-weight: 600; }
+  .how-to-note { font-family: system-ui, -apple-system, sans-serif; font-size: 14px; line-height: 1.55; color: var(--muted); background: var(--bg); border-left: 3px solid var(--blue, #3d8bff); border-radius: 0 8px 8px 0; padding: 14px 18px; }
+  .how-to-note em { color: var(--blue, #3d8bff); font-style: normal; font-weight: 600; }
+  .how-to-note strong { color: var(--text); font-weight: 600; }
 
   .card {
     background: var(--surface);
@@ -287,6 +301,7 @@
 
   <div class="header">
     <div class="title"><span>⚡</span> Arb Calculator <span>⚡</span></div>
+    <a href="#how-to-use" class="how-to-jump">How to use this ↓</a>
   </div>
 
   <div class="status-bar" id="statusBar">Enter odds to check for arbitrage</div>
@@ -425,6 +440,21 @@
     </div>
   </div>
 
+</div>
+
+<div class="how-to-use" id="how-to-use">
+  <div class="how-to-eyebrow">How to use this</div>
+  <h3>Find guaranteed-profit arbs</h3>
+  <ol class="how-to-steps">
+    <li>Enter the <strong>odds for both sides</strong> — must be from different sportsbooks for a real arb to exist.</li>
+    <li>Enter your <strong>total stake budget</strong> across the two bets.</li>
+    <li>Calculator splits the stake to lock in equal profit either way and shows <strong>profit %</strong> + <strong>profit $</strong>.</li>
+    <li>If profit is positive, you have an arb. Place both sides quickly before the lines move.</li>
+  </ol>
+  <div class="how-to-note">
+    <strong>Why this version helps:</strong> Most arb calculators return weird stakes like $34.27 / $65.73 — fine on paper, awkward at the cashier window. We show both the <em>exact</em> mathematically optimal split and a <em>rounded</em> version (whole dollars) so you can place real-world bets without doing the rounding yourself. <br><br>
+    <strong>One thing to know:</strong> books detect repeat arbing — vary your stake sizes, don't always pick the sharpest angle, and pass on small edges to stay under the radar.
+  </div>
 </div>
 
 <script>

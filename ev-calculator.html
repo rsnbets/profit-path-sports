@@ -79,6 +79,19 @@
       .intro-headline{font-size:18px;}
       .intro-body{font-size:14px;}
     }
+
+    /* "How to use" pieces */
+    .how-to-jump { display: block; text-align: center; width: fit-content; margin: 10px auto 0; font-family: 'Orbitron', sans-serif; font-size: 10px; letter-spacing: 2px; color: var(--muted); text-decoration: none; text-transform: uppercase; padding: 8px 16px; border: 1px solid var(--border); border-radius: 8px; background: var(--bg); transition: all 0.15s; }
+    .how-to-jump:hover { color: var(--blue); border-color: var(--blue); transform: translateY(-1px); }
+    .how-to-use { max-width: 720px; margin: 24px auto 60px; padding: 28px 32px; background: var(--surface); border: 1px solid var(--border); border-radius: 16px; scroll-margin-top: 20px; }
+    .how-to-eyebrow { font-family: 'Orbitron', sans-serif; font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--blue); font-weight: 700; margin-bottom: 8px; }
+    .how-to-use h3 { font-family: 'Orbitron', sans-serif; font-size: 17px; font-weight: 800; letter-spacing: 1.5px; color: var(--text); margin: 0 0 16px; text-transform: uppercase; }
+    .how-to-steps { margin: 0 0 18px; padding-left: 22px; font-family: system-ui, -apple-system, sans-serif; font-size: 15px; line-height: 1.65; color: var(--text); }
+    .how-to-steps li { margin-bottom: 8px; }
+    .how-to-steps strong { color: var(--blue); font-weight: 600; }
+    .how-to-note { font-family: system-ui, -apple-system, sans-serif; font-size: 14px; line-height: 1.55; color: var(--muted); background: var(--bg); border-left: 3px solid var(--blue); border-radius: 0 8px 8px 0; padding: 14px 18px; }
+    .how-to-note em { color: var(--blue); font-style: normal; font-weight: 600; }
+    .how-to-note strong { color: var(--text); font-weight: 600; }
   </style>
 </head>
 <body>
@@ -88,6 +101,7 @@
   <div class="bt-header">
     <div class="bt-brand-text"><span class="bolt">⚡</span> Profit Path Sports <span class="bolt">⚡</span></div>
     <div class="bt-sub">EV Calculator</div>
+    <a href="#how-to-use" class="how-to-jump">How to use this ↓</a>
   </div>
 
   <div class="bt-stats">
@@ -166,6 +180,21 @@
           <div class="intro-card-body">The Kelly bet shows how much of your bankroll to wager based on your edge. Most bettors use ½ or ¼ Kelly to soften variance.</div>
         </div>
       </div>
+    </div>
+  </div>
+
+  <div class="how-to-use" id="how-to-use">
+    <div class="how-to-eyebrow">How to use this</div>
+    <h3>Calculate true EV in 30 seconds</h3>
+    <ol class="how-to-steps">
+      <li>Enter the <strong>odds you're being offered</strong> at any sportsbook (American or decimal).</li>
+      <li>Enter the <strong>no-vig fair odds</strong> — the sharper market's price after stripping vig. Use <a href="devig_calculator.html" style="color:var(--blue);">Devig</a> if you don't have it.</li>
+      <li>Enter your <strong>stake</strong> to see EV in dollars (or leave blank for just the percentage).</li>
+      <li>Read <strong>EV %</strong> and <strong>EV $</strong>: positive = +EV (worth placing); negative = skip.</li>
+    </ol>
+    <div class="how-to-note">
+      <strong>Why this version helps:</strong> Most EV calculators give you just the EV percentage. We show <em>EV %, EV $, true win probability, and the Kelly stake</em> all on one screen — so once you confirm a bet is +EV, you immediately know how big to bet without opening a separate tool. <br><br>
+      <strong>Garbage in, garbage out:</strong> EV math is only as good as the no-vig fair odds you enter. Devig the sharp market first.
     </div>
   </div>
 
