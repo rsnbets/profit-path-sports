@@ -364,6 +364,8 @@
 <div class="back-bar">
   <div class="back-bar-inner">
     <a href="index.html">← Hub</a>
+    <span style="color:var(--border);">·</span>
+    <a href="learn-parlays.html">Learn parlays →</a>
   </div>
 </div>
 
@@ -379,11 +381,16 @@
     <div id="legs-container"></div>
     <button class="add-leg-btn" id="add-leg" onclick="addLeg()">+ Add Leg</button>
 
-    <div class="section-label">Stake &amp; Bankroll</div>
+    <div class="section-label">Stake &amp; Boost</div>
     <div class="stake-row">
       <div class="leg-field">
         <label class="form-label">Stake ($)</label>
         <input type="number" class="form-input" id="f-stake" value="20" min="0" oninput="calc()">
+      </div>
+      <div class="leg-field">
+        <label class="form-label">Profit Boost % <span style="text-transform:none;color:var(--dim);">(optional)</span></label>
+        <input type="number" class="form-input" id="f-boost" value="0" min="0" max="500" placeholder="e.g. 25" oninput="calc()">
+        <div class="form-hint" id="hint-boost"></div>
       </div>
     </div>
 
@@ -508,6 +515,8 @@
 
   function calc() {
     const stake = Number(document.getElementById('f-stake').value) || 0;
+    const boostPct = Number(document.getElementById('f-boost').value) || 0;
+    const boostMult = 1 + (boostPct / 100);
     document.getElementById('s-legs').textContent = legs.length;
 
     const setStat = (id, text, cls) => {
@@ -533,6 +542,14 @@
       }
     }
 
+    // Hint about effective boost
+    const boostHint = document.getElementById('hint-boost');
+    if (boostPct > 0) {
+      boostHint.innerHTML = `Profit boosted to <span style="color:var(--green);font-weight:700;">+${boostPct.toFixed(0)}%</span> on the win`;
+    } else {
+      boostHint.textContent = '';
+    }
+
     if (validLegs !== legs.length) {
       setStat('s-american', '—');
       setStat('s-implied', '—');
@@ -545,16 +562,20 @@
     const impliedProb = 1 / combinedDec;
     const americanCombined = decimalToAmerican(combinedDec);
 
-    setStat('s-american', fmtAmerican(americanCombined), americanCombined > 0 ? 'blue' : 'blue');
+    setStat('s-american', fmtAmerican(americanCombined), 'blue');
     setStat('s-implied', (impliedProb * 100).toFixed(2) + '%');
 
-    const profit = stake * (combinedDec - 1);
-    const totalPayout = stake * combinedDec;
-    setStat('s-payout', '$' + totalPayout.toFixed(2), 'accent');
+    // Apply boost to the profit (decimal - 1) only — stake itself is not boosted
+    const boostedProfitPerDollar = (combinedDec - 1) * boostMult;
+    const profit = stake * boostedProfitPerDollar;
+    const totalPayout = stake + profit;
+    const payoutLabel = boostPct > 0 ? '$' + totalPayout.toFixed(2) + ' ✦' : '$' + totalPayout.toFixed(2);
+    setStat('s-payout', payoutLabel, 'accent');
 
     if (allFairValid && legs.length > 0) {
       setStat('s-true', (combinedTrueProb * 100).toFixed(2) + '%', 'blue');
-      const evPerDollar = combinedTrueProb * combinedDec - 1;
+      // EV with boost: true_prob × (1 + boostedProfitPerDollar) − 1
+      const evPerDollar = combinedTrueProb * (1 + boostedProfitPerDollar) - 1;
       const evPctNum = evPerDollar * 100;
       setStat('s-evpct', (evPctNum >= 0 ? '+' : '') + evPctNum.toFixed(2) + '%', evPctNum >= 0 ? 'pos' : 'neg');
     } else {
