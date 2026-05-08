@@ -112,14 +112,19 @@
 
   .toolbar {
     display: flex;
-    flex-wrap: wrap;
-    gap: 16px;
-    align-items: center;
+    flex-direction: column;
+    gap: 14px;
     margin-bottom: 24px;
-    padding: 16px 18px;
+    padding: 18px 20px;
     background: var(--panel-deep);
     border: 1px solid var(--border-soft);
     border-radius: 12px;
+  }
+  .toolbar-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    align-items: center;
   }
   .toolbar-label {
     font-family: 'Orbitron', sans-serif;
@@ -129,6 +134,17 @@
     color: var(--dim);
     font-weight: 700;
   }
+  .method-help {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.5;
+    padding: 8px 12px;
+    background: rgba(61, 139, 255, 0.04);
+    border-left: 2px solid var(--blue);
+    border-radius: 4px;
+  }
+  .method-help strong { color: var(--blue); font-weight: 700; }
   .pill-group { display: inline-flex; gap: 4px; padding: 3px; background: var(--panel-inset); border: 1px solid var(--border); border-radius: 8px; }
   .pill {
     font-family: 'Orbitron', sans-serif;
@@ -434,13 +450,18 @@
   <div class="body">
 
     <div class="toolbar">
-      <span class="toolbar-label">Devig method</span>
-      <div class="pill-group" id="methodGroup">
-        <button class="pill active" data-method="multiplicative">Proportional</button>
-        <button class="pill" data-method="additive">Additive</button>
+      <div class="toolbar-row">
+        <span class="toolbar-label">Devig method</span>
+        <div class="pill-group" id="methodGroup">
+          <button class="pill active" data-method="multiplicative">Proportional</button>
+          <button class="pill" data-method="additive">Additive</button>
+        </div>
+        <div class="market-label" style="flex:1; min-width: 220px;">
+          <input type="text" id="marketLabel" placeholder="Market label (optional) — e.g. Aaron Judge Over 0.5 hits">
+        </div>
       </div>
-      <div class="market-label">
-        <input type="text" id="marketLabel" placeholder="Market label (optional) — e.g. Aaron Judge Over 0.5 hits">
+      <div class="method-help" id="methodHelp">
+        <strong>Proportional</strong> — splits vig by each side's share of total implied probability. The standard sharp method (what Pinnacle uses). Pick this by default.
       </div>
     </div>
 
@@ -761,11 +782,16 @@
   // ────────────────────────────────────────────────────────────
   // Method toggle
   // ────────────────────────────────────────────────────────────
+  const methodHelpText = {
+    multiplicative: '<strong>Proportional</strong> — splits vig by each side\'s share of total implied probability. The standard sharp method (what Pinnacle uses). Pick this by default.',
+    additive: '<strong>Additive</strong> — splits the total vig evenly between both sides (each side loses half the vig). Best for symmetric markets like spreads. Gives slightly different results on lopsided odds.'
+  };
   document.getElementById('methodGroup').addEventListener('click', (e) => {
     if (e.target.classList.contains('pill')) {
       document.querySelectorAll('#methodGroup .pill').forEach(p => p.classList.remove('active'));
       e.target.classList.add('active');
       method = e.target.dataset.method;
+      document.getElementById('methodHelp').innerHTML = methodHelpText[method];
       recompute();
     }
   });
