@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Consensus Devig Calculator | Profit Path Sports</title>
+<meta name="description" content="Type in odds from multiple sportsbooks, devig each, and produce a weighted-average consensus fair price. The benchmark sharps use to find +EV.">
+
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230a0f1c'/%3E%3Cpolyline points='5,24 12,16 16,19 22,9 27,5' fill='none' stroke='%234ade80' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;800;900&family=JetBrains+Mono:wght@400;500;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg: #0a0f1c;
+    --panel: #0f1524;
+    --panel-inset: #141a2b;
+    --panel-deep: #0c1120;
+    --border: #1e2638;
+    --border-soft: #141c30;
+    --text: #e5e7eb;
+    --muted: #8b94a8;
+    --dim: #6b7689;
+    --blue: #3d8bff;
+    --blue-glow: rgba(61, 139, 255, 0.15);
+    --yellow: #f5b545;
+    --yellow-glow: rgba(245, 181, 69, 0.18);
+    --green: #4ade80;
+    --green-glow: rgba(74, 222, 128, 0.18);
+    --red: #f87171;
+    --purple: #BC8CFF;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: radial-gradient(ellipse at top, #111a2e 0%, var(--bg) 60%);
+    color: var(--text);
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    min-height: 100vh;
+    padding: 24px;
+  }
+  .card {
+    width: 100%;
+    max-width: 980px;
+    margin: 0 auto;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.02) inset;
+  }
+  .header {
+    text-align: center;
+    padding: 32px 20px 26px;
+    border-bottom: 1px solid var(--border);
+    background: linear-gradient(180deg, #0d1220 0%, #0b0f1d 100%);
+    position: relative;
+  }
+  .header::after {
+    content: '';
+    position: absolute;
+    bottom: -1px; left: 10%; right: 10%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--blue), transparent);
+    opacity: 0.6;
+  }
+  .header h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--blue);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .bolt { font-size: 20px; filter: drop-shadow(0 0 8px rgba(74, 222, 128, 0.6)); }
+  .tagline {
+    margin-top: 10px;
+    color: var(--muted);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.2px;
+  }
+  .back-link, .help-pill {
+    position: absolute;
+    top: 20px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.15s;
+  }
+  .back-link { left: 20px; color: var(--dim); }
+  .back-link:hover { color: var(--blue); }
+  .help-pill {
+    right: 20px;
+    color: var(--blue);
+    border: 1px solid var(--blue);
+    border-radius: 999px;
+    padding: 7px 14px;
+    background: rgba(61, 139, 255, 0.08);
+    cursor: pointer;
+    font-weight: 700;
+  }
+  .help-pill:hover { background: rgba(61, 139, 255, 0.18); }
+
+  .body { padding: 32px; }
+
+  .toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    align-items: center;
+    margin-bottom: 24px;
+    padding: 16px 18px;
+    background: var(--panel-deep);
+    border: 1px solid var(--border-soft);
+    border-radius: 12px;
+  }
+  .toolbar-label {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--dim);
+    font-weight: 700;
+  }
+  .pill-group { display: inline-flex; gap: 4px; padding: 3px; background: var(--panel-inset); border: 1px solid var(--border); border-radius: 8px; }
+  .pill {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--muted);
+    padding: 7px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    transition: all 0.12s;
+  }
+  .pill:hover { color: var(--text); }
+  .pill.active { background: var(--blue); color: #06101e; }
+
+  .market-label {
+    flex: 1;
+    min-width: 220px;
+  }
+  .market-label input {
+    width: 100%;
+    background: var(--panel-inset);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 14px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    outline: none;
+  }
+  .market-label input:focus { border-color: var(--blue); }
+  .market-label input::placeholder { color: var(--dim); }
+
+  /* Books grid */
+  .books-head {
+    display: grid;
+    grid-template-columns: minmax(140px, 1.4fr) 1fr 1fr 80px 1fr 36px;
+    gap: 10px;
+    padding: 0 14px 10px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 10px;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    color: var(--dim);
+    font-weight: 700;
+  }
+  .books-head .center { text-align: center; }
+
+  .book-row {
+    display: grid;
+    grid-template-columns: minmax(140px, 1.4fr) 1fr 1fr 80px 1fr 36px;
+    gap: 10px;
+    align-items: center;
+    padding: 12px 14px;
+    background: var(--panel-deep);
+    border: 1px solid var(--border-soft);
+    border-radius: 12px;
+    margin-bottom: 10px;
+  }
+  .book-row input {
+    width: 100%;
+    background: var(--panel-inset);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 18px;
+    font-weight: 600;
+    padding: 11px 12px;
+    border-radius: 8px;
+    outline: none;
+    text-align: center;
+    letter-spacing: 0.5px;
+  }
+  .book-row input.book-name {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 15px;
+    text-align: left;
+    color: var(--text);
+    font-weight: 600;
+  }
+  .book-row input::placeholder { color: var(--dim); font-weight: 400; }
+  .book-row input:focus { border-color: var(--blue); }
+  .book-row input.weight { font-size: 16px; }
+
+  .book-row .fair-out {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    color: var(--green);
+    font-weight: 600;
+    text-align: center;
+    line-height: 1.4;
+    letter-spacing: 0.3px;
+  }
+  .book-row .fair-out .pct { font-size: 13px; color: var(--muted); display: block; }
+  .book-row .fair-out.empty { color: var(--dim); font-weight: 400; }
+  .book-row .fair-out.empty .pct { color: var(--dim); }
+
+  .book-row .remove {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--dim);
+    cursor: pointer;
+    border-radius: 8px;
+    width: 36px;
+    height: 36px;
+    font-size: 18px;
+    line-height: 1;
+    transition: all 0.15s;
+  }
+  .book-row .remove:hover { color: var(--red); border-color: var(--red); }
+
+  .add-row {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 6px;
+    padding: 11px 18px;
+    background: transparent;
+    border: 1px dashed var(--border);
+    color: var(--muted);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 11px;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    font-weight: 700;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .add-row:hover { color: var(--blue); border-color: var(--blue); border-style: solid; }
+
+  /* Consensus card */
+  .consensus {
+    margin-top: 28px;
+    padding: 26px 24px;
+    background: linear-gradient(135deg, rgba(74, 222, 128, 0.06), rgba(61, 139, 255, 0.04));
+    border: 1px solid var(--green);
+    border-radius: 14px;
+    box-shadow: 0 0 30px rgba(74, 222, 128, 0.06);
+  }
+  .consensus-label {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 10px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--green);
+    font-weight: 700;
+    margin-bottom: 16px;
+    text-align: center;
+  }
+  .consensus-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+  }
+  .consensus-side {
+    background: var(--panel-deep);
+    border: 1px solid var(--border-soft);
+    border-radius: 10px;
+    padding: 18px 16px;
+    text-align: center;
+  }
+  .consensus-side .side-name {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .consensus-side .side-price {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 38px;
+    font-weight: 700;
+    color: var(--green);
+    letter-spacing: 1px;
+    line-height: 1.1;
+  }
+  .consensus-side .side-pct {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    color: var(--muted);
+    margin-top: 8px;
+    letter-spacing: 0.5px;
+  }
+  .consensus-side .side-price.empty,
+  .consensus-side .side-pct.empty { color: var(--dim); font-weight: 400; }
+
+  .consensus-meta {
+    margin-top: 16px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+    text-align: center;
+  }
+  .meta-stat .meta-label {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    color: var(--dim);
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .meta-stat .meta-value {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: 0.4px;
+  }
+
+  /* How to use this */
+  .how-to {
+    margin-top: 28px;
+    background: var(--panel-deep);
+    border: 1px solid var(--border-soft);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .how-to summary {
+    padding: 16px 20px;
+    cursor: pointer;
+    list-style: none;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--blue);
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .how-to summary::-webkit-details-marker { display: none; }
+  .how-to summary::after { content: '▾'; color: var(--dim); transition: transform 0.15s; }
+  .how-to[open] summary::after { transform: rotate(180deg); }
+  .how-to-body {
+    padding: 0 22px 22px;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 14.5px;
+    line-height: 1.65;
+    color: var(--text);
+  }
+  .how-to-body p { margin-bottom: 12px; }
+  .how-to-body strong { color: var(--green); font-weight: 700; }
+  .how-to-body em { color: var(--blue); font-style: normal; font-weight: 600; }
+  .how-to-body ul { padding-left: 20px; margin-bottom: 12px; }
+  .how-to-body ul li { margin-bottom: 6px; }
+  .how-to-body a { color: var(--blue); text-decoration: none; border-bottom: 1px dashed transparent; }
+  .how-to-body a:hover { border-bottom-color: var(--blue); }
+
+  .footer {
+    text-align: center;
+    margin-top: 28px;
+    padding: 18px;
+    color: var(--dim);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.3px;
+  }
+  .footer a { color: var(--muted); text-decoration: none; }
+  .footer a:hover { color: var(--blue); }
+
+  @media (max-width: 760px) {
+    .body { padding: 22px 16px; }
+    .books-head { display: none; }
+    .book-row {
+      grid-template-columns: 1fr 1fr;
+      grid-template-areas:
+        "name name"
+        "oddsA oddsB"
+        "weight weight"
+        "fairA fairB"
+        "remove remove";
+      gap: 8px;
+    }
+    .book-row .name-cell { grid-area: name; }
+    .book-row .oddsA-cell { grid-area: oddsA; }
+    .book-row .oddsB-cell { grid-area: oddsB; }
+    .book-row .weight-cell { grid-area: weight; }
+    .book-row .fairA-cell { grid-area: fairA; }
+    .book-row .fairB-cell { grid-area: fairB; }
+    .book-row .remove { grid-area: remove; width: 100%; height: 32px; }
+    .consensus-side .side-price { font-size: 30px; }
+    .consensus-grid { grid-template-columns: 1fr; }
+    .consensus-meta { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <div class="header">
+    <a href="/index.html" class="back-link">← Back</a>
+    <button class="help-pill" onclick="document.getElementById('howto').open = !document.getElementById('howto').open; document.getElementById('howto').scrollIntoView({behavior:'smooth', block:'nearest'});">How to use this ↓</button>
+    <h1><span class="bolt">📊</span> Consensus Devig</h1>
+    <div class="tagline">Multi-book fair odds. Weighted. Devigged. Yours.</div>
+  </div>
+
+  <div class="body">
+
+    <div class="toolbar">
+      <span class="toolbar-label">Devig method</span>
+      <div class="pill-group" id="methodGroup">
+        <button class="pill active" data-method="multiplicative">Proportional</button>
+        <button class="pill" data-method="additive">Additive</button>
+      </div>
+      <div class="market-label">
+        <input type="text" id="marketLabel" placeholder="Market label (optional) — e.g. Aaron Judge Over 0.5 hits">
+      </div>
+    </div>
+
+    <div class="books-head">
+      <div>Sportsbook</div>
+      <div class="center">Side A odds</div>
+      <div class="center">Side B odds</div>
+      <div class="center">Weight</div>
+      <div class="center">Fair (no-vig)</div>
+      <div></div>
+    </div>
+
+    <div id="bookRows"></div>
+
+    <button class="add-row" onclick="addBook()">＋ Add sportsbook</button>
+
+    <div class="consensus" id="consensusCard">
+      <div class="consensus-label">Consensus fair price</div>
+      <div class="consensus-grid">
+        <div class="consensus-side">
+          <div class="side-name" id="sideAName">Side A</div>
+          <div class="side-price empty" id="consensusPriceA">—</div>
+          <div class="side-pct empty" id="consensusPctA">—</div>
+        </div>
+        <div class="consensus-side">
+          <div class="side-name" id="sideBName">Side B</div>
+          <div class="side-price empty" id="consensusPriceB">—</div>
+          <div class="side-pct empty" id="consensusPctB">—</div>
+        </div>
+      </div>
+      <div class="consensus-meta">
+        <div class="meta-stat">
+          <div class="meta-label">Books used</div>
+          <div class="meta-value" id="metaBooks">0</div>
+        </div>
+        <div class="meta-stat">
+          <div class="meta-label">Total weight</div>
+          <div class="meta-value" id="metaWeight">0</div>
+        </div>
+        <div class="meta-stat">
+          <div class="meta-label">Avg vig stripped</div>
+          <div class="meta-value" id="metaVig">—</div>
+        </div>
+      </div>
+    </div>
+
+    <details class="how-to" id="howto">
+      <summary>How to use this</summary>
+      <div class="how-to-body">
+        <p><strong>What it does.</strong> You type the price for a 2-way market (over/under, side A/side B) at multiple sportsbooks. The calculator strips the vig from each book independently, then takes a weighted average of the fair probabilities to give you a single <em>consensus fair price</em>. That number is the benchmark you compare every other book's price against to find <a href="/learn-ev.html">+EV bets</a>.</p>
+
+        <p><strong>How to use it.</strong></p>
+        <ul>
+          <li>Type the sportsbook name in the first column.</li>
+          <li>Enter the American odds for both sides (e.g. <em>−110</em> and <em>−110</em>, or <em>+135</em> and <em>−165</em>).</li>
+          <li>Set the <strong>weight</strong> — how much that book contributes to the consensus. Sharper books get higher weights; recreational books lower.</li>
+          <li>Add as many books as you want. Remove any with the × button.</li>
+        </ul>
+
+        <p><strong>Suggested weights.</strong></p>
+        <ul>
+          <li><em>5</em> — Pinnacle, Circa (the sharp benchmarks).</li>
+          <li><em>3</em> — Bet365, FanDuel, DraftKings (high-volume, generally tight).</li>
+          <li><em>2</em> — BetMGM, Caesars, ESPN BET (mainstream US books).</li>
+          <li><em>1</em> — Hard Rock, Fanatics, smaller regionals (looser pricing).</li>
+        </ul>
+        <p>If you don't have Pinnacle or Circa available, use what you have — the consensus is still useful, just less authoritative.</p>
+
+        <p><strong>Devig method.</strong></p>
+        <ul>
+          <li><strong>Proportional</strong> (default) — divides each side's implied probability by the sum of both sides. The standard sharp method, and what Pinnacle's pricing implies. Use this 99% of the time.</li>
+          <li><strong>Additive</strong> — splits the total vig equally between both sides. A simpler approach, useful for symmetric markets like spreads. Slightly different result on lopsided markets.</li>
+        </ul>
+
+        <p><strong>What to do with the output.</strong> The consensus price is your "fair" benchmark. Any book pricing the same outcome at a worse implied probability is <strong>−EV</strong>. Any book pricing it at a better implied probability is <strong>+EV</strong> — that's the bet. Plug both into the <a href="/ev-calculator.html">EV calculator</a> to size it.</p>
+
+        <p><strong>Caveats.</strong></p>
+        <ul>
+          <li>Garbage in, garbage out. If you weight a soft book the same as Pinnacle, your consensus drifts toward that book's bias.</li>
+          <li>Use the same point in time. Stale prices from one book pollute the consensus.</li>
+          <li>This is for 2-way markets. 3-way markets (with draw, e.g. soccer) need different math — coming later.</li>
+        </ul>
+      </div>
+    </details>
+
+  </div>
+</div>
+
+<div class="footer">
+  © 2026 Profit Path Sports · <a href="/index.html">Home</a> · <a href="/devig_calculator.html">Single-Book Devig</a> · <a href="/ev-calculator.html">EV Calculator</a>
+</div>
+
+<script>
+  // ────────────────────────────────────────────────────────────
+  // State
+  // ────────────────────────────────────────────────────────────
+  let nextId = 1;
+  let books = [];
+  let method = 'multiplicative';
+
+  const presets = [
+    { name: 'Pinnacle',   weight: 5 },
+    { name: 'FanDuel',    weight: 3 },
+    { name: 'DraftKings', weight: 3 }
+  ];
+
+  // ────────────────────────────────────────────────────────────
+  // Helpers
+  // ────────────────────────────────────────────────────────────
+  function americanToImplied(american) {
+    const a = parseFloat(american);
+    if (!isFinite(a) || a === 0) return null;
+    if (a > 0) return 100 / (a + 100);
+    return Math.abs(a) / (Math.abs(a) + 100);
+  }
+  function impliedToAmerican(p) {
+    if (!p || p <= 0 || p >= 1) return null;
+    const dec = 1 / p;
+    if (dec >= 2) return Math.round((dec - 1) * 100);
+    return Math.round(-100 / (dec - 1));
+  }
+  function fmtAmerican(n) {
+    if (n === null || !isFinite(n)) return '—';
+    return n > 0 ? '+' + n : '' + n;
+  }
+  function fmtPct(p, d = 2) {
+    if (p === null || !isFinite(p)) return '—';
+    return (p * 100).toFixed(d) + '%';
+  }
+  function devigPair(pA, pB, m) {
+    if (pA === null || pB === null) return [null, null];
+    if (m === 'multiplicative') {
+      const sum = pA + pB;
+      if (sum <= 0) return [null, null];
+      return [pA / sum, pB / sum];
+    } else {
+      const vig = pA + pB - 1;
+      const half = vig / 2;
+      return [Math.max(0.0001, Math.min(0.9999, pA - half)),
+              Math.max(0.0001, Math.min(0.9999, pB - half))];
+    }
+  }
+
+  // ────────────────────────────────────────────────────────────
+  // Render rows
+  // ────────────────────────────────────────────────────────────
+  function renderRows() {
+    const container = document.getElementById('bookRows');
+    container.innerHTML = '';
+    books.forEach((b, idx) => {
+      const row = document.createElement('div');
+      row.className = 'book-row';
+      row.innerHTML = `
+        <div class="name-cell"><input class="book-name" type="text" placeholder="Book name" value="${escapeHtml(b.name)}" data-id="${b.id}" data-field="name"></div>
+        <div class="oddsA-cell"><input class="odds" type="text" inputmode="numeric" placeholder="−110" value="${escapeHtml(b.oddsA)}" data-id="${b.id}" data-field="oddsA"></div>
+        <div class="oddsB-cell"><input class="odds" type="text" inputmode="numeric" placeholder="−110" value="${escapeHtml(b.oddsB)}" data-id="${b.id}" data-field="oddsB"></div>
+        <div class="weight-cell"><input class="weight" type="number" min="0" max="10" step="1" value="${b.weight}" data-id="${b.id}" data-field="weight"></div>
+        <div class="fair-out empty" id="fairOut-${b.id}"><span class="pct">—</span><span class="amer">—</span></div>
+        <button class="remove" onclick="removeBook(${b.id})" title="Remove">×</button>
+      `;
+      container.appendChild(row);
+    });
+    container.querySelectorAll('input').forEach(inp => {
+      inp.addEventListener('input', onFieldChange);
+      inp.addEventListener('blur', onFieldBlur);
+    });
+    recompute();
+  }
+
+  function escapeHtml(s) {
+    if (s === undefined || s === null) return '';
+    return String(s)
+      .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+      .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+  }
+
+  function onFieldChange(e) {
+    const id = parseInt(e.target.dataset.id, 10);
+    const field = e.target.dataset.field;
+    const book = books.find(b => b.id === id);
+    if (!book) return;
+    let val = e.target.value;
+    if (field === 'weight') {
+      val = parseFloat(val);
+      if (!isFinite(val) || val < 0) val = 0;
+      book.weight = val;
+    } else {
+      // Normalize hyphen variants to ASCII minus on the fly for parsing
+      book[field] = val;
+    }
+    recompute();
+  }
+  function onFieldBlur(e) {
+    // No-op for now; could re-format here.
+  }
+
+  function addBook(name = '', weight = 2) {
+    books.push({
+      id: nextId++,
+      name,
+      oddsA: '',
+      oddsB: '',
+      weight
+    });
+    renderRows();
+  }
+  function removeBook(id) {
+    books = books.filter(b => b.id !== id);
+    renderRows();
+  }
+
+  // ────────────────────────────────────────────────────────────
+  // Compute consensus
+  // ────────────────────────────────────────────────────────────
+  function parseOddsField(s) {
+    if (s === null || s === undefined) return null;
+    const cleaned = String(s).replace(/[−–—]/g, '-').replace(/\s/g, '').replace(/[^\d.\-+]/g, '');
+    if (cleaned === '' || cleaned === '-' || cleaned === '+') return null;
+    const n = parseFloat(cleaned);
+    if (!isFinite(n) || n === 0) return null;
+    if (n > -100 && n < 100) return null; // invalid American odds
+    return n;
+  }
+
+  function recompute() {
+    let totalW = 0, weightedA = 0, weightedB = 0, totalVig = 0, vigCount = 0, used = 0;
+    books.forEach(b => {
+      const pa = parseOddsField(b.oddsA);
+      const pb = parseOddsField(b.oddsB);
+      const w = parseFloat(b.weight);
+      const out = document.getElementById('fairOut-' + b.id);
+      if (pa === null || pb === null || !isFinite(w) || w <= 0) {
+        if (out) {
+          out.classList.add('empty');
+          out.innerHTML = '<span class="pct">—</span><span class="amer">—</span>';
+        }
+        return;
+      }
+      const ipa = americanToImplied(pa);
+      const ipb = americanToImplied(pb);
+      const [fA, fB] = devigPair(ipa, ipb, method);
+      if (fA === null || fB === null) {
+        if (out) {
+          out.classList.add('empty');
+          out.innerHTML = '<span class="pct">—</span><span class="amer">—</span>';
+        }
+        return;
+      }
+      const fairAmerA = impliedToAmerican(fA);
+      const fairAmerB = impliedToAmerican(fB);
+      const vig = (ipa + ipb - 1) * 100;
+      if (out) {
+        out.classList.remove('empty');
+        out.innerHTML = `<span class="pct">${fmtPct(fA, 1)} / ${fmtPct(fB, 1)}</span><span class="amer">${fmtAmerican(fairAmerA)} / ${fmtAmerican(fairAmerB)}</span>`;
+      }
+      weightedA += fA * w;
+      weightedB += fB * w;
+      totalW += w;
+      totalVig += vig;
+      vigCount += 1;
+      used += 1;
+    });
+
+    const priceA = document.getElementById('consensusPriceA');
+    const priceB = document.getElementById('consensusPriceB');
+    const pctA = document.getElementById('consensusPctA');
+    const pctB = document.getElementById('consensusPctB');
+    const metaBooks = document.getElementById('metaBooks');
+    const metaWeight = document.getElementById('metaWeight');
+    const metaVig = document.getElementById('metaVig');
+
+    if (totalW > 0 && used > 0) {
+      const cA = weightedA / totalW;
+      const cB = weightedB / totalW;
+      // Renormalize (rounding tolerance)
+      const sum = cA + cB;
+      const ncA = cA / sum;
+      const ncB = cB / sum;
+      priceA.textContent = fmtAmerican(impliedToAmerican(ncA));
+      priceB.textContent = fmtAmerican(impliedToAmerican(ncB));
+      pctA.textContent = fmtPct(ncA, 2);
+      pctB.textContent = fmtPct(ncB, 2);
+      priceA.classList.remove('empty');
+      priceB.classList.remove('empty');
+      pctA.classList.remove('empty');
+      pctB.classList.remove('empty');
+      metaBooks.textContent = used;
+      metaWeight.textContent = totalW % 1 === 0 ? totalW : totalW.toFixed(1);
+      metaVig.textContent = (totalVig / vigCount).toFixed(2) + '%';
+    } else {
+      priceA.textContent = '—'; priceB.textContent = '—';
+      pctA.textContent = '—';   pctB.textContent = '—';
+      priceA.classList.add('empty'); priceB.classList.add('empty');
+      pctA.classList.add('empty');   pctB.classList.add('empty');
+      metaBooks.textContent = used;
+      metaWeight.textContent = totalW % 1 === 0 ? totalW : totalW.toFixed(1);
+      metaVig.textContent = '—';
+    }
+
+    // Update side names from market label if it has " / " or " over/under"
+    const lbl = document.getElementById('marketLabel').value.trim();
+    let aName = 'Side A', bName = 'Side B';
+    if (lbl) {
+      // Try "X / Y", "X over Y", "Over / Under" etc.
+      const slashMatch = lbl.split(/\s*\/\s*/);
+      if (slashMatch.length === 2 && slashMatch[0].length < 30 && slashMatch[1].length < 30) {
+        aName = slashMatch[0];
+        bName = slashMatch[1];
+      } else if (/over/i.test(lbl) && !/under/i.test(lbl)) {
+        aName = 'Over';
+        bName = 'Under';
+      }
+    }
+    document.getElementById('sideAName').textContent = aName;
+    document.getElementById('sideBName').textContent = bName;
+  }
+
+  // ────────────────────────────────────────────────────────────
+  // Method toggle
+  // ────────────────────────────────────────────────────────────
+  document.getElementById('methodGroup').addEventListener('click', (e) => {
+    if (e.target.classList.contains('pill')) {
+      document.querySelectorAll('#methodGroup .pill').forEach(p => p.classList.remove('active'));
+      e.target.classList.add('active');
+      method = e.target.dataset.method;
+      recompute();
+    }
+  });
+
+  document.getElementById('marketLabel').addEventListener('input', recompute);
+
+  // ────────────────────────────────────────────────────────────
+  // Init
+  // ────────────────────────────────────────────────────────────
+  presets.forEach(p => addBook(p.name, p.weight));
+</script>
+
+</body>
+</html>
