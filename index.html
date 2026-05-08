@@ -222,6 +222,8 @@
   .section-eyebrow.gold::before { color: var(--yellow); }
   .section-eyebrow.green::before { color: var(--green); }
   .section-eyebrow.purple::before { color: var(--purple); }
+  .section-eyebrow.red::before { color: var(--red); }
+  .section-eyebrow.red { color: var(--red); }
 
   .section-title {
     font-family: 'Orbitron', sans-serif;
@@ -1174,6 +1176,46 @@
   }
   .paid-code strong { color: var(--yellow); font-weight: 700; letter-spacing: 1px; }
 
+  /* Warning / "books to avoid" cards */
+  .warn-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 14px;
+    margin-top: 24px;
+  }
+  .warn-card {
+    background: var(--panel-deep);
+    border: 1px solid var(--border-soft);
+    border-left: 3px solid var(--red);
+    border-radius: 14px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .warn-name {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -0.01em;
+  }
+  .warn-tag {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--red);
+    font-weight: 700;
+  }
+  .warn-desc {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.55;
+    margin-top: 4px;
+  }
+
   @media (max-width: 700px) {
     .paid-grid { grid-template-columns: 1fr; }
   }
@@ -1634,6 +1676,23 @@
         <div class="book-bonus">Code: PR-7XTLOUF</div>
         <div class="book-tag">Sign Up →</div>
       </a>
+    </div>
+  </div>
+
+  <!-- BOOKS TO AVOID -->
+  <div class="section" id="avoid">
+    <div class="section-head">
+      <div class="section-eyebrow red">Warning</div>
+      <div class="section-title">Books to avoid</div>
+      <div class="section-sub">Some books have track records that aren't worth the risk — affiliate dollars or not. We don't link these because we don't recommend them.</div>
+    </div>
+
+    <div class="warn-grid">
+      <div class="warn-card">
+        <div class="warn-tag">⚠ Avoid</div>
+        <div class="warn-name">Bovada</div>
+        <div class="warn-desc">Offshore book with a track record of voiding winning bets, slow or refused withdrawals, and aggressive limiting of any bettor who looks remotely sharp. Operating from Curaçao puts you outside U.S. legal protections — if they refuse to pay, there's no realistic path to recovery. We don't link them because we've personally been burned. If you do choose to use them, deposit small, withdraw fast, and don't keep meaningful balances on the platform.</div>
+      </div>
     </div>
   </div>
 
