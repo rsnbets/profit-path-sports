@@ -46,13 +46,29 @@
   .lesson-body a:hover { border-bottom-color: var(--blue); }
   .lesson-body ul { margin: 12px 0 18px; padding-left: 22px; }
   .lesson-body ul li { margin-bottom: 8px; }
-  .math-block { background: var(--panel-deep); border: 1px solid var(--border-soft); border-left: 3px solid var(--blue); border-radius: 10px; padding: 20px 24px; font-family: 'JetBrains Mono', monospace; font-size: 14px; color: var(--text); margin: 18px 0; line-height: 1.8; overflow-x: auto; }
-  .math-block .label { color: var(--dim); font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; display: block; margin-bottom: 10px; }
-  .math-block .accent { color: var(--blue); font-weight: 700; }
-  .math-block .pos { color: var(--green); font-weight: 700; }
-  .math-block .neg { color: var(--red); font-weight: 700; }
-  .math-block .yel { color: var(--yellow); font-weight: 700; }
-  .math-block .pur { color: var(--purple); font-weight: 700; }
+  .example-block { background: var(--panel-deep); border: 1px solid var(--border-soft); border-left: 3px solid var(--blue); border-radius: 12px; padding: 22px 26px; font-family: 'Rajdhani', sans-serif; font-size: 17px; color: var(--text); margin: 22px 0; line-height: 1.7; letter-spacing: 0.2px; font-variant-numeric: tabular-nums; }
+  .example-block .label { font-family: 'Orbitron', sans-serif; color: var(--blue); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; display: block; margin-bottom: 16px; font-weight: 700; }
+  .example-block .row { display: flex; flex-wrap: wrap; gap: 6px 12px; align-items: baseline; padding: 4px 0; }
+  .example-block .row .src { min-width: 110px; color: var(--muted); font-weight: 600; }
+  .example-block .row .body { flex: 1; }
+  .example-block .row .note { color: var(--dim); font-size: 15px; font-style: italic; }
+  .example-block hr { border: none; border-top: 1px solid var(--border-soft); margin: 12px 0; }
+  .example-block .conclusion { margin-top: 4px; color: var(--text); }
+  .example-block .accent { color: var(--blue); font-weight: 700; }
+  .example-block .pos { color: var(--green); font-weight: 700; }
+  .example-block .neg { color: var(--red); font-weight: 700; }
+  .example-block .yel { color: var(--yellow); font-weight: 700; }
+  .example-block .pur { color: var(--purple); font-weight: 700; }
+  .sweet-table { width: 100%; border-collapse: collapse; margin: 22px 0; font-family: 'Rajdhani', sans-serif; font-size: 16px; }
+  .sweet-table caption { font-family: 'Orbitron', sans-serif; color: var(--blue); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; font-weight: 700; padding-bottom: 14px; text-align: left; }
+  .sweet-table th, .sweet-table td { padding: 11px 14px; text-align: left; border-bottom: 1px solid var(--border-soft); }
+  .sweet-table th { font-family: 'Orbitron', sans-serif; font-size: 10px; letter-spacing: 1.8px; text-transform: uppercase; color: var(--dim); font-weight: 700; background: var(--panel-deep); }
+  .sweet-table th:not(:first-child), .sweet-table td:not(:first-child) { text-align: center; }
+  .sweet-table tr:last-child td { border-bottom: none; }
+  .sweet-table .stars-td { letter-spacing: 1px; font-size: 15px; }
+  .sweet-table .top { color: var(--blue); }
+  .sweet-table .bot { color: var(--purple); }
+  .sweet-table .dim { color: var(--dim); }
   .warn-block { background: var(--panel-deep); border: 1px solid var(--border-soft); border-left: 3px solid var(--red); border-radius: 10px; padding: 18px 22px; font-family: 'Rajdhani', sans-serif; font-size: 17px; color: var(--text); margin: 18px 0; line-height: 1.6; }
   .warn-block strong { color: var(--red); }
   .tip-block { background: var(--panel-deep); border: 1px solid var(--border-soft); border-left: 3px solid var(--green); border-radius: 10px; padding: 18px 22px; font-family: 'Rajdhani', sans-serif; font-size: 17px; color: var(--text); margin: 18px 0; line-height: 1.6; }
@@ -162,14 +178,13 @@
         <li>Bet the gap.</li>
       </ul>
 
-      <div class="math-block">
+      <div class="example-block">
         <span class="label">Top-down example — NFL Sunday total</span>
-        Pinnacle:        Over 47.5 at <span class="accent">−110</span>  (no-vig 50.0% true)<br>
-        DraftKings:      Over 47.5 at <span class="accent">−108</span>  (51.9% implied — fair)<br>
-        Hard Rock:       Over 47.5 at <span class="pos">+105</span>     (48.8% implied)<br>
-        ──────────────────────────────<br>
-        Hard Rock's price implies the market is wrong about this total.<br>
-        Top-down says: <span class="pos">trust the market, bet Hard Rock's Over.</span>  ~2.4% edge.
+        <div class="row"><span class="src">Pinnacle</span><span class="body">Over 47.5 at <span class="accent">−110</span></span><span class="note">no-vig 50.0% true</span></div>
+        <div class="row"><span class="src">DraftKings</span><span class="body">Over 47.5 at <span class="accent">−108</span></span><span class="note">51.9% implied — fair</span></div>
+        <div class="row"><span class="src">Hard Rock</span><span class="body">Over 47.5 at <span class="pos">+105</span></span><span class="note">48.8% implied</span></div>
+        <hr>
+        <div class="conclusion">Hard Rock's price implies the market is wrong about this total. Top-down says: <span class="pos">trust the market, bet Hard Rock's Over.</span> ~2.4% edge.</div>
       </div>
 
       <p>You didn't watch a single snap. You didn't read an injury report. You didn't pull a single advanced stat. The bet is profitable as long as Pinnacle is closer to truth than Hard Rock — and on volume, Pinnacle wins that battle.</p>
@@ -190,14 +205,12 @@
         <li><strong>Live betting.</strong> In-game models that price the next-drive moneyline, next-half total, etc. — books often lag obvious context (red-zone position, possession arrow) by several seconds, and your model exploits the lag.</li>
       </ul>
 
-      <div class="math-block">
+      <div class="example-block">
         <span class="label">Bottom-up example — pitcher strikeout prop</span>
-        Your K model output:    Cole projects 6.4 Ks tonight<br>
-                                P(7+ Ks)  =  <span class="pur">42%</span><br>
-        Market (consensus):     Cole Over 6.5 Ks at <span class="neg">−140</span>  (58% implied)<br>
-        ──────────────────────────────<br>
-        Your model says <span class="yel">Under 6.5 is +EV.</span><br>
-        Market says you're wrong. Bet anyway — that's bottom-up.
+        <div class="row"><span class="src">Your model</span><span class="body">Cole projects 6.4 Ks tonight</span><span class="note">P(7+ Ks) = <span class="pur">42%</span></span></div>
+        <div class="row"><span class="src">Market</span><span class="body">Cole Over 6.5 Ks at <span class="neg">−140</span></span><span class="note">58% implied</span></div>
+        <hr>
+        <div class="conclusion">Your model says <span class="yel">Under 6.5 is +EV.</span> Market says you're wrong. Bet anyway — that's bottom-up.</div>
       </div>
 
       <p>The math is the same shape (compare your fair to the market and bet the gap). The risk is completely different. <strong>If your model is broken, every bet you place is −EV — and you won't know.</strong></p>
@@ -256,20 +269,23 @@
     <div class="lesson-body">
       <p>The two approaches have wildly different sweet spots. Roughly:</p>
 
-      <div class="math-block">
-        <span class="label">Where each approach has the most edge</span>
-        Market type                          Top-Down    Bottom-Up<br>
-        ──────────────────────────────────────────────────────<br>
-        NFL spread / total                   <span class="pos">★★★</span>         <span class="dim">★</span><br>
-        NBA spread / total                   <span class="pos">★★★</span>         <span class="dim">★</span><br>
-        MLB moneyline                        <span class="pos">★★★</span>         <span class="dim">★</span><br>
-        Mainstream player props (NBA pts)    <span class="pos">★★</span>          <span class="pur">★★</span><br>
-        MLB hitter / pitcher props           <span class="dim">★</span>           <span class="pur">★★★</span><br>
-        NCAAB / NCAAF                        <span class="dim">★</span>           <span class="pur">★★★</span><br>
-        NHL props                            <span class="dim">★</span>           <span class="pur">★★★</span><br>
-        Niche sports (MLS, esports)          <span class="dim">·</span>           <span class="pur">★★★</span><br>
-        In-game / live                       <span class="dim">★</span>           <span class="pur">★★★</span>
-      </div>
+      <table class="sweet-table">
+        <caption>Where each approach has the most edge</caption>
+        <thead>
+          <tr><th>Market type</th><th>Top-Down</th><th>Bottom-Up</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>NFL spread / total</td><td class="stars-td top">★★★</td><td class="stars-td dim">★</td></tr>
+          <tr><td>NBA spread / total</td><td class="stars-td top">★★★</td><td class="stars-td dim">★</td></tr>
+          <tr><td>MLB moneyline</td><td class="stars-td top">★★★</td><td class="stars-td dim">★</td></tr>
+          <tr><td>Mainstream player props (NBA pts)</td><td class="stars-td top">★★</td><td class="stars-td bot">★★</td></tr>
+          <tr><td>MLB hitter / pitcher props</td><td class="stars-td dim">★</td><td class="stars-td bot">★★★</td></tr>
+          <tr><td>NCAAB / NCAAF</td><td class="stars-td dim">★</td><td class="stars-td bot">★★★</td></tr>
+          <tr><td>NHL props</td><td class="stars-td dim">★</td><td class="stars-td bot">★★★</td></tr>
+          <tr><td>Niche sports (MLS, esports)</td><td class="stars-td dim">·</td><td class="stars-td bot">★★★</td></tr>
+          <tr><td>In-game / live</td><td class="stars-td dim">★</td><td class="stars-td bot">★★★</td></tr>
+        </tbody>
+      </table>
 
       <p class="pull-quote">Top-down works where the market is sharp. Bottom-up works where it isn't.</p>
 
