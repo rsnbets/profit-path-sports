@@ -305,6 +305,72 @@
   .help strong { color: var(--blue); font-weight: 700; }
   .help .sep { color: var(--dim); margin: 0 8px; }
 
+  /* "How to use" pieces */
+  .how-to-jump {
+    display: inline-block;
+    margin-top: 8px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--muted);
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.15s;
+    border-bottom: 1px dashed transparent;
+    padding-bottom: 1px;
+  }
+  .how-to-jump:hover { color: var(--blue); border-bottom-color: var(--blue); }
+
+  .how-to-use {
+    max-width: 720px;
+    margin: 24px auto 60px;
+    padding: 28px 32px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    scroll-margin-top: 20px;
+  }
+  .how-to-eyebrow {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 11px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--blue);
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .how-to-use h3 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 17px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    color: var(--text);
+    margin: 0 0 16px;
+    text-transform: uppercase;
+  }
+  .how-to-steps {
+    margin: 0 0 18px;
+    padding-left: 22px;
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--text);
+  }
+  .how-to-steps li { margin-bottom: 8px; }
+  .how-to-steps strong { color: var(--blue); font-weight: 600; }
+  .how-to-note {
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--muted);
+    background: var(--panel-deep);
+    border-left: 3px solid var(--blue);
+    border-radius: 0 8px 8px 0;
+    padding: 14px 18px;
+  }
+  .how-to-note em { color: var(--blue); font-style: normal; font-weight: 600; }
+  .how-to-note strong { color: var(--text); font-weight: 600; }
+
   @media (max-width: 720px) {
     .two-col { grid-template-columns: 1fr; gap: 18px; }
     .vig-bar { grid-template-columns: 1fr; gap: 16px; }
@@ -312,6 +378,8 @@
     .header h1 { font-size: 16px; letter-spacing: 2px; }
     .input-wrap input { font-size: 22px; }
     .output-box .value { font-size: 18px; }
+    .how-to-use { padding: 22px 22px; }
+    .how-to-use h3 { font-size: 15px; }
   }
 </style>
 </head>
@@ -321,6 +389,7 @@
     <a href="index.html" class="back-link">← Hub</a>
     <a href="learn-vig.html" class="learn-link">Learn the vig →</a>
     <h1><span class="bolt">⚡</span> Devig Calculator <span class="bolt">⚡</span></h1>
+    <a href="#how-to-use" class="how-to-jump">How to use this ↓</a>
   </div>
 
   <div class="body">
@@ -412,6 +481,20 @@
       <span class="sep">·</span>
       <strong>Probability</strong> → append % (e.g. <code>63.64%</code>)
     </div>
+  </div>
+</div>
+
+<div class="how-to-use" id="how-to-use">
+  <div class="how-to-eyebrow">How to use this</div>
+  <h3>Devig any market in 30 seconds</h3>
+  <ol class="how-to-steps">
+    <li>Find a market on any sportsbook with both sides priced (e.g. <strong>Lakers −110 / Mavs +100</strong>).</li>
+    <li>Plug both prices into the input boxes — American (<code>−175</code>), decimal (<code>1.57</code>), or implied probability (<code>63.64%</code>) all work.</li>
+    <li>Read the <strong>Fair No-Vig</strong> column on the right. Those are the true probabilities and odds the line implies once the book's vig is removed.</li>
+    <li>Compare the no-vig odds to what's available at other sportsbooks. If you can get a better price than the no-vig line at another book, that bet is <strong>+EV</strong>.</li>
+  </ol>
+  <div class="how-to-note">
+    <strong>Total Implied</strong> shows the sum of both raw prices — anything over 100% is the vig the book is charging on this market. <em>Hold %</em> is what the book keeps over time at that vig. The lower the hold, the sharper the market.
   </div>
 </div>
 
