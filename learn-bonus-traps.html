@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pitfalls to Watch For — Bonus Hunting Traps | Profit Path Sports</title>
+<meta name="description" content="Pushes, rollover requirements, stake restrictions, account pitfalls — the mistakes that turn easy money into wasted bonus bets.">
+
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230a0f1c'/%3E%3Cpolyline points='5,24 12,16 16,19 22,9 27,5' fill='none' stroke='%23ffb020' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="Pitfalls to Watch For — Bonus Hunting Traps | Profit Path Sports">
+<meta property="og:description" content="The mistakes that ruin promo runs — and how to avoid every one.">
+<meta property="og:site_name" content="Profit Path Sports">
+<meta name="theme-color" content="#0a0f1c">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;800;900&family=JetBrains+Mono:wght@400;500;700&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root { --bg: #0a0f1c; --panel: #0f1524; --panel-inset: #141a2b; --panel-deep: #0c1120; --border: #1e2638; --border-soft: #141c30; --text: #e5e7eb; --muted: #8b94a8; --dim: #6b7689; --blue: #3d8bff; --yellow: #f5b545; --green: #4ade80; --green-glow: rgba(74, 222, 128, 0.18); --red: #f87171; --red-glow: rgba(248, 113, 113, 0.18); --purple: #BC8CFF; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: radial-gradient(ellipse at top, #111a2e 0%, var(--bg) 60%); color: var(--text); font-family: 'JetBrains Mono', ui-monospace, monospace; min-height: 100vh; line-height: 1.5; }
+  .topnav { border-bottom: 1px solid var(--border-soft); background: rgba(10, 15, 28, 0.85); backdrop-filter: blur(8px); position: sticky; top: 0; z-index: 10; }
+  .topnav-inner { max-width: 1100px; margin: 0 auto; padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+  .nav-brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; color: var(--blue); font-family: 'Orbitron', sans-serif; font-size: 13px; letter-spacing: 2.5px; font-weight: 800; text-transform: uppercase; }
+  .nav-brand-chart { display: inline-flex; width: 22px; height: 18px; color: #ffb020; filter: drop-shadow(0 0 6px rgba(255, 176, 32, 0.55)); }
+  .nav-brand-chart svg { width: 100%; height: 100%; }
+  .nav-back { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--muted); text-decoration: none; letter-spacing: 0.5px; transition: color 0.15s; }
+  .nav-back:hover { color: var(--green); }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 32px 20px 80px; }
+  .lesson-hero { margin-bottom: 36px; }
+  .lesson-eyebrow { font-family: 'Orbitron', sans-serif; font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--green); font-weight: 700; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+  .lesson-eyebrow::before { content: '▸'; color: var(--green); font-size: 10px; }
+  .lesson-title { font-family: 'Orbitron', sans-serif; font-size: 38px; font-weight: 900; letter-spacing: 2px; color: var(--text); text-transform: uppercase; line-height: 1.05; margin-bottom: 14px; }
+  .lesson-sub { font-family: 'Rajdhani', sans-serif; font-size: 22px; color: var(--muted); font-weight: 500; letter-spacing: 0.4px; line-height: 1.4; }
+  .lesson-section { margin-bottom: 36px; }
+  .lesson-section h3 { font-family: 'Orbitron', sans-serif; font-size: 18px; letter-spacing: 2px; text-transform: uppercase; color: var(--text); font-weight: 800; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--border-soft); }
+  .lesson-body { font-family: 'Rajdhani', sans-serif; font-size: 18px; line-height: 1.7; color: var(--text); letter-spacing: 0.2px; }
+  .lesson-body p { margin-bottom: 16px; }
+  .lesson-body p:last-child { margin-bottom: 0; }
+  .lesson-body strong { color: var(--text); font-weight: 700; }
+  .lesson-body em { color: var(--green); font-style: normal; font-weight: 600; }
+  .lesson-body a { color: var(--green); text-decoration: none; border-bottom: 1px dashed transparent; transition: border-color 0.15s; }
+  .lesson-body a:hover { border-bottom-color: var(--green); }
+  .lesson-body ul { margin: 12px 0 18px; padding-left: 22px; }
+  .lesson-body ul li { margin-bottom: 8px; }
+  .warn-block { background: var(--panel-deep); border: 1px solid var(--border-soft); border-left: 3px solid var(--red); border-radius: 10px; padding: 18px 22px; font-family: 'Rajdhani', sans-serif; font-size: 16px; color: var(--text); margin: 18px 0; line-height: 1.6; }
+  .warn-block strong { color: var(--red); }
+  .ok-block { background: var(--panel-deep); border: 1px solid var(--border-soft); border-left: 3px solid var(--green); border-radius: 10px; padding: 18px 22px; font-family: 'Rajdhani', sans-serif; font-size: 16px; color: var(--text); margin: 18px 0; line-height: 1.6; }
+  .ok-block strong { color: var(--green); }
+  .pull-quote {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 20px;
+    font-style: italic;
+    color: var(--text);
+    border-left: 3px solid var(--yellow);
+    padding: 4px 0 4px 22px;
+    margin: 24px 0;
+    line-height: 1.5;
+  }
+  .cta-card { background: linear-gradient(135deg, rgba(74, 222, 128, 0.08), rgba(74, 222, 128, 0.02)); border: 1px solid var(--green); border-radius: 16px; padding: 32px 28px; margin: 44px 0 32px; text-align: center; box-shadow: 0 0 40px rgba(74, 222, 128, 0.08), 0 20px 60px rgba(0, 0, 0, 0.3); }
+  .cta-eyebrow { font-family: 'Orbitron', sans-serif; font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--green); font-weight: 700; margin-bottom: 10px; }
+  .cta-title { font-family: 'Rajdhani', sans-serif; font-size: 26px; font-weight: 700; color: var(--text); margin-bottom: 8px; letter-spacing: 0.3px; }
+  .cta-blurb { font-family: 'Rajdhani', sans-serif; font-size: 16px; color: var(--muted); line-height: 1.55; max-width: 480px; margin: 0 auto 22px; }
+  .cta-btn { display: inline-flex; align-items: center; gap: 10px; font-family: 'Orbitron', sans-serif; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; font-weight: 800; text-decoration: none; padding: 14px 26px; border-radius: 10px; background: var(--green); color: #06101e; box-shadow: 0 0 20px var(--green-glow); transition: all 0.15s; }
+  .cta-btn:hover { background: #6df197; transform: translateY(-1px); box-shadow: 0 0 28px rgba(74, 222, 128, 0.35); }
+  .footer { text-align: center; margin-top: 60px; padding: 28px 20px 0; color: var(--dim); font-size: 11px; letter-spacing: 1px; line-height: 1.7; border-top: 1px solid var(--border-soft); }
+  .footer .disclaimer { max-width: 720px; margin: 0 auto 14px; color: var(--dim); font-family: 'Rajdhani', sans-serif; font-size: 13px; letter-spacing: 0.3px; }
+  .footer a { color: var(--muted); text-decoration: none; }
+  .footer a:hover { color: var(--green); }
+  @media (max-width: 600px) {
+    .topnav-inner { padding: 12px 16px; }
+    .nav-brand { font-size: 11px; letter-spacing: 2px; }
+    .wrap { padding: 24px 16px 60px; }
+    .lesson-title { font-size: 28px; letter-spacing: 1.5px; }
+    .lesson-sub { font-size: 18px; }
+    .lesson-body { font-size: 16px; }
+    .lesson-section h3 { font-size: 15px; }
+    .cta-card { padding: 26px 20px; }
+    .cta-title { font-size: 22px; }
+    .pull-quote { font-size: 17px; padding-left: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a class="nav-brand" href="/index.html">
+      <span class="nav-brand-chart" aria-hidden="true">
+        <svg viewBox="0 0 28 22" xmlns="http://www.w3.org/2000/svg" fill="none">
+          <polyline points="2,18 8,12 12,15 18,7 26,3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      Profit Path Sports
+    </a>
+    <a class="nav-back" href="/index.html#bonus">← Back to Lane 01</a>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <div class="lesson-hero">
+    <div class="lesson-eyebrow">Lane 01 · Bonus Hunter</div>
+    <h1 class="lesson-title">Pitfalls to Watch For</h1>
+    <p class="lesson-sub">The mistakes that turn easy money into wasted bonus bets — and how to avoid every one.</p>
+  </div>
+
+  <section class="lesson-section">
+    <h3>Pushes — the trap that kills your bonus</h3>
+    <div class="lesson-body">
+      <p>A <strong>push</strong> is a tie — when a spread or total lands exactly on the line. Mavs −7.5 can't push (the half-point makes it impossible). Mavs −7 <em>can</em> push if they win by exactly 7. Total of 215.5 can't push. Total of 215 can.</p>
+
+      <div class="warn-block">
+        <strong>Why pushes destroy bonuses:</strong> when a bonus bet pushes, most books treat it as a void — they consume the bonus stake and return $0. You'd literally have been better off if the bet lost outright; at least the bonus would be "used."
+      </div>
+
+      <p><strong>Lines that CAN push (avoid for bonus bets):</strong></p>
+      <ul>
+        <li>Spreads on whole numbers: −7, +3, −10</li>
+        <li>Totals on whole numbers: 215, 47</li>
+        <li>Player props on whole numbers: over 25 points</li>
+      </ul>
+
+      <p><strong>Lines that CAN'T push (use these):</strong></p>
+      <ul>
+        <li>Spreads on .5 or any non-integer: −7.5, +3.5, −10.5</li>
+        <li>Totals on .5: 215.5, 47.5</li>
+        <li>Moneylines (someone always wins)</li>
+        <li>Player props on .5: over 24.5 points</li>
+      </ul>
+
+      <p>If a sportsbook only offers a −7 spread on the game you want, find a different game. The cost of a push (entire bonus value) is way bigger than any line value you'd get from that specific market. The same goes for qualifying bets in many bet &amp; get offers — push the qualifier and the bonus might never release.</p>
+    </div>
+  </section>
+
+  <section class="lesson-section">
+    <h3>Rollover — read it before depositing</h3>
+    <div class="lesson-body">
+      <p>Rollover (also called "playthrough" or "wagering requirement") is the multiple of the bonus you must wager before withdrawal is allowed. It's the single most important number in the offer terms.</p>
+
+      <div class="ok-block">
+        <strong>1× rollover</strong> — the U.S. norm for sportsbook bonus bets. Bet the bonus once. If it wins, the profit is withdrawable. Conversion ratio ~70-75%. <em>Worth claiming.</em>
+      </div>
+
+      <div class="warn-block">
+        <strong>3× rollover</strong> — must wager 3× the bonus amount. Variance grows fast. Conversion drops to ~40-50%. <em>Marginal — do the math first.</em>
+      </div>
+
+      <div class="warn-block">
+        <strong>5×+ rollover</strong> — usually not worth claiming. The expected loss to vig over multiple wagers eats most of the bonus value before you can withdraw. <em>Skip unless the bonus is huge.</em>
+      </div>
+
+      <p><strong>Where rollover applies (and why it matters):</strong></p>
+      <ul>
+        <li><strong>Bonus only</strong> (most U.S. books) — wager the bonus amount, profit is withdrawable. Best case.</li>
+        <li><strong>Bonus + deposit</strong> — must wager (bonus + deposit) × rollover before any withdrawal. Worse — your own money is locked too.</li>
+        <li><strong>Min odds during rollover</strong> — some books require all wagers at −200 or longer. Limits your +EV options.</li>
+      </ul>
+
+      <p><strong>Don't confuse with casino bonuses.</strong> Casino bonuses often have 20-50× rollover and are heavily −EV. Sportsbook bonus bets are different. Read the terms to know which kind you're claiming.</p>
+    </div>
+  </section>
+
+  <section class="lesson-section">
+    <h3>Stake and market restrictions</h3>
+    <div class="lesson-body">
+      <p>Read the offer terms <em>before</em> you deposit. Common restrictions that change the math or break the play entirely:</p>
+      <ul>
+        <li><strong>Min/max qualifier stake</strong> — e.g., must bet $5 minimum, or no more than $1,000</li>
+        <li><strong>Min odds on qualifier</strong> — e.g., bet must be at −200 or longer to qualify</li>
+        <li><strong>Sport / market exclusions</strong> — some bonuses can't be used on certain sports, futures, or live betting</li>
+        <li><strong>One bet per game / one per market</strong> — limits how many times you can stack</li>
+        <li><strong>Bonus bet stake limit</strong> — max $50 per bonus bet, etc. Limits hedging on long-odds plays</li>
+        <li><strong>Same-game parlays</strong> — may or may not count toward rollover; differs by book</li>
+      </ul>
+      <p>The fine print isn't there to be helpful. Read it.</p>
+    </div>
+  </section>
+
+  <section class="lesson-section">
+    <h3>Account and timing pitfalls</h3>
+    <div class="lesson-body">
+      <ul>
+        <li><strong>KYC delays.</strong> Books require ID verification before they release withdrawals. Submit your ID early — don't wait until you've claimed a bonus to discover you can't withdraw the conversion.</li>
+        <li><strong>Time limits.</strong> Bonus bets typically expire in 7-14 days. Don't claim 5 books at once if you can only realistically convert 2 in that window.</li>
+        <li><strong>One per household.</strong> Some books restrict promos to one account per IP, address, or payment method. Roommates can't both claim the same offer.</li>
+        <li><strong>State eligibility.</strong> Welcome offers vary state to state. The Colorado offer might not match the Pennsylvania one.</li>
+        <li><strong>Account limiting.</strong> Books detect promo abuse. Bonus hunting alone is usually fine; combining it with consistent +EV betting will get you limited faster.</li>
+        <li><strong>Co-mingled balances.</strong> Some books mix bonus + cash balances on the deposit screen, making "withdrawable" murky. Track real cash separately from bonus credits.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="lesson-section">
+    <h3>The general rule</h3>
+    <div class="lesson-body">
+      <p class="pull-quote">If an offer looks too good to be true, the catch is in the rollover or the restrictions.</p>
+      <p>Read every word of the terms before depositing. The single biggest mistake new bonus hunters make is rushing into a $1,000 deposit-match offer without checking the rollover. A 5× rollover on a $1,000 match means wagering $5,000 before withdrawal — and most of that bonus value gets eaten by variance and vig before you ever see real cash.</p>
+      <p>If you can't articulate exactly how the offer pays out and what you have to wager to unlock it, you're not ready to deposit yet.</p>
+    </div>
+  </section>
+
+  <div class="cta-card">
+    <div class="cta-eyebrow">Now you're ready</div>
+    <div class="cta-title">Pick your first sportsbook.</div>
+    <p class="cta-blurb">You know what welcome offers are, how each type pays out, and what to watch for. Time to claim one. Each book on the list links to a page that breaks down its specific offer.</p>
+    <a href="/index.html#books" class="cta-btn">Browse Sportsbook Offers →</a>
+  </div>
+
+  <div class="footer">
+    <div class="disclaimer">
+      Profit Path Sports is an educational resource. Sportsbook welcome offers and bonus terms vary by state, by date, and at the operator's discretion — always read the actual offer terms before depositing. Sports betting carries financial risk. Bet responsibly. If gambling is a problem for you, call <strong>1-800-GAMBLER</strong>. Must be 21+ where legal.
+    </div>
+    <div>© 2026 Profit Path Sports · <a href="/index.html">Home</a> · <a href="/index.html#bonus">Lane 01 Playbook</a></div>
+  </div>
+
+</div>
+
+</body>
+</html>
