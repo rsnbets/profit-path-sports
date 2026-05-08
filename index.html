@@ -528,12 +528,12 @@
   .footer a { color: var(--muted); text-decoration: none; }
   .footer a:hover { color: var(--blue); }
 
-  /* ── Hero lane buttons (big 2x2 grid, lanes link to dedicated pages) ── */
+  /* ── Hero lane buttons (4-column tall cards, lanes link to dedicated pages) ── */
   .hero-paths {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 18px;
-    max-width: 940px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    max-width: 1180px;
     margin: 36px auto 0;
   }
 
@@ -541,7 +541,7 @@
     background: var(--panel-deep);
     border: 1px solid var(--border);
     border-radius: 16px;
-    padding: 28px 28px 22px;
+    padding: 24px 22px 20px;
     text-decoration: none;
     color: var(--text);
     transition: all 0.2s;
@@ -576,24 +576,24 @@
   .hero-path.purple { --lane-accent: var(--purple); }
 
   .hero-path-icon {
-    font-size: 38px;
+    font-size: 32px;
     line-height: 1;
-    margin-bottom: 14px;
+    margin-bottom: 12px;
   }
 
   .hero-path-eyebrow {
     font-family: 'Orbitron', sans-serif;
-    font-size: 10px;
+    font-size: 9px;
     letter-spacing: 2.5px;
     text-transform: uppercase;
     color: var(--lane-accent, var(--blue));
     font-weight: 700;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
   }
 
   .hero-path-title {
     font-family: 'IBM Plex Sans', sans-serif;
-    font-size: 26px;
+    font-size: 21px;
     font-weight: 700;
     letter-spacing: -0.015em;
     color: var(--text);
@@ -602,10 +602,10 @@
 
   .hero-path-desc {
     font-family: 'IBM Plex Sans', sans-serif;
-    font-size: 15px;
+    font-size: 14px;
     color: var(--muted);
-    line-height: 1.55;
-    margin-bottom: 18px;
+    line-height: 1.5;
+    margin-bottom: 16px;
     text-align: left;
     letter-spacing: 0;
     padding: 0;
@@ -613,16 +613,16 @@
 
   .hero-path-list {
     list-style: none;
-    margin: 0 0 20px;
+    margin: 0 0 18px;
     padding: 0;
   }
   .hero-path-list li {
     font-family: 'IBM Plex Sans', sans-serif;
-    font-size: 13px;
+    font-size: 12px;
     color: var(--dim);
-    padding: 4px 0 4px 20px;
+    padding: 3px 0 3px 16px;
     position: relative;
-    line-height: 1.5;
+    line-height: 1.45;
   }
   .hero-path-list li::before {
     content: '▸';
@@ -953,8 +953,8 @@
     .lane-grid { grid-template-columns: 1fr; }
     .lane-card { padding: 22px 20px; }
     .hero-paths { grid-template-columns: 1fr; gap: 14px; max-width: 100%; }
-    .hero-path { padding: 24px 22px 20px; }
-    .hero-path-icon { font-size: 32px; }
+    .hero-path { padding: 22px 20px 18px; }
+    .hero-path-icon { font-size: 30px; }
     .hero-path-title { font-size: 22px; }
     .hero-path-desc { font-size: 14px; }
   }
@@ -1433,6 +1433,94 @@
           <div class="hero-path-cta">Open the Toolbox →</div>
         </a>
       </div>
+    </div>
+  </div>
+
+  <!-- TOOLBOX — visible under the lane tiles -->
+  <div class="section" id="tools">
+    <div class="section-head">
+      <div class="section-eyebrow purple">The Toolbox</div>
+      <div class="section-title">All eleven calculators</div>
+      <div class="section-sub">Free, no signup, no paywall. Click any to launch — or jump into <a href="lane-sharp.html" style="color:var(--purple);">Lane 04</a> for the full sharp's pitch.</div>
+    </div>
+
+    <div class="tools-grid">
+      <a class="tool-card" href="bet-tracker.html">
+        <div class="icon">📊</div>
+        <div class="tool-name">Bet Tracker</div>
+        <div class="tool-desc">Log every bet, track CLV, monitor your ROI, and measure your edge over time. No account needed — data saves in your browser.</div>
+        <div class="tool-cta">Launch →</div>
+      </a>
+
+      <a class="tool-card" href="odds_calculator.html">
+        <div class="icon">🎯</div>
+        <div class="tool-name">Implied Odds</div>
+        <div class="tool-desc">Convert American odds to implied probability and back, instantly.</div>
+        <div class="tool-cta">Launch →</div>
+      </a>
+
+      <a class="tool-card" href="devig_calculator.html">
+        <div class="icon">⚖️</div>
+        <div class="tool-name">Devig Calculator</div>
+        <div class="tool-desc">Strip the vig from any market to reveal the true no-vig fair odds.</div>
+        <div class="tool-cta">Launch →</div>
+      </a>
+
+      <a class="tool-card" href="ev-calculator.html">
+        <div class="icon">💵</div>
+        <div class="tool-name">EV Calculator</div>
+        <div class="tool-desc">Plug in your odds and the fair (no-vig) odds to get true expected value in % and dollars, plus Kelly sizing.</div>
+        <div class="tool-cta">Launch →</div>
+      </a>
+
+      <a class="tool-card" href="kelly-calculator.html">
+        <div class="icon">💰</div>
+        <div class="tool-name">Kelly Calculator</div>
+        <div class="tool-desc">Size your bets optimally based on your edge and bankroll. Supports fractional Kelly.</div>
+        <div class="tool-cta">Launch →</div>
+      </a>
+
+      <a class="tool-card" href="edge-finder.html">
+        <div class="icon">🔍</div>
+        <div class="tool-name">Edge Finder</div>
+        <div class="tool-desc">Compare your available line to a sharper market line. Quick line-shopping check — see the probability gap at a glance.</div>
+        <div class="tool-cta">Launch →</div>
+      </a>
+
+      <a class="tool-card" href="arb-calculator.html">
+        <div class="icon">🔀</div>
+        <div class="tool-name">Arbitrage Calculator</div>
+        <div class="tool-desc">Find guaranteed-profit opportunities and size both sides perfectly.</div>
+        <div class="tool-cta">Launch →</div>
+      </a>
+
+      <a class="tool-card" href="hedge-calculator.html">
+        <div class="icon">🛡️</div>
+        <div class="tool-name">Hedge Calculator</div>
+        <div class="tool-desc">Lock in profit or limit risk on live bets and futures. Optimal or custom hedge sizing.</div>
+        <div class="tool-cta">Launch →</div>
+      </a>
+
+      <a class="tool-card" href="bonus-converter.html">
+        <div class="icon">🎁</div>
+        <div class="tool-name">Bonus Bet Converter</div>
+        <div class="tool-desc">Hedge bonus bets into guaranteed cash and maximize your conversion rate.</div>
+        <div class="tool-cta">Launch →</div>
+      </a>
+
+      <a class="tool-card" href="long-run-simulator.html">
+        <div class="icon">📈</div>
+        <div class="tool-name">Long Run Simulator</div>
+        <div class="tool-desc">Run your edge through a Monte Carlo simulation. See realistic best, worst, and median bankroll outcomes over thousands of bets.</div>
+        <div class="tool-cta">Launch →</div>
+      </a>
+
+      <a class="tool-card" href="parlay-calculator.html">
+        <div class="icon">🧩</div>
+        <div class="tool-name">Parlay Calculator</div>
+        <div class="tool-desc">Combine 2-10 legs into one ticket. See combined odds, payout, and — when fair odds are entered — the true EV after compounded vig.</div>
+        <div class="tool-cta">Launch →</div>
+      </a>
     </div>
   </div>
 
