@@ -58,14 +58,77 @@
   .pair-side .pair-why { font-family: 'Rajdhani', sans-serif; font-size: 15px; color: var(--muted); line-height: 1.5; }
   .pair-side.offer .pair-role { color: var(--green); }
   .pair-side.lay   .pair-role { color: var(--yellow); }
-  .table-wrap { overflow-x: auto; margin: 18px 0; }
-  table.bankroll { width: 100%; border-collapse: collapse; font-family: 'Rajdhani', sans-serif; font-size: 15px; }
-  table.bankroll th, table.bankroll td { padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--border-soft); }
-  table.bankroll th { font-family: 'Orbitron', sans-serif; font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--dim); font-weight: 700; }
-  table.bankroll td { color: var(--text); }
-  table.bankroll td.cash { color: var(--green); font-weight: 700; font-family: 'JetBrains Mono', monospace; }
-  table.bankroll tr:last-child td { border-bottom: none; font-weight: 700; }
-  table.bankroll tr:last-child td.cash { color: var(--green); font-size: 17px; }
+  .ladder { margin: 24px 0 8px; }
+  .ladder-row {
+    display: grid;
+    grid-template-columns: 28px 1fr auto auto;
+    column-gap: 14px;
+    row-gap: 8px;
+    align-items: center;
+    padding: 14px 0 12px;
+    border-bottom: 1px solid var(--border-soft);
+  }
+  .ladder-row.start { background: linear-gradient(90deg, rgba(245, 181, 69, 0.06), transparent); border-left: 3px solid var(--yellow); padding-left: 14px; padding-right: 14px; margin-bottom: 4px; border-radius: 6px 6px 0 0; }
+  .ladder-row.final { background: linear-gradient(90deg, rgba(74, 222, 128, 0.10), rgba(74, 222, 128, 0.02)); border-left: 3px solid var(--green); padding-left: 14px; padding-right: 14px; border-bottom: none; margin-top: 4px; border-radius: 6px; }
+  .ladder-num {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 11px;
+    font-weight: 800;
+    color: var(--green);
+    letter-spacing: 1px;
+    text-align: center;
+  }
+  .ladder-row.start .ladder-num { color: var(--yellow); }
+  .ladder-action {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 16px;
+    color: var(--text);
+    line-height: 1.4;
+  }
+  .ladder-action strong { font-weight: 700; }
+  .ladder-action small {
+    display: block;
+    color: var(--dim);
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 13px;
+    margin-top: 2px;
+    font-weight: 400;
+  }
+  .ladder-add {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    color: var(--green);
+    font-weight: 700;
+    min-width: 60px;
+    text-align: right;
+  }
+  .ladder-add.zero { color: var(--dim); }
+  .ladder-running {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text);
+    min-width: 86px;
+    text-align: right;
+  }
+  .ladder-row.final .ladder-running { color: var(--green); font-size: 18px; }
+  .ladder-bar {
+    grid-column: 1 / -1;
+    height: 6px;
+    background: var(--panel-deep);
+    border: 1px solid var(--border-soft);
+    border-radius: 999px;
+    overflow: hidden;
+    margin-top: 4px;
+  }
+  .ladder-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, rgba(74, 222, 128, 0.6) 0%, var(--green) 100%);
+    border-radius: 999px;
+  }
+  .ladder-row.start .ladder-bar-fill {
+    background: linear-gradient(90deg, rgba(245, 181, 69, 0.5) 0%, var(--yellow) 100%);
+  }
   .cta-card { background: linear-gradient(135deg, rgba(74, 222, 128, 0.08), rgba(74, 222, 128, 0.02)); border: 1px solid var(--green); border-radius: 16px; padding: 32px 28px; margin: 44px 0 32px; text-align: center; box-shadow: 0 0 40px rgba(74, 222, 128, 0.08), 0 20px 60px rgba(0, 0, 0, 0.3); }
   .cta-eyebrow { font-family: 'Orbitron', sans-serif; font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--green); font-weight: 700; margin-bottom: 10px; }
   .cta-title { font-family: 'Rajdhani', sans-serif; font-size: 26px; font-weight: 700; color: var(--text); margin-bottom: 8px; letter-spacing: 0.3px; }
@@ -205,30 +268,105 @@
   </section>
 
   <section class="lesson-section">
-    <h3>What's actually possible</h3>
+    <h3>Watch it build — $175 in, ~$1,400 out</h3>
     <div class="lesson-body">
-      <p>Rough estimate of what 8 weeks of disciplined bonus hunting looks like across the major US books — <em>varies heavily by state and current promo cycle</em>:</p>
+      <p>Same pacing as the suggested order above, with every conversion at <strong>70% of bonus face value</strong> (a conservative number — sharp hedging gets you closer to 75%). Starting capital is $175 deployed across Caesars and ProphetX as float — it stays in the accounts, doesn't get spent, and is withdrawable at the end.</p>
 
-      <div class="table-wrap">
-        <table class="bankroll">
-          <thead>
-            <tr><th>Book</th><th>Welcome offer (typical)</th><th>Cash extracted</th></tr>
-          </thead>
-          <tbody>
-            <tr><td>Caesars (referral)</td><td>$25 bonus bets</td><td class="cash">~$18</td></tr>
-            <tr><td>DraftKings</td><td>$200 bonus bets</td><td class="cash">~$146</td></tr>
-            <tr><td>FanDuel</td><td>$200 bonus bets</td><td class="cash">~$146</td></tr>
-            <tr><td>BetMGM</td><td>up to $1,500 first-bet</td><td class="cash">~$700-1,000</td></tr>
-            <tr><td>Hard Rock Bet</td><td>$50 bonus bets</td><td class="cash">~$36</td></tr>
-            <tr><td>Fanatics</td><td>varies</td><td class="cash">~$50-100</td></tr>
-            <tr><td>ESPN BET (if available)</td><td>$200 bonus bets</td><td class="cash">~$146</td></tr>
-            <tr><td>Total</td><td>—</td><td class="cash">~$1,200-1,600</td></tr>
-          </tbody>
-        </table>
+      <div class="ladder">
+
+        <div class="ladder-row start">
+          <div class="ladder-num">0</div>
+          <div class="ladder-action">
+            <strong>Start.</strong> Deploy capital across the starting pair.
+            <small>$50 at Caesars (deposit + qualifier) · $100 at ProphetX (hedge float) · $25 buffer</small>
+          </div>
+          <div class="ladder-add zero">$0</div>
+          <div class="ladder-running">$175</div>
+          <div class="ladder-bar"><div class="ladder-bar-fill" style="width:13%"></div></div>
+        </div>
+
+        <div class="ladder-row">
+          <div class="ladder-num">1</div>
+          <div class="ladder-action">
+            <strong>Caesars churn.</strong>
+            <small>$25 bonus bets × 70% conversion</small>
+          </div>
+          <div class="ladder-add">+$18</div>
+          <div class="ladder-running">$193</div>
+          <div class="ladder-bar"><div class="ladder-bar-fill" style="width:14%"></div></div>
+        </div>
+
+        <div class="ladder-row">
+          <div class="ladder-num">2</div>
+          <div class="ladder-action">
+            <strong>+ DraftKings.</strong> Now hedging across 3 books.
+            <small>$200 bonus bets × 70% conversion</small>
+          </div>
+          <div class="ladder-add">+$140</div>
+          <div class="ladder-running">$333</div>
+          <div class="ladder-bar"><div class="ladder-bar-fill" style="width:24%"></div></div>
+        </div>
+
+        <div class="ladder-row">
+          <div class="ladder-num">3</div>
+          <div class="ladder-action">
+            <strong>+ FanDuel.</strong> 4 books, more hedge optionality.
+            <small>$200 bonus bets × 70% conversion</small>
+          </div>
+          <div class="ladder-add">+$140</div>
+          <div class="ladder-running">$473</div>
+          <div class="ladder-bar"><div class="ladder-bar-fill" style="width:34%"></div></div>
+        </div>
+
+        <div class="ladder-row">
+          <div class="ladder-num">4</div>
+          <div class="ladder-action">
+            <strong>+ BetMGM.</strong> First-bet match — bigger payout, longer-odds play.
+            <small>up to $1,500 first-bet match — conservative estimate at +400 odds</small>
+          </div>
+          <div class="ladder-add">+$700</div>
+          <div class="ladder-running">$1,173</div>
+          <div class="ladder-bar"><div class="ladder-bar-fill" style="width:84%"></div></div>
+        </div>
+
+        <div class="ladder-row">
+          <div class="ladder-num">5</div>
+          <div class="ladder-action">
+            <strong>+ Hard Rock Bet.</strong>
+            <small>$50 bonus bets × 70% conversion</small>
+          </div>
+          <div class="ladder-add">+$35</div>
+          <div class="ladder-running">$1,208</div>
+          <div class="ladder-bar"><div class="ladder-bar-fill" style="width:86%"></div></div>
+        </div>
+
+        <div class="ladder-row">
+          <div class="ladder-num">6</div>
+          <div class="ladder-action">
+            <strong>+ Fanatics.</strong>
+            <small>~$70 bonus bets × 70% conversion</small>
+          </div>
+          <div class="ladder-add">+$50</div>
+          <div class="ladder-running">$1,258</div>
+          <div class="ladder-bar"><div class="ladder-bar-fill" style="width:90%"></div></div>
+        </div>
+
+        <div class="ladder-row final">
+          <div class="ladder-num">7</div>
+          <div class="ladder-action">
+            <strong>+ ESPN BET.</strong> If available in your state.
+            <small>$200 bonus bets × 70% conversion</small>
+          </div>
+          <div class="ladder-add">+$140</div>
+          <div class="ladder-running">$1,398</div>
+          <div class="ladder-bar"><div class="ladder-bar-fill" style="width:100%"></div></div>
+        </div>
+
       </div>
 
-      <p>That's <strong>real, withdrawable cash</strong> in your bank account for ~10-15 hours of work spread over 8 weeks. Not a get-rich scheme — just free money the books are willing to give away because their customer-acquisition cost makes it worth it.</p>
-      <p>Once the bankroll's built, you have a choice: keep it as a cushion, use it as your starting capital for actual sports betting (if Lane 02 calls to you), or just walk away with the cash. None of those choices is wrong.</p>
+      <p>Net gain over 8 weeks: <strong>~$1,223 in real, withdrawable cash</strong> on a $175 starting deployment that's still in your accounts at the end. That's roughly <em>700% on capital</em> for ~10-15 hours of work.</p>
+      <p>State eligibility matters — if you're not in a state where ESPN BET or BetMGM operate, you skip those steps and the total comes down. Pick the books that work where you live.</p>
+      <p>Once the bankroll's built, you have a choice: keep it as a cushion, use it as your starting capital for real sports betting (Lane 02 if it calls to you), or just withdraw and walk. None of those is wrong.</p>
     </div>
   </section>
 
