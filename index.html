@@ -841,29 +841,45 @@
     cursor: pointer;
     list-style: none;
     position: relative;
-    padding-right: 40px;
+    padding-right: 130px;
   }
   details.section > summary::-webkit-details-marker { display: none; }
   details.section > summary::marker { content: ''; }
 
   details.section:not([open]) > summary.section-head { margin-bottom: 0; }
 
+  /* Pill-style "Expand / Collapse" indicator on the right of each summary */
   details.section > summary::after {
-    content: '';
+    content: 'Click to expand ▾';
     position: absolute;
     top: 50%;
-    right: 4px;
-    transform: translateY(-60%);
-    width: 0; height: 0;
-    border-left: 7px solid transparent;
-    border-right: 7px solid transparent;
-    border-top: 9px solid var(--muted);
-    transition: transform 0.2s, border-top-color 0.2s;
+    right: 0;
+    transform: translateY(-50%);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 11px;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--muted);
+    background: var(--panel-deep);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 8px 14px;
+    transition: all 0.15s;
+    white-space: nowrap;
   }
   details.section[open] > summary::after {
-    transform: translateY(-50%) rotate(180deg);
+    content: 'Click to collapse ▴';
+    color: var(--blue);
+    border-color: var(--blue);
+    background: rgba(61, 139, 255, 0.08);
   }
-  details.section > summary:hover::after { border-top-color: var(--blue); }
+  details.section > summary:hover::after {
+    color: var(--blue);
+    border-color: var(--blue);
+    background: rgba(61, 139, 255, 0.12);
+    transform: translateY(-50%) translateY(-1px);
+  }
   details.section > summary:hover .section-title { color: var(--blue); transition: color 0.15s; }
 
   /* ── Mobile ── */
@@ -1784,12 +1800,12 @@
   </details>
 
   <!-- STRATEGY GUIDES -->
-  <div class="section" id="guides">
-    <div class="section-head">
+  <details class="section" id="guides">
+    <summary class="section-head">
       <div class="section-eyebrow">Strategy Guides</div>
       <div class="section-title">Topics &amp; deep dives</div>
       <div class="section-sub">Standalone lessons on specific concepts — outside the structured lanes. Read in any order, return whenever you want a refresher.</div>
-    </div>
+    </summary>
 
     <div class="guide-grid">
       <a class="guide-card" href="learn-parlays.html">
@@ -1799,7 +1815,7 @@
         <div class="guide-cta">Read →</div>
       </a>
     </div>
-  </div>
+  </details>
 
   <!-- PAID TOOLS -->
   <div class="section" id="paid">
