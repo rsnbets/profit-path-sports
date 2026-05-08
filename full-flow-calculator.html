@@ -398,40 +398,6 @@
     margin-bottom: 12px;
   }
   .bonus-card .input-cell { margin-bottom: 12px; }
-  .copy-area {
-    width: 100%;
-    background: var(--panel-inset);
-    border: 1px solid var(--border);
-    color: var(--green);
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    padding: 12px;
-    border-radius: 8px;
-    resize: none;
-    outline: none;
-    line-height: 1.6;
-  }
-  .copy-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    margin-top: 8px;
-    padding: 8px 14px;
-    background: transparent;
-    border: 1px solid var(--green);
-    color: var(--green);
-    font-family: 'Orbitron', sans-serif;
-    font-size: 10px;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    font-weight: 700;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: all 0.15s;
-  }
-  .copy-btn:hover { background: rgba(74, 222, 128, 0.1); }
-  .copy-btn.copied { background: var(--green); color: #06160c; }
-
   /* How to use */
   .how-to {
     margin-top: 24px;
@@ -805,14 +771,6 @@
 
     </div>
 
-    <!-- COPY AS JSON -->
-    <div class="bonus-card" style="margin-top: 16px;">
-      <h4>Copy this bet as JSON</h4>
-      <p style="font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; color: var(--muted); line-height: 1.5; margin-bottom: 12px;">Snapshot of the current pipeline state — paste into your tracker, a notes file, or share for review.</p>
-      <textarea class="copy-area" id="jsonOut" rows="8" readonly></textarea>
-      <button class="copy-btn" id="copyJsonBtn" onclick="copyJson()">📋 Copy JSON</button>
-    </div>
-
     <!-- HOW TO USE -->
     <details class="how-to" id="howto">
       <summary>How to use this</summary>
@@ -842,8 +800,6 @@
         <p><strong>Bonus — CLV preview.</strong> Enter the price you expect this market to close at. Beating the close (CLV) is the single best long-run indicator that you're actually +EV.</p>
 
         <p><strong>Bonus — Risk of ruin.</strong> Estimates probability of a 50% bankroll drawdown over your bet horizon at the recommended stake. Full Kelly produces big drawdowns even when the edge is real — this is why fractional Kelly exists.</p>
-
-        <p><strong>Bonus — JSON export.</strong> Snapshot the entire pipeline state to paste into your tracker or notes.</p>
 
         <p><strong>Caveats.</strong></p>
         <ul>
@@ -1289,30 +1245,6 @@
       rorVerdictEl.textContent = '—'; rorVerdictEl.classList.add('empty'); rorVerdictEl.style.color = '';
     }
 
-    // JSON export
-    const json = {
-      generated_at: new Date().toISOString(),
-      source: state.source,
-      devig_method: state.method,
-      side: state.side,
-      sharp_price_A: state.source === 'market' ? document.getElementById('sharpA').value : null,
-      sharp_price_B: state.source === 'market' ? document.getElementById('sharpB').value : null,
-      model_probability: state.source === 'model' ? document.getElementById('modelProb').value + ' (' + document.getElementById('modelProbFormat').value + ')' : null,
-      fair_probability: pTrue !== null ? +(pTrue.toFixed(4)) : null,
-      fair_american: pTrue !== null ? impliedToAmerican(pTrue) : null,
-      book_name: document.getElementById('bookName').value || null,
-      book_price: document.getElementById('bookPrice').value || null,
-      book_implied: bookImpl !== null ? +(bookImpl.toFixed(4)) : null,
-      ev_pct: evPctVal !== null ? +(evPctVal * 100).toFixed(3) : null,
-      ev_per_100: evPer100 !== null ? +evPer100.toFixed(2) : null,
-      bankroll: bankroll || null,
-      kelly_fraction: kFrac,
-      recommended_stake: recStake !== null ? +recStake.toFixed(2) : null,
-      full_kelly_stake: (fullK !== null && bankroll > 0) ? +(fullK * bankroll).toFixed(2) : null,
-      breakeven_hit_rate: bookImpl !== null ? +(bookImpl * 100).toFixed(2) : null,
-      verdict: vTitle
-    };
-    document.getElementById('jsonOut').value = JSON.stringify(json, null, 2);
   }
 
   // ────────────────────────────────────────────────────────────
@@ -1373,19 +1305,6 @@
     });
     if (el && el.tagName === 'SELECT') el.addEventListener('change', recompute);
   });
-
-  function copyJson() {
-    const ta = document.getElementById('jsonOut');
-    ta.select();
-    document.execCommand('copy');
-    const btn = document.getElementById('copyJsonBtn');
-    btn.classList.add('copied');
-    btn.textContent = '✓ Copied';
-    setTimeout(() => {
-      btn.classList.remove('copied');
-      btn.textContent = '📋 Copy JSON';
-    }, 1400);
-  }
 
   // Initial state
   recompute();
