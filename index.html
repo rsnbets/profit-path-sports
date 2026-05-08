@@ -1106,6 +1106,66 @@
   .footer { font-family: 'IBM Plex Sans', sans-serif; }
   .footer .disclaimer { font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; }
 
+  /* Paid tools section */
+  .paid-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-top: 24px;
+  }
+  .paid-card {
+    background: var(--panel-deep);
+    border: 1px solid var(--border-soft);
+    border-radius: 14px;
+    padding: 24px;
+    text-decoration: none;
+    color: var(--text);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    transition: all 0.18s;
+  }
+  .paid-card:hover {
+    border-color: var(--yellow);
+    background: var(--panel-inset);
+    transform: translateY(-2px);
+  }
+  .paid-name {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -0.01em;
+  }
+  .paid-tagline {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 12px;
+    color: var(--yellow);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+  }
+  .paid-desc {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.55;
+    flex: 1;
+    margin-top: 4px;
+  }
+  .paid-cta {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--dim);
+    margin-top: 14px;
+    transition: color 0.15s;
+  }
+  .paid-card:hover .paid-cta { color: var(--yellow); }
+
+  @media (max-width: 700px) {
+    .paid-grid { grid-template-columns: 1fr; }
+  }
+
   @media (max-width: 600px) {
     .hero-inner { padding: 56px 0 40px; }
     .section { padding: 48px 0; }
@@ -1431,6 +1491,30 @@
 
     </div>
   </details>
+
+  <!-- PAID TOOLS -->
+  <div class="section" id="paid">
+    <div class="section-head">
+      <div class="section-eyebrow">Paid Tools</div>
+      <div class="section-title">When the free toolbox isn't enough</div>
+      <div class="section-sub">Two paid platforms worth their subscription if you're betting seriously. Affiliate links — same price for you, helps keep this site free.</div>
+    </div>
+
+    <div class="paid-grid">
+      <a class="paid-card" href="https://pikkit.com" target="_blank" rel="nofollow noopener sponsored">
+        <div class="paid-name">Pikkit</div>
+        <div class="paid-tagline">Automated bet tracking</div>
+        <div class="paid-desc">Connects to your sportsbooks and pulls every bet automatically — no more spreadsheets. Tracks CLV, ROI, and edge across every book in one place. If you're betting at more than two books, this saves real time.</div>
+        <div class="paid-cta">Try Pikkit →</div>
+      </a>
+      <a class="paid-card" href="https://oddsjam.com" target="_blank" rel="nofollow noopener sponsored">
+        <div class="paid-name">OddsJam</div>
+        <div class="paid-tagline">+EV finder · arb finder · line shopping</div>
+        <div class="paid-desc">Scans every market across every book in real time. Finds +EV plays, arbs, and middle opportunities faster than any human. Built for serious bettors hunting edge across many books at once.</div>
+        <div class="paid-cta">Try OddsJam →</div>
+      </a>
+    </div>
+  </div>
 
   <!-- ABOUT -->
   <div class="section" id="about">
