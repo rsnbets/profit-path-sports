@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EV Betting vs. Stock Trading — The Same Game, Played Differently | Profit Path Sports</title>
+<meta name="description" content="EV sports betting and quant stock trading run on the same math: edge × variance × Kelly. They diverge on liquidity, leverage, counterparty risk, and how each market punishes winners.">
+
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230a0f1c'/%3E%3Cpolyline points='5,24 12,16 16,19 22,9 27,5' fill='none' stroke='%234ade80' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="EV Betting vs. Stock Trading">
+<meta property="og:description" content="Same math, very different mechanics. Where the two disciplines overlap, where they diverge, and what each can teach the other.">
+<meta property="og:site_name" content="Profit Path Sports">
+<meta name="theme-color" content="#0a0f1c">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;800;900&family=JetBrains+Mono:wght@400;500;700&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root { --bg: #0a0f1c; --panel: #0f1524; --panel-inset: #141a2b; --panel-deep: #0c1120; --border: #1e2638; --border-soft: #141c30; --text: #e5e7eb; --muted: #8b94a8; --dim: #6b7689; --blue: #3d8bff; --blue-glow: rgba(61, 139, 255, 0.18); --yellow: #f5b545; --green: #4ade80; --red: #f87171; --purple: #BC8CFF; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: radial-gradient(ellipse at top, #111a2e 0%, var(--bg) 60%); color: var(--text); font-family: 'JetBrains Mono', ui-monospace, monospace; min-height: 100vh; line-height: 1.5; }
+  .topnav { border-bottom: 1px solid var(--border-soft); background: rgba(10, 15, 28, 0.85); backdrop-filter: blur(8px); position: sticky; top: 0; z-index: 10; }
+  .topnav-inner { max-width: 1100px; margin: 0 auto; padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+  .nav-brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; color: var(--blue); font-family: 'Orbitron', sans-serif; font-size: 13px; letter-spacing: 2.5px; font-weight: 800; text-transform: uppercase; }
+  .nav-brand-chart { display: inline-flex; width: 22px; height: 18px; color: #4ade80; filter: drop-shadow(0 0 6px rgba(74, 222, 128, 0.55)); }
+  .nav-brand-chart svg { width: 100%; height: 100%; }
+  .nav-back { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--muted); text-decoration: none; letter-spacing: 0.5px; transition: color 0.15s; }
+  .nav-back:hover { color: var(--blue); }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 32px 20px 80px; }
+  .lesson-hero { margin-bottom: 36px; }
+  .lesson-eyebrow { font-family: 'Orbitron', sans-serif; font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--blue); font-weight: 700; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+  .lesson-eyebrow::before { content: '▸'; color: var(--blue); font-size: 10px; }
+  .lesson-title { font-family: 'Orbitron', sans-serif; font-size: 40px; font-weight: 900; letter-spacing: 2px; color: var(--text); text-transform: uppercase; line-height: 1.05; margin-bottom: 14px; }
+  .lesson-sub { font-family: 'Rajdhani', sans-serif; font-size: 22px; color: var(--muted); font-weight: 500; letter-spacing: 0.4px; line-height: 1.4; }
+  .lesson-section { margin-bottom: 36px; }
+  .lesson-section h3 { font-family: 'Orbitron', sans-serif; font-size: 18px; letter-spacing: 2px; text-transform: uppercase; color: var(--text); font-weight: 800; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--border-soft); }
+  .lesson-body { font-family: 'Rajdhani', sans-serif; font-size: 18px; line-height: 1.7; color: var(--text); letter-spacing: 0.2px; }
+  .lesson-body p { margin-bottom: 16px; }
+  .lesson-body p:last-child { margin-bottom: 0; }
+  .lesson-body strong { color: var(--text); font-weight: 700; }
+  .lesson-body em { color: var(--blue); font-style: normal; font-weight: 600; }
+  .lesson-body a { color: var(--blue); text-decoration: none; border-bottom: 1px dashed transparent; transition: border-color 0.15s; }
+  .lesson-body a:hover { border-bottom-color: var(--blue); }
+  .lesson-body ul { margin: 12px 0 18px; padding-left: 22px; }
+  .lesson-body ul li { margin-bottom: 8px; }
+
+  .example-block { background: var(--panel-deep); border: 1px solid var(--border-soft); border-left: 3px solid var(--blue); border-radius: 12px; padding: 22px 26px; font-family: 'Rajdhani', sans-serif; font-size: 17px; color: var(--text); margin: 22px 0; line-height: 1.7; letter-spacing: 0.2px; font-variant-numeric: tabular-nums; }
+  .example-block.purple { border-left-color: var(--purple); }
+  .example-block.purple .label { color: var(--purple); }
+  .example-block .label { font-family: 'Orbitron', sans-serif; color: var(--blue); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; display: block; margin-bottom: 16px; font-weight: 700; }
+  .example-block .row { display: flex; flex-wrap: wrap; gap: 6px 12px; align-items: baseline; padding: 4px 0; }
+  .example-block .row .src { min-width: 130px; color: var(--muted); font-weight: 600; }
+  .example-block .row .body { flex: 1; }
+  .example-block .row .note { color: var(--dim); font-size: 15px; font-style: italic; }
+  .example-block hr { border: none; border-top: 1px solid var(--border-soft); margin: 12px 0; }
+  .example-block .conclusion { margin-top: 4px; color: var(--text); }
+  .example-block .accent { color: var(--blue); font-weight: 700; }
+  .example-block .pos { color: var(--green); font-weight: 700; }
+  .example-block .neg { color: var(--red); font-weight: 700; }
+  .example-block .yel { color: var(--yellow); font-weight: 700; }
+  .example-block .pur { color: var(--purple); font-weight: 700; }
+
+  .compare-table { width: 100%; border-collapse: collapse; margin: 22px 0; font-family: 'Rajdhani', sans-serif; font-size: 16px; font-variant-numeric: tabular-nums; }
+  .compare-table caption { font-family: 'Orbitron', sans-serif; color: var(--blue); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; font-weight: 700; padding-bottom: 14px; text-align: left; }
+  .compare-table th, .compare-table td { padding: 11px 14px; text-align: left; border-bottom: 1px solid var(--border-soft); vertical-align: top; }
+  .compare-table th { font-family: 'Orbitron', sans-serif; font-size: 10px; letter-spacing: 1.8px; text-transform: uppercase; color: var(--dim); font-weight: 700; background: var(--panel-deep); }
+  .compare-table tr:last-child td { border-bottom: none; }
+  .compare-table .topic { color: var(--text); font-weight: 600; }
+  .compare-table .bet-col { color: var(--blue); }
+  .compare-table .trade-col { color: var(--purple); }
+
+  .warn-block { background: var(--panel-deep); border: 1px solid var(--border-soft); border-left: 3px solid var(--red); border-radius: 10px; padding: 18px 22px; font-family: 'Rajdhani', sans-serif; font-size: 17px; color: var(--text); margin: 18px 0; line-height: 1.6; }
+  .warn-block strong { color: var(--red); }
+  .tip-block { background: var(--panel-deep); border: 1px solid var(--border-soft); border-left: 3px solid var(--green); border-radius: 10px; padding: 18px 22px; font-family: 'Rajdhani', sans-serif; font-size: 17px; color: var(--text); margin: 18px 0; line-height: 1.6; }
+  .tip-block strong { color: var(--green); }
+  .pull-quote { font-family: 'Rajdhani', sans-serif; font-size: 20px; font-style: italic; color: var(--text); border-left: 3px solid var(--yellow); padding: 4px 0 4px 22px; margin: 24px 0; line-height: 1.5; }
+  .cta-card { background: linear-gradient(135deg, rgba(61, 139, 255, 0.08), rgba(61, 139, 255, 0.02)); border: 1px solid var(--blue); border-radius: 16px; padding: 32px 28px; margin: 44px 0 32px; text-align: center; box-shadow: 0 0 40px rgba(61, 139, 255, 0.08), 0 20px 60px rgba(0, 0, 0, 0.3); }
+  .cta-eyebrow { font-family: 'Orbitron', sans-serif; font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--blue); font-weight: 700; margin-bottom: 10px; }
+  .cta-title { font-family: 'Rajdhani', sans-serif; font-size: 26px; font-weight: 700; color: var(--text); margin-bottom: 8px; letter-spacing: 0.3px; }
+  .cta-blurb { font-family: 'Rajdhani', sans-serif; font-size: 16px; color: var(--muted); line-height: 1.55; max-width: 480px; margin: 0 auto 22px; }
+  .cta-btn { display: inline-flex; align-items: center; gap: 10px; font-family: 'Orbitron', sans-serif; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; font-weight: 800; text-decoration: none; padding: 14px 26px; border-radius: 10px; background: var(--blue); color: #06101e; box-shadow: 0 0 20px var(--blue-glow); transition: all 0.15s; }
+  .cta-btn:hover { background: #5fa1ff; transform: translateY(-1px); box-shadow: 0 0 28px rgba(61, 139, 255, 0.35); }
+  .footer { text-align: center; margin-top: 60px; padding: 28px 20px 0; color: var(--dim); font-size: 11px; letter-spacing: 1px; line-height: 1.7; border-top: 1px solid var(--border-soft); }
+  .footer .disclaimer { max-width: 720px; margin: 0 auto 14px; color: var(--dim); font-family: 'Rajdhani', sans-serif; font-size: 13px; letter-spacing: 0.3px; }
+  .footer a { color: var(--muted); text-decoration: none; }
+  .footer a:hover { color: var(--blue); }
+  @media (max-width: 600px) {
+    .topnav-inner { padding: 12px 16px; }
+    .nav-brand { font-size: 11px; letter-spacing: 2px; }
+    .wrap { padding: 24px 16px 60px; }
+    .lesson-title { font-size: 28px; letter-spacing: 1.5px; }
+    .lesson-sub { font-size: 18px; }
+    .lesson-body { font-size: 16px; }
+    .lesson-section h3 { font-size: 15px; }
+    .cta-card { padding: 26px 20px; }
+    .cta-title { font-size: 22px; }
+    .pull-quote { font-size: 17px; padding-left: 16px; }
+    .compare-table th, .compare-table td { padding: 9px 8px; font-size: 14px; }
+    .example-block .row .src { min-width: 100px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a class="nav-brand" href="/index.html">
+      <span class="nav-brand-chart" aria-hidden="true">
+        <svg viewBox="0 0 28 22" xmlns="http://www.w3.org/2000/svg" fill="none">
+          <polyline points="2,18 8,12 12,15 18,7 26,3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      Profit Path Sports
+      <span class="nav-brand-chart" aria-hidden="true">
+        <svg viewBox="0 0 28 22" xmlns="http://www.w3.org/2000/svg" fill="none">
+          <polyline points="2,18 8,12 12,15 18,7 26,3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+    </a>
+    <a class="nav-back" href="/index.html#guides">← Strategy Guides</a>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <div class="lesson-hero">
+    <div class="lesson-eyebrow">Concept · Mental Model</div>
+    <h1 class="lesson-title">EV Betting vs. Stock Trading</h1>
+    <p class="lesson-sub">Same underlying math: find positive expected value, size with discipline, survive variance, repeat. Wildly different mechanics: liquidity, leverage, counterparty, time horizon. Once you see the overlap, the sharp-betting playbook reads like a quant trading desk's playbook — with one critical exception.</p>
+  </div>
+
+  <section class="lesson-section">
+    <h3>The shared foundation</h3>
+    <div class="lesson-body">
+      <p>Both disciplines come down to the same question: <strong>is this transaction priced wrong?</strong></p>
+      <p>A trader buys a stock when they believe it's worth more than its current quote. A sharp bettor places a wager when they believe the true probability is higher than the price implies. Both are saying: "this thing is mispriced, I want to be long the mispricing."</p>
+      <p>Both also live or die by the same handful of principles:</p>
+      <ul>
+        <li><strong>Edge per transaction</strong> matters more than total transactions. A 2% edge over 10,000 trades grows wealth; a 20% gut feeling over five trades is gambling.</li>
+        <li><strong>Variance is inevitable.</strong> Even a real edge produces brutal drawdowns. The math is unforgiving but predictable.</li>
+        <li><strong>Position sizing is the actual job.</strong> Both fields use Kelly-style frameworks because optimal-growth math is the same whether the underlying asset is AAPL or Aaron Judge.</li>
+        <li><strong>Tracking is non-negotiable.</strong> If you don't measure CLV (closing line value) in betting or P&amp;L attribution in trading, you can't tell whether you're skilled or lucky.</li>
+        <li><strong>Edge erodes.</strong> Whatever you're doing now, more participants will eventually do it too. The 2010 strategy doesn't print money in 2026.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="lesson-section">
+    <h3>Where they're nearly identical</h3>
+    <div class="lesson-body">
+      <p>The closer you look at sharp betting, the more it looks like a particular flavor of trading: <strong>statistical arbitrage</strong>.</p>
+      <p>Stat arb traders don't care which way Tesla is going — they care whether the price disagrees with a model or with another quoted price. They pick off the gaps, size by edge, and repeat thousands of times. <a href="/learn-top-down-bottom-up.html">Top-down +EV betting</a> is structurally the same activity:</p>
+
+      <div class="example-block">
+        <span class="label">Stat arb stock trade</span>
+        <div class="row"><span class="src">Setup</span><span class="body">XYZ trading on NYSE at $50.00; same security on regional exchange at $50.05.</span></div>
+        <div class="row"><span class="src">Edge</span><span class="body">Buy NYSE, sell regional. Lock in <span class="pos">$0.05</span> per share. Repeat.</span></div>
+        <div class="row"><span class="src">Cost</span><span class="body">Commissions, slippage, market impact.</span></div>
+      </div>
+
+      <div class="example-block purple">
+        <span class="label">Top-down +EV bet</span>
+        <div class="row"><span class="src">Setup</span><span class="body">Pinnacle Over 47.5 at −110 (50% no-vig fair). Hard Rock Over 47.5 at <span class="pos">+105</span>.</span></div>
+        <div class="row"><span class="src">Edge</span><span class="body">Bet Hard Rock's Over. Locked in <span class="pos">~2.4% EV</span>. Repeat tomorrow on different games.</span></div>
+        <div class="row"><span class="src">Cost</span><span class="body">Vig (already in price), eventual limit drops.</span></div>
+      </div>
+
+      <p>Same playbook. Same mindset. Same discipline. Same Kelly sizing. The bettor doesn't have an "opinion" on the game any more than the stat arb desk has an opinion on Tesla. <strong>The market is the model</strong>, and you're shopping for execution venues that disagree with the consensus.</p>
+      <p class="pull-quote">A bookmaker quoting one price and a sharper book quoting another is the same setup as two exchanges quoting the same security at different prices. The job — both jobs — is to recognize the gap and move on it before it closes.</p>
+    </div>
+  </section>
+
+  <section class="lesson-section">
+    <h3>Where they diverge — the mechanics that change everything</h3>
+    <div class="lesson-body">
+      <p>The math overlaps. The mechanics don't. Below is where the two disciplines split.</p>
+
+      <table class="compare-table">
+        <caption>Side-by-side: EV betting vs. stock trading</caption>
+        <thead>
+          <tr><th>Topic</th><th class="bet-col">EV Sports Betting</th><th class="trade-col">Stock Trading</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="topic">Counterparty</td>
+            <td class="bet-col">The book is your opponent. Books cap or ban consistent winners.</td>
+            <td class="trade-col">The exchange is neutral. Profitability never gets you locked out.</td>
+          </tr>
+          <tr>
+            <td class="topic">Liquidity</td>
+            <td class="bet-col">Limited per market. $1k–$10k cap on most props; even sharper books have ceilings.</td>
+            <td class="trade-col">Effectively unlimited on liquid stocks. Can deploy millions instantly.</td>
+          </tr>
+          <tr>
+            <td class="topic">Settlement</td>
+            <td class="bet-col">Crisp. Bet wins or loses on a known date. No ambiguity.</td>
+            <td class="trade-col">Mark-to-market continuously. Position never "settles" until you exit.</td>
+          </tr>
+          <tr>
+            <td class="topic">Leverage</td>
+            <td class="bet-col">None. Stake is your full exposure.</td>
+            <td class="trade-col">Available — margin, options, futures, derivatives. Doubles the upside and the ruin risk.</td>
+          </tr>
+          <tr>
+            <td class="topic">Friction (cost)</td>
+            <td class="bet-col">Vig: ~4–10% per market embedded in price.</td>
+            <td class="trade-col">Commission + spread: typically 0.01–0.50% per round trip on liquid names.</td>
+          </tr>
+          <tr>
+            <td class="topic">Compounding</td>
+            <td class="bet-col">Hard. Each bet resets. Profits don't auto-reinvest into a position.</td>
+            <td class="trade-col">Easy. Hold and reinvest. 8% annualized compounds into life-changing wealth over decades.</td>
+          </tr>
+          <tr>
+            <td class="topic">Time horizon</td>
+            <td class="bet-col">Hours to days per bet. Feedback fast.</td>
+            <td class="trade-col">Seconds (HFT) to decades (LTBH). Feedback varies wildly.</td>
+          </tr>
+          <tr>
+            <td class="topic">Tax treatment (US)</td>
+            <td class="bet-col">Gambling income at ordinary rates. Losses only deductible up to winnings, only if you itemize.</td>
+            <td class="trade-col">Long-term capital gains for &gt;1yr holds. Losses fully deductible against gains.</td>
+          </tr>
+          <tr>
+            <td class="topic">Information environment</td>
+            <td class="bet-col">Public stats, injury reports, weather. No insider info exists in the SEC sense.</td>
+            <td class="trade-col">SEC disclosures, earnings calls, regulated insider rules. Information asymmetry is policed.</td>
+          </tr>
+          <tr>
+            <td class="topic">Career ceiling</td>
+            <td class="bet-col">Capped by limits. Most sharps top out at $200k–$1M annualized regardless of skill.</td>
+            <td class="trade-col">Effectively uncapped. A great trader can manage billions.</td>
+          </tr>
+          <tr>
+            <td class="topic">Diversification</td>
+            <td class="bet-col">Possible across many bets, but bets within a season are correlated to weather, league dynamics, etc.</td>
+            <td class="trade-col">Highly diversifiable across sectors, geographies, asset classes.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>The biggest divergence isn't on this table because it deserves its own section: <strong>books punish winners, markets don't</strong>.</p>
+    </div>
+  </section>
+
+  <section class="lesson-section">
+    <h3>The one difference that changes the whole game</h3>
+    <div class="lesson-body">
+      <p>If you become a great stock trader, every exchange in the world wants more of your volume. Brokerages compete for your account. Your edge can be deployed at any size you can fund.</p>
+      <p>If you become a great sports bettor, <strong>the books cap you and eventually ban you.</strong></p>
+      <ul>
+        <li>Win consistently at FanDuel? They drop your max wager from $5,000 to $50 per bet. Then to $5. Then they decline new bets entirely on softer markets.</li>
+        <li>Win at BetMGM? Same playbook. Limits arrive within months for top-down +EV players.</li>
+        <li>Win at Bovada? See the <a href="/index.html#books">Bovada warning</a> — they'll lock funds, "review your account," and slow-walk withdrawals for months.</li>
+      </ul>
+
+      <div class="warn-block">
+        <strong>This has no equivalent in stock trading.</strong> Imagine if NYSE noticed you were a profitable trader and quietly capped your orders at 1 share. That's the structural reality of sports betting. Skill at finding edge is necessary but not sufficient — you also need to play the long game with each book.
+      </div>
+
+      <p>Practical implications:</p>
+      <ul>
+        <li><strong>Bankroll spreads across many books</strong>, not concentrated in one. Sharps run accounts at 8–15 books simultaneously to keep limits intact across the portfolio.</li>
+        <li><strong>Mix your action.</strong> A bettor who only ever takes the cheapest line on each market gets flagged fast. Bettors who interleave +EV plays with mainstream bets and parlays last longer.</li>
+        <li><strong>Promo / bonus exploitation</strong> is its own discipline. New-account offers and reload bonuses are the closest thing in sports to "uncapped capital deployment" — for a brief window, before limits arrive.</li>
+        <li><strong>Career arc is shorter.</strong> Most full-time sports bettors burn through their highest-EV years in 5–10 seasons before the limit landscape forces them into structurally lower-edge markets.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="lesson-section">
+    <h3>What sports bettors can steal from traders</h3>
+    <div class="lesson-body">
+      <ul>
+        <li><strong>Process, not outcome.</strong> Quants grade trades on whether the decision was correct given the available information, not whether it won. A losing bet at +EV is a good decision; a winning gut play at −EV is a bad decision. Most recreational bettors confuse the two.</li>
+        <li><strong>Journal everything.</strong> Every serious trader keeps a log: thesis, entry, exit, P&amp;L vs. expectation, what they'd do differently. Same applies to bets — and our <a href="/bet-tracker.html">bet tracker</a> exists for exactly this reason.</li>
+        <li><strong>Risk budget per period.</strong> Traders set firm risk caps (max % of capital risked per day/week/month). Sports bettors should too — Kelly sizing helps but isn't a substitute for an explicit "I will not lose more than X% this week" rule.</li>
+        <li><strong>Pre-mortem your worst day.</strong> "What does a 5σ bad day look like for me?" Quants stress-test portfolios against tail scenarios. Bettors should know their max drawdown from variance alone before they encounter it.</li>
+        <li><strong>Separate analysis from execution.</strong> Decide what you'd bet at fair price <em>before</em> looking at the actual price. Reverse engineering is how you fool yourself.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="lesson-section">
+    <h3>What traders can steal from sports bettors</h3>
+    <div class="lesson-body">
+      <ul>
+        <li><strong>Crisp settlement breaks self-deception.</strong> Stocks can stay irrational longer than you can stay solvent — but a sports bet either wins or loses on Tuesday night. There is no "I'm holding for the long term." Forced feedback is a feature, not a bug.</li>
+        <li><strong>The sharp market is your model.</strong> A trader who builds a 200-line stock-picking model from scratch usually loses to someone who copies the consensus and shaves the spread. <a href="/learn-top-down-bottom-up.html">Top-down EV betting</a> teaches the discipline of trusting market consensus when it's sharp.</li>
+        <li><strong>Probability gaps vs. EV.</strong> Sports bettors who internalize that <a href="/learn-prob-gap-vs-ev.html">a 5% probability gap is not 5% EV</a> end up better at sizing options trades, where the same trap lives in spades.</li>
+        <li><strong>Real risk, real money, fast.</strong> Trading on a paper account or in a sim teaches form, not discipline. Posting real money on a sports bet on a Sunday morning is the same nervous system that handles a sized options trade — and you can rep it cheaply.</li>
+      </ul>
+
+      <p class="pull-quote">If you understand sports betting as "what stat arb looks like in a world where the exchanges throttle your winners," the whole thing snaps into focus.</p>
+    </div>
+  </section>
+
+  <section class="lesson-section">
+    <h3>Where you should actually deploy capital</h3>
+    <div class="lesson-body">
+      <p>This isn't an "or" question. Most serious people who do both treat them as different jobs:</p>
+      <ul>
+        <li><strong>Stocks/index funds = wealth-building.</strong> Long horizon, compounding, tax-advantaged accounts (401k, IRA). Dollar-cost average into broad indices. This is where the 30-year mortgage gets paid down.</li>
+        <li><strong>EV sports betting = supplemental income / skill expression.</strong> Limited career ceiling, but high learning velocity. The bankroll that's "betting capital" should be money you can afford to redeploy or write off — separate from retirement money.</li>
+        <li><strong>Trading options or active equities = high-risk/high-skill alternative</strong> to either. Steeper learning curve than EV betting, higher capital requirements to be meaningful, much harder edge to verify.</li>
+      </ul>
+
+      <div class="tip-block">
+        <strong>The pragmatic stack:</strong> long-only index investing for the bulk of net worth, EV sports betting as a side operation that funds itself and teaches discipline, and only after both are running smoothly should anyone consider active trading. Reverse the order at your peril.
+      </div>
+    </div>
+  </section>
+
+  <section class="lesson-section">
+    <h3>The mindset that wins both</h3>
+    <div class="lesson-body">
+      <p>The single trait that separates winners from losers in either discipline is the same: <strong>a willingness to make boring, correct decisions for years before the math compounds into something that looks like talent</strong>.</p>
+      <p>Variance lies. Outcomes lie. The only thing that doesn't lie is your process — what you'd bet at fair, how you size it, whether you tracked it, and whether you'd make the same decision again given the same information.</p>
+      <p>Get that right, and the difference between EV sports betting and quant trading is mostly logistics. Get that wrong, and no spreadsheet, model, or scanner saves you.</p>
+    </div>
+  </section>
+
+  <div class="cta-card">
+    <div class="cta-eyebrow">Apply the framework</div>
+    <div class="cta-title">Run your next bet through the full pipeline.</div>
+    <p class="cta-blurb">Treat it like a trade desk would: explicit fair price, explicit edge, explicit sizing, explicit reality check. The Full Flow calculator does all four in one place.</p>
+    <a href="/full-flow-calculator.html" class="cta-btn">Open the Full Flow Calculator →</a>
+  </div>
+
+  <div class="footer">
+    <div class="disclaimer">
+      Profit Path Sports is an educational resource. Tax treatment, regulatory frameworks, and book-specific behavior described here reflect general patterns in US markets — your situation may differ. This is not financial or investment advice. Sports betting carries financial risk. Bet responsibly. If gambling is a problem for you, call <strong>1-800-GAMBLER</strong>. Must be 21+ where legal.
+    </div>
+    <div>© 2026 Profit Path Sports · <a href="/index.html">Home</a> · <a href="/full-flow-calculator.html">Full Flow Calculator</a></div>
+  </div>
+
+</div>
+
+</body>
+</html>
