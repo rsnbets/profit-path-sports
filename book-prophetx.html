@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ProphetX — The No-Limit Exchange | Profit Path Sports</title>
+<meta name="description" content="ProphetX is a peer-to-peer betting exchange. No house edge, no limits, no gubbing — you bet against other users, the platform takes a flat fee on winnings. Here's how it works and how to use it.">
+
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230a0f1c'/%3E%3Cpolyline points='5,24 12,16 16,19 22,9 27,5' fill='none' stroke='%234ade80' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="ProphetX — The No-Limit Exchange | Profit Path Sports">
+<meta property="og:description" content="Peer-to-peer betting. No house. No limits. Just liquidity — and a whole new way to bet.">
+<meta property="og:site_name" content="Profit Path Sports">
+<meta name="theme-color" content="#0a0f1c">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;800;900&family=JetBrains+Mono:wght@400;500;700&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root { --bg: #0a0f1c; --panel: #0f1524; --panel-inset: #141a2b; --panel-deep: #0c1120; --border: #1e2638; --border-soft: #141c30; --text: #e5e7eb; --muted: #8b94a8; --dim: #6b7689; --blue: #3d8bff; --yellow: #f5b545; --green: #4ade80; --green-glow: rgba(74, 222, 128, 0.18); --red: #f87171; --purple: #BC8CFF; --purple-glow: rgba(188, 140, 255, 0.18); }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: radial-gradient(ellipse at top, #111a2e 0%, var(--bg) 60%); color: var(--text); font-family: 'JetBrains Mono', ui-monospace, monospace; min-height: 100vh; line-height: 1.5; }
+  .topnav { border-bottom: 1px solid var(--border-soft); background: rgba(10, 15, 28, 0.85); backdrop-filter: blur(8px); position: sticky; top: 0; z-index: 10; }
+  .topnav-inner { max-width: 1100px; margin: 0 auto; padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+  .nav-brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; color: var(--blue); font-family: 'Orbitron', sans-serif; font-size: 13px; letter-spacing: 2.5px; font-weight: 800; text-transform: uppercase; }
+  .nav-brand-chart { display: inline-flex; width: 22px; height: 18px; color: #4ade80; filter: drop-shadow(0 0 6px rgba(74, 222, 128, 0.55)); }
+  .nav-brand-chart svg { width: 100%; height: 100%; }
+  .nav-back { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--muted); text-decoration: none; letter-spacing: 0.5px; transition: color 0.15s; }
+  .nav-back:hover { color: var(--purple); }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 32px 20px 80px; }
+  .lesson-hero { margin-bottom: 36px; }
+  .lesson-eyebrow { font-family: 'Orbitron', sans-serif; font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--purple); font-weight: 700; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+  .lesson-eyebrow::before { content: '▸'; color: var(--purple); font-size: 10px; }
+  .lesson-title { font-family: 'Orbitron', sans-serif; font-size: 44px; font-weight: 900; letter-spacing: 3px; color: var(--text); text-transform: uppercase; line-height: 1.05; margin-bottom: 14px; }
+  .lesson-sub { font-family: 'Rajdhani', sans-serif; font-size: 22px; color: var(--muted); font-weight: 500; letter-spacing: 0.4px; line-height: 1.4; }
+  .quick-signup { display: inline-flex; align-items: center; gap: 8px; margin-top: 18px; font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.5px; color: var(--purple); text-decoration: none; padding: 8px 16px; border: 1px solid var(--purple); border-radius: 999px; transition: all 0.15s; background: rgba(188, 140, 255, 0.06); }
+  .quick-signup:hover { background: rgba(188, 140, 255, 0.16); transform: translateY(-1px); }
+  .quick-signup .code { background: rgba(188, 140, 255, 0.22); padding: 2px 8px; border-radius: 4px; font-weight: 700; letter-spacing: 1px; color: var(--text); }
+  .lesson-section { margin-bottom: 36px; }
+  .lesson-section h3 { font-family: 'Orbitron', sans-serif; font-size: 18px; letter-spacing: 2px; text-transform: uppercase; color: var(--text); font-weight: 800; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--border-soft); }
+  .lesson-section h4 { font-family: 'Orbitron', sans-serif; font-size: 13px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text); font-weight: 700; margin: 20px 0 10px; }
+  .lesson-body { font-family: 'Rajdhani', sans-serif; font-size: 18px; line-height: 1.7; color: var(--text); letter-spacing: 0.2px; }
+  .lesson-body p { margin-bottom: 16px; }
+  .lesson-body p:last-child { margin-bottom: 0; }
+  .lesson-body strong { color: var(--text); font-weight: 700; }
+  .lesson-body em { color: var(--purple); font-style: normal; font-weight: 600; }
+  .lesson-body a { color: var(--purple); text-decoration: none; border-bottom: 1px dashed transparent; transition: border-color 0.15s; }
+  .lesson-body a:hover { border-bottom-color: var(--purple); }
+  .lesson-body ul, .lesson-body ol { margin: 12px 0 18px; padding-left: 22px; }
+  .lesson-body ul li, .lesson-body ol li { margin-bottom: 6px; }
+  .callout { background: var(--panel-deep); border: 1px solid var(--border-soft); border-left: 3px solid var(--purple); border-radius: 10px; padding: 18px 22px; font-family: 'Rajdhani', sans-serif; font-size: 17px; color: var(--text); margin: 18px 0; line-height: 1.6; }
+  .callout strong { color: var(--purple); }
+  .compare-side { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 22px 0; }
+  .compare-side .card { background: var(--panel-deep); border: 1px solid var(--border-soft); border-radius: 10px; padding: 18px 20px; }
+  .compare-side .card.regular { border-left: 3px solid var(--yellow); }
+  .compare-side .card.exchange { border-left: 3px solid var(--purple); }
+  .compare-side .card h5 { font-family: 'Orbitron', sans-serif; font-size: 11px; letter-spacing: 1.8px; text-transform: uppercase; font-weight: 800; margin-bottom: 12px; }
+  .compare-side .card.regular h5 { color: var(--yellow); }
+  .compare-side .card.exchange h5 { color: var(--purple); }
+  .compare-side .card ul { padding-left: 18px; margin: 0; font-family: 'Rajdhani', sans-serif; font-size: 15.5px; line-height: 1.5; color: var(--text); }
+  .compare-side .card ul li { margin-bottom: 7px; }
+  .compare-side .card ul li:last-child { margin-bottom: 0; }
+  @media (max-width: 600px) { .compare-side { grid-template-columns: 1fr; } }
+  .pull-quote { font-family: 'Rajdhani', sans-serif; font-size: 20px; font-style: italic; color: var(--text); border-left: 3px solid var(--yellow); padding: 4px 0 4px 22px; margin: 24px 0; line-height: 1.5; }
+  .cta-card { background: linear-gradient(135deg, rgba(188, 140, 255, 0.08), rgba(188, 140, 255, 0.02)); border: 1px solid var(--purple); border-radius: 16px; padding: 32px 28px; margin: 44px 0 32px; text-align: center; box-shadow: 0 0 40px rgba(188, 140, 255, 0.08), 0 20px 60px rgba(0, 0, 0, 0.3); }
+  .cta-eyebrow { font-family: 'Orbitron', sans-serif; font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--purple); font-weight: 700; margin-bottom: 10px; }
+  .cta-title { font-family: 'Rajdhani', sans-serif; font-size: 26px; font-weight: 700; color: var(--text); margin-bottom: 8px; letter-spacing: 0.3px; }
+  .cta-blurb { font-family: 'Rajdhani', sans-serif; font-size: 16px; color: var(--muted); line-height: 1.55; max-width: 480px; margin: 0 auto 22px; }
+  .cta-code { display: inline-block; margin-bottom: 16px; font-family: 'JetBrains Mono', monospace; font-size: 14px; color: var(--text); background: rgba(188, 140, 255, 0.12); border: 1px dashed var(--purple); border-radius: 6px; padding: 8px 16px; letter-spacing: 0.5px; }
+  .cta-code strong { color: var(--purple); font-weight: 700; letter-spacing: 2px; }
+  .cta-btn { display: inline-flex; align-items: center; gap: 10px; font-family: 'Orbitron', sans-serif; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; font-weight: 800; text-decoration: none; padding: 14px 26px; border-radius: 10px; background: var(--purple); color: #1a0f2a; box-shadow: 0 0 20px var(--purple-glow); transition: all 0.15s; }
+  .cta-btn:hover { background: #cea6ff; transform: translateY(-1px); box-shadow: 0 0 28px rgba(188, 140, 255, 0.35); }
+  .cta-fineprint { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.5px; color: var(--dim); margin-top: 14px; line-height: 1.5; }
+  .footer { text-align: center; margin-top: 60px; padding: 28px 20px 0; color: var(--dim); font-size: 11px; letter-spacing: 1px; line-height: 1.7; border-top: 1px solid var(--border-soft); }
+  .footer .disclaimer { max-width: 720px; margin: 0 auto 14px; color: var(--dim); font-family: 'Rajdhani', sans-serif; font-size: 13px; letter-spacing: 0.3px; }
+  .footer a { color: var(--muted); text-decoration: none; }
+  .footer a:hover { color: var(--purple); }
+  @media (max-width: 600px) {
+    .topnav-inner { padding: 12px 16px; }
+    .nav-brand { font-size: 11px; letter-spacing: 2px; }
+    .wrap { padding: 24px 16px 60px; }
+    .lesson-title { font-size: 32px; letter-spacing: 2px; }
+    .lesson-sub { font-size: 18px; }
+    .lesson-body { font-size: 16px; }
+    .lesson-section h3 { font-size: 15px; }
+    .cta-card { padding: 26px 20px; }
+    .cta-title { font-size: 22px; }
+    .callout { font-size: 15px; padding: 16px 18px; }
+    .pull-quote { font-size: 17px; padding-left: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a class="nav-brand" href="/index.html">
+      <span class="nav-brand-chart" aria-hidden="true">
+        <svg viewBox="0 0 28 22" xmlns="http://www.w3.org/2000/svg" fill="none">
+          <polyline points="2,18 8,12 12,15 18,7 26,3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      Profit Path Sports
+      <span class="nav-brand-chart" aria-hidden="true">
+        <svg viewBox="0 0 28 22" xmlns="http://www.w3.org/2000/svg" fill="none">
+          <polyline points="2,18 8,12 12,15 18,7 26,3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+    </a>
+    <a class="nav-back" href="/index.html#books">← Back to Sportsbooks</a>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <div class="lesson-hero">
+    <div class="lesson-eyebrow">Path 04 · Exchange</div>
+    <h1 class="lesson-title">ProphetX</h1>
+    <p class="lesson-sub">Peer-to-peer betting. No house edge. No limits. Just liquidity — and a whole new way to bet.</p>
+    <a href="https://www.prophetx.co" class="quick-signup" target="_blank" rel="nofollow noopener sponsored">Just here to sign up? Open ProphetX ↗ <span class="code">QEO8QG</span></a>
+  </div>
+
+  <section class="lesson-section">
+    <h3>About this book</h3>
+    <div class="lesson-body">
+      <p>ProphetX is not a sportsbook in the traditional sense. It's a <strong>betting exchange</strong> — a marketplace where you bet against other users, not against the house. The platform's job is matching offers; their revenue is a flat trade fee, not the vig on a losing side.</p>
+      <p>That single structural difference changes everything downstream. Pricing converges to consensus instead of "what's profitable for the book." Sharp bettors don't get limited because the platform doesn't take risk on you. The only ceiling on how much you can bet is how much money other users have offered to take the other side.</p>
+      <p class="pull-quote">A traditional sportsbook hopes you lose. An exchange doesn't care. That alone makes ProphetX one of the most important venues to know about if you're serious about long-term profit.</p>
+    </div>
+  </section>
+
+  <section class="lesson-section">
+    <h3>How an exchange is different from a traditional book</h3>
+    <div class="lesson-body">
+
+      <div class="compare-side">
+        <div class="card regular">
+          <h5>Traditional Book (DK, FD, MGM)</h5>
+          <ul>
+            <li>You bet against the <strong>house</strong>; they take the other side</li>
+            <li>Lines have 4-10% <strong>vig</strong> baked in</li>
+            <li>Promos, boosts, parlays, SGPs are core products</li>
+            <li>Profitable bettors get <strong>limited / banned</strong></li>
+            <li>Instant fills, deep menu, polished app</li>
+          </ul>
+        </div>
+        <div class="card exchange">
+          <h5>Exchange (ProphetX)</h5>
+          <ul>
+            <li>You bet against <strong>other users</strong>; platform just matches you</li>
+            <li>Lines are <strong>near-zero vig</strong>; platform takes a flat fee on winnings</li>
+            <li>Mostly straight markets (ML, spread, total, some props)</li>
+            <li><strong>No limits, no gubbing</strong> — winning is sustainable</li>
+            <li>Fills depend on liquidity; you can place limit orders</li>
+          </ul>
+        </div>
+      </div>
+
+      <h4>Maker vs. taker — the part most people miss</h4>
+      <p>At a normal sportsbook, you have one move: take the posted price or don't. On an exchange, you have <em>two</em>:</p>
+      <ul>
+        <li><strong>Taker</strong> — accept an existing offer. Instant fill at the posted price. Same as a market order in trading.</li>
+        <li><strong>Maker</strong> — post your own offer at the price <em>you</em> want. Sit in the order book until another user takes it (or you cancel). Same as a limit order in trading.</li>
+      </ul>
+      <p>Making is where the real edge lives. If the consensus fair price is −106 and someone's offering −115, you can post your own offer at −108 and often get taken before the market closes. You captured a better price than the visible market by being patient — and you're competing with other users, not the house.</p>
+
+      <div class="callout">
+        <strong>This needs its own lesson.</strong> Maker orders, order-book depth, when to take vs. wait, how to think about fees per market — exchange betting has a learning curve that's closer to crypto/stock trading than to traditional sportsbook UX. A dedicated guide is coming.
+      </div>
+    </div>
+  </section>
+
+  <section class="lesson-section">
+    <h3>What this means for your bottom line</h3>
+    <div class="lesson-body">
+      <p>Three concrete advantages versus a traditional book if you're betting seriously:</p>
+      <ul>
+        <li><strong>You don't get cut for winning.</strong> A clean +EV operation that would get you limited at FanDuel within weeks can run for years on ProphetX. The platform makes its flat fee whether you win or lose — they have no incentive to push you out.</li>
+        <li><strong>The price is the price.</strong> No 4-10% vig hidden in the line. The cost of betting is the trade fee on net winnings, which is typically much less than the vig at a traditional book on the same market.</li>
+        <li><strong>You can be the sharp side.</strong> Post your own offers and let other users come to you. If you have a sharp read, you can sit on the price you actually want instead of accepting the market's offer.</li>
+      </ul>
+      <p>Three honest limitations to know before you commit:</p>
+      <ul>
+        <li><strong>Liquidity is finite.</strong> Big-game NFL spreads have plenty of money waiting; midweek MLB props might have $500 sitting on the other side. Some niche markets have no liquidity at all. Plan your bet sizing around the order book, not your bankroll alone.</li>
+        <li><strong>Smaller menu.</strong> No SGPs, fewer prop ladders, no boosted markets. If you want 12-leg same-game parlays, you'll still need a traditional book. If you want clean straight bets at sharp prices, this is the venue.</li>
+        <li><strong>Regional availability.</strong> ProphetX is licensed in a limited number of US states and expanding gradually. Check eligibility before depositing.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="lesson-section">
+    <h3>Where it fits in a portfolio</h3>
+    <div class="lesson-body">
+      <p>If you're running multiple books, ProphetX is best used as your <em>"sharp side"</em> venue:</p>
+      <ul>
+        <li><strong>Soft promo or boost at DraftKings / FanDuel / BetMGM</strong> → take the boosted side at the traditional book, hedge the other side on ProphetX where you won't get limited for hitting promos.</li>
+        <li><strong>+EV bet you found via consensus devig</strong> → if the fair side is available on PX at sharp pricing, take it there. The other leg of your arb (if you're hedging) lives at a traditional book.</li>
+        <li><strong>Bets you'd hold long enough to get flagged</strong> → routine straight-market action on the sharp side gets logged forever at traditional books and eventually triggers limits. The same bets on PX never trip a flag.</li>
+      </ul>
+      <p>It's not your only book. It's the one book that doesn't punish you for being good.</p>
+    </div>
+  </section>
+
+  <section class="lesson-section">
+    <h3>Welcome offer</h3>
+    <div class="lesson-body">
+      <p>ProphetX's new-user promotions change frequently. Common structures over the past year:</p>
+      <ul>
+        <li>Deposit match (50-100% up to a cap)</li>
+        <li>Risk-free first bet</li>
+        <li>Referral credit when you sign up with a code</li>
+      </ul>
+      <p>Use code <strong style="color: var(--purple);">QEO8QG</strong> at signup to apply the referral bonus on top of whatever the current welcome offer is. Exact terms appear on the actual signup page — read them before depositing.</p>
+    </div>
+  </section>
+
+  <section class="lesson-section">
+    <h3>Quick start</h3>
+    <div class="lesson-body">
+      <ol>
+        <li>Sign up at ProphetX with referral code <strong style="color: var(--purple);">QEO8QG</strong> (link below).</li>
+        <li>Verify identity and confirm you're in an eligible state.</li>
+        <li>Deposit. Start small — get familiar with the order book before scaling.</li>
+        <li>Place a <em>taker</em> bet first to learn the flow. Pick a mainstream market with deep liquidity (NFL/NBA moneyline).</li>
+        <li>Try a <em>maker</em> bet next. Post your own offer 1-3 cents better than the market and see if it fills.</li>
+        <li>Read our <a href="/learn-arbitrage.html">arbitrage guide</a> for the playbook that uses PX as the sharp-side hedge.</li>
+      </ol>
+    </div>
+  </section>
+
+  <div class="cta-card">
+    <div class="cta-eyebrow">Ready to try the exchange model?</div>
+    <div class="cta-title">Sign up at ProphetX.</div>
+    <p class="cta-blurb">Open an account through the link below to support the site (same offer, no extra cost to you). Don't forget the referral code at signup.</p>
+    <div class="cta-code">Referral code: <strong>QEO8QG</strong></div>
+    <div>
+      <a href="https://www.prophetx.co" class="cta-btn" target="_blank" rel="nofollow noopener sponsored">Sign Up at ProphetX ↗</a>
+    </div>
+    <div class="cta-fineprint">21+ where legal · Affiliate link · Eligibility varies by state · Read offer terms before depositing</div>
+  </div>
+
+  <div class="footer">
+    <div class="disclaimer">
+      Profit Path Sports is an educational resource. Sportsbook welcome offers, referral terms, fee structures, and state availability vary and change frequently — always check the platform's current terms before signing up or depositing. Sports betting carries financial risk. Bet responsibly. If gambling is a problem for you, call <strong>1-800-GAMBLER</strong>. Must be 21+ where legal.
+    </div>
+    <div>© 2026 Profit Path Sports · <a href="/index.html">Home</a> · <a href="/index.html#books">All Sportsbooks</a> · <a href="/learn-arbitrage.html">Arbitrage Guide</a></div>
+  </div>
+
+</div>
+
+</body>
+</html>
