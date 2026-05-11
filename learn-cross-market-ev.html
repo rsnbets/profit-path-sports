@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cross-Market EV — When the Arb IS the Signal | Profit Path Sports</title>
+<meta name="description" content="When an arb exists between a soft book and a sharp book, one of the two sides has to be +EV. You don't have to hedge — bet only the soft side and capture the full edge. The single most profitable strategy in modern sports betting.">
+
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230a0f1c'/%3E%3Cpolyline points='5,24 12,16 16,19 22,9 27,5' fill='none' stroke='%234ade80' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="Cross-Market EV — When the Arb IS the Signal">
+<meta property="og:description" content="Stop hedging. The arb itself is your detection signal. Bet only the soft side — capture the full edge instead of locking in 2%.">
+<meta property="og:site_name" content="Profit Path Sports">
+<meta name="theme-color" content="#0a0f1c">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;800;900&family=JetBrains+Mono:wght@400;500;700&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root { --bg: #0a0f1c; --panel: #0f1524; --panel-inset: #141a2b; --panel-deep: #0c1120; --border: #1e2638; --border-soft: #141c30; --text: #e5e7eb; --muted: #8b94a8; --dim: #6b7689; --blue: #3d8bff; --blue-glow: rgba(61, 139, 255, 0.18); --yellow: #f5b545; --green: #4ade80; --red: #f87171; --purple: #BC8CFF; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: radial-gradient(ellipse at top, #111a2e 0%, var(--bg) 60%); color: var(--text); font-family: 'JetBrains Mono', ui-monospace, monospace; min-height: 100vh; line-height: 1.5; }
+  .topnav { border-bottom: 1px solid var(--border-soft); background: rgba(10, 15, 28, 0.85); backdrop-filter: blur(8px); position: sticky; top: 0; z-index: 10; }
+  .topnav-inner { max-width: 1100px; margin: 0 auto; padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+  .nav-brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; color: var(--blue); font-family: 'Orbitron', sans-serif; font-size: 13px; letter-spacing: 2.5px; font-weight: 800; text-transform: uppercase; }
+  .nav-brand-chart { display: inline-flex; width: 22px; height: 18px; color: #4ade80; filter: drop-shadow(0 0 6px rgba(74, 222, 128, 0.55)); }
+  .nav-brand-chart svg { width: 100%; height: 100%; }
+  .nav-back { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--muted); text-decoration: none; letter-spacing: 0.5px; transition: color 0.15s; }
+  .nav-back:hover { color: var(--green); }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 32px 20px 80px; }
+  .lesson-hero { margin-bottom: 36px; }
+  .lesson-eyebrow { font-family: 'Orbitron', sans-serif; font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--green); font-weight: 700; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+  .lesson-eyebrow::before { content: '▸'; color: var(--green); font-size: 10px; }
+  .lesson-title { font-family: 'Orbitron', sans-serif; font-size: 40px; font-weight: 900; letter-spacing: 2px; color: var(--text); text-transform: uppercase; line-height: 1.05; margin-bottom: 14px; }
+  .lesson-sub { font-family: 'Rajdhani', sans-serif; font-size: 22px; color: var(--muted); font-weight: 500; letter-spacing: 0.4px; line-height: 1.4; }
+  .lesson-section { margin-bottom: 36px; }
+  .lesson-section h3 { font-family: 'Orbitron', sans-serif; font-size: 18px; letter-spacing: 2px; text-transform: uppercase; color: var(--text); font-weight: 800; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--border-soft); }
+  .lesson-section h4 { font-family: 'Orbitron', sans-serif; font-size: 13px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text); font-weight: 700; margin: 20px 0 10px; }
+  .lesson-body { font-family: 'Rajdhani', sans-serif; font-size: 18px; line-height: 1.7; color: var(--text); letter-spacing: 0.2px; }
+  .lesson-body p { margin-bottom: 16px; }
+  .lesson-body p:last-child { margin-bottom: 0; }
+  .lesson-body strong { color: var(--text); font-weight: 700; }
+  .lesson-body em { color: var(--green); font-style: normal; font-weight: 600; }
+  .lesson-body a { color: var(--green); text-decoration: none; border-bottom: 1px dashed transparent; transition: border-color 0.15s; }
+  .lesson-body a:hover { border-bottom-color: var(--green); }
+  .lesson-body ul, .lesson-body ol { margin: 12px 0 18px; padding-left: 22px; }
+  .lesson-body ul li, .lesson-body ol li { margin-bottom: 8px; }
+
+  .example-block { background: var(--panel-deep); border: 1px solid var(--border-soft); border-left: 3px solid var(--green); border-radius: 12px; padding: 22px 26px; font-family: 'Rajdhani', sans-serif; font-size: 17px; color: var(--text); margin: 22px 0; line-height: 1.7; letter-spacing: 0.2px; font-variant-numeric: tabular-nums; }
+  .example-block.blue { border-left-color: var(--blue); }
+  .example-block.blue .label { color: var(--blue); }
+  .example-block.purple { border-left-color: var(--purple); }
+  .example-block.purple .label { color: var(--purple); }
+  .example-block.red { border-left-color: var(--red); }
+  .example-block.red .label { color: var(--red); }
+  .example-block .label { font-family: 'Orbitron', sans-serif; color: var(--green); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; display: block; margin-bottom: 16px; font-weight: 700; }
+  .example-block .row { display: flex; flex-wrap: wrap; gap: 6px 12px; align-items: baseline; padding: 4px 0; }
+  .example-block .row .src { min-width: 150px; color: var(--muted); font-weight: 600; }
+  .example-block .row .body { flex: 1; }
+  .example-block .row .note { color: var(--dim); font-size: 15px; font-style: italic; }
+  .example-block hr { border: none; border-top: 1px solid var(--border-soft); margin: 12px 0; }
+  .example-block .conclusion { margin-top: 4px; color: var(--text); }
+  .example-block .accent { color: var(--green); font-weight: 700; }
+  .example-block .pos { color: var(--green); font-weight: 700; }
+  .example-block .neg { color: var(--red); font-weight: 700; }
+  .example-block .yel { color: var(--yellow); font-weight: 700; }
+  .example-block .pur { color: var(--purple); font-weight: 700; }
+  .example-block .blu { color: var(--blue); font-weight: 700; }
+
+  .compare-table { width: 100%; border-collapse: collapse; margin: 22px 0; font-family: 'Rajdhani', sans-serif; font-size: 16px; font-variant-numeric: tabular-nums; }
+  .compare-table caption { font-family: 'Orbitron', sans-serif; color: var(--green); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; font-weight: 700; padding-bottom: 14px; text-align: left; }
+  .compare-table th, .compare-table td { padding: 11px 14px; text-align: left; border-bottom: 1px solid var(--border-soft); vertical-align: top; }
+  .compare-table th { font-family: 'Orbitron', sans-serif; font-size: 10px; letter-spacing: 1.8px; text-transform: uppercase; color: var(--dim); font-weight: 700; background: var(--panel-deep); }
+  .compare-table tr:last-child td { border-bottom: none; }
+  .compare-table .topic { color: var(--text); font-weight: 600; }
+  .compare-table .pos { color: var(--green); font-weight: 700; }
+  .compare-table .neg { color: var(--red); font-weight: 700; }
+  .compare-table .yel { color: var(--yellow); font-weight: 700; }
+  .compare-table .pur { color: var(--purple); font-weight: 700; }
+
+  .book-tiers { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 22px 0; }
+  .book-tiers .tier { background: var(--panel-deep); border: 1px solid var(--border-soft); border-radius: 10px; padding: 18px 20px; }
+  .book-tiers .tier.smart { border-left: 3px solid var(--green); }
+  .book-tiers .tier.soft { border-left: 3px solid var(--yellow); }
+  .book-tiers .tier h5 { font-family: 'Orbitron', sans-serif; font-size: 11px; letter-spacing: 1.8px; text-transform: uppercase; font-weight: 800; margin-bottom: 12px; }
+  .book-tiers .tier.smart h5 { color: var(--green); }
+  .book-tiers .tier.soft h5 { color: var(--yellow); }
+  .book-tiers .tier .desc { font-family: 'Rajdhani', sans-serif; font-size: 14.5px; color: var(--muted); margin-bottom: 12px; line-height: 1.5; }
+  .book-tiers .tier .books { display: flex; flex-wrap: wrap; gap: 6px; font-family: 'JetBrains Mono', monospace; font-size: 13px; }
+  .book-tiers .tier .books span { background: var(--panel-inset); border: 1px solid var(--border); padding: 4px 10px; border-radius: 4px; color: var(--text); font-weight: 600; }
+  @media (max-width: 600px) { .book-tiers { grid-template-columns: 1fr; } }
+
+  .warn-block { background: var(--panel-deep); border: 1px solid var(--border-soft); border-left: 3px solid var(--red); border-radius: 10px; padding: 18px 22px; font-family: 'Rajdhani', sans-serif; font-size: 17px; color: var(--text); margin: 18px 0; line-height: 1.6; }
+  .warn-block strong { color: var(--red); }
+  .tip-block { background: var(--panel-deep); border: 1px solid var(--border-soft); border-left: 3px solid var(--green); border-radius: 10px; padding: 18px 22px; font-family: 'Rajdhani', sans-serif; font-size: 17px; color: var(--text); margin: 18px 0; line-height: 1.6; }
+  .tip-block strong { color: var(--green); }
+  .pull-quote { font-family: 'Rajdhani', sans-serif; font-size: 20px; font-style: italic; color: var(--text); border-left: 3px solid var(--yellow); padding: 4px 0 4px 22px; margin: 24px 0; line-height: 1.5; }
+  .cta-card { background: linear-gradient(135deg, rgba(74, 222, 128, 0.10), rgba(74, 222, 128, 0.02)); border: 1px solid var(--green); border-radius: 16px; padding: 32px 28px; margin: 44px 0 32px; text-align: center; box-shadow: 0 0 40px rgba(74, 222, 128, 0.10), 0 20px 60px rgba(0, 0, 0, 0.3); }
+  .cta-eyebrow { font-family: 'Orbitron', sans-serif; font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--green); font-weight: 700; margin-bottom: 10px; }
+  .cta-title { font-family: 'Rajdhani', sans-serif; font-size: 26px; font-weight: 700; color: var(--text); margin-bottom: 8px; letter-spacing: 0.3px; }
+  .cta-blurb { font-family: 'Rajdhani', sans-serif; font-size: 16px; color: var(--muted); line-height: 1.55; max-width: 480px; margin: 0 auto 22px; }
+  .cta-btn { display: inline-flex; align-items: center; gap: 10px; font-family: 'Orbitron', sans-serif; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; font-weight: 800; text-decoration: none; padding: 14px 26px; border-radius: 10px; background: var(--green); color: #06160c; box-shadow: 0 0 22px rgba(74,222,128,0.2); transition: all 0.15s; }
+  .cta-btn:hover { background: #6deea0; transform: translateY(-1px); box-shadow: 0 0 32px rgba(74,222,128,0.35); }
+  .footer { text-align: center; margin-top: 60px; padding: 28px 20px 0; color: var(--dim); font-size: 11px; letter-spacing: 1px; line-height: 1.7; border-top: 1px solid var(--border-soft); }
+  .footer .disclaimer { max-width: 720px; margin: 0 auto 14px; color: var(--dim); font-family: 'Rajdhani', sans-serif; font-size: 13px; letter-spacing: 0.3px; }
+  .footer a { color: var(--muted); text-decoration: none; }
+  .footer a:hover { color: var(--green); }
+  @media (max-width: 600px) {
+    .topnav-inner { padding: 12px 16px; }
+    .nav-brand { font-size: 11px; letter-spacing: 2px; }
+    .wrap { padding: 24px 16px 60px; }
+    .lesson-title { font-size: 28px; letter-spacing: 1.5px; }
+    .lesson-sub { font-size: 18px; }
+    .lesson-body { font-size: 16px; }
+    .lesson-section h3 { font-size: 15px; }
+    .cta-card { padding: 26px 20px; }
+    .cta-title { font-size: 22px; }
+    .pull-quote { font-size: 17px; padding-left: 16px; }
+    .compare-table th, .compare-table td { padding: 9px 8px; font-size: 14px; }
+    .example-block .row .src { min-width: 110px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a class="nav-brand" href="/index.html">
+      <span class="nav-brand-chart" aria-hidden="true">
+        <svg viewBox="0 0 28 22" xmlns="http://www.w3.org/2000/svg" fill="none">
+          <polyline points="2,18 8,12 12,15 18,7 26,3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      Profit Path Sports
+      <span class="nav-brand-chart" aria-hidden="true">
+        <svg viewBox="0 0 28 22" xmlns="http://www.w3.org/2000/svg" fill="none">
+          <polyline points="2,18 8,12 12,15 18,7 26,3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+    </a>
+    <a class="nav-back" href="/index.html#guides">← Strategy Guides</a>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <div class="lesson-hero">
+    <div class="lesson-eyebrow">Concept · Core Strategy</div>
+    <h1 class="lesson-title">Cross-Market EV</h1>
+    <p class="lesson-sub">When an arb exists between a soft book and a sharp book, the math guarantees <em>one side is +EV</em>. The hard part is figuring out which side. The easy part is that the answer is almost always the same: <strong>the soft book</strong>. Stop hedging. Bet only the +EV side. Pocket the full edge.</p>
+  </div>
+
+  <section class="lesson-section">
+    <h3>The thesis in one paragraph</h3>
+    <div class="lesson-body">
+      <p>If two books offer prices on opposite sides of a market that sum to less than 100% implied probability — that's an arb. The conventional play is to bet both sides at sized stakes for a small guaranteed return (typically 1-4%).</p>
+      <p>But here's the math nobody teaches: <strong>when an arb exists, one of the two sides has to be priced incorrectly</strong>. Both books can't be simultaneously offering you better-than-fair odds — that would violate basic probability. One book's price is fair-ish; the other book's price is off in the bettor's favor.</p>
+      <p>That mispriced side is, by definition, a <em>positive expected value</em> bet on its own. You don't have to hedge it. You can just take it, accept the variance, and capture the <strong>full</strong> edge instead of the small arb margin.</p>
+      <p class="pull-quote">The arb is the detection signal. The bet is the soft side, alone. Welcome to the most profitable strategy in modern sports betting.</p>
+    </div>
+  </section>
+
+  <section class="lesson-section">
+    <h3>The math: why one side has to be +EV</h3>
+    <div class="lesson-body">
+      <p>Suppose Book A offers Eagles +130 (43.5% implied) and Book B offers 49ers −115 (53.5% implied). Sum: 97%. That's a 3% arb.</p>
+      <p>For both books to be simultaneously correct, the true probability of an Eagles win would have to be exactly 43.5% AND the true probability of a 49ers win would have to be exactly 53.5% — but those two numbers don't add to 100%. The probabilities of mutually exclusive outcomes <em>must</em> sum to 100% in reality. So at least one of these books has the wrong price.</p>
+
+      <div class="example-block">
+        <span class="label">If true Eagles win prob is 47%</span>
+        <div class="row"><span class="src">Book A — Eagles +130</span><span class="body">Decimal 2.30</span><span class="note">implied 43.5%</span></div>
+        <div class="row"><span class="src">Your true read</span><span class="body">47%</span></div>
+        <div class="row"><span class="src">Eagles EV%</span><span class="body"><span class="pos">+8.1%</span></span><span class="note">P×(dec−1) − (1−P)</span></div>
+        <hr>
+        <div class="row"><span class="src">Book B — 49ers −115</span><span class="body">Decimal 1.870</span><span class="note">implied 53.5%</span></div>
+        <div class="row"><span class="src">49ers true prob</span><span class="body">53%</span></div>
+        <div class="row"><span class="src">49ers EV%</span><span class="body"><span class="neg">−0.9%</span></span></div>
+        <hr>
+        <div class="conclusion"><strong>Eagles +130 is the +EV bet.</strong> 49ers −115 is essentially fair (slightly −EV after vig). The arb's profit margin (3.0%) is a fraction of Eagles' standalone EV (8.1%). Hedging caps your edge at the smaller number; betting only the soft side captures the full 8.1%.</div>
+      </div>
+
+      <p>The key insight: <strong>arbs only exist when one book is wrong</strong>. They don't exist when both books agree on fair price. So if you find one, the math has already done the hard work for you — somewhere in that pair is a +EV bet. Your job is to identify which side and take it.</p>
+    </div>
+  </section>
+
+  <section class="lesson-section">
+    <h3>How to know which side is +EV</h3>
+    <div class="lesson-body">
+      <p>The arb tells you the bet exists. To find which side, you need to know <strong>which book is the sharp one</strong> in the pair. The sharp book is the consensus; the soft book is the outlier. The +EV bet is always at the soft book.</p>
+
+      <p>Books fall into two tiers:</p>
+
+      <div class="book-tiers">
+        <div class="tier smart">
+          <h5>Sharp / Smart books</h5>
+          <p class="desc">Pricing reflects consensus. Lines are set by quants or markets. Their price IS the fair number. If they have a market available with deep liquidity, the price is close to right.</p>
+          <div class="books">
+            <span>Pinnacle</span>
+            <span>Circa</span>
+            <span>Bookmaker</span>
+            <span>ProphetX</span>
+            <span>Novig</span>
+          </div>
+        </div>
+        <div class="tier soft">
+          <h5>Soft / Recreational books</h5>
+          <p class="desc">Pricing reflects recreational action and marketing. Lines drift, boosts get applied, props get sloppy. Their prices are often off — sometimes in your favor, sometimes against. The +EV opportunities live here.</p>
+          <div class="books">
+            <span>DraftKings</span>
+            <span>FanDuel</span>
+            <span>BetMGM</span>
+            <span>Caesars</span>
+            <span>Hard Rock</span>
+            <span>Fanatics</span>
+            <span>ESPN BET</span>
+            <span>PrizePicks</span>
+            <span>Underdog</span>
+            <span>Rebet</span>
+            <span>Dabble</span>
+            <span>Fliff</span>
+            <span>Better</span>
+          </div>
+        </div>
+      </div>
+
+      <p>The decision rule:</p>
+      <ul>
+        <li>Cross-market arb between any <strong>sharp book</strong> on one side and any <strong>soft book</strong> on the other → bet the soft book's side, every time.</li>
+        <li>Cross-market arb between two <strong>sharp books</strong> → rare; if it happens, the bet is on whichever has slightly worse pricing (usually small edge, not worth chasing).</li>
+        <li>Cross-market arb between two <strong>soft books</strong> → harder to know which is the +EV side without a third reference. Treat with caution.</li>
+      </ul>
+      <p>The exchanges (ProphetX, Novig) are the most reliable sharp reference because <strong>trading firms and syndicates set the lines</strong> there. Citadel, hedge funds, and dedicated betting syndicates have realized that pricing sports markets is easier than pricing options — and they're showing up. The exchange price isn't just "a price" — it's the closest thing to true fair value you can find for free.</p>
+    </div>
+  </section>
+
+  <section class="lesson-section">
+    <h3>Liquidity strengthens the signal</h3>
+    <div class="lesson-body">
+      <p>Not every "sharp book" price is equally trustworthy. On exchanges specifically, depth matters. A market with $20,000 of liquidity sitting at a tight spread is a much stronger reference than a market with $200 in a wide one.</p>
+
+      <div class="example-block blue">
+        <span class="label">Liquidity-weighted confidence</span>
+        <div class="row"><span class="src">Soft book price</span><span class="body">FanDuel: <span class="blu">Eagles +135</span></span></div>
+        <div class="row"><span class="src">Sharp ref · weak</span><span class="body">ProphetX: 49ers −118 with $400 of depth</span></div>
+        <div class="row"><span class="src">Sharp ref · strong</span><span class="body">ProphetX: 49ers −118 with <span class="pos">$22,000</span> of depth</span></div>
+        <hr>
+        <div class="conclusion">Both scenarios show the same nominal arb. In the second, you can be highly confident the sharp price is right (trading firms wouldn't post $22k unless they were certain). In the first, the $400 might be one rec bettor. <strong>Take the +EV bet either way — but size up confidently when the sharp side is liquid.</strong></div>
+      </div>
+
+      <p>Practical rule: the more sharp-side liquidity behind the consensus price, the higher your confidence that the soft-side price is the +EV bet. <a href="/learn-exchange-liquidity.html">Reading exchange liquidity</a> goes deep on this — the short version is that big maker depth on the sharp side is real money saying "we believe this price."</p>
+    </div>
+  </section>
+
+  <section class="lesson-section">
+    <h3>Cross-market EV vs. arbing — the trade-off</h3>
+    <div class="lesson-body">
+
+      <table class="compare-table">
+        <caption>Same signal, two ways to play it</caption>
+        <thead>
+          <tr><th>Topic</th><th>Pure arb (hedge both sides)</th><th>Cross-market EV (bet soft side only)</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="topic">Per-cycle return</td>
+            <td>1-4% guaranteed</td>
+            <td class="pos">5-15% expected (larger)</td>
+          </tr>
+          <tr>
+            <td class="topic">Variance</td>
+            <td>Near zero</td>
+            <td class="yel">High — you'll have losing days/weeks</td>
+          </tr>
+          <tr>
+            <td class="topic">Capital required</td>
+            <td>High (stakes both books)</td>
+            <td class="pos">Low (one stake per opportunity)</td>
+          </tr>
+          <tr>
+            <td class="topic">Limit speed</td>
+            <td>Fast — books flag arbing patterns</td>
+            <td class="yel">Faster — you're a one-sided winner now</td>
+          </tr>
+          <tr>
+            <td class="topic">Long-run profit</td>
+            <td>Predictable, modest</td>
+            <td class="pos">Higher in expectation, lumpy in reality</td>
+          </tr>
+          <tr>
+            <td class="topic">Mental discipline</td>
+            <td>Just execute fast</td>
+            <td class="yel">Must accept variance without tilting</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>Cross-market EV captures more value per opportunity but you have to be psychologically prepared to lose 40-50% of your bets on +200 dogs that are +EV at +300 fair. The wins more than offset the losses in the long run — but the long run is hundreds or thousands of bets, not five.</p>
+
+      <div class="warn-block">
+        <strong>Variance reality:</strong> a player on this strategy might be up $50,000 in August and down $5,000 in a single day during August. Both are normal. The math says you win. The week-to-week noise says nothing meaningful. <strong>Track CLV, not P&amp;L.</strong>
+      </div>
+
+      <p>The right approach for most people is a portfolio: arb when the situation calls for it (especially when limits are still healthy at a book), cross-market EV when the edge is big enough and your bankroll can absorb the variance.</p>
+    </div>
+  </section>
+
+  <section class="lesson-section">
+    <h3>The DFS extension — fixed payouts and cross-market math</h3>
+    <div class="lesson-body">
+      <p>The same logic extends to "DFS" pick-em apps — PrizePicks, Underdog, Dabble, Owners Box, Better. These charge effective vig through their fixed payout structures rather than through line pricing. But the underlying probability math is identical.</p>
+
+      <div class="example-block purple">
+        <span class="label">Underdog 6-pick parlay math</span>
+        <div class="row"><span class="src">Payout structure</span><span class="body">6 correct picks → 35× payout (varies; check current terms)</span></div>
+        <div class="row"><span class="src">Effective per-leg juice</span><span class="body">~<span class="pur">−116</span> per leg if every leg were a true 50/50</span></div>
+        <div class="row"><span class="src">Cross-market opportunity</span><span class="body">Find legs where the sharp consensus says the Underdog line is significantly mispriced</span></div>
+        <hr>
+        <div class="conclusion">If Underdog has a player prop at Over 5.5 receptions and the exchange sharp market has the Over implied at +140 (~41.5% fair), Underdog's Over is wildly +EV at the −116 effective price. Take 6 of those, and the parlay's expected value compounds dramatically.</div>
+      </div>
+
+      <p>The strategy is the same: find props where Underdog/PrizePicks is offering a side at effective odds significantly better than sharp consensus, and take those picks in the optimal slip size for the platform. The fixed payout means every leg is implicitly priced at the same juice — your edge per leg compounds across the slip.</p>
+
+      <p>Important: every DFS site has an "optimal slip size" — the configuration where their effective per-leg juice is lowest. On Underdog, 6-pick entries usually beat 3-pick entries. On PrizePicks, 5-pick "flex" entries are often optimal. <strong>Know the math of the platform you're using before you bet</strong>.</p>
+    </div>
+  </section>
+
+  <section class="lesson-section">
+    <h3>How to actually find these in practice</h3>
+    <div class="lesson-body">
+      <p>The strategy works at scale only if you can find cross-market opportunities efficiently. Manual scanning across 10+ books is unrealistic. Tools that do it for you:</p>
+      <ul>
+        <li><strong>Free tier:</strong> <a href="https://picktheodds.app" target="_blank" rel="noopener">Pick the Odds</a> — the free +EV scanner cross-references markets across major US books and exchanges. Best entry point.</li>
+        <li><strong>Paid:</strong> OddsJam's "Sharp Money" plan / cross-market EV tool — explicitly built for this strategy. Surfaces only cross-market mispricings where a soft book is wrong relative to a sharp reference. Higher-resolution data and faster refresh than the free tools.</li>
+        <li><strong>Paid:</strong> Unabated, Betstamp — alternative scanners with similar features.</li>
+      </ul>
+
+      <p>What to look for in any tool:</p>
+      <ul>
+        <li><strong>Cross-market filter</strong> — only show plays where a soft book is mispriced relative to a sharp book/exchange, not raw arbs across two soft books.</li>
+        <li><strong>Liquidity display</strong> — depth on the sharp side. Higher liquidity = higher confidence in the consensus fair.</li>
+        <li><strong>One-click bet</strong> — speed matters; lines move within seconds of being identified by scanners. The first 10-30 seconds is your window before the soft book reprices.</li>
+      </ul>
+
+      <div class="tip-block">
+        <strong>Workflow:</strong> open your scanner, set books to "only my books" (the soft ones you have accounts at), sort by largest opportunity, and click bet on the soft side. Don't overthink — the math has done the heavy lifting. Your job is execution speed.
+      </div>
+    </div>
+  </section>
+
+  <section class="lesson-section">
+    <h3>The risks — what can go wrong</h3>
+    <div class="lesson-body">
+      <ul>
+        <li><strong>Soft book moves before you bet.</strong> Scanner shows the play, you click, the line has moved. Happens often on +EV strategies because scanners are public and many bettors are racing. Accept that you'll miss some.</li>
+        <li><strong>You get limited fast.</strong> Cross-market EV bettors are one-sided winners. Books cap you within days to weeks. Plan for it: build accounts at 10+ books, expect $5-$50 limits within a season at any individual book.</li>
+        <li><strong>The sharp reference is wrong.</strong> Even Pinnacle and exchanges get markets wrong sometimes — especially on niche markets with thin liquidity. Confirm depth before treating a sharp price as gospel.</li>
+        <li><strong>You lose 5 in a row and tilt.</strong> Variance is real. A +EV +250 dog wins ~29% of the time. Five straight losses on properly +EV plays is fully normal. If you can't stomach it, you'll close out winning positions early and lose your edge.</li>
+        <li><strong>Bonus bets confuse the math.</strong> If your stake is partially a bonus bet, the EV calculation changes. Use the <a href="/bonus-converter.html">bonus converter</a> to factor that in.</li>
+        <li><strong>Withdrawal delays.</strong> Books slow-walk winners' withdrawals. Plan cash flow accordingly.</li>
+      </ul>
+
+      <p>None of these break the strategy — they shape it. Discipline + multi-book volume + accepting variance = real long-run profit.</p>
+    </div>
+  </section>
+
+  <section class="lesson-section">
+    <h3>How this fits in your overall approach</h3>
+    <div class="lesson-body">
+      <p>Cross-market EV is the headline strategy connecting the other guides on this site:</p>
+      <ul>
+        <li><a href="/learn-arbitrage.html">Arbitrage</a> is the detection mechanism — when an arb exists, you've found a cross-market opportunity. You choose whether to hedge (lock the small guaranteed return) or bet the soft side only (capture the full EV).</li>
+        <li><a href="/learn-exchange-liquidity.html">Exchange liquidity</a> tells you which side the sharps are on — and how confident the consensus is. Bigger sharp-side depth = higher confidence in the cross-market signal.</li>
+        <li><a href="/learn-top-down-bottom-up.html">Top-down vs. bottom-up</a>: cross-market EV is the purest version of top-down betting. You're not modeling games; you're using the sharp market as your model and shopping for soft prices against it.</li>
+        <li><a href="/learn-prob-gap-vs-ev.html">Probability gap vs. EV</a>: cross-market opportunities have variable EV based on price. A 5% gap on a +400 dog is way more valuable per dollar than a 5% gap on a −300 favorite. Always size by EV, not gap.</li>
+        <li><a href="/bet-x-ray.html">Bet X-Ray</a>: feed the soft and sharp prices into the calculator, get the EV, size with Kelly, and check the verdict. Every cross-market EV bet should go through this pipeline.</li>
+      </ul>
+
+      <p class="pull-quote">Cross-market EV is the engine. Every other guide on this site is either a sensor that feeds the engine or a gauge that confirms it's running right.</p>
+    </div>
+  </section>
+
+  <div class="cta-card">
+    <div class="cta-eyebrow">Run your next cross-market bet through the pipeline</div>
+    <div class="cta-title">Bet X-Ray does the math.</div>
+    <p class="cta-blurb">Plug the sharp-side fair price and your soft-side book price into Bet X-Ray. Get the EV, the Kelly stake, the breakeven, the sensitivity, and the verdict. Everything you need to evaluate a cross-market opportunity in one screen.</p>
+    <a href="/bet-x-ray.html" class="cta-btn">Open Bet X-Ray →</a>
+  </div>
+
+  <div class="footer">
+    <div class="disclaimer">
+      Profit Path Sports is an educational resource. Cross-market EV strategies depend on the assumption that the sharp reference price is correct. Sharp books and exchanges get markets wrong sometimes, especially in thin markets. Sports betting carries financial risk. Bet responsibly. If gambling is a problem for you, call <strong>1-800-GAMBLER</strong>. Must be 21+ where legal.
+    </div>
+    <div>© 2026 Profit Path Sports · <a href="/index.html">Home</a> · <a href="/bet-x-ray.html">Bet X-Ray</a> · <a href="/learn-arbitrage.html">Arbitrage Guide</a> · <a href="/learn-exchange-liquidity.html">Exchange Liquidity</a></div>
+  </div>
+
+</div>
+
+</body>
+</html>
