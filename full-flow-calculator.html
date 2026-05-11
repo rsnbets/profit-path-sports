@@ -563,13 +563,13 @@
       <div class="outputs-grid cols-3">
         <div class="out-box">
           <div class="out-label" id="fairALabel">Fair · Side A</div>
-          <div class="out-value accent empty" id="fairPctA">—</div>
-          <div class="out-sub" id="fairAmerA">— American</div>
+          <div class="out-value accent empty" id="fairAmerA">—</div>
+          <div class="out-sub" id="fairPctA">—</div>
         </div>
         <div class="out-box">
           <div class="out-label" id="fairBLabel">Fair · Side B</div>
-          <div class="out-value accent empty" id="fairPctB">—</div>
-          <div class="out-sub" id="fairAmerB">— American</div>
+          <div class="out-value accent empty" id="fairAmerB">—</div>
+          <div class="out-sub" id="fairPctB">—</div>
         </div>
         <div class="out-box">
           <div class="out-label">Vig in market</div>
@@ -1001,24 +1001,24 @@
     }
 
     if (tp.fairA !== null && tp.fairA > 0 && tp.fairA < 1) {
-      fairPctAEl.textContent = fmtPct(tp.fairA, 2);
-      fairPctAEl.classList.remove('empty');
-      fairAmerAEl.textContent = fmtAmerican(impliedToAmerican(tp.fairA)) + ' American';
-      sideAMini.textContent = '· ' + fmtPct(tp.fairA, 1);
+      fairAmerAEl.textContent = fmtAmerican(impliedToAmerican(tp.fairA));
+      fairAmerAEl.classList.remove('empty');
+      fairPctAEl.textContent = fmtPct(tp.fairA, 2) + ' implied';
+      sideAMini.textContent = '· ' + fmtAmerican(impliedToAmerican(tp.fairA));
     } else {
-      fairPctAEl.textContent = '—'; fairPctAEl.classList.add('empty');
-      fairAmerAEl.textContent = '— American';
+      fairAmerAEl.textContent = '—'; fairAmerAEl.classList.add('empty');
+      fairPctAEl.textContent = '—';
       sideAMini.textContent = '';
     }
 
     if (tp.fairB !== null && tp.fairB > 0 && tp.fairB < 1) {
-      fairPctBEl.textContent = fmtPct(tp.fairB, 2);
-      fairPctBEl.classList.remove('empty');
-      fairAmerBEl.textContent = fmtAmerican(impliedToAmerican(tp.fairB)) + ' American';
-      sideBMini.textContent = '· ' + fmtPct(tp.fairB, 1);
+      fairAmerBEl.textContent = fmtAmerican(impliedToAmerican(tp.fairB));
+      fairAmerBEl.classList.remove('empty');
+      fairPctBEl.textContent = fmtPct(tp.fairB, 2) + ' implied';
+      sideBMini.textContent = '· ' + fmtAmerican(impliedToAmerican(tp.fairB));
     } else {
-      fairPctBEl.textContent = '—'; fairPctBEl.classList.add('empty');
-      fairAmerBEl.textContent = '— American';
+      fairAmerBEl.textContent = '—'; fairAmerBEl.classList.add('empty');
+      fairPctBEl.textContent = '—';
       sideBMini.textContent = '';
     }
 
