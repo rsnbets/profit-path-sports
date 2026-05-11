@@ -93,6 +93,27 @@
     box-shadow: 0 14px 44px rgba(0,0,0,0.45), 0 0 30px rgba(188,140,255,0.08);
     display: block;
     margin: 22px auto 8px;
+    cursor: zoom-in;
+    transition: box-shadow 0.18s ease, transform 0.18s ease;
+  }
+  .real-example-img:hover {
+    box-shadow: 0 18px 52px rgba(0,0,0,0.55), 0 0 44px rgba(188,140,255,0.18);
+    transform: translateY(-1px);
+  }
+  /* Wide-screenshot variant: breaks out of the 760px wrap for dense PTO scans */
+  a.img-link.wide .real-example-img {
+    max-width: min(1100px, 95vw);
+  }
+  a.img-link {
+    display: block;
+    text-decoration: none;
+    border: none;
+  }
+  a.img-link.wide {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(1100px, 95vw);
   }
   .real-example-caption {
     font-family: 'Rajdhani', sans-serif;
@@ -102,6 +123,15 @@
     font-style: italic;
     margin-bottom: 22px;
     letter-spacing: 0.3px;
+  }
+  .real-example-caption .zoom-hint {
+    color: var(--purple);
+    opacity: 0.6;
+    margin-left: 6px;
+    font-style: normal;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
   }
 
   .footer { text-align: center; margin-top: 60px; padding: 28px 20px 0; color: var(--dim); font-size: 11px; letter-spacing: 1px; line-height: 1.7; border-top: 1px solid var(--border-soft); }
@@ -169,8 +199,10 @@
     <div class="lesson-body">
       <p>Below is the ProphetX market detail view for Jake Burger's home runs prop. The market sum is <strong>104.20%</strong> — meaningfully wide.</p>
 
-      <img src="/images/prophetx-burger-hr.png" alt="ProphetX market detail showing Jake Burger Total Home Runs 0.5 with stacked offers at -900/-780/-720 on Under and +510/+500/+490 on Over, 104.20% spread" class="real-example-img">
-      <p class="real-example-caption">ProphetX market detail — Jake Burger HR O/U 0.5 with 104.20% spread</p>
+      <a href="/images/prophetx-burger-hr.png" target="_blank" rel="noopener" class="img-link">
+        <img src="/images/prophetx-burger-hr.png" alt="ProphetX market detail showing Jake Burger Total Home Runs 0.5 with stacked offers at -900/-780/-720 on Under and +510/+500/+490 on Over, 104.20% spread" class="real-example-img">
+      </a>
+      <p class="real-example-caption">ProphetX market detail — Jake Burger HR O/U 0.5 with 104.20% spread<span class="zoom-hint">tap to enlarge</span></p>
 
       <p>Look at the offer stacks. The Under side has three visible prices (the depth at each):</p>
       <ul>
@@ -206,8 +238,10 @@
     <div class="lesson-body">
       <p>Same workflow, on a more illustrative row. Below is the Pick the Odds <em>all books</em> view for MLB Hits showing Brandon Nimmo's O/U 0.5 prop across eight books — including ProphetX as the visible sharp source.</p>
 
-      <img src="/images/picktheodds-nimmo.png" alt="Pick the Odds all-books scan showing Brandon Nimmo Hits O/U 0.5 prices across FanDuel, BetMGM, DraftKings, Caesars, Pinnacle, bet365, ProphetX, and Fanatics" class="real-example-img">
-      <p class="real-example-caption">Pick the Odds — MLB Hits scan, Brandon Nimmo row</p>
+      <a href="/images/picktheodds-nimmo.png" target="_blank" rel="noopener" class="img-link wide">
+        <img src="/images/picktheodds-nimmo.png" alt="Pick the Odds all-books scan showing Brandon Nimmo Hits O/U 0.5 prices across FanDuel, BetMGM, DraftKings, Caesars, Pinnacle, bet365, ProphetX, and Fanatics" class="real-example-img">
+      </a>
+      <p class="real-example-caption">Pick the Odds — MLB Hits scan, Brandon Nimmo row<span class="zoom-hint">tap to enlarge</span></p>
 
       <h4>What's on the row</h4>
       <ul>
