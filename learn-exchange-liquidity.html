@@ -240,6 +240,22 @@
 
       <p class="pull-quote">The available liquidity is the bet sharps are daring you to take — because taking it locks them into the opposite side at the opposite price. That's how the depth got there in the first place.</p>
 
+      <h4>The translation rule (the fastest way to read any book)</h4>
+      <p>Here's the mental shortcut you should run on every line you look at. The displayed price is the <strong>taker's</strong> price — what you'd pay to back that side. The sharp who created that depth is on the <strong>inverse</strong>: the opposite team, at the opposite sign of the same magnitude.</p>
+
+      <div class="example-block">
+        <span class="label">Flip the sign, flip the side</span>
+        <div class="row"><span class="src">Display reads</span><span class="body">Jays <span class="accent">−115</span> with $5,000 available</span></div>
+        <div class="row"><span class="src">Sharp's actual position</span><span class="body">Rays <span class="accent">+115</span> with $5,000 of risk</span></div>
+        <hr>
+        <div class="row"><span class="src">Display reads</span><span class="body">Eagles <span class="accent">+125</span> with $1,200 available</span></div>
+        <div class="row"><span class="src">Sharp's actual position</span><span class="body">49ers <span class="accent">−125</span> with $1,200 of risk</span></div>
+        <hr>
+        <div class="conclusion"><strong>Why this matters:</strong> what you really want to know is what price the sharp got — not what the display shows. The sharp's locked-in price is the threshold you need to <em>beat</em> at a soft book to find a +EV bet on their side. Train yourself to read every offered price as its inverse: "Jays −115 with $5k available" → "the sharp is on Rays at +115 with $5k." Now you can compare directly to what FanDuel is offering you for Rays.</div>
+      </div>
+
+      <p>Run this translation automatically every time you look at a book. The number you care about isn't on the row you're looking at — it's the mirror image on the other side.</p>
+
       <p>Here's that stylized book again, read the right way:</p>
 
       <div class="book-viz">
@@ -551,10 +567,20 @@
         <div class="conclusion"><strong>Three reads from one snapshot, in order of importance:</strong></div>
       </div>
 
-      <h4>Read 1 — the exchange imbalance is screaming</h4>
-      <p>Both ProphetX and Novig show the same pattern: <strong>way more dollars offered for backing the Rays than the Jays</strong>. ProphetX has $1,700 offered to back Rays vs. just $340 to back Jays (5× imbalance). Novig is even more extreme at 20× ($3,600 vs. $176).</p>
+      <h4>Read 1 — apply the translation rule</h4>
+      <p>Don't look at the depth on the Rays side and ask "what are the sharps doing at +109?" Translate it. The depth on Rays +109 means the sharp on the other side is <strong>on Jays at −109</strong> with that capacity. Run the translation on every cell:</p>
 
-      <p>Apply Signal #1: that depth was created by makers <em>laying the Rays</em> — they posted risk to attract bettors to back Rays at +109/+112 because they think Rays are overpriced (won't win 47%-ish of the time as the price implies). <strong>The sharps want the Jays.</strong> The huge maker depth on the Rays side is the signal.</p>
+      <div class="example-block">
+        <span class="label">Translated to sharp positions</span>
+        <div class="row"><span class="src">ProphetX</span><span class="body">$1,700 offered for backing Rays at +109 → <strong>sharp is on Jays at −109 with $1,700</strong></span></div>
+        <div class="row"><span class="src">ProphetX</span><span class="body">$340 offered for backing Jays at −116 → sharp is on Rays at +116 with $340</span></div>
+        <div class="row"><span class="src">Novig</span><span class="body">$3,600 offered for backing Rays at +112 → <strong>sharp is on Jays at −112 with $3,600</strong></span></div>
+        <div class="row"><span class="src">Novig</span><span class="body">$176 offered for backing Jays at −113 → sharp is on Rays at +113 with $176</span></div>
+        <hr>
+        <div class="conclusion">Sharp capital on Jays: <span class="pos">$5,300 (at −109 to −112)</span>. Sharp capital on Rays: <span class="neg">$516</span>. <strong>Sharps want the Jays — and the cheapest price they got was −109.</strong> That's the number you need to beat at a soft book.</div>
+      </div>
+
+      <p>Notice how the translation makes the read instant: instead of squinting at the "Rays +109 with $1.7k" cell and reasoning backwards, you immediately see "sharp got Jays at −109 with $1.7k." The huge depth on the Rays-back side IS the sharp money on Jays — just denominated in the opposite-team / opposite-sign format that the display shows you.</p>
 
       <h4>Read 2 — devig Pinnacle to get a clean fair price</h4>
       <p>Pinnacle's $15k-each-side market is the gold standard reference. Devig the +111 / −120:</p>
@@ -572,10 +598,11 @@
       <p>Circa and the exchanges all cluster around the same number. Consensus fair on Jays: somewhere in the <strong>−113 to −116</strong> range. The Pinnacle limit of $15k says this is a high-confidence market — sharps will trade it at size.</p>
 
       <h4>Read 3 — now go find the soft side</h4>
-      <p>This is the cross-market EV play. Open the soft books — FanDuel, DraftKings, BetMGM, Caesars, Hard Rock, ESPN BET — and check Jays moneyline.</p>
+      <p>The sharp's locked-in Jays price (from Read 1's translation) is <strong>−109</strong> at PX and <strong>−112</strong> at Novig. That's the number we need to beat. Open the soft books — FanDuel, DraftKings, BetMGM, Caesars, Hard Rock, ESPN BET — and check Jays moneyline.</p>
       <ul>
-        <li><strong>Jays at −109 or better at any soft book → take it.</strong> You're getting Jays at a price the sharps would happily pay −113 to −120 for.</li>
-        <li><strong>Jays at +xxx</strong> (rare — would be a stale line or a boost) → grab it immediately, this is a big edge.</li>
+        <li><strong>Jays at −108 or better at any soft book → take it.</strong> You're getting Jays at a price <em>better</em> than the sharps managed to lock in. Cross-market EV.</li>
+        <li><strong>Jays at +xxx</strong> (rare — would be a stale line or a boost) → grab it immediately, that's a big edge.</li>
+        <li><strong>Jays at −109 to −112</strong> → roughly matches what sharps got; small edge; size accordingly.</li>
         <li><strong>Jays at −113 to −120</strong> → soft book matches consensus, no edge.</li>
         <li><strong>Jays at −125 or worse</strong> → soft book is sharper than consensus on this one; pass.</li>
       </ul>
