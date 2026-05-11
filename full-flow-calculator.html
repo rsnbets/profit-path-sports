@@ -483,6 +483,10 @@
   .steps-row .out-box { padding: 10px 6px; }
   .steps-row .out-box .out-value { font-size: 17px; }
   .steps-row .step-sub { display: none; }
+  /* Reserve a matching min-height on both step toolbars so the inputs
+     row below them lines up across columns (Step 1 wraps to 2 rows,
+     Step 2 normally has just 1). */
+  .steps-row .sub-toolbar { min-height: 78px; align-content: center; }
 
   @media (max-width: 760px) {
     .body { padding: 22px 16px; }
