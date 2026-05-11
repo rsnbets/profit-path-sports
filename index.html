@@ -528,6 +528,116 @@
   .footer a { color: var(--muted); text-decoration: none; }
   .footer a:hover { color: var(--blue); }
 
+  /* ── Featured "Bet X-Ray" exclusive tile (sits between hero pitch & path tiles) ── */
+  .exclusive-tile {
+    position: relative;
+    display: block;
+    margin: 22px auto 32px;
+    max-width: 980px;
+    padding: 30px 34px 28px;
+    background: linear-gradient(135deg, rgba(74,222,128,0.10) 0%, rgba(61,139,255,0.04) 100%);
+    border: 1px solid var(--green);
+    border-radius: 18px;
+    text-decoration: none;
+    color: var(--text);
+    box-shadow: 0 0 50px rgba(74,222,128,0.10), 0 24px 60px rgba(0,0,0,0.3);
+    transition: all 0.22s ease;
+    overflow: hidden;
+  }
+  .exclusive-tile::before {
+    content: '';
+    position: absolute;
+    top: -40%; right: -8%;
+    width: 55%; height: 200%;
+    background: radial-gradient(ellipse at center, rgba(74,222,128,0.14) 0%, transparent 65%);
+    pointer-events: none;
+    opacity: 0.85;
+  }
+  .exclusive-tile:hover {
+    transform: translateY(-3px);
+    border-color: #6deea0;
+    box-shadow: 0 0 80px rgba(74,222,128,0.22), 0 32px 70px rgba(0,0,0,0.4);
+  }
+  .exclusive-badge {
+    position: absolute;
+    top: 16px;
+    right: 18px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #06160c;
+    background: var(--green);
+    padding: 5px 12px;
+    border-radius: 4px;
+    font-weight: 800;
+    box-shadow: 0 0 16px rgba(74,222,128,0.45);
+    z-index: 2;
+  }
+  .exclusive-icon {
+    font-size: 40px;
+    line-height: 1;
+    margin-bottom: 10px;
+    filter: drop-shadow(0 0 14px rgba(74,222,128,0.4));
+  }
+  .exclusive-eyebrow {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 10px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--green);
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .exclusive-name {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 38px;
+    font-weight: 900;
+    letter-spacing: 2.5px;
+    color: var(--text);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    line-height: 1;
+  }
+  .exclusive-tagline {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    color: var(--green);
+    font-weight: 600;
+    margin-bottom: 14px;
+  }
+  .exclusive-desc {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 15.5px;
+    line-height: 1.6;
+    color: var(--muted);
+    max-width: 720px;
+    margin-bottom: 20px;
+  }
+  .exclusive-desc strong { color: var(--text); font-weight: 600; }
+  .exclusive-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 800;
+    padding: 13px 22px;
+    border-radius: 10px;
+    background: var(--green);
+    color: #06160c;
+    transition: all 0.15s;
+    box-shadow: 0 0 22px rgba(74,222,128,0.2);
+  }
+  .exclusive-tile:hover .exclusive-cta {
+    background: #6deea0;
+    box-shadow: 0 0 32px rgba(74,222,128,0.36);
+    transform: translateX(2px);
+  }
+
   /* ── Hero lane buttons (4-column tall cards, lanes link to dedicated pages) ── */
   .hero-paths {
     display: grid;
@@ -940,6 +1050,11 @@
     .brand-mark.small .brand-chart { width: 38px; height: 32px; }
     .hero-headline { font-size: 18px; line-height: 1.35; }
     .hero-pitch { font-size: 16px; }
+    .exclusive-tile { padding: 22px 20px; margin: 16px auto 26px; }
+    .exclusive-name { font-size: 28px; letter-spacing: 1.5px; }
+    .exclusive-badge { font-size: 9px; padding: 4px 9px; top: 12px; right: 12px; }
+    .exclusive-icon { font-size: 32px; }
+    .exclusive-desc { font-size: 14.5px; }
     .section { padding: 24px 18px; }
     .section-title { font-size: 18px; }
     .tool-name, .book-name, .donate-name, .coming-name { font-size: 12px; }
@@ -1439,6 +1554,19 @@
       <p class="hero-pitch">
         Free calculators. Structured lesson curriculums. Welcome-offer playbooks. Honest reviews of every sportsbook worth using. <strong>No paywalls, no picks, no signup.</strong>
       </p>
+
+      <a class="exclusive-tile" href="bet-x-ray.html">
+        <span class="exclusive-badge">⚡ Exclusive · Free</span>
+        <div class="exclusive-icon">🩻</div>
+        <div class="exclusive-eyebrow">The Headline Tool</div>
+        <div class="exclusive-name">Bet X-Ray</div>
+        <div class="exclusive-tagline">Devig → EV → Kelly → Verdict · in one shot</div>
+        <p class="exclusive-desc">
+          See straight through any sports bet. The whole sharp-betting pipeline in one free tool — <strong>devig the market, calculate EV, size with Kelly, stress-test against your model error, preview CLV, estimate risk of ruin</strong>, and get a plain-English verdict at the end. <strong>Nothing else like it on the internet.</strong>
+        </p>
+        <span class="exclusive-cta">Launch Bet X-Ray →</span>
+      </a>
+
       <div class="hero-paths">
         <a class="hero-path green" href="lane-bonus.html">
           <div class="hero-path-icon">💰</div>
@@ -1501,11 +1629,11 @@
     </div>
 
     <div class="tools-grid">
-      <a class="tool-card" href="bet-x-ray.html" style="grid-column: span 2; border-color: var(--green);">
+      <a class="tool-card" href="bet-x-ray.html">
         <div class="icon">🩻</div>
-        <div class="tool-name">Bet X-Ray — See Straight Through Any Price</div>
-        <div class="tool-desc">The whole sharp-betting pipeline in one free tool. Devig the market, calculate EV, size with Kelly, sanity-check with breakeven / variance / sensitivity / CLV / risk of ruin. Plain-English verdict at the end. Nothing else like it on the internet.</div>
-        <div class="tool-cta" style="color: var(--green);">Launch Bet X-Ray →</div>
+        <div class="tool-name">Bet X-Ray</div>
+        <div class="tool-desc">The whole sharp-betting pipeline in one tool. Devig → EV → Kelly → Verdict, plus CLV preview, sensitivity, and risk of ruin. Featured up top.</div>
+        <div class="tool-cta">Launch →</div>
       </a>
 
       <a class="tool-card" href="bet-tracker.html">
