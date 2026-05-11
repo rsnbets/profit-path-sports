@@ -97,6 +97,26 @@
   .tip-block { background: var(--panel-deep); border: 1px solid var(--border-soft); border-left: 3px solid var(--green); border-radius: 10px; padding: 18px 22px; font-family: 'Rajdhani', sans-serif; font-size: 17px; color: var(--text); margin: 18px 0; line-height: 1.6; }
   .tip-block strong { color: var(--green); }
   .pull-quote { font-family: 'Rajdhani', sans-serif; font-size: 20px; font-style: italic; color: var(--text); border-left: 3px solid var(--yellow); padding: 4px 0 4px 22px; margin: 24px 0; line-height: 1.5; }
+
+  .real-example-img {
+    width: 100%;
+    max-width: 760px;
+    height: auto;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    box-shadow: 0 14px 44px rgba(0,0,0,0.45), 0 0 30px rgba(74,222,128,0.08);
+    display: block;
+    margin: 22px auto 8px;
+  }
+  .real-example-caption {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 13px;
+    color: var(--dim);
+    text-align: center;
+    font-style: italic;
+    margin-bottom: 22px;
+    letter-spacing: 0.3px;
+  }
   .cta-card { background: linear-gradient(135deg, rgba(74, 222, 128, 0.10), rgba(74, 222, 128, 0.02)); border: 1px solid var(--green); border-radius: 16px; padding: 32px 28px; margin: 44px 0 32px; text-align: center; box-shadow: 0 0 40px rgba(74, 222, 128, 0.10), 0 20px 60px rgba(0, 0, 0, 0.3); }
   .cta-eyebrow { font-family: 'Orbitron', sans-serif; font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--green); font-weight: 700; margin-bottom: 10px; }
   .cta-title { font-family: 'Rajdhani', sans-serif; font-size: 26px; font-weight: 700; color: var(--text); margin-bottom: 8px; letter-spacing: 0.3px; }
@@ -303,6 +323,52 @@
       </div>
 
       <p>The right approach for most people is a portfolio: arb when the situation calls for it (especially when limits are still healthy at a book), cross-market EV when the edge is big enough and your bankroll can absorb the variance.</p>
+    </div>
+  </section>
+
+  <section class="lesson-section">
+    <h3>Real example — a textbook cross-market setup</h3>
+    <div class="lesson-body">
+      <p>Here's the strategy in one screenshot. Below is the Pick the Odds view filtered to the four sharpest sources — Pinnacle (P), ProphetX (X), Circa, and Novig (N) — with the line price and dollar liquidity for each MLB moneyline.</p>
+
+      <img src="/images/picktheodds-jays.png" alt="Pick the Odds screenshot showing MLB moneylines across Pinnacle, ProphetX, Circa, and Novig with line prices and dollar liquidity" class="real-example-img">
+      <p class="real-example-caption">Pick the Odds — sharp-sources-only view of MLB moneylines, with depth shown beneath each price</p>
+
+      <p>Look at the <strong>Rays @ Blue Jays</strong> row (5:07pm). The same four sharp sources, all priced independently — and all converging on the same conclusion.</p>
+
+      <h4>Step 1: read the sharp consensus</h4>
+
+      <div class="example-block">
+        <span class="label">Jays moneyline across four sharp sources</span>
+        <div class="row"><span class="src">Pinnacle</span><span class="body">Rays +111 / Jays −120 · $15k each side</span></div>
+        <div class="row"><span class="src">ProphetX</span><span class="body">Rays +109 / Jays −116</span></div>
+        <div class="row"><span class="src">Circa</span><span class="body">Rays +103 / Jays −115 · $10-11k each side</span></div>
+        <div class="row"><span class="src">Novig</span><span class="body">Rays +112 / Jays −113</span></div>
+        <hr>
+        <div class="conclusion">Four independent sharp sources price the Jays in the <strong>−113 to −120 range</strong>. Pinnacle's $15k limit each side tells you this market has deep institutional confidence. <strong>Devig Pinnacle's +111/−120 → no-vig fair Jays ≈ −115.</strong></div>
+      </div>
+
+      <h4>Step 2: confirm direction via the exchange imbalance</h4>
+      <p>Both ProphetX and Novig (the exchanges) show heavy maker depth on the side <em>backing Rays</em> — meaning makers (sharps) are offering the Rays-back side because they're <strong>laying Rays</strong>. They want bettors to take Rays so they can be locked into Jays. The dollar imbalance is 5× on ProphetX and 20× on Novig.</p>
+      <p>That's a strong directional confirmation: the sharp money wants the Jays. (For the full mechanics of why depth on side A means sharps want side B, see <a href="/learn-exchange-liquidity.html">Reading Exchange Liquidity</a>.)</p>
+
+      <h4>Step 3: shop for the soft side at a recreational book</h4>
+      <p>Now the actual play. Sharp consensus says Jays should be priced around −115. You open the soft books — FanDuel, DraftKings, BetMGM, Caesars, Hard Rock, ESPN BET — and look at Jays moneyline:</p>
+      <ul>
+        <li><strong>Jays at −109 or better at any soft book →</strong> <span style="color: var(--green); font-weight: 700;">cross-market EV bet.</span> Take it. You're getting a sharps-priced side at a meaningful discount.</li>
+        <li><strong>Jays at +xxx</strong> (rare — would be a stale line or a boost) → take it immediately, that's a sizeable edge.</li>
+        <li><strong>Jays at −113 to −120</strong> → soft book matches sharp consensus, no edge to harvest.</li>
+        <li><strong>Jays at −125 or worse</strong> → the soft book is actually <em>sharper</em> on this game than consensus; pass.</li>
+      </ul>
+
+      <div class="tip-block">
+        <strong>This is the entire cross-market EV workflow in one game:</strong>
+        <br>1. Four sharp sources tell you the fair line.
+        <br>2. Exchange depth imbalance confirms direction (sharps want Jays).
+        <br>3. You go shopping for that side at a soft book.
+        <br>4. If you find it cheaper than fair, that's the bet. Click. Done.
+        <br><br>Every cross-market EV bet you ever place looks like this. The screenshot above is your reference template — sharps converging, exchange imbalance confirming, soft books being the venue you bet at. <strong>That's the whole strategy.</strong>
+      </div>
     </div>
   </section>
 
