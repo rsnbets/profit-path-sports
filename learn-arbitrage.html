@@ -366,6 +366,55 @@
   </section>
 
   <section class="lesson-section">
+    <h3>Exchanges (ProphetX, Novig) — the no-limit alternative</h3>
+    <div class="lesson-body">
+      <p>Everything in the previous section assumes you're betting at traditional sportsbooks where the house takes the other side. There's a different kind of book where the limit problem mostly evaporates: <strong>peer-to-peer betting exchanges</strong> like <a href="https://www.prophetx.co" target="_blank" rel="noopener">ProphetX</a> and <a href="https://novig.us" target="_blank" rel="noopener">Novig</a>.</p>
+
+      <p>On an exchange, you're not betting against the book — you're betting against another user. The platform makes its money on a flat trade fee (typically 1-3% of net winnings), not on you losing. They don't care which side wins or how often you win. <strong>There's no gubbing, no flagging, no limit drops on winners.</strong></p>
+
+      <p>Why that matters for arbing:</p>
+      <ul>
+        <li><strong>You don't get cut.</strong> A successful arbing pattern at PrizePicks, FanDuel, or DraftKings will get you limited within weeks. The same pattern at ProphetX or Novig can run indefinitely.</li>
+        <li><strong>You can be the maker.</strong> Post your own offer at the price you want. If someone takes it, you got your fill. If nobody does, you walk away. No price-slippage between scanner and slip.</li>
+        <li><strong>Pricing tends to mirror the sharp market.</strong> Exchange prices converge to consensus because anyone offering an off-market price gets picked off by other users. They're often the "sharp side" of an arb pair against a softer traditional book.</li>
+        <li><strong>Near-zero vig.</strong> Some exchanges charge no commission on losses (only on net winnings); some charge nothing on either side. The implied vig is way under traditional books' 4-10%.</li>
+      </ul>
+
+      <div class="example-block green">
+        <span class="label">A typical exchange arb</span>
+        <div class="row"><span class="src">Traditional book</span><span class="body">Eagles +135 at FanDuel (boost)</span><span class="note">42.6% implied</span></div>
+        <div class="row"><span class="src">Exchange</span><span class="body">49ers −115 on ProphetX</span><span class="note">53.5% implied · ~near-fair</span></div>
+        <hr>
+        <div class="conclusion">Sum of implied: <span class="pos">96.1%</span> → <strong>3.9% arb.</strong><br>FanDuel will limit you for hitting boosts. ProphetX won't — they make their flat fee either way.</div>
+      </div>
+
+      <h4 style="font-family: 'Orbitron', sans-serif; font-size: 13px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text); font-weight: 700; margin: 20px 0 10px;">The catch: liquidity</h4>
+      <p>The constraint isn't a book-imposed limit on you — it's how much money is sitting on the other side of the market waiting to be matched. Exchanges are smaller markets:</p>
+      <ul>
+        <li><strong>Big-game NFL moneylines</strong> on PX often have $5,000-$50,000+ of liquidity available at the posted price. Plenty of room.</li>
+        <li><strong>Smaller markets — NHL props, midweek MLB sides, college games</strong> — might have $100-$1,000 sitting on the other side. You can hit them, but a $2,000 stake will eat through the available liquidity and leave the rest unfilled (or filled at worse prices as you walk up the order book).</li>
+        <li><strong>Very thin markets — first-half lines, niche props, smaller leagues</strong> — may have no liquidity at all. The price is posted but no one's there to take the other side.</li>
+      </ul>
+
+      <p>The mental model swap: at a traditional book, your stake size is limited by <em>what the book will let you bet</em>. At an exchange, your stake size is limited by <em>what other users have offered to take</em>. The first cap shrinks as you win. The second cap is fixed by the depth of the market.</p>
+
+      <div class="tip-block">
+        <strong>Practical play:</strong> use exchanges as the sharp-side leg of arbs you find at traditional books. The traditional book gives you the mispriced soft side (with limit risk); the exchange gives you the fair hedge (with liquidity risk). Together, you get a sustainable arbing operation that traditional-book-only arbers can't run for more than a few months at a stretch.
+      </div>
+
+      <h4 style="font-family: 'Orbitron', sans-serif; font-size: 13px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text); font-weight: 700; margin: 20px 0 10px;">Other trade-offs</h4>
+      <ul>
+        <li><strong>Smaller menu.</strong> Exchanges focus on mainstream US sports (NFL, NBA, MLB, NHL, college). Niche markets and most prop ladders are thin or absent.</li>
+        <li><strong>Slower order matching.</strong> A market order at FanDuel confirms in &lt; 2 seconds. A market order at ProphetX might take 5-10 seconds to fill, longer if the liquidity is partial. The arb execution window matters more.</li>
+        <li><strong>Regional restrictions.</strong> ProphetX and Novig are licensed in fewer states than the big books. Check eligibility before building your workflow around them.</li>
+        <li><strong>Funding frictions.</strong> Deposits and withdrawals can be slower than mainline books. Plan your bankroll cycle accordingly.</li>
+      </ul>
+
+      <p>None of those break the use case — they just shape it. If you can post limit orders, accept that not every bet will fill instantly, and you're betting in markets they cover, exchanges are structurally the best venue for sustained arbing.</p>
+    </div>
+  </section>
+
+  <section class="lesson-section">
     <h3>Arbing vs. straight +EV — when to use each</h3>
     <div class="lesson-body">
 
