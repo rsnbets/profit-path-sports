@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Manual Sharp Scan — Finding Sharp Money by Eye on Pick the Odds | Profit Path Sports</title>
+<meta name="description" content="You don't need a paid scanner to find sharp action. Open Pick the Odds, calibrate your eye to typical liquidity by market type, flag the outliers, drill in. The free workflow that finds 80% of the +EV bets paid tools surface.">
+
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230a0f1c'/%3E%3Cpolyline points='5,24 12,16 16,19 22,9 27,5' fill='none' stroke='%234ade80' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="The Manual Sharp Scan — Finding Sharp Action by Eye">
+<meta property="og:description" content="No paid tool, no model. Just scroll Pick the Odds and learn to spot outsized liquidity. The free workflow that catches most of the same +EV bets scanners do.">
+<meta property="og:site_name" content="Profit Path Sports">
+<meta name="theme-color" content="#0a0f1c">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;800;900&family=JetBrains+Mono:wght@400;500;700&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root { --bg: #0a0f1c; --panel: #0f1524; --panel-inset: #141a2b; --panel-deep: #0c1120; --border: #1e2638; --border-soft: #141c30; --text: #e5e7eb; --muted: #8b94a8; --dim: #6b7689; --blue: #3d8bff; --blue-glow: rgba(61, 139, 255, 0.18); --yellow: #f5b545; --green: #4ade80; --red: #f87171; --purple: #BC8CFF; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: radial-gradient(ellipse at top, #111a2e 0%, var(--bg) 60%); color: var(--text); font-family: 'JetBrains Mono', ui-monospace, monospace; min-height: 100vh; line-height: 1.5; }
+  .topnav { border-bottom: 1px solid var(--border-soft); background: rgba(10, 15, 28, 0.85); backdrop-filter: blur(8px); position: sticky; top: 0; z-index: 10; }
+  .topnav-inner { max-width: 1100px; margin: 0 auto; padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+  .nav-brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; color: var(--blue); font-family: 'Orbitron', sans-serif; font-size: 13px; letter-spacing: 2.5px; font-weight: 800; text-transform: uppercase; }
+  .nav-brand-chart { display: inline-flex; width: 22px; height: 18px; color: #4ade80; filter: drop-shadow(0 0 6px rgba(74, 222, 128, 0.55)); }
+  .nav-brand-chart svg { width: 100%; height: 100%; }
+  .nav-back { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--muted); text-decoration: none; letter-spacing: 0.5px; transition: color 0.15s; }
+  .nav-back:hover { color: var(--green); }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 32px 20px 80px; }
+  .lesson-hero { margin-bottom: 36px; }
+  .lesson-eyebrow { font-family: 'Orbitron', sans-serif; font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--green); font-weight: 700; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+  .lesson-eyebrow::before { content: '▸'; color: var(--green); font-size: 10px; }
+  .lesson-title { font-family: 'Orbitron', sans-serif; font-size: 40px; font-weight: 900; letter-spacing: 2px; color: var(--text); text-transform: uppercase; line-height: 1.05; margin-bottom: 14px; }
+  .lesson-sub { font-family: 'Rajdhani', sans-serif; font-size: 22px; color: var(--muted); font-weight: 500; letter-spacing: 0.4px; line-height: 1.4; }
+  .lesson-section { margin-bottom: 36px; }
+  .lesson-section h3 { font-family: 'Orbitron', sans-serif; font-size: 18px; letter-spacing: 2px; text-transform: uppercase; color: var(--text); font-weight: 800; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--border-soft); }
+  .lesson-section h4 { font-family: 'Orbitron', sans-serif; font-size: 13px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text); font-weight: 700; margin: 20px 0 10px; }
+  .lesson-body { font-family: 'Rajdhani', sans-serif; font-size: 18px; line-height: 1.7; color: var(--text); letter-spacing: 0.2px; }
+  .lesson-body p { margin-bottom: 16px; }
+  .lesson-body p:last-child { margin-bottom: 0; }
+  .lesson-body strong { color: var(--text); font-weight: 700; }
+  .lesson-body em { color: var(--green); font-style: normal; font-weight: 600; }
+  .lesson-body a { color: var(--green); text-decoration: none; border-bottom: 1px dashed transparent; transition: border-color 0.15s; }
+  .lesson-body a:hover { border-bottom-color: var(--green); }
+  .lesson-body ul, .lesson-body ol { margin: 12px 0 18px; padding-left: 22px; }
+  .lesson-body ul li, .lesson-body ol li { margin-bottom: 8px; }
+
+  .example-block { background: var(--panel-deep); border: 1px solid var(--border-soft); border-left: 3px solid var(--green); border-radius: 12px; padding: 22px 26px; font-family: 'Rajdhani', sans-serif; font-size: 17px; color: var(--text); margin: 22px 0; line-height: 1.7; letter-spacing: 0.2px; font-variant-numeric: tabular-nums; }
+  .example-block.blue { border-left-color: var(--blue); }
+  .example-block.blue .label { color: var(--blue); }
+  .example-block.purple { border-left-color: var(--purple); }
+  .example-block.purple .label { color: var(--purple); }
+  .example-block .label { font-family: 'Orbitron', sans-serif; color: var(--green); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; display: block; margin-bottom: 16px; font-weight: 700; }
+  .example-block .row { display: flex; flex-wrap: wrap; gap: 6px 12px; align-items: baseline; padding: 4px 0; }
+  .example-block .row .src { min-width: 150px; color: var(--muted); font-weight: 600; }
+  .example-block .row .body { flex: 1; }
+  .example-block .row .note { color: var(--dim); font-size: 15px; font-style: italic; }
+  .example-block hr { border: none; border-top: 1px solid var(--border-soft); margin: 12px 0; }
+  .example-block .conclusion { margin-top: 4px; color: var(--text); }
+  .example-block .accent { color: var(--green); font-weight: 700; }
+  .example-block .pos { color: var(--green); font-weight: 700; }
+  .example-block .neg { color: var(--red); font-weight: 700; }
+  .example-block .yel { color: var(--yellow); font-weight: 700; }
+
+  .baseline-table { width: 100%; border-collapse: collapse; margin: 22px 0; font-family: 'Rajdhani', sans-serif; font-size: 16px; font-variant-numeric: tabular-nums; }
+  .baseline-table caption { font-family: 'Orbitron', sans-serif; color: var(--green); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; font-weight: 700; padding-bottom: 14px; text-align: left; }
+  .baseline-table th, .baseline-table td { padding: 11px 14px; text-align: left; border-bottom: 1px solid var(--border-soft); vertical-align: top; }
+  .baseline-table th { font-family: 'Orbitron', sans-serif; font-size: 10px; letter-spacing: 1.8px; text-transform: uppercase; color: var(--dim); font-weight: 700; background: var(--panel-deep); }
+  .baseline-table tr:last-child td { border-bottom: none; }
+  .baseline-table .topic { color: var(--text); font-weight: 600; }
+  .baseline-table .pin { color: var(--blue); font-weight: 700; }
+  .baseline-table .exch { color: var(--purple); font-weight: 700; }
+  .baseline-table .flag { color: var(--yellow); font-weight: 700; }
+
+  .warn-block { background: var(--panel-deep); border: 1px solid var(--border-soft); border-left: 3px solid var(--red); border-radius: 10px; padding: 18px 22px; font-family: 'Rajdhani', sans-serif; font-size: 17px; color: var(--text); margin: 18px 0; line-height: 1.6; }
+  .warn-block strong { color: var(--red); }
+  .tip-block { background: var(--panel-deep); border: 1px solid var(--border-soft); border-left: 3px solid var(--green); border-radius: 10px; padding: 18px 22px; font-family: 'Rajdhani', sans-serif; font-size: 17px; color: var(--text); margin: 18px 0; line-height: 1.6; }
+  .tip-block strong { color: var(--green); }
+  .pull-quote { font-family: 'Rajdhani', sans-serif; font-size: 20px; font-style: italic; color: var(--text); border-left: 3px solid var(--yellow); padding: 4px 0 4px 22px; margin: 24px 0; line-height: 1.5; }
+  .cta-card { background: linear-gradient(135deg, rgba(74, 222, 128, 0.10), rgba(74, 222, 128, 0.02)); border: 1px solid var(--green); border-radius: 16px; padding: 32px 28px; margin: 44px 0 32px; text-align: center; box-shadow: 0 0 40px rgba(74, 222, 128, 0.10), 0 20px 60px rgba(0, 0, 0, 0.3); }
+  .cta-eyebrow { font-family: 'Orbitron', sans-serif; font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--green); font-weight: 700; margin-bottom: 10px; }
+  .cta-title { font-family: 'Rajdhani', sans-serif; font-size: 26px; font-weight: 700; color: var(--text); margin-bottom: 8px; letter-spacing: 0.3px; }
+  .cta-blurb { font-family: 'Rajdhani', sans-serif; font-size: 16px; color: var(--muted); line-height: 1.55; max-width: 480px; margin: 0 auto 22px; }
+  .cta-btn { display: inline-flex; align-items: center; gap: 10px; font-family: 'Orbitron', sans-serif; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; font-weight: 800; text-decoration: none; padding: 14px 26px; border-radius: 10px; background: var(--green); color: #06160c; box-shadow: 0 0 22px rgba(74,222,128,0.2); transition: all 0.15s; }
+  .cta-btn:hover { background: #6deea0; transform: translateY(-1px); box-shadow: 0 0 32px rgba(74,222,128,0.35); }
+  .footer { text-align: center; margin-top: 60px; padding: 28px 20px 0; color: var(--dim); font-size: 11px; letter-spacing: 1px; line-height: 1.7; border-top: 1px solid var(--border-soft); }
+  .footer .disclaimer { max-width: 720px; margin: 0 auto 14px; color: var(--dim); font-family: 'Rajdhani', sans-serif; font-size: 13px; letter-spacing: 0.3px; }
+  .footer a { color: var(--muted); text-decoration: none; }
+  .footer a:hover { color: var(--green); }
+  @media (max-width: 600px) {
+    .topnav-inner { padding: 12px 16px; }
+    .nav-brand { font-size: 11px; letter-spacing: 2px; }
+    .wrap { padding: 24px 16px 60px; }
+    .lesson-title { font-size: 28px; letter-spacing: 1.5px; }
+    .lesson-sub { font-size: 18px; }
+    .lesson-body { font-size: 16px; }
+    .lesson-section h3 { font-size: 15px; }
+    .cta-card { padding: 26px 20px; }
+    .cta-title { font-size: 22px; }
+    .pull-quote { font-size: 17px; padding-left: 16px; }
+    .baseline-table th, .baseline-table td { padding: 9px 8px; font-size: 14px; }
+    .example-block .row .src { min-width: 110px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a class="nav-brand" href="/index.html">
+      <span class="nav-brand-chart" aria-hidden="true">
+        <svg viewBox="0 0 28 22" xmlns="http://www.w3.org/2000/svg" fill="none">
+          <polyline points="2,18 8,12 12,15 18,7 26,3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      Profit Path Sports
+      <span class="nav-brand-chart" aria-hidden="true">
+        <svg viewBox="0 0 28 22" xmlns="http://www.w3.org/2000/svg" fill="none">
+          <polyline points="2,18 8,12 12,15 18,7 26,3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+    </a>
+    <a class="nav-back" href="/index.html#guides">← Strategy Guides</a>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <div class="lesson-hero">
+    <div class="lesson-eyebrow">Concept · Free Workflow</div>
+    <h1 class="lesson-title">The Manual Sharp Scan</h1>
+    <p class="lesson-sub">You don't need a paid tool to find sharp action. Open Pick the Odds. Scroll. Let your eye get used to typical liquidity by market type. <strong>The outliers find themselves.</strong> Then translate, devig, shop.</p>
+  </div>
+
+  <section class="lesson-section">
+    <h3>Why this works</h3>
+    <div class="lesson-body">
+      <p>Sharp money doesn't spread itself evenly across every market on the board. It concentrates — in the games and props the sharps have edge on. When a syndicate or a trading firm builds a real position, they put up disproportionate capital. The dollar amounts they post on an exchange are what's available for other people to take. That depth becomes visible on any tool that surfaces order-book liquidity, including <a href="https://picktheodds.app" target="_blank" rel="noopener">Pick the Odds</a>' free tier.</p>
+
+      <p>The opportunity: <strong>most recreational bettors don't even look at exchange depth</strong>. They look at lines. Anyone who scrolls a list of markets with depth visible — and pays attention to which markets have outsized liquidity — sees signals that 95% of the betting public misses.</p>
+
+      <p class="pull-quote">The signals are sitting in plain sight, in plain numbers, on free tools. The only thing that separates the people who profit from them and the people who don't is whether you look — and whether you know what "abnormal" looks like for the market in front of you.</p>
+
+      <p>This is the cheapest, simplest entry point to cross-market EV. No scanner subscription. No model. Just a calibrated eye.</p>
+    </div>
+  </section>
+
+  <section class="lesson-section">
+    <h3>The 10-minute calibration: what "normal" liquidity looks like</h3>
+    <div class="lesson-body">
+      <p>Before you can spot outliers, you need to know the baseline. Open Pick the Odds (sharp-sources view — Pinnacle, ProphetX, Circa, Novig) and scroll through a slate. Without betting anything, just <em>read the depths</em>. After 10-15 minutes you'll have a feel for what's typical. Rough baselines:</p>
+
+      <table class="baseline-table">
+        <caption>Typical pre-game liquidity by market type (US books, sharp sources)</caption>
+        <thead>
+          <tr><th>Market</th><th>Pinnacle</th><th>Exchanges (PX, Novig)</th><th>Outlier threshold</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="topic">NFL ML / spread / total (regular season)</td><td class="pin">$15-25k</td><td class="exch">$5-20k</td><td class="flag">$40k+ on Pinnacle or $30k+ on exchange = unusual</td></tr>
+          <tr><td class="topic">NBA ML / spread / total</td><td class="pin">$10-20k</td><td class="exch">$3-15k</td><td class="flag">$30k+ on exchange = unusual</td></tr>
+          <tr><td class="topic">MLB ML</td><td class="pin">$10-15k</td><td class="exch">$1-10k</td><td class="flag">$20k+ on exchange = unusual</td></tr>
+          <tr><td class="topic">NHL ML</td><td class="pin">$5-10k</td><td class="exch">$1-5k</td><td class="flag">$10k+ on exchange = unusual</td></tr>
+          <tr><td class="topic">Mainline player props (NFL/NBA stars)</td><td class="pin">$3-8k</td><td class="exch">$500-3k</td><td class="flag">$5k+ on exchange = unusual</td></tr>
+          <tr><td class="topic">Player props (MLB hitters/pitchers)</td><td class="pin">$1-3k</td><td class="exch">$200-1.5k</td><td class="flag">$3k+ on exchange = unusual</td></tr>
+          <tr><td class="topic">Niche props (NHL saves, role players)</td><td class="pin">$500-1k</td><td class="exch">$100-500</td><td class="flag">$2k+ on exchange = unusual</td></tr>
+          <tr><td class="topic">Small-league / international</td><td class="pin">$200-500</td><td class="exch">$50-300</td><td class="flag">$1k+ = very unusual</td></tr>
+        </tbody>
+      </table>
+
+      <p>These are rough — actual numbers vary by time of day, news cycle, and market specifics. Don't memorize the table. Just <em>calibrate your eye</em> by scrolling through a real slate. After enough exposure, "this depth looks normal" or "wait, that's a lot for this market" becomes instinctive.</p>
+
+      <div class="tip-block">
+        <strong>Calibration drill:</strong> spend a single Sunday morning scrolling NFL props. Don't bet anything. Just notice how much depth typical props have. By kickoff you'll have built a baseline you can compare against for the rest of the season.
+      </div>
+    </div>
+  </section>
+
+  <section class="lesson-section">
+    <h3>What you're scanning for — three flavors of outlier</h3>
+    <div class="lesson-body">
+      <p>Once you've calibrated, three patterns stand out as you scroll:</p>
+
+      <h4>Outlier 1 — Outsized total depth on a low-volume market</h4>
+      <p>A Tuesday NHL save prop with $3,000 of total maker depth is suspicious. The same prop on a typical Tuesday has maybe $500. The 6× ratio versus baseline is the signal — sharps loaded this market because they have edge.</p>
+
+      <div class="example-block">
+        <span class="label">Outsized depth on a thin market</span>
+        <div class="row"><span class="src">Market</span><span class="body">Tuesday NHL backup goalie · saves over/under</span></div>
+        <div class="row"><span class="src">Typical depth</span><span class="body">~$500 on each side at the exchange</span></div>
+        <div class="row"><span class="src">What you see today</span><span class="body"><span class="accent">$3,000</span> on each side</span></div>
+        <hr>
+        <div class="conclusion"><strong>6× normal.</strong> Something's up. Sharps wouldn't post that much risk on a niche prop without conviction. Drill in: translate the depth, devig the consensus, shop soft books for the side sharps want.</div>
+      </div>
+
+      <h4>Outlier 2 — Lopsided depth (a one-sided book)</h4>
+      <p>Even on a normal-depth market, if one side has way more dollars offered than the other, that's a directional signal. The bigger pile of "available to back side A" depth means sharps are heavily laying side A — meaning <strong>they want side B</strong> (see the <a href="/learn-exchange-liquidity.html">translation rule</a>).</p>
+
+      <div class="example-block blue">
+        <span class="label">Lopsided depth on a normal market</span>
+        <div class="row"><span class="src">Market</span><span class="body">MLB Game ML, on ProphetX</span></div>
+        <div class="row"><span class="src">Side A (back Team A) depth</span><span class="body">$5,200 available</span></div>
+        <div class="row"><span class="src">Side B (back Team B) depth</span><span class="body">$380 available</span></div>
+        <hr>
+        <div class="conclusion"><strong>14× imbalance.</strong> Both numbers are reasonable for MLB, but the gap between them screams. Sharps are heavily laying Team A. Translate: sharps locked in Team B at the inverse price of A's offered line. Go find Team B soft.</div>
+      </div>
+
+      <h4>Outlier 3 — Outsized depth on a normally-thin alt line</h4>
+      <p>Alt lines (Over 1.5 hits, Over 2.5 Ks, etc.) usually have tiny exchange depth — $100-$500. When you see $2,000+ on an alt rung that normally trades $200, sharps have a model that flagged that specific rung as mispriced. The whole alt ladder isn't the signal — the one rung that's loaded is.</p>
+
+      <p>Pair this with the <a href="/learn-alt-ladder.html">Shopping the Alt Ladder</a> playbook for the full execution.</p>
+    </div>
+  </section>
+
+  <section class="lesson-section">
+    <h3>The scan workflow</h3>
+    <div class="lesson-body">
+
+      <ol>
+        <li><strong>Open Pick the Odds.</strong> Filter to sharp sources only (Pinnacle, ProphetX, Circa, Novig) so the noise is gone.</li>
+        <li><strong>Pick a sport and slate.</strong> Today's MLB. Tonight's NBA. Sunday's NFL. Stay in one bucket so your baseline calibration is consistent.</li>
+        <li><strong>Scroll top to bottom.</strong> Don't stop. Don't analyze yet. Just let your eye glide over the dollar amounts. Most cells will look unremarkable.</li>
+        <li><strong>Flag the outliers.</strong> Anything that catches your eye as "wait, that's a lot for this market." Star it, screenshot it, or just remember it.</li>
+        <li><strong>Drill on the flags.</strong> For each flagged market:
+          <ul>
+            <li>Apply the <a href="/learn-exchange-liquidity.html">translation rule</a> — what price did the sharp lock in?</li>
+            <li>Devig Pinnacle's two-way to confirm consensus</li>
+            <li>Compare to the sharp's translated price — is the sharp number better than consensus? If yes, even stronger signal</li>
+            <li>Open the soft books (FanDuel, DraftKings, BetMGM, Caesars, Hard Rock, ESPN BET) and look for that side</li>
+          </ul>
+        </li>
+        <li><strong>Bet.</strong> If you find the side sharps want at a price better than the threshold, take it. Apply the <a href="/learn-cross-market-ev.html">cross-market EV</a> framework for sizing.</li>
+        <li><strong>Move on.</strong> Don't try to force a bet on every flagged market. Some will have already moved at the soft books; some won't have a soft option available. That's fine — you've still trained your eye.</li>
+      </ol>
+
+      <p>Time budget: 20-30 minutes per slate, once you're calibrated. You'll typically find 3-8 genuine flags per slate; 1-3 will become actual bets after the drill-in step.</p>
+    </div>
+  </section>
+
+  <section class="lesson-section">
+    <h3>Pros and cons vs. paid scanners</h3>
+    <div class="lesson-body">
+
+      <table class="baseline-table">
+        <caption>Manual scan vs. paid scanner (OddsJam Sharp Money, etc.)</caption>
+        <thead>
+          <tr><th>Topic</th><th>Manual scan (free)</th><th>Paid scanner</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="topic">Cost</td><td><strong>$0</strong></td><td>$30-150/mo</td></tr>
+          <tr><td class="topic">Speed</td><td>20-30 min per slate</td><td class="flag">Seconds — live alerts</td></tr>
+          <tr><td class="topic">Coverage</td><td>What you scroll past</td><td class="flag">Every market, every book, always</td></tr>
+          <tr><td class="topic">Bets surfaced per day</td><td>3-8 flags, 1-3 bets</td><td class="flag">20-50 plays</td></tr>
+          <tr><td class="topic">Skill required</td><td class="topic"><strong>Pattern recognition (build over weeks)</strong></td><td>Click and bet</td></tr>
+          <tr><td class="topic">Edge per bet</td><td>Comparable</td><td>Comparable</td></tr>
+          <tr><td class="topic">Risk of being copied</td><td>Low — you found the bet</td><td class="flag">Higher — same plays surface for thousands of users</td></tr>
+          <tr><td class="topic">Limit/flag risk</td><td>Lower (your action looks human)</td><td class="flag">Higher (bets look automated, hit same prices as others)</td></tr>
+        </tbody>
+      </table>
+
+      <p>Honest take: <strong>paid scanners scale way better</strong>. If you're betting at volume, OddsJam Sharp Money is worth the subscription. But for a hobbyist or beginner who wants to actually <em>understand</em> what they're betting, the manual scan teaches you the underlying skill — and on a per-bet basis, the edge is similar.</p>
+
+      <p>The right progression: <em>start manual</em> until you can spot the signals reliably. Then layer in a paid scanner for volume. The pattern recognition you built doing it manually makes the scanner outputs make sense, instead of just being a list to click.</p>
+    </div>
+  </section>
+
+  <section class="lesson-section">
+    <h3>When the manual scan works best</h3>
+    <div class="lesson-body">
+      <ul>
+        <li><strong>3-8 hours before kickoff.</strong> Sharps are pricing the market actively; the outliers stand out clearly. Earlier than that and the depth is too thin everywhere.</li>
+        <li><strong>Mainstream sports with deep mainstream markets.</strong> NFL Sunday, NBA primetime, MLB midweek. Enough markets and enough volume that the baseline is well-defined and outliers are visible.</li>
+        <li><strong>Niche markets with predictable baselines.</strong> Player props in established sports. Once you know that NHL save props normally have $500 of depth, $3k is screaming.</li>
+      </ul>
+
+      <p>When to skip the scan:</p>
+      <ul>
+        <li>Lines just opened (no signal yet)</li>
+        <li>Lines have been live for &lt;1 hour after major news (everything's volatile, nothing's calibrated)</li>
+        <li>Off-hours / overnight (no sharp action; thin everywhere)</li>
+        <li>Holiday weeks or unusual scheduling (baseline is broken)</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="lesson-section">
+    <h3>Pitfalls to watch for</h3>
+    <div class="lesson-body">
+      <ul>
+        <li><strong>Big depth ≠ automatic sharp signal.</strong> A normally-deep mainstream market with normal-for-it depth isn't a signal. The signal is <em>outsized relative to baseline for that market type</em>. Calibration matters more than absolute numbers.</li>
+        <li><strong>Old depth isn't the same as fresh depth.</strong> Depth that's been sitting for hours might just be stale offers no one bothered taking. Depth that appeared in the last 15 minutes is a much stronger signal.</li>
+        <li><strong>Lopsided depth on weird props can be one rec bettor with a hot take.</strong> A $1,500 imbalance on a niche prop might be sharp money — or it might be one rich rec bettor backing his hometown guy. Cross-reference with Pinnacle and Circa before taking it as gospel.</li>
+        <li><strong>You will miss things.</strong> Manual scanning is lossy by definition. Accept that a paid scanner would catch bets you didn't see. Don't grind yourself for the misses — focus on what you did catch.</li>
+        <li><strong>The signal degrades fast in liquid markets.</strong> Spotting outsized depth at 10am for a 4pm game is gold. Spotting the same thing at 3:55pm probably means the soft books already moved. Earlier scans = bigger window to find soft prices.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="lesson-section">
+    <h3>How this fits with everything else</h3>
+    <div class="lesson-body">
+      <p>The manual scan is the cheapest, slowest entry point into the cross-market EV framework. The skill compounds — once you can read books by eye, the rest of the system clicks into place faster.</p>
+      <ul>
+        <li><a href="/learn-exchange-liquidity.html">Reading Exchange Liquidity</a> explains the underlying mechanics of every signal you flag (the inversion, translation rule, walls, time-of-day rhythm).</li>
+        <li><a href="/learn-cross-market-ev.html">Cross-Market EV</a> is the strategy you execute once you've drilled into a flag and found a soft-book price worth betting.</li>
+        <li><a href="/learn-arbitrage.html">Arbitrage</a> covers the variant where you'd hedge both sides; manual scanning also surfaces those if you prefer the guaranteed-margin play.</li>
+        <li><a href="/bet-x-ray.html">Bet X-Ray</a> handles the EV / Kelly / verdict math on whatever bet you find.</li>
+      </ul>
+
+      <p class="pull-quote">Build the eye first. Add the tools after. Sharps don't have a secret data feed — they have a calibrated brain. You can train one too.</p>
+    </div>
+  </section>
+
+  <div class="cta-card">
+    <div class="cta-eyebrow">Run your first manual scan</div>
+    <div class="cta-title">Open Pick the Odds. Just scroll.</div>
+    <p class="cta-blurb">Filter to sharp sources, pick today's slate, scroll top to bottom. Don't bet anything on the first run — just calibrate your eye. By the second slate, the outliers will jump out at you.</p>
+    <a href="https://picktheodds.app" class="cta-btn" target="_blank" rel="noopener">Open Pick the Odds ↗</a>
+  </div>
+
+  <div class="footer">
+    <div class="disclaimer">
+      Profit Path Sports is an educational resource. Manual scanning relies on pattern recognition built over time — outlier signals are clearer with experience and can be misleading in low-data environments. Sports betting carries financial risk. Bet responsibly. If gambling is a problem for you, call <strong>1-800-GAMBLER</strong>. Must be 21+ where legal.
+    </div>
+    <div>© 2026 Profit Path Sports · <a href="/index.html">Home</a> · <a href="/learn-exchange-liquidity.html">Reading Exchange Liquidity</a> · <a href="/learn-cross-market-ev.html">Cross-Market EV</a></div>
+  </div>
+
+</div>
+
+</body>
+</html>
