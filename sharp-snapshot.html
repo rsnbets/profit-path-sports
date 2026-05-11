@@ -259,6 +259,7 @@
     margin-bottom: 14px;
   }
   .output-block.translation { border-left: 3px solid var(--purple); }
+  .output-block.conviction { border-left: 3px solid var(--yellow); }
   .output-block.consensus { border-left: 3px solid var(--blue); }
   .output-block.target { border-left: 3px solid var(--green); }
   .output-block-head {
@@ -280,8 +281,63 @@
     background: var(--panel-inset);
   }
   .output-block.translation .output-block-num { color: var(--purple); }
+  .output-block.conviction .output-block-num { color: var(--yellow); }
   .output-block.consensus .output-block-num { color: var(--blue); }
   .output-block.target .output-block-num { color: var(--green); }
+
+  /* Conviction Check ratio cards */
+  .conviction-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  .conviction-card {
+    background: var(--panel-inset);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+  .conviction-card.overflow { border-color: var(--yellow); background: rgba(245,181,69,0.06); }
+  .conviction-card .c-label {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 10px;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    color: var(--dim);
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .conviction-card .c-ratio {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: 0.4px;
+  }
+  .conviction-card .c-ratio.empty { color: var(--dim); font-weight: 400; }
+  .conviction-card .c-ratio.flag { color: var(--yellow); }
+  .conviction-card .c-detail {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 6px;
+    letter-spacing: 0.3px;
+  }
+  .conviction-status {
+    background: var(--panel-inset);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 16px;
+    text-align: center;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 15px;
+    color: var(--text);
+    line-height: 1.4;
+  }
+  .conviction-status.overflow { border-color: var(--yellow); background: rgba(245,181,69,0.06); color: var(--text); }
+  .conviction-status .lbl { color: var(--dim); font-family: 'Orbitron', sans-serif; font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; margin-right: 8px; }
+  .conviction-status strong { color: var(--yellow); font-weight: 700; }
   .output-block-title {
     font-family: 'Orbitron', sans-serif;
     font-size: 13px;
@@ -613,10 +669,35 @@
       </div>
     </div>
 
-    <!-- OUTPUT 2: CONSENSUS FAIR -->
-    <div class="output-block consensus">
+    <!-- OUTPUT 2: CONVICTION CHECK -->
+    <div class="output-block conviction">
       <div class="output-block-head">
         <span class="output-block-num">Output 02</span>
+        <span class="output-block-title">Conviction Check</span>
+      </div>
+
+      <div class="conviction-grid">
+        <div class="conviction-card" id="convA">
+          <div class="c-label">Lay-<span id="convANameLabel">Side A</span> capacity</div>
+          <div class="c-ratio empty" id="convARatio">—</div>
+          <div class="c-detail" id="convADetail">— exchange depth vs book limits</div>
+        </div>
+        <div class="conviction-card" id="convB">
+          <div class="c-label">Lay-<span id="convBNameLabel">Side B</span> capacity</div>
+          <div class="c-ratio empty" id="convBRatio">—</div>
+          <div class="c-detail" id="convBDetail">— exchange depth vs book limits</div>
+        </div>
+      </div>
+
+      <div class="conviction-status" id="convStatus">
+        <span class="lbl">Status</span><span id="convStatusText">— · enter book limits and exchange depth to compare</span>
+      </div>
+    </div>
+
+    <!-- OUTPUT 3: CONSENSUS FAIR -->
+    <div class="output-block consensus">
+      <div class="output-block-head">
+        <span class="output-block-num">Output 03</span>
         <span class="output-block-title">Consensus Fair</span>
       </div>
 
@@ -634,10 +715,10 @@
       </div>
     </div>
 
-    <!-- OUTPUT 3: SOFT-BOOK TARGET -->
+    <!-- OUTPUT 4: SOFT-BOOK TARGET -->
     <div class="output-block target">
       <div class="output-block-head">
-        <span class="output-block-num">Output 03</span>
+        <span class="output-block-num">Output 04</span>
         <span class="output-block-title">Soft-Book Target</span>
       </div>
 
@@ -668,9 +749,10 @@
 
         <p><strong>Inputs.</strong> Use American odds (e.g. <em>−110</em>, <em>+135</em>). For the dollar amounts: Pinnacle and Circa are book limits (the max they'll book at that line); ProphetX and Novig are exchange order-book depth (real user-posted money). Leave any source blank if Pick the Odds doesn't show it for that market.</p>
 
-        <p><strong>The three outputs:</strong></p>
+        <p><strong>The four outputs:</strong></p>
         <ul>
           <li><em>Sharp Translation</em> — translates exchange depth to the sharp's actual position (flip side, flip sign). Tallies how much sharp capital sits on each side and shows the imbalance ratio.</li>
+          <li><em>Conviction Check</em> — compares exchange depth to book limits on each side. <strong>When exchange depth exceeds book limits, sharps wanted more capacity than the books would underwrite</strong> — they overflowed onto the exchange. That's a strong conviction signal and a leading indicator of line movement.</li>
           <li><em>Consensus Fair</em> — weighted no-vig fair price across the available sources. Pinnacle and Novig get the heaviest weight since they're the deepest references.</li>
           <li><em>Soft-Book Target</em> — the price you need to beat at a soft book to capture cross-market EV. The "primary" side is whichever the sharps want (heavier imbalance); the "secondary" side is the other one, lower-edge by default.</li>
         </ul>
@@ -889,7 +971,97 @@
       imbTxt.textContent = '— · waiting for exchange inputs';
     }
 
-    // ─── Output 02: Consensus Fair (weighted devig) ───
+    // ─── Output 02: Conviction Check (exchange depth vs book limits) ───
+    // Both book limits and exchange depth represent capacity to LAY each side.
+    // When exchange depth exceeds book limits, sharps are deploying more capital on the
+    // exchange than the books themselves are willing to underwrite — a strong conviction
+    // signal that line movement is likely.
+    document.getElementById('convANameLabel').textContent = sideAName;
+    document.getElementById('convBNameLabel').textContent = sideBName;
+
+    let bookLayA = 0, bookLayB = 0;
+    BOOKS.forEach(src => {
+      const d = data[src];
+      if (d.aAmt !== null) bookLayA += d.aAmt;
+      if (d.bAmt !== null) bookLayB += d.bAmt;
+    });
+    let exchLayA = 0, exchLayB = 0;
+    EXCHANGES.forEach(src => {
+      const d = data[src];
+      if (d.aAmt !== null) exchLayA += d.aAmt;
+      if (d.bAmt !== null) exchLayB += d.bAmt;
+    });
+
+    const convAEl = document.getElementById('convARatio');
+    const convBEl = document.getElementById('convBRatio');
+    const convADet = document.getElementById('convADetail');
+    const convBDet = document.getElementById('convBDetail');
+    const convACard = document.getElementById('convA');
+    const convBCard = document.getElementById('convB');
+    const convStatus = document.getElementById('convStatus');
+    const convStatusText = document.getElementById('convStatusText');
+
+    function renderConv(exch, book, ratioEl, detEl, cardEl) {
+      if (book > 0 && exch > 0) {
+        const r = exch / book;
+        ratioEl.textContent = (r >= 100 ? r.toFixed(0) : r.toFixed(2)) + '×';
+        ratioEl.classList.remove('empty');
+        ratioEl.classList.toggle('flag', r >= 1);
+        cardEl.classList.toggle('overflow', r >= 1);
+        detEl.textContent = `${fmtDollar(exch)} exchange / ${fmtDollar(book)} books`;
+        return r;
+      } else if (exch > 0 && book === 0) {
+        ratioEl.textContent = '∞';
+        ratioEl.classList.remove('empty'); ratioEl.classList.add('flag');
+        cardEl.classList.add('overflow');
+        detEl.textContent = `${fmtDollar(exch)} exchange · no book limits entered`;
+        return Infinity;
+      } else if (exch === 0 && book > 0) {
+        ratioEl.textContent = '0×';
+        ratioEl.classList.remove('empty', 'flag');
+        cardEl.classList.remove('overflow');
+        detEl.textContent = `no exchange depth · ${fmtDollar(book)} books`;
+        return 0;
+      } else {
+        ratioEl.textContent = '—'; ratioEl.classList.add('empty'); ratioEl.classList.remove('flag');
+        cardEl.classList.remove('overflow');
+        detEl.textContent = '— exchange depth vs book limits';
+        return null;
+      }
+    }
+    const rA = renderConv(exchLayA, bookLayA, convAEl, convADet, convACard);
+    const rB = renderConv(exchLayB, bookLayB, convBEl, convBDet, convBCard);
+
+    // Status text - which side (if any) has the overflow?
+    let convOverflow = null;
+    if (rA !== null && rB !== null) {
+      if (rA >= 1 && rB >= 1) {
+        const heavier = rA > rB ? 'A' : 'B';
+        convOverflow = heavier;
+        const heavierName = heavier === 'A' ? sideAName : sideBName;
+        convStatus.classList.add('overflow');
+        convStatusText.innerHTML = `Exchange depth exceeds book limits on <strong>both sides</strong> — heaviest on the lay-${heavierName} side. <strong>High sharp conviction</strong>; expect line movement.`;
+      } else if (rA >= 1) {
+        convOverflow = 'A';
+        convStatus.classList.add('overflow');
+        convStatusText.innerHTML = `Exchange depth laying <strong>${sideAName}</strong> exceeds the books' capacity by <strong>${rA.toFixed(2)}×</strong>. Sharps want ${sideBName} with high conviction — line movement likely.`;
+      } else if (rB >= 1) {
+        convOverflow = 'B';
+        convStatus.classList.add('overflow');
+        convStatusText.innerHTML = `Exchange depth laying <strong>${sideBName}</strong> exceeds the books' capacity by <strong>${rB.toFixed(2)}×</strong>. Sharps want ${sideAName} with high conviction — line movement likely.`;
+      } else {
+        convStatus.classList.remove('overflow');
+        convStatusText.innerHTML = `Exchange depth is below book limits on both sides — sharps haven't overflowed the books. Normal conviction.`;
+      }
+    } else if (rA !== null || rB !== null) {
+      convStatus.classList.remove('overflow');
+      convStatusText.innerHTML = `Partial inputs — enter both book limits and exchange depths for a full comparison.`;
+    } else {
+      convStatus.classList.remove('overflow');
+      convStatusText.innerHTML = '— · enter book limits and exchange depth to compare';
+    }
+
+    // ─── Output 03: Consensus Fair (weighted devig) ───
     let weightedSumA = 0, weightedSumB = 0, totalWeight = 0;
     SOURCES.forEach(src => {
       const [fA, fB] = fairs[src];
@@ -1009,6 +1181,17 @@
       } else {
         vClass = 'flat'; vTitle = 'Balanced book';
         vBody = 'Sharp money is roughly balanced — no clear directional signal from exchange depth. Use the consensus fair price as your reference and shop soft books normally.';
+      }
+
+      // If conviction overflow aligns with the imbalance signal, escalate the verdict.
+      // convOverflow = 'A' means exchange depth offered for backing A exceeds book limits on A,
+      // which translates to sharps laying A → wanting B. So convOverflow='A' aligns with
+      // heavySide='B' (and vice versa). They confirm each other when they're on OPPOSITE labels.
+      if (convOverflow && (convOverflow !== heavySide || imbalanceRatio === Infinity)) {
+        const overflowDisplaySide = convOverflow === 'A' ? sideAName : sideBName;
+        vClass = 'strong';
+        vTitle = vTitle === 'Strong sharp signal' ? 'Strong sharp signal · conviction overflow' : vTitle + ' · conviction overflow';
+        vBody += ` <strong style="color: var(--yellow);">Plus: exchange depth available to back ${overflowDisplaySide} exceeds book limits — sharps wanted more lay-${overflowDisplaySide} capacity than the books would allow. High conviction; line movement likely.</strong>`;
       }
     }
 
