@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Beating Sharps in Wide Markets — Posting Your Own Offer | Profit Path Sports</title>
+<meta name="description" content="On wide exchange markets, you don't have to take the existing best price — you can post your own offer slightly better and get matched first. The maker tactic for niche props, long-shot markets, and anywhere the spread is loose.">
+
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230a0f1c'/%3E%3Cpolyline points='5,24 12,16 16,19 22,9 27,5' fill='none' stroke='%234ade80' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="Beating Sharps in Wide Markets — Posting Your Own Offer">
+<meta property="og:description" content="Stop taking the existing price. On wide markets, post your own offer just under the sharp's and get matched first.">
+<meta property="og:site_name" content="Profit Path Sports">
+<meta name="theme-color" content="#0a0f1c">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;800;900&family=JetBrains+Mono:wght@400;500;700&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root { --bg: #0a0f1c; --panel: #0f1524; --panel-inset: #141a2b; --panel-deep: #0c1120; --border: #1e2638; --border-soft: #141c30; --text: #e5e7eb; --muted: #8b94a8; --dim: #6b7689; --blue: #3d8bff; --blue-glow: rgba(61, 139, 255, 0.18); --yellow: #f5b545; --green: #4ade80; --red: #f87171; --purple: #BC8CFF; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: radial-gradient(ellipse at top, #111a2e 0%, var(--bg) 60%); color: var(--text); font-family: 'JetBrains Mono', ui-monospace, monospace; min-height: 100vh; line-height: 1.5; }
+  .topnav { border-bottom: 1px solid var(--border-soft); background: rgba(10, 15, 28, 0.85); backdrop-filter: blur(8px); position: sticky; top: 0; z-index: 10; }
+  .topnav-inner { max-width: 1100px; margin: 0 auto; padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+  .nav-brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; color: var(--blue); font-family: 'Orbitron', sans-serif; font-size: 13px; letter-spacing: 2.5px; font-weight: 800; text-transform: uppercase; }
+  .nav-brand-chart { display: inline-flex; width: 22px; height: 18px; color: #4ade80; filter: drop-shadow(0 0 6px rgba(74, 222, 128, 0.55)); }
+  .nav-brand-chart svg { width: 100%; height: 100%; }
+  .nav-back { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--muted); text-decoration: none; letter-spacing: 0.5px; transition: color 0.15s; }
+  .nav-back:hover { color: var(--purple); }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 32px 20px 80px; }
+  .lesson-hero { margin-bottom: 36px; }
+  .lesson-eyebrow { font-family: 'Orbitron', sans-serif; font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--purple); font-weight: 700; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+  .lesson-eyebrow::before { content: '▸'; color: var(--purple); font-size: 10px; }
+  .lesson-title { font-family: 'Orbitron', sans-serif; font-size: 40px; font-weight: 900; letter-spacing: 2px; color: var(--text); text-transform: uppercase; line-height: 1.05; margin-bottom: 14px; }
+  .lesson-sub { font-family: 'Rajdhani', sans-serif; font-size: 22px; color: var(--muted); font-weight: 500; letter-spacing: 0.4px; line-height: 1.4; }
+  .lesson-section { margin-bottom: 36px; }
+  .lesson-section h3 { font-family: 'Orbitron', sans-serif; font-size: 18px; letter-spacing: 2px; text-transform: uppercase; color: var(--text); font-weight: 800; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--border-soft); }
+  .lesson-section h4 { font-family: 'Orbitron', sans-serif; font-size: 13px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text); font-weight: 700; margin: 20px 0 10px; }
+  .lesson-body { font-family: 'Rajdhani', sans-serif; font-size: 18px; line-height: 1.7; color: var(--text); letter-spacing: 0.2px; }
+  .lesson-body p { margin-bottom: 16px; }
+  .lesson-body p:last-child { margin-bottom: 0; }
+  .lesson-body strong { color: var(--text); font-weight: 700; }
+  .lesson-body em { color: var(--purple); font-style: normal; font-weight: 600; }
+  .lesson-body a { color: var(--purple); text-decoration: none; border-bottom: 1px dashed transparent; transition: border-color 0.15s; }
+  .lesson-body a:hover { border-bottom-color: var(--purple); }
+  .lesson-body ul, .lesson-body ol { margin: 12px 0 18px; padding-left: 22px; }
+  .lesson-body ul li, .lesson-body ol li { margin-bottom: 8px; }
+
+  .example-block { background: var(--panel-deep); border: 1px solid var(--border-soft); border-left: 3px solid var(--purple); border-radius: 12px; padding: 22px 26px; font-family: 'Rajdhani', sans-serif; font-size: 17px; color: var(--text); margin: 22px 0; line-height: 1.7; letter-spacing: 0.2px; font-variant-numeric: tabular-nums; }
+  .example-block .label { font-family: 'Orbitron', sans-serif; color: var(--purple); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; display: block; margin-bottom: 16px; font-weight: 700; }
+  .example-block .row { display: flex; flex-wrap: wrap; gap: 6px 12px; align-items: baseline; padding: 4px 0; }
+  .example-block .row .src { min-width: 150px; color: var(--muted); font-weight: 600; }
+  .example-block .row .body { flex: 1; }
+  .example-block .row .note { color: var(--dim); font-size: 15px; font-style: italic; }
+  .example-block hr { border: none; border-top: 1px solid var(--border-soft); margin: 12px 0; }
+  .example-block .conclusion { margin-top: 4px; color: var(--text); }
+  .example-block .accent { color: var(--purple); font-weight: 700; }
+  .example-block .pos { color: var(--green); font-weight: 700; }
+  .example-block .neg { color: var(--red); font-weight: 700; }
+  .example-block .yel { color: var(--yellow); font-weight: 700; }
+
+  .width-table { width: 100%; border-collapse: collapse; margin: 22px 0; font-family: 'Rajdhani', sans-serif; font-size: 16px; font-variant-numeric: tabular-nums; }
+  .width-table caption { font-family: 'Orbitron', sans-serif; color: var(--purple); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; font-weight: 700; padding-bottom: 14px; text-align: left; }
+  .width-table th, .width-table td { padding: 11px 14px; text-align: left; border-bottom: 1px solid var(--border-soft); vertical-align: top; }
+  .width-table th { font-family: 'Orbitron', sans-serif; font-size: 10px; letter-spacing: 1.8px; text-transform: uppercase; color: var(--dim); font-weight: 700; background: var(--panel-deep); }
+  .width-table tr:last-child td { border-bottom: none; }
+  .width-table .topic { color: var(--text); font-weight: 600; }
+  .width-table .narrow { color: var(--blue); font-weight: 700; }
+  .width-table .normal { color: var(--green); font-weight: 700; }
+  .width-table .wide { color: var(--yellow); font-weight: 700; }
+  .width-table .very-wide { color: var(--purple); font-weight: 700; }
+
+  .warn-block { background: var(--panel-deep); border: 1px solid var(--border-soft); border-left: 3px solid var(--red); border-radius: 10px; padding: 18px 22px; font-family: 'Rajdhani', sans-serif; font-size: 17px; color: var(--text); margin: 18px 0; line-height: 1.6; }
+  .warn-block strong { color: var(--red); }
+  .tip-block { background: var(--panel-deep); border: 1px solid var(--border-soft); border-left: 3px solid var(--green); border-radius: 10px; padding: 18px 22px; font-family: 'Rajdhani', sans-serif; font-size: 17px; color: var(--text); margin: 18px 0; line-height: 1.6; }
+  .tip-block strong { color: var(--green); }
+  .pull-quote { font-family: 'Rajdhani', sans-serif; font-size: 20px; font-style: italic; color: var(--text); border-left: 3px solid var(--yellow); padding: 4px 0 4px 22px; margin: 24px 0; line-height: 1.5; }
+  .cta-card { background: linear-gradient(135deg, rgba(188, 140, 255, 0.08), rgba(188, 140, 255, 0.02)); border: 1px solid var(--purple); border-radius: 16px; padding: 32px 28px; margin: 44px 0 32px; text-align: center; box-shadow: 0 0 40px rgba(188, 140, 255, 0.08), 0 20px 60px rgba(0, 0, 0, 0.3); }
+  .cta-eyebrow { font-family: 'Orbitron', sans-serif; font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--purple); font-weight: 700; margin-bottom: 10px; }
+  .cta-title { font-family: 'Rajdhani', sans-serif; font-size: 26px; font-weight: 700; color: var(--text); margin-bottom: 8px; letter-spacing: 0.3px; }
+  .cta-blurb { font-family: 'Rajdhani', sans-serif; font-size: 16px; color: var(--muted); line-height: 1.55; max-width: 480px; margin: 0 auto 22px; }
+  .cta-btn { display: inline-flex; align-items: center; gap: 10px; font-family: 'Orbitron', sans-serif; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; font-weight: 800; text-decoration: none; padding: 14px 26px; border-radius: 10px; background: var(--purple); color: #1a0f2a; box-shadow: 0 0 22px rgba(188,140,255,0.2); transition: all 0.15s; }
+  .cta-btn:hover { background: #cea6ff; transform: translateY(-1px); box-shadow: 0 0 32px rgba(188,140,255,0.35); }
+
+  .real-example-img {
+    width: 100%;
+    max-width: 760px;
+    height: auto;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    box-shadow: 0 14px 44px rgba(0,0,0,0.45), 0 0 30px rgba(188,140,255,0.08);
+    display: block;
+    margin: 22px auto 8px;
+  }
+  .real-example-caption {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 13px;
+    color: var(--dim);
+    text-align: center;
+    font-style: italic;
+    margin-bottom: 22px;
+    letter-spacing: 0.3px;
+  }
+
+  .footer { text-align: center; margin-top: 60px; padding: 28px 20px 0; color: var(--dim); font-size: 11px; letter-spacing: 1px; line-height: 1.7; border-top: 1px solid var(--border-soft); }
+  .footer .disclaimer { max-width: 720px; margin: 0 auto 14px; color: var(--dim); font-family: 'Rajdhani', sans-serif; font-size: 13px; letter-spacing: 0.3px; }
+  .footer a { color: var(--muted); text-decoration: none; }
+  .footer a:hover { color: var(--purple); }
+  @media (max-width: 600px) {
+    .topnav-inner { padding: 12px 16px; }
+    .nav-brand { font-size: 11px; letter-spacing: 2px; }
+    .wrap { padding: 24px 16px 60px; }
+    .lesson-title { font-size: 28px; letter-spacing: 1.5px; }
+    .lesson-sub { font-size: 18px; }
+    .lesson-body { font-size: 16px; }
+    .lesson-section h3 { font-size: 15px; }
+    .cta-card { padding: 26px 20px; }
+    .cta-title { font-size: 22px; }
+    .pull-quote { font-size: 17px; padding-left: 16px; }
+    .width-table th, .width-table td { padding: 9px 8px; font-size: 14px; }
+    .example-block .row .src { min-width: 110px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a class="nav-brand" href="/index.html">
+      <span class="nav-brand-chart" aria-hidden="true">
+        <svg viewBox="0 0 28 22" xmlns="http://www.w3.org/2000/svg" fill="none">
+          <polyline points="2,18 8,12 12,15 18,7 26,3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      Profit Path Sports
+      <span class="nav-brand-chart" aria-hidden="true">
+        <svg viewBox="0 0 28 22" xmlns="http://www.w3.org/2000/svg" fill="none">
+          <polyline points="2,18 8,12 12,15 18,7 26,3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+    </a>
+    <a class="nav-back" href="/index.html#guides">← Strategy Guides</a>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <div class="lesson-hero">
+    <div class="lesson-eyebrow">Concept · Maker Strategy</div>
+    <h1 class="lesson-title">Beating Sharps in Wide Markets</h1>
+    <p class="lesson-sub">On a wide exchange market, you don't have to take whatever price is showing. You can post your own offer <em>just better</em> than the current best — and get matched first. The maker move for niche props, long-shot markets, and anywhere the spread is loose enough to slide into.</p>
+  </div>
+
+  <section class="lesson-section">
+    <h3>The setup: what "wide" means</h3>
+    <div class="lesson-body">
+      <p>Every two-way market has an implied probability sum across its best two prices. On a tight, fully-priced market, that sum is close to 100% — there's no room to slide in between the offers. On a <strong>wide</strong> market, the sum is meaningfully above 100% (say 102-110%), meaning the gap between the best-back and best-lay prices is large.</p>
+
+      <p>Wide markets exist for a reason: they're <em>thinner</em>. Fewer participants. Slower repricing. Less competition between makers. That looseness is the opportunity.</p>
+
+      <p class="pull-quote">In a tight market, you take whatever's available. In a wide market, you don't take — you <em>post</em>. Squeezing in between the existing offers is where the edge lives.</p>
+    </div>
+  </section>
+
+  <section class="lesson-section">
+    <h3>Real example — Jake Burger Total Home Runs O/U 0.5</h3>
+    <div class="lesson-body">
+      <p>Below is the ProphetX market detail view for Jake Burger's home runs prop. The market sum is <strong>104.20%</strong> — meaningfully wide.</p>
+
+      <img src="/images/prophetx-burger-hr.png" alt="ProphetX market detail showing Jake Burger Total Home Runs 0.5 with stacked offers at -900/-780/-720 on Under and +510/+500/+490 on Over, 104.20% spread" class="real-example-img">
+      <p class="real-example-caption">ProphetX market detail — Jake Burger HR O/U 0.5 with 104.20% spread</p>
+
+      <p>Look at the offer stacks. The Under side has three visible prices (the depth at each):</p>
+      <ul>
+        <li><strong>−720 (best, $49 available)</strong> — this is the cheapest offer for someone wanting to back the Under</li>
+        <li>−780 ($177)</li>
+        <li>−900 ($45)</li>
+      </ul>
+
+      <p>And on the Over side:</p>
+      <ul>
+        <li><strong>+510 (best, $32 available)</strong> — this is the most attractive Over price available</li>
+        <li>+500 ($850)</li>
+        <li>+490 ($33)</li>
+      </ul>
+
+      <h4>Read the room</h4>
+      <p>The deep offer is at <strong>+500 with $850</strong> on the Over side. That's where some maker sat on a big position. But there's a <strong>$32 offer at +510</strong> sitting in front of it — someone slid in at a better price (1.96% better) to be first in line. Same on the Under: the $177 sits at −780, but a $49 offer at −720 is in front of it — also better. <strong>Someone is making this play already.</strong> They watched a wide market and posted their own offer just under the existing best to capture the next taker.</p>
+
+      <p>That's the maker move. Two things made it possible:</p>
+      <ol>
+        <li>The market is wide enough (104.20%) that there's room for a new offer to be inside the existing best without crossing</li>
+        <li>The existing offers are thin enough ($45-$850) that competition for marginal improvements is realistic</li>
+      </ol>
+
+      <div class="tip-block">
+        <strong>The takeaway:</strong> wide markets on niche props are <em>posting</em> opportunities, not <em>taking</em> opportunities. The current best price isn't your ceiling — you can post a slightly better one and let the next backer find you.
+      </div>
+    </div>
+  </section>
+
+  <section class="lesson-section">
+    <h3>How to identify a wide market</h3>
+    <div class="lesson-body">
+      <p>Look at the implied probability sum across the two best prices. Translate American to implied %, add them up. The sum is your "vig" or "market width":</p>
+
+      <table class="width-table">
+        <caption>Market width → tactical implication</caption>
+        <thead>
+          <tr><th>Sum of implied probabilities</th><th>Width</th><th>Tactic</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="topic">100.0% - 100.5%</td><td class="narrow">Razor-tight</td><td>Take, don't post. No room to improve.</td></tr>
+          <tr><td class="topic">100.5% - 102.0%</td><td class="normal">Standard</td><td>Take. Minimal posting opportunity.</td></tr>
+          <tr><td class="topic">102.0% - 104.0%</td><td class="wide">Wide</td><td>Post. 1-3 cents better is possible.</td></tr>
+          <tr><td class="topic">104.0% - 107.0%</td><td class="very-wide">Very wide</td><td>Post aggressively. Big improvement headroom.</td></tr>
+          <tr><td class="topic">107.0%+</td><td class="very-wide">Niche / illiquid</td><td>Post if you have an opinion. Otherwise pass.</td></tr>
+        </tbody>
+      </table>
+
+      <p>Where wide markets live, typically:</p>
+      <ul>
+        <li><strong>Player props on niche markets</strong> — HR props, stolen bases, role-player point totals, anything where the volume is low</li>
+        <li><strong>Long-shot props</strong> — first goal scorer, anytime touchdown for backup RB, anything with implied probability below 30%</li>
+        <li><strong>Lower-tier games or leagues</strong> — Tuesday-night NHL, midweek WNBA, college props that aren't in OddsJam's main feed</li>
+        <li><strong>Alternate lines</strong> — Over 2.5 hits, Over 3.5 strikeouts, anywhere off the mainline</li>
+        <li><strong>Late nights or off hours</strong> — markets that don't get the attention of peak-volume windows</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="lesson-section">
+    <h3>How aggressive to undercut</h3>
+    <div class="lesson-body">
+      <p>The fundamental trade-off when posting in a wide market:</p>
+      <ul>
+        <li><strong>Bigger undercut</strong> (e.g., post at +540 when best is +510) → much better fill price if you get matched, BUT lower chance of being matched and you may have to wait longer or watch the market move</li>
+        <li><strong>Smaller undercut</strong> (e.g., post at +515 when best is +510) → high probability of being matched first, BUT only marginal improvement on the existing best</li>
+      </ul>
+
+      <p>Rules of thumb:</p>
+      <ul>
+        <li><strong>1-2 cents better than current best:</strong> safe. You almost always get matched first if a taker arrives. Use this when you suspect a taker is coming soon (close to game time, market is heating up).</li>
+        <li><strong>5-10 cents better:</strong> moderate. You might wait longer or get jumped by another maker. Use when the market is sleepy and you can afford to wait.</li>
+        <li><strong>20+ cents better:</strong> aggressive. Only use if you think the current best price is meaningfully off-market — e.g., you have a model that says fair is way different.</li>
+      </ul>
+
+      <div class="example-block">
+        <span class="label">Sliding in on the Burger HR example</span>
+        <div class="row"><span class="src">Current best Over</span><span class="body">+510 with $32 available</span></div>
+        <div class="row"><span class="src">Conservative post</span><span class="body"><span class="accent">+515</span> with your stake — almost guaranteed to be matched first if a taker arrives</span></div>
+        <div class="row"><span class="src">Moderate post</span><span class="body"><span class="accent">+525</span> with your stake — small wait, decent improvement</span></div>
+        <div class="row"><span class="src">Aggressive post</span><span class="body"><span class="accent">+540 to +560</span> — bigger improvement, real risk of not getting filled</span></div>
+        <hr>
+        <div class="conclusion">Pick the level based on your time horizon and conviction. If you're scrolling for opportunities, a conservative +515 keeps you in line; if you have a strong view that Burger goes yard, an aggressive +560 lets the market come to you.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="lesson-section">
+    <h3>The play, end to end</h3>
+    <div class="lesson-body">
+      <ol>
+        <li><strong>Scan the exchange</strong> for niche markets — player props, long-shot bets, alternate lines.</li>
+        <li><strong>Find a wide market</strong> with implied-prob sum &gt; 102%. The 104%+ examples are gold.</li>
+        <li><strong>Identify the side you want</strong> using the <a href="/learn-exchange-liquidity.html">translation rule</a> — read the existing depth, figure out where sharps are positioned. Or just bet a side you have a real opinion on.</li>
+        <li><strong>Calculate your post price</strong> — 1-5 cents better than current best, depending on aggressiveness.</li>
+        <li><strong>Post your offer</strong> at that price with the stake you'd be happy with.</li>
+        <li><strong>Wait.</strong> Either you get matched (great — you got a price the existing market wouldn't have given you), or you don't (cancel and move on to the next opportunity).</li>
+      </ol>
+
+      <p>That's the entire workflow. No models, no advanced math — just the discipline to <em>not take what's offered</em> and instead post your own better price.</p>
+    </div>
+  </section>
+
+  <section class="lesson-section">
+    <h3>When to post vs. when to take</h3>
+    <div class="lesson-body">
+
+      <table class="width-table">
+        <caption>Posting vs. taking — the basic decision</caption>
+        <thead>
+          <tr><th>Situation</th><th>Best move</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="topic">Tight market (100-102%), price meaningfully better than soft books</td>
+            <td class="narrow">Take. Take now, before it moves.</td>
+          </tr>
+          <tr>
+            <td class="topic">Wide market (102-105%), no rush</td>
+            <td class="wide">Post 1-3 cents better than best.</td>
+          </tr>
+          <tr>
+            <td class="topic">Wide market, urgent (game starting soon)</td>
+            <td>Take the best available. Posting risks no fill.</td>
+          </tr>
+          <tr>
+            <td class="topic">Very wide market (105%+), early in the day</td>
+            <td class="very-wide">Post aggressively. You have time to find a taker.</td>
+          </tr>
+          <tr>
+            <td class="topic">Wide market on a side you don't care about</td>
+            <td>Pass. Posting requires conviction or a held opinion.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>The simplest heuristic: <strong>if the market is wide and you have time, post. If it's tight or urgent, take.</strong></p>
+    </div>
+  </section>
+
+  <section class="lesson-section">
+    <h3>Risks and how to manage them</h3>
+    <div class="lesson-body">
+      <ul>
+        <li><strong>You don't get filled.</strong> The market moves, the taker arrives at a different price, or another maker undercuts you with an even better offer. Mitigation: don't post on time-sensitive bets where you have to act before kickoff.</li>
+        <li><strong>The line moves against you.</strong> News drops, the favorite gets sharper, your offered price now sits at a soft-side level. Mitigation: cancel and re-post if you can monitor; otherwise, accept the variance — your offer is a limit order, not a market order, and limit orders can become stale.</li>
+        <li><strong>Another maker leapfrogs you.</strong> You post +515, someone else posts +518. Now you're behind in line. Mitigation: post a few cents better than you'd like (e.g., +520 when only +515 is needed) to leave headroom for being undercut.</li>
+        <li><strong>Game starts before fill.</strong> Most exchanges automatically cancel unfilled offers at game time. You walk away with neither the bet nor the exposure — no harm done, just no edge captured.</li>
+        <li><strong>Big stake, thin book.</strong> If you post $2,000 in a market where typical fills are $50, you're advertising yourself as a sharp or whale. Make-and-cancel a few times to build a normal-looking footprint, or split the order across multiple posts.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="lesson-section">
+    <h3>Why this is a sharp move — not a hack</h3>
+    <div class="lesson-body">
+      <p>The maker tactic isn't about exploiting a glitch in the system. It's exactly how stock and crypto traders interact with their own order books. The maker who posts a limit order at a slightly better price than the existing best <em>is</em> the market on that price — by offering, they set the new reference. If a taker arrives, they fill at the new better price.</p>
+
+      <p>In sports betting, almost no rec bettors do this. They scroll through the exchange like a sportsbook, take whatever's showing, and move on. That leaves <strong>all the maker headroom for everyone else</strong> — and the "everyone else" is mostly the same trading firms and syndicates we talked about in <a href="/learn-exchange-liquidity.html">Reading Exchange Liquidity</a>.</p>
+
+      <p class="pull-quote">Most bettors are takers. The sharps are makers. The gap between those two roles, on a wide market, is your edge — if you bother to post instead of click.</p>
+    </div>
+  </section>
+
+  <section class="lesson-section">
+    <h3>How this fits with the rest of the framework</h3>
+    <div class="lesson-body">
+      <ul>
+        <li>Use <a href="/learn-exchange-liquidity.html">Reading Exchange Liquidity</a> to identify which side the existing sharps are positioned on. Post on the side they want — you align with consensus and capture the spread.</li>
+        <li>Use <a href="/learn-manual-scan.html">The Manual Sharp Scan</a> to find candidate wide markets in the first place. Outlier depth often correlates with wide markets that have room for new posts.</li>
+        <li>The <a href="/learn-cross-market-ev.html">Cross-Market EV</a> framework still applies — once you've identified a wide market and figured out which side is sharp, the posting tactic is just a more capital-efficient way to take that side.</li>
+        <li>Run your posted offer's effective price through <a href="/bet-x-ray.html">Bet X-Ray</a> to confirm EV before posting.</li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="cta-card">
+    <div class="cta-eyebrow">Start posting</div>
+    <div class="cta-title">Open ProphetX. Find a wide market. Don't take — post.</div>
+    <p class="cta-blurb">Niche props, long-shot bets, alternate lines on smaller leagues — anywhere the spread runs above 102%. Slide in 1-3 cents better than the current best and let the next taker find you.</p>
+    <a href="/book-prophetx.html" class="cta-btn">Open ProphetX Info →</a>
+  </div>
+
+  <div class="footer">
+    <div class="disclaimer">
+      Profit Path Sports is an educational resource. Posting limit offers on betting exchanges carries fill-risk — your offer may not get matched. Sports betting carries financial risk. Bet responsibly. If gambling is a problem for you, call <strong>1-800-GAMBLER</strong>. Must be 21+ where legal.
+    </div>
+    <div>© 2026 Profit Path Sports · <a href="/index.html">Home</a> · <a href="/learn-exchange-liquidity.html">Reading Exchange Liquidity</a> · <a href="/learn-manual-scan.html">The Manual Sharp Scan</a> · <a href="/book-prophetx.html">ProphetX</a></div>
+  </div>
+
+</div>
+
+</body>
+</html>
