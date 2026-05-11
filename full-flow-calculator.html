@@ -207,6 +207,8 @@
     transition: all 0.12s;
   }
   .pill:hover { color: var(--text); }
+  .side-fair-mini { font-size: 9px; opacity: 0.75; margin-left: 4px; font-weight: 600; }
+  .pill.active .side-fair-mini { opacity: 0.9; }
   .step.blue   .pill.active { background: var(--blue); color: #06101e; }
   .step.yellow .pill.active { background: var(--yellow); color: #181208; }
   .step.green  .pill.active { background: var(--green); color: #06160c; }
@@ -528,14 +530,14 @@
 
       <div class="outputs-grid cols-3">
         <div class="out-box">
-          <div class="out-label">Fair %</div>
-          <div class="out-value accent empty" id="fairPct">—</div>
-          <div class="out-sub" id="fairPctSub">—</div>
+          <div class="out-label" id="fairALabel">Fair · Side A</div>
+          <div class="out-value accent empty" id="fairPctA">—</div>
+          <div class="out-sub" id="fairAmerA">— American</div>
         </div>
         <div class="out-box">
-          <div class="out-label">Fair (no-vig) odds</div>
-          <div class="out-value accent empty" id="fairAmer">—</div>
-          <div class="out-sub" id="fairAmerSub">— decimal</div>
+          <div class="out-label" id="fairBLabel">Fair · Side B</div>
+          <div class="out-value accent empty" id="fairPctB">—</div>
+          <div class="out-sub" id="fairAmerB">— American</div>
         </div>
         <div class="out-box">
           <div class="out-label">Vig in market</div>
@@ -560,8 +562,8 @@
       <div class="sub-toolbar" id="sideToolbar">
         <span class="sub-label">Side I'm betting</span>
         <div class="pill-group" id="sideGroup">
-          <button class="pill active" data-side="A">Side A</button>
-          <button class="pill" data-side="B">Side B</button>
+          <button class="pill active" data-side="A">Side A <span class="side-fair-mini" id="sideAMini"></span></button>
+          <button class="pill" data-side="B">Side B <span class="side-fair-mini" id="sideBMini"></span></button>
         </div>
       </div>
 
@@ -947,34 +949,55 @@
     const pTrue = sideA ? tp.fairA : tp.fairB;
     const otherP = sideA ? tp.fairB : tp.fairA;
 
-    // Step 1 outputs
-    const fairPctEl = document.getElementById('fairPct');
-    const fairPctSubEl = document.getElementById('fairPctSub');
-    const fairAmerEl = document.getElementById('fairAmer');
-    const fairAmerSubEl = document.getElementById('fairAmerSub');
+    // Step 1 outputs — show BOTH sides' fair prices
+    const fairPctAEl = document.getElementById('fairPctA');
+    const fairPctBEl = document.getElementById('fairPctB');
+    const fairAmerAEl = document.getElementById('fairAmerA');
+    const fairAmerBEl = document.getElementById('fairAmerB');
+    const fairALabelEl = document.getElementById('fairALabel');
+    const fairBLabelEl = document.getElementById('fairBLabel');
     const vigEl = document.getElementById('marketVig');
+    const sideAMini = document.getElementById('sideAMini');
+    const sideBMini = document.getElementById('sideBMini');
 
-    if (pTrue !== null && pTrue > 0 && pTrue < 1) {
-      fairPctEl.textContent = fmtPct(pTrue, 2);
-      fairPctEl.classList.remove('empty');
-      fairPctSubEl.textContent = state.source === 'market' ? `Side ${state.side} fair` : 'Your projection';
-      const fairAmer = impliedToAmerican(pTrue);
-      const fairDec = 1 / pTrue;
-      fairAmerEl.textContent = fmtAmerican(fairAmer);
-      fairAmerEl.classList.remove('empty');
-      fairAmerSubEl.textContent = fairDec.toFixed(3) + ' decimal';
-      if (tp.vig !== null && state.source === 'market') {
-        vigEl.textContent = (tp.vig * 100).toFixed(2) + '%';
-        vigEl.classList.remove('empty');
-      } else {
-        vigEl.textContent = '—';
-        vigEl.classList.add('empty');
-      }
+    // Update labels based on mode
+    if (state.source === 'model') {
+      fairALabelEl.textContent = 'Your projection';
+      fairBLabelEl.textContent = 'Implied other side';
     } else {
-      fairPctEl.textContent = '—'; fairPctEl.classList.add('empty');
-      fairPctSubEl.textContent = '—';
-      fairAmerEl.textContent = '—'; fairAmerEl.classList.add('empty');
-      fairAmerSubEl.textContent = '— decimal';
+      fairALabelEl.textContent = 'Fair · Side A';
+      fairBLabelEl.textContent = 'Fair · Side B';
+    }
+
+    if (tp.fairA !== null && tp.fairA > 0 && tp.fairA < 1) {
+      fairPctAEl.textContent = fmtPct(tp.fairA, 2);
+      fairPctAEl.classList.remove('empty');
+      fairAmerAEl.textContent = fmtAmerican(impliedToAmerican(tp.fairA)) + ' American';
+      sideAMini.textContent = '· ' + fmtPct(tp.fairA, 1);
+    } else {
+      fairPctAEl.textContent = '—'; fairPctAEl.classList.add('empty');
+      fairAmerAEl.textContent = '— American';
+      sideAMini.textContent = '';
+    }
+
+    if (tp.fairB !== null && tp.fairB > 0 && tp.fairB < 1) {
+      fairPctBEl.textContent = fmtPct(tp.fairB, 2);
+      fairPctBEl.classList.remove('empty');
+      fairAmerBEl.textContent = fmtAmerican(impliedToAmerican(tp.fairB)) + ' American';
+      sideBMini.textContent = '· ' + fmtPct(tp.fairB, 1);
+    } else {
+      fairPctBEl.textContent = '—'; fairPctBEl.classList.add('empty');
+      fairAmerBEl.textContent = '— American';
+      sideBMini.textContent = '';
+    }
+
+    if (tp.vig !== null && state.source === 'market') {
+      vigEl.textContent = (tp.vig * 100).toFixed(2) + '%';
+      vigEl.classList.remove('empty');
+    } else if (state.source === 'model') {
+      vigEl.textContent = '0.00%';
+      vigEl.classList.remove('empty');
+    } else {
       vigEl.textContent = '—'; vigEl.classList.add('empty');
     }
 
