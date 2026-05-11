@@ -202,6 +202,52 @@
   </section>
 
   <section class="lesson-section">
+    <h3>Another real example — Brandon Nimmo Hits O/U 0.5</h3>
+    <div class="lesson-body">
+      <p>Same workflow, on a more illustrative row. Below is the Pick the Odds <em>all books</em> view for MLB Hits showing Brandon Nimmo's O/U 0.5 prop across eight books — including ProphetX as the visible sharp source.</p>
+
+      <img src="/images/picktheodds-nimmo.png" alt="Pick the Odds all-books scan showing Brandon Nimmo Hits O/U 0.5 prices across FanDuel, BetMGM, DraftKings, Caesars, Pinnacle, bet365, ProphetX, and Fanatics" class="real-example-img">
+      <p class="real-example-caption">Pick the Odds — MLB Hits scan, Brandon Nimmo row</p>
+
+      <h4>What's on the row</h4>
+      <ul>
+        <li><strong>Soft-book consensus on Over</strong>: roughly −216 to −230 across FanDuel, DraftKings, BetMGM, Caesars</li>
+        <li><strong>ProphetX (the sharp/exchange source)</strong>: Over <strong>−219 ($136 depth)</strong> / Under <strong>+139 ($104 depth)</strong></li>
+        <li><strong>Fanatics</strong>: −245 / +145 (sharper-leaning soft book)</li>
+        <li><strong>bet365 outlier</strong>: −280 / <strong>+202</strong> (way off the consensus on both sides)</li>
+      </ul>
+
+      <p>Compute the ProphetX spread: −219 implied 68.65% + +139 implied 41.84% = <strong>110.49%</strong>. That's a <em>very wide</em> market — over 10 cents of vig between the two sides. Per our width table, this is in the "niche/illiquid, post if you have an opinion" tier.</p>
+
+      <h4>The maker play — swoop in and beat the current best</h4>
+      <p>The current best on ProphetX is +139 to back Under (and −219 to back Over). The spread is 110%, so there's massive room to post inside the existing offers.</p>
+
+      <div class="example-block">
+        <span class="label">Posting the Under at a better price</span>
+        <div class="row"><span class="src">Current best</span><span class="body">Under +139 with $104 available</span></div>
+        <div class="row"><span class="src">Conservative post</span><span class="body"><span class="accent">Under +150</span> — slightly better, high fill probability</span></div>
+        <div class="row"><span class="src">Moderate post</span><span class="body"><span class="accent">Under +170</span> — significantly better, decent fill probability in a thin market</span></div>
+        <div class="row"><span class="src">Aggressive post</span><span class="body"><span class="accent">Under +185 to +195</span> — close to the bet365 outlier price; needs a backer with a strong Over view</span></div>
+        <hr>
+        <div class="conclusion">A +170 or +180 fill on Under is way better than the +139 currently sitting at the top of the book. With 110% spread, there's room to move the offered price up by 30-50 cents and still be a competitive offer to backers.</div>
+      </div>
+
+      <h4>The dual play — bet365 is also a soft outlier</h4>
+      <p>Notice bet365 is <em>way</em> off the consensus on both sides — Over at −280 (much sharper than −220 average) and Under at <strong>+202</strong> (much more generous than +139 on PX or +145 on Fanatics). That's a textbook <a href="/learn-cross-market-ev.html">cross-market EV</a> setup separately from the posting tactic:</p>
+      <ul>
+        <li><strong>Cross-market EV play</strong>: take <strong>Under at +202 on bet365</strong>. Devig PX's +139/−219 → no-vig fair Under ≈ 37.9% (~+165 American). bet365's +202 implies 33.1% — roughly a <strong>4.8-point probability gap</strong> in your favor on a single line.</li>
+        <li><strong>Maker play</strong>: post Under on PX at +170-+180 and let a backer find you, capturing the spread without taking the soft-book line.</li>
+      </ul>
+
+      <p>The two plays aren't mutually exclusive — you could do both if your bankroll splits across the books. Or pick the higher-EV one (bet365's +202 is hard to beat unless you're confident you'll get filled at +180+ on PX).</p>
+
+      <div class="tip-block">
+        <strong>The lesson:</strong> wide markets don't just enable posting — they coexist with cross-market opportunities at soft books. Always scan the full row before deciding whether to take, post, or both.
+      </div>
+    </div>
+  </section>
+
+  <section class="lesson-section">
     <h3>How to identify a wide market</h3>
     <div class="lesson-body">
       <p>Look at the implied probability sum across the two best prices. Translate American to implied %, add them up. The sum is your "vig" or "market width":</p>
