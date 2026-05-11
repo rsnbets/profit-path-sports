@@ -206,78 +206,94 @@
   </section>
 
   <section class="lesson-section">
-    <h3>What you're looking at</h3>
+    <h3>What you're actually looking at (the most important inversion)</h3>
     <div class="lesson-body">
-      <p>An exchange shows two sides for every market — bids and offers, or in betting terms, "I'll back this" and "I'll lay this." Here's a stylized book for a simple moneyline:</p>
+      <p>This is the part that flips the way most people read a book — and the part you have to internalize before any of the other signals make sense.</p>
+
+      <p>When you see <em>"Eagles +115 · $4,200 available"</em> on the exchange, that doesn't mean somebody bought Eagles at +115 with $4,200. It means <strong>somebody is offering that bet to you</strong>. They've posted $4,200 of capacity for someone to back Eagles at +115. They are the maker. They wrote the bet. The dollar amount you're looking at is the amount of risk they took on to make that side available.</p>
+
+      <p>And to take that risk, <strong>they are on the other side of the trade.</strong> When you click "back Eagles at +115" for $1,000, the maker collects your $1,000 and pays out $1,150 if Eagles win. They're effectively betting <em>against</em> Eagles at +115 — they want 49ers.</p>
+
+      <div class="warn-block">
+        <strong>Read this twice:</strong> high liquidity available to back side A means <strong>sharps want side B</strong>. The depth was created by makers (often sharps) who put up risk to offer side A — because they think side A is too generous and they want bettors to take it. They're not endorsing side A. They're <em>laying</em> it. The volume on side A is sharp conviction <em>against</em> side A.
+      </div>
+
+      <p class="pull-quote">The available liquidity is the bet sharps are daring you to take — because taking it locks them into the opposite side at the opposite price. That's how the depth got there in the first place.</p>
+
+      <p>Here's that stylized book again, read the right way:</p>
 
       <div class="book-viz">
-        <span class="viz-label">Eagles vs. 49ers · ML order book · Eagles side</span>
+        <span class="viz-label">Eagles vs. 49ers · backing Eagles · order book</span>
         <table class="book-table">
           <thead>
-            <tr><th>Price</th><th>Liquidity</th><th>$ Available</th></tr>
+            <tr><th>Price (back Eagles)</th><th>Available to take</th><th>$ Available</th></tr>
           </thead>
           <tbody>
-            <tr><td colspan="3" class="label-row">Best offers (you can take these now)</td></tr>
+            <tr><td colspan="3" class="label-row">Offers posted by makers (the sharps laying Eagles)</td></tr>
             <tr><td class="price">+115</td><td><span class="liq-bar" style="width:180px;"></span></td><td class="amount">$4,200</td></tr>
             <tr><td class="price">+118</td><td><span class="liq-bar" style="width:90px;"></span></td><td class="amount">$2,100</td></tr>
             <tr><td class="price">+120</td><td><span class="liq-bar" style="width:50px;"></span></td><td class="amount">$1,150</td></tr>
             <tr><td class="price">+125</td><td><span class="liq-bar thin" style="width:18px;"></span></td><td class="amount">$420</td></tr>
-            <tr><td colspan="3" class="interpret"><strong>What this tells you:</strong> "Fair" is somewhere around +115 to +118. There's real conviction at those prices — over $6,000 of total demand. Past +120 the depth thins out, which means the market doesn't really believe Eagles are that good.</td></tr>
+            <tr><td colspan="3" class="interpret"><strong>Read:</strong> Sharps have posted $7,870 of capacity laying Eagles across +115 to +125. They want bettors to back Eagles at those prices because they think Eagles' true win probability is <strong>lower</strong> than 46.5% (+115 implied). Sharps want <span style="color: var(--purple); font-weight: 700;">49ers</span>, not Eagles. The depth shows their conviction is heaviest at +115 — that's the price they really want filled.</td></tr>
           </tbody>
         </table>
       </div>
 
       <p>Two key concepts:</p>
       <ul>
-        <li><strong>Depth</strong> — how much money is available at each price level. Deep books mean lots of conviction; thin books mean uncertainty.</li>
-        <li><strong>Spread</strong> — the gap between the best offer on side A and the best offer on side B. Tight spreads mean a mature, agreed-upon market. Wide spreads mean disagreement or a new market.</li>
+        <li><strong>Depth</strong> — how much money makers have offered at each price. Deep books mean lots of conviction against the side that's offered.</li>
+        <li><strong>Spread</strong> — the gap between the best offer on each side. Tight spreads mean a mature, agreed-upon market. Wide spreads mean disagreement or a new market.</li>
       </ul>
-      <p>Most exchanges show you the top 3-5 levels of depth. Some let you toggle a deeper view. Always look past the best price.</p>
+      <p>Most exchanges show you the top 3-5 levels of depth. Some let you toggle a deeper view. Always look past the best price — and always remember: <strong>the depth IS the sharps' position, but on the other side.</strong></p>
     </div>
   </section>
 
   <section class="lesson-section">
-    <h3>Signal #1 — Where the big depth sits = where sharps think fair is</h3>
+    <h3>Signal #1 — Heavy depth on side A = sharps want side B</h3>
     <div class="lesson-body">
-      <p>This is the single most useful read. When you see a big block of money at one price level, that price is what disciplined money believes to be fair. Anything tighter (better for the bettor) is a free shot at +EV; anything wider is a bad deal.</p>
+      <p>This is the single most useful read on an exchange, and the one most newcomers get backwards. The bigger the block of money offered on a side, the more makers (sharps) are willing to take the opposite side at that price.</p>
 
       <div class="book-viz">
-        <span class="viz-label">Pitcher Ks · Strikeouts Over · Order book example</span>
+        <span class="viz-label">Pitcher Ks · Strikeouts Over 6.5 · order book</span>
         <table class="book-table">
           <thead>
-            <tr><th>Price</th><th>Liquidity (Over 6.5 Ks)</th><th>$ Available</th></tr>
+            <tr><th>Price (back Over)</th><th>Available to take</th><th>$ Available</th></tr>
           </thead>
           <tbody>
             <tr><td class="price">−110</td><td><span class="liq-bar" style="width:200px;"></span></td><td class="amount">$5,800</td></tr>
             <tr><td class="price">−108</td><td><span class="liq-bar" style="width:60px;"></span></td><td class="amount">$1,400</td></tr>
             <tr><td class="price">−105</td><td><span class="liq-bar thin" style="width:20px;"></span></td><td class="amount">$380</td></tr>
-            <tr><td colspan="3" class="interpret"><strong>Read:</strong> The market's fair price is essentially −110. Someone — likely multiple someones — has $5,800 in cumulative conviction that Over 6.5 at −110 is the price. If a traditional book is offering this at <span style="color: var(--green); font-weight: 700;">−105 or +100</span>, that's a +EV bet against the consensus fair.</td></tr>
+            <tr><td colspan="3" class="interpret"><strong>Read:</strong> Sharps have $5,800 of capacity offered for Over 6.5 at −110. They are <strong>laying the Over</strong> — they think the pitcher will go Under more than 52.4% of the time (the implied prob of −110). If a traditional book is offering <span style="color: var(--green); font-weight: 700;">Under 6.5 at +100 or +105</span>, that's the +EV bet — you'd be on the same side as the smart money.</td></tr>
           </tbody>
         </table>
       </div>
 
-      <p>The intuition: anyone willing to put $5,800 at −110 has done the work, has a model, and considers that price to be the actual probability. They wouldn't risk that capital if they thought the line was wrong by a meaningful amount. <strong>Their depth is your devig.</strong></p>
+      <p>The intuition: nobody puts $5,800 of risk on the table for a price they consider fair — they post that capacity because they're confident the offered side will lose more often than the price implies. If the market truly believed −110 was a coin flip on Over 6.5, you wouldn't see lopsided maker depth — you'd see balanced books.</p>
+
+      <p><strong>The bet to make is the side <em>without</em> the heavy maker depth.</strong> If you can find that side priced softly at a traditional sportsbook, you're betting alongside the sharps.</p>
 
       <div class="tip-block">
-        <strong>Use exchange depth as your consensus.</strong> Instead of devigging Pinnacle to get a fair price, you can sometimes get a cleaner read by looking at where the biggest exchange offers sit — especially for player props where Pinnacle doesn't even price the market. The big block on PX is functionally a no-vig fair price.
+        <strong>Use exchange depth-imbalance as your directional signal.</strong> The side with the bigger maker offers is the side sharps think is overpriced. The fair line is somewhere closer to where the lighter (less-offered) side becomes attractive. Combined with traditional-book prices, this is a powerful tool for finding +EV — especially on player props where Pinnacle doesn't even price the market.
       </div>
+
+      <p>Caveat: very thin books distort this signal. If side A has $80 offered and side B has $40 offered, that's not a real signal — those are single recreational bettors. Sharp depth signals require deep books on mainstream markets.</p>
     </div>
   </section>
 
   <section class="lesson-section">
-    <h3>Signal #2 — Imbalance: which side has more money</h3>
+    <h3>Signal #2 — Imbalance: which side has more available to take</h3>
     <div class="lesson-body">
-      <p>If you sum the available liquidity on each side of the market, the side with substantially more money is the side sharps want to back. <strong>Imbalance is direction.</strong></p>
+      <p>Sum the available liquidity on each side of the market. The side with substantially more money <em>available to back</em> is the side sharps are <strong>laying</strong> — meaning sharps want the OTHER side. <strong>Imbalance is direction, but inverted.</strong></p>
 
       <div class="example-block">
         <span class="label">Reading imbalance — Lakers vs. Warriors moneyline</span>
-        <div class="row"><span class="src">Lakers side total</span><span class="body">$11,400 stacked across all visible prices</span></div>
-        <div class="row"><span class="src">Warriors side total</span><span class="body">$2,800 stacked across all visible prices</span></div>
+        <div class="row"><span class="src">Available to back Lakers</span><span class="body">$11,400 stacked across all visible prices</span></div>
+        <div class="row"><span class="src">Available to back Warriors</span><span class="body">$2,800 stacked across all visible prices</span></div>
         <hr>
-        <div class="conclusion"><strong>4-to-1 imbalance.</strong> Sharps are heavily backing the Lakers side. If the traditional-book consensus has the Lakers as a slight favorite, the exchange's imbalance is saying <span class="accent">they're a bigger favorite than the consensus implies</span>. That's a tradable read.</div>
+        <div class="conclusion"><strong>4-to-1 imbalance of offered liquidity on the Lakers side.</strong> That means makers are heavily laying Lakers — they want bettors to take Lakers because they're confident <span class="accent">Warriors</span> is the better side. If the traditional-book consensus has Lakers as a slight favorite, the exchange is whispering that Warriors are sharper than the consensus implies. <strong>The bet to look for is Warriors at a traditional book.</strong></div>
       </div>
 
-      <p>Why it works: the exchange has no incentive to balance both sides (there's no house position to protect). The book is "balanced" only to the degree that bettors agree. A 4-to-1 imbalance means roughly 4x as much sharp capital wants one side as the other.</p>
+      <p>Why it works: the exchange has no incentive to balance both sides (there's no house position to protect). The book is "imbalanced" only when one side has many makers willing to lay it — i.e., when the smart money disagrees with the implied probability of that side winning. A 4-to-1 offered-liquidity imbalance toward Lakers means roughly 4× as much sharp capital is willing to bet <em>against</em> Lakers at the offered prices than against Warriors at theirs.</p>
 
       <p>Caveat: imbalance is a snapshot. A book that's heavily imbalanced now might fill in over the next hour as more participants arrive. Read it as a directional clue, not a guarantee.</p>
     </div>
@@ -328,22 +344,22 @@
 
       <div class="example-block">
         <span class="label">A book pulled</span>
-        <div class="row"><span class="src">10:42 AM</span><span class="body">Pitcher Ks O/U 6.5 — $4,200 stacked on Over at −110</span></div>
-        <div class="row"><span class="src">10:43 AM</span><span class="body">Same market — <span class="yel">$0 on Over</span>. Side cleared completely.</span></div>
+        <div class="row"><span class="src">10:42 AM</span><span class="body">Pitcher Ks O/U 6.5 — $4,200 available to back Over at −110 (makers laying Over)</span></div>
+        <div class="row"><span class="src">10:43 AM</span><span class="body">Same market — <span class="yel">$0 available to back Over</span>. Makers pulled their lay offers.</span></div>
         <hr>
-        <div class="conclusion"><strong>Something just happened.</strong> Either a sharp pulled their offers ahead of news, or the news already landed and the offer-side has fled. Don't take into thin air on the other side until you know why.</div>
+        <div class="conclusion"><strong>Something just happened.</strong> Makers who were happy to lay Over at −110 a minute ago suddenly aren't. Translation: <strong>they now think Over is more likely</strong> than the price implies — they don't want to be short Over anymore. Whatever news arrived has made Over the sharper side. If you can find Over at the old generous price anywhere (or close to it) at a traditional book, that's the bet.</div>
       </div>
 
       <p>Common causes for sudden liquidity flight:</p>
       <ul>
-        <li><strong>Lineup change posted</strong> — the pitcher got scratched, the star is out, etc. Sharps see it first and yank their offers</li>
+        <li><strong>Lineup change posted</strong> — the pitcher got scratched, a star is out, the offense looks more strikeout-friendly</li>
         <li><strong>Weather report</strong> — wind, rain, snow update changes the model</li>
         <li><strong>Late-breaking injury news</strong> — official report drops, the market hasn't caught up</li>
-        <li><strong>Steam from a syndicate</strong> — a group of sharps just hit the market hard, draining one side</li>
+        <li><strong>Steam from a syndicate</strong> — a group of sharps just hit the market hard on one side, scaring off the makers offering it</li>
       </ul>
 
-      <div class="warn-block">
-        <strong>The rule: if liquidity vanishes, you're not faster than the people who pulled it.</strong> They knew first. The right move is to check news, weather, and lineup pages before betting into a freshly-empty book. The price you see might be the stale side that's about to crater.
+      <div class="tip-block">
+        <strong>The rule:</strong> when liquidity disappears on a side, the side that was being offered is the one that just became sharper. The smart money won't lay it anymore at the old price. Check news/weather/lineup pages first, then look for the same side (the one that lost its lay liquidity) still available at a soft traditional book — that's the +EV grab.
       </div>
     </div>
   </section>
@@ -374,25 +390,25 @@
       <p>Sometimes you'll see a disproportionately large offer at one specific price — much bigger than anything else in the book. Traders call these "walls."</p>
 
       <div class="book-viz">
-        <span class="viz-label">Spread market with a wall at −2.5</span>
+        <span class="viz-label">Spread market with a wall at favorite −2.5</span>
         <table class="book-table">
           <thead>
-            <tr><th>Line</th><th>Liquidity</th><th>$ Available</th></tr>
+            <tr><th>Line (back the favorite)</th><th>Available to take</th><th>$ Available</th></tr>
           </thead>
           <tbody>
             <tr><td class="price">Favorite −3</td><td><span class="liq-bar" style="width:50px;"></span></td><td class="amount">$1,100</td></tr>
             <tr><td class="price">Favorite −2.5</td><td><span class="liq-bar" style="width:240px;"></span></td><td class="amount">$8,400</td></tr>
             <tr><td class="price">Favorite −2</td><td><span class="liq-bar" style="width:55px;"></span></td><td class="amount">$1,250</td></tr>
-            <tr><td colspan="3" class="interpret"><strong>The wall at −2.5</strong> says that's where someone (or several someones) are willing to defend the line. They believe −2.5 is the right number. The line probably won't drift past −2.5 without absorbing all $8,400 first — which would require sustained sharp action against it.</td></tr>
+            <tr><td colspan="3" class="interpret"><strong>The wall at −2.5</strong> is sharps offering $8,400 of capacity for bettors to back the favorite −2.5. They're <strong>laying −2.5</strong> — they think the true line should be smaller (the dog is undervalued), and they're confident enough to put $8,400 of risk behind that belief. The signal: the underdog side is where the smart money wants to be.</td></tr>
           </tbody>
         </table>
       </div>
 
-      <p>Walls are a signal that the price level is a <em>consensus pivot</em>. They also create tactical opportunities:</p>
+      <p>Walls are a signal that the price level is a <em>consensus pivot</em> — and that the sharp money is on the OTHER side of the wall. They also create tactical opportunities:</p>
       <ul>
-        <li><strong>Post in front of the wall</strong> — if you also like the −2.5 side, post your own offer at −2.4 (a slightly better price for someone wanting to back it). You get filled before the wall and capture an extra cent of edge.</li>
-        <li><strong>Trade the wall</strong> — if you think the market's wrong, you can take the other side of the wall, but know you're trading against deep conviction</li>
-        <li><strong>Use the wall as your fair</strong> — if the wall is at −2.5 and a traditional book is offering −1.5 on the same line, you've found ~50 cents of soft pricing</li>
+        <li><strong>Bet the dog at a traditional book.</strong> If the wall says sharps are confident the favorite −2.5 is too generous, find the dog +2.5 at FanDuel/DraftKings/etc. and grab it before they catch up.</li>
+        <li><strong>Post your own offer behind the wall.</strong> Want to back the dog? Post your offer at +2 (a price you'd be happy to back the dog at). If a recreational bettor comes in wanting the favorite, you get matched and pick up the side the smart money is on.</li>
+        <li><strong>Don't chase the wall.</strong> Taking the −2.5 favorite at the wall means you're betting against $8,400 of sharp conviction. Possible to be right, but you're on the recreational side by definition.</li>
       </ul>
     </div>
   </section>
@@ -445,18 +461,18 @@
     <div class="lesson-body">
       <p>What this looks like as an actual betting routine:</p>
       <ol>
-        <li><strong>Pull up the exchange book</strong> for the market you're interested in. Look at the depth on both sides and the spread.</li>
-        <li><strong>Identify the consensus price.</strong> Where's the biggest depth? What's the midpoint of the tight portion of the spread?</li>
-        <li><strong>Check imbalance.</strong> Which side has more money? That's the directional read.</li>
-        <li><strong>Compare to traditional books.</strong> Pull up the same market at FanDuel, DraftKings, BetMGM, Caesars. Anyone offering a price meaningfully different from the exchange's consensus is your target.</li>
+        <li><strong>Pull up the exchange book</strong> for the market you're interested in. Look at how much is available to back each side, and the spread between them.</li>
+        <li><strong>Identify the imbalance.</strong> Which side has more money offered for backing? That's the side sharps are <em>laying</em> — meaning they want the OTHER side.</li>
+        <li><strong>Identify the implied consensus fair price.</strong> Look at where the heaviest depth sits. That's the price at which makers will trade size against the offered side; the consensus probability for the side <em>you'd want to bet</em> is at least slightly better than the layer price implies.</li>
+        <li><strong>Compare to traditional books.</strong> Pull up the same market at FanDuel, DraftKings, BetMGM, Caesars. The bet to find is the side sharps want (the side with <em>less</em> maker depth offered against it on the exchange), priced softly at a traditional book.</li>
         <li><strong>Decide your move.</strong>
           <ul>
-            <li>If traditional book is soft → take it (sharp side bet at the soft venue)</li>
-            <li>If the gap is wide enough → consider an arb (one leg at the soft book, hedge on the exchange)</li>
-            <li>If only the exchange is sharp and others match → no edge, move on</li>
+            <li>Traditional book offering the sharps' side at a soft price → take it</li>
+            <li>If the gap is wide enough → consider an arb (soft side at the trad book, hedge on the exchange by laying the other side)</li>
+            <li>If the exchange is balanced and traditional books match → no edge, move on</li>
           </ul>
         </li>
-        <li><strong>Watch the book over time.</strong> If liquidity drains suddenly, stop. Don't bet into a freshly-empty market without checking news.</li>
+        <li><strong>Watch the book over time.</strong> If lay-offer liquidity on a side suddenly disappears, the smart money just lost confidence in laying that side — meaning they now think that side is more likely to win. Hunt for that side at a stale traditional book.</li>
       </ol>
 
       <p>This is closer to how a stock or crypto trader operates than how a recreational sports bettor thinks. The book is the data; your job is to extract the signal from it before others do.</p>
@@ -467,6 +483,7 @@
     <h3>Common mistakes</h3>
     <div class="lesson-body">
       <ul>
+        <li><strong>Reading the depth as endorsement of the offered side.</strong> The single most common error. Heavy depth available on side A doesn't mean sharps love side A — it means sharps are <em>laying</em> side A and want side B. The bet goes on the side with <em>less</em> maker depth posted against it. Re-read the "most important inversion" section if this hasn't clicked yet.</li>
         <li><strong>Treating one side of the book as fair.</strong> If you only look at the side you want to bet, you miss the imbalance signal. Always check both sides.</li>
         <li><strong>Ignoring the fee impact.</strong> Exchanges charge 1-3% on net winnings, which changes the effective breakeven price. A −110 on PX with a 3% fee on wins is closer to −115 in true cost. Factor it in.</li>
         <li><strong>Betting into thin liquidity for size.</strong> A $2,000 stake taking $1,500 of available liquidity will fill partially and walk up the book — your average price will be worse than the top-of-book number. Check depth before placing big.</li>
