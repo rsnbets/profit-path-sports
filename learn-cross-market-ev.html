@@ -340,17 +340,21 @@
 
       <div class="example-block">
         <span class="label">Jays moneyline across four sharp sources</span>
-        <div class="row"><span class="src">Pinnacle</span><span class="body">Rays +111 / Jays −120 · $15k each side</span></div>
-        <div class="row"><span class="src">ProphetX</span><span class="body">Rays +109 / Jays −116</span></div>
-        <div class="row"><span class="src">Circa</span><span class="body">Rays +103 / Jays −115 · $10-11k each side</span></div>
-        <div class="row"><span class="src">Novig</span><span class="body">Rays +112 / Jays −113</span></div>
+        <div class="row"><span class="src">Pinnacle <em style="color: var(--blue); font-style: normal;">(book limit)</em></span><span class="body">Rays +111 / Jays −120 · $15k each side</span></div>
+        <div class="row"><span class="src">ProphetX <em style="color: var(--purple); font-style: normal;">(exchange depth)</em></span><span class="body">Rays +109 ($1.7k) · Jays −116 ($340)</span></div>
+        <div class="row"><span class="src">Circa <em style="color: var(--blue); font-style: normal;">(book limit)</em></span><span class="body">Rays +103 / Jays −115 · $10-11k each side</span></div>
+        <div class="row"><span class="src">Novig <em style="color: var(--purple); font-style: normal;">(exchange depth)</em></span><span class="body">Rays +112 ($3.6k) · Jays −113 ($176)</span></div>
         <hr>
         <div class="conclusion">Four independent sharp sources price the Jays in the <strong>−113 to −120 range</strong>. Pinnacle's $15k limit each side tells you this market has deep institutional confidence. <strong>Devig Pinnacle's +111/−120 → no-vig fair Jays ≈ −115.</strong></div>
       </div>
 
+      <div class="tip-block">
+        <strong>Two kinds of numbers on this row.</strong> Pinnacle and Circa are traditional sportsbooks — the dollar figures are <em>book limits</em> (what they'll accept at that price). They confirm the market is deep and trusted, not which side sharps are betting. ProphetX and Novig are <em>exchanges</em> — those dollar figures are real user-posted order-book depth. <strong>The directional signal lives in the exchange numbers, not the book limits.</strong> See <a href="/learn-exchange-liquidity.html">Reading Exchange Liquidity</a> for the full mechanics.
+      </div>
+
       <h4>Step 2: confirm direction via the exchange imbalance</h4>
-      <p>Both ProphetX and Novig (the exchanges) show heavy maker depth on the side <em>backing Rays</em> — meaning makers (sharps) are offering the Rays-back side because they're <strong>laying Rays</strong>. They want bettors to take Rays so they can be locked into Jays. The dollar imbalance is 5× on ProphetX and 20× on Novig.</p>
-      <p>That's a strong directional confirmation: the sharp money wants the Jays. (For the full mechanics of why depth on side A means sharps want side B, see <a href="/learn-exchange-liquidity.html">Reading Exchange Liquidity</a>.)</p>
+      <p>ProphetX shows $1.7k available to back Rays vs. just $340 to back Jays — 5× imbalance. Novig is even more extreme: $3.6k vs. $176 — 20× imbalance. Both pointing the same way.</p>
+      <p>Apply the translation rule: the depth on the "back Rays" side was created by makers <strong>laying the Rays</strong>. They posted that risk because they want bettors to take Rays — so they can be locked into Jays at the opposite price. The cheapest sharp Jays entry across the two exchanges: roughly <strong>−109 (PX) to −112 (Novig)</strong>.</p>
 
       <h4>Step 3: shop for the soft side at a recreational book</h4>
       <p>Now the actual play. Sharp consensus says Jays should be priced around −115. You open the soft books — FanDuel, DraftKings, BetMGM, Caesars, Hard Rock, ESPN BET — and look at Jays moneyline:</p>

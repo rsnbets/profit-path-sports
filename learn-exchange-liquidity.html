@@ -559,15 +559,19 @@
 
       <div class="example-block">
         <span class="label">The Jays row across sharp sources</span>
-        <div class="row"><span class="src">Pinnacle</span><span class="body">Rays +111 ($15k) · Jays −120 ($15k)</span><span class="note">deepest market, $15k each side</span></div>
-        <div class="row"><span class="src">ProphetX</span><span class="body">Rays +109 ($1.7k available) · Jays −116 ($340 available)</span><span class="note">5× more offered for backing Rays</span></div>
-        <div class="row"><span class="src">Circa</span><span class="body">Rays +103 ($10k) · Jays −115 ($11k)</span><span class="note">balanced limits, agrees with Pinnacle</span></div>
-        <div class="row"><span class="src">Novig</span><span class="body">Rays +112 ($3.6k available) · Jays −113 ($176 available)</span><span class="note">20× more offered for backing Rays</span></div>
+        <div class="row"><span class="src">Pinnacle <em style="color: var(--blue); font-style: normal;">(book limit)</em></span><span class="body">Rays +111 / Jays −120 · $15k each side</span><span class="note">they'll book $15k at this price</span></div>
+        <div class="row"><span class="src">ProphetX <em style="color: var(--purple); font-style: normal;">(exchange depth)</em></span><span class="body">Rays +109 ($1.7k) · Jays −116 ($340)</span><span class="note">5× more user money posted on Rays-back side</span></div>
+        <div class="row"><span class="src">Circa <em style="color: var(--blue); font-style: normal;">(book limit)</em></span><span class="body">Rays +103 / Jays −115 · $10-11k each side</span><span class="note">balanced limits, agrees with Pinnacle</span></div>
+        <div class="row"><span class="src">Novig <em style="color: var(--purple); font-style: normal;">(exchange depth)</em></span><span class="body">Rays +112 ($3.6k) · Jays −113 ($176)</span><span class="note">20× more user money posted on Rays-back side</span></div>
         <hr>
         <div class="conclusion"><strong>Three reads from one snapshot, in order of importance:</strong></div>
       </div>
 
-      <h4>Read 1 — apply the translation rule</h4>
+      <div class="tip-block">
+        <strong>Two kinds of numbers on this row.</strong> Pinnacle and Circa are traditional sportsbooks — the dollar figures under their prices are <em>book limits</em> (what they'll accept at that line). They tell you the market is trusted and deep, but not which side sharps are betting. ProphetX and Novig are <em>exchanges</em> — the dollar figures are real user-posted order-book depth. <strong>That's where the sharp directional signal lives.</strong> The Pinnacle / Circa numbers are confidence indicators; the ProphetX / Novig numbers are the sharp's position.
+      </div>
+
+      <h4>Read 1 — apply the translation rule (exchanges only)</h4>
       <p>Don't look at the depth on the Rays side and ask "what are the sharps doing at +109?" Translate it. The depth on Rays +109 means the sharp on the other side is <strong>on Jays at −109</strong> with that capacity. Run the translation on every cell:</p>
 
       <div class="example-block">
