@@ -534,12 +534,13 @@
     display: block;
     margin: 22px auto 32px;
     max-width: 980px;
-    padding: 30px 34px 28px;
+    padding: 34px 34px 30px;
     background: linear-gradient(135deg, rgba(74,222,128,0.10) 0%, rgba(61,139,255,0.04) 100%);
     border: 1px solid var(--green);
     border-radius: 18px;
     text-decoration: none;
     color: var(--text);
+    text-align: center;
     box-shadow: 0 0 50px rgba(74,222,128,0.10), 0 24px 60px rgba(0,0,0,0.3);
     transition: all 0.22s ease;
     overflow: hidden;
@@ -547,11 +548,12 @@
   .exclusive-tile::before {
     content: '';
     position: absolute;
-    top: -40%; right: -8%;
-    width: 55%; height: 200%;
-    background: radial-gradient(ellipse at center, rgba(74,222,128,0.14) 0%, transparent 65%);
+    top: -30%; left: 50%;
+    transform: translateX(-50%);
+    width: 70%; height: 160%;
+    background: radial-gradient(ellipse at center, rgba(74,222,128,0.12) 0%, transparent 60%);
     pointer-events: none;
-    opacity: 0.85;
+    opacity: 0.9;
   }
   .exclusive-tile:hover {
     transform: translateY(-3px);
@@ -613,7 +615,7 @@
     line-height: 1.6;
     color: var(--muted);
     max-width: 720px;
-    margin-bottom: 20px;
+    margin: 0 auto 20px;
   }
   .exclusive-desc strong { color: var(--text); font-weight: 600; }
   .exclusive-cta {
@@ -1558,7 +1560,6 @@
       <a class="exclusive-tile" href="bet-x-ray.html">
         <span class="exclusive-badge">⚡ Exclusive · Free</span>
         <div class="exclusive-icon">🩻</div>
-        <div class="exclusive-eyebrow">The Headline Tool</div>
         <div class="exclusive-name">Bet X-Ray</div>
         <div class="exclusive-tagline">Devig → EV → Kelly → Verdict · in one shot</div>
         <p class="exclusive-desc">
