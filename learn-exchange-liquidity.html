@@ -139,6 +139,26 @@
   .tip-block { background: var(--panel-deep); border: 1px solid var(--border-soft); border-left: 3px solid var(--green); border-radius: 10px; padding: 18px 22px; font-family: 'Rajdhani', sans-serif; font-size: 17px; color: var(--text); margin: 18px 0; line-height: 1.6; }
   .tip-block strong { color: var(--green); }
   .pull-quote { font-family: 'Rajdhani', sans-serif; font-size: 20px; font-style: italic; color: var(--text); border-left: 3px solid var(--yellow); padding: 4px 0 4px 22px; margin: 24px 0; line-height: 1.5; }
+
+  .real-example-img {
+    width: 100%;
+    max-width: 760px;
+    height: auto;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    box-shadow: 0 14px 44px rgba(0,0,0,0.45), 0 0 30px rgba(188,140,255,0.06);
+    display: block;
+    margin: 22px auto 8px;
+  }
+  .real-example-caption {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 13px;
+    color: var(--dim);
+    text-align: center;
+    font-style: italic;
+    margin-bottom: 22px;
+    letter-spacing: 0.3px;
+  }
   .cta-card { background: linear-gradient(135deg, rgba(188, 140, 255, 0.08), rgba(188, 140, 255, 0.02)); border: 1px solid var(--purple); border-radius: 16px; padding: 32px 28px; margin: 44px 0 32px; text-align: center; box-shadow: 0 0 40px rgba(188, 140, 255, 0.08), 0 20px 60px rgba(0, 0, 0, 0.3); }
   .cta-eyebrow { font-family: 'Orbitron', sans-serif; font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--purple); font-weight: 700; margin-bottom: 10px; }
   .cta-title { font-family: 'Rajdhani', sans-serif; font-size: 26px; font-weight: 700; color: var(--text); margin-bottom: 8px; letter-spacing: 0.3px; }
@@ -508,6 +528,65 @@
       </ol>
 
       <p>This is closer to how a stock or crypto trader operates than how a recreational sports bettor thinks. The book is the data; your job is to extract the signal from it before others do.</p>
+    </div>
+  </section>
+
+  <section class="lesson-section">
+    <h3>Real example — Blue Jays moneyline on Pick the Odds</h3>
+    <div class="lesson-body">
+      <p>Here's what reading liquidity looks like in practice. Below is a snapshot from <a href="https://picktheodds.app" target="_blank" rel="noopener">Pick the Odds</a> with the view filtered to four sharp sources: Pinnacle (P), ProphetX (X), Circa, and Novig (N). Each cell shows the line and the dollar liquidity available at that price.</p>
+
+      <img src="/images/picktheodds-jays.png" alt="Pick the Odds screenshot showing MLB moneylines for Today across Pinnacle, ProphetX, Circa, and Novig with line prices and dollar liquidity for each" class="real-example-img">
+      <p class="real-example-caption">Pick the Odds — MLB moneylines, sharp sources only, with depth shown beneath each price</p>
+
+      <p>Focus on the Rays @ Blue Jays game (5:07pm row). Here's what each cell tells us:</p>
+
+      <div class="example-block">
+        <span class="label">The Jays row across sharp sources</span>
+        <div class="row"><span class="src">Pinnacle</span><span class="body">Rays +111 ($15k) · Jays −120 ($15k)</span><span class="note">deepest market, $15k each side</span></div>
+        <div class="row"><span class="src">ProphetX</span><span class="body">Rays +109 ($1.7k available) · Jays −116 ($340 available)</span><span class="note">5× more offered for backing Rays</span></div>
+        <div class="row"><span class="src">Circa</span><span class="body">Rays +103 ($10k) · Jays −115 ($11k)</span><span class="note">balanced limits, agrees with Pinnacle</span></div>
+        <div class="row"><span class="src">Novig</span><span class="body">Rays +112 ($3.6k available) · Jays −113 ($176 available)</span><span class="note">20× more offered for backing Rays</span></div>
+        <hr>
+        <div class="conclusion"><strong>Three reads from one snapshot, in order of importance:</strong></div>
+      </div>
+
+      <h4>Read 1 — the exchange imbalance is screaming</h4>
+      <p>Both ProphetX and Novig show the same pattern: <strong>way more dollars offered for backing the Rays than the Jays</strong>. ProphetX has $1,700 offered to back Rays vs. just $340 to back Jays (5× imbalance). Novig is even more extreme at 20× ($3,600 vs. $176).</p>
+
+      <p>Apply Signal #1: that depth was created by makers <em>laying the Rays</em> — they posted risk to attract bettors to back Rays at +109/+112 because they think Rays are overpriced (won't win 47%-ish of the time as the price implies). <strong>The sharps want the Jays.</strong> The huge maker depth on the Rays side is the signal.</p>
+
+      <h4>Read 2 — devig Pinnacle to get a clean fair price</h4>
+      <p>Pinnacle's $15k-each-side market is the gold standard reference. Devig the +111 / −120:</p>
+
+      <div class="example-block">
+        <span class="label">Devig Pinnacle</span>
+        <div class="row"><span class="src">Rays +111 raw implied</span><span class="body">47.39%</span></div>
+        <div class="row"><span class="src">Jays −120 raw implied</span><span class="body">54.55%</span></div>
+        <div class="row"><span class="src">Sum (vig)</span><span class="body">101.94% · vig 1.94%</span></div>
+        <hr>
+        <div class="row"><span class="src">No-vig Jays prob</span><span class="body"><span class="accent">53.51%</span></span></div>
+        <div class="row"><span class="src">Fair Jays American</span><span class="body"><span class="accent">~−115</span></span></div>
+      </div>
+
+      <p>Circa and the exchanges all cluster around the same number. Consensus fair on Jays: somewhere in the <strong>−113 to −116</strong> range. The Pinnacle limit of $15k says this is a high-confidence market — sharps will trade it at size.</p>
+
+      <h4>Read 3 — now go find the soft side</h4>
+      <p>This is the cross-market EV play. Open the soft books — FanDuel, DraftKings, BetMGM, Caesars, Hard Rock, ESPN BET — and check Jays moneyline.</p>
+      <ul>
+        <li><strong>Jays at −109 or better at any soft book → take it.</strong> You're getting Jays at a price the sharps would happily pay −113 to −120 for.</li>
+        <li><strong>Jays at +xxx</strong> (rare — would be a stale line or a boost) → grab it immediately, this is a big edge.</li>
+        <li><strong>Jays at −113 to −120</strong> → soft book matches consensus, no edge.</li>
+        <li><strong>Jays at −125 or worse</strong> → soft book is sharper than consensus on this one; pass.</li>
+      </ul>
+
+      <div class="tip-block">
+        <strong>The whole cross-market EV play in one game:</strong> Four sharp sources tell you the fair price. Exchange imbalance confirms the direction (sharps want Jays). You go shopping for that price at a soft book. If anyone is offering Jays cheaper than consensus, that's the bet — and you've used the screenshot above as your devig + direction + liquidity-confidence check, all in one screen. See <a href="/learn-cross-market-ev.html">Cross-Market EV</a> for the full strategy.
+      </div>
+
+      <h4>One more nuance — the limit ratio</h4>
+      <p>Pinnacle's $15k limit each side tells us this is a mainstream market with deep institutional confidence. Compare to the exchange depth: ProphetX has $1.7k and Novig has $3.6k on the Rays-back side. Those are smaller than Pinnacle but still real.</p>
+      <p>Per Signal #2 (outsized depth on thin markets): the ratio of exchange depth to Pinnacle limit here is roughly 12-25%, which is normal for an MLB ML. If this had been a niche prop where Pinnacle limit was $500 and ProphetX had $3.6k posted (7× the sharp-book limit), the signal would be much stronger — that's the case where you'd want to be especially aggressive. Here, the signal is solid but standard.</p>
     </div>
   </section>
 
