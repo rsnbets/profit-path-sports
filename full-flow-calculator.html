@@ -485,8 +485,9 @@
   .steps-row .step-sub { display: none; }
   /* Reserve a matching min-height on both step toolbars so the inputs
      row below them lines up across columns (Step 1 wraps to 2 rows,
-     Step 2 normally has just 1). */
-  .steps-row .sub-toolbar { min-height: 78px; align-content: center; }
+     Step 2 normally has just 1). 90px = step-1 wrapped toolbar (~82px)
+     + a few px buffer to absorb font-render drift. */
+  .steps-row .sub-toolbar { min-height: 90px; align-content: center; align-items: center; }
 
   @media (max-width: 760px) {
     .body { padding: 22px 16px; }
@@ -631,11 +632,11 @@
         </div>
         <div class="out-box">
           <div class="out-label">EV%</div>
-          <div class="out-value accent empty" id="evPct">—</div>
+          <div class="out-value empty" id="evPct">—</div>
         </div>
         <div class="out-box">
           <div class="out-label">EV per $100</div>
-          <div class="out-value accent empty" id="evDollar">—</div>
+          <div class="out-value empty" id="evDollar">—</div>
         </div>
       </div>
     </div>
