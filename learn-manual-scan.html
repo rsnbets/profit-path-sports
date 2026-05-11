@@ -260,60 +260,72 @@
   </section>
 
   <section class="lesson-section">
-    <h3>Real example — drilling into Hartenstein Assists O/U 2.5</h3>
+    <h3>Real example — drilling into Pistons @ Cavaliers</h3>
     <div class="lesson-body">
-      <p>Here's the scan in action on a real NBA Assists slate from Pick the Odds. Filter is set to <strong>Sharp</strong> sources, market is NBA · Assists · Game.</p>
+      <p>Here's the scan in action on a real NBA Moneyline slate from Pick the Odds, filtered to <strong>Sharp</strong> sources.</p>
 
-      <img src="/images/picktheodds-hartenstein.png" alt="Pick the Odds NBA Assists scan with sharp source filter showing Chet Holmgren, Deandre Ayton, Isaiah Hartenstein, and others with Pinnacle, ProphetX, Circa, and Novig depths" class="real-example-img">
-      <p class="real-example-caption">Pick the Odds — NBA Assists, sharp source filter. Hartenstein's row catches the eye.</p>
+      <img src="/images/picktheodds-pistons.png" alt="Pick the Odds NBA Moneyline scan showing Pistons at Cavaliers game with Pinnacle, ProphetX, Circa, and Novig prices and depths" class="real-example-img">
+      <p class="real-example-caption">Pick the Odds — NBA Moneyline, sharp source filter. The Pistons / Cavaliers row at 6:10pm.</p>
 
-      <h4>Step 1 — the scan finds the flag</h4>
-      <p>Eye glides down the rows. Most NBA assist props show $50-$500 of depth per cell on the exchanges — pretty standard for player props. Two things catch the eye on the <strong>Isaiah Hartenstein</strong> row:</p>
-      <ul>
-        <li><strong>Novig's $1,100 of depth on Over 2.5</strong> — that's a bigger single-cell number than every other player in the visible scan. Player props at this level usually max out around $500 in our calibration table; $1.1k is roughly 2-3× the baseline.</li>
-        <li><strong>The 2.11% gap indicator under his name</strong> — Pick the Odds is telling us there's a real cross-market spread between the books in this row.</li>
-      </ul>
-      <p>That's enough to drill in. Flag it.</p>
-
-      <h4>Step 2 — apply the translation rule</h4>
-      <p>The depth visible across the row, translated to the sharp's actual position:</p>
-
-      <div class="example-block">
-        <span class="label">Hartenstein O/U 2.5 assists — sharp positions translated</span>
-        <div class="row"><span class="src">Pinnacle</span><span class="body">Over −119 ($500) → sharp on <strong>Under at +119</strong> with $500</span></div>
-        <div class="row"><span class="src">Pinnacle</span><span class="body">Under −102 ($500) → sharp on Over at +102 with $500</span></div>
-        <div class="row"><span class="src">ProphetX</span><span class="body">Over −111 ($362) → sharp on <strong>Under at +111</strong> with $362</span></div>
-        <div class="row"><span class="src">ProphetX</span><span class="body">Under −101 ($99) → sharp on Over at +101 with $99</span></div>
-        <div class="row"><span class="src">Novig</span><span class="body">Over −109 ($1,100) → sharp on <strong>Under at +109</strong> with $1,100</span></div>
-        <div class="row"><span class="src">Novig</span><span class="body">Under +100 ($307) → sharp on Over at −100 with $307</span></div>
-        <hr>
-        <div class="row"><span class="src">Sharp capital · Under</span><span class="body"><span class="pos">$500 + $362 + $1,100 = $1,962</span> at +119 / +111 / +109</span></div>
-        <div class="row"><span class="src">Sharp capital · Over</span><span class="body">$500 + $99 + $307 = $906 at +102 / +101 / −100</span></div>
-        <hr>
-        <div class="conclusion"><strong>Imbalance: roughly 2.2× toward Under.</strong> Sharps want Hartenstein under 2.5 assists. The cheapest sharp Under price was <strong>+109 at Novig</strong>, and the conviction behind it is $1,100 — the biggest single position in the whole row.</div>
-      </div>
-
-      <h4>Step 3 — set the target and go shop</h4>
-      <p>The sharp's locked-in cheapest Under is <strong>+109 at Novig with $1.1k of conviction</strong>. To find a cross-market EV bet, we need Hartenstein Under 2.5 assists at <strong>+110 or better</strong> at a soft book.</p>
-
-      <ul>
-        <li><strong>Under 2.5 at +110 or better at FanDuel/DK/MGM/Caesars/Hard Rock/ESPN BET → take it.</strong> You're beating the sharp's price.</li>
-        <li><strong>Under 2.5 at +101 to +109</strong> → soft book is in the consensus zone; small edge, size accordingly.</li>
-        <li><strong>Under 2.5 at −110 or worse</strong> → soft book agrees with sharp consensus or is sharper; no edge.</li>
-      </ul>
+      <h4>Step 1 — what the scan picks up</h4>
+      <p>The first thing that registers is the <strong>$50k Pinnacle limit each side</strong>. That's near the top of what Pinnacle posts on regular-season NBA moneylines — high-confidence, deep institutional support, fully-priced market. Worth a closer look.</p>
+      <p>The second thing: the exchange depths are <em>wildly</em> lopsided. ProphetX has $252 available to back Pistons but $6,000 available to back Cavaliers. Novig has $692 to back Pistons and $6,200 to back Cavaliers. The depth on the "back Cavaliers" side is roughly <strong>13× larger</strong> than the "back Pistons" side across both exchanges. That's a screamer.</p>
 
       <div class="tip-block">
-        <strong>Note on the absence of Circa:</strong> the Circa column shows dashes for Hartenstein — Circa doesn't price this market. That's normal for niche player props; Circa focuses on mainline markets. Don't read it as a signal; just work with the three sources you have.
+        <strong>Important distinction — book limits vs. exchange depth.</strong> Pinnacle and Circa are sharp <em>traditional sportsbooks</em>; the dollar amount under their prices is the limit they'll accept at that line ($50k means "we'll book $50k at this price"). ProphetX and Novig are <em>exchanges</em>; the dollar amount is real user-posted order-book depth — actual money sitting there waiting to be matched. <strong>The exchange numbers are where the sharp signal lives.</strong> Pinnacle's limit tells you the market is trusted; the exchange depth tells you which side the smart money is on.
       </div>
 
-      <h4>What the scan didn't tell you</h4>
-      <p>The depth flag got you onto this row in under 5 seconds. But manual scanning has limits:</p>
+      <h4>Step 2 — apply the translation rule</h4>
+      <p>Translate every exchange cell to the sharp's actual position (flip the side, flip the sign):</p>
+
+      <div class="example-block">
+        <span class="label">Pistons / Cavaliers ML — exchange depth translated</span>
+        <div class="row"><span class="src">ProphetX</span><span class="body">Pistons +141 ($252) → sharp on Cavaliers at −141 with $252</span></div>
+        <div class="row"><span class="src">ProphetX</span><span class="body">Cavaliers −151 ($6,000) → sharp on <strong>Pistons at +151</strong> with $6,000</span></div>
+        <div class="row"><span class="src">Novig</span><span class="body">Pistons +146 ($692) → sharp on Cavaliers at −146 with $692</span></div>
+        <div class="row"><span class="src">Novig</span><span class="body">Cavaliers −148 ($6,200) → sharp on <strong>Pistons at +148</strong> with $6,200</span></div>
+        <hr>
+        <div class="row"><span class="src">Sharp capital · Pistons</span><span class="body"><span class="pos">$6,000 + $6,200 = $12,200</span> at +148 to +151</span></div>
+        <div class="row"><span class="src">Sharp capital · Cavaliers</span><span class="body">$252 + $692 = $944 at −141 to −146</span></div>
+        <hr>
+        <div class="conclusion"><strong>Imbalance: roughly 13× toward Pistons.</strong> Sharps want the Pistons. The cheapest sharp Pistons entry was <strong>+148 at Novig</strong>, and the conviction is $6,200 — meaningful size on a regular-season NBA game.</div>
+      </div>
+
+      <p>Pinnacle and Circa's prices (Pistons +136 and +140) sit below the exchange's translated sharp price (+148 / +151). That's also informative: it tells you the sharp consensus on the exchanges is even more bullish on Pistons than the traditional sharp books are. <strong>Multiple sources of confirmation pointing the same direction.</strong></p>
+
+      <h4>Step 3 — devig Pinnacle for a no-vig fair</h4>
+      <p>For a clean fair-price reference, devig Pinnacle's two-way:</p>
+
+      <div class="example-block blue">
+        <span class="label">Devig Pinnacle Pistons +136 / Cavaliers −151</span>
+        <div class="row"><span class="src">Pistons raw implied</span><span class="body">42.37%</span></div>
+        <div class="row"><span class="src">Cavaliers raw implied</span><span class="body">60.16%</span></div>
+        <div class="row"><span class="src">Sum (vig)</span><span class="body">102.53% · vig 2.53%</span></div>
+        <hr>
+        <div class="row"><span class="src">No-vig Pistons prob</span><span class="body"><span class="accent">41.33%</span></span></div>
+        <div class="row"><span class="src">No-vig Pistons American</span><span class="body"><span class="accent">+142</span></span></div>
+      </div>
+
+      <p>Pinnacle's no-vig fair on Pistons is roughly <strong>+142</strong>. Novig's near-zero-vig book has them at <strong>+147</strong> (after self-devig). The exchange's translated sharp entry was <strong>+148 to +151</strong>. So consensus fair on Pistons is somewhere in the +142 to +147 range; the sharp cheapest entry was at +148.</p>
+
+      <h4>Step 4 — set the target and shop the soft books</h4>
+      <p>To find a cross-market EV bet, we want Pistons at <strong>+149 or better</strong> at any soft book — that beats the sharp's cheapest exchange entry. Open FanDuel, DraftKings, BetMGM, Caesars, Hard Rock, ESPN BET, and check Pistons ML:</p>
+
       <ul>
-        <li>You don't know how <em>fresh</em> the Novig depth is. If it's been sitting for hours, it's weaker signal than depth that appeared 10 minutes ago.</li>
-        <li>You don't see the order-flow history — was the depth posted in one $1.1k block or built up over time?</li>
-        <li>You don't know how aggressive the sharp will be in defending +109 — if the line moves to +105, will they refill at the new price, or pull?</li>
+        <li><strong>Pistons at +149 or better at any soft book → take it.</strong> You're getting a price better than the sharp's cheapest locked-in entry.</li>
+        <li><strong>Pistons at +145 to +148</strong> → soft book matches near-consensus; small edge, size accordingly.</li>
+        <li><strong>Pistons at +136 to +144</strong> → soft book agrees with Pinnacle's price; minimal edge.</li>
+        <li><strong>Pistons at +135 or worse</strong> → soft book is sharper than Pinnacle; pass.</li>
       </ul>
-      <p>These nuances are what paid scanners and direct exchange data feeds give you. The manual scan got you 80% there in 30 seconds; the remaining 20% is whether you trust the signal enough to bet, which comes down to experience.</p>
+
+      <h4>What the scan didn't tell you</h4>
+      <p>The flag took 3 seconds. Translation took 30. But manual scanning still has limits:</p>
+      <ul>
+        <li>You don't know how <em>fresh</em> the Novig $6.2k depth is. If it appeared in the last 5 minutes, much stronger signal than if it's been there for hours.</li>
+        <li>You don't see the order-flow history — was the $6.2k posted in one block, or built up gradually as multiple sharps converged?</li>
+        <li>You don't know how aggressive the sharps will be in defending +148 — if soft money hits them and pushes the price, will they refill the depth or pull?</li>
+      </ul>
+      <p>These nuances are what paid scanners and direct exchange data feeds give you. The manual scan got you 95% there in under a minute; the last 5% is whether you trust the signal enough to bet, which comes down to experience.</p>
     </div>
   </section>
 
