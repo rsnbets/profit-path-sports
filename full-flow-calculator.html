@@ -223,8 +223,16 @@
     transition: all 0.12s;
   }
   .pill:hover { color: var(--text); }
-  .side-fair-mini { font-size: 9px; opacity: 0.75; margin-left: 4px; font-weight: 600; }
-  .pill.active .side-fair-mini { opacity: 0.9; }
+  .side-fair-mini {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0;
+    text-transform: none;
+    opacity: 0.85;
+    margin-left: 6px;
+    font-weight: 600;
+  }
+  .pill.active .side-fair-mini { opacity: 1; }
   .step.blue   .pill.active { background: var(--blue); color: #06101e; }
   .step.yellow .pill.active { background: var(--yellow); color: #181208; }
   .step.green  .pill.active { background: var(--green); color: #06160c; }
