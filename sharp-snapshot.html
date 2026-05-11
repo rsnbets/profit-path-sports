@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sharp Snapshot — Decode the Pick the Odds Row | Profit Path Sports</title>
+<meta name="description" content="Type in the sharp-source row from Pick the Odds — Pinnacle, Circa, ProphetX, Novig prices and amounts. Get the translated sharp position, consensus fair price, and your soft-book target in one screen.">
+
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230a0f1c'/%3E%3Cpolyline points='5,24 12,16 16,19 22,9 27,5' fill='none' stroke='%234ade80' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;800;900&family=JetBrains+Mono:wght@400;500;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg: #0a0f1c;
+    --panel: #0f1524;
+    --panel-inset: #141a2b;
+    --panel-deep: #0c1120;
+    --border: #1e2638;
+    --border-soft: #141c30;
+    --text: #e5e7eb;
+    --muted: #8b94a8;
+    --dim: #6b7689;
+    --blue: #3d8bff;
+    --blue-glow: rgba(61, 139, 255, 0.18);
+    --yellow: #f5b545;
+    --green: #4ade80;
+    --green-glow: rgba(74, 222, 128, 0.18);
+    --red: #f87171;
+    --purple: #BC8CFF;
+    --purple-glow: rgba(188, 140, 255, 0.18);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: radial-gradient(ellipse at top, #111a2e 0%, var(--bg) 60%);
+    color: var(--text);
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    min-height: 100vh;
+    padding: 24px;
+  }
+  .card {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+  }
+  .header {
+    text-align: center;
+    padding: 32px 20px 26px;
+    border-bottom: 1px solid var(--border);
+    background: linear-gradient(180deg, #0d1220 0%, #0b0f1d 100%);
+    position: relative;
+  }
+  .header::after {
+    content: '';
+    position: absolute;
+    bottom: -1px; left: 10%; right: 10%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--purple), transparent);
+    opacity: 0.6;
+  }
+  .header h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--purple);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .bolt { font-size: 20px; filter: drop-shadow(0 0 8px rgba(188,140,255,0.6)); }
+  .tagline {
+    margin-top: 10px;
+    color: var(--muted);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.2px;
+  }
+  .back-link, .help-pill {
+    position: absolute;
+    top: 20px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.15s;
+  }
+  .back-link { left: 20px; color: var(--dim); }
+  .back-link:hover { color: var(--purple); }
+  .help-pill {
+    right: 20px;
+    color: var(--purple);
+    border: 1px solid var(--purple);
+    border-radius: 999px;
+    padding: 7px 14px;
+    background: rgba(188,140,255,0.08);
+    cursor: pointer;
+    font-weight: 700;
+  }
+  .help-pill:hover { background: rgba(188,140,255,0.18); }
+
+  .body { padding: 28px; }
+
+  /* Market label row */
+  .market-label {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 22px;
+    padding: 16px 18px;
+    background: var(--panel-deep);
+    border: 1px solid var(--border-soft);
+    border-radius: 12px;
+  }
+  .market-label .input-cell label {
+    display: block;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 9px;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    color: var(--dim);
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .market-label .input-cell input {
+    width: 100%;
+    background: var(--panel-inset);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 15px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    outline: none;
+    font-weight: 600;
+  }
+  .market-label .input-cell input:focus { border-color: var(--purple); }
+  .market-label .input-cell input::placeholder { color: var(--dim); font-weight: 400; }
+
+  /* Source group cards */
+  .sources-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 22px;
+  }
+  .source-card {
+    background: var(--panel-deep);
+    border: 1px solid var(--border-soft);
+    border-radius: 12px;
+    padding: 16px 18px;
+  }
+  .source-card.book { border-left: 3px solid var(--blue); }
+  .source-card.exchange { border-left: 3px solid var(--purple); }
+  .source-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 12px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border-soft);
+  }
+  .source-name {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text);
+    font-weight: 800;
+  }
+  .source-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    font-style: italic;
+  }
+  .source-card.book .source-tag { color: var(--blue); }
+  .source-card.exchange .source-tag { color: var(--purple); }
+
+  .source-row {
+    display: grid;
+    grid-template-columns: 70px 1fr 1fr;
+    gap: 8px;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+  .source-row:last-child { margin-bottom: 0; }
+  .source-row .side-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--muted);
+    font-weight: 600;
+    text-align: right;
+    padding-right: 6px;
+  }
+  .source-row input {
+    width: 100%;
+    background: var(--panel-inset);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 15px;
+    font-weight: 600;
+    padding: 9px 11px;
+    border-radius: 7px;
+    outline: none;
+    text-align: center;
+  }
+  .source-row input::placeholder { color: var(--dim); font-weight: 400; }
+  .source-row input:focus { border-color: var(--purple); }
+  .source-row .with-prefix {
+    position: relative;
+  }
+  .source-row .with-prefix::before {
+    content: '$';
+    position: absolute;
+    left: 9px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--dim);
+    font-size: 13px;
+    font-family: 'JetBrains Mono', monospace;
+    pointer-events: none;
+  }
+  .source-row .with-prefix input { padding-left: 22px; text-align: left; }
+
+  .source-derived {
+    margin-top: 10px;
+    padding: 10px 12px;
+    background: var(--panel-inset);
+    border-radius: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+  .source-derived.empty { color: var(--dim); font-style: italic; }
+  .source-derived .lbl { color: var(--dim); margin-right: 4px; }
+  .source-derived .val { color: var(--text); font-weight: 700; }
+  .source-derived .pos { color: var(--green); font-weight: 700; }
+  .source-derived .accent { color: var(--purple); font-weight: 700; }
+  .source-derived .row { display: flex; flex-wrap: wrap; gap: 4px 14px; }
+
+  /* Output sections */
+  .output-block {
+    background: var(--panel-deep);
+    border: 1px solid var(--border-soft);
+    border-radius: 14px;
+    padding: 22px 24px;
+    margin-bottom: 14px;
+  }
+  .output-block.translation { border-left: 3px solid var(--purple); }
+  .output-block.consensus { border-left: 3px solid var(--blue); }
+  .output-block.target { border-left: 3px solid var(--green); }
+  .output-block-head {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border-soft);
+  }
+  .output-block-num {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 4px;
+    background: var(--panel-inset);
+  }
+  .output-block.translation .output-block-num { color: var(--purple); }
+  .output-block.consensus .output-block-num { color: var(--blue); }
+  .output-block.target .output-block-num { color: var(--green); }
+  .output-block-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text);
+    font-weight: 800;
+  }
+
+  .tally-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  .tally-card {
+    background: var(--panel-inset);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+  .tally-card .tally-label {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 10px;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    color: var(--dim);
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .tally-card .tally-amount {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: 0.4px;
+  }
+  .tally-card .tally-amount.empty { color: var(--dim); font-weight: 400; }
+  .tally-card .tally-amount.heavy { color: var(--green); }
+  .tally-card .tally-detail {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 6px;
+    letter-spacing: 0.3px;
+  }
+  .imbalance-row {
+    background: var(--panel-inset);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 16px;
+    text-align: center;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 16px;
+    color: var(--text);
+  }
+  .imbalance-row .lbl { color: var(--dim); font-family: 'Orbitron', sans-serif; font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; margin-right: 8px; }
+  .imbalance-row .val { font-family: 'JetBrains Mono', monospace; font-size: 20px; font-weight: 700; color: var(--purple); }
+
+  .consensus-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+
+  .target-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .target-card {
+    background: var(--panel-inset);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 18px;
+    text-align: center;
+  }
+  .target-card .target-label {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 10px;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    color: var(--dim);
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .target-card .target-price {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--green);
+    letter-spacing: 0.4px;
+  }
+  .target-card .target-price.empty { color: var(--dim); font-weight: 400; }
+  .target-card .target-detail {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 6px;
+    letter-spacing: 0.3px;
+  }
+  .target-card.primary { border-color: var(--green); background: rgba(74,222,128,0.05); }
+  .target-card.secondary .target-price { color: var(--muted); font-size: 20px; }
+
+  /* Verdict */
+  .verdict {
+    margin-top: 14px;
+    padding: 16px 20px;
+    border-radius: 10px;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 15px;
+    line-height: 1.5;
+    background: var(--panel-inset);
+    border: 1px solid var(--border);
+  }
+  .verdict-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .verdict.strong { border-color: var(--green); background: rgba(74, 222, 128, 0.05); }
+  .verdict.strong .verdict-title { color: var(--green); }
+  .verdict.solid { border-color: var(--blue); background: rgba(61, 139, 255, 0.05); }
+  .verdict.solid .verdict-title { color: var(--blue); }
+  .verdict.mild { border-color: var(--yellow); background: rgba(245, 181, 69, 0.05); }
+  .verdict.mild .verdict-title { color: var(--yellow); }
+  .verdict.flat { border-color: var(--dim); }
+  .verdict.flat .verdict-title { color: var(--dim); }
+  .verdict-body { color: var(--text); }
+  .verdict-body strong { color: var(--text); font-weight: 700; }
+
+  /* How to use */
+  .how-to {
+    margin-top: 22px;
+    background: var(--panel-deep);
+    border: 1px solid var(--border-soft);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .how-to summary {
+    padding: 16px 20px;
+    cursor: pointer;
+    list-style: none;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--purple);
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .how-to summary::-webkit-details-marker { display: none; }
+  .how-to summary::after { content: '▾'; color: var(--dim); transition: transform 0.15s; }
+  .how-to[open] summary::after { transform: rotate(180deg); }
+  .how-to-body {
+    padding: 0 22px 22px;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 14.5px;
+    line-height: 1.65;
+    color: var(--text);
+  }
+  .how-to-body p { margin-bottom: 12px; }
+  .how-to-body strong { color: var(--purple); font-weight: 700; }
+  .how-to-body em { color: var(--blue); font-style: normal; font-weight: 600; }
+  .how-to-body ul { padding-left: 20px; margin-bottom: 12px; }
+  .how-to-body ul li { margin-bottom: 6px; }
+  .how-to-body a { color: var(--purple); text-decoration: none; border-bottom: 1px dashed transparent; }
+  .how-to-body a:hover { border-bottom-color: var(--purple); }
+
+  .footer {
+    text-align: center;
+    margin-top: 28px;
+    padding: 18px;
+    color: var(--dim);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.3px;
+  }
+  .footer a { color: var(--muted); text-decoration: none; }
+  .footer a:hover { color: var(--purple); }
+
+  @media (max-width: 820px) {
+    .sources-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 600px) {
+    .body { padding: 20px 14px; }
+    .market-label { grid-template-columns: 1fr; }
+    .source-row { grid-template-columns: 60px 1fr 1fr; gap: 6px; }
+    .tally-grid, .consensus-grid, .target-grid { grid-template-columns: 1fr; }
+    .header h1 { font-size: 18px; letter-spacing: 2px; }
+    .tally-card .tally-amount { font-size: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <div class="header">
+    <a href="/index.html" class="back-link">← Back</a>
+    <button class="help-pill" onclick="document.getElementById('howto').open = !document.getElementById('howto').open; document.getElementById('howto').scrollIntoView({behavior:'smooth', block:'nearest'});">How to use this ↓</button>
+    <h1><span class="bolt">🩻</span> Sharp Snapshot</h1>
+    <div class="tagline">Type the Pick the Odds row. Get the sharp's actual position, consensus fair, and your soft-book target.</div>
+  </div>
+
+  <div class="body">
+
+    <!-- Market label -->
+    <div class="market-label">
+      <div class="input-cell">
+        <label>Side A name</label>
+        <input type="text" id="sideAName" placeholder="e.g. Pistons" value="Side A">
+      </div>
+      <div class="input-cell">
+        <label>Side B name</label>
+        <input type="text" id="sideBName" placeholder="e.g. Cavaliers" value="Side B">
+      </div>
+    </div>
+
+    <!-- Source input cards -->
+    <div class="sources-grid">
+
+      <!-- PINNACLE -->
+      <div class="source-card book" data-source="pinnacle">
+        <div class="source-head">
+          <span class="source-name">Pinnacle</span>
+          <span class="source-tag">book limit</span>
+        </div>
+        <div class="source-row">
+          <span class="side-label" data-side="A">Side A</span>
+          <input type="text" inputmode="numeric" class="odds-input" data-field="aOdds" placeholder="−110">
+          <div class="with-prefix"><input type="text" inputmode="numeric" class="amt-input" data-field="aAmt" placeholder="limit"></div>
+        </div>
+        <div class="source-row">
+          <span class="side-label" data-side="B">Side B</span>
+          <input type="text" inputmode="numeric" class="odds-input" data-field="bOdds" placeholder="−110">
+          <div class="with-prefix"><input type="text" inputmode="numeric" class="amt-input" data-field="bAmt" placeholder="limit"></div>
+        </div>
+        <div class="source-derived empty" data-derived="pinnacle">No-vig fair: —</div>
+      </div>
+
+      <!-- CIRCA -->
+      <div class="source-card book" data-source="circa">
+        <div class="source-head">
+          <span class="source-name">Circa</span>
+          <span class="source-tag">book limit</span>
+        </div>
+        <div class="source-row">
+          <span class="side-label" data-side="A">Side A</span>
+          <input type="text" inputmode="numeric" class="odds-input" data-field="aOdds" placeholder="optional">
+          <div class="with-prefix"><input type="text" inputmode="numeric" class="amt-input" data-field="aAmt" placeholder="limit"></div>
+        </div>
+        <div class="source-row">
+          <span class="side-label" data-side="B">Side B</span>
+          <input type="text" inputmode="numeric" class="odds-input" data-field="bOdds" placeholder="optional">
+          <div class="with-prefix"><input type="text" inputmode="numeric" class="amt-input" data-field="bAmt" placeholder="limit"></div>
+        </div>
+        <div class="source-derived empty" data-derived="circa">No-vig fair: —</div>
+      </div>
+
+      <!-- PROPHETX -->
+      <div class="source-card exchange" data-source="prophetx">
+        <div class="source-head">
+          <span class="source-name">ProphetX</span>
+          <span class="source-tag">exchange depth</span>
+        </div>
+        <div class="source-row">
+          <span class="side-label" data-side="A">Side A</span>
+          <input type="text" inputmode="numeric" class="odds-input" data-field="aOdds" placeholder="+141">
+          <div class="with-prefix"><input type="text" inputmode="numeric" class="amt-input" data-field="aAmt" placeholder="depth"></div>
+        </div>
+        <div class="source-row">
+          <span class="side-label" data-side="B">Side B</span>
+          <input type="text" inputmode="numeric" class="odds-input" data-field="bOdds" placeholder="−151">
+          <div class="with-prefix"><input type="text" inputmode="numeric" class="amt-input" data-field="bAmt" placeholder="depth"></div>
+        </div>
+        <div class="source-derived empty" data-derived="prophetx">Translated sharp positions: —</div>
+      </div>
+
+      <!-- NOVIG -->
+      <div class="source-card exchange" data-source="novig">
+        <div class="source-head">
+          <span class="source-name">Novig</span>
+          <span class="source-tag">exchange depth</span>
+        </div>
+        <div class="source-row">
+          <span class="side-label" data-side="A">Side A</span>
+          <input type="text" inputmode="numeric" class="odds-input" data-field="aOdds" placeholder="+146">
+          <div class="with-prefix"><input type="text" inputmode="numeric" class="amt-input" data-field="aAmt" placeholder="depth"></div>
+        </div>
+        <div class="source-row">
+          <span class="side-label" data-side="B">Side B</span>
+          <input type="text" inputmode="numeric" class="odds-input" data-field="bOdds" placeholder="−148">
+          <div class="with-prefix"><input type="text" inputmode="numeric" class="amt-input" data-field="bAmt" placeholder="depth"></div>
+        </div>
+        <div class="source-derived empty" data-derived="novig">Translated sharp positions: —</div>
+      </div>
+
+    </div>
+
+    <!-- OUTPUT 1: SHARP TRANSLATION -->
+    <div class="output-block translation">
+      <div class="output-block-head">
+        <span class="output-block-num">Output 01</span>
+        <span class="output-block-title">Sharp Translation</span>
+      </div>
+
+      <div class="tally-grid">
+        <div class="tally-card">
+          <div class="tally-label">Sharp $ on <span id="tallyANameLabel">Side A</span></div>
+          <div class="tally-amount empty" id="tallyA">—</div>
+          <div class="tally-detail" id="tallyADetail">— prices across exchanges</div>
+        </div>
+        <div class="tally-card">
+          <div class="tally-label">Sharp $ on <span id="tallyBNameLabel">Side B</span></div>
+          <div class="tally-amount empty" id="tallyB">—</div>
+          <div class="tally-detail" id="tallyBDetail">— prices across exchanges</div>
+        </div>
+      </div>
+
+      <div class="imbalance-row">
+        <span class="lbl">Imbalance</span><span class="val" id="imbalanceVal">—</span>
+        <span style="color: var(--muted); margin-left: 8px;" id="imbalanceText">— · waiting for exchange inputs</span>
+      </div>
+    </div>
+
+    <!-- OUTPUT 2: CONSENSUS FAIR -->
+    <div class="output-block consensus">
+      <div class="output-block-head">
+        <span class="output-block-num">Output 02</span>
+        <span class="output-block-title">Consensus Fair</span>
+      </div>
+
+      <div class="consensus-grid">
+        <div class="tally-card">
+          <div class="tally-label">Fair · <span id="fairANameLabel">Side A</span></div>
+          <div class="tally-amount empty" id="fairA">—</div>
+          <div class="tally-detail" id="fairADetail">— consensus across sharp sources</div>
+        </div>
+        <div class="tally-card">
+          <div class="tally-label">Fair · <span id="fairBNameLabel">Side B</span></div>
+          <div class="tally-amount empty" id="fairB">—</div>
+          <div class="tally-detail" id="fairBDetail">— consensus across sharp sources</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- OUTPUT 3: SOFT-BOOK TARGET -->
+    <div class="output-block target">
+      <div class="output-block-head">
+        <span class="output-block-num">Output 03</span>
+        <span class="output-block-title">Soft-Book Target</span>
+      </div>
+
+      <div class="target-grid">
+        <div class="target-card primary" id="targetCardA">
+          <div class="target-label">Target · <span id="targetANameLabel">Side A</span></div>
+          <div class="target-price empty" id="targetA">—</div>
+          <div class="target-detail" id="targetADetail">— or better at a soft book</div>
+        </div>
+        <div class="target-card secondary" id="targetCardB">
+          <div class="target-label">Target · <span id="targetBNameLabel">Side B</span></div>
+          <div class="target-price empty" id="targetB">—</div>
+          <div class="target-detail" id="targetBDetail">— or better at a soft book</div>
+        </div>
+      </div>
+
+      <div class="verdict flat" id="verdictBanner">
+        <div class="verdict-title">Awaiting inputs</div>
+        <div class="verdict-body" id="verdictBody">Type in exchange depths above to see the sharp's direction and target price.</div>
+      </div>
+    </div>
+
+    <!-- How to use -->
+    <details class="how-to" id="howto">
+      <summary>How to use this</summary>
+      <div class="how-to-body">
+        <p><strong>What it does.</strong> You see a row on <a href="https://picktheodds.app" target="_blank" rel="noopener">Pick the Odds</a> with prices and dollar amounts across Pinnacle, Circa, ProphetX, and Novig. Type those numbers into the cards above. The tool runs the analysis we walk through manually in our guides — translation rule on the exchanges, devig on Pinnacle, consensus fair, and the target price you need to beat at a soft book.</p>
+
+        <p><strong>Inputs.</strong> Use American odds (e.g. <em>−110</em>, <em>+135</em>). For the dollar amounts: Pinnacle and Circa are book limits (the max they'll book at that line); ProphetX and Novig are exchange order-book depth (real user-posted money). Leave any source blank if Pick the Odds doesn't show it for that market.</p>
+
+        <p><strong>The three outputs:</strong></p>
+        <ul>
+          <li><em>Sharp Translation</em> — translates exchange depth to the sharp's actual position (flip side, flip sign). Tallies how much sharp capital sits on each side and shows the imbalance ratio.</li>
+          <li><em>Consensus Fair</em> — weighted no-vig fair price across the available sources. Pinnacle and Novig get the heaviest weight since they're the deepest references.</li>
+          <li><em>Soft-Book Target</em> — the price you need to beat at a soft book to capture cross-market EV. The "primary" side is whichever the sharps want (heavier imbalance); the "secondary" side is the other one, lower-edge by default.</li>
+        </ul>
+
+        <p><strong>Reading the verdict:</strong></p>
+        <ul>
+          <li><em>Strong</em> (5×+ imbalance) — sharps clearly on one side, big confidence to act on it.</li>
+          <li><em>Solid</em> (2×-5×) — meaningful directional signal.</li>
+          <li><em>Mild</em> (1.3×-2×) — small lean, treat with caution.</li>
+          <li><em>Flat</em> (below 1.3×) — no clear sharp signal, just take the consensus fair.</li>
+        </ul>
+
+        <p><strong>Caveats.</strong></p>
+        <ul>
+          <li>Book limits (Pinnacle, Circa) are confidence indicators, not sharp positions. The translation tally uses ONLY exchange depth.</li>
+          <li>For very thin markets ($100-$300 depth), single rec bettors can mimic sharp signals. Larger absolute depths give more confident reads.</li>
+          <li>Once you have the target price, the cross-market EV play is to find it at a soft book — see <a href="/learn-cross-market-ev.html">Cross-Market EV</a> for the full strategy.</li>
+        </ul>
+      </div>
+    </details>
+
+  </div>
+</div>
+
+<div class="footer">
+  © 2026 Profit Path Sports · <a href="/index.html">Home</a> · <a href="/learn-exchange-liquidity.html">Reading Exchange Liquidity</a> · <a href="/learn-cross-market-ev.html">Cross-Market EV</a> · <a href="/bet-x-ray.html">Bet X-Ray</a>
+</div>
+
+<script>
+  // ────────────────────────────────────────────────────────────
+  // Math helpers
+  // ────────────────────────────────────────────────────────────
+  function americanToImplied(american) {
+    const a = parseFloat(american);
+    if (!isFinite(a) || a === 0) return null;
+    if (a > 0) return 100 / (a + 100);
+    return Math.abs(a) / (Math.abs(a) + 100);
+  }
+  function impliedToAmerican(p) {
+    if (!p || p <= 0 || p >= 1) return null;
+    const dec = 1 / p;
+    if (dec >= 2) return Math.round((dec - 1) * 100);
+    return Math.round(-100 / (dec - 1));
+  }
+  function fmtAmerican(n) {
+    if (n === null || !isFinite(n)) return '—';
+    return n > 0 ? '+' + n : '' + n;
+  }
+  function fmtDollar(n) {
+    if (n === null || !isFinite(n) || n === 0) return '$0';
+    return '$' + n.toLocaleString(undefined, { maximumFractionDigits: 0 });
+  }
+  function parseAmerican(s) {
+    if (s === null || s === undefined) return null;
+    const cleaned = String(s).replace(/[−–—]/g, '-').replace(/\s/g, '').replace(/[^\d.\-+]/g, '');
+    if (cleaned === '' || cleaned === '-' || cleaned === '+') return null;
+    const n = parseFloat(cleaned);
+    if (!isFinite(n) || n === 0) return null;
+    if (n > -100 && n < 100) return null;
+    return n;
+  }
+  function parseAmount(s) {
+    if (s === null || s === undefined) return null;
+    let cleaned = String(s).replace(/[$,\s]/g, '').toLowerCase();
+    let mult = 1;
+    if (cleaned.endsWith('k')) { mult = 1000; cleaned = cleaned.slice(0, -1); }
+    const n = parseFloat(cleaned);
+    if (!isFinite(n) || n < 0) return null;
+    return n * mult;
+  }
+  // Flip the sign (and conceptually flip the side too)
+  function flipSign(american) {
+    if (american === null || !isFinite(american)) return null;
+    return -american;
+  }
+
+  // ────────────────────────────────────────────────────────────
+  // State + Render
+  // ────────────────────────────────────────────────────────────
+  const SOURCES = ['pinnacle', 'circa', 'prophetx', 'novig'];
+  const EXCHANGES = ['prophetx', 'novig'];
+  const BOOKS = ['pinnacle', 'circa'];
+  // Weights for consensus devig
+  const WEIGHTS = { pinnacle: 5, circa: 5, prophetx: 3, novig: 3 };
+
+  function readSource(name) {
+    const card = document.querySelector(`.source-card[data-source="${name}"]`);
+    const aOdds = parseAmerican(card.querySelector('[data-field="aOdds"]').value);
+    const bOdds = parseAmerican(card.querySelector('[data-field="bOdds"]').value);
+    const aAmt = parseAmount(card.querySelector('[data-field="aAmt"]').value);
+    const bAmt = parseAmount(card.querySelector('[data-field="bAmt"]').value);
+    return { aOdds, bOdds, aAmt, bAmt };
+  }
+
+  function devig(pA, pB) {
+    if (pA === null || pB === null) return [null, null];
+    const sum = pA + pB;
+    if (sum <= 0) return [null, null];
+    return [pA / sum, pB / sum];
+  }
+
+  function recompute() {
+    const sideAName = document.getElementById('sideAName').value.trim() || 'Side A';
+    const sideBName = document.getElementById('sideBName').value.trim() || 'Side B';
+
+    // Update side labels
+    document.querySelectorAll('.side-label').forEach(el => {
+      const side = el.dataset.side;
+      el.textContent = side === 'A' ? sideAName : sideBName;
+    });
+    document.getElementById('tallyANameLabel').textContent = sideAName;
+    document.getElementById('tallyBNameLabel').textContent = sideBName;
+    document.getElementById('fairANameLabel').textContent = sideAName;
+    document.getElementById('fairBNameLabel').textContent = sideBName;
+    document.getElementById('targetANameLabel').textContent = sideAName;
+    document.getElementById('targetBNameLabel').textContent = sideBName;
+
+    // Read all sources
+    const data = {};
+    SOURCES.forEach(src => { data[src] = readSource(src); });
+
+    // Per-source: compute implied + devig fairs, and render per-card derived
+    const fairs = {}; // {source: [fairA, fairB]}
+    SOURCES.forEach(src => {
+      const d = data[src];
+      const pA = d.aOdds !== null ? americanToImplied(d.aOdds) : null;
+      const pB = d.bOdds !== null ? americanToImplied(d.bOdds) : null;
+      const [fA, fB] = devig(pA, pB);
+      fairs[src] = [fA, fB];
+
+      const derived = document.querySelector(`[data-derived="${src}"]`);
+      const isExchange = EXCHANGES.includes(src);
+
+      if (fA !== null && fB !== null) {
+        derived.classList.remove('empty');
+        const fairAmerA = impliedToAmerican(fA);
+        const fairAmerB = impliedToAmerican(fB);
+        const vigPct = (((pA + pB) - 1) * 100).toFixed(2);
+
+        if (isExchange) {
+          // Translation for exchanges: each side's depth = sharp money on the opposite side at the opposite sign
+          const sharpOnB = d.aAmt !== null && d.aOdds !== null ? { amt: d.aAmt, price: flipSign(d.aOdds) } : null;
+          const sharpOnA = d.bAmt !== null && d.bOdds !== null ? { amt: d.bAmt, price: flipSign(d.bOdds) } : null;
+          let html = `<span class="lbl">Fair:</span><span class="val">${fmtAmerican(fairAmerA)} / ${fmtAmerican(fairAmerB)}</span>`;
+          html += ` <span class="lbl">vig:</span><span class="val">${vigPct}%</span><br>`;
+          html += `<span class="lbl">Translation:</span> `;
+          if (sharpOnA) html += `<span class="accent">${fmtDollar(sharpOnA.amt)} on ${sideAName} at ${fmtAmerican(sharpOnA.price)}</span>`;
+          if (sharpOnA && sharpOnB) html += `<span class="lbl"> · </span>`;
+          if (sharpOnB) html += `<span class="accent">${fmtDollar(sharpOnB.amt)} on ${sideBName} at ${fmtAmerican(sharpOnB.price)}</span>`;
+          derived.innerHTML = html;
+        } else {
+          derived.innerHTML = `<span class="lbl">Fair:</span><span class="val">${fmtAmerican(fairAmerA)} / ${fmtAmerican(fairAmerB)}</span> <span class="lbl">vig:</span><span class="val">${vigPct}%</span>`;
+        }
+      } else {
+        derived.classList.add('empty');
+        derived.innerHTML = isExchange ? 'Enter both sides + depth to see translation' : 'Enter both sides to see no-vig fair';
+      }
+    });
+
+    // ─── Output 01: Sharp Translation tally (exchanges only) ───
+    let sharpAAmts = []; // {amt, price}
+    let sharpBAmts = [];
+    EXCHANGES.forEach(src => {
+      const d = data[src];
+      // Exchange A-side depth → sharp on Side B at -aOdds
+      if (d.aAmt !== null && d.aOdds !== null) sharpBAmts.push({ amt: d.aAmt, price: flipSign(d.aOdds), src });
+      // Exchange B-side depth → sharp on Side A at -bOdds
+      if (d.bAmt !== null && d.bOdds !== null) sharpAAmts.push({ amt: d.bAmt, price: flipSign(d.bOdds), src });
+    });
+    const sumA = sharpAAmts.reduce((acc, x) => acc + x.amt, 0);
+    const sumB = sharpBAmts.reduce((acc, x) => acc + x.amt, 0);
+
+    const tallyAEl = document.getElementById('tallyA');
+    const tallyBEl = document.getElementById('tallyB');
+    const tallyADet = document.getElementById('tallyADetail');
+    const tallyBDet = document.getElementById('tallyBDetail');
+
+    if (sumA > 0 || sumB > 0) {
+      tallyAEl.textContent = fmtDollar(sumA);
+      tallyAEl.classList.remove('empty');
+      tallyBEl.textContent = fmtDollar(sumB);
+      tallyBEl.classList.remove('empty');
+      // Mark the heavier side
+      tallyAEl.classList.toggle('heavy', sumA > sumB);
+      tallyBEl.classList.toggle('heavy', sumB > sumA);
+
+      // Detail strings: list prices
+      const aPrices = sharpAAmts.map(x => `${fmtAmerican(x.price)} (${fmtDollar(x.amt)})`).join(' · ');
+      const bPrices = sharpBAmts.map(x => `${fmtAmerican(x.price)} (${fmtDollar(x.amt)})`).join(' · ');
+      tallyADet.textContent = aPrices || 'no exchange depth on this side';
+      tallyBDet.textContent = bPrices || 'no exchange depth on this side';
+    } else {
+      tallyAEl.textContent = '—'; tallyAEl.classList.add('empty'); tallyAEl.classList.remove('heavy');
+      tallyBEl.textContent = '—'; tallyBEl.classList.add('empty'); tallyBEl.classList.remove('heavy');
+      tallyADet.textContent = '— prices across exchanges';
+      tallyBDet.textContent = '— prices across exchanges';
+    }
+
+    // Imbalance
+    const imbVal = document.getElementById('imbalanceVal');
+    const imbTxt = document.getElementById('imbalanceText');
+    let imbalanceRatio = null;
+    let heavySide = null; // 'A' or 'B'
+    if (sumA > 0 && sumB > 0) {
+      imbalanceRatio = sumA > sumB ? sumA / sumB : sumB / sumA;
+      heavySide = sumA > sumB ? 'A' : 'B';
+      imbVal.textContent = imbalanceRatio.toFixed(1) + '×';
+      imbTxt.textContent = `toward ${heavySide === 'A' ? sideAName : sideBName} · sharps want ${heavySide === 'A' ? sideAName : sideBName}`;
+    } else if (sumA > 0 || sumB > 0) {
+      heavySide = sumA > 0 ? 'A' : 'B';
+      imbalanceRatio = Infinity;
+      imbVal.textContent = '∞';
+      imbTxt.textContent = `all sharp $ on ${heavySide === 'A' ? sideAName : sideBName}`;
+    } else {
+      imbVal.textContent = '—';
+      imbTxt.textContent = '— · waiting for exchange inputs';
+    }
+
+    // ─── Output 02: Consensus Fair (weighted devig) ───
+    let weightedSumA = 0, weightedSumB = 0, totalWeight = 0;
+    SOURCES.forEach(src => {
+      const [fA, fB] = fairs[src];
+      if (fA !== null && fB !== null) {
+        const w = WEIGHTS[src];
+        weightedSumA += fA * w;
+        weightedSumB += fB * w;
+        totalWeight += w;
+      }
+    });
+    const fairAEl = document.getElementById('fairA');
+    const fairBEl = document.getElementById('fairB');
+    const fairADet = document.getElementById('fairADetail');
+    const fairBDet = document.getElementById('fairBDetail');
+
+    let consensusA = null, consensusB = null;
+    if (totalWeight > 0) {
+      consensusA = weightedSumA / totalWeight;
+      consensusB = weightedSumB / totalWeight;
+      // Renormalize
+      const s = consensusA + consensusB;
+      consensusA = consensusA / s;
+      consensusB = consensusB / s;
+      fairAEl.textContent = fmtAmerican(impliedToAmerican(consensusA));
+      fairAEl.classList.remove('empty');
+      fairBEl.textContent = fmtAmerican(impliedToAmerican(consensusB));
+      fairBEl.classList.remove('empty');
+      fairADet.textContent = `${(consensusA * 100).toFixed(2)}% · weighted across ${SOURCES.filter(s => fairs[s][0] !== null).length} sharp sources`;
+      fairBDet.textContent = `${(consensusB * 100).toFixed(2)}% · weighted across ${SOURCES.filter(s => fairs[s][0] !== null).length} sharp sources`;
+    } else {
+      fairAEl.textContent = '—'; fairAEl.classList.add('empty');
+      fairBEl.textContent = '—'; fairBEl.classList.add('empty');
+      fairADet.textContent = '— consensus across sharp sources';
+      fairBDet.textContent = '— consensus across sharp sources';
+    }
+
+    // ─── Output 03: Soft-Book Target ───
+    // We want the MARGINAL sharp entry — the least-generous price the sharps still accepted.
+    // That's the price you need to beat at a soft book to be strictly +EV vs at least one sharp.
+    // (Beating the BEST sharp price is too conservative — you'd miss most cross-market opportunities.)
+    function marginalEntry(entries) {
+      if (!entries.length) return null;
+      // For positive odds (+150 vs +200), marginal = lower number (less generous, e.g. +150 < +200).
+      // For negative odds (-120 vs -150), marginal = more-negative number (e.g. -150 < -120 = -150 is "worse").
+      // Both rules collapse to: smallest American value.
+      return entries.reduce((worst, x) => x.price < worst.price ? x : worst);
+    }
+    const cheapestA = marginalEntry(sharpAAmts);
+    const cheapestB = marginalEntry(sharpBAmts);
+
+    const targetAEl = document.getElementById('targetA');
+    const targetBEl = document.getElementById('targetB');
+    const targetADet = document.getElementById('targetADetail');
+    const targetBDet = document.getElementById('targetBDetail');
+    const targetCardA = document.getElementById('targetCardA');
+    const targetCardB = document.getElementById('targetCardB');
+
+    function nextBetterPrice(price) {
+      // 1 cent better: if positive odds, +1; if negative, +1 toward zero (less negative)
+      if (price === null) return null;
+      if (price > 0) return price + 1;
+      return price + 1; // -120 → -119 (less negative = more generous to backer)
+    }
+
+    if (cheapestA) {
+      targetAEl.textContent = fmtAmerican(nextBetterPrice(cheapestA.price));
+      targetAEl.classList.remove('empty');
+      targetADet.textContent = `or better at a soft book · sharp got ${fmtAmerican(cheapestA.price)}`;
+    } else {
+      targetAEl.textContent = '—'; targetAEl.classList.add('empty');
+      targetADet.textContent = '— or better at a soft book';
+    }
+
+    if (cheapestB) {
+      targetBEl.textContent = fmtAmerican(nextBetterPrice(cheapestB.price));
+      targetBEl.classList.remove('empty');
+      targetBDet.textContent = `or better at a soft book · sharp got ${fmtAmerican(cheapestB.price)}`;
+    } else {
+      targetBEl.textContent = '—'; targetBEl.classList.add('empty');
+      targetBDet.textContent = '— or better at a soft book';
+    }
+
+    // Highlight the side sharps prefer as "primary"
+    if (heavySide === 'A') {
+      targetCardA.classList.add('primary'); targetCardA.classList.remove('secondary');
+      targetCardB.classList.remove('primary'); targetCardB.classList.add('secondary');
+    } else if (heavySide === 'B') {
+      targetCardB.classList.add('primary'); targetCardB.classList.remove('secondary');
+      targetCardA.classList.remove('primary'); targetCardA.classList.add('secondary');
+    } else {
+      targetCardA.classList.add('primary'); targetCardA.classList.remove('secondary');
+      targetCardB.classList.add('primary'); targetCardB.classList.remove('secondary');
+    }
+
+    // Verdict
+    const verdictBanner = document.getElementById('verdictBanner');
+    const verdictBody = document.getElementById('verdictBody');
+    const heavySideName = heavySide === 'A' ? sideAName : (heavySide === 'B' ? sideBName : null);
+    let vClass = 'flat', vTitle = 'Awaiting inputs', vBody = 'Type in exchange depths above to see the sharp\'s direction and target price.';
+
+    if (imbalanceRatio !== null && heavySideName) {
+      const targetPriceStr = heavySide === 'A' && cheapestA ? fmtAmerican(nextBetterPrice(cheapestA.price))
+                          : heavySide === 'B' && cheapestB ? fmtAmerican(nextBetterPrice(cheapestB.price))
+                          : null;
+      const sharpPriceStr = heavySide === 'A' && cheapestA ? fmtAmerican(cheapestA.price)
+                         : heavySide === 'B' && cheapestB ? fmtAmerican(cheapestB.price)
+                         : null;
+      if (imbalanceRatio === Infinity || imbalanceRatio >= 5) {
+        vClass = 'strong'; vTitle = 'Strong sharp signal';
+        vBody = `Sharps are heavily on <strong>${heavySideName}</strong>. Cheapest sharp entry: ${sharpPriceStr}. Find <strong>${heavySideName}</strong> at <strong>${targetPriceStr}</strong> or better at a soft book — that's the cross-market EV bet.`;
+      } else if (imbalanceRatio >= 2) {
+        vClass = 'solid'; vTitle = 'Solid sharp signal';
+        vBody = `Sharps want <strong>${heavySideName}</strong>. Cheapest sharp entry: ${sharpPriceStr}. Target: <strong>${targetPriceStr}</strong> or better at a soft book.`;
+      } else if (imbalanceRatio >= 1.3) {
+        vClass = 'mild'; vTitle = 'Mild lean';
+        vBody = `Slight lean toward <strong>${heavySideName}</strong>. Cheapest sharp entry: ${sharpPriceStr}. Target ${targetPriceStr} or better, but the signal is weak — size accordingly.`;
+      } else {
+        vClass = 'flat'; vTitle = 'Balanced book';
+        vBody = 'Sharp money is roughly balanced — no clear directional signal from exchange depth. Use the consensus fair price as your reference and shop soft books normally.';
+      }
+    }
+
+    verdictBanner.className = 'verdict ' + vClass;
+    verdictBanner.querySelector('.verdict-title').textContent = vTitle;
+    verdictBody.innerHTML = vBody;
+  }
+
+  // Wire up all inputs to live-recompute
+  document.querySelectorAll('input').forEach(inp => {
+    inp.addEventListener('input', recompute);
+  });
+
+  // Initial
+  recompute();
+</script>
+
+</body>
+</html>
