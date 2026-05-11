@@ -217,6 +217,10 @@
 
       <p>You have four options. Each has its own math, and the right answer depends on what side A's standalone value looks like.</p>
 
+      <div class="tip-block">
+        <strong>Use the calc for this exact case.</strong> The <a href="/arb-calculator.html">arb calculator</a> has a dedicated <em>"Already Placed a Bet? — Enter Your Stake to Find Optimal Counter"</em> mode. Type the side and stake you already locked in, then enter the new (worse) price on the other book — it returns the optimal counter-stake, the residual arb % (or guaranteed loss if the arb died), and the total risk. Built for this scenario specifically.
+      </div>
+
       <h4 style="font-family: 'Orbitron', sans-serif; font-size: 13px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text); font-weight: 700; margin: 20px 0 10px;">Option 1 — Take the worse price on side B</h4>
       <p>Place the second leg anyway at the new (worse) price. The arb becomes a small guaranteed loss. Measure the loss before you click.</p>
 
@@ -335,12 +339,16 @@
 
       <p>Common red flags that get you flagged:</p>
       <ul>
-        <li><strong>Round-number stakes</strong> ($235.04 is a stake-calculator output; $250 is a normal bet — round when possible)</li>
+        <li><strong>Stake-calculator outputs.</strong> $235.04 screams "arb-calc copy-paste"; $235 or $250 looks like a normal bet. <a href="/arb-calculator.html">Our arb calc</a> shows you the exact stake AND a rounded-to-nearest-$1 stake side-by-side so you can pick the rounded one without breaking the math. Use it.</li>
         <li><strong>Speed of acceptance</strong> — placing within seconds of a price change suggests automated scanning</li>
         <li><strong>Multi-book correlation</strong> — books share data via third-party services; if your $400 Eagles bet at FanDuel correlates with a $470 49ers bet at DraftKings 90 seconds later, you're a known entity</li>
         <li><strong>Always taking the line — never the opposite</strong> — recreational bettors hit both sides over time; arbers only ever take whichever side is mispriced for them</li>
         <li><strong>Promo-only behavior</strong> — only placing bets that match boosted offers</li>
       </ul>
+
+      <div class="tip-block">
+        <strong>The rounding habit:</strong> if the calc says bet $470.41, just bet $470. The arb margin shrinks by a few cents but you stop telegraphing "I'm running a stake formula." Train yourself to round every stake before you click. <a href="/arb-calculator.html">Our arb calc</a> does this for you in a dedicated column — no mental math required.
+      </div>
 
       <div class="warn-block">
         <strong>Lifespan of an arbing account:</strong> 2 weeks to 6 months at any given book. Soft books cut faster. Plan for it — your bankroll math should assume each book gives you a finite number of cycles before limits drop to $1-50 per bet or new bets get declined entirely.
