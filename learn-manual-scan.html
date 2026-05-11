@@ -152,7 +152,7 @@
   <div class="lesson-hero">
     <div class="lesson-eyebrow">Concept · Free Workflow</div>
     <h1 class="lesson-title">The Manual Sharp Scan</h1>
-    <p class="lesson-sub">You don't need a paid tool to find sharp action. Open Pick the Odds. Scroll. Let your eye get used to typical liquidity by market type. <strong>The outliers find themselves.</strong> Then translate, devig, shop.</p>
+    <p class="lesson-sub">You don't need a paid scanner to find sharp action. Open Pick the Odds. Compare two columns. Spot the gap, take the bet. It might look like a wall of numbers at first — by the end of this lesson, <strong>you'll find the right bet in under a minute</strong>.</p>
   </div>
 
   <section class="lesson-section">
@@ -169,47 +169,65 @@
   </section>
 
   <section class="lesson-section">
-    <h3>The fastest read — BEST column vs. ProphetX column</h3>
+    <h3>The fastest read — find the bet first</h3>
     <div class="lesson-body">
-      <p>The 30-second version of this entire lesson, before any calibration drills:</p>
-
-      <p class="pull-quote">Open Pick the Odds. Scroll any market. Compare the <strong>BEST</strong> column to the <strong>ProphetX</strong> column on each row. When they meaningfully disagree, you've found a cross-market EV opportunity.</p>
-
-      <p>That's it. That's the whole heuristic.</p>
-
-      <h4>Why it works</h4>
-      <ul>
-        <li>The <strong>BEST</strong> column shows the most generous price available across all the books you've enabled — usually a soft book (FanDuel, DraftKings, BetMGM, Caesars, Hard Rock, ESPN BET, bet365, Fanatics).</li>
-        <li>The <strong>ProphetX</strong> column shows the price on the sharpest exchange available. The makers there are trading firms and syndicates — real money pricing the market efficiently.</li>
-        <li>When a <em>soft book</em> has the BEST price <em>and</em> that price is meaningfully better than PX's, it means the soft book is offering odds the sharps wouldn't accept. That gap is the +EV bet.</li>
-        <li>When BEST <em>matches</em> PX (or PX itself is the source of BEST), the soft books are in line with consensus — no edge to harvest. Move on.</li>
-      </ul>
-
-      <h4>Two examples</h4>
+      <p>Let's start with the actual bet, then work backwards. Here's a real one you could have grabbed off Pick the Odds yesterday with about 5 seconds of scanning:</p>
 
       <div class="example-block">
-        <span class="label">Where it fires: Nimmo Hits row</span>
+        <span class="label">The bet</span>
+        <div class="row"><span class="src">Player / market</span><span class="body">Brandon Nimmo · Hits Under 0.5</span></div>
+        <div class="row"><span class="src">Where</span><span class="body">bet365</span></div>
+        <div class="row"><span class="src">Price</span><span class="body"><span class="pos">+202</span></span></div>
+        <div class="row"><span class="src">Edge</span><span class="body">~4.8 percentage points · cross-market EV</span></div>
+      </div>
+
+      <p>Looks like just another row in a sea of numbers. So how did this bet reveal itself?</p>
+
+      <h4>The two columns that did the work</h4>
+      <p>You don't need to look at every book on the row. You only need to compare <strong>two columns</strong> — the <strong>BEST</strong> column (the most generous price available across all the books you have) and the <strong>ProphetX</strong> column (the sharpest exchange consensus).</p>
+
+      <p>On the Nimmo row:</p>
+      <div class="example-block">
+        <span class="label">What the two columns showed</span>
         <div class="row"><span class="src">BEST Under</span><span class="body"><span class="accent">+202</span> at bet365</span></div>
-        <div class="row"><span class="src">PX Under</span><span class="body">+139</span></div>
+        <div class="row"><span class="src">ProphetX Under</span><span class="body">+139</span></div>
         <div class="row"><span class="src">Gap</span><span class="body"><span class="pos">63 cents</span> — massive</span></div>
         <hr>
-        <div class="conclusion"><strong>The bet: take Under at +202 at bet365.</strong> The sharp consensus says Under is worth roughly +165 (PX devigged); bet365 is offering +202. ~4.8-point probability gap in your favor.</div>
+        <div class="conclusion">A soft book (bet365) is offering Under 0.5 at <strong>way</strong> better odds than the sharpest exchange. The sharps wouldn't accept Under at +139 if they thought it should be priced at +202. <strong>That gap is the bet.</strong></div>
       </div>
+
+      <p class="pull-quote">When the BEST price is at a soft book <em>and</em> it's meaningfully better than ProphetX's price, that's a cross-market EV opportunity. Two columns. One comparison. Five seconds.</p>
+
+      <h4>The heuristic, in plain English</h4>
+      <ul>
+        <li><strong>BEST</strong> shows the most generous price across your books — usually a soft book (FanDuel, DraftKings, BetMGM, Caesars, Hard Rock, ESPN BET, bet365, Fanatics).</li>
+        <li><strong>ProphetX</strong> shows the price on the sharpest exchange. The makers there are trading firms and syndicates — real money pricing the market efficiently.</li>
+        <li>When a soft book has BEST <em>and</em> that price is meaningfully better than PX, the soft book is offering odds the sharps wouldn't accept. <strong>That gap is the +EV bet.</strong></li>
+        <li>When BEST matches PX (or PX itself is BEST), the soft books are in line with consensus — no edge here. Move on.</li>
+      </ul>
+
+      <h4>When it doesn't fire</h4>
+      <p>To calibrate, here's a row from the same kind of scan where the heuristic correctly says <em>no bet</em>:</p>
 
       <div class="example-block" style="border-left-color: var(--dim);">
-        <span class="label" style="color: var(--dim);">Where it doesn't fire: Pistons ML row</span>
-        <div class="row"><span class="src">BEST Pistons</span><span class="body">+146 (Novig itself)</span></div>
+        <span class="label" style="color: var(--dim);">Pistons ML row · no play available</span>
+        <div class="row"><span class="src">BEST Pistons</span><span class="body">+146 (Novig itself — an exchange, not a soft book)</span></div>
         <div class="row"><span class="src">PX Pistons</span><span class="body">+141</span></div>
-        <div class="row"><span class="src">Soft books</span><span class="body">+136 to +140 (in line with sharps)</span></div>
+        <div class="row"><span class="src">Soft books</span><span class="body">+136 to +140 (all in line with consensus)</span></div>
         <hr>
-        <div class="conclusion">BEST is at an exchange, not a soft book — meaning the soft books agree with consensus. No soft outlier to bet against. <strong>No cross-market play on this row.</strong></div>
+        <div class="conclusion">BEST is at an exchange, not a soft outlier. Soft books are below the sharp price, not above it. <strong>No cross-market opportunity here.</strong> Move to the next row.</div>
       </div>
+
+      <h4>Feeling overwhelmed by the row of numbers? That's normal.</h4>
+      <p>If your first instinct staring at a Pick the Odds scan is "this is a lot," you're not wrong. The screen is dense. But you don't have to read every cell — you only have to compare <strong>two columns</strong>. The rest is noise until you've drilled into a flagged row.</p>
+
+      <p>This is the skill we'll train. Each scan gets faster. After 50-100 rows, your eye lands on the BEST and PX cells automatically and the gap (or absence of one) registers in under a second. You'll go from "I don't know what I'm looking at" to "yep, that's the bet" in the same time it takes to scroll past it.</p>
 
       <div class="tip-block">
-        <strong>The fastest workflow:</strong> scroll Pick the Odds with your BEST and PX columns adjacent. Eye glides down the rows. Flag any row where BEST and PX disagree by more than 10-20 cents on either side and the BEST is at a soft book. Drill into the flagged rows with the Sharp Snapshot calc and the <a href="/learn-exchange-liquidity.html">translation rule</a> to confirm direction and size.
+        <strong>The fastest workflow:</strong> scroll Pick the Odds with your BEST and PX columns adjacent. Eye glides down the rows. Flag any row where BEST is at a <em>soft book</em> AND it's more than 10-20 cents better than PX. Drill into the flagged rows with the <a href="/sharp-snapshot.html">Sharp Snapshot calc</a> and the <a href="/learn-exchange-liquidity.html">translation rule</a> to confirm direction and size.
       </div>
 
-      <p>Once you've internalized this heuristic, the rest of this lesson is about <em>leveling up</em>: reading liquidity itself (not just price gaps) to catch more subtle signals — outsized depth on thin markets, lopsided order books, exchange-depth overflow against book limits. Master the simple version first; layer in the deeper reads as you build pattern recognition.</p>
+      <p>Once you've internalized this two-column heuristic, the rest of the lesson is about <em>leveling up</em>: reading liquidity itself (not just price gaps) to catch more subtle signals — outsized depth on thin markets, lopsided order books, exchange-depth overflow against book limits. Master the simple version first; layer in the deeper reads as you build pattern recognition.</p>
     </div>
   </section>
 
