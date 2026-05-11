@@ -210,12 +210,16 @@
       <p>To calibrate, here's a row from the same kind of scan where the heuristic correctly says <em>no bet</em>:</p>
 
       <div class="example-block" style="border-left-color: var(--dim);">
-        <span class="label" style="color: var(--dim);">Pistons ML row · no play available</span>
+        <span class="label" style="color: var(--dim);">Pistons ML row · no cross-market play</span>
         <div class="row"><span class="src">BEST Pistons</span><span class="body">+146 (Novig itself — an exchange, not a soft book)</span></div>
         <div class="row"><span class="src">PX Pistons</span><span class="body">+141</span></div>
         <div class="row"><span class="src">Soft books</span><span class="body">+136 to +140 (all in line with consensus)</span></div>
         <hr>
-        <div class="conclusion">BEST is at an exchange, not a soft outlier. Soft books are below the sharp price, not above it. <strong>No cross-market opportunity here.</strong> Move to the next row.</div>
+        <div class="conclusion">BEST is at an exchange, not a soft outlier. Soft books are <em>below</em> the sharp price, not above it. <strong>No cross-market opportunity here.</strong></div>
+      </div>
+
+      <div class="tip-block">
+        <strong>Subtle sub-signal worth noting:</strong> Novig (+146) is 5¢ better than ProphetX (+141) for backing Pistons. That's an <em>inter-exchange disagreement</em> — Novig's makers are willing to lay Pistons at a slightly worse price for themselves, meaning they're a touch more confident Pistons are the play. Not a cross-market EV bet (no soft book is offering a better price than the exchanges), but it answers a different question: <em>"if I've decided to bet Pistons, where's the best price?"</em> Answer: <strong>Novig at +146</strong>. The BEST column already tells you this — you just need to know to act on it.
       </div>
 
       <h4>Feeling overwhelmed by the row of numbers? That's normal.</h4>
