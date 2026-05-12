@@ -634,6 +634,18 @@
     margin-left: auto;
     margin-right: auto;
   }
+  /* Chevron connector — visually links the head to its card below */
+  .featured-pair-head::after {
+    content: '';
+    display: block;
+    width: 12px;
+    height: 12px;
+    margin: 22px auto 0;
+    border-right: 2px solid var(--purple);
+    border-bottom: 2px solid var(--purple);
+    transform: rotate(45deg);
+    opacity: 0.7;
+  }
   @media (max-width: 640px) {
     .featured-pair { margin-top: 32px; }
     .featured-pair-head .section-title { font-size: 20px; letter-spacing: 1.5px; }
