@@ -438,6 +438,25 @@
     margin-bottom: 2px;
   }
 
+  /* Anchor variant — purple theme for ProphetX (the hedge book / sharp exchange) */
+  .book-card.anchor {
+    background: linear-gradient(180deg, rgba(188, 140, 255, 0.10), var(--panel-deep));
+    border-color: var(--purple);
+    box-shadow: 0 0 22px rgba(188, 140, 255, 0.10);
+    position: relative;
+    overflow: visible;
+  }
+  .book-card.anchor:hover {
+    border-color: var(--purple);
+    box-shadow: 0 0 32px rgba(188, 140, 255, 0.22);
+    transform: translateY(-2px);
+  }
+  .book-card.anchor .book-bonus { color: var(--purple); font-weight: 700; }
+  .book-card.anchor .book-tag { color: var(--purple); }
+  .book-card.anchor .book-badge { background: var(--purple); color: #1a0f2a; box-shadow: 0 3px 10px rgba(188, 140, 255, 0.35); }
+  .book-card.anchor .book-promo-flag { color: var(--purple); }
+  .book-card.anchor .book-promo-flag::before { background: var(--purple); box-shadow: 0 0 6px var(--purple); }
+
   /* Endgame variant — gold theme for BetMGM (the final / biggest offer) */
   .book-card.endgame {
     background: linear-gradient(180deg, rgba(245, 181, 69, 0.10), var(--panel-deep));
@@ -2475,9 +2494,16 @@
       <div class="subsection-head">
         <div class="section-eyebrow gold">Sportsbook Offers</div>
         <div class="subsection-title">Books we recommend</div>
-        <div class="subsection-sub">Sign up through these links to support the site — same offers, no extra cost to you.</div>
+        <div class="subsection-sub"><strong>Start with ProphetX</strong> — the sharp exchange is the hedge counterpart you'll need at every other book. Then claim the recreational offers in order. Sign up through these links to support the site — same offers, no extra cost to you.</div>
       </div>
       <div class="book-grid">
+      <a class="book-card anchor" href="book-prophetx.html" rel="sponsored">
+        <div class="book-badge">★ Start Here · Hedge Anchor</div>
+        <div class="book-promo-flag">● Required first</div>
+        <div class="book-name">ProphetX</div>
+        <div class="book-bonus">Code: QEO8QG · Exchange</div>
+        <div class="book-tag">The hedge book · Read more →</div>
+      </a>
       <a class="book-card featured" href="book-draftkings.html">
         <div class="book-badge">★ Starter Pick</div>
         <div class="book-promo-flag">● Live promo</div>
@@ -2525,11 +2551,6 @@
         <div class="book-name">Bookmaker</div>
         <div class="book-bonus">Sharp Lines & Limits</div>
         <div class="book-tag">Sign Up →</div>
-      </a>
-      <a class="book-card" href="book-prophetx.html">
-        <div class="book-name">ProphetX</div>
-        <div class="book-bonus">Code: QEO8QG · Exchange</div>
-        <div class="book-tag">Learn More →</div>
       </a>
       <a class="book-card" href="https://play.underdogfantasy.com/profitpath-bbbdfc02f9d75f4b" target="_blank" rel="nofollow noopener">
         <div class="book-name">Underdog</div>
