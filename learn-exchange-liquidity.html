@@ -375,6 +375,28 @@
   </section>
 
   <section class="lesson-section">
+    <h3>Unmatched offers vs. matched bets — get this straight first</h3>
+    <div class="lesson-body">
+      <p>Before any of the signals make sense, one foundational distinction. Two completely different things can show up on an exchange screen, and reading them wrong leads to all the wrong conclusions.</p>
+
+      <ul>
+        <li><strong>Unmatched liquidity (offers waiting on the order book)</strong> — Money sitting in the order book waiting to be taken. Somebody posted "I'll lay Jays at −115 for $5k" and that offer is queued up. Until someone takes it, it just sits there. <em>This is what the price ladder on every exchange order-book view shows you</em> — including the standard PTO views.</li>
+        <li><strong>Matched volume (bets that have already happened)</strong> — Actual completed transactions where two parties met at a price and both sides locked in. This is historical action — shown separately on transaction-history or volume charts.</li>
+      </ul>
+
+      <p>Both are useful, but <strong>everything in the rest of this lesson refers to unmatched liquidity unless explicitly stated otherwise.</strong> Here's why that's the version that matters for finding +EV:</p>
+
+      <ul>
+        <li><strong>Unmatched is forward-looking.</strong> It tells you what sharps are willing to do <em>right now</em> — their fair-price opinion backed by actual capital sitting on the book.</li>
+        <li><strong>Matched is historical.</strong> What happened — interesting, but stale. Sharps may have moved on.</li>
+        <li><strong>For finding +EV, real-time conviction beats history every time.</strong> You want to know what sharps think the market is worth as you're making your decision, not what they thought yesterday.</li>
+      </ul>
+
+      <p class="pull-quote">The mental model: an exchange order book is a wall of offers stacked at each price. Each offer is somebody waiting for you to hit it. The shape of that wall — where it's thick, where it's thin, where it suddenly collapses — is the signal.</p>
+    </div>
+  </section>
+
+  <section class="lesson-section">
     <h3>What you're actually looking at (the most important inversion)</h3>
     <div class="lesson-body">
       <p>This is the part that flips the way most people read a book — and the part you have to internalize before any of the other signals make sense.</p>
@@ -670,6 +692,55 @@
       </table>
 
       <p>The strongest readings come from the <strong>3-8 hours before kickoff</strong> window, when sharps are actively pricing the market but haven't yet hit it with full force. That's when the book is most "honest" — you can see the structure forming without it being so deep that the signal is just "yes, the market is mature."</p>
+    </div>
+  </section>
+
+  <section class="lesson-section">
+    <h3>Signal #9 — Cumulative cross-exchange depth = the consensus fair price</h3>
+    <div class="lesson-body">
+      <p>Every signal above reads <em>one</em> exchange's order book in isolation. The strongest version of the same skill: read the <strong>cumulative depth across every exchange at once.</strong></p>
+
+      <p>Tools like Pick the Odds aggregate liquidity from across the entire exchange network — ProphetX, Sporttrade, Novig, Circa, STX, Kalshi, 3Bet, and more — and stack it at each price point. With <em>"Make Cumulative"</em> toggled on, every bar shows the total dollars sitting at that price <strong>or worse</strong> across the whole network. Each color stripe inside the bar = one exchange's contribution to the total at that price.</p>
+
+      <p>Reading this view is a single-screen consensus poll of every sharp trader who put up actual cash. Far more honest than any pundit.</p>
+
+      <!-- Image placeholder — save as /images/pto-cumulative-sabres-canadiens.png -->
+      <img src="/images/pto-cumulative-sabres-canadiens.png" alt="Pick the Odds cumulative cross-exchange depth — Sabres @ Canadiens moneyline, showing concentrated liquidity at certain price levels and collapses where sharps stop participating" class="real-example-img" onerror="this.style.display='none'">
+      <p class="real-example-caption">PTO cumulative cross-exchange depth — Sabres @ Canadiens moneyline. Top half = Sabres back-side depth; bottom half = Canadiens back-side depth. Colored stripes = different exchanges. "Make Cumulative" is on.</p>
+
+      <h4>Walking a real one — Sabres @ Canadiens moneyline</h4>
+      <p>The shape on the <strong>Sabres side</strong> (visiting underdog):</p>
+
+      <div class="example-block">
+        <span class="label">Cumulative depth — Sabres back side</span>
+        <div class="row"><span class="src">−105</span><span class="body"><span class="accent">$633k</span> cumulative</span></div>
+        <div class="row"><span class="src">+105 to +115</span><span class="body"><span class="accent">$589k–$596k</span> (basically flat)</span></div>
+        <div class="row"><span class="src">+120</span><span class="body"><span class="accent">$515k</span></span></div>
+        <div class="row"><span class="src">+125</span><span class="body"><span class="accent">$375k</span></span></div>
+        <div class="row"><span class="src">+130</span><span class="body"><span class="accent">$105k</span> — wall collapses</span></div>
+        <div class="row"><span class="src">+135 and beyond</span><span class="body"><span class="accent">~$0</span> — sharps refuse to participate</span></div>
+        <div class="conclusion"><strong>Read it:</strong> deep wall of money willing to fill Sabres-backers anywhere from −105 through about +125. Past +125 the wall collapses. <em>Sharps refuse to give better than +125 on Sabres — that's the consensus ceiling.</em></div>
+      </div>
+
+      <p>The shape on the <strong>Canadiens side</strong> (home favorite):</p>
+
+      <div class="example-block">
+        <span class="label">Cumulative depth — Canadiens back side</span>
+        <div class="row"><span class="src">−140</span><span class="body"><span class="accent">$37k</span> — almost nothing</span></div>
+        <div class="row"><span class="src">−145</span><span class="body"><span class="accent">$134k</span></span></div>
+        <div class="row"><span class="src">−150</span><span class="body"><span class="accent">$230k</span></span></div>
+        <div class="row"><span class="src">−160</span><span class="body"><span class="accent">$378k</span></span></div>
+        <div class="row"><span class="src">−170 to −185</span><span class="body"><span class="accent">$393k</span> — plateaus</span></div>
+        <div class="conclusion"><strong>Read it:</strong> very little money sits at −140 (sharps won't lay Canadiens that cheap — they think the dog is worth less than +140). Money ramps in hard at −150 to −160, then plateaus around $393k. <em>Sharps think Canadiens are worth at least −150, probably closer to −160.</em></div>
+      </div>
+
+      <h4>The two sides cross-check each other</h4>
+      <p>Sabres consensus ceiling ≈ +125. Canadiens consensus floor ≈ −150. Implied probabilities: +125 = 44.4%, −150 = 60%. <strong>Sum = 104.4%</strong> — that's the consensus hold across the entire exchange network. Much tighter than the 10–12% you'd see on a recreational book — which is exactly what you'd expect from a venue made of sharps trading against each other.</p>
+
+      <h4>The trigger — where to act</h4>
+      <p>Now go shop the soft books. Anywhere you see <strong>Sabres at +130 or better</strong>, or <strong>Canadiens at −145 or better</strong>, you're getting paid for a side sharps consider mispriced. That's the +EV bet.</p>
+
+      <p>The cumulative-depth view tells you exactly how far the soft book has to drift before it becomes actionable, and exactly which side. Single-exchange views can be noisy — one big trader, one wide market — but the cumulative cross-exchange view averages across the network. When you see the same shape across 6+ venues, it's not one trader's opinion. It's the entire sharp market saying "we agree."</p>
     </div>
   </section>
 
