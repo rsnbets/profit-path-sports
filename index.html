@@ -564,17 +564,19 @@
   .path-fork-svg {
     display: block;
     width: 100%;
-    max-width: 520px;
-    height: auto;
-    margin: 0 auto;
+    max-width: 1200px;
+    height: 100px;
+    margin: 6px auto -6px;
     color: var(--blue);
-    opacity: 0.55;
-    filter: drop-shadow(0 0 8px rgba(61,139,255,0.18));
+    opacity: 0.45;
+    filter: drop-shadow(0 0 8px rgba(61,139,255,0.16));
+  }
+  @media (max-width: 980px) {
+    .path-fork-svg { display: none; }
   }
   @media (max-width: 600px) {
     .path-fork-title { font-size: 22px; letter-spacing: 2px; }
     .path-fork-sub { font-size: 14px; }
-    .path-fork-svg { max-width: 380px; }
   }
 
   /* ── Featured "Bet X-Ray" exclusive tile (sits between hero pitch & path tiles) ── */
@@ -1739,19 +1741,25 @@
         <div class="path-fork-eyebrow">Start here</div>
         <h2 class="path-fork-title">Choose Your Path</h2>
         <p class="path-fork-sub">Four ways into the site, sorted by where you are right now. Pick whichever fits — no wrong answer.</p>
-        <svg class="path-fork-svg" viewBox="0 0 400 70" xmlns="http://www.w3.org/2000/svg" fill="none" aria-hidden="true">
-          <line x1="200" y1="0" x2="200" y2="22" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          <line x1="50" y1="22" x2="350" y2="22" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          <line x1="50" y1="22" x2="50" y2="52" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          <line x1="150" y1="22" x2="150" y2="52" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          <line x1="250" y1="22" x2="250" y2="52" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          <line x1="350" y1="22" x2="350" y2="52" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          <polyline points="42,46 50,56 58,46" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          <polyline points="142,46 150,56 158,46" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          <polyline points="242,46 250,56 258,46" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          <polyline points="342,46 350,56 358,46" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
       </div>
+
+      <!-- Arrow fork — full grid width, arrows aligned to path tile columns -->
+      <svg class="path-fork-svg" viewBox="0 0 400 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" fill="none" aria-hidden="true">
+        <!-- vertical stem from headline -->
+        <line x1="200" y1="0" x2="200" y2="28" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        <!-- horizontal branch bar -->
+        <line x1="50" y1="28" x2="350" y2="28" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        <!-- 4 long vertical drops aligned with path tile centers (12.5%, 37.5%, 62.5%, 87.5%) -->
+        <line x1="50" y1="28" x2="50" y2="90" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="150" y1="28" x2="150" y2="90" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="250" y1="28" x2="250" y2="90" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="350" y1="28" x2="350" y2="90" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        <!-- 4 arrowheads at the bottom, just above where the tiles start -->
+        <polyline points="42,82 50,94 58,82" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <polyline points="142,82 150,94 158,82" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <polyline points="242,82 250,94 258,82" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <polyline points="342,82 350,94 358,82" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      </svg>
 
       <div class="hero-paths">
         <a class="hero-path blue" href="lane-new.html">
@@ -1802,6 +1810,19 @@
           </ul>
           <div class="hero-path-cta">Open the Toolbox →</div>
         </a>
+      </div>
+
+      <!-- LEAD MAGNET: Sharp Exchange Playbook (paired with Bet X-Ray below) -->
+      <div class="lead-magnet-card">
+        <div class="lead-magnet-badge">Free · Email request</div>
+        <div class="lead-magnet-icon">🩻</div>
+        <div class="lead-magnet-eyebrow">The flagship deep-dive</div>
+        <div class="lead-magnet-name">The Sharp Exchange Playbook</div>
+        <div class="lead-magnet-desc">A free five-part deep-dive on the most underexplored edge in modern sports betting — exchange order books and how to read them. The whole playbook the public site doesn't get: <strong>what exchanges are and why they're different · how to read the order book like a trading desk · the manual sharp scan workflow · the calculator that automates the analysis · the maker tactic for posting your own price.</strong> Plus the specific signals we use daily — translation rule, imbalance reads, conviction overflows, BEST-vs-PX heuristic, posting in wide markets. Nothing else covers this for free.</div>
+        <div class="lead-magnet-cta-row">
+          <div class="lead-magnet-cta-text">Email <a href="mailto:info@profitpathsports.com?subject=Sharp%20Exchange%20Playbook%20request&amp;body=Hey%20%E2%80%94%20I%27d%20like%20the%20Sharp%20Exchange%20Playbook.%20Thanks!" class="lead-magnet-email">info@profitpathsports.com</a> and we'll send you the link</div>
+          <a class="lead-magnet-btn" href="mailto:info@profitpathsports.com?subject=Sharp%20Exchange%20Playbook%20request&amp;body=Hey%20%E2%80%94%20I%27d%20like%20the%20Sharp%20Exchange%20Playbook.%20Thanks!">Request access ↗</a>
+        </div>
       </div>
 
       <a class="exclusive-tile" href="bet-x-ray.html">
@@ -2179,19 +2200,6 @@
       <div class="section-eyebrow purple">Coming Soon</div>
       <div class="section-title">More on the Way</div>
       <div class="section-sub">Building this out into a full education resource. Here's what's next.</div>
-    </div>
-
-    <!-- LEAD MAGNET: Sharp Exchange Playbook -->
-    <div class="lead-magnet-card">
-      <div class="lead-magnet-badge">Free · Email request</div>
-      <div class="lead-magnet-icon">🩻</div>
-      <div class="lead-magnet-eyebrow">The flagship deep-dive</div>
-      <div class="lead-magnet-name">The Sharp Exchange Playbook</div>
-      <div class="lead-magnet-desc">A free five-part deep-dive on the most underexplored edge in modern sports betting — exchange order books and how to read them. The whole playbook the public site doesn't get: <strong>what exchanges are and why they're different · how to read the order book like a trading desk · the manual sharp scan workflow · the calculator that automates the analysis · the maker tactic for posting your own price.</strong> Plus the specific signals we use daily — translation rule, imbalance reads, conviction overflows, BEST-vs-PX heuristic, posting in wide markets. Nothing else covers this for free.</div>
-      <div class="lead-magnet-cta-row">
-        <div class="lead-magnet-cta-text">Email <a href="mailto:info@profitpathsports.com?subject=Sharp%20Exchange%20Playbook%20request&amp;body=Hey%20%E2%80%94%20I%27d%20like%20the%20Sharp%20Exchange%20Playbook.%20Thanks!" class="lead-magnet-email">info@profitpathsports.com</a> and we'll send you the link</div>
-        <a class="lead-magnet-btn" href="mailto:info@profitpathsports.com?subject=Sharp%20Exchange%20Playbook%20request&amp;body=Hey%20%E2%80%94%20I%27d%20like%20the%20Sharp%20Exchange%20Playbook.%20Thanks!">Request access ↗</a>
-      </div>
     </div>
 
     <div class="coming-grid">
