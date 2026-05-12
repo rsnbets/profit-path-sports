@@ -1766,19 +1766,22 @@
   .pps-sidebar-brand {
     display: flex;
     align-items: center;
-    gap: 10px;
+    justify-content: center;
+    gap: 8px;
     color: var(--green);
     text-decoration: none;
     font-family: 'Orbitron', sans-serif;
     font-weight: 800;
-    font-size: 13px;
-    letter-spacing: 1.5px;
-    padding: 6px 6px 18px;
+    font-size: 11px;
+    letter-spacing: 1.6px;
+    padding: 4px 0 16px;
     border-bottom: 1px solid var(--border-soft);
-    margin-bottom: 12px;
+    margin-bottom: 14px;
     text-transform: uppercase;
+    filter: drop-shadow(0 0 8px rgba(74, 222, 128, 0.25));
   }
-  .pps-sidebar-brand svg { width: 22px; height: 18px; }
+  .pps-sidebar-brand svg { width: 18px; height: 14px; flex-shrink: 0; }
+  .pps-sidebar-brand span { white-space: nowrap; }
   .pps-sidebar-brand:hover { color: #6ee7a0; }
 
   .pps-sidebar-nav { display: flex; flex-direction: column; gap: 1px; }
@@ -1892,7 +1895,10 @@
       <svg viewBox="0 0 28 22" xmlns="http://www.w3.org/2000/svg" fill="none">
         <polyline points="2,18 8,12 12,15 18,7 26,3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
-      Profit Path
+      <span>Profit Path Sports</span>
+      <svg viewBox="0 0 28 22" xmlns="http://www.w3.org/2000/svg" fill="none">
+        <polyline points="2,18 8,12 12,15 18,7 26,3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
     </a>
     <nav class="pps-sidebar-nav">
       <a class="pps-nav-link" href="/index.html">Home</a>
