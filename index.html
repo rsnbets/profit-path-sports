@@ -579,6 +579,41 @@
     .path-fork-sub { font-size: 14px; }
   }
 
+  /* ── Featured-pair section header (sits between path tiles and SEP/X-Ray) ── */
+  .featured-pair-head {
+    text-align: center;
+    margin: 56px auto 24px;
+    padding-top: 40px;
+    border-top: 1px solid var(--border-soft);
+    max-width: 720px;
+    position: relative;
+  }
+  .featured-pair-head::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: 30%;
+    right: 30%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--purple), transparent);
+    opacity: 0.6;
+  }
+  .featured-pair-head .section-eyebrow {
+    justify-content: center;
+  }
+  .featured-pair-head .section-title {
+    font-size: 26px;
+  }
+  .featured-pair-head .section-sub {
+    max-width: 560px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  @media (max-width: 640px) {
+    .featured-pair-head { margin-top: 40px; padding-top: 28px; }
+    .featured-pair-head .section-title { font-size: 20px; letter-spacing: 1.5px; }
+  }
+
   /* ── Featured "Bet X-Ray" exclusive tile (sits between hero pitch & path tiles) ── */
   .exclusive-tile {
     position: relative;
@@ -2060,6 +2095,13 @@
           </ul>
           <div class="hero-path-cta">Enter Path 03 →</div>
         </a>
+      </div>
+
+      <!-- ── Featured-pair section header ── -->
+      <div class="featured-pair-head">
+        <div class="section-eyebrow purple">Free Exclusives</div>
+        <div class="section-title">Built by us. Free for you.</div>
+        <div class="section-sub">Two flagship resources you can't get anywhere else — one a tool, one a playbook.</div>
       </div>
 
       <!-- LEAD MAGNET: Sharp Exchange Playbook (paired with Bet X-Ray below) -->
