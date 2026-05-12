@@ -28,6 +28,8 @@
   .header { background:var(--bg);padding:1.75rem 2rem 1.5rem;border-bottom:1px solid var(--border);text-align:center;position:relative; }
   .header::after { content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--blue),transparent); }
   .title { font-size:2rem;font-weight:700;letter-spacing:0.08em;color:var(--blue);text-transform:uppercase; }
+  .title-sub { font-family: 'IBM Plex Sans', sans-serif; font-size: 14px; color: var(--muted); line-height: 1.6; max-width: 620px; margin: 12px auto 0; padding: 0 14px; text-align: center; }
+  .title-sub strong { color: var(--text); font-weight: 600; }
   .status-bar { padding:0.65rem 1.75rem;font-size:0.78rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;text-align:center;background:var(--inset);border-bottom:1px solid var(--border);color:var(--muted);transition:color 0.3s,background 0.3s; }
   .section { padding:1.3rem 1.75rem;border-bottom:1px solid var(--border); }
   .section:last-child { border-bottom:none; }
@@ -59,6 +61,7 @@
 <div class="card">
   <div class="header">
     <div class="title">⚡ Bonus Bet Converter ⚡</div>
+    <p class="title-sub">A clean welcome-offer conversion lands 70-80% of face value as withdrawable cash. <strong>Most users land 0-40%.</strong> Type your bonus amount, qualifier odds, and hedge price — get the exact hedge stake that converts bonus credit to real, guaranteed cash.</p>
     <a href="#how-to-use" class="how-to-jump">How to use this ↓</a>
   </div>
   <div class="status-bar" id="statusBar">Enter your bonus details to calculate conversion rate</div>
