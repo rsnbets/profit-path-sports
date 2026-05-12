@@ -213,6 +213,36 @@
     margin-bottom: 36px;
     font-family: 'IBM Plex Sans', sans-serif;
   }
+  /* Two-terms primer block — sets up maker/taker vocab before the curriculum */
+  .primer {
+    background: var(--panel-deep);
+    border: 1px solid var(--border-soft);
+    border-left: 3px solid var(--purple);
+    border-radius: 12px;
+    padding: 22px 28px;
+    margin-bottom: 36px;
+    font-family: 'IBM Plex Sans', sans-serif;
+  }
+  .primer h3 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--purple);
+    font-weight: 800;
+    margin-bottom: 14px;
+  }
+  .primer p { font-size: 15px; color: var(--text); line-height: 1.65; margin-bottom: 12px; }
+  .primer p:last-child { margin-bottom: 0; }
+  .primer p strong { color: var(--text); font-weight: 600; }
+  .primer .terms { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 14px 0 16px; }
+  .primer .term { background: var(--panel-inset); border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px; }
+  .primer .term .term-name { font-family: 'Orbitron', sans-serif; font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--purple); font-weight: 800; margin-bottom: 8px; }
+  .primer .term .term-body { font-size: 14px; line-height: 1.55; color: var(--text); }
+  .primer .term .term-body strong { color: var(--purple); font-weight: 600; }
+  @media (max-width: 600px) {
+    .primer .terms { grid-template-columns: 1fr; }
+  }
   .what-you-learn h3 {
     font-family: 'Orbitron', sans-serif;
     font-size: 12px;
@@ -471,6 +501,22 @@
     </ul>
   </div>
 
+  <div class="primer">
+    <h3>Two terms first — maker vs. taker</h3>
+    <p>You'll see these everywhere on exchanges and they're the foundation of everything that follows. Brief definitions before the curriculum starts:</p>
+    <div class="terms">
+      <div class="term">
+        <div class="term-name">Taker</div>
+        <div class="term-body">You <strong>accept an existing offer</strong> on the order book. Instant fill at the posted price. You're acting like a normal bettor — same role as a market order in stock trading.</div>
+      </div>
+      <div class="term">
+        <div class="term-name">Maker</div>
+        <div class="term-body">You <strong>post your own offer</strong> at the price you want. Sits on the order book until another user takes it (or you cancel). You're acting like the sportsbook — same role as a limit order in stock trading.</div>
+      </div>
+    </div>
+    <p><strong>Which to use, when:</strong> hedging always takes — you need an immediate fill at a locked-in price. Finding edge often makes — you wait for the taker to come to you at the price <em>you</em> want. The curriculum below builds both intuitions: Steps 1-3 teach you to read the book so you can take intelligently; Step 5 teaches you the maker tactic for wide markets where you can capture spread by posting your own offer just under the existing best.</p>
+  </div>
+
   <div class="section-divider">The Curriculum · 5 steps</div>
 
   <!-- Step 1: ProphetX foundation -->
@@ -479,7 +525,7 @@
     <div class="step-body">
       <div class="step-tag">Foundation · ProphetX</div>
       <div class="step-title">What an Exchange Actually Is</div>
-      <div class="step-desc">Before any tactics: what makes peer-to-peer exchanges fundamentally different from DraftKings or FanDuel. The sportsbook-as-counterparty mental model, the maker/taker dichotomy, and why you can act as the sportsbook when you post your own price.</div>
+      <div class="step-desc">Before any tactics: what makes peer-to-peer exchanges fundamentally different from DraftKings or FanDuel. The sportsbook-as-counterparty mental model, why you can act as the sportsbook when you post your own price, and how to use ProphetX as the hedge anchor for the bonus-conversion workflow at the recreational books.</div>
       <div class="step-cta">Start here →</div>
     </div>
   </a>
