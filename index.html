@@ -212,20 +212,31 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
-    margin-bottom: 8px;
+    gap: 14px;
+    margin-bottom: 10px;
   }
 
-  .section-eyebrow::before {
-    content: '▸';
-    color: var(--blue);
-    font-size: 10px;
+  /* Decorative chapter-break lines on either side of each eyebrow */
+  .section-eyebrow::before,
+  .section-eyebrow::after {
+    content: '';
+    display: block;
+    flex: 0 1 90px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--blue), var(--blue));
+  }
+  .section-eyebrow::after {
+    background: linear-gradient(90deg, var(--blue), var(--blue), transparent);
   }
 
-  .section-eyebrow.gold::before { color: var(--yellow); }
-  .section-eyebrow.green::before { color: var(--green); }
-  .section-eyebrow.purple::before { color: var(--purple); }
-  .section-eyebrow.red::before { color: var(--red); }
+  .section-eyebrow.gold::before { background: linear-gradient(90deg, transparent, var(--yellow), var(--yellow)); }
+  .section-eyebrow.gold::after { background: linear-gradient(90deg, var(--yellow), var(--yellow), transparent); }
+  .section-eyebrow.green::before { background: linear-gradient(90deg, transparent, var(--green), var(--green)); }
+  .section-eyebrow.green::after { background: linear-gradient(90deg, var(--green), var(--green), transparent); }
+  .section-eyebrow.purple::before { background: linear-gradient(90deg, transparent, var(--purple), var(--purple)); }
+  .section-eyebrow.purple::after { background: linear-gradient(90deg, var(--purple), var(--purple), transparent); }
+  .section-eyebrow.red::before { background: linear-gradient(90deg, transparent, var(--red), var(--red)); }
+  .section-eyebrow.red::after { background: linear-gradient(90deg, var(--red), var(--red), transparent); }
   .section-eyebrow.red { color: var(--red); }
 
   .section-title {
@@ -1084,21 +1095,18 @@
     cursor: pointer;
     list-style: none;
     position: relative;
-    padding-left: 130px;
-    padding-right: 130px;
   }
   details.section > summary::-webkit-details-marker { display: none; }
   details.section > summary::marker { content: ''; }
 
   details.section:not([open]) > summary.section-head { margin-bottom: 0; }
 
-  /* Pill-style "Expand / Collapse" indicator on the right of each summary */
+  /* Pill-style "Expand / Collapse" indicator, centered below the head */
   details.section > summary::after {
     content: 'Click to expand ▾';
-    position: absolute;
-    top: 50%;
-    right: 0;
-    transform: translateY(-50%);
+    display: block;
+    width: fit-content;
+    margin: 18px auto 0;
     font-family: 'IBM Plex Sans', sans-serif;
     font-size: 11px;
     letter-spacing: 1.4px;
@@ -1122,7 +1130,7 @@
     color: var(--blue);
     border-color: var(--blue);
     background: rgba(61, 139, 255, 0.12);
-    transform: translateY(-50%) translateY(-1px);
+    transform: translateY(-1px);
   }
   details.section > summary:hover .section-title { color: var(--blue); transition: color 0.15s; }
 
@@ -1203,7 +1211,7 @@
     border-bottom: 1px solid var(--border-soft);
   }
   .section:last-of-type { border-bottom: none; }
-  details.section > summary { padding-left: 40px; padding-right: 40px; }
+  details.section > summary { padding: 0; }
 
   /* Brand mark kept as original (Orbitron, gradient, glow). Tagline restyled below. */
   .brand-tagline {
