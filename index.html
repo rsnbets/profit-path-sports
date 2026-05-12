@@ -437,6 +437,25 @@
     font-weight: 700;
     margin-bottom: 2px;
   }
+
+  /* Endgame variant — gold theme for BetMGM (the final / biggest offer) */
+  .book-card.endgame {
+    background: linear-gradient(180deg, rgba(245, 181, 69, 0.10), var(--panel-deep));
+    border-color: var(--yellow);
+    box-shadow: 0 0 22px rgba(245, 181, 69, 0.10);
+    position: relative;
+    overflow: visible;
+  }
+  .book-card.endgame:hover {
+    border-color: var(--yellow);
+    box-shadow: 0 0 32px rgba(245, 181, 69, 0.22);
+    transform: translateY(-2px);
+  }
+  .book-card.endgame .book-bonus { color: var(--yellow); font-weight: 700; }
+  .book-card.endgame .book-tag { color: var(--yellow); }
+  .book-card.endgame .book-badge { background: var(--yellow); color: #181208; box-shadow: 0 3px 10px rgba(245, 181, 69, 0.35); }
+  .book-card.endgame .book-promo-flag { color: var(--yellow); }
+  .book-card.endgame .book-promo-flag::before { background: var(--yellow); box-shadow: 0 0 6px var(--yellow); }
   .book-card .book-promo-flag::before {
     content: '';
     display: inline-block;
@@ -2205,6 +2224,7 @@
       <div class="pps-nav-group-label">Sportsbooks</div>
       <a class="pps-nav-link" href="/book-draftkings.html">DraftKings</a>
       <a class="pps-nav-link" href="/book-fanduel.html">FanDuel</a>
+      <a class="pps-nav-link" href="/book-betmgm.html">BetMGM</a>
       <a class="pps-nav-link" href="/book-prophetx.html">ProphetX</a>
 
       <a class="pps-nav-link pps-nav-playbook" href="/exchange-playbook.html">★ Sharp Exchange Playbook</a>
@@ -2471,10 +2491,12 @@
         <div class="book-bonus">Bet $5 → $150</div>
         <div class="book-tag">~$105 cash · Read more →</div>
       </a>
-      <a class="book-card" href="https://playmgmsports.onelink.me/TkMx?af_xp=custom&pid=RAF&c=BMGM_RAF&af_ios_url=https%3A%2F%2Fwww.betmgm.com%2Fen%2Fmobileportal%2Finvitefriendssignup%3FinvID%3D14180543&af_android_url=https%3A%2F%2Fwww.betmgm.com%2Fen%2Fmobileportal%2Finvitefriendssignup%3FinvID%3D14180543&af_web_dp=https%3A%2F%2Fwww.betmgm.com%2Fen%2Fmobileportal%2Finvitefriendssignup%3FinvID%3D14180543&af_dp=playmgmsportswrp%3A%2F%2Fnavigation%3Fscheme%3Dhttps%26url%3Dwww.betmgm.com%2Fen%2Fmobileportal%2Finvitefriendssignup%3FinvID%3D14180543" target="_blank" rel="nofollow noopener">
+      <a class="book-card endgame" href="book-betmgm.html" rel="sponsored">
+        <div class="book-badge">★ Endgame Pick</div>
+        <div class="book-promo-flag">● Live promo</div>
         <div class="book-name">BetMGM</div>
-        <div class="book-bonus">Welcome Offer</div>
-        <div class="book-tag">Sign Up →</div>
+        <div class="book-bonus">First bet up to $1,500</div>
+        <div class="book-tag">~$700-$1,050 cash · Read more →</div>
       </a>
       <a class="book-card" href="https://hrb.onelink.me/aSsa?af_js_web=true&af_ss_ver=2&pid=af_web_invites&c=refer_a_friend-both-multi-sportsbook-wom-share-standard_2022_05_18&af_channel=refer_a_friend&accountId=442225407651741956&af_siteid=com.hardrockdigital.web" target="_blank" rel="nofollow noopener">
         <div class="book-name">Hard Rock Bet</div>
