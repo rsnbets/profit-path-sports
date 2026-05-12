@@ -1263,6 +1263,126 @@
     font-weight: 600;
   }
 
+  /* Lead Magnet card (Sharp Exchange Playbook tease) */
+  .lead-magnet-card {
+    position: relative;
+    background: linear-gradient(135deg, rgba(245,181,69,0.10) 0%, rgba(188,140,255,0.05) 100%);
+    border: 1px solid var(--yellow);
+    border-radius: 16px;
+    padding: 30px 32px 28px;
+    margin-bottom: 22px;
+    box-shadow: 0 0 50px rgba(245,181,69,0.10), 0 24px 60px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+  }
+  .lead-magnet-card::before {
+    content: '';
+    position: absolute;
+    top: -30%; left: 50%;
+    transform: translateX(-50%);
+    width: 70%; height: 160%;
+    background: radial-gradient(ellipse at center, rgba(245,181,69,0.12) 0%, transparent 60%);
+    pointer-events: none;
+    opacity: 0.85;
+  }
+  .lead-magnet-badge {
+    position: absolute;
+    top: 16px; right: 18px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #181208;
+    background: var(--yellow);
+    padding: 5px 12px;
+    border-radius: 4px;
+    font-weight: 800;
+    box-shadow: 0 0 16px rgba(245,181,69,0.45);
+    z-index: 2;
+  }
+  .lead-magnet-icon {
+    font-size: 38px;
+    line-height: 1;
+    margin-bottom: 10px;
+    filter: drop-shadow(0 0 14px rgba(245,181,69,0.4));
+    text-align: center;
+  }
+  .lead-magnet-eyebrow {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 10px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--yellow);
+    font-weight: 700;
+    margin-bottom: 6px;
+    text-align: center;
+  }
+  .lead-magnet-name {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 30px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    color: var(--text);
+    text-transform: uppercase;
+    line-height: 1.1;
+    text-align: center;
+    margin-bottom: 16px;
+  }
+  .lead-magnet-desc {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 14.5px;
+    line-height: 1.65;
+    color: var(--muted);
+    max-width: 720px;
+    margin: 0 auto 18px;
+    text-align: center;
+  }
+  .lead-magnet-desc strong { color: var(--text); font-weight: 600; }
+  .lead-magnet-cta-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 1;
+  }
+  .lead-magnet-cta-text {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 0.5px;
+  }
+  .lead-magnet-btn {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 800;
+    padding: 11px 22px;
+    border-radius: 10px;
+    background: var(--yellow);
+    color: #181208;
+    border: none;
+    cursor: not-allowed;
+    opacity: 0.7;
+    transition: all 0.15s;
+  }
+  .lead-magnet-btn:not(:disabled) {
+    cursor: pointer;
+    opacity: 1;
+  }
+  .lead-magnet-btn:not(:disabled):hover {
+    background: #f7c465;
+    transform: translateY(-1px);
+  }
+  @media (max-width: 600px) {
+    .lead-magnet-card { padding: 24px 20px; }
+    .lead-magnet-name { font-size: 22px; letter-spacing: 1.5px; }
+    .lead-magnet-icon { font-size: 32px; }
+    .lead-magnet-badge { font-size: 9px; padding: 4px 9px; top: 12px; right: 12px; }
+    .lead-magnet-desc { font-size: 13.5px; }
+  }
+
   /* About */
   .about-body { font-family: 'IBM Plex Sans', sans-serif; font-size: 16px; line-height: 1.7; }
   .about-sig {
@@ -1665,13 +1785,6 @@
         <div class="tool-cta">Launch →</div>
       </a>
 
-      <a class="tool-card" href="sharp-snapshot.html">
-        <div class="icon">🩻</div>
-        <div class="tool-name">Sharp Snapshot</div>
-        <div class="tool-desc">Type the Pick the Odds row — Pinnacle / Circa limits, ProphetX / Novig depth. Get the translated sharp position, consensus fair, and your soft-book target in one screen.</div>
-        <div class="tool-cta">Launch →</div>
-      </a>
-
       <a class="tool-card" href="ev-calculator.html">
         <div class="icon">💵</div>
         <div class="tool-name">EV Calculator</div>
@@ -1913,28 +2026,10 @@
         <div class="guide-desc">Locking in guaranteed profit across two books — and the decision tree for what to do when you place one side and the other disappears before you can hedge.</div>
         <div class="guide-cta">Read →</div>
       </a>
-      <a class="guide-card" href="learn-exchange-liquidity.html">
-        <div class="guide-icon">📖</div>
-        <div class="guide-name">Reading Exchange Liquidity</div>
-        <div class="guide-desc">On a betting exchange, the order book IS the signal. How to read depth, imbalance, walls, and time-of-day patterns to see what sharps think before any traditional line moves.</div>
-        <div class="guide-cta">Read →</div>
-      </a>
       <a class="guide-card" href="learn-futures.html">
         <div class="guide-icon">📅</div>
         <div class="guide-name">Futures Betting</div>
         <div class="guide-desc">A futures ticket isn't a bet you place and forget — it's a position you manage. Why you always split across books, why one must allow cashouts, and the barbell strategy for monetizing mid-season.</div>
-        <div class="guide-cta">Read →</div>
-      </a>
-      <a class="guide-card" href="learn-manual-scan.html">
-        <div class="guide-icon">👀</div>
-        <div class="guide-name">The Manual Sharp Scan</div>
-        <div class="guide-desc">You don't need a paid scanner. Open Pick the Odds, calibrate your eye to typical liquidity by market type, flag the outliers. The free workflow that catches most of the same +EV bets paid tools surface.</div>
-        <div class="guide-cta">Read →</div>
-      </a>
-      <a class="guide-card" href="learn-wide-markets.html">
-        <div class="guide-icon">🎯</div>
-        <div class="guide-name">Beating Sharps in Wide Markets</div>
-        <div class="guide-desc">On a wide exchange market, you don't have to take the existing best price — you can post your own offer just under the sharp's and get matched first. The maker tactic for niche props and long-shot bets.</div>
         <div class="guide-cta">Read →</div>
       </a>
     </div>
@@ -2010,6 +2105,19 @@
       <div class="section-sub">Building this out into a full education resource. Here's what's next.</div>
     </div>
 
+    <!-- LEAD MAGNET: Sharp Exchange Playbook -->
+    <div class="lead-magnet-card">
+      <div class="lead-magnet-badge">Free · Email signup</div>
+      <div class="lead-magnet-icon">🩻</div>
+      <div class="lead-magnet-eyebrow">The flagship deep-dive</div>
+      <div class="lead-magnet-name">The Sharp Exchange Playbook</div>
+      <div class="lead-magnet-desc">A free five-part deep-dive on the most underexplored edge in modern sports betting — exchange order books and how to read them. The whole playbook the public site doesn't get: <strong>what exchanges are and why they're different · how to read the order book like a trading desk · the manual sharp scan workflow · the calculator that automates the analysis · the maker tactic for posting your own price.</strong> Plus the specific signals we use daily — translation rule, imbalance reads, conviction overflows, BEST-vs-PX heuristic, posting in wide markets. Nothing else covers this for free.</div>
+      <div class="lead-magnet-cta-row">
+        <div class="lead-magnet-cta-text">Free with email signup · coming soon</div>
+        <button class="lead-magnet-btn" disabled>Notify me ↗</button>
+      </div>
+    </div>
+
     <div class="coming-grid">
       <div class="coming-card">
         <div class="badge">Soon</div>
@@ -2020,7 +2128,7 @@
       <div class="coming-card">
         <div class="badge">Soon</div>
         <div class="coming-icon">📚</div>
-        <div class="coming-name">Strategy Guides</div>
+        <div class="coming-name">More Strategy Guides</div>
         <div class="coming-desc">Written deep-dives on the concepts every profitable bettor needs to master.</div>
       </div>
       <div class="coming-card">
@@ -2033,7 +2141,7 @@
         <div class="badge">Soon</div>
         <div class="coming-icon">📰</div>
         <div class="coming-name">Newsletter</div>
-        <div class="coming-desc">Occasional drops with new tools, lessons, and the best book promos worth chasing.</div>
+        <div class="coming-desc">Tactical drops with this week's +EV finds, sportsbook intel, and the playbook above for new subscribers.</div>
       </div>
     </div>
   </div>

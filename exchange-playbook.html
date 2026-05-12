@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Sharp Exchange Playbook | Profit Path Sports</title>
+<meta name="description" content="A five-part curriculum on the most underexplored edge in modern sports betting — exchange order books and how to read them. From ProphetX basics to maker tactics, plus the Sharp Snapshot calculator.">
+
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230a0f1c'/%3E%3Cpolyline points='5,24 12,16 16,19 22,9 27,5' fill='none' stroke='%234ade80' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+
+<meta name="robots" content="noindex,nofollow">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="The Sharp Exchange Playbook">
+<meta property="og:description" content="The most underexplored edge in modern sports betting — five lessons plus a dedicated calculator, free with email signup.">
+<meta property="og:site_name" content="Profit Path Sports">
+<meta name="theme-color" content="#0a0f1c">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;800;900&family=JetBrains+Mono:wght@400;500;700&family=Rajdhani:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root { --bg: #0a0f1c; --panel: #0f1524; --panel-inset: #141a2b; --panel-deep: #0c1120; --border: #1e2638; --border-soft: #141c30; --text: #e5e7eb; --muted: #8b94a8; --dim: #6b7689; --blue: #3d8bff; --yellow: #f5b545; --green: #4ade80; --red: #f87171; --purple: #BC8CFF; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: radial-gradient(ellipse at top, #111a2e 0%, var(--bg) 60%); color: var(--text); font-family: 'JetBrains Mono', ui-monospace, monospace; min-height: 100vh; line-height: 1.5; }
+  .topnav { border-bottom: 1px solid var(--border-soft); background: rgba(10, 15, 28, 0.85); backdrop-filter: blur(8px); position: sticky; top: 0; z-index: 10; }
+  .topnav-inner { max-width: 1100px; margin: 0 auto; padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+  .nav-brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; color: var(--blue); font-family: 'Orbitron', sans-serif; font-size: 13px; letter-spacing: 2.5px; font-weight: 800; text-transform: uppercase; }
+  .nav-brand-chart { display: inline-flex; width: 22px; height: 18px; color: #4ade80; filter: drop-shadow(0 0 6px rgba(74, 222, 128, 0.55)); }
+  .nav-brand-chart svg { width: 100%; height: 100%; }
+  .nav-back { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--muted); text-decoration: none; letter-spacing: 0.5px; transition: color 0.15s; }
+  .nav-back:hover { color: var(--yellow); }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 32px 20px 80px; }
+
+  .playbook-hero {
+    text-align: center;
+    margin-bottom: 50px;
+    padding-bottom: 36px;
+    border-bottom: 1px solid var(--border-soft);
+    position: relative;
+  }
+  .playbook-hero::after {
+    content: '';
+    position: absolute;
+    bottom: -1px; left: 30%; right: 30%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--yellow), transparent);
+    opacity: 0.6;
+  }
+  .playbook-badge {
+    display: inline-block;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 10px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: #181208;
+    background: var(--yellow);
+    padding: 6px 14px;
+    border-radius: 4px;
+    font-weight: 800;
+    box-shadow: 0 0 18px rgba(245,181,69,0.4);
+    margin-bottom: 22px;
+  }
+  .playbook-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 44px;
+    font-weight: 900;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    line-height: 1.05;
+    color: var(--text);
+    margin-bottom: 18px;
+  }
+  .playbook-sub {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 22px;
+    color: var(--muted);
+    font-weight: 500;
+    letter-spacing: 0.4px;
+    line-height: 1.5;
+    max-width: 680px;
+    margin: 0 auto 18px;
+  }
+  .playbook-intro {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 16px;
+    color: var(--muted);
+    line-height: 1.7;
+    max-width: 680px;
+    margin: 0 auto;
+  }
+  .playbook-intro strong { color: var(--text); font-weight: 600; }
+
+  /* Curriculum step cards */
+  .step-card {
+    display: flex;
+    gap: 22px;
+    align-items: stretch;
+    background: var(--panel-deep);
+    border: 1px solid var(--border-soft);
+    border-radius: 14px;
+    padding: 22px 26px;
+    margin-bottom: 16px;
+    text-decoration: none;
+    color: var(--text);
+    transition: all 0.18s ease;
+  }
+  .step-card:hover {
+    border-color: var(--yellow);
+    transform: translateY(-2px);
+    box-shadow: 0 14px 44px rgba(0,0,0,0.4), 0 0 30px rgba(245,181,69,0.08);
+  }
+  .step-num {
+    flex-shrink: 0;
+    width: 64px;
+    height: 64px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, rgba(245,181,69,0.18), rgba(188,140,255,0.10));
+    border: 1px solid var(--yellow);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--yellow);
+    font-family: 'Orbitron', sans-serif;
+  }
+  .step-num .label { font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 700; opacity: 0.85; }
+  .step-num .digit { font-size: 28px; font-weight: 900; letter-spacing: 1px; line-height: 1; margin-top: 2px; }
+  .step-body { flex: 1; min-width: 0; }
+  .step-tag {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 10px;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    color: var(--purple);
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .step-card.lesson .step-tag { color: var(--blue); }
+  .step-card.calc .step-tag { color: var(--green); }
+  .step-card.book .step-tag { color: var(--purple); }
+  .step-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 19px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--text);
+    margin-bottom: 8px;
+    line-height: 1.15;
+  }
+  .step-desc {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 14.5px;
+    color: var(--muted);
+    line-height: 1.6;
+    margin-bottom: 10px;
+  }
+  .step-desc strong { color: var(--text); font-weight: 600; }
+  .step-cta {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 11px;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    color: var(--yellow);
+    font-weight: 700;
+  }
+
+  /* Connector */
+  .step-connector {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--dim);
+    font-size: 14px;
+    height: 16px;
+    margin-bottom: 4px;
+  }
+  .step-connector::before { content: '↓'; opacity: 0.4; }
+
+  /* Section divider */
+  .section-divider {
+    margin: 48px 0 28px;
+    text-align: center;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--dim);
+    font-weight: 700;
+    position: relative;
+  }
+  .section-divider::before,
+  .section-divider::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 30%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border-soft) 50%, transparent);
+  }
+  .section-divider::before { left: 0; }
+  .section-divider::after { right: 0; }
+
+  /* What you'll learn callout */
+  .what-you-learn {
+    background: var(--panel-deep);
+    border: 1px solid var(--border-soft);
+    border-left: 3px solid var(--yellow);
+    border-radius: 12px;
+    padding: 22px 28px;
+    margin-bottom: 36px;
+    font-family: 'IBM Plex Sans', sans-serif;
+  }
+  .what-you-learn h3 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--yellow);
+    font-weight: 800;
+    margin-bottom: 14px;
+  }
+  .what-you-learn ul {
+    list-style: none;
+    padding-left: 0;
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--text);
+  }
+  .what-you-learn ul li {
+    padding-left: 22px;
+    position: relative;
+    margin-bottom: 8px;
+  }
+  .what-you-learn ul li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: var(--yellow);
+    font-weight: 700;
+  }
+  .what-you-learn ul li strong { color: var(--text); font-weight: 600; }
+
+  /* Footer CTA */
+  .cta-card {
+    background: linear-gradient(135deg, rgba(245,181,69,0.10), rgba(188,140,255,0.04));
+    border: 1px solid var(--yellow);
+    border-radius: 16px;
+    padding: 36px 30px;
+    margin-top: 48px;
+    text-align: center;
+    box-shadow: 0 0 40px rgba(245,181,69,0.08), 0 20px 60px rgba(0, 0, 0, 0.3);
+  }
+  .cta-eyebrow { font-family: 'Orbitron', sans-serif; font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--yellow); font-weight: 700; margin-bottom: 10px; }
+  .cta-title { font-family: 'Rajdhani', sans-serif; font-size: 26px; font-weight: 700; color: var(--text); margin-bottom: 10px; letter-spacing: 0.3px; }
+  .cta-blurb { font-family: 'IBM Plex Sans', sans-serif; font-size: 15px; color: var(--muted); line-height: 1.6; max-width: 520px; margin: 0 auto 20px; }
+  .cta-blurb strong { color: var(--text); }
+  .cta-code { display: inline-block; margin-bottom: 16px; font-family: 'JetBrains Mono', monospace; font-size: 14px; color: var(--text); background: rgba(245,181,69,0.12); border: 1px dashed var(--yellow); border-radius: 6px; padding: 8px 16px; letter-spacing: 0.5px; }
+  .cta-code strong { color: var(--yellow); font-weight: 700; letter-spacing: 2px; }
+  .cta-btn { display: inline-flex; align-items: center; gap: 10px; font-family: 'Orbitron', sans-serif; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; font-weight: 800; text-decoration: none; padding: 14px 26px; border-radius: 10px; background: var(--yellow); color: #181208; box-shadow: 0 0 22px rgba(245,181,69,0.25); transition: all 0.15s; }
+  .cta-btn:hover { background: #f7c465; transform: translateY(-1px); box-shadow: 0 0 32px rgba(245,181,69,0.4); }
+
+  .footer {
+    text-align: center;
+    margin-top: 50px;
+    padding: 28px 20px 0;
+    color: var(--dim);
+    font-size: 11px;
+    letter-spacing: 1px;
+    line-height: 1.7;
+    border-top: 1px solid var(--border-soft);
+  }
+  .footer .disclaimer { max-width: 720px; margin: 0 auto 14px; color: var(--dim); font-family: 'Rajdhani', sans-serif; font-size: 13px; letter-spacing: 0.3px; }
+  .footer a { color: var(--muted); text-decoration: none; }
+  .footer a:hover { color: var(--yellow); }
+
+  @media (max-width: 600px) {
+    .topnav-inner { padding: 12px 16px; }
+    .nav-brand { font-size: 11px; letter-spacing: 2px; }
+    .wrap { padding: 24px 16px 60px; }
+    .playbook-title { font-size: 28px; letter-spacing: 2px; }
+    .playbook-sub { font-size: 17px; }
+    .step-card { padding: 18px 18px; gap: 14px; }
+    .step-num { width: 50px; height: 50px; }
+    .step-num .digit { font-size: 22px; }
+    .step-title { font-size: 16px; letter-spacing: 1.2px; }
+    .what-you-learn { padding: 18px 20px; }
+    .cta-card { padding: 28px 22px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a class="nav-brand" href="/index.html">
+      <span class="nav-brand-chart" aria-hidden="true">
+        <svg viewBox="0 0 28 22" xmlns="http://www.w3.org/2000/svg" fill="none">
+          <polyline points="2,18 8,12 12,15 18,7 26,3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      Profit Path Sports
+      <span class="nav-brand-chart" aria-hidden="true">
+        <svg viewBox="0 0 28 22" xmlns="http://www.w3.org/2000/svg" fill="none">
+          <polyline points="2,18 8,12 12,15 18,7 26,3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+    </a>
+    <a class="nav-back" href="/index.html">← Home</a>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <div class="playbook-hero">
+    <div class="playbook-badge">⚡ Subscriber Playbook · Free</div>
+    <h1 class="playbook-title">The Sharp Exchange Playbook</h1>
+    <p class="playbook-sub">The most underexplored edge in modern sports betting. Read this curriculum top to bottom and you'll find +EV bets the average bettor doesn't even know exist.</p>
+    <p class="playbook-intro">
+      Exchange-based betting (ProphetX, Novig) is where trading firms, syndicates, and serious bettors set prices. The order books on those platforms <strong>tell you what the sharp money is doing in real time</strong> — if you know how to read them. This is the playbook for that skill. Five short lessons plus one dedicated calculator. Work through them in order, then start scanning. Nothing else on the internet covers this for free.
+    </p>
+  </div>
+
+  <div class="what-you-learn">
+    <h3>What you'll have when you're done</h3>
+    <ul>
+      <li>The <strong>translation rule</strong> — how to read every offered price as the inverse of the sharp's actual position</li>
+      <li>The <strong>BEST-vs-PX heuristic</strong> for spotting cross-market EV bets in seconds</li>
+      <li>How to identify <strong>outsized liquidity</strong> on thin markets and read it as concentrated sharp conviction</li>
+      <li>The <strong>conviction overflow</strong> signal — exchange depth exceeding book limits = leading indicator of line movement</li>
+      <li>The <strong>maker tactic</strong> — when to post your own price instead of taking the existing best</li>
+      <li>A working calculator (Sharp Snapshot) that automates all of the above on any market</li>
+    </ul>
+  </div>
+
+  <div class="section-divider">The Curriculum · 5 steps</div>
+
+  <!-- Step 1: ProphetX foundation -->
+  <a class="step-card book" href="/book-prophetx.html">
+    <div class="step-num"><span class="label">Step</span><span class="digit">01</span></div>
+    <div class="step-body">
+      <div class="step-tag">Foundation · ProphetX</div>
+      <div class="step-title">What an Exchange Actually Is</div>
+      <div class="step-desc">Before any tactics: what makes peer-to-peer exchanges fundamentally different from DraftKings or FanDuel. The sportsbook-as-counterparty mental model, the maker/taker dichotomy, and why you can act as the sportsbook when you post your own price.</div>
+      <div class="step-cta">Start here →</div>
+    </div>
+  </a>
+
+  <div class="step-connector"></div>
+
+  <!-- Step 2: Reading exchange liquidity -->
+  <a class="step-card lesson" href="/learn-exchange-liquidity.html">
+    <div class="step-num"><span class="label">Step</span><span class="digit">02</span></div>
+    <div class="step-body">
+      <div class="step-tag">Lesson · Reading the Book</div>
+      <div class="step-title">Reading Liquidity as a Sharp Signal</div>
+      <div class="step-desc">The single most important conceptual move in the playbook: the <strong>translation rule</strong> (every cell of liquidity is the inverse of where sharps are positioned). Plus eight specific signals — imbalance, outsized depth on thin markets, spread tightness, disappearing liquidity, walls, time-of-day patterns — with worked examples on real screenshots.</div>
+      <div class="step-cta">Open lesson →</div>
+    </div>
+  </a>
+
+  <div class="step-connector"></div>
+
+  <!-- Step 3: Manual sharp scan -->
+  <a class="step-card lesson" href="/learn-manual-scan.html">
+    <div class="step-num"><span class="label">Step</span><span class="digit">03</span></div>
+    <div class="step-body">
+      <div class="step-tag">Workflow · Scan</div>
+      <div class="step-title">The Manual Sharp Scan</div>
+      <div class="step-desc">No paid scanner required. Open Pick the Odds, compare two columns (BEST vs ProphetX), spot the gap, take the bet. The five-second heuristic plus the deeper liquidity-calibration skill underneath. Two real walkthroughs (Pistons / Blue Jays) showing the workflow start to finish.</div>
+      <div class="step-cta">Open lesson →</div>
+    </div>
+  </a>
+
+  <div class="step-connector"></div>
+
+  <!-- Step 4: Sharp Snapshot calculator -->
+  <a class="step-card calc" href="/sharp-snapshot.html">
+    <div class="step-num"><span class="label">Step</span><span class="digit">04</span></div>
+    <div class="step-body">
+      <div class="step-tag">Tool · Sharp Snapshot</div>
+      <div class="step-title">The Calculator That Automates It</div>
+      <div class="step-desc">Type the four sharp-source row from Pick the Odds — Pinnacle limits, Circa limits, ProphetX depth, Novig depth. The calculator outputs the translated sharp positions, the conviction-overflow signal, the consensus fair price, and your soft-book target in one screen. The manual workflow operationalized.</div>
+      <div class="step-cta">Open the calculator →</div>
+    </div>
+  </a>
+
+  <div class="step-connector"></div>
+
+  <!-- Step 5: Wide markets / maker tactic -->
+  <a class="step-card lesson" href="/learn-wide-markets.html">
+    <div class="step-num"><span class="label">Step</span><span class="digit">05</span></div>
+    <div class="step-body">
+      <div class="step-tag">Advanced · Maker Tactic</div>
+      <div class="step-title">Beating Sharps in Wide Markets</div>
+      <div class="step-desc">The graduate-level move: on wide markets, you don't take the existing best price — you post your own offer just under the sharp's and act as the sportsbook yourself. When to do it, how aggressive to undercut, and how to read the wide-market signal across two real examples (Jake Burger HR + Brandon Nimmo Hits).</div>
+      <div class="step-cta">Open lesson →</div>
+    </div>
+  </a>
+
+  <div class="cta-card">
+    <div class="cta-eyebrow">Ready to deploy this</div>
+    <div class="cta-title">Open a ProphetX account.</div>
+    <p class="cta-blurb">Nothing in this playbook works without an account on a sharp exchange. ProphetX is the most accessible US-licensed option. <strong>Use the referral code below at signup</strong> for the current bonus, plus it helps keep this content free.</p>
+    <div class="cta-code">Referral code: <strong>QEO8QG</strong></div>
+    <div>
+      <a href="https://www.prophetx.co" target="_blank" rel="nofollow noopener sponsored" class="cta-btn">Open ProphetX ↗</a>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="disclaimer">
+      Profit Path Sports is an educational resource. Exchange-betting strategies described here rely on assumptions about sharp pricing that may differ in practice; markets vary, and past behavior is not a guarantee of future returns. Sports betting carries financial risk. Bet responsibly. If gambling is a problem for you, call <strong>1-800-GAMBLER</strong>. Must be 21+ where legal.
+    </div>
+    <div>© 2026 Profit Path Sports · <a href="/index.html">Home</a> · <a href="/book-prophetx.html">ProphetX</a> · <a href="/sharp-snapshot.html">Sharp Snapshot</a></div>
+  </div>
+
+</div>
+
+</body>
+</html>
