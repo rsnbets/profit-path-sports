@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>⚡ Middle Calculator — Profit Path Sports</title>
+  <meta name="description" content="Bet both sides of a line at different numbers and calculate worst-case loss, best-case middle profit, and total invested. Free, no signup.">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230a0f1c'/%3E%3Cpolyline points='5,24 12,16 16,19 22,9 27,5' fill='none' stroke='%234ade80' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Orbitron:wght@700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:#0a0f1c;--surface:#0f1524;--surface2:#141a2b;--border:#1e2638;--border-soft:#141c30;
+      --panel:#0f1524;--panel-inset:#141a2b;--panel-deep:#0c1120;
+      --accent:#f5b545;--yellow:#f5b545;--blue:#3d8bff;--green:#4ade80;--red:#f87171;
+      --text:#e5e7eb;--muted:#8b94a8;--dim:#6b7689;--purple:#BC8CFF;
+      --mono:'JetBrains Mono',ui-monospace,monospace;--display:'JetBrains Mono',ui-monospace,monospace;--title:'Orbitron',sans-serif;
+    }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{background:var(--bg);color:var(--text);font-family:var(--display);min-height:100vh;}
+
+    .bt-header{background:var(--surface);border-bottom:1px solid var(--border);padding:22px 20px 16px;display:flex;flex-direction:column;align-items:center;gap:6px;}
+    .bt-brand-text{font-family:var(--title);font-size:28px;font-weight:900;letter-spacing:0.08em;text-transform:uppercase;color:var(--blue);white-space:nowrap;}
+    .bt-brand-text .bolt{color:var(--accent);}
+    .bt-sub{font-family:var(--title);font-size:11px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);}
+    .title-sub{font-family:'IBM Plex Sans',sans-serif;font-size:13.5px;color:var(--muted);line-height:1.55;max-width:620px;margin:10px auto 0;padding:0 14px;text-align:center;}
+    .title-sub strong{color:var(--text);font-weight:600;}
+
+    .back-bar{padding:10px 20px;background:var(--bg);border-bottom:1px solid var(--border);}
+    .back-bar a{color:var(--muted);font-family:var(--mono);font-size:12px;text-decoration:none;letter-spacing:0.06em;}
+    .back-bar a:hover{color:var(--text);}
+
+    /* Intro */
+    .intro{padding:24px 24px;background:var(--bg);border-bottom:1px solid var(--border);}
+    .intro-inner{max-width:820px;margin:0 auto;}
+    .intro-eyebrow{font-family:var(--mono);font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--accent);margin-bottom:10px;font-weight:600;}
+    .intro-headline{font-family:var(--display);font-size:22px;font-weight:700;color:var(--text);line-height:1.3;margin-bottom:14px;letter-spacing:0.01em;}
+    .intro-body{font-family:var(--display);font-size:15px;line-height:1.65;color:var(--muted);margin-bottom:12px;}
+    .intro-body strong{color:var(--text);font-weight:600;}
+    .intro-body .hl{color:var(--accent);font-weight:600;}
+    .intro-example{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:8px;padding:16px 20px;margin-top:14px;font-size:14px;line-height:1.7;color:var(--text);}
+    .intro-example strong{color:var(--accent);}
+
+    /* Stats bar */
+    .bt-stats{display:grid;grid-template-columns:repeat(5,1fr);border-bottom:1px solid var(--border);}
+    .stat-cell{padding:14px 10px;border-right:1px solid var(--border);text-align:center;}
+    .stat-cell:last-child{border-right:none;}
+    .stat-label{font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:4px;font-family:var(--title);font-weight:700;}
+    .stat-value{font-size:22px;font-weight:700;color:var(--text);font-family:var(--mono);letter-spacing:0.02em;}
+    .stat-value.pos{color:var(--green);}.stat-value.neg{color:var(--red);}.stat-value.accent{color:var(--accent);}.stat-value.blue{color:var(--blue);}
+
+    /* Form */
+    .form-panel{padding:24px 20px;background:var(--surface);border-bottom:1px solid var(--border);}
+    .form-inner{max-width:820px;margin:0 auto;}
+    .form-row-title{font-family:var(--mono);font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--accent);margin-bottom:12px;font-weight:600;}
+    .form-row-title.b{color:var(--blue);}
+    .form-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:20px;}
+    .form-group{display:flex;flex-direction:column;gap:5px;}
+    .form-label{font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);font-family:var(--title);font-weight:700;}
+    .form-input{background:var(--bg);border:1px solid var(--border);color:var(--text);padding:12px 14px;font-family:var(--mono);font-size:18px;font-weight:600;letter-spacing:0.02em;border-radius:8px;outline:none;transition:border-color 0.15s;width:100%;}
+    .form-input:focus{border-color:var(--blue);}
+    .form-input:disabled{opacity:0.5;cursor:not-allowed;}
+    .form-hint{font-size:11px;font-family:var(--mono);min-height:14px;color:var(--blue);}
+
+    /* Balance toggle */
+    .balance-row{display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--bg);border:1px solid var(--border);border-radius:8px;margin-bottom:18px;cursor:pointer;user-select:none;transition:border-color 0.15s;}
+    .balance-row:hover{border-color:var(--accent);}
+    .balance-check{width:20px;height:20px;border:1px solid var(--muted);border-radius:4px;display:flex;align-items:center;justify-content:center;font-family:var(--title);font-size:14px;color:var(--bg);transition:all 0.15s;flex-shrink:0;}
+    .balance-row.on .balance-check{background:var(--accent);border-color:var(--accent);}
+    .balance-row.on .balance-check::after{content:'✓';color:var(--bg);font-weight:800;}
+    .balance-label{font-family:'IBM Plex Sans',sans-serif;font-size:14px;color:var(--text);font-weight:500;}
+    .balance-help{font-family:'IBM Plex Sans',sans-serif;font-size:12px;color:var(--muted);margin-left:auto;}
+
+    /* Scenarios */
+    .scenarios{padding:24px 20px;background:var(--bg);}
+    .scenarios-inner{max-width:820px;margin:0 auto;}
+    .scenarios-title{font-family:var(--title);font-size:12px;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;font-weight:700;text-align:center;}
+    .scenario-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border-radius:10px;overflow:hidden;border:1px solid var(--border);}
+    .scenario{background:var(--surface);padding:22px 18px;text-align:center;}
+    .scenario.middle{background:linear-gradient(180deg,rgba(74,222,128,0.10),var(--surface));}
+    .scenario-tag{font-family:var(--mono);font-size:9.5px;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:6px;}
+    .scenario.middle .scenario-tag{color:var(--green);}
+    .scenario-title{font-family:var(--title);font-size:14px;letter-spacing:1px;text-transform:uppercase;color:var(--text);font-weight:800;margin-bottom:14px;}
+    .scenario-pnl{font-family:var(--title);font-size:32px;font-weight:900;line-height:1;margin-bottom:6px;}
+    .scenario-pnl.pos{color:var(--green);}
+    .scenario-pnl.neg{color:var(--red);}
+    .scenario-pnl.zero{color:var(--muted);}
+    .scenario-detail{font-family:var(--mono);font-size:11px;color:var(--dim);line-height:1.5;margin-top:4px;}
+
+    /* EV block (shown when probability is set) */
+    .ev-block{padding:18px 20px;background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);display:none;}
+    .ev-block.shown{display:block;}
+    .ev-inner{max-width:820px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border-radius:8px;overflow:hidden;border:1px solid var(--border);}
+    .ev-cell{background:var(--surface);padding:14px;text-align:center;}
+    .ev-label{font-family:var(--title);font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:4px;font-weight:700;}
+    .ev-value{font-family:var(--mono);font-size:18px;font-weight:700;color:var(--text);}
+    .ev-value.pos{color:var(--green);}.ev-value.neg{color:var(--red);}
+
+    /* How-to */
+    .how-to-use { max-width: 720px; margin: 28px auto 60px; padding: 28px 32px; background: var(--surface); border: 1px solid var(--border); border-radius: 16px; }
+    .how-to-eyebrow { font-family: 'Orbitron', sans-serif; font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--blue); font-weight: 700; margin-bottom: 8px; }
+    .how-to-use h3 { font-family: 'Orbitron', sans-serif; font-size: 17px; font-weight: 800; letter-spacing: 1.5px; color: var(--text); margin: 0 0 16px; text-transform: uppercase; }
+    .how-to-steps { margin: 0 0 18px; padding-left: 22px; font-family: 'IBM Plex Sans', system-ui, sans-serif; font-size: 15px; line-height: 1.65; color: var(--text); }
+    .how-to-steps li { margin-bottom: 8px; }
+    .how-to-steps strong { color: var(--blue); font-weight: 600; }
+    .how-to-note { font-family: 'IBM Plex Sans', system-ui, sans-serif; font-size: 14px; line-height: 1.55; color: var(--muted); background: var(--bg); border-left: 3px solid var(--blue); border-radius: 0 8px 8px 0; padding: 14px 18px; }
+    .how-to-note em { color: var(--blue); font-style: normal; font-weight: 600; }
+    .how-to-note strong { color: var(--text); font-weight: 600; }
+
+    .disclaimer{text-align:center;padding:24px 20px;font-size:11px;color:var(--muted);font-family:var(--mono);border-top:1px solid var(--border);line-height:1.6;}
+    .disclaimer a{color:var(--blue);text-decoration:none;}
+    .disclaimer a:hover{color:var(--accent);}
+
+    @media(max-width:640px){
+      .bt-stats{grid-template-columns:repeat(2,1fr);}
+      .form-grid{grid-template-columns:1fr;}
+      .scenario-grid{grid-template-columns:1fr;}
+      .bt-brand-text{font-size:18px;}
+      .bt-sub{font-size:9px;}
+      .stat-cell:nth-child(3),.stat-cell:nth-child(4),.stat-cell:nth-child(5){border-top:1px solid var(--border);}
+      .intro-headline{font-size:18px;}
+      .intro-body{font-size:14px;}
+      .ev-inner{grid-template-columns:1fr;}
+    }
+
+    /* ═══ SIDEBAR NAVIGATION ═══ */
+    .pps-sidebar { position: fixed; top: 0; left: 0; bottom: 0; width: 240px; background: linear-gradient(180deg, #0c1120 0%, #080d18 100%); border-right: 1px solid var(--border); z-index: 50; transform: translateX(-100%); transition: transform .3s cubic-bezier(.4,0,.2,1); overflow-y: auto; font-family: 'IBM Plex Sans', system-ui, sans-serif; }
+    body.pps-sidebar-open .pps-sidebar { transform: translateX(0); }
+    body.pps-sidebar-open { padding-left: 240px; transition: padding-left .3s cubic-bezier(.4,0,.2,1); }
+    @media (max-width: 900px) { body.pps-sidebar-open { padding-left: 0; } .pps-sidebar { box-shadow: 4px 0 30px rgba(0,0,0,.7); width: 260px; } }
+    .pps-sidebar-toggle { position: fixed; top: 14px; left: 18px; z-index: 51; background: rgba(15, 21, 36, 0.92); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid var(--border); color: var(--text); width: 38px; height: 38px; border-radius: 9px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all .2s ease; }
+    .pps-sidebar-toggle:hover { background: var(--panel-inset); border-color: var(--green); color: var(--green); }
+    body.pps-sidebar-open .pps-sidebar-toggle { left: 256px; top: 14px; }
+    @media (max-width: 900px) { body.pps-sidebar-open .pps-sidebar-toggle { left: 276px; } }
+    .pps-sidebar-inner { padding: 22px 14px 30px; }
+    .pps-sidebar-brand { display: flex; align-items: center; justify-content: center; gap: 8px; color: var(--blue); text-decoration: none; font-family: 'Orbitron', sans-serif; font-weight: 800; font-size: 11px; letter-spacing: 1.6px; padding: 4px 0 16px; border-bottom: 1px solid var(--border-soft); margin-bottom: 14px; text-transform: uppercase; }
+    .pps-sidebar-brand svg { width: 18px; height: 14px; flex-shrink: 0; color: var(--green); filter: drop-shadow(0 0 6px rgba(74, 222, 128, 0.55)); }
+    .pps-sidebar-brand span { white-space: nowrap; }
+    .pps-sidebar-brand:hover { color: #5fa1ff; }
+    .pps-sidebar-nav { display: flex; flex-direction: column; gap: 1px; }
+    .pps-nav-group-label { font-size: 9.5px; text-transform: uppercase; letter-spacing: 1.8px; color: var(--dim); padding: 14px 8px 6px; margin-top: 2px; font-weight: 600; }
+    .pps-nav-link { display: flex; align-items: center; gap: 10px; color: #b8c0d0; text-decoration: none; padding: 8px 10px; border-radius: 7px; font-size: 13px; border-left: 2px solid transparent; transition: all .15s ease; }
+    .pps-nav-link:hover { background: var(--panel-inset); color: #fff; }
+    .pps-nav-link.active { background: rgba(74, 222, 128, 0.09); color: var(--green); border-left-color: var(--green); }
+    .pps-nav-num { font-family: 'JetBrains Mono', monospace; font-size: 10.5px; color: var(--dim); font-weight: 700; min-width: 18px; }
+    .pps-nav-link.path-blue .pps-nav-num { color: var(--blue); }
+    .pps-nav-link.path-green .pps-nav-num { color: var(--green); }
+    .pps-nav-link.path-gold .pps-nav-num { color: var(--yellow); }
+    .pps-nav-group { margin: 1px 0; }
+    .pps-nav-group summary { list-style: none; cursor: pointer; padding: 8px 10px; font-size: 13px; color: #b8c0d0; border-radius: 7px; display: flex; align-items: center; justify-content: space-between; transition: all .15s ease; user-select: none; }
+    .pps-nav-group summary::-webkit-details-marker { display: none; }
+    .pps-nav-group summary::after { content: '▾'; font-size: 9px; color: var(--dim); transition: transform .2s ease; }
+    .pps-nav-group[open] summary::after { transform: rotate(180deg); }
+    .pps-nav-group summary:hover { background: var(--panel-inset); color: #fff; }
+    .pps-nav-group .pps-nav-link { padding: 6px 10px 6px 22px; font-size: 12px; color: #8b94a8; }
+    .pps-nav-group .pps-nav-link:hover { color: #fff; }
+    .pps-path-group > summary { font-weight: 600; }
+    .pps-path-group .pps-path-label { display: inline-flex; align-items: center; gap: 10px; }
+    .pps-path-group.path-blue > summary .pps-nav-num { color: var(--blue); }
+    .pps-path-group.path-green > summary .pps-nav-num { color: var(--green); }
+    .pps-path-group.path-gold > summary .pps-nav-num { color: var(--yellow); }
+    .pps-path-group.path-blue[open] > summary { color: var(--blue); }
+    .pps-path-group.path-green[open] > summary { color: var(--green); }
+    .pps-path-group.path-gold[open] > summary { color: var(--yellow); }
+    .pps-sidebar::-webkit-scrollbar { width: 6px; }
+    .pps-sidebar::-webkit-scrollbar-track { background: transparent; }
+    .pps-sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+  </style>
+</head>
+<body>
+
+<!-- ═══ SIDEBAR NAVIGATION ═══ -->
+<button class="pps-sidebar-toggle" aria-label="Toggle navigation" id="ppsSidebarToggle">
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M2 4h12M2 8h12M2 12h12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+  </svg>
+</button>
+<aside class="pps-sidebar" id="ppsSidebar">
+  <div class="pps-sidebar-inner">
+    <a class="pps-sidebar-brand" href="/index.html">
+      <svg viewBox="0 0 28 22" xmlns="http://www.w3.org/2000/svg" fill="none">
+        <polyline points="2,18 8,12 12,15 18,7 26,3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span>Profit Path Sports</span>
+      <svg viewBox="0 0 28 22" xmlns="http://www.w3.org/2000/svg" fill="none">
+        <polyline points="2,18 8,12 12,15 18,7 26,3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
+    <nav class="pps-sidebar-nav">
+      <a class="pps-nav-link" href="/index.html">Home</a>
+      <div class="pps-nav-group-label">Paths</div>
+      <details class="pps-nav-group pps-path-group path-blue">
+        <summary data-anchor="paths"><span class="pps-path-label"><span class="pps-nav-num">01</span> Begin</span></summary>
+        <a class="pps-nav-link" href="/lane-new.html">Path Overview</a>
+        <a class="pps-nav-link" href="/learn-odds.html">Odds Formats</a>
+        <a class="pps-nav-link" href="/learn-implied.html">Implied Probability</a>
+        <a class="pps-nav-link" href="/learn-vig.html">The Vig</a>
+        <a class="pps-nav-link" href="/learn-ev.html">+EV</a>
+        <a class="pps-nav-link" href="/learn-clv.html">CLV</a>
+        <a class="pps-nav-link" href="/learn-kelly.html">Kelly Criterion</a>
+        <a class="pps-nav-link" href="/learn-parlays.html">Parlays</a>
+      </details>
+      <details class="pps-nav-group pps-path-group path-green">
+        <summary data-anchor="paths"><span class="pps-path-label"><span class="pps-nav-num">02</span> Convert</span></summary>
+        <a class="pps-nav-link" href="/lane-bonus.html">Path Overview</a>
+        <a class="pps-nav-link" href="/learn-bonus.html">Bonus Conversion</a>
+        <a class="pps-nav-link" href="/learn-bonus-types.html">Bonus Types</a>
+        <a class="pps-nav-link" href="/learn-bonus-traps.html">Bonus Traps</a>
+        <a class="pps-nav-link" href="/learn-bonus-walkthrough.html">Walkthrough</a>
+        <a class="pps-nav-link" href="/learn-finding-bets.html">Finding +EV Bets</a>
+      </details>
+      <details class="pps-nav-group pps-path-group path-gold">
+        <summary data-anchor="paths"><span class="pps-path-label"><span class="pps-nav-num">03</span> Maintain</span></summary>
+        <a class="pps-nav-link" href="/lane-maintain.html">Path Overview</a>
+        <a class="pps-nav-link" href="/learn-prob-gap-vs-ev.html">Prob Gap vs EV</a>
+        <a class="pps-nav-link" href="/learn-arbitrage.html">Arbitrage</a>
+        <a class="pps-nav-link" href="/learn-betting-vs-trading.html">Betting vs Trading</a>
+        <a class="pps-nav-link" href="/learn-alt-ladder.html">Alt Ladder</a>
+        <a class="pps-nav-link" href="/learn-alt-lines.html">Alt Lines</a>
+        <a class="pps-nav-link" href="/learn-cross-market-ev.html">Cross-Market EV</a>
+        <a class="pps-nav-link" href="/learn-exchange-liquidity.html">Exchange Liquidity</a>
+        <a class="pps-nav-link" href="/learn-futures.html">Futures</a>
+        <a class="pps-nav-link" href="/learn-finding-bets.html">Finding +EV Bets</a>
+        <a class="pps-nav-link" href="/learn-manual-scan.html">Manual Scan</a>
+        <a class="pps-nav-link" href="/learn-top-down-bottom-up.html">Top-Down / Bottom-Up</a>
+        <a class="pps-nav-link" href="/learn-wide-markets.html">Wide Markets</a>
+      </details>
+      <details class="pps-nav-group">
+        <summary data-anchor="tools">Calculators</summary>
+        <a class="pps-nav-link" href="/bet-x-ray.html">Bet X-Ray</a>
+        <a class="pps-nav-link" href="/ev-calculator.html">EV Calculator</a>
+        <a class="pps-nav-link" href="/devig_calculator.html">Devig</a>
+        <a class="pps-nav-link" href="/kelly-calculator.html">Kelly Sizer</a>
+        <a class="pps-nav-link" href="/arb-calculator.html">Arbitrage</a>
+        <a class="pps-nav-link" href="/hedge-calculator.html">Hedge</a>
+        <a class="pps-nav-link" href="/middle-calculator.html">Middle</a>
+        <a class="pps-nav-link" href="/parlay-calculator.html">Parlay</a>
+        <a class="pps-nav-link" href="/edge-finder.html">Edge Finder</a>
+        <a class="pps-nav-link" href="/long-run-simulator.html">Long-Run Sim</a>
+        <a class="pps-nav-link" href="/bet-tracker.html">Bet Tracker</a>
+        <a class="pps-nav-link" href="/consensus-calculator.html">Consensus</a>
+        <a class="pps-nav-link" href="/bonus-converter.html">Bonus Converter</a>
+        <a class="pps-nav-link" href="/odds_calculator.html">Odds Converter</a>
+        <a class="pps-nav-link" href="/sharp-snapshot.html">Sharp Snapshot</a>
+        <a class="pps-nav-link" href="/roulette.html">Virtual Roulette</a>
+      </details>
+      <details class="pps-nav-group">
+        <summary>Sportsbooks</summary>
+        <a class="pps-nav-link" href="/book-draftkings.html">DraftKings</a>
+        <a class="pps-nav-link" href="/book-fanduel.html">FanDuel</a>
+        <a class="pps-nav-link" href="/book-hardrock.html">Hard Rock</a>
+        <a class="pps-nav-link" href="/book-betmgm.html">BetMGM</a>
+        <a class="pps-nav-link" href="/book-prophetx.html">ProphetX</a>
+      </details>
+      <details class="pps-nav-group">
+        <summary data-anchor="guides">Deep Dives</summary>
+        <a class="pps-nav-link" href="/learn-cross-market-ev.html">Cross-Market EV</a>
+        <a class="pps-nav-link" href="/learn-parlays.html">Parlays &amp; SGPs</a>
+        <a class="pps-nav-link" href="/learn-alt-lines.html">Same Bet, Two Prices</a>
+        <a class="pps-nav-link" href="/learn-alt-ladder.html">Shopping the Alt Ladder</a>
+        <a class="pps-nav-link" href="/learn-top-down-bottom-up.html">Top-Down vs Bottom-Up</a>
+        <a class="pps-nav-link" href="/learn-prob-gap-vs-ev.html">Probability Gap vs EV</a>
+        <a class="pps-nav-link" href="/learn-betting-vs-trading.html">EV Betting vs Trading</a>
+        <a class="pps-nav-link" href="/learn-arbitrage.html">Arbitrage Betting</a>
+        <a class="pps-nav-link" href="/learn-futures.html">Futures Betting</a>
+      </details>
+    </nav>
+  </div>
+</aside>
+
+<!-- HEADER -->
+<div class="bt-header">
+  <div class="bt-brand-text"><span class="bolt">⚡</span> Middle Calculator <span class="bolt">⚡</span></div>
+  <div class="bt-sub">Bet both sides · Win both if it lands in the gap</div>
+  <p class="title-sub">Middling locks you into a small worst-case loss in exchange for a chance at <strong>winning both bets</strong> if the final number lands between two opposing lines. Plug in your stakes and odds — we'll show worst case, best case, and the math when the middle hits.</p>
+</div>
+
+<div class="back-bar"><a href="/index.html">← Back to Profit Path Sports</a><span style="color:var(--muted);margin:0 12px;">·</span><a href="/learn-alt-lines.html">Learn the alt-line gap →</a></div>
+
+<!-- INTRO -->
+<div class="intro">
+  <div class="intro-inner">
+    <div class="intro-eyebrow">What is a middle?</div>
+    <h2 class="intro-headline">A "middle" is when you bet both sides at different numbers — and there's a gap where both win.</h2>
+    <p class="intro-body">Two books disagree on the number for the same market. You take the over at one book and the under at another, both at numbers wide enough apart that there's a real chance the result lands <em>between</em> them. If it does, you cash both tickets.</p>
+    <p class="intro-body">The downside: you lose the difference in juice when the result lands outside the middle. The upside: when it hits, you win both sides — often a 10x+ return on the bet you exposed.</p>
+    <div class="intro-example">
+      <strong>Example:</strong> bet Over <span class="hl">47.5</span> at one book and Under <span class="hl">50.5</span> at another. If the total comes in at <strong>48, 49, or 50</strong>, both win — the middle landed. If it's 47 or lower, only the under wins. If it's 51 or higher, only the over wins.
+    </div>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="bt-stats">
+  <div class="stat-cell"><div class="stat-label">Total Invested</div><div class="stat-value" id="s-total">—</div></div>
+  <div class="stat-cell"><div class="stat-label">Worst-Case Loss</div><div class="stat-value neg" id="s-worst">—</div></div>
+  <div class="stat-cell"><div class="stat-label">Best Case (Middle)</div><div class="stat-value pos" id="s-best">—</div></div>
+  <div class="stat-cell"><div class="stat-label">Middle ROI</div><div class="stat-value pos" id="s-roi">—</div></div>
+  <div class="stat-cell"><div class="stat-label">Risk : Reward</div><div class="stat-value accent" id="s-rr">—</div></div>
+</div>
+
+<!-- FORM -->
+<div class="form-panel">
+  <div class="form-inner">
+    <div class="form-row-title">Side A</div>
+    <div class="form-grid">
+      <div class="form-group">
+        <label class="form-label" for="stakeA">Stake ($)</label>
+        <input type="number" class="form-input" id="stakeA" step="0.01" min="0" value="100">
+        <div class="form-hint" id="hintA">&nbsp;</div>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="oddsA">Odds (American)</label>
+        <input type="number" class="form-input" id="oddsA" step="1" value="-110">
+        <div class="form-hint" id="hintA2">&nbsp;</div>
+      </div>
+    </div>
+
+    <div class="form-row-title b">Side B</div>
+    <div class="balance-row" id="balanceRow" onclick="toggleBalance()">
+      <div class="balance-check"></div>
+      <div class="balance-label">Auto-size Side B for equal worst-case loss</div>
+      <div class="balance-help">(recommended)</div>
+    </div>
+    <div class="form-grid">
+      <div class="form-group">
+        <label class="form-label" for="stakeB">Stake ($)</label>
+        <input type="number" class="form-input" id="stakeB" step="0.01" min="0" value="100">
+        <div class="form-hint" id="hintB">&nbsp;</div>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="oddsB">Odds (American)</label>
+        <input type="number" class="form-input" id="oddsB" step="1" value="-110">
+        <div class="form-hint" id="hintB2">&nbsp;</div>
+      </div>
+    </div>
+
+    <div class="form-row-title" style="color:var(--green);">Optional · Middle Hit Probability</div>
+    <div class="form-grid" style="margin-bottom:0;">
+      <div class="form-group">
+        <label class="form-label" for="probMid">Middle hits (%)</label>
+        <input type="number" class="form-input" id="probMid" step="0.1" min="0" max="100" placeholder="e.g. 8">
+        <div class="form-hint" style="color:var(--green);">Estimate from sharp lines — fills EV math below</div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">&nbsp;</label>
+        <div style="font-family:'IBM Plex Sans',sans-serif;font-size:12px;color:var(--muted);line-height:1.5;padding-top:6px;">
+          Skip this to see the worst/best math only. Add a probability for the EV view below.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SCENARIOS -->
+<div class="scenarios">
+  <div class="scenarios-inner">
+    <div class="scenarios-title">Outcome Breakdown</div>
+    <div class="scenario-grid">
+      <div class="scenario">
+        <div class="scenario-tag">Outside middle (low)</div>
+        <div class="scenario-title">A Wins · B Loses</div>
+        <div class="scenario-pnl" id="sc-a-pnl">—</div>
+        <div class="scenario-detail" id="sc-a-detail">&nbsp;</div>
+      </div>
+      <div class="scenario middle">
+        <div class="scenario-tag">★ Middle hits — both win</div>
+        <div class="scenario-title">Both Cash</div>
+        <div class="scenario-pnl pos" id="sc-m-pnl">—</div>
+        <div class="scenario-detail" id="sc-m-detail">&nbsp;</div>
+      </div>
+      <div class="scenario">
+        <div class="scenario-tag">Outside middle (high)</div>
+        <div class="scenario-title">B Wins · A Loses</div>
+        <div class="scenario-pnl" id="sc-b-pnl">—</div>
+        <div class="scenario-detail" id="sc-b-detail">&nbsp;</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- EV BLOCK -->
+<div class="ev-block" id="evBlock">
+  <div class="ev-inner">
+    <div class="ev-cell">
+      <div class="ev-label">EV ($)</div>
+      <div class="ev-value" id="ev-dollar">—</div>
+    </div>
+    <div class="ev-cell">
+      <div class="ev-label">EV (%)</div>
+      <div class="ev-value" id="ev-percent">—</div>
+    </div>
+    <div class="ev-cell">
+      <div class="ev-label">Break-even middle prob</div>
+      <div class="ev-value accent" id="ev-breakeven">—</div>
+    </div>
+  </div>
+</div>
+
+<!-- HOW TO USE -->
+<div class="how-to-use">
+  <div class="how-to-eyebrow">How to use</div>
+  <h3>Sizing the middle right</h3>
+  <ol class="how-to-steps">
+    <li><strong>Enter Side A.</strong> Your stake and the American odds at the first book (e.g., Over 47.5 at -110).</li>
+    <li><strong>Enter Side B.</strong> The other side of the gap at the second book (e.g., Under 50.5 at -105). Leave "Auto-size Side B" checked and we'll compute the stake that makes the worst-case loss equal on both sides — the textbook approach.</li>
+    <li><strong>Read the scenarios.</strong> Three columns show your net P&amp;L in each outcome: A wins outside the middle, the middle hits and both cash, B wins outside the middle. The "worst-case loss" stat is your maximum downside; the "best case" is the payoff if the middle lands.</li>
+    <li><strong>Optional — add a middle-hit probability.</strong> If you have an estimate of how often the result lands in the gap (typically based on sharp-line implied probability), the EV row shows the expected dollar and percent return per bet. The "break-even middle prob" tells you how often the middle has to hit before the bet is +EV.</li>
+  </ol>
+  <div class="how-to-note">
+    <strong>Realistic middle probabilities:</strong> NFL totals rarely middle (1-3% on standard 3-point gaps); NBA half-point middles cluster around 5-8%; MLB run totals with multi-run gaps are higher. <em>Don't guess — pull the probability from a sharp book's price on the exact result range.</em>
+  </div>
+</div>
+
+<div class="disclaimer">
+  Educational tool. Middle hit probabilities depend on the specific market and gap size — the calculator is only as good as the inputs.<br>
+  Profit Path Sports is an educational resource. Bet responsibly. 21+ where legal. 1-800-GAMBLER.<br>
+  &copy; 2026 Profit Path Sports &middot; <a href="/privacy.html">Privacy</a> &middot; <a href="/disclaimer.html">Disclaimer</a> &middot; <a href="/affiliate-disclosure.html">Affiliate</a>
+</div>
+
+<script>
+  // ── American odds → decimal payout multiplier (profit per $1) ──
+  function americanToMult(o) {
+    o = Number(o);
+    if (!o || isNaN(o)) return 0;
+    return o > 0 ? o / 100 : 100 / Math.abs(o);
+  }
+  function americanToDec(o) {
+    return 1 + americanToMult(o);
+  }
+  function fmtMoney(v) {
+    if (!isFinite(v)) return '—';
+    const s = v >= 0 ? '+' : '−';
+    return s + '$' + Math.abs(v).toFixed(2);
+  }
+  function fmtMoneyAbs(v) {
+    if (!isFinite(v)) return '—';
+    return '$' + Math.abs(v).toFixed(2);
+  }
+
+  // ── State ──
+  let balanceMode = true;
+  const $ = id => document.getElementById(id);
+
+  function toggleBalance() {
+    balanceMode = !balanceMode;
+    document.getElementById('balanceRow').classList.toggle('on', balanceMode);
+    $('stakeB').disabled = balanceMode;
+    calc();
+  }
+  // Init balance row state
+  document.getElementById('balanceRow').classList.add('on');
+  $('stakeB').disabled = true;
+
+  function calc() {
+    const stakeA = parseFloat($('stakeA').value) || 0;
+    const oddsA  = parseFloat($('oddsA').value);
+    let stakeB   = parseFloat($('stakeB').value) || 0;
+    const oddsB  = parseFloat($('oddsB').value);
+    const probMid= parseFloat($('probMid').value);
+
+    if (!stakeA || !oddsA || !oddsB) {
+      ['s-total','s-worst','s-best','s-roi','s-rr','sc-a-pnl','sc-m-pnl','sc-b-pnl'].forEach(id => $(id).textContent = '—');
+      return;
+    }
+
+    const multA = americanToMult(oddsA);
+    const multB = americanToMult(oddsB);
+    const decA  = americanToDec(oddsA);
+    const decB  = americanToDec(oddsB);
+
+    // Balanced sizing: set stake_B such that A_wins_only net == B_wins_only net
+    // net_A_wins = stakeA*multA - stakeB
+    // net_B_wins = stakeB*multB - stakeA
+    // Set equal:  stakeA*multA - stakeB = stakeB*multB - stakeA
+    //             stakeA*(multA+1) = stakeB*(multB+1)
+    //             stakeB = stakeA * decA / decB
+    if (balanceMode) {
+      stakeB = stakeA * decA / decB;
+      $('stakeB').value = stakeB.toFixed(2);
+    }
+
+    const profitA = stakeA * multA;
+    const profitB = stakeB * multB;
+
+    // Net P&L per scenario
+    const netA_only   = profitA - stakeB;
+    const netB_only   = profitB - stakeA;
+    const netMiddle   = profitA + profitB;
+
+    const totalInvested = stakeA + stakeB;
+    const worstCase = Math.min(netA_only, netB_only); // most negative (or least positive)
+    const bestCase  = netMiddle;
+    const roi = (bestCase / totalInvested) * 100;
+    const riskReward = Math.abs(bestCase / worstCase);
+
+    // ── Update KPI stats ──
+    $('s-total').textContent = fmtMoneyAbs(totalInvested);
+    $('s-worst').textContent = fmtMoney(worstCase);
+    $('s-best').textContent  = fmtMoney(bestCase);
+    $('s-roi').textContent   = (roi >= 0 ? '+' : '') + roi.toFixed(1) + '%';
+    $('s-rr').textContent    = (worstCase < 0)
+      ? '1 : ' + riskReward.toFixed(2)
+      : 'Risk-free';
+
+    // ── Scenario breakdown ──
+    setScenario('sc-a', netA_only, `Win $${profitA.toFixed(2)} on A · Lose $${stakeB.toFixed(2)} on B`);
+    setScenario('sc-m', netMiddle, `Win $${profitA.toFixed(2)} on A · Win $${profitB.toFixed(2)} on B`);
+    setScenario('sc-b', netB_only, `Win $${profitB.toFixed(2)} on B · Lose $${stakeA.toFixed(2)} on A`);
+
+    // Sync the middle scenario PnL classes
+    document.querySelector('#sc-m-pnl').className = 'scenario-pnl pos';
+
+    // ── EV block (if probability provided) ──
+    if (isFinite(probMid) && probMid > 0 && probMid <= 100) {
+      const pMid = probMid / 100;
+      // We need a model for the non-middle split. Simplest reasonable: assume A and B win-only are equally likely outside the middle.
+      const pAonly = (1 - pMid) / 2;
+      const pBonly = (1 - pMid) / 2;
+      const evDollar = pMid * netMiddle + pAonly * netA_only + pBonly * netB_only;
+      const evPercent = (evDollar / totalInvested) * 100;
+
+      // Break-even: at what pMid does ev = 0?
+      // pMid*netMiddle + ((1-pMid)/2)*netA_only + ((1-pMid)/2)*netB_only = 0
+      // pMid*netMiddle + (1-pMid)*(netA_only+netB_only)/2 = 0
+      // Let avgOutside = (netA_only + netB_only) / 2
+      // pMid*(netMiddle - avgOutside) = -avgOutside
+      // pMid = -avgOutside / (netMiddle - avgOutside)
+      const avgOutside = (netA_only + netB_only) / 2;
+      const breakeven = -avgOutside / (netMiddle - avgOutside);
+
+      $('evBlock').classList.add('shown');
+      $('ev-dollar').textContent = fmtMoney(evDollar);
+      $('ev-dollar').className = 'ev-value ' + (evDollar > 0 ? 'pos' : (evDollar < 0 ? 'neg' : ''));
+      $('ev-percent').textContent = (evPercent >= 0 ? '+' : '') + evPercent.toFixed(2) + '%';
+      $('ev-percent').className = 'ev-value ' + (evPercent > 0 ? 'pos' : (evPercent < 0 ? 'neg' : ''));
+      if (breakeven >= 0 && breakeven <= 1) {
+        $('ev-breakeven').textContent = (breakeven * 100).toFixed(1) + '%';
+      } else {
+        // If avgOutside is positive, you're already +EV without any middle (arbitrage)
+        $('ev-breakeven').textContent = avgOutside >= 0 ? 'Already +EV' : 'Never';
+      }
+    } else {
+      $('evBlock').classList.remove('shown');
+    }
+  }
+
+  function setScenario(prefix, net, detail) {
+    const pnlEl = $(prefix + '-pnl');
+    const detEl = $(prefix + '-detail');
+    pnlEl.textContent = fmtMoney(net);
+    pnlEl.className = 'scenario-pnl ' + (net > 0 ? 'pos' : (net < 0 ? 'neg' : 'zero'));
+    detEl.textContent = detail;
+  }
+
+  // Wire up inputs
+  ['stakeA','oddsA','stakeB','oddsB','probMid'].forEach(id => {
+    $(id).addEventListener('input', calc);
+  });
+
+  calc();
+</script>
+
+<script>
+  /* Sidebar behavior */
+  (function() {
+    var body = document.body;
+    var toggle = document.getElementById('ppsSidebarToggle');
+    var path = window.location.pathname.replace(/\/$/, '') || '/index.html';
+    var isHome = (path === '/index.html' || path === '' || path === '/');
+
+    document.querySelectorAll('.pps-sidebar .pps-nav-link').forEach(function(link) {
+      var href = link.getAttribute('href');
+      if (href === path || (isHome && href === '/index.html')) {
+        link.classList.add('active');
+        var parent = link.closest('details');
+        if (parent) parent.open = true;
+      }
+    });
+
+    toggle.addEventListener('click', function() {
+      body.classList.toggle('pps-sidebar-open');
+    });
+
+    document.querySelectorAll('.pps-sidebar summary[data-anchor]').forEach(function(s) {
+      s.addEventListener('click', function() {
+        if (!isHome) return;
+        var anchor = s.getAttribute('data-anchor');
+        var target = document.getElementById(anchor);
+        if (target) {
+          setTimeout(function() {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }, 60);
+        }
+      });
+    });
+
+    if (isHome) {
+      var autoOpened = false;
+      window.addEventListener('scroll', function() {
+        if (!autoOpened && window.scrollY > 600) {
+          body.classList.add('pps-sidebar-open');
+          autoOpened = true;
+        }
+      }, { passive: true });
+    } else {
+      body.classList.add('pps-sidebar-open');
+    }
+  })();
+</script>
+
+</body>
+</html>
