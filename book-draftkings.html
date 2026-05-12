@@ -37,6 +37,23 @@
   .lesson-sub { font-family: 'Rajdhani', sans-serif; font-size: 22px; color: var(--muted); font-weight: 500; letter-spacing: 0.4px; line-height: 1.4; }
   .quick-signup { display: inline-flex; align-items: center; gap: 8px; margin-top: 18px; font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.5px; color: var(--green); text-decoration: none; padding: 8px 16px; border: 1px solid var(--green); border-radius: 999px; transition: all 0.15s; background: rgba(74, 222, 128, 0.05); }
   .quick-signup:hover { background: rgba(74, 222, 128, 0.14); transform: translateY(-1px); }
+
+  /* Current-promo hero banner — surfaces the live offer prominently */
+  .current-promo { display: block; margin: 28px auto 0; max-width: 640px; background: linear-gradient(135deg, rgba(74, 222, 128, 0.12), rgba(74, 222, 128, 0.03)); border: 1px solid var(--green); border-radius: 14px; padding: 22px 24px; text-decoration: none; color: var(--text); transition: all 0.18s; box-shadow: 0 0 28px rgba(74, 222, 128, 0.10); position: relative; overflow: hidden; }
+  .current-promo:hover { transform: translateY(-2px); box-shadow: 0 0 40px rgba(74, 222, 128, 0.22); }
+  .current-promo .promo-flag { font-family: 'Orbitron', sans-serif; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--green); font-weight: 800; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+  .current-promo .promo-flag::before { content: ''; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--green); box-shadow: 0 0 8px var(--green); animation: pulse 1.6s ease-in-out infinite; }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+  .current-promo .promo-headline { font-family: 'Orbitron', sans-serif; font-size: 24px; font-weight: 900; letter-spacing: 1.5px; color: var(--text); text-transform: uppercase; line-height: 1.15; margin-bottom: 8px; }
+  .current-promo .promo-headline strong { color: var(--green); }
+  .current-promo .promo-sub { font-family: 'Rajdhani', sans-serif; font-size: 15px; color: var(--muted); line-height: 1.5; }
+  .current-promo .promo-sub strong { color: var(--text); }
+  .current-promo .promo-cta { display: inline-flex; align-items: center; gap: 8px; margin-top: 14px; font-family: 'Orbitron', sans-serif; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; font-weight: 800; color: var(--green); }
+  .current-promo:hover .promo-cta { transform: translateX(3px); transition: transform 0.18s; }
+  @media (max-width: 600px) {
+    .current-promo { padding: 18px 20px; margin-top: 22px; }
+    .current-promo .promo-headline { font-size: 19px; letter-spacing: 1px; }
+  }
   .lesson-section { margin-bottom: 36px; }
   .lesson-section h3 { font-family: 'Orbitron', sans-serif; font-size: 18px; letter-spacing: 2px; text-transform: uppercase; color: var(--text); font-weight: 800; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--border-soft); }
   .lesson-body { font-family: 'Rajdhani', sans-serif; font-size: 18px; line-height: 1.7; color: var(--text); letter-spacing: 0.2px; }
@@ -234,7 +251,15 @@
   <div class="lesson-hero">
     <div class="lesson-eyebrow">Path 02 · Sportsbook</div>
     <h1 class="lesson-title">DraftKings</h1>
-    <p class="lesson-sub">The volume play — soft lines, slick app, and a generous welcome offer that converts well.</p>
+    <p class="lesson-sub">The volume play — soft lines, slick app, and one of the best starter welcome offers on the market. <strong>If you're building a bonus-conversion bankroll, this is the book you want first.</strong></p>
+
+    <a href="https://sportsbook.draftkings.com/r/sb/strictly_chronic/US-CO-SB/US-CO" class="current-promo" target="_blank" rel="nofollow noopener sponsored">
+      <div class="promo-flag">● Live promo · Bonus churn starter</div>
+      <div class="promo-headline">Bet $5 → Get <strong>4 × $25</strong> bonus bets</div>
+      <div class="promo-sub">$100 in bonus bets after a $5 qualifying bet. At a ~70% conversion rate, that's <strong>roughly $70 in real, withdrawable cash</strong> off your $5 in. Four separate $25 bonus bets means four shots at long-odds conversion — flexible and easy to spread.</div>
+      <div class="promo-cta">Claim the offer →</div>
+    </a>
+
     <a href="https://sportsbook.draftkings.com/r/sb/strictly_chronic/US-CO-SB/US-CO" class="quick-signup" target="_blank" rel="nofollow noopener sponsored">Just here to sign up? Open DraftKings ↗</a>
   </div>
 
@@ -262,13 +287,13 @@
   <section class="lesson-section">
     <h3>What you'll likely get</h3>
     <div class="lesson-body">
-      <p>DraftKings' new-user welcome offer is the kind that pays out in <strong>bonus bets</strong> — non-withdrawable credits you have to wager before any profit becomes real cash. The most common structure for the past couple of years has been:</p>
+      <p>DraftKings' new-user welcome offer pays out in <strong>bonus bets</strong> — non-withdrawable credits you have to wager before any profit becomes real cash. The current structure:</p>
 
       <div class="callout">
-        Bet $5 → Get <strong>$200 in bonus bets</strong> (regardless of whether your $5 wins).
+        Bet $5 → Get <strong>4 × $25 bonus bets</strong> ($100 total, regardless of whether your $5 wins).
       </div>
 
-      <p>That exact dollar amount changes by state, by season, and by promo cycle — but the <em>structure</em> stays roughly the same: small qualifying bet → meaningful bonus-bet payout. Read the fine print on the actual signup page; numbers can vary.</p>
+      <p>Exact promo terms can vary by state and rotate occasionally — always read the fine print on the actual signup page before depositing.</p>
       <p><strong>What to know about bonus bets:</strong></p>
       <ul>
         <li>They're <strong>non-withdrawable</strong> — you have to bet them</li>
@@ -276,7 +301,7 @@
         <li>Most have 1× rollover (just bet them once) — but read the terms</li>
         <li>They expire (typically 7-14 days)</li>
       </ul>
-      <p>That second point is what most people miss. A $200 bonus bet at −110 wins you $182 in cash, not $382. So the trick isn't placing the bonus bet — it's converting its face value into withdrawable money efficiently.</p>
+      <p>That second point is what most people miss. A $25 bonus bet at −110 wins you $23 in cash, not $48. So the trick isn't placing the bonus bet — it's converting its face value into withdrawable money efficiently. The <strong>4 × $25 split is actually an advantage</strong> — you get four separate shots at finding good long-odds conversion candidates instead of being locked into one big bet.</p>
     </div>
   </section>
 
@@ -286,11 +311,11 @@
       <p>Bonus bets are most efficiently converted on <em>long-odds</em> bets where you also hedge the other side at a second sportsbook. The math works out to roughly <strong>70-75% of the bonus bet's face value</strong> as real, withdrawable cash. Quick walkthrough:</p>
       <ol style="padding-left:22px;line-height:1.7;">
         <li>Place your $5 qualifying bet — anything; it doesn't matter much</li>
-        <li>Wait for the $200 in bonus bets to land in your account</li>
-        <li>Find a long-odds bet on DraftKings (e.g. +400 or higher)</li>
+        <li>Wait for the four $25 bonus bets to land in your account</li>
+        <li>For each one, find a long-odds bet on DraftKings (e.g. +400 or higher)</li>
         <li>Use the <a href="/bonus-converter.html">Bonus Bet Converter</a> to calculate the exact hedge amount</li>
         <li>Hedge the opposite side on a second sportsbook at the calculated stake</li>
-        <li>Whichever side wins, you walk away with ~70% of $200 in real cash — guaranteed</li>
+        <li>Repeat for each $25 bonus bet — at ~70% conversion, you walk away with ~$70 in real cash from $5 in</li>
       </ol>
       <p>For the full step-by-step playbook — picking the qualifying bet, hedging the qualifier, choosing the right long-odds bet, tracking it across multiple books — walk <a href="/index.html#bonus">Path 02 · The Promo Playbook</a>.</p>
       <p>If you're new to all of this, the playbook is the right first stop. If you've done one or two before, the <a href="/bonus-converter.html">Bonus Converter</a> alone will get you through it.</p>
