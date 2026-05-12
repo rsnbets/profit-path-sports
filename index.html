@@ -579,24 +579,14 @@
     .path-fork-sub { font-size: 14px; }
   }
 
-  /* ── Featured-pair section header (sits between path tiles and SEP/X-Ray) ── */
+  /* ── Featured-pair section (its own section below the hero card) ── */
+  .featured-pair {
+    margin: 48px 0 28px;
+  }
   .featured-pair-head {
     text-align: center;
-    margin: 56px auto 24px;
-    padding-top: 40px;
-    border-top: 1px solid var(--border-soft);
+    margin: 0 auto 28px;
     max-width: 720px;
-    position: relative;
-  }
-  .featured-pair-head::before {
-    content: '';
-    position: absolute;
-    top: -1px;
-    left: 30%;
-    right: 30%;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--purple), transparent);
-    opacity: 0.6;
   }
   .featured-pair-head .section-eyebrow {
     justify-content: center;
@@ -610,7 +600,7 @@
     margin-right: auto;
   }
   @media (max-width: 640px) {
-    .featured-pair-head { margin-top: 40px; padding-top: 28px; }
+    .featured-pair { margin-top: 32px; }
     .featured-pair-head .section-title { font-size: 20px; letter-spacing: 1.5px; }
   }
 
@@ -2096,39 +2086,41 @@
           <div class="hero-path-cta">Enter Path 03 →</div>
         </a>
       </div>
-
-      <!-- ── Featured-pair section header ── -->
-      <div class="featured-pair-head">
-        <div class="section-eyebrow purple">Free Exclusives</div>
-        <div class="section-title">Built by us. Free for you.</div>
-        <div class="section-sub">Two flagship resources you can't get anywhere else — one a tool, one a playbook.</div>
-      </div>
-
-      <!-- LEAD MAGNET: Sharp Exchange Playbook (paired with Bet X-Ray below) -->
-      <div class="lead-magnet-card">
-        <div class="lead-magnet-badge">Free · Email request</div>
-        <div class="lead-magnet-icon">🩻</div>
-        <div class="lead-magnet-eyebrow">The flagship deep-dive</div>
-        <div class="lead-magnet-name">The Sharp Exchange Playbook</div>
-        <div class="lead-magnet-desc">Most sports bettors don't know betting <em>exchanges</em> exist. Even fewer know how to read the order book on one. <strong>That's where trading firms, syndicates, and the actual sharp money set prices — in real time, in plain dollars.</strong> A free five-part deep-dive: what exchanges are · how to read the book like a trading desk · the manual sharp scan workflow · the calculator that automates the analysis · the maker tactic for posting your own price. Plus the specific signals we use daily — translation rule, imbalance reads, conviction overflows, BEST-vs-PX heuristic. Nothing else covers this for free.</div>
-        <div class="lead-magnet-cta-row">
-          <div class="lead-magnet-cta-text">Email <a href="mailto:info@profitpathsports.com?subject=Sharp%20Exchange%20Playbook%20request&amp;body=Hey%20%E2%80%94%20I%27d%20like%20the%20Sharp%20Exchange%20Playbook.%20Thanks!" class="lead-magnet-email">info@profitpathsports.com</a> and we'll send you the link</div>
-          <a class="lead-magnet-btn" href="mailto:info@profitpathsports.com?subject=Sharp%20Exchange%20Playbook%20request&amp;body=Hey%20%E2%80%94%20I%27d%20like%20the%20Sharp%20Exchange%20Playbook.%20Thanks!">Request access ↗</a>
-        </div>
-      </div>
-
-      <a class="exclusive-tile" href="bet-x-ray.html">
-        <span class="exclusive-badge">⚡ Exclusive · Free</span>
-        <div class="exclusive-icon">🩻</div>
-        <div class="exclusive-name">Bet X-Ray</div>
-        <div class="exclusive-tagline">Devig → EV → Kelly → Verdict · in one shot</div>
-        <p class="exclusive-desc">
-          See straight through any sports bet. The whole sharp-betting pipeline in one free tool — <strong>devig the market, calculate EV, size with Kelly, stress-test against your model error, preview CLV, estimate risk of ruin</strong>, and get a plain-English verdict at the end. <strong>Nothing else like it on the internet.</strong>
-        </p>
-        <span class="exclusive-cta">Launch Bet X-Ray →</span>
-      </a>
     </div>
   </div>
+
+  <!-- ═══ FEATURED PAIR — separate section, outside the hero card ═══ -->
+  <section class="featured-pair">
+    <div class="featured-pair-head">
+      <div class="section-eyebrow purple">Free Exclusives</div>
+      <div class="section-title">Built by us. Free for you.</div>
+      <div class="section-sub">Two flagship resources you can't get anywhere else — one a tool, one a playbook.</div>
+    </div>
+
+    <!-- LEAD MAGNET: Sharp Exchange Playbook -->
+    <div class="lead-magnet-card">
+      <div class="lead-magnet-badge">Free · Email request</div>
+      <div class="lead-magnet-icon">🩻</div>
+      <div class="lead-magnet-eyebrow">The flagship deep-dive</div>
+      <div class="lead-magnet-name">The Sharp Exchange Playbook</div>
+      <div class="lead-magnet-desc">Most sports bettors don't know betting <em>exchanges</em> exist. Even fewer know how to read the order book on one. <strong>That's where trading firms, syndicates, and the actual sharp money set prices — in real time, in plain dollars.</strong> A free five-part deep-dive: what exchanges are · how to read the book like a trading desk · the manual sharp scan workflow · the calculator that automates the analysis · the maker tactic for posting your own price. Plus the specific signals we use daily — translation rule, imbalance reads, conviction overflows, BEST-vs-PX heuristic. Nothing else covers this for free.</div>
+      <div class="lead-magnet-cta-row">
+        <div class="lead-magnet-cta-text">Email <a href="mailto:info@profitpathsports.com?subject=Sharp%20Exchange%20Playbook%20request&amp;body=Hey%20%E2%80%94%20I%27d%20like%20the%20Sharp%20Exchange%20Playbook.%20Thanks!" class="lead-magnet-email">info@profitpathsports.com</a> and we'll send you the link</div>
+        <a class="lead-magnet-btn" href="mailto:info@profitpathsports.com?subject=Sharp%20Exchange%20Playbook%20request&amp;body=Hey%20%E2%80%94%20I%27d%20like%20the%20Sharp%20Exchange%20Playbook.%20Thanks!">Request access ↗</a>
+      </div>
+    </div>
+
+    <a class="exclusive-tile" href="bet-x-ray.html">
+      <span class="exclusive-badge">⚡ Exclusive · Free</span>
+      <div class="exclusive-icon">🩻</div>
+      <div class="exclusive-name">Bet X-Ray</div>
+      <div class="exclusive-tagline">Devig → EV → Kelly → Verdict · in one shot</div>
+      <p class="exclusive-desc">
+        See straight through any sports bet. The whole sharp-betting pipeline in one free tool — <strong>devig the market, calculate EV, size with Kelly, stress-test against your model error, preview CLV, estimate risk of ruin</strong>, and get a plain-English verdict at the end. <strong>Nothing else like it on the internet.</strong>
+      </p>
+      <span class="exclusive-cta">Launch Bet X-Ray →</span>
+    </a>
+  </section>
 
   <!-- TOOLBOX — visible under the lane tiles -->
   <div class="section" id="tools">
