@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Futures Betting — Why You Always Split Across Books | Profit Path Sports</title>
+<meta name="description" content="Futures bets are long-horizon positions, not one-and-done tickets. Why you split across books, why at least one must allow cashouts, and how to manage your futures portfolio as the season unfolds.">
+
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230a0f1c'/%3E%3Cpolyline points='5,24 12,16 16,19 22,9 27,5' fill='none' stroke='%234ade80' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="Futures Betting — Why You Always Split Across Books">
+<meta property="og:description" content="Long-horizon bets need active management. The split-across-books rule, why one must allow cashouts, and the cashout-vs-hedge decision.">
+<meta property="og:site_name" content="Profit Path Sports">
+<meta name="theme-color" content="#0a0f1c">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;800;900&family=JetBrains+Mono:wght@400;500;700&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root { --bg: #0a0f1c; --panel: #0f1524; --panel-inset: #141a2b; --panel-deep: #0c1120; --border: #1e2638; --border-soft: #141c30; --text: #e5e7eb; --muted: #8b94a8; --dim: #6b7689; --blue: #3d8bff; --blue-glow: rgba(61, 139, 255, 0.18); --yellow: #f5b545; --yellow-glow: rgba(245, 181, 69, 0.18); --green: #4ade80; --red: #f87171; --purple: #BC8CFF; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: radial-gradient(ellipse at top, #111a2e 0%, var(--bg) 60%); color: var(--text); font-family: 'JetBrains Mono', ui-monospace, monospace; min-height: 100vh; line-height: 1.5; }
+  .topnav { border-bottom: 1px solid var(--border-soft); background: rgba(10, 15, 28, 0.85); backdrop-filter: blur(8px); position: sticky; top: 0; z-index: 10; }
+  .topnav-inner { max-width: 1100px; margin: 0 auto; padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+  .nav-brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; color: var(--blue); font-family: 'Orbitron', sans-serif; font-size: 13px; letter-spacing: 2.5px; font-weight: 800; text-transform: uppercase; }
+  .nav-brand-chart { display: inline-flex; width: 22px; height: 18px; color: #4ade80; filter: drop-shadow(0 0 6px rgba(74, 222, 128, 0.55)); }
+  .nav-brand-chart svg { width: 100%; height: 100%; }
+  .nav-back { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--muted); text-decoration: none; letter-spacing: 0.5px; transition: color 0.15s; }
+  .nav-back:hover { color: var(--yellow); }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 32px 20px 80px; }
+  .lesson-hero { margin-bottom: 36px; }
+  .lesson-eyebrow { font-family: 'Orbitron', sans-serif; font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--yellow); font-weight: 700; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+  .lesson-eyebrow::before { content: '▸'; color: var(--yellow); font-size: 10px; }
+  .lesson-title { font-family: 'Orbitron', sans-serif; font-size: 40px; font-weight: 900; letter-spacing: 2px; color: var(--text); text-transform: uppercase; line-height: 1.05; margin-bottom: 14px; }
+  .lesson-sub { font-family: 'Rajdhani', sans-serif; font-size: 22px; color: var(--muted); font-weight: 500; letter-spacing: 0.4px; line-height: 1.4; }
+  .lesson-section { margin-bottom: 36px; }
+  .lesson-section h3 { font-family: 'Orbitron', sans-serif; font-size: 18px; letter-spacing: 2px; text-transform: uppercase; color: var(--text); font-weight: 800; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--border-soft); }
+  .lesson-section h4 { font-family: 'Orbitron', sans-serif; font-size: 13px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text); font-weight: 700; margin: 20px 0 10px; }
+  .lesson-body { font-family: 'Rajdhani', sans-serif; font-size: 18px; line-height: 1.7; color: var(--text); letter-spacing: 0.2px; }
+  .lesson-body p { margin-bottom: 16px; }
+  .lesson-body p:last-child { margin-bottom: 0; }
+  .lesson-body strong { color: var(--text); font-weight: 700; }
+  .lesson-body em { color: var(--yellow); font-style: normal; font-weight: 600; }
+  .lesson-body a { color: var(--yellow); text-decoration: none; border-bottom: 1px dashed transparent; transition: border-color 0.15s; }
+  .lesson-body a:hover { border-bottom-color: var(--yellow); }
+  .lesson-body ul, .lesson-body ol { margin: 12px 0 18px; padding-left: 22px; }
+  .lesson-body ul li, .lesson-body ol li { margin-bottom: 8px; }
+
+  .example-block { background: var(--panel-deep); border: 1px solid var(--border-soft); border-left: 3px solid var(--yellow); border-radius: 12px; padding: 22px 26px; font-family: 'Rajdhani', sans-serif; font-size: 17px; color: var(--text); margin: 22px 0; line-height: 1.7; letter-spacing: 0.2px; font-variant-numeric: tabular-nums; }
+  .example-block.blue { border-left-color: var(--blue); }
+  .example-block.blue .label { color: var(--blue); }
+  .example-block.green { border-left-color: var(--green); }
+  .example-block.green .label { color: var(--green); }
+  .example-block .label { font-family: 'Orbitron', sans-serif; color: var(--yellow); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; display: block; margin-bottom: 16px; font-weight: 700; }
+  .example-block .row { display: flex; flex-wrap: wrap; gap: 6px 12px; align-items: baseline; padding: 4px 0; }
+  .example-block .row .src { min-width: 140px; color: var(--muted); font-weight: 600; }
+  .example-block .row .body { flex: 1; }
+  .example-block .row .note { color: var(--dim); font-size: 15px; font-style: italic; }
+  .example-block hr { border: none; border-top: 1px solid var(--border-soft); margin: 12px 0; }
+  .example-block .conclusion { margin-top: 4px; color: var(--text); }
+  .example-block .accent { color: var(--yellow); font-weight: 700; }
+  .example-block .pos { color: var(--green); font-weight: 700; }
+  .example-block .neg { color: var(--red); font-weight: 700; }
+  .example-block .yel { color: var(--yellow); font-weight: 700; }
+  .example-block .blu { color: var(--blue); font-weight: 700; }
+
+  .compare-table { width: 100%; border-collapse: collapse; margin: 22px 0; font-family: 'Rajdhani', sans-serif; font-size: 16px; font-variant-numeric: tabular-nums; }
+  .compare-table caption { font-family: 'Orbitron', sans-serif; color: var(--yellow); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; font-weight: 700; padding-bottom: 14px; text-align: left; }
+  .compare-table th, .compare-table td { padding: 11px 14px; text-align: left; border-bottom: 1px solid var(--border-soft); vertical-align: top; }
+  .compare-table th { font-family: 'Orbitron', sans-serif; font-size: 10px; letter-spacing: 1.8px; text-transform: uppercase; color: var(--dim); font-weight: 700; background: var(--panel-deep); }
+  .compare-table tr:last-child td { border-bottom: none; }
+  .compare-table .topic { color: var(--text); font-weight: 600; }
+  .compare-table .pos { color: var(--green); font-weight: 700; }
+  .compare-table .neg { color: var(--red); font-weight: 700; }
+  .compare-table .yel { color: var(--yellow); font-weight: 700; }
+
+  .warn-block { background: var(--panel-deep); border: 1px solid var(--border-soft); border-left: 3px solid var(--red); border-radius: 10px; padding: 18px 22px; font-family: 'Rajdhani', sans-serif; font-size: 17px; color: var(--text); margin: 18px 0; line-height: 1.6; }
+  .warn-block strong { color: var(--red); }
+  .tip-block { background: var(--panel-deep); border: 1px solid var(--border-soft); border-left: 3px solid var(--green); border-radius: 10px; padding: 18px 22px; font-family: 'Rajdhani', sans-serif; font-size: 17px; color: var(--text); margin: 18px 0; line-height: 1.6; }
+  .tip-block strong { color: var(--green); }
+  .pull-quote { font-family: 'Rajdhani', sans-serif; font-size: 20px; font-style: italic; color: var(--text); border-left: 3px solid var(--yellow); padding: 4px 0 4px 22px; margin: 24px 0; line-height: 1.5; }
+  .cta-card { background: linear-gradient(135deg, rgba(245, 181, 69, 0.10), rgba(245, 181, 69, 0.02)); border: 1px solid var(--yellow); border-radius: 16px; padding: 32px 28px; margin: 44px 0 32px; text-align: center; box-shadow: 0 0 40px rgba(245, 181, 69, 0.10), 0 20px 60px rgba(0, 0, 0, 0.3); }
+  .cta-eyebrow { font-family: 'Orbitron', sans-serif; font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--yellow); font-weight: 700; margin-bottom: 10px; }
+  .cta-title { font-family: 'Rajdhani', sans-serif; font-size: 26px; font-weight: 700; color: var(--text); margin-bottom: 8px; letter-spacing: 0.3px; }
+  .cta-blurb { font-family: 'Rajdhani', sans-serif; font-size: 16px; color: var(--muted); line-height: 1.55; max-width: 480px; margin: 0 auto 22px; }
+  .cta-btn { display: inline-flex; align-items: center; gap: 10px; font-family: 'Orbitron', sans-serif; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; font-weight: 800; text-decoration: none; padding: 14px 26px; border-radius: 10px; background: var(--yellow); color: #181208; box-shadow: 0 0 22px rgba(245,181,69,0.2); transition: all 0.15s; }
+  .cta-btn:hover { background: #f7c465; transform: translateY(-1px); box-shadow: 0 0 32px rgba(245,181,69,0.35); }
+  .footer { text-align: center; margin-top: 60px; padding: 28px 20px 0; color: var(--dim); font-size: 11px; letter-spacing: 1px; line-height: 1.7; border-top: 1px solid var(--border-soft); }
+  .footer .disclaimer { max-width: 720px; margin: 0 auto 14px; color: var(--dim); font-family: 'Rajdhani', sans-serif; font-size: 13px; letter-spacing: 0.3px; }
+  .footer a { color: var(--muted); text-decoration: none; }
+  .footer a:hover { color: var(--yellow); }
+  @media (max-width: 600px) {
+    .topnav-inner { padding: 12px 16px; }
+    .nav-brand { font-size: 11px; letter-spacing: 2px; }
+    .wrap { padding: 24px 16px 60px; }
+    .lesson-title { font-size: 28px; letter-spacing: 1.5px; }
+    .lesson-sub { font-size: 18px; }
+    .lesson-body { font-size: 16px; }
+    .lesson-section h3 { font-size: 15px; }
+    .cta-card { padding: 26px 20px; }
+    .cta-title { font-size: 22px; }
+    .pull-quote { font-size: 17px; padding-left: 16px; }
+    .compare-table th, .compare-table td { padding: 9px 8px; font-size: 14px; }
+    .example-block .row .src { min-width: 110px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a class="nav-brand" href="/index.html">
+      <span class="nav-brand-chart" aria-hidden="true">
+        <svg viewBox="0 0 28 22" xmlns="http://www.w3.org/2000/svg" fill="none">
+          <polyline points="2,18 8,12 12,15 18,7 26,3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      Profit Path Sports
+      <span class="nav-brand-chart" aria-hidden="true">
+        <svg viewBox="0 0 28 22" xmlns="http://www.w3.org/2000/svg" fill="none">
+          <polyline points="2,18 8,12 12,15 18,7 26,3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+    </a>
+    <a class="nav-back" href="/index.html#guides">← Strategy Guides</a>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <div class="lesson-hero">
+    <div class="lesson-eyebrow">Concept · Futures Strategy</div>
+    <h1 class="lesson-title">Futures Betting</h1>
+    <p class="lesson-sub">A futures ticket isn't a bet you place and forget — it's a <em>position</em> you manage as the season unfolds. The single rule that turns futures from gambling into portfolio management: <strong>always split your tickets across books, and at least one of those books must allow cashouts.</strong></p>
+  </div>
+
+  <section class="lesson-section">
+    <h3>What futures are</h3>
+    <div class="lesson-body">
+      <p>A futures bet is a wager on an outcome that resolves at the end of a season, tournament, or postseason — not at the end of a single game. Common examples:</p>
+      <ul>
+        <li>Award winners — Cy Young, MVP, Coach of the Year</li>
+        <li>Division / conference winners</li>
+        <li>Championships — Stanley Cup, World Series, Super Bowl</li>
+        <li>Win totals — team season wins above/below a posted line</li>
+        <li>Player season stats — most home runs, most rushing yards</li>
+      </ul>
+      <p>The horizon is what makes them different. A spread bet settles in 3 hours; a Cy Young ticket settles in 5-6 months. The price moves continuously over that period as evidence accumulates — strong starts, injuries, trade-deadline moves, postseason positioning. Your position changes value every day, even on days the player isn't pitching.</p>
+    </div>
+  </section>
+
+  <section class="lesson-section">
+    <h3>The cashout mechanic — and its haircut</h3>
+    <div class="lesson-body">
+      <p>Most US-facing books (DraftKings, FanDuel, BetMGM, Caesars, Hard Rock, ESPN BET, etc.) offer <strong>cashout</strong> on futures tickets. At any point before settlement, the book will quote you a price to buy back your ticket. Take it, and your bet is settled immediately for that cash amount — locked in, no further variance.</p>
+
+      <p>The math: a fair cashout = current implied probability × total payout if the bet wins. If your $10 ticket pays $260 total and the current implied probability of winning is 25%, fair cashout = $65. The book never offers fair. They quote you something below — a <em>haircut</em>, typically 5-20% — that's their compensation for warehousing your position and absorbing the risk.</p>
+
+      <div class="example-block">
+        <span class="label">Fair vs offered cashout — typical structure</span>
+        <div class="row"><span class="src">Total payout</span><span class="body">$260</span></div>
+        <div class="row"><span class="src">Current implied prob</span><span class="body">25%</span></div>
+        <div class="row"><span class="src">Fair cashout</span><span class="body">$260 × 0.25 = <span class="accent">$65.00</span></span></div>
+        <div class="row"><span class="src">Book's offered cashout</span><span class="body">$57.24</span><span class="note">~12% haircut</span></div>
+        <hr>
+        <div class="conclusion">Cashout never gives you fair value. It gives you <em>convenience</em> at a cost. The question on every cashout is whether the convenience is worth the haircut.</div>
+      </div>
+
+      <p>The haircut size varies by book and by how confident the book is in its model. On well-priced markets (MLB award futures, NFL win totals), haircuts run 5-10%. On thin markets (NHL conference futures, niche awards), haircuts can be 15-25%.</p>
+    </div>
+  </section>
+
+  <section class="lesson-section">
+    <h3>The rule: always split your tickets across books</h3>
+    <div class="lesson-body">
+      <p>If you only place a single futures ticket at a single book, you've handed yourself zero optionality. The price you got is the price you're stuck with. The cashout offer (if your book even allows it) is the only exit you have. Every flexibility lever — price shopping, hedging, partial closeouts — disappears.</p>
+
+      <p>The rule is simple: <strong>any futures position worth caring about should be split across at least two books</strong>. And one of those books must allow cashouts.</p>
+
+      <p class="pull-quote">A single futures ticket is a one-way bet. Two tickets at different books is a position you can manage. The split costs you nothing on the way in and saves you everything on the way out.</p>
+
+      <h4>Why split?</h4>
+      <ul>
+        <li><strong>Price shopping.</strong> Futures prices vary meaningfully across books — sometimes 30-50% on long-shot tickets. A $10 ticket might pay $260 at one book and $205 at another. Splitting lets you grab the best of each.</li>
+        <li><strong>Limit / promo capture.</strong> Books offer odds boosts on futures regularly. Having accounts at 3-5 books means you can grab the boost whenever it appears, instead of being locked to one book's mood.</li>
+        <li><strong>Diversification.</strong> If one book limits or restricts your account mid-season, your futures position survives. You're not stuck.</li>
+        <li><strong>Cashout flexibility</strong> — the key one, next section.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="lesson-section">
+    <h3>Why one book MUST allow cashouts</h3>
+    <div class="lesson-body">
+      <p>This is the part most bettors miss. The sharpest futures prices live at <strong>sharp / exchange books</strong> — Pinnacle, ProphetX, Novig, Circa. Those venues don't offer cashout. Once your ticket is placed, you're holding it to settlement no matter what happens.</p>
+
+      <p>That's fine if the underlying never moves. It's a problem the moment circumstances change:</p>
+      <ul>
+        <li>Your pitcher dominates the first half and the price implodes. You want to lock in some of the gain. You can't — Pinnacle doesn't offer that.</li>
+        <li>The injury rumor hits and the price collapses. You want out before the official report. You can't.</li>
+        <li>You hit a great cashout price right before a big start that could swing the line either way. You can't take it.</li>
+      </ul>
+
+      <p>The fix: <strong>place a portion of your futures position at a soft book that offers cashouts</strong> — DraftKings, FanDuel, BetMGM, Caesars, Hard Rock, ESPN BET, etc. The sharp book gives you the best price; the soft book gives you the exit lever. Together they form a position you can actually manage.</p>
+
+      <div class="tip-block">
+        <strong>Practical setup:</strong> when you're building a futures position you actually care about, aim for at least two tickets — one at a sharp book for the best price, one at a soft book for the cashout option. Even if the soft book's odds are 10-15% worse, the optionality alone is worth it on long-horizon positions.
+      </div>
+
+      <p>Sharp books with no cashout: <strong>Pinnacle, Circa, ProphetX, Novig, Bookmaker</strong>. Soft books with cashout: <strong>DraftKings, FanDuel, BetMGM, Caesars, Hard Rock, ESPN BET, bet365, Fanatics</strong>. Stagger accordingly.</p>
+    </div>
+  </section>
+
+  <section class="lesson-section">
+    <h3>Cashout vs. hedge — two ways to lock in</h3>
+    <div class="lesson-body">
+      <p>If a futures price has moved in your favor and you want to lock in some profit, you have two tools:</p>
+
+      <ol>
+        <li><strong>Cashout.</strong> Click one button at the book that holds your ticket. Immediate, simple, accepts the haircut.</li>
+        <li><strong>Hedge.</strong> Bet the OPPOSITE outcome at current market prices, sized to lock in equal profit (or a chosen profit floor) regardless of which side wins. Use our <a href="/hedge-calculator.html">hedge calculator</a> to size it.</li>
+      </ol>
+
+      <p>When is hedging better than cashing?</p>
+      <ul>
+        <li>When the book's cashout markup is large (15%+) and you can find a cleaner hedge price elsewhere</li>
+        <li>When the outcome has multiple paths (e.g., Cy Young has many contenders) and you can hedge across just the most likely competitors instead of "everyone else"</li>
+        <li>When the cashout isn't available at all (sharp-book ticket, no cashout option)</li>
+      </ul>
+
+      <p>When is cashing simpler/better?</p>
+      <ul>
+        <li>When the haircut is small (under 10%) and you don't want to manage another bet</li>
+        <li>When the field is wide and hedging would require many separate bets</li>
+        <li>When you want the position fully closed (cashout = exit; hedge = both sides still open)</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="lesson-section">
+    <h3>Real walkthrough — Schlittler Cy Young (3 tickets)</h3>
+    <div class="lesson-body">
+      <p>Here's a real futures portfolio in motion. Pitcher's getting strong early-season buzz, his Cy Young price has tightened, and the bettor is staring at three tickets across different books, each with a cashout offer:</p>
+
+      <div class="example-block">
+        <span class="label">The position</span>
+        <div class="row"><span class="src">Ticket A</span><span class="body">$10 → $260 · cashout <span class="accent">$57.24</span></span><span class="note">cashout/return ≈ 22.0%</span></div>
+        <div class="row"><span class="src">Ticket B</span><span class="body">$10 → $235 · cashout <span class="accent">$50.68</span></span><span class="note">cashout/return ≈ 21.6%</span></div>
+        <div class="row"><span class="src">Ticket C</span><span class="body">$5 → $205 · cashout <span class="accent">$44.21</span></span><span class="note">cashout/return ≈ 21.6%</span></div>
+        <hr>
+        <div class="row"><span class="src">Total stake</span><span class="body">$25</span></div>
+        <div class="row"><span class="src">Max total return</span><span class="body">$700 (if Schlittler wins)</span></div>
+        <div class="row"><span class="src">Total cashout now</span><span class="body"><span class="pos">$152.13</span> · ~6× original stake locked in</span></div>
+      </div>
+
+      <p>All three tickets imply the book sees Schlittler's current Cy Young probability at <strong>~22%</strong> (after the haircut). That's a significant move from where they were bought — the longer-shot Ticket C (originally ~+4000, ~2.4% implied) has moved roughly 9× in implied probability since purchase.</p>
+
+      <h4>The "all or nothing" trap</h4>
+      <p>Bettor reflex: cash out everything for the guaranteed $152, or hold everything for the potential $700. Both are bad. The first throws away most of the upside; the second exposes the full stake to a single bad start or injury.</p>
+
+      <p>The barbell approach is better. Cash out the ticket in the middle. Keep the extremes.</p>
+
+      <div class="example-block green">
+        <span class="label">Barbell: cash the middle ticket</span>
+        <div class="row"><span class="src">Cash</span><span class="body">Ticket B ($10 → $235, cashout <span class="accent">$50.68</span>)</span></div>
+        <div class="row"><span class="src">Hold</span><span class="body">Ticket A (biggest max payout, $260) — biggest upside if he wins</span></div>
+        <div class="row"><span class="src">Hold</span><span class="body">Ticket C (longest original odds, $205 on $5) — best ROI lottery slip</span></div>
+        <hr>
+        <div class="row"><span class="src">Locked-in profit</span><span class="body"><span class="pos">+$40.68</span> on $50.68 cashout − $10 original stake on B</span></div>
+        <div class="row"><span class="src">Remaining stake at risk</span><span class="body">$15 ($10 on A + $5 on C)</span></div>
+        <div class="row"><span class="src">Max remaining payout</span><span class="body">$465 ($260 A + $205 C) if he wins</span></div>
+        <hr>
+        <div class="conclusion">Cashing Ticket B converts a $10 stake into a $40.68 locked profit. You still have $15 working with $465 of upside. The "free roll" component is now real — even if both remaining tickets lose, you're up $40.68 net on the position.</div>
+      </div>
+
+      <h4>Why the middle ticket?</h4>
+      <p>Three reasons the middle ticket is usually the right one to cash:</p>
+      <ul>
+        <li><strong>Ticket A has the biggest max payout</strong> ($260). If Schlittler wins, this is the ticket you most regret cashing. Hold it for full upside.</li>
+        <li><strong>Ticket C has the longest original odds</strong> ($5 stake → $205, ~9× implied-prob move so far). It's a free-roll lottery slip — the absolute dollars at risk are tiny relative to the original odds. Hold it for the lottery payout if his season keeps climbing.</li>
+        <li><strong>Ticket B is the middle</strong>: meaningful cashout, doesn't sacrifice the most upside, doesn't waste the longest-shot ticket. It's the one whose risk/reward is the most "average" — and the easiest one to monetize without regret.</li>
+      </ul>
+
+      <p>This is the same logic that gives barbell portfolios their name: keep the high-conviction extreme (Ticket A, the biggest payout) and the lottery extreme (Ticket C, the longest shot), monetize the middle (Ticket B).</p>
+    </div>
+  </section>
+
+  <section class="lesson-section">
+    <h3>The harder case — NHL Stanley Cup / East Champion portfolio</h3>
+    <div class="lesson-body">
+      <p>Futures get genuinely complex when you have multiple tickets across multiple correlated outcomes. Here's a real scenario:</p>
+
+      <div class="example-block">
+        <span class="label">The NHL position, mid-Round 2</span>
+        <div class="row"><span class="src">MTL · East</span><span class="body">$10.72 → $150 (cashout $32.83) · $10 → $140 (cashout $27.29)</span></div>
+        <div class="row"><span class="src">BUF · East</span><span class="body">$2 → $16 (no cashout)</span></div>
+        <div class="row"><span class="src">COL · Cup</span><span class="body">$4.75 → $96.90</span></div>
+        <div class="row"><span class="src">BUF · Cup</span><span class="body">$5 → $106.25</span></div>
+        <hr>
+        <div class="row"><span class="src">Situation</span><span class="body">MTL leads BUF 2-1 in R2 · CAR already through, 8-0 in playoffs, sitting -250 to win East · CAR wasn't hedged</span></div>
+      </div>
+
+      <h4>The structural problem</h4>
+      <p>The position is exposed to a path the bettor never priced: <strong>CAR winning the East</strong>. CAR is the heaviest favorite (-250), the bettor has no CAR exposure, and CAR taking the East would void every East ticket they hold. The COL and BUF Cup tickets also become long shots if MTL/BUF fall out of the East entirely.</p>
+
+      <p>Three decisions present themselves:</p>
+
+      <ol>
+        <li><strong>Cash the MTL tickets to lock in something.</strong> Total MTL cashout: ~$60. That's roughly $40 of locked profit on $20.72 stake. Removes the "MTL loses to BUF anyway, then can't beat CAR" risk.</li>
+        <li><strong>Plug the CAR gap.</strong> Bet $25 on CAR -250 to win the East. Pays $10. That $10 partially offsets the regret of the East tickets voiding if CAR wins.</li>
+        <li><strong>Hold and pray.</strong> Live with the variance. MTL/BUF need to advance through R2 AND beat CAR AND then win the Cup.</li>
+      </ol>
+
+      <h4>How to think about it</h4>
+      <p>Lay out the four scenarios that could happen and what each one nets:</p>
+
+      <table class="compare-table">
+        <caption>Scenario tree — current position, no further action</caption>
+        <thead>
+          <tr><th>Scenario</th><th>East champ</th><th>Net result</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="topic">MTL beats BUF, MTL beats CAR, MTL wins Cup</td><td>MTL</td><td class="pos">$150 + $140 + $0 (no MTL Cup ticket) = $290 max gain</td></tr>
+          <tr><td class="topic">MTL beats BUF, MTL beats CAR, COL wins Cup</td><td>MTL</td><td class="pos">$150 + $140 + $96.90 = $386 max</td></tr>
+          <tr><td class="topic">CAR wins East (most likely)</td><td>CAR</td><td class="neg">All East tickets void → −$22.72 (East stakes lost)</td></tr>
+          <tr><td class="topic">BUF beats MTL, BUF beats CAR, BUF wins Cup</td><td>BUF</td><td class="pos">$16 + $106.25 = $122 (BUF tickets win) − $20.72 MTL stake = +$101 net</td></tr>
+        </tbody>
+      </table>
+
+      <p>The biggest risk is the most likely outcome: <strong>CAR winning the East</strong>. The MTL tickets are net −$22.72 in that scenario. The COL Cup ticket survives because COL isn't dependent on East path, but it's still a long shot.</p>
+
+      <h4>What the cashout buys you</h4>
+      <p>Cashing both MTL tickets locks in <strong>+$39.40</strong> profit (cashouts total $60.12 minus $20.72 in original stakes). That's a meaningful number that doesn't depend on MTL beating BUF or CAR. The cost: forgoing the upside if MTL goes all the way (max $290-$386 in those branches).</p>
+
+      <p>If you believe CAR is roughly the -250 favorite the line suggests (about 71% implied), then MTL's win-the-East probability is maybe 8-12%. The MTL tickets' expected value going forward is roughly $290 × 0.10 = $29 — less than the $39 locked-in profit from cashing. <strong>The cashout is mathematically favorable here</strong> because the implied path to MTL winning is too narrow to justify holding.</p>
+
+      <div class="tip-block">
+        <strong>The lesson the NHL example surfaces:</strong> futures portfolios drift into structural exposure you didn't intend. The CAR gap was a leftover from a position built when the East field was more open. As the field narrows in the playoffs, gaps become outright risks. Cashout/hedge decisions aren't just "lock in profit?" — they're also "fix the gap that's accumulated as the season has unfolded."
+      </div>
+    </div>
+  </section>
+
+  <section class="lesson-section">
+    <h3>Portfolio construction for futures</h3>
+    <div class="lesson-body">
+      <p>Practical rules for placing futures bets you'll need to manage later:</p>
+      <ul>
+        <li><strong>Always at least two books per outcome.</strong> One sharp for the best price, one soft for the cashout option.</li>
+        <li><strong>Stagger your entries.</strong> Don't dump your full stake at one price point. As evidence accumulates, your fair-value estimate sharpens — buying multiple times over the season lets you average into a better effective price.</li>
+        <li><strong>Match your stakes to your conviction.</strong> If you believe the implied prob is way off, scale up. If you're chasing a hunch, scale down. Most bettors over-stake on hunches and under-stake on edges.</li>
+        <li><strong>Map the scenario tree before you have to.</strong> Before postseason starts, know which outcomes void your tickets and which compound them. The CAR gap above was foreseeable — it just wasn't foreseen.</li>
+        <li><strong>Set cashout triggers, not cashout impulses.</strong> Decide in advance: "if my cashout reaches $X, I'll close." Otherwise you'll either cash too early (every small uptick feels urgent) or too late (you'll forget to revisit).</li>
+        <li><strong>Don't ignore correlated futures.</strong> A Cy Young ticket and an under-the-team-win-total ticket can be partially correlated. A Cup winner and Conference winner are highly correlated. Track your portfolio's net exposure, not each ticket in isolation.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="lesson-section">
+    <h3>Caveats</h3>
+    <div class="lesson-body">
+      <ul>
+        <li><strong>Cashout markups aren't published.</strong> The book doesn't tell you their haircut directly. You have to estimate it by comparing cashout to your own implied probability — which is exactly what most bettors don't bother to do.</li>
+        <li><strong>Partial cashout is sometimes offered.</strong> Some books let you cash out a portion of your ticket and let the rest ride. Useful, but the partial-cashout haircut is usually steeper than the full-cashout haircut.</li>
+        <li><strong>"No cashout available right now" doesn't mean the position can't be exited.</strong> Books pause cashout during volatile moments (post-news, mid-game). It usually reopens once the line stabilizes.</li>
+        <li><strong>Hedging across books carries tax / accounting friction.</strong> Wins at multiple books are reported separately for tax purposes; losses to offset depend on jurisdiction. Doesn't change the EV math but does affect post-tax outcomes.</li>
+        <li><strong>Long-shot futures are emotional positions.</strong> If you've been holding a longshot ticket for 5 months and it's finally paying real cashout dollars, the cashout urge can be hard to resist even when holding is the right move. Pre-committed exit rules help here.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="lesson-section">
+    <h3>How this fits with the rest of the framework</h3>
+    <div class="lesson-body">
+      <ul>
+        <li>The <a href="/hedge-calculator.html">hedge calculator</a> sizes the "bet the other side" play when you'd rather hedge than cash out.</li>
+        <li><a href="/learn-clv.html">CLV tracking</a> applies to futures the same way it does to straight bets — beating the closing line is the leading indicator of long-run profit on futures portfolios too.</li>
+        <li><a href="/learn-kelly.html">Kelly sizing</a> for futures is harder because the resolution is far in the future and variance compounds with time. Use lower Kelly fractions (eighth or sixteenth) for long-shot futures than you would for straight bets.</li>
+        <li><a href="/learn-cross-market-ev.html">Cross-market EV</a> ideas apply to futures too — when a soft book has a futures price meaningfully better than the sharp consensus, that's the same +EV opportunity, just with a longer settle horizon.</li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="cta-card">
+    <div class="cta-eyebrow">Want to lock in profit on a futures position?</div>
+    <div class="cta-title">Open the hedge calculator.</div>
+    <p class="cta-blurb">Enter your original stake and odds, plus the current market price on the other side. The calculator sizes the hedge to lock in equal profit (or a chosen profit floor) regardless of outcome.</p>
+    <a href="/hedge-calculator.html" class="cta-btn">Open Hedge Calculator →</a>
+  </div>
+
+  <div class="footer">
+    <div class="disclaimer">
+      Profit Path Sports is an educational resource. Cashout availability, markups, and futures pricing vary by book, market, and date. Sports betting carries financial risk. Bet responsibly. If gambling is a problem for you, call <strong>1-800-GAMBLER</strong>. Must be 21+ where legal.
+    </div>
+    <div>© 2026 Profit Path Sports · <a href="/index.html">Home</a> · <a href="/hedge-calculator.html">Hedge Calculator</a> · <a href="/bet-x-ray.html">Bet X-Ray</a></div>
+  </div>
+
+</div>
+
+</body>
+</html>
