@@ -67,9 +67,140 @@
     .path-num { font-size: 24px; }
     .path-tool { grid-column: 1 / -1; margin-top: 10px; font-size: 11px; text-align: right; }
   }
+  /* ═══ SIDEBAR NAVIGATION (prototype) ═══ */
+  .pps-sidebar { position: fixed; top: 0; left: 0; bottom: 0; width: 240px; background: linear-gradient(180deg, #0c1120 0%, #080d18 100%); border-right: 1px solid var(--border); z-index: 50; transform: translateX(-100%); transition: transform .3s cubic-bezier(.4,0,.2,1); overflow-y: auto; font-family: 'IBM Plex Sans', system-ui, sans-serif; }
+  body.pps-sidebar-open .pps-sidebar { transform: translateX(0); }
+  body.pps-sidebar-open { padding-left: 240px; transition: padding-left .3s cubic-bezier(.4,0,.2,1); }
+  @media (max-width: 900px) {
+    body.pps-sidebar-open { padding-left: 0; }
+    .pps-sidebar { box-shadow: 4px 0 30px rgba(0,0,0,.7); width: 260px; }
+  }
+  .pps-sidebar-toggle { position: fixed; top: 14px; left: 18px; z-index: 51; background: rgba(15, 21, 36, 0.92); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid var(--border); color: var(--text); width: 38px; height: 38px; border-radius: 9px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all .2s ease; }
+  .pps-sidebar-toggle:hover { background: var(--panel-inset); border-color: var(--green); color: var(--green); }
+  body.pps-sidebar-open .pps-sidebar-toggle { left: 256px; top: 14px; }
+  @media (max-width: 900px) { body.pps-sidebar-open .pps-sidebar-toggle { left: 276px; } }
+  .pps-sidebar-inner { padding: 22px 14px 30px; }
+  .pps-sidebar-brand { display: flex; align-items: center; justify-content: center; gap: 8px; color: var(--blue); text-decoration: none; font-family: 'Orbitron', sans-serif; font-weight: 800; font-size: 11px; letter-spacing: 1.6px; padding: 4px 0 16px; border-bottom: 1px solid var(--border-soft); margin-bottom: 14px; text-transform: uppercase; }
+  .pps-sidebar-brand svg { width: 18px; height: 14px; flex-shrink: 0; color: var(--green); filter: drop-shadow(0 0 6px rgba(74, 222, 128, 0.55)); }
+  .pps-sidebar-brand span { white-space: nowrap; }
+  .pps-sidebar-brand:hover { color: #5fa1ff; }
+  .pps-sidebar-nav { display: flex; flex-direction: column; gap: 1px; }
+  .pps-nav-group-label { font-size: 9.5px; text-transform: uppercase; letter-spacing: 1.8px; color: var(--dim); padding: 14px 8px 6px; margin-top: 2px; font-weight: 600; }
+  .pps-nav-link { display: flex; align-items: center; gap: 10px; color: #b8c0d0; text-decoration: none; padding: 8px 10px; border-radius: 7px; font-size: 13px; border-left: 2px solid transparent; transition: all .15s ease; }
+  .pps-nav-link:hover { background: var(--panel-inset); color: #fff; }
+  .pps-nav-link.active { background: rgba(74, 222, 128, 0.09); color: var(--green); border-left-color: var(--green); }
+  .pps-nav-num { font-family: 'JetBrains Mono', monospace; font-size: 10.5px; color: var(--dim); font-weight: 700; min-width: 18px; }
+  .pps-nav-link.path-blue .pps-nav-num { color: var(--blue); }
+  .pps-nav-link.path-green .pps-nav-num { color: var(--green); }
+  .pps-nav-link.path-gold .pps-nav-num { color: var(--yellow); }
+  .pps-nav-group { margin: 1px 0; }
+  .pps-nav-group summary { list-style: none; cursor: pointer; padding: 8px 10px; font-size: 13px; color: #b8c0d0; border-radius: 7px; display: flex; align-items: center; justify-content: space-between; transition: all .15s ease; user-select: none; }
+  .pps-nav-group summary::-webkit-details-marker { display: none; }
+  .pps-nav-group summary::after { content: '▾'; font-size: 9px; color: var(--dim); transition: transform .2s ease; }
+  .pps-nav-group[open] summary::after { transform: rotate(180deg); }
+  .pps-nav-group summary:hover { background: var(--panel-inset); color: #fff; }
+  .pps-nav-group .pps-nav-link { padding: 6px 10px 6px 22px; font-size: 12px; color: #8b94a8; }
+  .pps-nav-group .pps-nav-link:hover { color: #fff; }
+  .pps-path-group > summary { font-weight: 600; }
+  .pps-path-group .pps-path-label { display: inline-flex; align-items: center; gap: 10px; }
+  .pps-path-group.path-blue > summary .pps-nav-num { color: var(--blue); }
+  .pps-path-group.path-green > summary .pps-nav-num { color: var(--green); }
+  .pps-path-group.path-gold > summary .pps-nav-num { color: var(--yellow); }
+  .pps-path-group.path-blue[open] > summary { color: var(--blue); }
+  .pps-path-group.path-green[open] > summary { color: var(--green); }
+  .pps-path-group.path-gold[open] > summary { color: var(--yellow); }
+  .pps-nav-playbook { margin-top: 16px; padding: 10px 12px; background: linear-gradient(135deg, rgba(188,140,255,.10), rgba(74,222,128,.05)); border: 1px solid rgba(188,140,255,.25); border-left-width: 2px; color: var(--purple); font-weight: 600; border-radius: 7px; }
+  .pps-nav-playbook:hover { background: linear-gradient(135deg, rgba(188,140,255,.2), rgba(74,222,128,.1)); color: #fff; }
+  .pps-sidebar::-webkit-scrollbar { width: 6px; }
+  .pps-sidebar::-webkit-scrollbar-track { background: transparent; }
+  .pps-sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
 </style>
 </head>
 <body>
+
+
+<!-- ═══ SIDEBAR NAVIGATION ═══ -->
+<button class="pps-sidebar-toggle" aria-label="Toggle navigation" id="ppsSidebarToggle">
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M2 4h12M2 8h12M2 12h12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+  </svg>
+</button>
+<aside class="pps-sidebar" id="ppsSidebar">
+  <div class="pps-sidebar-inner">
+    <a class="pps-sidebar-brand" href="/index.html">
+      <svg viewBox="0 0 28 22" xmlns="http://www.w3.org/2000/svg" fill="none">
+        <polyline points="2,18 8,12 12,15 18,7 26,3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span>Profit Path Sports</span>
+      <svg viewBox="0 0 28 22" xmlns="http://www.w3.org/2000/svg" fill="none">
+        <polyline points="2,18 8,12 12,15 18,7 26,3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
+    <nav class="pps-sidebar-nav">
+      <a class="pps-nav-link" href="/index.html">Home</a>
+      <div class="pps-nav-group-label">Paths</div>
+      <details class="pps-nav-group pps-path-group path-blue">
+        <summary data-anchor="paths"><span class="pps-path-label"><span class="pps-nav-num">01</span> Begin</span></summary>
+        <a class="pps-nav-link" href="/lane-new.html">Path Overview</a>
+        <a class="pps-nav-link" href="/learn-odds.html">Odds Formats</a>
+        <a class="pps-nav-link" href="/learn-implied.html">Implied Probability</a>
+        <a class="pps-nav-link" href="/learn-vig.html">The Vig</a>
+        <a class="pps-nav-link" href="/learn-ev.html">+EV</a>
+        <a class="pps-nav-link" href="/learn-clv.html">CLV</a>
+        <a class="pps-nav-link" href="/learn-kelly.html">Kelly Criterion</a>
+        <a class="pps-nav-link" href="/learn-parlays.html">Parlays</a>
+      </details>
+      <details class="pps-nav-group pps-path-group path-green">
+        <summary data-anchor="paths"><span class="pps-path-label"><span class="pps-nav-num">02</span> Convert</span></summary>
+        <a class="pps-nav-link" href="/lane-bonus.html">Path Overview</a>
+        <a class="pps-nav-link" href="/learn-bonus.html">Bonus Conversion</a>
+        <a class="pps-nav-link" href="/learn-bonus-types.html">Bonus Types</a>
+        <a class="pps-nav-link" href="/learn-bonus-traps.html">Bonus Traps</a>
+        <a class="pps-nav-link" href="/learn-bonus-walkthrough.html">Walkthrough</a>
+      </details>
+      <details class="pps-nav-group pps-path-group path-gold">
+        <summary data-anchor="paths"><span class="pps-path-label"><span class="pps-nav-num">03</span> Maintain</span></summary>
+        <a class="pps-nav-link" href="/lane-maintain.html">Path Overview</a>
+        <a class="pps-nav-link" href="/learn-prob-gap-vs-ev.html">Prob Gap vs EV</a>
+        <a class="pps-nav-link" href="/learn-arbitrage.html">Arbitrage</a>
+        <a class="pps-nav-link" href="/learn-betting-vs-trading.html">Betting vs Trading</a>
+        <a class="pps-nav-link" href="/learn-alt-ladder.html">Alt Ladder</a>
+        <a class="pps-nav-link" href="/learn-alt-lines.html">Alt Lines</a>
+        <a class="pps-nav-link" href="/learn-cross-market-ev.html">Cross-Market EV</a>
+        <a class="pps-nav-link" href="/learn-exchange-liquidity.html">Exchange Liquidity</a>
+        <a class="pps-nav-link" href="/learn-futures.html">Futures</a>
+        <a class="pps-nav-link" href="/learn-manual-scan.html">Manual Scan</a>
+        <a class="pps-nav-link" href="/learn-top-down-bottom-up.html">Top-Down / Bottom-Up</a>
+        <a class="pps-nav-link" href="/learn-wide-markets.html">Wide Markets</a>
+      </details>
+      <div class="pps-nav-group-label">Tools</div>
+      <details class="pps-nav-group">
+        <summary data-anchor="tools">Calculators</summary>
+        <a class="pps-nav-link" href="/bet-x-ray.html">Bet X-Ray</a>
+        <a class="pps-nav-link" href="/ev-calculator.html">EV Calculator</a>
+        <a class="pps-nav-link" href="/devig_calculator.html">Devig</a>
+        <a class="pps-nav-link" href="/kelly-calculator.html">Kelly Sizer</a>
+        <a class="pps-nav-link" href="/arb-calculator.html">Arbitrage</a>
+        <a class="pps-nav-link" href="/hedge-calculator.html">Hedge</a>
+        <a class="pps-nav-link" href="/parlay-calculator.html">Parlay</a>
+        <a class="pps-nav-link" href="/edge-finder.html">Edge Finder</a>
+        <a class="pps-nav-link" href="/long-run-simulator.html">Long-Run Sim</a>
+        <a class="pps-nav-link" href="/bet-tracker.html">Bet Tracker</a>
+        <a class="pps-nav-link" href="/consensus-calculator.html">Consensus</a>
+        <a class="pps-nav-link" href="/bonus-converter.html">Bonus Converter</a>
+        <a class="pps-nav-link" href="/odds_calculator.html">Odds Converter</a>
+        <a class="pps-nav-link" href="/sharp-snapshot.html">Sharp Snapshot</a>
+        <a class="pps-nav-link" href="/roulette.html">Virtual Roulette</a>
+      </details>
+      <div class="pps-nav-group-label">Sportsbooks</div>
+      <a class="pps-nav-link" href="/book-draftkings.html">DraftKings</a>
+      <a class="pps-nav-link" href="/book-prophetx.html">ProphetX</a>
+      <a class="pps-nav-link pps-nav-playbook" href="/exchange-playbook.html">★ Sharp Exchange Playbook</a>
+    </nav>
+  </div>
+</aside>
+<!-- ═══ END SIDEBAR ═══ -->
 
 <nav class="topnav">
   <div class="topnav-inner">
@@ -175,6 +306,54 @@
   </div>
   <div>© 2026 Profit Path Sports · <a href="/index.html">Home</a> · <a href="/index.html#books">Sportsbooks</a> &middot; <a href="/privacy.html">Privacy</a> &middot; <a href="/disclaimer.html">Disclaimer</a> &middot; <a href="/affiliate-disclosure.html">Affiliate</a></div>
 </div>
+<script>
+  /* Sidebar behavior */
+  (function() {
+    var body = document.body;
+    var toggle = document.getElementById('ppsSidebarToggle');
+    var path = window.location.pathname.replace(/\/$/, '') || '/index.html';
+    var isHome = (path === '/index.html' || path === '' || path === '/');
+
+    document.querySelectorAll('.pps-sidebar .pps-nav-link').forEach(function(link) {
+      var href = link.getAttribute('href');
+      if (href === path || (isHome && href === '/index.html')) {
+        link.classList.add('active');
+        var parent = link.closest('details');
+        if (parent) parent.open = true;
+      }
+    });
+
+    toggle.addEventListener('click', function() {
+      body.classList.toggle('pps-sidebar-open');
+    });
+
+    document.querySelectorAll('.pps-sidebar summary[data-anchor]').forEach(function(s) {
+      s.addEventListener('click', function() {
+        if (!isHome) return;
+        var anchor = s.getAttribute('data-anchor');
+        var target = document.getElementById(anchor);
+        if (target) {
+          setTimeout(function() {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }, 60);
+        }
+      });
+    });
+
+    if (isHome) {
+      var autoOpened = false;
+      window.addEventListener('scroll', function() {
+        if (!autoOpened && window.scrollY > 600) {
+          body.classList.add('pps-sidebar-open');
+          autoOpened = true;
+        }
+      }, { passive: true });
+    } else {
+      body.classList.add('pps-sidebar-open');
+    }
+  })();
+</script>
+
 
 </body>
 </html>
