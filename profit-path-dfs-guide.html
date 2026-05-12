@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The DFS Edge — Profit Path Sports</title>
+<meta name="description" content="The data-driven framework sharp bettors use to consistently beat fixed-payout DFS platforms — Underdog, PrizePicks, DK Pick6. Positive EV, line discrepancies, and cross-market signals.">
+<meta name="robots" content="noindex,nofollow">
+
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230a0f1c'/%3E%3Cpolyline points='5,24 12,16 16,19 22,9 27,5' fill='none' stroke='%234ade80' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="The DFS Edge — Profit Path Sports">
+<meta property="og:description" content="The data-driven framework sharp bettors use to beat fixed-payout DFS platforms.">
+<meta property="og:site_name" content="Profit Path Sports">
+<meta name="theme-color" content="#0a0f1c">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Orbitron:wght@700;800;900&family=JetBrains+Mono:wght@400;500;700&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg: #0a0f1c;
+    --panel: #0f1524;
+    --panel-inset: #141a2b;
+    --panel-deep: #0c1120;
+    --border: #1e2638;
+    --border-soft: #141c30;
+    --text: #e5e7eb;
+    --muted: #8b94a8;
+    --dim: #6b7689;
+    --label: #6b7689;
+    --blue: #3d8bff;
+    --yellow: #f5b545;
+    --green: #4ade80;
+    --green-dim: #22c55e;
+    --green-glow: rgba(74, 222, 128, 0.15);
+    --red: #f87171;
+    --purple: #BC8CFF;
+    /* Platform brand colors */
+    --ud-orange: #ff6b2b;
+    --pp-blue: #3b82f6;
+    --dk-green: #00c853;
+    /* aliases */
+    --black: var(--bg);
+    --dark: var(--panel);
+    --card: var(--panel-inset);
+    --white: var(--text);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'IBM Plex Sans', -apple-system, sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.3;
+  }
+
+  /* ── HERO ── */
+  .hero { position: relative; min-height: 92vh; display: flex; flex-direction: column; justify-content: center; padding: 80px 6vw 60px; overflow: hidden; background: radial-gradient(ellipse at top, #111a2e 0%, var(--bg) 60%); }
+  .hero::after { content: ''; position: absolute; bottom: -120px; right: -100px; width: 600px; height: 600px; background: radial-gradient(circle, rgba(74, 222, 128, 0.10) 0%, transparent 70%); pointer-events: none; }
+  .hero-eyebrow { font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--green); margin-bottom: 28px; display: flex; align-items: center; gap: 12px; font-weight: 600; }
+  .hero-eyebrow::before { content: ''; display: block; width: 32px; height: 1px; background: var(--green); }
+  .hero h1 { font-family: 'Orbitron', sans-serif; font-size: clamp(48px, 9vw, 96px); line-height: 1; letter-spacing: 0.02em; color: var(--text); text-transform: uppercase; font-weight: 900; max-width: 900px; }
+  .hero h1 span { color: var(--green); display: block; }
+  .hero-sub { margin-top: 32px; font-family: 'Rajdhani', sans-serif; font-size: 20px; font-weight: 400; color: var(--muted); max-width: 580px; line-height: 1.55; }
+  .hero-sub strong { color: var(--text); font-weight: 600; }
+  .hero-cta { margin-top: 48px; display: flex; gap: 16px; flex-wrap: wrap; align-items: center; }
+
+  .btn-primary { display: inline-flex; align-items: center; gap: 8px; background: var(--green); color: #062014; font-family: 'Orbitron', sans-serif; font-weight: 800; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; padding: 14px 28px; text-decoration: none; border-radius: 8px; transition: transform 0.15s, box-shadow 0.15s, background 0.15s; box-shadow: 0 0 20px var(--green-glow); }
+  .btn-primary:hover { background: #6ee7a0; transform: translateY(-2px); box-shadow: 0 8px 30px rgba(74, 222, 128, 0.35); }
+  .btn-ghost { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--border); color: var(--muted); font-family: 'Orbitron', sans-serif; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; padding: 14px 28px; text-decoration: none; border-radius: 8px; transition: border-color 0.2s, color 0.2s; font-weight: 600; }
+  .btn-ghost:hover { border-color: var(--green); color: var(--green); }
+
+  /* ── TICKER ── */
+  .ticker-wrap { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: var(--panel); overflow: hidden; padding: 12px 0; white-space: nowrap; position: relative; z-index: 2; }
+  .ticker-inner { display: inline-block; animation: ticker 28s linear infinite; }
+  .ticker-inner span { font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.12em; color: var(--muted); padding: 0 40px; }
+  .ticker-inner span.green { color: var(--green); }
+  .ticker-inner span.red { color: var(--red); }
+  @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+  /* ── LAYOUT ── */
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 6vw; }
+  section { padding: 100px 0; position: relative; z-index: 2; }
+
+  /* ── SECTION LABEL ── */
+  .section-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--green); margin-bottom: 16px; display: flex; align-items: center; gap: 10px; font-weight: 600; }
+  .section-label::after { content: ''; flex: 1; max-width: 40px; height: 1px; background: var(--green); opacity: 0.5; }
+  .section-title { font-family: 'Orbitron', sans-serif; font-size: clamp(30px, 4vw, 48px); line-height: 1.05; letter-spacing: 0.03em; text-transform: uppercase; font-weight: 900; margin-bottom: 20px; }
+  .section-intro { color: var(--muted); font-family: 'Rajdhani', sans-serif; font-size: 18px; max-width: 620px; margin-bottom: 64px; font-weight: 400; line-height: 1.55; }
+
+  /* ── CONCEPT CARDS ── */
+  .concept-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
+  .concept-card { background: var(--panel); padding: 40px 36px; position: relative; overflow: hidden; transition: background 0.2s; }
+  .concept-card:hover { background: var(--panel-inset); }
+  .concept-card::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%; background: var(--green); transform: scaleY(0); transform-origin: top; transition: transform 0.3s ease; }
+  .concept-card:hover::before { transform: scaleY(1); }
+  .card-num { font-family: 'Orbitron', sans-serif; font-size: 52px; color: var(--label); line-height: 1; margin-bottom: 18px; display: block; font-weight: 900; letter-spacing: 0.02em; }
+  .card-title { font-family: 'Orbitron', sans-serif; font-size: 15px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 14px; color: var(--text); }
+  .card-body { font-family: 'Rajdhani', sans-serif; font-size: 16px; color: var(--muted); line-height: 1.65; }
+
+  /* ── CALLOUT BOX ── */
+  .callout { background: var(--green-glow); border: 1px solid rgba(74, 222, 128, 0.30); border-radius: 12px; padding: 32px 36px; margin: 48px 0; position: relative; }
+  .callout::before { content: '!'; position: absolute; top: -14px; left: 32px; background: var(--green); color: #062014; font-family: 'Orbitron', sans-serif; font-size: 18px; font-weight: 900; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+  .callout p { font-family: 'Rajdhani', sans-serif; font-size: 17px; color: var(--text); font-weight: 500; line-height: 1.5; }
+  .callout strong { color: var(--green); font-weight: 700; }
+
+  /* ── SLIP TYPE TABLE ── */
+  .slip-table-wrap { overflow-x: auto; margin: 48px 0; }
+  .slip-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  .slip-table thead tr { background: var(--panel-deep); }
+  .slip-table th { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--dim); padding: 14px 20px; text-align: left; border-bottom: 1px solid var(--border); font-weight: 700; }
+  .slip-table td { padding: 16px 20px; border-bottom: 1px solid var(--border); color: var(--muted); background: var(--panel); font-family: 'Rajdhani', sans-serif; font-size: 15px; }
+  .slip-table tr:hover td { background: var(--panel-inset); }
+  .slip-table td:first-child { font-weight: 600; color: var(--text); }
+  .tag-good { background: rgba(74, 222, 128, 0.12); color: var(--green); font-size: 10px; font-family: 'Orbitron', sans-serif; font-weight: 800; padding: 4px 10px; letter-spacing: 0.1em; border-radius: 4px; }
+  .tag-bad  { background: rgba(248, 113, 113, 0.12); color: var(--red); font-size: 10px; font-family: 'Orbitron', sans-serif; font-weight: 800; padding: 4px 10px; letter-spacing: 0.1em; border-radius: 4px; }
+  .tag-ok   { background: rgba(245, 181, 69, 0.12); color: var(--yellow); font-size: 10px; font-family: 'Orbitron', sans-serif; font-weight: 800; padding: 4px 10px; letter-spacing: 0.1em; border-radius: 4px; }
+
+  /* ── STRATEGY STEPS ── */
+  .strategy-steps { display: flex; flex-direction: column; gap: 0; }
+  .step { display: grid; grid-template-columns: 80px 1fr; gap: 0; position: relative; }
+  .step:not(:last-child)::after { content: ''; position: absolute; left: 39px; top: 80px; bottom: 0; width: 1px; background: var(--border); }
+  .step-num { display: flex; align-items: flex-start; justify-content: center; padding-top: 36px; }
+  .step-circle { width: 40px; height: 40px; border: 1px solid var(--green); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--green); background: var(--bg); position: relative; z-index: 1; flex-shrink: 0; font-weight: 700; }
+  .step-content { padding: 32px 0 48px 32px; border-left: 1px solid transparent; }
+  .step-title { font-family: 'Orbitron', sans-serif; font-size: 18px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 14px; color: var(--text); }
+  .step-body { font-family: 'Rajdhani', sans-serif; font-size: 16px; color: var(--muted); line-height: 1.7; max-width: 660px; }
+  .step-body strong { color: var(--text); font-weight: 600; }
+  .step-body em { color: var(--green); font-style: normal; font-weight: 600; }
+
+  /* ── MATH BLOCK ── */
+  .math-block { background: var(--panel-deep); border: 1px solid var(--border); border-left: 3px solid var(--green); border-radius: 10px; padding: 24px 28px; margin: 32px 0; font-family: 'JetBrains Mono', monospace; font-size: 13px; }
+  .math-block .math-label { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--green); margin-bottom: 16px; font-weight: 700; }
+  .math-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border); color: var(--muted); font-size: 13px; }
+  .math-row:last-child { border-bottom: none; }
+  .math-row span:last-child { font-weight: 500; color: var(--text); }
+  .math-row.highlight span:last-child { color: var(--green); }
+  .math-row.bad span:last-child { color: var(--red); }
+
+  /* ── AFFILIATE BAR ── */
+  .affiliate-bar { background: linear-gradient(135deg, rgba(74, 222, 128, 0.08), rgba(74, 222, 128, 0.02)); border: 1px solid rgba(74, 222, 128, 0.30); border-radius: 16px; padding: 48px; display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: center; }
+  .affiliate-bar h3 { font-family: 'Orbitron', sans-serif; font-size: 28px; letter-spacing: 0.03em; text-transform: uppercase; font-weight: 900; margin-bottom: 12px; line-height: 1.1; }
+  .affiliate-bar p { font-family: 'Rajdhani', sans-serif; color: var(--muted); font-size: 16px; max-width: 540px; line-height: 1.6; }
+  .affiliate-bar p strong { color: var(--green); font-weight: 700; }
+
+  /* ── DIVIDER ── */
+  .divider { height: 1px; background: var(--border); margin: 0; }
+
+  /* ── ANIMATIONS ── */
+  .fade-up { opacity: 0; transform: translateY(24px); animation: fadeUp 0.6s ease forwards; }
+  @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+  .fade-up:nth-child(1) { animation-delay: 0.1s; }
+  .fade-up:nth-child(2) { animation-delay: 0.2s; }
+  .fade-up:nth-child(3) { animation-delay: 0.3s; }
+  .fade-up:nth-child(4) { animation-delay: 0.4s; }
+
+  /* ── SITE FOOTER ── */
+  .site-footer { text-align: center; padding: 50px 6vw 40px; color: var(--dim); font-size: 11px; letter-spacing: 1px; line-height: 1.7; border-top: 1px solid var(--border-soft); margin-top: 40px; }
+  .site-footer .disclaimer { max-width: 720px; margin: 0 auto 14px; color: var(--dim); font-family: 'Rajdhani', sans-serif; font-size: 13px; letter-spacing: 0.3px; }
+  .site-footer a { color: var(--muted); text-decoration: none; }
+  .site-footer a:hover { color: var(--green); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 700px) {
+    .affiliate-bar { grid-template-columns: 1fr; padding: 32px 28px; }
+    .step { grid-template-columns: 56px 1fr; }
+    .concept-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ═══ SIDEBAR NAVIGATION ═══ */
+  .pps-sidebar { position: fixed; top: 0; left: 0; bottom: 0; width: 240px; background: linear-gradient(180deg, #0c1120 0%, #080d18 100%); border-right: 1px solid var(--border); z-index: 50; transform: translateX(-100%); transition: transform .3s cubic-bezier(.4,0,.2,1); overflow-y: auto; font-family: 'IBM Plex Sans', system-ui, sans-serif; }
+  body.pps-sidebar-open .pps-sidebar { transform: translateX(0); }
+  body.pps-sidebar-open { padding-left: 240px; transition: padding-left .3s cubic-bezier(.4,0,.2,1); }
+  @media (max-width: 900px) { body.pps-sidebar-open { padding-left: 0; } .pps-sidebar { box-shadow: 4px 0 30px rgba(0,0,0,.7); width: 260px; } }
+  .pps-sidebar-toggle { position: fixed; top: 14px; left: 18px; z-index: 51; background: rgba(15, 21, 36, 0.92); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid var(--border); color: var(--text); width: 38px; height: 38px; border-radius: 9px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all .2s ease; }
+  .pps-sidebar-toggle:hover { background: var(--panel-inset); border-color: var(--green); color: var(--green); }
+  body.pps-sidebar-open .pps-sidebar-toggle { left: 256px; top: 14px; }
+  @media (max-width: 900px) { body.pps-sidebar-open .pps-sidebar-toggle { left: 276px; } }
+  .pps-sidebar-inner { padding: 22px 14px 30px; }
+  .pps-sidebar-brand { display: flex; align-items: center; justify-content: center; gap: 8px; color: var(--blue); text-decoration: none; font-family: 'Orbitron', sans-serif; font-weight: 800; font-size: 11px; letter-spacing: 1.6px; padding: 4px 0 16px; border-bottom: 1px solid var(--border-soft); margin-bottom: 14px; text-transform: uppercase; }
+  .pps-sidebar-brand svg { width: 18px; height: 14px; flex-shrink: 0; color: var(--green); filter: drop-shadow(0 0 6px rgba(74, 222, 128, 0.55)); }
+  .pps-sidebar-brand span { white-space: nowrap; }
+  .pps-sidebar-brand:hover { color: #5fa1ff; }
+  .pps-sidebar-nav { display: flex; flex-direction: column; gap: 1px; }
+  .pps-nav-group-label { font-size: 9.5px; text-transform: uppercase; letter-spacing: 1.8px; color: var(--dim); padding: 14px 8px 6px; margin-top: 2px; font-weight: 600; }
+  .pps-nav-link { display: flex; align-items: center; gap: 10px; color: #b8c0d0; text-decoration: none; padding: 8px 10px; border-radius: 7px; font-size: 13px; border-left: 2px solid transparent; transition: all .15s ease; }
+  .pps-nav-link:hover { background: var(--panel-inset); color: #fff; }
+  .pps-nav-link.active { background: rgba(74, 222, 128, 0.09); color: var(--green); border-left-color: var(--green); }
+  .pps-nav-num { font-family: 'JetBrains Mono', monospace; font-size: 10.5px; color: var(--dim); font-weight: 700; min-width: 18px; }
+  .pps-nav-link.path-blue .pps-nav-num { color: var(--blue); }
+  .pps-nav-link.path-green .pps-nav-num { color: var(--green); }
+  .pps-nav-link.path-gold .pps-nav-num { color: var(--yellow); }
+  .pps-nav-group { margin: 1px 0; }
+  .pps-nav-group summary { list-style: none; cursor: pointer; padding: 8px 10px; font-size: 13px; color: #b8c0d0; border-radius: 7px; display: flex; align-items: center; justify-content: space-between; transition: all .15s ease; user-select: none; }
+  .pps-nav-group summary::-webkit-details-marker { display: none; }
+  .pps-nav-group summary::after { content: '▾'; font-size: 9px; color: var(--dim); transition: transform .2s ease; }
+  .pps-nav-group[open] summary::after { transform: rotate(180deg); }
+  .pps-nav-group summary:hover { background: var(--panel-inset); color: #fff; }
+  .pps-nav-group .pps-nav-link { padding: 6px 10px 6px 22px; font-size: 12px; color: #8b94a8; }
+  .pps-nav-group .pps-nav-link:hover { color: #fff; }
+  .pps-path-group > summary { font-weight: 600; }
+  .pps-path-group .pps-path-label { display: inline-flex; align-items: center; gap: 10px; }
+  .pps-path-group.path-blue > summary .pps-nav-num { color: var(--blue); }
+  .pps-path-group.path-green > summary .pps-nav-num { color: var(--green); }
+  .pps-path-group.path-gold > summary .pps-nav-num { color: var(--yellow); }
+  .pps-path-group.path-blue[open] > summary { color: var(--blue); }
+  .pps-path-group.path-green[open] > summary { color: var(--green); }
+  .pps-path-group.path-gold[open] > summary { color: var(--yellow); }
+  .pps-nav-playbook { margin-top: 16px; padding: 10px 12px; background: linear-gradient(135deg, rgba(188,140,255,.10), rgba(74,222,128,.05)); border: 1px solid rgba(188,140,255,.25); border-left-width: 2px; color: var(--purple); font-weight: 600; border-radius: 7px; }
+  .pps-nav-playbook:hover { background: linear-gradient(135deg, rgba(188,140,255,.2), rgba(74,222,128,.1)); color: #fff; }
+  .pps-sidebar::-webkit-scrollbar { width: 6px; }
+  .pps-sidebar::-webkit-scrollbar-track { background: transparent; }
+  .pps-sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<!-- ═══ SIDEBAR NAVIGATION ═══ -->
+<button class="pps-sidebar-toggle" aria-label="Toggle navigation" id="ppsSidebarToggle">
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M2 4h12M2 8h12M2 12h12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+  </svg>
+</button>
+<aside class="pps-sidebar" id="ppsSidebar">
+  <div class="pps-sidebar-inner">
+    <a class="pps-sidebar-brand" href="/index.html">
+      <svg viewBox="0 0 28 22" xmlns="http://www.w3.org/2000/svg" fill="none">
+        <polyline points="2,18 8,12 12,15 18,7 26,3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span>Profit Path Sports</span>
+      <svg viewBox="0 0 28 22" xmlns="http://www.w3.org/2000/svg" fill="none">
+        <polyline points="2,18 8,12 12,15 18,7 26,3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
+    <nav class="pps-sidebar-nav">
+      <a class="pps-nav-link" href="/index.html">Home</a>
+      <div class="pps-nav-group-label">Paths</div>
+      <details class="pps-nav-group pps-path-group path-blue">
+        <summary data-anchor="paths"><span class="pps-path-label"><span class="pps-nav-num">01</span> Begin</span></summary>
+        <a class="pps-nav-link" href="/lane-new.html">Path Overview</a>
+        <a class="pps-nav-link" href="/learn-odds.html">Odds Formats</a>
+        <a class="pps-nav-link" href="/learn-implied.html">Implied Probability</a>
+        <a class="pps-nav-link" href="/learn-vig.html">The Vig</a>
+        <a class="pps-nav-link" href="/learn-ev.html">+EV</a>
+        <a class="pps-nav-link" href="/learn-clv.html">CLV</a>
+        <a class="pps-nav-link" href="/learn-kelly.html">Kelly Criterion</a>
+        <a class="pps-nav-link" href="/learn-parlays.html">Parlays</a>
+      </details>
+      <details class="pps-nav-group pps-path-group path-green">
+        <summary data-anchor="paths"><span class="pps-path-label"><span class="pps-nav-num">02</span> Convert</span></summary>
+        <a class="pps-nav-link" href="/lane-bonus.html">Path Overview</a>
+        <a class="pps-nav-link" href="/learn-bonus.html">Bonus Conversion</a>
+        <a class="pps-nav-link" href="/learn-bonus-types.html">Bonus Types</a>
+        <a class="pps-nav-link" href="/learn-bonus-traps.html">Bonus Traps</a>
+        <a class="pps-nav-link" href="/learn-bonus-walkthrough.html">Walkthrough</a>
+        <a class="pps-nav-link" href="/learn-finding-bets.html">Finding +EV Bets</a>
+      </details>
+      <details class="pps-nav-group pps-path-group path-gold">
+        <summary data-anchor="paths"><span class="pps-path-label"><span class="pps-nav-num">03</span> Maintain</span></summary>
+        <a class="pps-nav-link" href="/lane-maintain.html">Path Overview</a>
+        <a class="pps-nav-link" href="/learn-prob-gap-vs-ev.html">Prob Gap vs EV</a>
+        <a class="pps-nav-link" href="/learn-arbitrage.html">Arbitrage</a>
+        <a class="pps-nav-link" href="/learn-betting-vs-trading.html">Betting vs Trading</a>
+        <a class="pps-nav-link" href="/learn-alt-ladder.html">Alt Ladder</a>
+        <a class="pps-nav-link" href="/learn-alt-lines.html">Alt Lines</a>
+        <a class="pps-nav-link" href="/learn-cross-market-ev.html">Cross-Market EV</a>
+        <a class="pps-nav-link" href="/learn-exchange-liquidity.html">Exchange Liquidity</a>
+        <a class="pps-nav-link" href="/learn-futures.html">Futures</a>
+        <a class="pps-nav-link" href="/learn-finding-bets.html">Finding +EV Bets</a>
+        <a class="pps-nav-link" href="/learn-manual-scan.html">Manual Scan</a>
+        <a class="pps-nav-link" href="/learn-top-down-bottom-up.html">Top-Down / Bottom-Up</a>
+        <a class="pps-nav-link" href="/learn-wide-markets.html">Wide Markets</a>
+      </details>
+      <div class="pps-nav-group-label">Tools</div>
+      <details class="pps-nav-group">
+        <summary data-anchor="tools">Calculators</summary>
+        <a class="pps-nav-link" href="/bet-x-ray.html">Bet X-Ray</a>
+        <a class="pps-nav-link" href="/ev-calculator.html">EV Calculator</a>
+        <a class="pps-nav-link" href="/devig_calculator.html">Devig</a>
+        <a class="pps-nav-link" href="/kelly-calculator.html">Kelly Sizer</a>
+        <a class="pps-nav-link" href="/arb-calculator.html">Arbitrage</a>
+        <a class="pps-nav-link" href="/hedge-calculator.html">Hedge</a>
+        <a class="pps-nav-link" href="/parlay-calculator.html">Parlay</a>
+        <a class="pps-nav-link" href="/edge-finder.html">Edge Finder</a>
+        <a class="pps-nav-link" href="/long-run-simulator.html">Long-Run Sim</a>
+        <a class="pps-nav-link" href="/bet-tracker.html">Bet Tracker</a>
+        <a class="pps-nav-link" href="/consensus-calculator.html">Consensus</a>
+        <a class="pps-nav-link" href="/bonus-converter.html">Bonus Converter</a>
+        <a class="pps-nav-link" href="/odds_calculator.html">Odds Converter</a>
+        <a class="pps-nav-link" href="/sharp-snapshot.html">Sharp Snapshot</a>
+        <a class="pps-nav-link" href="/roulette.html">Virtual Roulette</a>
+      </details>
+      <div class="pps-nav-group-label">Sportsbooks</div>
+      <a class="pps-nav-link" href="/book-draftkings.html">DraftKings</a>
+      <a class="pps-nav-link" href="/book-fanduel.html">FanDuel</a>
+      <a class="pps-nav-link" href="/book-hardrock.html">Hard Rock</a>
+      <a class="pps-nav-link" href="/book-betmgm.html">BetMGM</a>
+      <a class="pps-nav-link" href="/book-prophetx.html">ProphetX</a>
+      <a class="pps-nav-link pps-nav-playbook" href="/exchange-playbook.html">★ Sharp Exchange Playbook</a>
+    </nav>
+  </div>
+</aside>
+<!-- ═══ END SIDEBAR ═══ -->
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-eyebrow">Profit Path Sports — DFS Strategy Guide</div>
+  <h1>Stop Guessing. <span>Start Printing.</span></h1>
+  <p class="hero-sub">
+    Most DFS players are leaving serious money on the table by picking with their gut. This guide breaks down the <strong>data-driven framework</strong> that sharp bettors use to consistently beat fixed-payout platforms like Underdog Fantasy, PrizePicks, and DraftKings Pick6.
+  </p>
+  <div class="hero-cta">
+    <a href="https://fas.st/t/RFjb8MmR" target="_blank" rel="nofollow noopener sponsored" class="btn-primary">Try OddsJam Free →</a>
+    <a href="#fundamentals" class="btn-ghost">Read the Guide ↓</a>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker-inner">
+    <span class="green">▲ EDGE FOUND</span><span>KEENAN ALLEN O3.5 REC</span><span class="green">+2.1% EV</span><span>——</span>
+    <span class="green">▲ LINE DISCREPANCY</span><span>CHANDLER O19.5 RU YDS</span><span class="green">FANDUEL: 30.5</span><span>——</span>
+    <span class="green">▲ CROSS MARKET</span><span>BOWERS O48.5 REC YDS</span><span class="green">PROPHETX: UNDER +128</span><span>——</span>
+    <span>DAK PRESCOTT U0.5 INT</span><span class="green">▲ SHARP CONSENSUS</span><span>——</span>
+    <span class="green">▲ EDGE FOUND</span><span>KEENAN ALLEN O3.5 REC</span><span class="green">+2.1% EV</span><span>——</span>
+    <span class="green">▲ LINE DISCREPANCY</span><span>CHANDLER O19.5 RU YDS</span><span class="green">FANDUEL: 30.5</span><span>——</span>
+    <span class="green">▲ CROSS MARKET</span><span>BOWERS O48.5 REC YDS</span><span class="green">PROPHETX: UNDER +128</span><span>——</span>
+    <span>DAK PRESCOTT U0.5 INT</span><span class="green">▲ SHARP CONSENSUS</span><span>——</span>
+  </div>
+</div>
+
+<!-- FUNDAMENTALS -->
+<section id="fundamentals">
+  <div class="container">
+    <div class="section-label">Chapter 01</div>
+    <h2 class="section-title">The Fixed Payout Edge</h2>
+    <p class="section-intro">Before any strategy makes sense, you need to understand what makes DFS platforms fundamentally exploitable — and it all comes down to one simple fact.</p>
+
+    <div class="concept-grid">
+      <div class="concept-card fade-up">
+        <span class="card-num">01</span>
+        <div class="card-title">Fixed Payouts, Variable Probability</div>
+        <p class="card-body">On every major DFS platform — Prize Picks, Underdog Fantasy, Betr — it doesn't matter which side of a line you take. The over and the under pay exactly the same. A $100 three-man slip pays $600 whether you take the over or the under on every pick. The payout never changes.</p>
+      </div>
+      <div class="concept-card fade-up">
+        <span class="card-num">02</span>
+        <div class="card-title">The Market Knows More</div>
+        <p class="card-body">Sharp sportsbooks like Pinnacle, FanDuel, and peer-to-peer exchanges set their own lines independently, using teams of data scientists and adjusting for where money flows. Their odds reflect the true probability of outcomes far more accurately than DFS platforms, which are focused on entertainment, not precision.</p>
+      </div>
+      <div class="concept-card fade-up">
+        <span class="card-num">03</span>
+        <div class="card-title">The Mispricing Gap</div>
+        <p class="card-body">When a sharp book prices a player's line significantly differently than a DFS platform, that's a mispricing. You take the side the sharp market says is more likely — and because your DFS payout is the same either way, you're getting paid more than the true probability warrants. That's a mathematical edge.</p>
+      </div>
+    </div>
+
+    <div class="callout">
+      <p>The key to DFS success isn't predicting the future — it's finding spots where <strong>you're getting paid out more than you should</strong> based on the true probability of an outcome. The sports betting market is your guide.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- KNOW YOUR BOOK -->
+<section id="know-your-book">
+  <div class="container">
+    <div class="section-label">Chapter 02</div>
+    <h2 class="section-title">Know Your Book</h2>
+    <p class="section-intro">Every platform has its own payout structure, slip types, and quirks. The math is different on each one — and using the wrong slip type can turn a winning edge into a losing bet. Select your platform for the full breakdown.</p>
+
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 48px;">
+
+      <button onclick="showBook('ud')" id="btn-ud" style="background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 32px 24px; text-align: left; cursor: pointer; transition: border-color 0.2s, background 0.2s; position: relative; color: var(--text); font-family: inherit;">
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.2em; color: var(--ud-orange); margin-bottom: 12px; font-weight: 700;">UNDERDOG FANTASY</div>
+        <div style="font-family: 'Orbitron', sans-serif; font-size: 22px; font-weight: 900; color: var(--text); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px;">Underdog<br>Fantasy</div>
+        <div style="font-family: 'Rajdhani', sans-serif; font-size: 14px; color: var(--muted); line-height: 1.55; margin-bottom: 16px;">6-man flex, per-pick multipliers, Higher/Lower tags, esports depth. The most profitable platform for sharp bettors.</div>
+        <div style="display: flex; gap: 8px; flex-wrap: wrap;"><span class="tag-good">6-MAN OPTIMAL</span><span class="tag-ok">MULTIPLIERS</span></div>
+        <div id="arrow-ud" style="position: absolute; bottom: 16px; right: 20px; font-family: 'JetBrains Mono', monospace; font-size: 18px; color: var(--ud-orange); transition: transform 0.2s;">↓</div>
+      </button>
+
+      <button onclick="showBook('pp')" id="btn-pp" style="background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 32px 24px; text-align: left; cursor: pointer; transition: border-color 0.2s, background 0.2s; position: relative; color: var(--text); font-family: inherit;">
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.2em; color: var(--pp-blue); margin-bottom: 12px; font-weight: 700;">PRIZE PICKS</div>
+        <div style="font-family: 'Orbitron', sans-serif; font-size: 22px; font-weight: 900; color: var(--text); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px;">Prize<br>Picks</div>
+        <div style="font-family: 'Rajdhani', sans-serif; font-size: 14px; color: var(--muted); line-height: 1.55; margin-bottom: 16px;">Power Play vs Flex, Demons & Goblins line adjustments, 10M+ users. Most popular DFS platform in the world.</div>
+        <div style="display: flex; gap: 8px; flex-wrap: wrap;"><span class="tag-good">5/6-PICK FLEX</span><span class="tag-ok">DEMONS/GOBLINS</span></div>
+        <div id="arrow-pp" style="position: absolute; bottom: 16px; right: 20px; font-family: 'JetBrains Mono', monospace; font-size: 18px; color: var(--pp-blue); transition: transform 0.2s;">↓</div>
+      </button>
+
+      <button onclick="showBook('dk')" id="btn-dk" style="background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 32px 24px; text-align: left; cursor: pointer; transition: border-color 0.2s, background 0.2s; position: relative; color: var(--text); font-family: inherit;">
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.2em; color: var(--dk-green); margin-bottom: 12px; font-weight: 700;">DRAFTKINGS PICK6</div>
+        <div style="font-family: 'Orbitron', sans-serif; font-size: 22px; font-weight: 900; color: var(--text); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px;">DraftKings<br>Pick6</div>
+        <div style="font-family: 'Rajdhani', sans-serif; font-size: 14px; color: var(--muted); line-height: 1.55; margin-bottom: 16px;">Peer-to-peer prize pools, no account limits, ties grade as wins. Different math — different strategy.</div>
+        <div style="display: flex; gap: 8px; flex-wrap: wrap;"><span class="tag-good">NO LIMITS</span><span class="tag-ok">POOL FORMAT</span></div>
+        <div id="arrow-dk" style="position: absolute; bottom: 16px; right: 20px; font-family: 'JetBrains Mono', monospace; font-size: 18px; color: var(--dk-green); transition: transform 0.2s;">↓</div>
+      </button>
+
+    </div>
+
+    <!-- UNDERDOG PANEL -->
+    <div id="book-ud" style="display:none; margin-bottom: 48px;">
+      <div style="border: 2px solid var(--ud-orange); border-radius: 14px; padding: 40px; background: var(--panel);">
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.2em; color: var(--ud-orange); margin-bottom: 16px; font-weight: 700;">UNDERDOG FANTASY — FULL BREAKDOWN</div>
+        <h3 style="font-family: 'Orbitron', sans-serif; font-size: 24px; font-weight: 900; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 10px;">Payouts &amp; Optimal Slip Type</h3>
+        <p style="font-family: 'Rajdhani', sans-serif; color: var(--muted); font-size: 15px; margin-bottom: 20px; line-height: 1.6;">Implied odds per pick = what each individual leg is effectively costing you. The lower the number, the less edge you need per pick to be profitable. This is the most important column.</p>
+        <div style="overflow-x:auto; margin-bottom:28px;">
+          <table class="slip-table">
+            <thead><tr><th>Entry Type</th><th>Payout</th><th style="color:var(--green);">Implied Odds / Pick</th><th>Needs to hit 1-in-X</th><th>Verdict</th></tr></thead>
+            <tbody>
+              <tr><td>2-Pick Standard</td><td>3x</td><td style="color:var(--red);">-200</td><td>1-in-3 (33.3%)</td><td><span class="tag-bad">AVOID</span></td></tr>
+              <tr><td>3-Pick Insured Flex</td><td>3x / 1x fallback</td><td style="color:var(--red);">-137</td><td>1-in-3 (33.3%)</td><td><span class="tag-bad">AVOID</span></td></tr>
+              <tr><td>4-Pick Standard</td><td>10x</td><td style="color:var(--red);">-128</td><td>1-in-10 (10.0%)</td><td><span class="tag-bad">SKIP</span></td></tr>
+              <tr><td>3-Pick Standard</td><td>6x</td><td style="color:var(--yellow);">-122</td><td>1-in-6 (16.7%)</td><td><span class="tag-ok">ACCEPTABLE</span></td></tr>
+              <tr><td>5-Pick Standard</td><td>20x</td><td style="color:var(--yellow);">-122</td><td>1-in-20 (5.0%)</td><td><span class="tag-ok">GOOD</span></td></tr>
+              <tr style="background:rgba(74, 222, 128, 0.06);"><td style="color:var(--green); font-weight:700;">6-Pick Flex ✓</td><td>Up to 40x</td><td style="color:var(--green); font-weight:700;">-116</td><td>1-in-40 (2.5%)</td><td><span class="tag-good">OPTIMAL</span></td></tr>
+              <tr><td>7-Pick Flex</td><td>Up to 60x</td><td style="color:var(--green);">-115</td><td>1-in-60 (1.7%)</td><td><span class="tag-good">STRONG</span></td></tr>
+              <tr><td>8-Pick Flex</td><td>Up to 80x</td><td style="color:var(--green);">-114</td><td>1-in-80 (1.25%)</td><td><span class="tag-good">STRONG</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div style="background:rgba(74, 222, 128, 0.06); border:1px solid rgba(74, 222, 128, 0.25); border-radius: 10px; padding:20px; margin-bottom:28px; display:grid; grid-template-columns:1fr 1fr 1fr; gap:20px; text-align:center;">
+          <div><div style="font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:0.15em; color:var(--muted); margin-bottom:6px; font-weight:600;">WORST OPTION</div><div style="font-family:'Orbitron',sans-serif; font-size:32px; color:var(--red); font-weight:900;">-200</div><div style="font-family:'Rajdhani',sans-serif; font-size:13px; color:var(--muted);">2-pick implied / leg</div></div>
+          <div><div style="font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:0.15em; color:var(--green); margin-bottom:6px; font-weight:600;">OPTIMAL</div><div style="font-family:'Orbitron',sans-serif; font-size:32px; color:var(--green); font-weight:900;">-116</div><div style="font-family:'Rajdhani',sans-serif; font-size:13px; color:var(--muted);">6-pick flex implied / leg</div></div>
+          <div><div style="font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:0.15em; color:var(--muted); margin-bottom:6px; font-weight:600;">EDGE SAVED</div><div style="font-family:'Orbitron',sans-serif; font-size:32px; color:var(--yellow); font-weight:900;">84¢</div><div style="font-family:'Rajdhani',sans-serif; font-size:13px; color:var(--muted);">per pick vs 2-man</div></div>
+        </div>
+
+        <h3 style="font-family:'Orbitron',sans-serif; font-size:20px; font-weight:900; text-transform:uppercase; letter-spacing:1.5px; margin-bottom:16px;">The Per-Pick Multiplier System</h3>
+        <p style="font-family:'Rajdhani',sans-serif; color:var(--muted); font-size:15px; margin-bottom:20px; line-height:1.65;">Underdog assigns every pick a multiplier based on difficulty. The base is 1.0x. This changes your total slip payout — and therefore how often it needs to hit.</p>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(160px,1fr)); gap:1px; background:var(--border); border-radius: 10px; overflow: hidden; margin-bottom:28px;">
+          <div style="background:var(--panel-inset); padding:20px; text-align:center;"><div style="font-family:'Orbitron',sans-serif; font-size:30px; color:var(--red); font-weight:900;">0.7x</div><div style="font-family:'Rajdhani',sans-serif; font-size:13px; color:var(--muted); margin-top:6px; line-height:1.45;">Easy pick — payout reduced. Underdog sees this as very likely. Only include if sharp books agree overwhelmingly.</div></div>
+          <div style="background:var(--panel-inset); padding:20px; text-align:center; border: 1px solid rgba(74, 222, 128, 0.30);"><div style="font-family:'Orbitron',sans-serif; font-size:30px; color:var(--green); font-weight:900;">1.0x</div><div style="font-family:'Rajdhani',sans-serif; font-size:13px; color:var(--muted); margin-top:6px; line-height:1.45;">Standard pick — base payout. Most picks land here. This is your default.</div></div>
+          <div style="background:var(--panel-inset); padding:20px; text-align:center;"><div style="font-family:'Orbitron',sans-serif; font-size:30px; color:var(--yellow); font-weight:900;">1.5x</div><div style="font-family:'Rajdhani',sans-serif; font-size:13px; color:var(--muted); margin-top:6px; line-height:1.45;">Scorcher — harder outcome, bigger payout. Only include if sportsbook equivalent odds are worse than what the multiplier implies.</div></div>
+          <div style="background:var(--panel-inset); padding:20px; text-align:center;"><div style="font-family:'Orbitron',sans-serif; font-size:30px; color:var(--muted); font-weight:900;">2.0x+</div><div style="font-family:'Rajdhani',sans-serif; font-size:13px; color:var(--muted); margin-top:6px; line-height:1.45;">High scorcher — looks exciting, usually overpriced. Always compare to sportsbook odds before including.</div></div>
+        </div>
+
+        <h3 style="font-family:'Orbitron',sans-serif; font-size:20px; font-weight:900; text-transform:uppercase; letter-spacing:1.5px; margin-bottom:16px;">Higher / Lower Tags</h3>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:28px;">
+          <div style="background:var(--panel-inset); border:1px solid rgba(255,107,43,0.30); border-radius: 10px; padding:22px;"><div style="font-family:'Orbitron', sans-serif; font-size:13px; font-weight:800; letter-spacing:1px; text-transform:uppercase; color:var(--ud-orange); margin-bottom:10px;">Tagged "Higher" (Over)</div><p style="font-family:'Rajdhani',sans-serif; font-size:14px; color:var(--muted); line-height:1.7;">Underdog signals the market leans over — slightly reduced payout (~0.98x). Still good implied odds, and the tag itself confirms which side sharp books favor. Take it when your EV data agrees.</p></div>
+          <div style="background:var(--panel-inset); border:1px solid rgba(59,130,246,0.30); border-radius: 10px; padding:22px;"><div style="font-family:'Orbitron', sans-serif; font-size:13px; font-weight:800; letter-spacing:1px; text-transform:uppercase; color:var(--pp-blue); margin-bottom:10px;">Tagged "Lower" (Under)</div><p style="font-family:'Rajdhani',sans-serif; font-size:14px; color:var(--muted); line-height:1.7;">Market leans under — slightly boosted payout (~1.02x). You're getting slight plus-money on the market-favored side. A "Lower" tag where sharp books also lean under is among the best picks available.</p></div>
+        </div>
+
+        <h3 style="font-family:'Orbitron',sans-serif; font-size:20px; font-weight:900; text-transform:uppercase; letter-spacing:1.5px; margin-bottom:16px;">Key Quirks</h3>
+        <div style="display:flex; flex-direction:column; gap:12px; margin-bottom:24px;">
+          <div style="display:grid; grid-template-columns:28px 1fr; gap:12px; align-items:flex-start;"><div style="background:rgba(74, 222, 128, 0.14); color:var(--green); width:24px; height:24px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:800; flex-shrink:0;">✓</div><div style="font-family:'Rajdhani',sans-serif; font-size:15px; color:var(--muted); line-height:1.55;"><strong style="color:var(--text); font-weight:600;">Injury insurance:</strong> Entry refunded if you lose solely due to a player injury and all other picks win.</div></div>
+          <div style="display:grid; grid-template-columns:28px 1fr; gap:12px; align-items:flex-start;"><div style="background:rgba(245,181,69,0.14); color:var(--yellow); width:24px; height:24px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:800; flex-shrink:0;">!</div><div style="font-family:'Rajdhani',sans-serif; font-size:15px; color:var(--muted); line-height:1.55;"><strong style="color:var(--text); font-weight:600;">Void/DNP reverts slip down one tier.</strong> A 6-pick flex with one void becomes a 5-pick flex — significantly lower payout. Avoid GTD players.</div></div>
+          <div style="display:grid; grid-template-columns:28px 1fr; gap:12px; align-items:flex-start;"><div style="background:rgba(245,181,69,0.14); color:var(--yellow); width:24px; height:24px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:800; flex-shrink:0;">!</div><div style="font-family:'Rajdhani',sans-serif; font-size:15px; color:var(--muted); line-height:1.55;"><strong style="color:var(--text); font-weight:600;">Correlated picks penalized.</strong> Multiple players from the same game can shift your payout downward. Be aware with QB + WR same-team combos.</div></div>
+          <div style="display:grid; grid-template-columns:28px 1fr; gap:12px; align-items:flex-start;"><div style="background:rgba(74, 222, 128, 0.14); color:var(--green); width:24px; height:24px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:800; flex-shrink:0;">✓</div><div style="font-family:'Rajdhani',sans-serif; font-size:15px; color:var(--muted); line-height:1.55;"><strong style="color:var(--text); font-weight:600;">Best esports depth</strong> of any major DFS platform. CS2, Valorant, LoL lines are frequent and often heavily discrepant vs. other books.</div></div>
+          <div style="display:grid; grid-template-columns:28px 1fr; gap:12px; align-items:flex-start;"><div style="background:rgba(248, 113, 113, 0.14); color:var(--red); width:24px; height:24px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:800; flex-shrink:0;">✗</div><div style="font-family:'Rajdhani',sans-serif; font-size:15px; color:var(--muted); line-height:1.55;"><strong style="color:var(--text); font-weight:600;">Winners get limited.</strong> Consistent profit leads to reduced max bet sizes. Build your bankroll hard early.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRIZE PICKS PANEL -->
+    <div id="book-pp" style="display:none; margin-bottom: 48px;">
+      <div style="border: 2px solid var(--pp-blue); border-radius: 14px; padding: 40px; background: var(--panel);">
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.2em; color: var(--pp-blue); margin-bottom: 16px; font-weight: 700;">PRIZE PICKS — FULL BREAKDOWN</div>
+        <h3 style="font-family:'Orbitron',sans-serif; font-size:24px; font-weight:900; text-transform:uppercase; letter-spacing:1.5px; margin-bottom:10px;">Power Play vs Flex — The Key Difference</h3>
+        <p style="font-family:'Rajdhani',sans-serif; color:var(--muted); font-size:15px; margin-bottom:20px; line-height:1.6;">Implied odds per pick is the most important column. It tells you how much edge you need per leg to be profitable. PrizePicks' best implied odds are -119 — slightly worse than Underdog's -116. Always factor this in when choosing which platform to play a given slip on.</p>
+        <div style="overflow-x:auto; margin-bottom:20px;">
+          <table class="slip-table">
+            <thead><tr><th>Entry</th><th>Payout (all hit)</th><th style="color:var(--green);">Implied Odds / Pick</th><th>Miss 1 pays</th><th>Needs to hit 1-in-X</th><th>Verdict</th></tr></thead>
+            <tbody>
+              <tr><td>2-Pick Power</td><td>3x</td><td style="color:var(--red);">-136</td><td>—</td><td>1-in-3 (33.3%)</td><td><span class="tag-bad">AVOID</span></td></tr>
+              <tr><td>3-Pick Flex</td><td>5x</td><td style="color:var(--red);">-136</td><td>0.4x</td><td>1-in-5 (20.0%)</td><td><span class="tag-bad">POOR</span></td></tr>
+              <tr><td>3-Pick Power</td><td>5x</td><td style="color:var(--yellow);">-122</td><td>—</td><td>1-in-5 (20.0%)</td><td><span class="tag-ok">SITUATIONAL</span></td></tr>
+              <tr><td>4-Pick Power</td><td>10x</td><td style="color:var(--red);">-128</td><td>—</td><td>1-in-10 (10.0%)</td><td><span class="tag-bad">SKIP</span></td></tr>
+              <tr><td>4-Pick Flex</td><td>10x</td><td style="color:var(--red);">-132</td><td>1.5x</td><td>1-in-10 (10.0%)</td><td><span class="tag-bad">SKIP</span></td></tr>
+              <tr><td>5-Pick Flex</td><td>10x</td><td style="color:var(--yellow);">-119</td><td>2x</td><td>~1-in-9 effective</td><td><span class="tag-ok">GOOD</span></td></tr>
+              <tr style="background:rgba(74, 222, 128, 0.06);"><td style="color:var(--green); font-weight:700;">6-Pick Flex ✓</td><td>25x</td><td style="color:var(--green); font-weight:700;">-119</td><td>2x</td><td>1-in-25 (4.0%)</td><td><span class="tag-good">OPTIMAL</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div style="background:rgba(59,130,246,0.06); border:1px solid rgba(59,130,246,0.25); border-radius: 10px; padding:20px; margin-bottom:28px; display:grid; grid-template-columns:1fr 1fr 1fr; gap:20px; text-align:center;">
+          <div><div style="font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:0.15em; color:var(--muted); margin-bottom:6px; font-weight:600;">WORST OPTION</div><div style="font-family:'Orbitron',sans-serif; font-size:32px; color:var(--red); font-weight:900;">-136</div><div style="font-family:'Rajdhani',sans-serif; font-size:13px; color:var(--muted);">2-pick / 3-flex implied / leg</div></div>
+          <div><div style="font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:0.15em; color:var(--green); margin-bottom:6px; font-weight:600;">OPTIMAL</div><div style="font-family:'Orbitron',sans-serif; font-size:32px; color:var(--green); font-weight:900;">-119</div><div style="font-family:'Rajdhani',sans-serif; font-size:13px; color:var(--muted);">5 or 6-pick flex implied / leg</div></div>
+          <div><div style="font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:0.15em; color:var(--yellow); margin-bottom:6px; font-weight:600;">VS UNDERDOG 6-MAN</div><div style="font-family:'Orbitron',sans-serif; font-size:32px; color:var(--yellow); font-weight:900;">-116</div><div style="font-family:'Rajdhani',sans-serif; font-size:13px; color:var(--muted);">Underdog is 3¢ cheaper / pick</div></div>
+        </div>
+
+        <h3 style="font-family:'Orbitron',sans-serif; font-size:20px; font-weight:900; text-transform:uppercase; letter-spacing:1.5px; margin-bottom:16px;">Demons &amp; Goblins — Handle With Care</h3>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:28px;">
+          <div style="background:var(--panel-inset); border:1px solid rgba(248, 113, 113, 0.30); border-radius: 10px; padding:22px;"><div style="font-family:'Orbitron', sans-serif; font-size:13px; font-weight:800; letter-spacing:1px; text-transform:uppercase; color:var(--red); margin-bottom:10px;">👺 Goblins — Easier Lines, Lower Payout</div><p style="font-family:'Rajdhani',sans-serif; font-size:14px; color:var(--muted); line-height:1.7;">Line moves in your favor but payout drops. Looks safe — often a trap. The reduced payout means you need to hit the parlay more often to profit. Always calculate what the new payout requires before including.</p></div>
+          <div style="background:var(--panel-inset); border:1px solid rgba(167,139,250,0.30); border-radius: 10px; padding:22px;"><div style="font-family:'Orbitron', sans-serif; font-size:13px; font-weight:800; letter-spacing:1px; text-transform:uppercase; color:var(--purple); margin-bottom:10px;">😈 Demons — Extreme Lines, Massive Payout</div><p style="font-family:'Rajdhani',sans-serif; font-size:14px; color:var(--muted); line-height:1.7;">Pushed to an extreme number with huge multipliers. Almost always destroys EV. A line at +600 on sportsbooks has ~14% true probability. Including it tanks your overall hit rate dramatically. Avoid unless you can model the edge precisely.</p></div>
+        </div>
+
+        <h3 style="font-family:'Orbitron',sans-serif; font-size:20px; font-weight:900; text-transform:uppercase; letter-spacing:1.5px; margin-bottom:16px;">Key Quirks</h3>
+        <div style="display:flex; flex-direction:column; gap:12px;">
+          <div style="display:grid; grid-template-columns:28px 1fr; gap:12px; align-items:flex-start;"><div style="background:rgba(248, 113, 113, 0.14); color:var(--red); width:24px; height:24px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:800; flex-shrink:0;">!</div><div style="font-family:'Rajdhani',sans-serif; font-size:15px; color:var(--muted); line-height:1.55;"><strong style="color:var(--text); font-weight:600;">Ties revert the slip down one tier.</strong> A 6-pick flex becomes a 5-pick flex. Use half-point lines wherever possible to eliminate push risk entirely.</div></div>
+          <div style="display:grid; grid-template-columns:28px 1fr; gap:12px; align-items:flex-start;"><div style="background:rgba(74, 222, 128, 0.14); color:var(--green); width:24px; height:24px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:800; flex-shrink:0;">✓</div><div style="font-family:'Rajdhani',sans-serif; font-size:15px; color:var(--muted); line-height:1.55;"><strong style="color:var(--text); font-weight:600;">5-minute cancellation window</strong> after submission as long as no players have started. Use it if you spot a better line elsewhere.</div></div>
+          <div style="display:grid; grid-template-columns:28px 1fr; gap:12px; align-items:flex-start;"><div style="background:rgba(74, 222, 128, 0.14); color:var(--green); width:24px; height:24px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:800; flex-shrink:0;">✓</div><div style="font-family:'Rajdhani',sans-serif; font-size:15px; color:var(--muted); line-height:1.55;"><strong style="color:var(--text); font-weight:600;">Fantasy Score line type</strong> bundles multiple stats into one projection. Sharp books pricing individual stats sometimes create unique discrepancies vs the blended line.</div></div>
+          <div style="display:grid; grid-template-columns:28px 1fr; gap:12px; align-items:flex-start;"><div style="background:rgba(248, 113, 113, 0.14); color:var(--red); width:24px; height:24px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:800; flex-shrink:0;">!</div><div style="font-family:'Rajdhani',sans-serif; font-size:15px; color:var(--muted); line-height:1.55;"><strong style="color:var(--text); font-weight:600;">Power plays max out at 4 picks.</strong> 5 and 6-pick entries are flex only. For most sharp players, flex is the better long-term vehicle anyway.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DK PICK6 PANEL -->
+    <div id="book-dk" style="display:none; margin-bottom: 48px;">
+      <div style="border: 2px solid var(--dk-green); border-radius: 14px; padding: 40px; background: var(--panel);">
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.2em; color: var(--dk-green); margin-bottom: 16px; font-weight: 700;">DRAFTKINGS PICK6 — FULL BREAKDOWN</div>
+        <div class="callout" style="margin-bottom:28px;"><p><strong>Critical difference:</strong> Pick6 is a peer-to-peer prize pool — not a fixed payout platform. There are no fixed implied odds per pick because payouts vary by contest. The math question changes from "what are my implied odds?" to "how do I maximize my share of the pool?"</p></div>
+        <h3 style="font-family:'Orbitron',sans-serif; font-size:24px; font-weight:900; text-transform:uppercase; letter-spacing:1.5px; margin-bottom:10px;">Pick Level Comparison</h3>
+        <p style="font-family:'Rajdhani',sans-serif; color:var(--muted); font-size:15px; margin-bottom:20px; line-height:1.6;">Because Pick6 payouts are variable, we compare pick levels by their <strong style="color:var(--text);">approximate effective implied odds</strong> — estimated from typical contest prize pools. These are ranges, not fixed numbers. The more picks you make, the better your implied odds, just like the other platforms.</p>
+        <div style="overflow-x:auto; margin-bottom:20px;">
+          <table class="slip-table">
+            <thead><tr><th>Pick Level</th><th>Typical Prize Pool Split</th><th style="color:var(--green);">Approx. Implied Odds / Pick</th><th>Key Difference from Fixed-Payout Books</th><th>Verdict</th></tr></thead>
+            <tbody>
+              <tr><td>2-Pick</td><td>~3x typical</td><td style="color:var(--red);">~-200</td><td>Competing in small pool, high hit rate required</td><td><span class="tag-bad">AVOID</span></td></tr>
+              <tr><td>3-Pick</td><td>~5–6x typical</td><td style="color:var(--yellow);">~-122 to -136</td><td>Small field, but payout variance is high</td><td><span class="tag-ok">SITUATIONAL</span></td></tr>
+              <tr><td>4-Pick</td><td>~10x typical</td><td style="color:var(--yellow);">~-128</td><td>Mid-tier — not meaningfully better than 3</td><td><span class="tag-ok">OK</span></td></tr>
+              <tr><td>5-Pick</td><td>~20x typical</td><td style="color:var(--yellow);">~-122</td><td>Good pool depth, reasonable implied odds</td><td><span class="tag-ok">GOOD</span></td></tr>
+              <tr style="background:rgba(74, 222, 128, 0.06);"><td style="color:var(--green); font-weight:700;">6-Pick ✓</td><td>~30–50x typical</td><td style="color:var(--green); font-weight:700;">~-116 to -122</td><td>Deepest prize pool, best implied odds range, most room to differentiate from field</td><td><span class="tag-good">OPTIMAL</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div style="background:rgba(0,200,83,0.06); border:1px solid rgba(0,200,83,0.25); border-radius: 10px; padding:20px; margin-bottom:28px; display:grid; grid-template-columns:1fr 1fr 1fr; gap:20px; text-align:center;">
+          <div><div style="font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:0.15em; color:var(--muted); margin-bottom:6px; font-weight:600;">FIXED PAYOUT BOOKS</div><div style="font-family:'Orbitron',sans-serif; font-size:24px; color:var(--text); font-weight:900;">Known</div><div style="font-family:'Rajdhani',sans-serif; font-size:13px; color:var(--muted);">Implied odds are exact — you know your edge before submitting</div></div>
+          <div><div style="font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:0.15em; color:var(--dk-green); margin-bottom:6px; font-weight:600;">DK PICK6</div><div style="font-family:'Orbitron',sans-serif; font-size:24px; color:var(--dk-green); font-weight:900;">Variable</div><div style="font-family:'Rajdhani',sans-serif; font-size:13px; color:var(--muted);">Implied odds shift with pool size — upside when field is thin</div></div>
+          <div><div style="font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:0.15em; color:var(--green); margin-bottom:6px; font-weight:600;">BIG ADVANTAGE</div><div style="font-family:'Orbitron',sans-serif; font-size:24px; color:var(--green); font-weight:900;">No limits</div><div style="font-family:'Rajdhani',sans-serif; font-size:13px; color:var(--muted);">DK never restricts winners — bet as much as you want forever</div></div>
+        </div>
+        <div style="overflow-x:auto; margin-bottom:28px;">
+          <table class="slip-table">
+            <thead><tr><th>Rule</th><th>Detail</th><th>Why It Matters</th></tr></thead>
+            <tbody>
+              <tr><td>Entry range</td><td>2–6 picks (3+ in CO)</td><td>6 picks is still the target for maximum edge</td></tr>
+              <tr><td>Multi-team required</td><td>Players from at least 2 teams</td><td>Can't stack a single team</td></tr>
+              <tr><td>No cross-sport mixing</td><td>Same sport/league only</td><td>Unlike Underdog/PrizePicks — can't mix NBA + esports</td></tr>
+              <tr><td>No late swaps</td><td>Locked at submission</td><td>Check injury reports before submitting</td></tr>
+              <tr style="background:rgba(74, 222, 128, 0.06);"><td style="color:var(--green);">Ties grade as WINS ✓</td><td>Exact line = correct pick</td><td>Unlike PrizePicks where ties revert the slip — whole-number lines are safe here</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 style="font-family:'Orbitron',sans-serif; font-size:20px; font-weight:900; text-transform:uppercase; letter-spacing:1.5px; margin-bottom:16px;">Strategy Adjustments</h3>
+        <div style="display:flex; flex-direction:column; gap:12px; margin-bottom:24px;">
+          <div style="display:grid; grid-template-columns:28px 1fr; gap:12px; align-items:flex-start;"><div style="background:rgba(74, 222, 128, 0.14); color:var(--green); width:24px; height:24px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:800; flex-shrink:0;">✓</div><div style="font-family:'Rajdhani',sans-serif; font-size:15px; color:var(--muted); line-height:1.55;"><strong style="color:var(--text); font-weight:600;">Field differentiation matters.</strong> If you pick the same obvious favorites as everyone else and hit 6/6, you split the pool with hundreds of users. Niche markets and less-covered props mean fewer correct entries — more money per winner when you're right.</div></div>
+          <div style="display:grid; grid-template-columns:28px 1fr; gap:12px; align-items:flex-start;"><div style="background:rgba(74, 222, 128, 0.14); color:var(--green); width:24px; height:24px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:800; flex-shrink:0;">✓</div><div style="font-family:'Rajdhani',sans-serif; font-size:15px; color:var(--muted); line-height:1.55;"><strong style="color:var(--text); font-weight:600;">No account limits — ever.</strong> DraftKings takes a fixed rake regardless of who wins. They have zero incentive to limit sharp players. Build your bankroll here aggressively without fear of getting cut.</div></div>
+          <div style="display:grid; grid-template-columns:28px 1fr; gap:12px; align-items:flex-start;"><div style="background:rgba(74, 222, 128, 0.14); color:var(--green); width:24px; height:24px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:800; flex-shrink:0;">✓</div><div style="font-family:'Rajdhani',sans-serif; font-size:15px; color:var(--muted); line-height:1.55;"><strong style="color:var(--text); font-weight:600;">Use whole-number lines freely.</strong> Ties grade as correct on Pick6 — the opposite of PrizePicks. A whole-number line where sharp books favor one side is a valid pick without any push risk.</div></div>
+          <div style="display:grid; grid-template-columns:28px 1fr; gap:12px; align-items:flex-start;"><div style="background:rgba(245,181,69,0.14); color:var(--yellow); width:24px; height:24px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:800; flex-shrink:0;">!</div><div style="font-family:'Rajdhani',sans-serif; font-size:15px; color:var(--muted); line-height:1.55;"><strong style="color:var(--text); font-weight:600;">Boosted contests are genuine value.</strong> When DK adds to the prize pool via promos, the same picks in a boosted contest pay more. Always check active promos before submitting.</div></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<script>
+function showBook(platform) {
+  const panels = ['ud','pp','dk'];
+  const colors = { ud: '#ff6b2b', pp: '#3b82f6', dk: '#00c853' };
+  panels.forEach(p => {
+    const panel = document.getElementById('book-' + p);
+    const btn   = document.getElementById('btn-' + p);
+    const arrow = document.getElementById('arrow-' + p);
+    if (p === platform && panel.style.display === 'none') {
+      panel.style.display = 'block';
+      btn.style.borderColor = colors[p];
+      btn.style.background = 'var(--panel-inset)';
+      arrow.style.transform = 'rotate(180deg)';
+      panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } else {
+      panel.style.display = 'none';
+      btn.style.borderColor = 'var(--border)';
+      btn.style.background = 'var(--panel)';
+      arrow.style.transform = 'rotate(0deg)';
+    }
+  });
+}
+</script>
+
+<div class="divider"></div>
+
+<!-- 3 STRATEGIES -->
+<section>
+  <div class="container">
+    <div class="section-label">Chapter 03</div>
+    <h2 class="section-title">3 Strategies to Find an Edge</h2>
+    <p class="section-intro">Sharp DFS players don't guess and they don't follow analysts. They use the sports betting market to identify mathematically profitable picks. Here's the framework.</p>
+    <div class="strategy-steps">
+
+      <div class="step">
+        <div class="step-num"><div class="step-circle">01</div></div>
+        <div class="step-content">
+          <div class="step-title">Positive EV — Find Mispriced Lines</div>
+          <p class="step-body">
+            The foundation of profitable DFS is finding plays where the DFS platform has set a line that doesn't match what sharp sportsbooks say the true probability is. Because the DFS payout is the same either way, any pricing gap becomes a direct mathematical edge.<br><br>
+            <strong>How it works:</strong> Sharp books like Pinnacle, FanDuel, and betting exchanges price lines based on real money flow and sophisticated models. They remove vig to find a "true" probability. If Pinnacle says a player needs -137 odds to reflect true probability, and Underdog gives you that same side at -116 implied odds, you've got a 21-cent discount — a genuine edge.<br><br>
+            <strong>What to look for:</strong> Any pick where the consensus of sharp books suggests one side is meaningfully more likely than 50/50. You want multiple sportsbooks agreeing — the more data points, the more confidence. Tools like OddsJam's <a href="https://fas.st/t/RFjb8MmR" target="_blank" rel="nofollow noopener sponsored" style="color: var(--green); text-decoration: none;">Positive EV Tool</a> automate this process by scanning millions of lines in real time.
+          </p>
+          <div class="math-block" style="margin-top: 24px;">
+            <div class="math-label">Example: Keenan Allen O3.5 Receptions</div>
+            <div class="math-row"><span>Pinnacle true odds (after vig removal)</span><span>-121.5</span></div>
+            <div class="math-row"><span>Underdog implied odds (6-man)</span><span>-116</span></div>
+            <div class="math-row highlight"><span>Edge</span><span>+2.1% EV ✓</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num"><div class="step-circle">02</div></div>
+        <div class="step-content">
+          <div class="step-title">Line Discrepancies — Exploit Stale or Off Lines</div>
+          <p class="step-body">
+            DFS platforms don't always adjust their lines as quickly or as accurately as regulated sportsbooks. Sometimes a sharp book will have a player's line set significantly higher or lower than what a DFS platform is showing — creating a line discrepancy you can exploit.<br><br>
+            <strong>How it works:</strong> FanDuel is a $40 billion company with teams of data scientists, constantly adjusting lines based on sharp money. If FanDuel has a college football player's rushing yards line at 30.5 and Underdog has it at 19.5, that gap is telling you something loud and clear: the over on Underdog is excellent value.<br><br>
+            <strong>Where this shines:</strong> Niche markets. Esports (CS2, League of Legends, Valorant), college sports, and lower-profile games often see the largest discrepancies because DFS platforms aren't dedicating the same resources to setting precise lines. This is where some of the biggest edges — and a significant chunk of long-term DFS profit — can be found.
+          </p>
+          <div class="callout" style="margin-top: 24px;">
+            <p>Don't limit yourself to the NBA or NFL. <strong>Esports alone can represent 35–40% of your DFS edge opportunities</strong> simply because the lines are set less carefully. There are dozens of games every single day.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num"><div class="step-circle">03</div></div>
+        <div class="step-content">
+          <div class="step-title">Cross-Market Plays — Follow Sharp Exchange Money</div>
+          <p class="step-body">
+            Peer-to-peer betting exchanges like Novig and ProphetX operate differently from traditional sportsbooks. There are no house limits — serious bettors can wager thousands of dollars. The people offering liquidity on these exchanges are typically trading firms and sophisticated market makers who price lines extremely accurately.<br><br>
+            <strong>How it works:</strong> When a sharp exchange is offering, say, a player's <em>under</em> at plus-money (+128), they're essentially saying the over is actually the more likely outcome — they're the ones taking that risk. If you can get that same player's <em>over</em> on Underdog at -116 implied odds, you've got a crossed market. One side has to be profitable, and the sharp exchange is pointing you to it.<br><br>
+            <strong>The confidence factor:</strong> A mainstream sportsbook like FanDuel might cap a prop bet at $65. A sharp exchange bettor may be trying to get $2,800 down on the same play. The size of a wager is a signal of confidence. When professionals are willing to bet 40x what FanDuel will accept on a side, that's powerful information you can use in your DFS slips.<br><br>
+            <strong>What to look for:</strong> Any situation where sharp exchange prices create an implied probability gap with what a DFS platform is offering at -116. Use this exchange signal as confirmation when building your slip — not as the sole reason to bet, but as a powerful corroborating data point.
+          </p>
+          <div class="math-block" style="margin-top: 24px;">
+            <div class="math-label">Example: Bowers O/U 48.5 Receiving Yards</div>
+            <div class="math-row"><span>ProphetX offering (UNDER)</span><span>+128</span></div>
+            <div class="math-row"><span>Underdog implied (OVER, 6-man)</span><span>-116</span></div>
+            <div class="math-row highlight"><span>Result: Crossed market — OVER is plus-EV</span><span>✓</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- FANTASY MIDDLES -->
+<section>
+  <div class="container">
+    <div class="section-label">Chapter 04</div>
+    <h2 class="section-title">Fantasy Middles: The Advanced Play</h2>
+    <p class="section-intro">If you have accounts on more than one DFS platform, this strategy can let you profit on both sides of the same pick simultaneously.</p>
+    <div class="concept-grid">
+      <div class="concept-card"><span class="card-num">How</span><div class="card-title">What Is a Middle?</div><p class="card-body">Different DFS platforms set their own lines independently and often disagree — especially on niche markets like esports. When Platform A has a line at 23.5 and Platform B has it at 25.5, there's a gap in the middle (24 or 25) where both your over on one platform and your under on the other platform win simultaneously.</p></div>
+      <div class="concept-card"><span class="card-num">Win</span><div class="card-title">Best Case: Double Cash</div><p class="card-body">If the player's result lands in the gap between the two lines, you win on both slips. You've turned a DFS bet into a near risk-free situation. Even if the player doesn't land in the middle, you still win one of the two slips — limiting your downside and creating a structural advantage.</p></div>
+      <div class="concept-card"><span class="card-num">Where</span><div class="card-title">Where Middles Show Up</div><p class="card-body">The biggest discrepancies tend to appear in esports (CS2, League of Legends, Valorant), college sports, and less-covered player props. Platforms like Prize Picks and Hot Streak, or Underdog and Hot Streak, can be significantly misaligned on these markets. The more platforms you have accounts with, the more middle opportunities you'll find.</p></div>
+    </div>
+    <div class="callout" style="margin-top: 48px;">
+      <p>You need accounts on <strong>at least two DFS platforms</strong> to run the middles strategy. The more platforms available in your state, the more opportunities you'll uncover. Start by signing up for any platforms offering first-time bonuses — that alone accelerates your bankroll before you've placed a single strategic bet.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PUTTING IT TOGETHER -->
+<section>
+  <div class="container">
+    <div class="section-label">Chapter 05</div>
+    <h2 class="section-title">Building a Slip: The Process</h2>
+    <p class="section-intro">Here's the repeatable daily workflow that ties all three strategies together into a single profitable approach.</p>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin-top: 16px;">
+      <div style="background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 28px 24px;"><div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.2em; color: var(--green); margin-bottom: 14px; font-weight: 700;">STEP 1</div><div style="font-family: 'Orbitron', sans-serif; font-size: 14px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 12px; color: var(--text);">Set Your Platform &amp; Slip Type</div><p style="font-family: 'Rajdhani', sans-serif; color: var(--muted); font-size: 15px; line-height: 1.65;">Decide which platform you're building for and lock in the 6-pick flex as your default on Underdog. Compare payout structures across platforms — always build where you get the best implied odds.</p></div>
+      <div style="background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 28px 24px;"><div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.2em; color: var(--green); margin-bottom: 14px; font-weight: 700;">STEP 2</div><div style="font-family: 'Orbitron', sans-serif; font-size: 14px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 12px; color: var(--text);">Run the Positive EV Filter</div><p style="font-family: 'Rajdhani', sans-serif; color: var(--muted); font-size: 15px; line-height: 1.65;">Use a positive EV tool filtered to your platform and slip type. The goal is to find picks where the sharp market says one side is meaningfully more likely — enough that your full 6-man slip can clear its required hit rate (1-in-40 on Underdog, 1-in-25 on PrizePicks). Prioritize plays where multiple sharp books agree.</p></div>
+      <div style="background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 28px 24px;"><div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.2em; color: var(--green); margin-bottom: 14px; font-weight: 700;">STEP 3</div><div style="font-family: 'Orbitron', sans-serif; font-size: 14px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 12px; color: var(--text);">Check for Line Discrepancies</div><p style="font-family: 'Rajdhani', sans-serif; color: var(--muted); font-size: 15px; line-height: 1.65;">Cross-reference with a line discrepancy tool. Any play where major sportsbooks have a line set meaningfully different from your DFS platform — especially in esports or college markets — is a strong candidate. Confirm at least two data points.</p></div>
+      <div style="background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 28px 24px;"><div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.2em; color: var(--green); margin-bottom: 14px; font-weight: 700;">STEP 4</div><div style="font-family: 'Orbitron', sans-serif; font-size: 14px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 12px; color: var(--text);">Add Exchange Confirmation</div><p style="font-family: 'Rajdhani', sans-serif; color: var(--muted); font-size: 15px; line-height: 1.65;">For your highest-confidence picks, check sharp exchange data. If a player shows large wager sizes on the same side you're targeting — especially when mainstream books cap bets low — that's a powerful confirming signal.</p></div>
+      <div style="background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 28px 24px;"><div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.2em; color: var(--green); margin-bottom: 14px; font-weight: 700;">STEP 5</div><div style="font-family: 'Orbitron', sans-serif; font-size: 14px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 12px; color: var(--text);">Check for Middles</div><p style="font-family: 'Rajdhani', sans-serif; color: var(--muted); font-size: 15px; line-height: 1.65;">Before locking in, check whether any of your picks have a significant line discrepancy on a second DFS platform. If so, build a parallel slip and capture the middle opportunity. Don't force it — only act when the gap is meaningful.</p></div>
+      <div style="background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 28px 24px;"><div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.2em; color: var(--green); margin-bottom: 14px; font-weight: 700;">STEP 6</div><div style="font-family: 'Orbitron', sans-serif; font-size: 14px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 12px; color: var(--text);">Lock It In</div><p style="font-family: 'Rajdhani', sans-serif; color: var(--muted); font-size: 15px; line-height: 1.65;">Every pick in your 6-man needs to be a genuine edge. Ask: does the sharp market say this side is likely enough that my 6-man can hit 1-in-40 times overall? Don't force picks to reach a number — if only 4 strong edges exist today, wait. Patience is part of the edge. Volume over time is what makes the math work.</p></div>
+    </div>
+    <div class="callout" style="margin-top: 48px;">
+      <p>You don't need to watch every game or know every player. <strong>You're not a ball expert — you're a market analyst.</strong> The sport doesn't matter. All that matters is whether your picks are sharp enough that your slip can clear its required hit rate. Esports, WNBA, college football — if the market signal is there, the edge is there.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- MATH IN ACTION -->
+<section id="math-in-action">
+  <div class="container">
+    <div class="section-label">Chapter 06</div>
+    <h2 class="section-title">The Math in Action</h2>
+    <p class="section-intro">Here's the question that actually matters: how often does your parlay need to hit for you to profit? The answer is what separates a sportsbook parlay from a DFS slip — and it's a bigger gap than most people realize.</p>
+
+    <div style="background: var(--panel); border: 1px solid var(--border); border-radius: 14px; padding: 40px; margin-bottom: 48px;">
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.2em; color: var(--green); margin-bottom: 12px; font-weight: 700;">REAL EXAMPLE — PICK THE ODDS ODDS SCREEN</div>
+      <h3 style="font-family: 'Orbitron', sans-serif; font-size: 28px; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 900; margin-bottom: 8px;">Naz Reid — Over 1.5 Threes Made</h3>
+      <p style="font-family: 'Rajdhani', sans-serif; color: var(--muted); font-size: 16px; margin-bottom: 32px; line-height: 1.55;">NBA · 3PT · Game. Every major sportsbook is heavily juiced to the over. This is the market signal — and this is how you exploit it.</p>
+      <div style="overflow-x: auto; margin-bottom: 28px;">
+        <table class="slip-table" style="min-width: 600px;">
+          <thead><tr><th>Side</th><th>Best Available</th><th style="color: var(--red);">Market Average</th><th>FanDuel</th><th>DraftKings</th><th>Caesars</th><th>bet365</th><th>Pinnacle</th></tr></thead>
+          <tbody>
+            <tr style="background: rgba(74, 222, 128, 0.06);"><td style="color: var(--green);">Over 1.5 3PT ✓</td><td style="color: var(--green);">-118</td><td style="color: var(--red); font-weight: 700;">-136</td><td>-130</td><td>-141</td><td>-132</td><td>-140</td><td>-136</td></tr>
+            <tr><td style="color: var(--muted);">Under 1.5 3PT</td><td style="color: var(--muted);">+120</td><td style="color: var(--muted);">+104</td><td>-102</td><td>+107</td><td>+100</td><td>+110</td><td>+104</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 28px;">
+        <div style="background: var(--panel-inset); border: 1px solid var(--border); border-radius: 10px; padding: 22px;"><div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.15em; color: var(--muted); margin-bottom: 8px; font-weight: 600;">MARKET AVG (WITH VIG)</div><div style="font-family: 'Orbitron', sans-serif; font-size: 36px; color: var(--red); line-height: 1; font-weight: 900;">-136</div><div style="font-family: 'Rajdhani', sans-serif; font-size: 14px; color: var(--muted); margin-top: 8px;">What you pay per leg at a sportsbook</div></div>
+        <div style="background: var(--panel-inset); border: 1px solid rgba(74, 222, 128, 0.30); border-radius: 10px; padding: 22px;"><div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.15em; color: var(--green); margin-bottom: 8px; font-weight: 600;">DFS IMPLIED (6-MAN)</div><div style="font-family: 'Orbitron', sans-serif; font-size: 36px; color: var(--green); line-height: 1; font-weight: 900;">-116</div><div style="font-family: 'Rajdhani', sans-serif; font-size: 14px; color: var(--muted); margin-top: 8px;">What you effectively pay on Underdog</div></div>
+        <div style="background: var(--panel-inset); border: 1px solid var(--border); border-radius: 10px; padding: 22px;"><div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.15em; color: var(--yellow); margin-bottom: 8px; font-weight: 600;">YOUR DISCOUNT</div><div style="font-family: 'Orbitron', sans-serif; font-size: 36px; color: var(--yellow); line-height: 1; font-weight: 900;">20¢</div><div style="font-family: 'Rajdhani', sans-serif; font-size: 14px; color: var(--muted); margin-top: 8px;">Per leg. Compounded × 6 legs = the gap below</div></div>
+      </div>
+      <div class="callout" style="margin: 0;"><p>The under is sitting at +104 average — barely over even money. After removing vig, the over carries a true probability of roughly <strong>57–58%</strong>. The best price you can find at any sportsbook is -118 (Pinnacle). Underdog gives you this same side at <strong>-116 implied</strong> on a 6-man. You're actually getting a better price than the best line shopping can find. That's the structural edge in one line.</p></div>
+    </div>
+
+    <h3 style="font-family: 'Orbitron', sans-serif; font-size: 26px; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 900; margin-bottom: 10px;">Now Build the Full 6-Man</h3>
+    <p style="font-family: 'Rajdhani', sans-serif; color: var(--muted); font-size: 16px; margin-bottom: 28px; line-height: 1.55;">Take Naz Reid as leg 1. Find 5 more props with the same profile — all averaging -136 at the books, all at -116 implied on Underdog's 6-man. Here's what $100 looks like on both a traditional parlay and DFS.</p>
+    <div style="overflow-x: auto; margin-bottom: 32px;">
+      <table class="slip-table">
+        <thead><tr><th>#</th><th>Pick</th><th>Book avg (with vig)</th><th>DFS implied odds</th><th>Discount / leg</th></tr></thead>
+        <tbody>
+          <tr style="background: rgba(74, 222, 128, 0.06);"><td style="color: var(--green);">1</td><td>Naz Reid O1.5 3PT <span style="font-size: 11px; color: var(--muted); font-family: 'JetBrains Mono', monospace;">(real)</span></td><td style="color: var(--red);">-136</td><td style="color: var(--green);">-116</td><td style="color: var(--green);">+20¢</td></tr>
+          <tr><td style="color: var(--muted);">2</td><td>Prop 2 — same profile</td><td style="color: var(--red);">-136</td><td style="color: var(--green);">-116</td><td style="color: var(--green);">+20¢</td></tr>
+          <tr><td style="color: var(--muted);">3</td><td>Prop 3 — same profile</td><td style="color: var(--red);">-136</td><td style="color: var(--green);">-116</td><td style="color: var(--green);">+20¢</td></tr>
+          <tr><td style="color: var(--muted);">4</td><td>Prop 4 — same profile</td><td style="color: var(--red);">-136</td><td style="color: var(--green);">-116</td><td style="color: var(--green);">+20¢</td></tr>
+          <tr><td style="color: var(--muted);">5</td><td>Prop 5 — same profile</td><td style="color: var(--red);">-136</td><td style="color: var(--green);">-116</td><td style="color: var(--green);">+20¢</td></tr>
+          <tr><td style="color: var(--muted);">6</td><td>Prop 6 — same profile</td><td style="color: var(--red);">-136</td><td style="color: var(--green);">-116</td><td style="color: var(--green);">+20¢</td></tr>
+          <tr style="border-top: 2px solid var(--border);"><td colspan="2" style="font-weight: 700; color: var(--text); padding-top: 18px;">Total profit on $100</td><td style="color: var(--red); font-weight: 700; padding-top: 18px;">~$2,620</td><td style="color: var(--green); font-weight: 700; padding-top: 18px;">~$3,900</td><td style="color: var(--green); font-weight: 700; padding-top: 18px;">+$1,280</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div style="background: var(--panel-inset); border: 1px solid var(--border); border-radius: 10px; padding: 18px 22px; margin-bottom: 32px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--muted); line-height: 1.8;">
+      <span style="color: var(--green); font-weight: 700;">HOW THE PARLAY PAYS:</span>&nbsp; Each leg at -136 = 1.735x decimal. Compounded: 1.735<sup>6</sup> = 27.2x total → <span style="color: var(--red);">~$2,620 profit on $100</span>. &nbsp;|&nbsp; Underdog 6-man flat pays 40x → <span style="color: var(--green);">~$3,900 profit on $100</span>. &nbsp;|&nbsp; Same 6 picks. DFS pays <span style="color: var(--green);">+$1,280 more</span> — that's the vig working against you at the sportsbook.
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); margin-bottom: 32px; border-radius: 14px; overflow: hidden;">
+      <div style="background: var(--panel); padding: 36px;">
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.15em; color: var(--red); margin-bottom: 16px; font-weight: 700;">SPORTSBOOK 6-LEG PARLAY @ -136/LEG</div>
+        <div style="font-family: 'Orbitron', sans-serif; font-size: 56px; color: var(--red); line-height: 1; margin-bottom: 8px; font-weight: 900;">$2,620</div>
+        <div style="font-family: 'Rajdhani', sans-serif; font-size: 15px; color: var(--muted); margin-bottom: 24px;">profit on $100 if all 6 hit</div>
+        <div class="math-block" style="margin: 0; padding: 18px;">
+          <div class="math-label">The real question: how often must it hit?</div>
+          <div class="math-row" style="color: var(--muted);"><span>Payout multiplier</span><span>27.2x</span></div>
+          <div class="math-row" style="color: var(--red);"><span>Must hit 1-in-<strong>27.2</strong> to break even</span><span style="color:var(--red); font-weight:700;">3.7%</span></div>
+          <div class="math-row" style="color: var(--muted);"><span>Your actual hit rate at 56%/leg</span><span>3.1%</span></div>
+          <div class="math-row" style="color: var(--red); border-top: 1px solid var(--border); padding-top: 12px; margin-top: 4px;"><span>You're hitting less than needed</span><span>Losing</span></div>
+        </div>
+      </div>
+      <div style="background: var(--panel); padding: 36px; border: 2px solid var(--green);">
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.15em; color: var(--green); margin-bottom: 16px; font-weight: 700;">UNDERDOG 6-MAN FLEX — SAME PICKS</div>
+        <div style="font-family: 'Orbitron', sans-serif; font-size: 56px; color: var(--green); line-height: 1; margin-bottom: 8px; font-weight: 900;">$3,900</div>
+        <div style="font-family: 'Rajdhani', sans-serif; font-size: 15px; color: var(--muted); margin-bottom: 24px;">profit on $100 entry if all 6 hit</div>
+        <div class="math-block" style="margin: 0; padding: 18px;">
+          <div class="math-label">The real question: how often must it hit?</div>
+          <div class="math-row" style="color: var(--muted);"><span>Payout multiplier</span><span>40x</span></div>
+          <div class="math-row highlight"><span>Must hit 1-in-<strong>40</strong> to break even</span><span style="font-weight:700;">2.5%</span></div>
+          <div class="math-row" style="color: var(--muted);"><span>Your actual hit rate at 56%/leg</span><span>3.1%</span></div>
+          <div class="math-row highlight" style="border-top: 1px solid var(--border); padding-top: 12px; margin-top: 4px;"><span>You're hitting more than needed</span><span>Profitable</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div style="background: var(--panel); border-left: 3px solid var(--green); border-radius: 0 10px 10px 0; padding: 32px 36px; margin-bottom: 48px;">
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.2em; color: var(--green); margin-bottom: 16px; font-weight: 700;">WHY THIS IS THE RIGHT WAY TO THINK ABOUT IT</div>
+      <p style="font-family: 'Rajdhani', sans-serif; font-size: 18px; color: var(--text); line-height: 1.75; margin-bottom: 16px;">Forget per-leg win rates. The only number that matters is: <strong>how often does my parlay need to land for me to profit?</strong></p>
+      <p style="font-family: 'Rajdhani', sans-serif; font-size: 16px; color: var(--muted); line-height: 1.7; margin-bottom: 14px;">The sportsbook parlay pays 27.2x. That means you need it to hit at least <strong style="color:var(--text);">1 in every 27.2 slips</strong> — roughly 3.7% of the time — just to break even. If your 6 picks each win 56% of the time independently, your actual hit rate is 0.56⁶ = <strong style="color:var(--text);">3.1%</strong>. You're coming up short. The vig ate your edge.</p>
+      <p style="font-family: 'Rajdhani', sans-serif; font-size: 16px; color: var(--muted); line-height: 1.7; margin-bottom: 14px;">Underdog pays 40x on the same 6 picks. You now only need it to hit <strong style="color:var(--text);">1 in every 40 slips</strong> — 2.5%. Your actual hit rate is still 3.1%. Now you're clearing the bar with room to spare. <strong style="color:var(--green);">Same picks, same hit rate — profitable on DFS, losing on the sportsbook.</strong></p>
+      <p style="font-family: 'Rajdhani', sans-serif; font-size: 16px; color: var(--muted); line-height: 1.7;">The difference is entirely the vig the sportsbook charged on every leg. 20 cents per pick, compounded six times, turned a winning strategy into a losing one.</p>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 48px;">
+      <div style="background: var(--panel-inset); border: 1px solid var(--border); border-radius: 10px; padding: 24px; text-align: center;"><div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.15em; color: var(--muted); margin-bottom: 12px; font-weight: 600;">YOUR ACTUAL HIT RATE</div><div style="font-family: 'Orbitron', sans-serif; font-size: 44px; color: var(--text); line-height: 1; font-weight: 900;">3.1%</div><div style="font-family: 'Rajdhani', sans-serif; font-size: 14px; color: var(--muted); margin-top: 8px;">6 picks × 56% each<br>0.56⁶ = 0.031</div></div>
+      <div style="background: rgba(248, 113, 113, 0.06); border: 1px solid rgba(248, 113, 113, 0.30); border-radius: 10px; padding: 24px; text-align: center;"><div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.15em; color: var(--red); margin-bottom: 12px; font-weight: 600;">SPORTSBOOK NEEDS</div><div style="font-family: 'Orbitron', sans-serif; font-size: 44px; color: var(--red); line-height: 1; font-weight: 900;">3.7%</div><div style="font-family: 'Rajdhani', sans-serif; font-size: 14px; color: var(--muted); margin-top: 8px;">1 ÷ 27.2x payout<br>You're below this → losing</div></div>
+      <div style="background: rgba(74, 222, 128, 0.06); border: 1px solid rgba(74, 222, 128, 0.30); border-radius: 10px; padding: 24px; text-align: center;"><div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.15em; color: var(--green); margin-bottom: 12px; font-weight: 600;">UNDERDOG NEEDS</div><div style="font-family: 'Orbitron', sans-serif; font-size: 44px; color: var(--green); line-height: 1; font-weight: 900;">2.5%</div><div style="font-family: 'Rajdhani', sans-serif; font-size: 14px; color: var(--muted); margin-top: 8px;">1 ÷ 40x payout<br>You're above this → profitable</div></div>
+    </div>
+
+    <h3 style="font-family: 'Orbitron', sans-serif; font-size: 26px; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 900; margin-bottom: 10px;">Run Your Own Numbers</h3>
+    <p style="font-family: 'Rajdhani', sans-serif; color: var(--muted); font-size: 16px; margin-bottom: 32px; line-height: 1.55;">Set your leg count, how often you expect each individual pick to win, and the book juice. The calculator works out your overall slip hit rate and shows whether it clears what each platform requires to be profitable.</p>
+
+    <div style="background: var(--panel); border: 1px solid var(--border); border-radius: 14px; padding: 40px;">
+      <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 32px; margin-bottom: 36px;">
+        <div>
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.15em; color: var(--muted); margin-bottom: 10px; font-weight: 600;">NUMBER OF LEGS</div>
+          <input type="range" min="2" max="6" step="1" value="6" id="calc-legs" oninput="runCalc()" style="width:100%; accent-color: var(--green);">
+          <div style="font-family: 'Orbitron', sans-serif; font-size: 36px; color: var(--green); margin-top: 8px; font-weight: 900;" id="calc-legs-out">6</div>
+        </div>
+        <div>
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.15em; color: var(--muted); margin-bottom: 10px; font-weight: 600;">WIN % PER INDIVIDUAL PICK</div>
+          <input type="range" min="50" max="62" step="0.5" value="56" id="calc-win" oninput="runCalc()" style="width:100%; accent-color: var(--green);">
+          <div style="font-family: 'Orbitron', sans-serif; font-size: 36px; color: var(--green); margin-top: 8px; font-weight: 900;" id="calc-win-out">56.0%</div>
+          <div style="font-family: 'Rajdhani', sans-serif; font-size: 12px; color: var(--muted); margin-top: 4px;">compounds into your overall slip hit rate below</div>
+        </div>
+        <div>
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.15em; color: var(--muted); margin-bottom: 10px; font-weight: 600;">BOOK JUICE PER LEG</div>
+          <input type="range" min="-160" max="-105" step="1" value="-136" id="calc-odds" oninput="runCalc()" style="width:100%; accent-color: var(--green);">
+          <div style="font-family: 'Orbitron', sans-serif; font-size: 36px; color: var(--red); margin-top: 8px; font-weight: 900;" id="calc-odds-out">-136</div>
+        </div>
+      </div>
+      <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1px; background: var(--border); margin-bottom: 1px; border-radius: 10px 10px 0 0; overflow: hidden;">
+        <div style="background: var(--panel-inset); padding: 24px; text-align: center;"><div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.12em; color: var(--muted); margin-bottom: 8px; font-weight: 600;">YOUR ACTUAL HIT RATE</div><div style="font-family: 'Orbitron', sans-serif; font-size: 34px; color: var(--text); line-height:1; font-weight: 900;" id="calc-actual-hit">—</div><div style="font-family: 'Rajdhani', sans-serif; font-size: 13px; color: var(--muted); margin-top: 6px;">probability all legs win</div></div>
+        <div style="background: var(--panel-inset); padding: 24px; text-align: center;"><div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.12em; color: var(--red); margin-bottom: 8px; font-weight: 600;">SPORTSBOOK NEEDS</div><div style="font-family: 'Orbitron', sans-serif; font-size: 34px; color: var(--red); line-height:1; font-weight: 900;" id="calc-book-need">—</div><div style="font-family: 'Rajdhani', sans-serif; font-size: 13px; color: var(--muted); margin-top: 6px;" id="calc-book-verdict">to break even</div></div>
+        <div style="background: var(--panel-inset); padding: 24px; text-align: center;"><div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.12em; color: var(--green); margin-bottom: 8px; font-weight: 600;">UNDERDOG NEEDS</div><div style="font-family: 'Orbitron', sans-serif; font-size: 34px; color: var(--green); line-height:1; font-weight: 900;" id="calc-dfs-need">—</div><div style="font-family: 'Rajdhani', sans-serif; font-size: 13px; color: var(--muted); margin-top: 6px;" id="calc-dfs-verdict">to break even</div></div>
+      </div>
+      <div style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 1px; background: var(--border); border-radius: 0 0 10px 10px; overflow: hidden;">
+        <div style="background: var(--panel-inset); padding: 22px;"><div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 8px; font-weight: 600;">BOOK PAYS</div><div style="font-family: 'Orbitron', sans-serif; font-size: 24px; color: var(--red); font-weight: 900;" id="calc-book-pay">—</div><div style="font-family: 'Rajdhani', sans-serif; font-size: 12px; color: var(--muted);">on $100</div></div>
+        <div style="background: var(--panel-inset); padding: 22px;"><div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.1em; color: var(--green); margin-bottom: 8px; font-weight: 600;">DFS PAYS</div><div style="font-family: 'Orbitron', sans-serif; font-size: 24px; color: var(--green); font-weight: 900;" id="calc-dfs-pay">—</div><div style="font-family: 'Rajdhani', sans-serif; font-size: 12px; color: var(--muted);">on $100</div></div>
+        <div style="background: var(--panel-inset); padding: 22px;"><div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 8px; font-weight: 600;">BOOK ROI</div><div style="font-family: 'Orbitron', sans-serif; font-size: 24px; font-weight: 900;" id="calc-book-roi">—</div></div>
+        <div style="background: var(--panel-inset); padding: 22px;"><div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.1em; color: var(--green); margin-bottom: 8px; font-weight: 600;">DFS ROI</div><div style="font-family: 'Orbitron', sans-serif; font-size: 24px; font-weight: 900;" id="calc-dfs-roi">—</div></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<script>
+function americanToDec(o) { return o > 0 ? 1 + o/100 : 1 + 100/Math.abs(o); }
+function dfsPayoutForLegs(n) { const m = {2:3,3:6,4:10,5:20,6:40}; return m[n]||40; }
+function runCalc() {
+  const legs   = parseInt(document.getElementById('calc-legs').value);
+  const winPct = parseFloat(document.getElementById('calc-win').value) / 100;
+  const odds   = parseInt(document.getElementById('calc-odds').value);
+  document.getElementById('calc-legs-out').textContent = legs;
+  document.getElementById('calc-win-out').textContent  = (winPct*100).toFixed(1) + '%';
+  document.getElementById('calc-odds-out').textContent = odds;
+  const dfsPayout  = dfsPayoutForLegs(legs);
+  const bookDec    = americanToDec(odds);
+  const bookTotal  = Math.pow(bookDec, legs);
+  const bookNetPay = Math.round((bookTotal - 1) * 100);
+  const dfsNetPay  = Math.round((dfsPayout - 1) * 100);
+  const actualHit  = Math.pow(winPct, legs) * 100;
+  const bookNeed   = (1 / bookTotal) * 100;
+  const dfsNeed    = (1 / dfsPayout) * 100;
+  document.getElementById('calc-actual-hit').textContent = actualHit.toFixed(2) + '%';
+  document.getElementById('calc-book-need').textContent  = bookNeed.toFixed(2) + '%';
+  document.getElementById('calc-dfs-need').textContent   = dfsNeed.toFixed(2) + '%';
+  const bookVerd = document.getElementById('calc-book-verdict');
+  const dfsVerd  = document.getElementById('calc-dfs-verdict');
+  if (actualHit >= bookNeed) { bookVerd.textContent = '✓ you clear this — profitable'; bookVerd.style.color = 'var(--green)'; }
+  else { bookVerd.textContent = '✗ you fall short — losing'; bookVerd.style.color = 'var(--red)'; }
+  if (actualHit >= dfsNeed) { dfsVerd.textContent = '✓ you clear this — profitable'; dfsVerd.style.color = 'var(--green)'; }
+  else { dfsVerd.textContent = '✗ you fall short — losing'; dfsVerd.style.color = 'var(--red)'; }
+  document.getElementById('calc-book-pay').textContent = '$' + bookNetPay.toLocaleString();
+  document.getElementById('calc-dfs-pay').textContent  = '$' + dfsNetPay.toLocaleString();
+  const probAll = Math.pow(winPct, legs);
+  const bookRoi = ((probAll * bookTotal) - 1) * 100;
+  const dfsRoi  = ((probAll * dfsPayout) - 1) * 100;
+  const bRoiEl = document.getElementById('calc-book-roi');
+  bRoiEl.textContent = (bookRoi >= 0 ? '+' : '') + bookRoi.toFixed(1) + '%';
+  bRoiEl.style.color = bookRoi >= 0 ? 'var(--green)' : 'var(--red)';
+  const dRoiEl = document.getElementById('calc-dfs-roi');
+  dRoiEl.textContent = (dfsRoi >= 0 ? '+' : '') + dfsRoi.toFixed(1) + '%';
+  dRoiEl.style.color = dfsRoi >= 0 ? 'var(--green)' : 'var(--red)';
+}
+runCalc();
+</script>
+
+<div class="divider"></div>
+
+<!-- AFFILIATE -->
+<section style="padding: 80px 0;">
+  <div class="container">
+    <div class="affiliate-bar">
+      <div>
+        <h3>The Right Tools Make This <span style="color: var(--green);">Repeatable</span></h3>
+        <p>Scanning tens of thousands of lines manually is impossible. OddsJam automates the entire process — positive EV filtering, line discrepancy detection, cross-market tools, and exchange data — all in one platform. It's what sharp DFS bettors use to do this at scale, every single day.</p>
+        <p style="margin-top: 14px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--dim); letter-spacing: 0.4px;">Profit Path Sports affiliate link — we may earn a commission at no extra cost to you.</p>
+      </div>
+      <div style="flex-shrink: 0;">
+        <a href="https://fas.st/t/RFjb8MmR" target="_blank" rel="nofollow noopener sponsored" class="btn-primary" style="white-space: nowrap;">Start Free Trial →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SITE FOOTER -->
+<div class="site-footer">
+  <div class="disclaimer">
+    This guide is for educational purposes. DFS and sports betting involve real financial risk. Past results do not guarantee future profit. Only bet what you can afford to lose. Ensure DFS platforms are legal in your jurisdiction before participating. Profit Path Sports is an educational resource. Bet responsibly. If gambling is a problem for you, call <strong>1-800-GAMBLER</strong>. Must be 21+ where legal.
+  </div>
+  <div>&copy; 2026 Profit Path Sports &middot; <a href="/index.html">Home</a> &middot; <a href="/privacy.html">Privacy</a> &middot; <a href="/disclaimer.html">Disclaimer</a> &middot; <a href="/affiliate-disclosure.html">Affiliate</a></div>
+</div>
+
+<script>
+  /* Sidebar behavior */
+  (function() {
+    var body = document.body;
+    var toggle = document.getElementById('ppsSidebarToggle');
+    var path = window.location.pathname.replace(/\/$/, '') || '/index.html';
+    var isHome = (path === '/index.html' || path === '' || path === '/');
+    document.querySelectorAll('.pps-sidebar .pps-nav-link').forEach(function(link) {
+      var href = link.getAttribute('href');
+      if (href === path || (isHome && href === '/index.html')) {
+        link.classList.add('active');
+        var parent = link.closest('details');
+        if (parent) parent.open = true;
+      }
+    });
+    toggle.addEventListener('click', function() { body.classList.toggle('pps-sidebar-open'); });
+    document.querySelectorAll('.pps-sidebar summary[data-anchor]').forEach(function(s) {
+      s.addEventListener('click', function() {
+        if (!isHome) return;
+        var anchor = s.getAttribute('data-anchor');
+        var target = document.getElementById(anchor);
+        if (target) { setTimeout(function() { target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 60); }
+      });
+    });
+    if (isHome) {
+      var autoOpened = false;
+      window.addEventListener('scroll', function() {
+        if (!autoOpened && window.scrollY > 600) { body.classList.add('pps-sidebar-open'); autoOpened = true; }
+      }, { passive: true });
+    } else {
+      body.classList.add('pps-sidebar-open');
+    }
+  })();
+</script>
+
+</body>
+</html>
