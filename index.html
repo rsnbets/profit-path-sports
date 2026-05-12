@@ -197,7 +197,9 @@
   }
 
   .section-head {
-    margin-bottom: 24px;
+    margin: 0 auto 24px;
+    text-align: center;
+    max-width: 720px;
   }
 
   .section-eyebrow {
@@ -209,6 +211,7 @@
     font-weight: 700;
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 8px;
     margin-bottom: 8px;
   }
@@ -240,6 +243,9 @@
     color: var(--muted);
     margin-top: 6px;
     letter-spacing: 0.3px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   /* ── About ── */
@@ -1078,6 +1084,7 @@
     cursor: pointer;
     list-style: none;
     position: relative;
+    padding-left: 130px;
     padding-right: 130px;
   }
   details.section > summary::-webkit-details-marker { display: none; }
@@ -1196,7 +1203,7 @@
     border-bottom: 1px solid var(--border-soft);
   }
   .section:last-of-type { border-bottom: none; }
-  details.section > summary { padding-right: 40px; }
+  details.section > summary { padding-left: 40px; padding-right: 40px; }
 
   /* Brand mark kept as original (Orbitron, gradient, glow). Tagline restyled below. */
   .brand-tagline {
