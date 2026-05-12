@@ -1353,6 +1353,9 @@
     letter-spacing: 0.5px;
   }
   .lead-magnet-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
     font-family: 'Orbitron', sans-serif;
     font-size: 11px;
     letter-spacing: 2px;
@@ -1363,18 +1366,24 @@
     background: var(--yellow);
     color: #181208;
     border: none;
-    cursor: not-allowed;
-    opacity: 0.7;
-    transition: all 0.15s;
-  }
-  .lead-magnet-btn:not(:disabled) {
+    text-decoration: none;
     cursor: pointer;
-    opacity: 1;
+    transition: all 0.15s;
+    box-shadow: 0 0 18px rgba(245,181,69,0.22);
   }
-  .lead-magnet-btn:not(:disabled):hover {
+  .lead-magnet-btn:hover {
     background: #f7c465;
     transform: translateY(-1px);
+    box-shadow: 0 0 28px rgba(245,181,69,0.38);
   }
+  .lead-magnet-email {
+    color: var(--yellow);
+    text-decoration: none;
+    font-weight: 700;
+    border-bottom: 1px dashed rgba(245,181,69,0.5);
+    transition: border-color 0.15s;
+  }
+  .lead-magnet-email:hover { border-bottom-color: var(--yellow); }
   @media (max-width: 600px) {
     .lead-magnet-card { padding: 24px 20px; }
     .lead-magnet-name { font-size: 22px; letter-spacing: 1.5px; }
@@ -2107,14 +2116,14 @@
 
     <!-- LEAD MAGNET: Sharp Exchange Playbook -->
     <div class="lead-magnet-card">
-      <div class="lead-magnet-badge">Free · Email signup</div>
+      <div class="lead-magnet-badge">Free · Email request</div>
       <div class="lead-magnet-icon">🩻</div>
       <div class="lead-magnet-eyebrow">The flagship deep-dive</div>
       <div class="lead-magnet-name">The Sharp Exchange Playbook</div>
       <div class="lead-magnet-desc">A free five-part deep-dive on the most underexplored edge in modern sports betting — exchange order books and how to read them. The whole playbook the public site doesn't get: <strong>what exchanges are and why they're different · how to read the order book like a trading desk · the manual sharp scan workflow · the calculator that automates the analysis · the maker tactic for posting your own price.</strong> Plus the specific signals we use daily — translation rule, imbalance reads, conviction overflows, BEST-vs-PX heuristic, posting in wide markets. Nothing else covers this for free.</div>
       <div class="lead-magnet-cta-row">
-        <div class="lead-magnet-cta-text">Free with email signup · coming soon</div>
-        <button class="lead-magnet-btn" disabled>Notify me ↗</button>
+        <div class="lead-magnet-cta-text">Email <a href="mailto:info@profitpathsports.com?subject=Sharp%20Exchange%20Playbook%20request&amp;body=Hey%20%E2%80%94%20I%27d%20like%20the%20Sharp%20Exchange%20Playbook.%20Thanks!" class="lead-magnet-email">info@profitpathsports.com</a> and we'll send you the link</div>
+        <a class="lead-magnet-btn" href="mailto:info@profitpathsports.com?subject=Sharp%20Exchange%20Playbook%20request&amp;body=Hey%20%E2%80%94%20I%27d%20like%20the%20Sharp%20Exchange%20Playbook.%20Thanks!">Request access ↗</a>
       </div>
     </div>
 
