@@ -528,6 +528,55 @@
   .footer a { color: var(--muted); text-decoration: none; }
   .footer a:hover { color: var(--blue); }
 
+  /* ── "Choose Your Path" intro + arrow fork ── */
+  .path-fork-intro {
+    text-align: center;
+    margin: 36px auto 18px;
+    max-width: 720px;
+  }
+  .path-fork-eyebrow {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--blue);
+    font-weight: 700;
+    margin-bottom: 10px;
+    opacity: 0.9;
+  }
+  .path-fork-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 28px;
+    font-weight: 900;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--text);
+    line-height: 1.1;
+    margin-bottom: 12px;
+  }
+  .path-fork-sub {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 15px;
+    color: var(--muted);
+    line-height: 1.55;
+    margin-bottom: 14px;
+  }
+  .path-fork-svg {
+    display: block;
+    width: 100%;
+    max-width: 520px;
+    height: auto;
+    margin: 0 auto;
+    color: var(--blue);
+    opacity: 0.55;
+    filter: drop-shadow(0 0 8px rgba(61,139,255,0.18));
+  }
+  @media (max-width: 600px) {
+    .path-fork-title { font-size: 22px; letter-spacing: 2px; }
+    .path-fork-sub { font-size: 14px; }
+    .path-fork-svg { max-width: 380px; }
+  }
+
   /* ── Featured "Bet X-Ray" exclusive tile (sits between hero pitch & path tiles) ── */
   .exclusive-tile {
     position: relative;
@@ -1686,39 +1735,46 @@
         Free calculators. Structured lesson curriculums. Welcome-offer playbooks. Honest reviews of every sportsbook worth using. <strong>No paywalls, no picks, no signup.</strong>
       </p>
 
-      <a class="exclusive-tile" href="bet-x-ray.html">
-        <span class="exclusive-badge">⚡ Exclusive · Free</span>
-        <div class="exclusive-icon">🩻</div>
-        <div class="exclusive-name">Bet X-Ray</div>
-        <div class="exclusive-tagline">Devig → EV → Kelly → Verdict · in one shot</div>
-        <p class="exclusive-desc">
-          See straight through any sports bet. The whole sharp-betting pipeline in one free tool — <strong>devig the market, calculate EV, size with Kelly, stress-test against your model error, preview CLV, estimate risk of ruin</strong>, and get a plain-English verdict at the end. <strong>Nothing else like it on the internet.</strong>
-        </p>
-        <span class="exclusive-cta">Launch Bet X-Ray →</span>
-      </a>
+      <div class="path-fork-intro">
+        <div class="path-fork-eyebrow">Start here</div>
+        <h2 class="path-fork-title">Choose Your Path</h2>
+        <p class="path-fork-sub">Four ways into the site, sorted by where you are right now. Pick whichever fits — no wrong answer.</p>
+        <svg class="path-fork-svg" viewBox="0 0 400 70" xmlns="http://www.w3.org/2000/svg" fill="none" aria-hidden="true">
+          <line x1="200" y1="0" x2="200" y2="22" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <line x1="50" y1="22" x2="350" y2="22" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <line x1="50" y1="22" x2="50" y2="52" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <line x1="150" y1="22" x2="150" y2="52" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <line x1="250" y1="22" x2="250" y2="52" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <line x1="350" y1="22" x2="350" y2="52" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <polyline points="42,46 50,56 58,46" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <polyline points="142,46 150,56 158,46" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <polyline points="242,46 250,56 258,46" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <polyline points="342,46 350,56 358,46" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
 
       <div class="hero-paths">
-        <a class="hero-path green" href="lane-bonus.html">
-          <div class="hero-path-icon">💰</div>
-          <div class="hero-path-eyebrow">Path 01</div>
-          <div class="hero-path-title">Bonus Hunter</div>
-          <div class="hero-path-desc">Convert sportsbook welcome offers and bonus bets into guaranteed cash. No betting knowledge required.</div>
-          <ul class="hero-path-list">
-            <li>3 concept lessons + walkthrough</li>
-            <li>4-step playbook to convert</li>
-            <li>Caesars + ProphetX starting pair</li>
-          </ul>
-          <div class="hero-path-cta">Enter Path 01 →</div>
-        </a>
         <a class="hero-path blue" href="lane-new.html">
           <div class="hero-path-icon">🎓</div>
-          <div class="hero-path-eyebrow">Path 02</div>
+          <div class="hero-path-eyebrow">Path 01</div>
           <div class="hero-path-title">New Bettor</div>
           <div class="hero-path-desc">Learn the math sportsbooks bake into every line — and how to use it before you place your first real bet.</div>
           <ul class="hero-path-list">
             <li>6-lesson curriculum</li>
             <li>Reading odds → CLV</li>
             <li>Concept first, math second</li>
+          </ul>
+          <div class="hero-path-cta">Enter Path 01 →</div>
+        </a>
+        <a class="hero-path green" href="lane-bonus.html">
+          <div class="hero-path-icon">💰</div>
+          <div class="hero-path-eyebrow">Path 02</div>
+          <div class="hero-path-title">Bonus Hunter</div>
+          <div class="hero-path-desc">Convert sportsbook welcome offers and bonus bets into guaranteed cash. No betting knowledge required.</div>
+          <ul class="hero-path-list">
+            <li>3 concept lessons + walkthrough</li>
+            <li>4-step playbook to convert</li>
+            <li>Caesars + ProphetX starting pair</li>
           </ul>
           <div class="hero-path-cta">Enter Path 02 →</div>
         </a>
@@ -1747,6 +1803,17 @@
           <div class="hero-path-cta">Open the Toolbox →</div>
         </a>
       </div>
+
+      <a class="exclusive-tile" href="bet-x-ray.html">
+        <span class="exclusive-badge">⚡ Exclusive · Free</span>
+        <div class="exclusive-icon">🩻</div>
+        <div class="exclusive-name">Bet X-Ray</div>
+        <div class="exclusive-tagline">Devig → EV → Kelly → Verdict · in one shot</div>
+        <p class="exclusive-desc">
+          See straight through any sports bet. The whole sharp-betting pipeline in one free tool — <strong>devig the market, calculate EV, size with Kelly, stress-test against your model error, preview CLV, estimate risk of ruin</strong>, and get a plain-English verdict at the end. <strong>Nothing else like it on the internet.</strong>
+        </p>
+        <span class="exclusive-cta">Launch Bet X-Ray →</span>
+      </a>
     </div>
   </div>
 
