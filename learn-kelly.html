@@ -246,28 +246,68 @@
   </div>
 
   <section class="lesson-section">
-    <h3>What is it?</h3>
+    <h3>What is it? — the coin flip thought experiment</h3>
     <div class="lesson-body">
-      <p>You found a <a href="/learn-ev.html" style="color:var(--blue)">+EV bet</a>. Now: how much of your bankroll should you risk on it?</p>
-      <p>Bet too little and you leave money on the table. Bet too much and a normal cold streak wipes you out — even when every bet was a good one. The <strong>Kelly Criterion</strong> is the math formula that finds the sweet spot.</p>
-      <p>It tells you the optimal percentage of your bankroll to risk per bet, given your edge and the odds. The same formula professional bettors, traders, and quant funds use to size positions. It's not a rule of thumb — it's an answer to a math problem.</p>
+      <p>Your friend offers you a bet on a coin flip. Fair coin — 50/50 — but he's paying <strong>+110</strong>. You win, you get $1.10 for every $1 you bet. You lose, you lose your $1.</p>
+      <p><strong>If it's a one-shot bet, it's a no-brainer.</strong> The math: <em>0.5 × $1.10 − 0.5 × $1.00 = +$0.05</em> of expected value per dollar bet. A 5% edge. Take it every time.</p>
+      <p>Now your friend says: <strong>same bet, but unlimited flips, on a fixed bankroll.</strong> How much should you bet on each flip?</p>
+      <p>There has to be an optimal amount. The two extremes are obviously wrong:</p>
+      <ul>
+        <li><strong>Bet 100%</strong> of your bankroll every flip → you'll lose roughly half the time → the first loss busts you out and you can never bet again. <em>A 5% edge ruined you.</em> Long-run growth: zero, permanently.</li>
+        <li><strong>Bet 0%</strong> → no growth at all.</li>
+      </ul>
+      <p>Somewhere between 0% and 100% is the bet size that maximizes the <em>long-run growth rate</em> of your bankroll. That sweet spot is what the <strong>Kelly Criterion</strong> calculates. It's the answer to the math problem: <em>given my edge and my odds, what fraction of my bankroll should I bet to grow it fastest without going broke?</em></p>
+      <p>For your +110 coin flip, the answer is <strong>~4.55% of your current bankroll on each flip.</strong> A $1,000 bankroll = $45.45 per flip. Win, next bet is 4.55% of the bigger stack. Lose, next bet is 4.55% of the smaller one. <strong>Bet size always scales with bankroll. A single loss is never fatal.</strong></p>
+      <p>Same formula professional bettors, traders, and quant funds use to size positions. Not a rule of thumb — an answer to a math problem.</p>
     </div>
   </section>
 
   <section class="lesson-section">
     <h3>The math behind it</h3>
     <div class="lesson-body">
-      <p>For a bet with 55% true probability at +100 odds (decimal 2.0):</p>
+      <p>Kelly's formula spits out the fraction of bankroll to bet, given your edge and odds:</p>
 
       <div class="math-block">
         <span class="label">Kelly stake as a percentage of bankroll</span>
-        Kelly%  =  (<span class="accent">decimal odds</span> × <span class="accent">true prob</span> − 1) / (<span class="accent">decimal odds</span> − 1)<br>
-                =  (2.0 × 0.55 − 1) / (2.0 − 1)<br>
+        Kelly%  =  (<span class="accent">decimal odds</span> × <span class="accent">true prob</span> − 1) / (<span class="accent">decimal odds</span> − 1)
+      </div>
+
+      <p>For the coin flip from above — +110 (decimal 2.10), 50% true probability:</p>
+
+      <div class="math-block">
+        <span class="label">Coin flip example</span>
+        Kelly%  =  (2.10 × 0.50 − 1) / (2.10 − 1)<br>
+                =  0.05 / 1.10<br>
+                =  <span class="pos">4.55%</span>
+      </div>
+
+      <p>For a bet you might actually see in sports — say 55% true probability at +100 odds (decimal 2.0):</p>
+
+      <div class="math-block">
+        <span class="label">Sports bet example</span>
+        Kelly%  =  (2.0 × 0.55 − 1) / (2.0 − 1)<br>
                 =  0.10 / 1.0<br>
                 =  <span class="pos">10%</span>
       </div>
 
-      <p>You'd risk 10% of your bankroll on this bet. On a $1,000 bankroll, that's a $100 bet. The bigger your edge, the bigger the bet — that's the whole logic.</p>
+      <p>On a $1,000 bankroll, that's a $100 bet. The bigger your edge relative to the odds, the bigger the Kelly fraction — that's the whole logic.</p>
+    </div>
+  </section>
+
+  <section class="lesson-section">
+    <h3>The peak — and the cliff just past it</h3>
+    <div class="lesson-body">
+      <p>The most counterintuitive part of Kelly: <strong>you can lose money long-term placing only +EV bets if you size them wrong.</strong></p>
+      <p>The curve has a peak at the Kelly fraction. To the left of the peak (smaller bets), you grow slower. To the right of the peak, you don't just grow slower — you fall off a cliff.</p>
+      <div class="math-block">
+        <span class="label">For the +110 coin flip — bet size vs. long-run growth</span>
+        <span class="accent">Below Kelly (~2%)</span>     →  Slower growth, but still positive<br>
+        <span class="pos">At Kelly (~4.55%)</span>   →  Maximum long-run growth (the peak)<br>
+        <span class="accent">Double Kelly (~9%)</span>    →  <span class="neg">Zero</span> long-run growth — variance eats the edge<br>
+        <span class="accent">Triple Kelly (~14%)</span>   →  <span class="neg">Negative</span> growth — you lose money on +EV bets
+      </div>
+      <p>That's not a typo. <em>Triple Kelly on a +EV bet loses money over time.</em> The reason: bankrolls grow geometrically, not arithmetically. A 50% loss requires a 100% gain to recover. The bigger the bet size, the deeper the drawdowns, and at some point the drawdowns swamp the wins no matter how much edge you have.</p>
+      <p>Kelly finds the peak. Past the peak, the math turns on you fast.</p>
     </div>
   </section>
 
