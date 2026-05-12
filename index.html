@@ -600,6 +600,24 @@
   .featured-pair {
     margin: 48px 0 28px;
   }
+  /* Bigger gap (with a subtle divider) between consecutive featured sections */
+  .featured-pair + .featured-pair {
+    margin-top: 96px;
+    position: relative;
+  }
+  .featured-pair + .featured-pair::before {
+    content: '';
+    position: absolute;
+    top: -48px;
+    left: 35%;
+    right: 35%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border), transparent);
+  }
+  @media (max-width: 640px) {
+    .featured-pair + .featured-pair { margin-top: 64px; }
+    .featured-pair + .featured-pair::before { top: -32px; left: 25%; right: 25%; }
+  }
   .featured-pair-head {
     text-align: center;
     margin: 0 auto 28px;
