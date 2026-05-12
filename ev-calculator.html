@@ -85,6 +85,16 @@
     color: var(--blue);
     text-transform: uppercase;
   }
+  .title-sub {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.6;
+    max-width: 620px;
+    margin: 12px auto 0;
+    padding: 0 14px;
+  }
+  .title-sub strong { color: var(--text); font-weight: 600; }
   .title-strip h1 .bolt {
     color: var(--yellow);
     filter: drop-shadow(0 0 6px rgba(245, 181, 69, 0.6));
@@ -333,6 +343,7 @@
 
 <div class="title-strip">
   <h1><span class="bolt">⚡</span> EV Calculator <span class="bolt">⚡</span></h1>
+  <p class="title-sub">Every winning bettor runs this math on every bet. <strong>Most losing bettors place hundreds without ever opening one.</strong> Type your bet's price and the fair (no-vig) price — get EV in %, EV in dollars, and Kelly stake.</p>
   <a href="#how-to-use" class="how-to-jump">How to use this ↓</a>
 </div>
 
