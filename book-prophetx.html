@@ -304,20 +304,10 @@
       <p>Now flip that around. <strong>On an exchange, when you POST your own price, you're acting as the sportsbook.</strong> The taker who hits your offer is doing what you did at FanDuel — betting their money on one side of a market — and you've stepped into the bookmaker's seat to take the opposite side. Your role: stake enough capital to cover the taker's payout if they win, collect their stake if they lose, set the prices you're willing to trade at.</p>
 
       <div class="callout">
-        <strong>The framing:</strong> when you take an existing exchange offer, you're acting like a sportsbook customer. When you post your own offer, you're acting like the sportsbook itself. Both are legitimate ways to bet — they just have different risk/reward profiles. The exchanges let you choose which role to play on each bet.
+        <strong>The framing:</strong> when you take an existing exchange offer, you're acting like a sportsbook customer. When you post your own offer, you're acting like the sportsbook itself. The exchanges let you choose which role to play on each bet.
       </div>
 
-      <h4>Maker vs. taker — the part most people miss</h4>
-      <p>At a normal sportsbook, you have one move: take the posted price or don't. On an exchange, you have <em>two</em>:</p>
-      <ul>
-        <li><strong>Taker</strong> — accept an existing offer. You're acting like a normal bettor. Instant fill at the posted price. Same as a market order in stock trading.</li>
-        <li><strong>Maker</strong> — post your own offer at the price <em>you</em> want. You're acting like the sportsbook. Sit in the order book until another user takes it (or you cancel). Same as a limit order in stock trading.</li>
-      </ul>
-      <p>Making is where the real edge lives. If the consensus fair price is −106 and someone's offering −115, you can post your own offer at −108 and often get taken before the market closes. You captured a better price than the visible market by being patient — and you're collecting from the next taker the same way DraftKings collects from theirs.</p>
-
-      <div class="callout">
-        <strong>This needs its own lesson.</strong> Maker orders, order-book depth, when to take vs. wait, how to think about fees per market — exchange betting has a learning curve that's closer to crypto/stock trading than to traditional sportsbook UX. A dedicated guide is coming.
-      </div>
+      <p><strong>For hedging — the workflow that matters when you're converting bonus bets at the other books — you'll always take.</strong> Hedging is about locking in a price and an amount immediately so you're not exposed if the line moves. Posting your own offer (the "maker" side) doesn't fit that use case — it's a different, more advanced workflow that's about <em>finding edge</em> rather than locking it in. We cover the full maker workflow, order-book reads, and the sharp-side scan in the <a href="/exchange-playbook.html">Sharp Exchange Playbook</a>.</p>
     </div>
   </section>
 
@@ -385,10 +375,10 @@
       <ol>
         <li>Sign up at ProphetX with referral code <strong style="color: var(--purple);">QEO8QG</strong> (link below).</li>
         <li>Verify identity and confirm you're in an eligible state.</li>
-        <li>Deposit. Start small — get familiar with the order book before scaling.</li>
-        <li>Place a <em>taker</em> bet first to learn the flow. Pick a mainstream market with deep liquidity (NFL/NBA moneyline).</li>
-        <li>Try a <em>maker</em> bet next. Post your own offer 1-3 cents better than the market and see if it fills.</li>
-        <li>Read our <a href="/learn-arbitrage.html">arbitrage guide</a> for the playbook that uses PX as the sharp-side hedge.</li>
+        <li>Deposit enough to cover your planned hedges across the other books. Start with one welcome offer at a time and scale from there.</li>
+        <li>Place a small taker bet first to learn the flow — pick a mainstream market with deep liquidity (NFL/NBA moneyline) and bet $5-10 to confirm everything works end-to-end.</li>
+        <li>For your first hedge: open a bonus offer at one of the recreational books (e.g. <a href="/book-draftkings.html">DraftKings</a>), pick a long-odds bonus-conversion candidate, then check the ProphetX order book on the opposite side to confirm there's enough liquidity at the price you need before placing.</li>
+        <li>Once the hedge workflow feels natural, read the <a href="/exchange-playbook.html">Sharp Exchange Playbook</a> to learn the maker / sharp-side workflow — where the bigger edge lives once you've mastered the basics.</li>
       </ol>
     </div>
   </section>
