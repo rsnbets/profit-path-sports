@@ -694,9 +694,9 @@
   /* ── Hero lane buttons (4-column tall cards, lanes link to dedicated pages) ── */
   .hero-paths {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 14px;
-    max-width: 1180px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    max-width: 1100px;
     margin: 36px auto 0;
   }
 
@@ -1128,7 +1128,11 @@
   }
   @media (min-width: 601px) and (max-width: 980px) {
     .lane-grid { grid-template-columns: 1fr; }
-    .hero-paths { grid-template-columns: repeat(2, 1fr); max-width: 600px; }
+    /* 3-tile path grid stays 3-col on tablets too (2-col would orphan one tile) */
+    .hero-paths { grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .hero-path { padding: 18px 16px 16px; }
+    .hero-path-title { font-size: 22px; }
+    .hero-path-desc { font-size: 13.5px; }
   }
 
   /* ─────────────────────────────────────────────────
@@ -1740,25 +1744,23 @@
       <div class="path-fork-intro">
         <div class="path-fork-eyebrow">Start here</div>
         <h2 class="path-fork-title">Choose Your Path</h2>
-        <p class="path-fork-sub">Four ways into the site, sorted by where you are right now. Pick whichever fits — no wrong answer.</p>
+        <p class="path-fork-sub">Three stages, recommended in order. Skip what you already know — absorb what you don't.</p>
       </div>
 
-      <!-- Arrow fork — full grid width, arrows aligned to path tile columns -->
+      <!-- Arrow fork — 3 arrows aligned to the 3 path tile columns (~16.67%, 50%, 83.33%) -->
       <svg class="path-fork-svg" viewBox="0 0 400 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" fill="none" aria-hidden="true">
         <!-- vertical stem from headline -->
         <line x1="200" y1="0" x2="200" y2="28" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
         <!-- horizontal branch bar -->
-        <line x1="50" y1="28" x2="350" y2="28" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-        <!-- 4 long vertical drops aligned with path tile centers (12.5%, 37.5%, 62.5%, 87.5%) -->
-        <line x1="50" y1="28" x2="50" y2="90" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-        <line x1="150" y1="28" x2="150" y2="90" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-        <line x1="250" y1="28" x2="250" y2="90" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-        <line x1="350" y1="28" x2="350" y2="90" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-        <!-- 4 arrowheads at the bottom, just above where the tiles start -->
-        <polyline points="42,82 50,94 58,82" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-        <polyline points="142,82 150,94 158,82" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-        <polyline points="242,82 250,94 258,82" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-        <polyline points="342,82 350,94 358,82" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <line x1="67" y1="28" x2="333" y2="28" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        <!-- 3 long vertical drops at column centers (16.67%, 50%, 83.33%) -->
+        <line x1="67" y1="28" x2="67" y2="90" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="200" y1="28" x2="200" y2="90" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="333" y1="28" x2="333" y2="90" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        <!-- 3 arrowheads at the bottom -->
+        <polyline points="59,82 67,94 75,82" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <polyline points="192,82 200,94 208,82" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <polyline points="325,82 333,94 341,82" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
       </svg>
 
       <div class="hero-paths">
@@ -1786,29 +1788,17 @@
           </ul>
           <div class="hero-path-cta">Enter Path 02 →</div>
         </a>
-        <a class="hero-path gold" href="lane-losing.html">
-          <div class="hero-path-icon">🔍</div>
+        <a class="hero-path gold" href="lane-maintain.html">
+          <div class="hero-path-icon">🎯</div>
           <div class="hero-path-eyebrow">Path 03</div>
-          <div class="hero-path-title">Losing Bettor</div>
-          <div class="hero-path-desc">Already losing and not sure why? Rebuild your bankroll first, then learn what's been quietly draining it.</div>
+          <div class="hero-path-title">Maintain</div>
+          <div class="hero-path-desc">Now make it sustainable. Track every bet, find +EV consistently, manage your variance. The long-term EV-betting playbook — the one you'll live in once the basics and bonuses are behind you.</div>
           <ul class="hero-path-list">
-            <li>Stop the bleeding (bonus restart)</li>
-            <li>Diagnostic Bet Tracker</li>
-            <li>Vig + EV + Kelly lessons</li>
+            <li>Track · Hunt · Manage</li>
+            <li>Cross-Market EV + smart angles</li>
+            <li>Full calculator toolkit</li>
           </ul>
           <div class="hero-path-cta">Enter Path 03 →</div>
-        </a>
-        <a class="hero-path purple" href="lane-sharp.html">
-          <div class="hero-path-icon">⚡</div>
-          <div class="hero-path-eyebrow">Path 04</div>
-          <div class="hero-path-title">Sharp</div>
-          <div class="hero-path-desc">The toolkit you already use, free and no-signup. Calculators built around the math sharps actually run.</div>
-          <ul class="hero-path-list">
-            <li>Free calculator suite</li>
-            <li>Same math, no premium tier</li>
-            <li>Bet Tracker stays in your browser</li>
-          </ul>
-          <div class="hero-path-cta">Open the Toolbox →</div>
         </a>
       </div>
 
