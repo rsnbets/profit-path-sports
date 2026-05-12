@@ -167,7 +167,7 @@
       <a class="pps-nav-link" href="/index.html">Home</a>
       <div class="pps-nav-group-label">Paths</div>
       <details class="pps-nav-group pps-path-group path-blue">
-        <summary><span class="pps-path-label"><span class="pps-nav-num">01</span> Begin</span></summary>
+        <summary data-anchor="paths"><span class="pps-path-label"><span class="pps-nav-num">01</span> Begin</span></summary>
         <a class="pps-nav-link" href="/lane-new.html">Path Overview</a>
         <a class="pps-nav-link" href="/learn-odds.html">Odds Formats</a>
         <a class="pps-nav-link" href="/learn-implied.html">Implied Probability</a>
@@ -178,7 +178,7 @@
         <a class="pps-nav-link" href="/learn-parlays.html">Parlays</a>
       </details>
       <details class="pps-nav-group pps-path-group path-green">
-        <summary><span class="pps-path-label"><span class="pps-nav-num">02</span> Convert</span></summary>
+        <summary data-anchor="paths"><span class="pps-path-label"><span class="pps-nav-num">02</span> Convert</span></summary>
         <a class="pps-nav-link" href="/lane-bonus.html">Path Overview</a>
         <a class="pps-nav-link" href="/learn-bonus.html">Bonus Conversion</a>
         <a class="pps-nav-link" href="/learn-bonus-types.html">Bonus Types</a>
@@ -186,7 +186,7 @@
         <a class="pps-nav-link" href="/learn-bonus-walkthrough.html">Walkthrough</a>
       </details>
       <details class="pps-nav-group pps-path-group path-gold">
-        <summary><span class="pps-path-label"><span class="pps-nav-num">03</span> Maintain</span></summary>
+        <summary data-anchor="paths"><span class="pps-path-label"><span class="pps-nav-num">03</span> Maintain</span></summary>
         <a class="pps-nav-link" href="/lane-maintain.html">Path Overview</a>
         <a class="pps-nav-link" href="/learn-prob-gap-vs-ev.html">Prob Gap vs EV</a>
         <a class="pps-nav-link" href="/learn-arbitrage.html">Arbitrage</a>
@@ -202,7 +202,7 @@
       </details>
       <div class="pps-nav-group-label">Tools</div>
       <details class="pps-nav-group">
-        <summary>Calculators</summary>
+        <summary data-anchor="tools">Calculators</summary>
         <a class="pps-nav-link" href="/bet-x-ray.html">Bet X-Ray</a>
         <a class="pps-nav-link" href="/ev-calculator.html">EV Calculator</a>
         <a class="pps-nav-link" href="/devig_calculator.html">Devig</a>
@@ -352,6 +352,19 @@
 
     toggle.addEventListener('click', function() {
       body.classList.toggle('pps-sidebar-open');
+    });
+
+    document.querySelectorAll('.pps-sidebar summary[data-anchor]').forEach(function(s) {
+      s.addEventListener('click', function() {
+        if (!isHome) return;
+        var anchor = s.getAttribute('data-anchor');
+        var target = document.getElementById(anchor);
+        if (target) {
+          setTimeout(function() {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }, 60);
+        }
+      });
     });
 
     if (isHome) {
