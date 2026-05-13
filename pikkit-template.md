@@ -445,14 +445,21 @@ Once Pikkit traction is real (say, 200+ followers or 30+ posts in), the next big
 
 ### Highest-priority single video to build first
 
-**PTO free bonus converter setup walkthrough** — short (~3 min), screen-recorded, shows:
-- Signing up for a free Pick the Odds account
-- Where to find the Promo / Bonus Converter tool
-- The exact filter settings for a FanDuel-to-ProphetX bonus conversion (bonus book, hedge book, odds range)
-- How to read the results and pick a candidate
-- Handoff to PPS Bonus Converter for the final stake math
+**PTO Free Bet Converter walkthrough** — short (~3 min), screen-recorded, shows:
+- Signing up for a free Pick the Odds account at picktheodds.app
+- Where the Free Bet Converter lives in the sidebar (calculator-style icon)
+- How to read the table: game / bet / FanDuel side / ProphetX side / conversion %
+- Adjusting the wager amount (default $25, drop to $10 for first conversion)
+- Sorting by conversion % to find the best candidates
+- Picking a row above 75% and verifying the prices in each book's app before placing
+- Optional: handoff to PPS Bonus Converter to double-check the matching bet size
 
-This is the #1 friction point for the Free Money Guide funnel. The Tier 1 path in `learn-finding-bonus-bets.html` recommends PTO free as the starting tool — but a total newbie won't know how to set it up. Embed this video in both `learn-finding-bonus-bets.html` Tier 1 section AND `free-money-guide.html` Step 2 once it exists.
+This is the #1 friction point for the Free Money Guide funnel. The Tier 1 path in `learn-finding-bonus-bets.html` recommends PTO Free Bet Converter as the starting tool — but a total newbie hasn't seen the interface before. The video removes that friction.
+
+Embed locations once built:
+- `learn-finding-bonus-bets.html` Tier 1 section (replaces the "coming soon" placeholder)
+- `free-money-guide.html` Step 2 (in the green "★ THE EASIEST WAY" callout)
+- Possibly the Path 02 lane overview page
 
 ---
 
