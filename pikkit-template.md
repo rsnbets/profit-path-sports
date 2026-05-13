@@ -216,6 +216,51 @@ Expect FD to drop to +110 / +120 by tip. Track CLV at lock.
 
 ---
 
+## Live CLV update (pre-game follow-up comment)
+
+Post this as a **comment under the original Pikkit post** when the line moves toward fair before the game starts. This is the highest-value content PPS can produce — public, time-stamped proof that the math identified a real edge.
+
+### Template
+
+```
+📈 LIVE CLV UPDATE · [Player] [Market] [Line] [Side]
+
+Posted: [Posted odds] @ [Book]
+Now:    [Current odds] @ [Book]
+Moved:  −[X] cents toward fair ([Y]% of expected convergence captured pre-game)
+
+Fair ([Source A]):  [Fair-A]
+Fair ([Source B]):  [Fair-B]
+
+This is what +EV looks like before the game even starts. Whether the
+[side] hits is variance. The line moving is the signal — the market
+is agreeing with the math.
+
+#WinningCLV #SharpAction #PlusEV #[Sport]
+```
+
+### Math reference
+
+- **Cents moved** = `posted_odds - current_odds` (for plus odds; flip sign for minus)
+- **% of expected convergence captured** = `cents_moved / (posted_odds - fair_odds)` × 100
+  - Use the more conservative fair line (Market Avg, not PX) for the denominator so we don't overstate
+  - Caps at 100% — if the line moves past fair, we've captured >100% which is even better
+
+### Worked example — Courtney Williams (post-time +140 → mid-day +134)
+
+- Posted: +140 · Now: +134 · Moved: 6 cents toward fair
+- Expected total convergence to mkt-avg fair (+127): 13 cents
+- Captured: 6 / 13 = **46% of expected pre-game CLV**
+- Alt frame: vs PX fair (+120), expected convergence is 20 cents, captured 30% — pick the more conservative frame in the post (the higher %)
+
+### When to post the Live CLV Update
+
+- **Best window:** 1-4 hours after the original post, before lineups lock
+- **Trigger:** ≥3 cents of movement toward fair on the same book you posted from
+- **Don't post if:** the line moved AGAINST your bet (just let the original ride; post the grading update after the game regardless of result)
+
+---
+
 ## Post-game grading workflow (for later)
 
 After the game settles, follow up the original Pikkit post with a grading comment:
