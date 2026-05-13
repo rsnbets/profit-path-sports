@@ -2503,6 +2503,122 @@
     .path-fork-intro { margin-top: 56px; }
     .v2-starter-kit { padding: 22px 22px; }
   }
+
+  /* ─────────── PPS Originals (Phase B) ─────────── */
+  .v2-originals { margin: 56px 0 28px; }
+  .v2-originals-head {
+    text-align: center;
+    max-width: 720px; margin: 0 auto 32px;
+  }
+  .v2-originals-eyebrow {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 10px; font-weight: 700;
+    letter-spacing: .3em; text-transform: uppercase;
+    color: var(--cyan);
+    margin-bottom: 14px;
+  }
+  .v2-originals-title {
+    font-family: 'DM Serif Display', serif;
+    font-weight: 400; font-style: normal;
+    font-size: clamp(26px, 3.4vw, 40px);
+    line-height: 1.1;
+    color: var(--text);
+    letter-spacing: -.005em;
+    margin-bottom: 14px;
+  }
+  .v2-originals-sub {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 14.5px; font-weight: 300;
+    line-height: 1.65;
+    color: var(--muted);
+    margin: 0 auto;
+  }
+  .v2-originals-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  @media (max-width: 880px) { .v2-originals-grid { grid-template-columns: 1fr; } }
+
+  .v2-original {
+    background: var(--surface);
+    border: 1px solid var(--border-2);
+    border-radius: 14px;
+    padding: 32px 30px;
+    text-decoration: none;
+    color: var(--text);
+    transition: all .25s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative; overflow: hidden;
+    display: flex; flex-direction: column;
+    text-align: left;
+  }
+  .v2-original::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(to right, var(--green), transparent);
+    opacity: 0.4;
+    transition: opacity .25s;
+  }
+  .v2-original:hover {
+    border-color: var(--green-border);
+    background: linear-gradient(135deg, var(--green-faint), var(--surface));
+    transform: translateY(-2px);
+    box-shadow: 0 0 32px rgba(77,255,120,0.08);
+  }
+  .v2-original:hover::before { opacity: 1; }
+  .v2-original-tag {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 10px; font-weight: 600;
+    letter-spacing: .25em; text-transform: uppercase;
+    color: var(--cyan);
+    margin-bottom: 14px;
+  }
+  .v2-original-name {
+    font-family: 'DM Serif Display', serif;
+    font-weight: 400; font-style: normal;
+    font-size: clamp(28px, 3.4vw, 40px);
+    color: var(--text); line-height: 1;
+    letter-spacing: -.005em;
+    margin-bottom: 8px;
+  }
+  .v2-original-name .accent {
+    color: var(--green);
+    font-style: italic;
+  }
+  .v2-original-tagline {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 13px; font-weight: 400;
+    color: var(--muted);
+    line-height: 1.5;
+    margin-bottom: 18px;
+  }
+  .v2-original-tagline .mono {
+    font-family: 'DM Mono', monospace;
+    color: var(--cyan);
+    font-size: 12px;
+    letter-spacing: .02em;
+  }
+  .v2-original-desc {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 14px; font-weight: 300;
+    line-height: 1.7;
+    color: var(--muted);
+    margin-bottom: 22px;
+    flex: 1;
+  }
+  .v2-original-desc strong { color: var(--text); font-weight: 600; }
+  .v2-original-cta {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 11px; font-weight: 700;
+    letter-spacing: .18em; text-transform: uppercase;
+    color: var(--green);
+    margin-top: auto;
+    padding-top: 14px;
+    border-top: 1px solid var(--border-2);
+    transition: color .18s;
+  }
+  .v2-original:hover .v2-original-cta { color: var(--green); filter: brightness(1.1); }
 </style>
 </head>
 <body>
@@ -2695,24 +2811,31 @@
     </div>
   </div>
 
-  <!-- ═══ FEATURED — Bet X-Ray (the tool) ═══ -->
-  <section class="featured-pair">
-    <div class="featured-pair-head">
-      <div class="section-eyebrow purple">Free · PPS Exclusive</div>
-      <div class="section-title">The ultimate bet calculator</div>
-      <div class="section-sub">Every other site makes you bounce between five separate calculators. Bet X-Ray runs the whole sharp pipeline — devig → EV → Kelly → CLV preview → verdict — in one shot. You won't find this anywhere else.</div>
+  <!-- ═══ PPS ORIGINALS — in-house tools no one else publishes ═══ -->
+  <section class="v2-originals">
+    <div class="v2-originals-head">
+      <div class="v2-originals-eyebrow">★ PPS Originals · Built In-House</div>
+      <h2 class="v2-originals-title">Tools that don't exist anywhere else.</h2>
+      <p class="v2-originals-sub">Two free calculators we built from scratch because the sharp pipeline they run wasn't available to anyone outside private syndicates. No paywall, no signup — they're here because they should be.</p>
     </div>
 
-    <a class="exclusive-tile" href="bet-x-ray.html">
-      <span class="exclusive-badge">⚡ Exclusive · Free</span>
-      <div class="exclusive-icon">🩻</div>
-      <div class="exclusive-name">Bet X-Ray</div>
-      <div class="exclusive-tagline">Devig → EV → Kelly → Verdict · in one shot</div>
-      <p class="exclusive-desc">
-        See straight through any sports bet. The whole sharp-betting pipeline in one free tool — <strong>devig the market, calculate EV, size with Kelly, stress-test against your model error, preview CLV, estimate risk of ruin</strong>, and get a plain-English verdict at the end. <strong>Nothing else like it on the internet.</strong>
-      </p>
-      <span class="exclusive-cta">Launch Bet X-Ray →</span>
-    </a>
+    <div class="v2-originals-grid">
+      <a class="v2-original" href="/bet-x-ray.html">
+        <div class="v2-original-tag">Original 01 · Flagship</div>
+        <div class="v2-original-name">Bet <span class="accent">X-Ray.</span></div>
+        <div class="v2-original-tagline"><span class="mono">Devig → EV → Kelly → Verdict</span> · in one shot</div>
+        <p class="v2-original-desc">See straight through any sports bet. The complete sharp-betting pipeline in one free tool — <strong>devig the market, calculate EV, size with Kelly, stress-test against model error, preview CLV, estimate risk of ruin</strong>, and get a plain-English verdict at the end.</p>
+        <span class="v2-original-cta">Launch Bet X-Ray →</span>
+      </a>
+
+      <a class="v2-original" href="/parlay-the-smart-way.html">
+        <div class="v2-original-tag">Original 02 · Strategy + Calc</div>
+        <div class="v2-original-name">The <span class="accent">Triple Stack.</span></div>
+        <div class="v2-original-tagline"><span class="mono">Boost + Sharp Legs + Arb-Middle Hedge</span> · stacked-edge parlay play</div>
+        <p class="v2-original-desc">Sportsbooks love parlays because they almost always win on them. There's a specific kind of parlay where the math runs the other way — <strong>three independent edges on one ticket</strong>. The full strategy guide plus a free calculator that returns your real per-parlay EV.</p>
+        <span class="v2-original-cta">Read the play →</span>
+      </a>
+    </div>
   </section>
 
   <!-- TOOLBOX — visible under the lane tiles -->
