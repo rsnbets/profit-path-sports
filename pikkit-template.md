@@ -15,7 +15,7 @@ PPS does not give out picks as its product. The X-Ray calculator and the educati
 **Every post is an example of methodology**, not a recommendation. The bet is the vehicle; the X-Ray demonstration is the cargo. Readers should leave wanting to *run the X-Ray themselves*, not wanting to copy the bet.
 
 **Posting discipline:**
-- **Max 1-3 posts/day**, varying the *type* of edge demonstrated (stale line / alt-ladder / cross-market / devig discrepancy / live middle / etc.)
+- **Max 1-3 posts/day.** Label each post with whatever edge type actually showed up — don't force category variety. Stale lines, alt-ladder gaps, cross-market plays, devig discrepancies, and live middles all surface organically over a week of honest screening. Trying to hunt a specific type on a specific day leads to lower-quality plays or mislabeled posts.
 - **Every post ends with the home CTA** — see the "Required outbound CTA" section below
 - **60-90 day traction window**, then transition Pikkit to a weekly stats-recap channel (CLV %, ROI, hit rate) rather than daily plays
 - **Never use language that says "tail me," "copy this," "lock," "free money," or "guaranteed."** Always frame as "here's what the tool found" / "here's the pattern"
@@ -91,7 +91,7 @@ The tool, not the tip → profitpathsports.com/bet-x-ray.html
 🩻 X-RAY DEMO · [Player/Team] [Market] [Line] [Side] @ [Book] [Odds]
 
 EDGE TYPE: [Stale line · Alt-ladder gap · Cross-market · Devig discrepancy · Live middle]
-   ↑ pick one — varies what readers learn each post
+   ↑ label whichever pattern actually surfaced — don't force a category
 
 📊 X-RAY · TWO DEVIG SOURCES (same calc, two runs)
 
