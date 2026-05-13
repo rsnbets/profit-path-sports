@@ -102,12 +102,16 @@
   .edge-card p { font-family: 'Rajdhani', sans-serif; font-size: 14.5px; line-height: 1.55; color: var(--muted); margin: 0; }
   .edge-card p strong { color: var(--text); font-weight: 600; }
 
-  /* Math block */
-  .math-block { background: var(--panel-deep); border: 1px solid var(--border-soft); border-radius: 10px; padding: 18px 22px; margin: 16px 0; font-family: 'JetBrains Mono', monospace; font-size: 13.5px; line-height: 1.7; color: var(--text); overflow-x: auto; white-space: pre; }
-  .math-block .label { display: block; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--yellow); margin-bottom: 8px; }
-  .math-block .pos { color: var(--green); }
-  .math-block .neg { color: var(--red); }
-  .math-block .accent { color: var(--yellow); }
+  /* Math stat cards */
+  .stat-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 18px 0 10px; }
+  @media (max-width: 720px) { .stat-row { grid-template-columns: repeat(2, 1fr); } }
+  .stat-card { background: var(--panel-deep); border: 1px solid var(--border-soft); border-radius: 10px; padding: 18px 14px; text-align: center; }
+  .stat-card.hero { border-color: var(--yellow); background: linear-gradient(135deg, rgba(245,181,69,0.08), var(--panel-deep)); box-shadow: 0 0 20px var(--yellow-glow); }
+  .stat-num { font-family: 'Orbitron', sans-serif; font-size: 28px; font-weight: 900; color: var(--text); letter-spacing: 0.02em; line-height: 1; margin-bottom: 8px; }
+  .stat-num.pos { color: var(--green); }
+  .stat-num.accent { color: var(--yellow); }
+  .stat-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); font-weight: 700; line-height: 1.4; }
+  @media (max-width: 600px) { .stat-num { font-size: 22px; } }
 
   /* Analogy callout (yellow theme to match this page) */
   .analogy { background: rgba(245, 181, 69, 0.05); border: 1px solid rgba(245, 181, 69, 0.30); border-left: 3px solid var(--yellow); border-radius: 10px; padding: 20px 24px; margin: 20px 0; }
@@ -347,40 +351,40 @@
   </section>
 
   <section class="lesson-section">
-    <h3>The math, in one block</h3>
+    <h3>The math at a glance</h3>
     <div class="lesson-body">
-      <p>Take a 4-leg parlay, $100 stake, each leg an alt-favorite around -200 (sharp lean ~72% true win prob). +30% boost applied. Final leg gets a +110 hedge at game time, with a wide enough middle to hit ~25% of the time.</p>
+      <div class="stat-row">
+        <div class="stat-card hero">
+          <div class="stat-num accent">+176%</div>
+          <div class="stat-label">Strategy ROI<br>per $100 stake</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num pos">+$176</div>
+          <div class="stat-label">Expected<br>per parlay</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num pos">+$8,150</div>
+          <div class="stat-label">Expected per<br>100 parlays</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">37%</div>
+          <div class="stat-label">Reach the<br>final-leg state</div>
+        </div>
+      </div>
 
-      <div class="math-block"><span class="label">★ One parlay attempt</span>
-Parlay decimal (4 legs × 1.50)        <span class="accent">5.06</span>
-Boosted (+30%)                        <span class="accent">6.58</span>  → <span class="accent">+558</span>
-Probability all 4 hit                 24%
-Probability first 3 hit (reach state) <span class="accent">37%</span>
-
-If parlay hits unhedged:              <span class="pos">+$558</span>
-If parlay busts (3 legs in, 4th fails): <span class="neg">-$100</span>
-If hedge fires + middle hits:         <span class="pos">+$851</span>
-If hedge fires + arb only:            <span class="pos">+$292</span>
-
-Net EV per parlay (no hedge):         <span class="pos">+$127</span>
-Net EV per parlay (boost + hedge):    <span class="pos">+$176</span>
-Strategy ROI on stake                 <span class="pos">+176%</span></div>
-
-      <p>Across 100 parlay attempts at $100 each, the expected profit is <strong>~$8,150</strong> — even though only 24 parlays cash for the full payout and 76 of them lose the initial stake. The math survives the variance.</p>
-
-      <p><em>Plug your real per-leg odds, your real boost %, and your honest hit-rate on finding the arb middle into the calculator.</em> The numbers above are an example — your shape might be better or worse. Knowing the answer for YOUR setup is the whole point.</p>
+      <p style="font-size: 14.5px; color: var(--muted); margin-top: 14px;"><em>Assumes 4 legs at −200, ~72% per-leg sharp-pick win prob, +30% boost, +110 hedge, 25% middle hit, 50% hedge-execution rate. Your shape may differ — <a href="/triple-stack.html">run yours through the calculator</a>.</em></p>
     </div>
   </section>
 
   <section class="lesson-section">
-    <h3>The three things that can sink this</h3>
+    <h3>Three things that can sink this</h3>
     <div class="lesson-body">
       <ul>
-        <li><strong>Boost stake caps.</strong> DK and FD will cut your max stake on boost-eligible bets after a few wins. $100 stakes don't hold forever. Rotate accounts if you want to scale.</li>
-        <li><strong>Arb-middle isn't always there.</strong> You won't always find plus money on both sides of an alt line at game time. The calculator's "execution rate" input is the honest lever — set it to what you can actually achieve.</li>
-        <li><strong>Sharp picks have to be real.</strong> The math assumes your per-leg win prob is genuinely 70%+. If consensus is wrong or you're misreading it, no hedge fixes the underlying edge.</li>
+        <li><strong>Boost stake caps</strong> — DK/FD trim your max after a few wins. Rotate accounts to scale.</li>
+        <li><strong>Arb middle isn't always there</strong> — be honest with the calculator's execution-rate input.</li>
+        <li><strong>Sharp picks have to be real</strong> — no hedge fixes a bad underlying edge.</li>
       </ul>
-      <p style="font-size: 15px; color: var(--muted); margin-top: 14px;"><em>More caveats (variance, lineup risk, etc.) live on the <a href="/triple-stack.html">Triple Stack calculator page</a>.</em></p>
+      <p style="font-size: 14px; color: var(--muted); margin-top: 10px;"><em>More caveats on the <a href="/triple-stack.html">Triple Stack calculator page</a>.</em></p>
     </div>
   </section>
 
