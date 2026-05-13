@@ -23,12 +23,39 @@ PPS does not give out picks as its product. The X-Ray calculator and the educati
 
 ### Required outbound CTA (closes every post)
 
+**Two-link target state** (once tutorial videos exist on the site):
+
 ```
-Plays like this aren't the product — the X-Ray is.
-Find your own: profitpathsports.com/bet-x-ray.html
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+The full workflow — find your own:
+ ▸ How to spot this pattern: profitpathsports.com/[tutorial-slug]
+ ▸ How to verify the math:   profitpathsports.com/bet-x-ray.html
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 
-This single line is the most important sentence in every post. Never omit it.
+**Interim CTA** (until the tutorial videos exist — current state):
+
+```
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Plays like this aren't the product — the X-Ray is.
+Find your own: profitpathsports.com/bet-x-ray.html
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+```
+
+This closing block is the most important section in every post. Never omit it.
+
+**Tutorial slug mapping** (use the URL that matches the post's DISCOVERED method — once the page/video exists):
+
+| If DISCOVERED was... | Link to... |
+|---|---|
+| PTO manual scan | `/learn-screening-pto.html#manual-scan` |
+| PTO +EV filter | `/learn-screening-pto.html#ev-filter` |
+| OddsJam +EV filter | `/learn-screening-oddsjam.html#ev-filter` |
+| OddsJam line discrepancy | `/learn-screening-oddsjam.html#discrepancy` |
+| OddsJam alt builder | `/learn-screening-oddsjam.html#alt-builder` |
+| Manual cross-book scan | `/learn-screening-workflow.html` |
+
+Until those pages ship, default to the interim CTA (X-Ray link only).
 
 ---
 
@@ -138,12 +165,15 @@ e.g. "Watch FD — expect it to drop to +110/+120 by tip. If it doesn't, the
 X-Ray was wrong on this one. That's the test."]
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Plays like this aren't the product — the X-Ray is.
-Find your own: profitpathsports.com/bet-x-ray.html
+The full workflow — find your own:
+ ▸ How to spot this pattern: profitpathsports.com/[tutorial-slug]
+ ▸ How to verify the math:   profitpathsports.com/bet-x-ray.html
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 #PlusEV #SharpAction #[Sport] #[Book] #LearnTheMath
 ```
+
+*(Until the screening tutorial videos exist on the site, replace the two-link closing block with the X-Ray-only interim CTA — see the "Required outbound CTA" section.)*
 
 ---
 
@@ -257,12 +287,15 @@ X-Ray was wrong here. That convergence test is how you verify the math
 before you ever care about the result.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Plays like this aren't the product — the X-Ray is.
-Find your own: profitpathsports.com/bet-x-ray.html
+The full workflow — find your own:
+ ▸ How to spot this pattern: profitpathsports.com/learn-screening-pto.html#manual-scan
+ ▸ How to verify the math:   profitpathsports.com/bet-x-ray.html
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 #PlusEV #SharpAction #WNBA #FanDuel #LearnTheMath
 ```
+
+*(In the interim — until `/learn-screening-pto.html` exists — replace the two-link block with just the X-Ray-only interim CTA.)*
 
 ---
 
@@ -379,15 +412,25 @@ Pikkit auto-tracks closing line value on every settled bet — the "Live CLV Upd
 
 The Pikkit posts hint at the workflow ("Found on PTO · Verified by PPS X-Ray") — but the deeper "how to actually screen" content needs to live on the PPS site as proper video tutorials. Parked here so we don't lose track:
 
-### Planned: `learn-screening-workflows.html` (or equivalent)
+### Planned page set + URL slugs (locked in via Pikkit template references)
 
-A dedicated hub on profitpathsports.com that teaches the full discovery-to-verification workflow with **screen-recorded videos**. Sections:
+These slugs are already baked into the Pikkit post template's closing CTAs. Once the pages exist, every back-dated post can be updated retroactively without slug churn.
 
-1. **Manual scan on PTO** — record a real screening session where the user opens PTO, picks a sport, scans the prop board for outlier prices, identifies a candidate edge (like the Courtney Williams O5.5 +140 example), then exports to the X-Ray. ~3-5 min video.
-2. **OddsJam +EV filter workflow** — using OJ's positive EV alerts as the discovery layer, then plugging into the X-Ray for verification + sizing.
-3. **OddsJam line discrepancy view** — using the discrepancy table to spot stale lines.
-4. **PTO + OJ side-by-side** — comparing the two tools, when to use which, what each shows you that the other doesn't.
-5. **The full workflow** — one longer video that goes screening → verification → sizing → Pikkit-style posting, end-to-end.
+| URL | Content |
+|---|---|
+| `/learn-screening-pto.html` | Hub page for all PTO workflows. Sections (anchor IDs): `#manual-scan`, `#ev-filter`, plus any other PTO tools worth covering. ~3-5 min video per section. |
+| `/learn-screening-oddsjam.html` | Hub page for all OddsJam workflows. Sections: `#ev-filter`, `#discrepancy`, `#alt-builder`. ~3-5 min video per section. |
+| `/learn-screening-workflow.html` | The end-to-end longer-form video: screening → X-Ray verification → Kelly sizing → Pikkit-style posting. Single ~10-15 min video. The "capstone." |
+| `/learn-screening.html` *(optional)* | Top-level landing/index page that points readers to the right specific tutorial for their tool of choice. |
+
+### Content for each video
+
+1. **PTO manual scan** (`/learn-screening-pto.html#manual-scan`) — record a real screening session: open PTO, pick a sport, scan the prop board for outlier prices, identify a candidate edge (e.g. the Courtney Williams O5.5 +140 example), export to the X-Ray.
+2. **PTO +EV filter** (`/learn-screening-pto.html#ev-filter`) — using PTO's +EV alert column / filter as the discovery layer, then verifying each candidate.
+3. **OddsJam +EV filter** (`/learn-screening-oddsjam.html#ev-filter`) — OJ's positive-EV alerts → X-Ray verification → sizing.
+4. **OddsJam line discrepancy** (`/learn-screening-oddsjam.html#discrepancy`) — using the discrepancy view to spot stale lines across books.
+5. **OddsJam alt builder** (`/learn-screening-oddsjam.html#alt-builder`) — using the alt-line tool to find ladder gaps.
+6. **End-to-end capstone** (`/learn-screening-workflow.html`) — full discovery → verification → sizing → Pikkit-post arc in one video.
 
 ### Why this is the right next education content
 
@@ -402,8 +445,10 @@ Once Pikkit traction is real (say, 200+ followers or 30+ posts in), the next big
 
 ---
 
-*Template version 2.1 — May 2026.*
+*Template version 2.2 — May 2026.*
 
 *v1.0 → v2.0 changelog: Reframed entire workflow from tipster mode to demonstration mode. PPS is an education brand, not a picks service. Pikkit is now a finite 60-90 day traction tool; every post leads with "X-Ray flagged this" and closes with a mandatory CTA back to the calc. Posting cap dropped to 1-3/day, varying edge type each post. Voice rules updated to ban tipster language ("tail me," "smash," "lock," "easy money"). After traction window, Pikkit transitions to weekly stats-recap channel.*
 
 *v2.0 → v2.1 changelog: Added "Found on X · Verified by PPS X-Ray" attribution to SHORT format and DISCOVERED + VERIFIED metadata lines to LONG format — credits the screening tool (PTO / OddsJam) honestly while positioning PPS as the verification+sizing layer (defensible, math-y, non-commodity role). Added parked section flagging planned site videos for manual-scan / +EV-filter / discrepancy-view tutorials on PTO and OddsJam — the natural next content sprint once Pikkit traction is real.*
+
+*v2.1 → v2.2 changelog: Locked in the two-link closing CTA pattern — every LONG post will eventually link to BOTH the relevant screening tutorial (how to spot this pattern) AND the X-Ray (how to verify the math), making each post a complete educational arc. Until the tutorial videos exist, posts use the X-Ray-only interim CTA. URL slug mapping is documented so back-posts can be retroactively updated to the two-link version without slug churn once `/learn-screening-pto.html` and `/learn-screening-oddsjam.html` ship.*
