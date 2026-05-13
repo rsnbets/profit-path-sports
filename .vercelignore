@@ -1,0 +1,13 @@
+# Block all markdown / dev docs from the public deploy.
+# Files stay in git for reference; Vercel just doesn't serve them.
+*.md
+*.MD
+
+# Block internal-only directories (safety net for future)
+/_internal/
+/_drafts/
+/_notes/
+
+# Block local dev / preview helpers
+/.claude/
+/tmp/
