@@ -102,6 +102,38 @@
   .edge-card p { font-family: 'Rajdhani', sans-serif; font-size: 14.5px; line-height: 1.55; color: var(--muted); margin: 0; }
   .edge-card p strong { color: var(--text); font-weight: 600; }
 
+  /* Worked example callout */
+  .example { background: var(--panel); border: 1px solid var(--yellow); border-left: 4px solid var(--yellow); border-radius: 12px; padding: 24px 26px; margin: 18px 0; box-shadow: 0 0 20px var(--yellow-glow); }
+  .example .ex-tag { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.22em; color: var(--yellow); margin-bottom: 6px; font-weight: 700; }
+  .example .ex-disclaimer { font-family: 'JetBrains Mono', monospace; font-size: 10.5px; color: var(--dim); margin-bottom: 18px; letter-spacing: 0.04em; }
+  .ex-step { margin-bottom: 18px; padding-bottom: 16px; border-bottom: 1px dashed var(--border-soft); }
+  .ex-step:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .ex-step.final { background: rgba(74,222,128,0.04); border: 1px solid rgba(74,222,128,0.25); border-radius: 8px; padding: 16px 18px; margin-top: 18px; }
+  .ex-step.final .ex-step-head { color: var(--green); }
+  .ex-step-head { font-family: 'Orbitron', sans-serif; font-size: 12px; letter-spacing: 1.4px; text-transform: uppercase; color: var(--yellow); font-weight: 800; margin-bottom: 10px; }
+  .ex-step-head .num { display: inline-block; min-width: 26px; }
+  .ex-line { font-family: 'JetBrains Mono', monospace; font-size: 13px; line-height: 1.65; color: var(--text); margin-bottom: 4px; letter-spacing: 0.02em; }
+  .ex-line .muted { color: var(--muted); }
+  .ex-line .pos { color: var(--green); font-weight: 600; }
+  .ex-line .neg { color: var(--red); }
+  .ex-line .check { color: var(--green); }
+  .ex-line .accent { color: var(--yellow); }
+  .ex-row { display: flex; justify-content: space-between; gap: 12px; font-family: 'JetBrains Mono', monospace; font-size: 13px; line-height: 1.7; color: var(--text); border-bottom: 1px dotted var(--border-soft); padding: 4px 0; }
+  .ex-row:last-child { border-bottom: none; }
+  .ex-row .label { color: var(--muted); }
+  .ex-row .val { font-weight: 600; }
+  .ex-row .val.pos { color: var(--green); }
+  .ex-row .val.accent { color: var(--yellow); }
+  .ex-outcome { display: grid; grid-template-columns: 1fr auto; gap: 10px; padding: 8px 12px; border-radius: 6px; background: var(--panel-deep); margin: 6px 0; font-family: 'JetBrains Mono', monospace; font-size: 12.5px; line-height: 1.5; }
+  .ex-outcome.mid { background: rgba(74,222,128,0.06); border: 1px solid rgba(74,222,128,0.25); }
+  .ex-outcome .lab { color: var(--text); }
+  .ex-outcome .pnl { color: var(--green); font-weight: 700; white-space: nowrap; }
+
+  @media (max-width: 600px) {
+    .example { padding: 18px 18px; }
+    .ex-line, .ex-row, .ex-outcome { font-size: 12px; }
+  }
+
   /* Math stat cards */
   .stat-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 18px 0 10px; }
   @media (max-width: 720px) { .stat-row { grid-template-columns: repeat(2, 1fr); } }
@@ -347,6 +379,72 @@
         • <strong>Mild (70-80°F):</strong> BOTH win → keep <strong>$90</strong>.</p>
         <p>You can't lose both. The mild-day zone is your <em>middle</em>. The Triple Stack's final leg is exactly this — the temperature is the <strong>final game's score margin</strong> and the bracket is two alt-spreads on opposite sides.</p>
       </div>
+    </div>
+  </section>
+
+  <section class="lesson-section">
+    <h3>Worked example — a fake CBB Tuesday</h3>
+    <div class="lesson-body">
+
+      <div class="example">
+        <div class="ex-tag">★ HYPOTHETICAL EXAMPLE</div>
+        <div class="ex-disclaimer">Team names and lines are illustrative — CBB is currently off-season. Numbers reflect typical conference-season pricing.</div>
+
+        <div class="ex-step">
+          <div class="ex-step-head"><span class="num">01</span> Found the boost</div>
+          <div class="ex-line"><span class="muted">DK promotions tab:</span> <span class="accent">"20% profit boost · any 4-leg parlay · +400 min odds"</span></div>
+        </div>
+
+        <div class="ex-step">
+          <div class="ex-step-head"><span class="num">02</span> Found 4 sharp-aligned favorites</div>
+          <div class="ex-line"><span class="muted">7:00 ET</span> · Mountain U vs. Coastal · Mountain <span class="accent">−7.5</span> (sharp consensus)</div>
+          <div class="ex-line"><span class="muted">7:30 ET</span> · Pacific State vs. Lakefield · Pacific <span class="accent">−8</span></div>
+          <div class="ex-line"><span class="muted">8:00 ET</span> · Eastern AG vs. Plains Tech · Eastern <span class="accent">−9</span></div>
+          <div class="ex-line"><span class="muted">10:00 ET</span> · Capital City vs. River Valley · Capital <span class="accent">−14.5</span> <span class="check">← late + heavy fav</span></div>
+        </div>
+
+        <div class="ex-step">
+          <div class="ex-step-head"><span class="num">03</span> Built the parlay — $100 stake</div>
+          <div class="ex-row"><span class="label">Leg 1 — Mountain −4.5 alt</span><span class="val">−180</span></div>
+          <div class="ex-row"><span class="label">Leg 2 — Pacific −5 alt</span><span class="val">−200</span></div>
+          <div class="ex-row"><span class="label">Leg 3 — Eastern −5.5 alt</span><span class="val">−250</span></div>
+          <div class="ex-row"><span class="label">Leg 4 — Capital −10.5 alt <span style="color:var(--dim);">(late heavy)</span></span><span class="val">−400</span></div>
+          <div class="ex-row"><span class="label">Combined odds</span><span class="val accent">+410</span></div>
+          <div class="ex-row"><span class="label">With 20% boost · $100 wins</span><span class="val pos">$372 profit</span></div>
+        </div>
+
+        <div class="ex-step">
+          <div class="ex-step-head"><span class="num">04</span> Watched the early legs</div>
+          <div class="ex-line"><span class="check">✓</span> Mountain won by 8 — covered −4.5</div>
+          <div class="ex-line"><span class="check">✓</span> Pacific won by 11 — covered −5</div>
+          <div class="ex-line"><span class="check">✓</span> Eastern won by 7 — covered −5.5</div>
+          <div class="ex-line" style="margin-top:8px;"><span class="accent">→ Sitting on Capital −10.5 alone · ticket pending the 10pm tip</span></div>
+        </div>
+
+        <div class="ex-step final">
+          <div class="ex-step-head"><span class="num">05</span> Live arb-middle at tipoff</div>
+          <div class="ex-line" style="margin-bottom:10px;">Live alt market on the late game now shows <strong style="color:var(--text);">River +14.5 at +350</strong>. <span class="muted">Bet $100 → wins $350 if Capital wins by ≤14 or loses.</span></div>
+
+          <div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin:14px 0 8px;font-weight:700;">Three possible outcomes:</div>
+
+          <div class="ex-outcome">
+            <span class="lab">Capital wins by <strong>15+</strong> — parlay wins, hedge loses</span>
+            <span class="pnl">+$272</span>
+          </div>
+          <div class="ex-outcome mid">
+            <span class="lab"><strong>MIDDLE</strong> — Capital wins by 11-14 — BOTH win</span>
+            <span class="pnl">+$722</span>
+          </div>
+          <div class="ex-outcome">
+            <span class="lab">Capital wins by ≤10 or loses — parlay loses, hedge wins</span>
+            <span class="pnl">+$250</span>
+          </div>
+
+          <div class="ex-line" style="margin-top:14px;color:var(--green);font-weight:600;">Locked in at minimum <strong>+$250</strong> · up to <strong>+$722</strong> if the middle hits · <strong>zero losing outcomes</strong> at Step 5.</div>
+        </div>
+      </div>
+
+      <p style="font-size: 14.5px; color: var(--muted); margin-top: 14px;"><em>This is one parlay attempt that reached the hedge state. About 60% of attempts bust before Step 4 (lose −$100) — but the wins are big enough to clear those losses many times over across a season. Run the strategy through the <a href="/triple-stack.html">calculator</a> for the full per-100-parlay picture.</em></p>
     </div>
   </section>
 
