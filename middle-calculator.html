@@ -189,7 +189,11 @@
     .pps-sidebar::-webkit-scrollbar { width: 6px; }
     .pps-sidebar::-webkit-scrollbar-track { background: transparent; }
     .pps-sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
-  </style>
+  /* PPS-MOBILE-HEADER-CLEARANCE */
+    @media (max-width: 640px) {
+      .bt-header { padding-top: 60px; padding-left: 56px; padding-right: 14px; }
+    }
+</style>
 </head>
 <body>
 
@@ -633,17 +637,34 @@
       });
     });
 
-    if (isHome) {
-      var autoOpened = false;
-      window.addEventListener('scroll', function() {
-        if (!autoOpened && window.scrollY > 600) {
-          body.classList.add('pps-sidebar-open');
-          autoOpened = true;
-        }
-      }, { passive: true });
-    } else {
-      body.classList.add('pps-sidebar-open');
+    // Only auto-open the sidebar on desktop-class viewports. On mobile/tablet
+    // (< 900px) it stays closed until the user taps the hamburger so it
+    // doesn't cover the content on first paint.
+    var isDesktop = window.matchMedia('(min-width: 901px)').matches;
+
+    if (isDesktop) {
+      if (isHome) {
+        var autoOpened = false;
+        window.addEventListener('scroll', function() {
+          if (!autoOpened && window.scrollY > 600) {
+            body.classList.add('pps-sidebar-open');
+            autoOpened = true;
+          }
+        }, { passive: true });
+      } else {
+        body.classList.add('pps-sidebar-open');
+      }
     }
+
+    // Mobile: tap outside the open sidebar to dismiss it
+    document.addEventListener('click', function(e) {
+      if (window.innerWidth >= 901) return;
+      if (!body.classList.contains('pps-sidebar-open')) return;
+      var sidebar = document.getElementById('ppsSidebar');
+      if (sidebar && !sidebar.contains(e.target) && e.target !== toggle && !toggle.contains(e.target)) {
+        body.classList.remove('pps-sidebar-open');
+      }
+    });
   })();
 </script>
 
