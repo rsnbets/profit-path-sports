@@ -278,12 +278,37 @@ Whether it cashed or not is variance. The CLV is the signal.
 
 ---
 
-## Pikkit-specific notes
+## Pikkit-specific notes (verified May 2026)
 
-- Pikkit auto-captures the bet slip if the user's book is linked → matchup, line, odds, and stake show in the post card automatically
-- Commentary body has effectively no length cap, but **first 2-3 lines show in the feed scroll** — front-load the headline numbers
-- Hashtags help discoverability — Pikkit has `#PlusEV` and sport-specific feeds
-- If the user **doesn't actually place the bet**, the slip won't auto-capture and they'll need to post as text-only — in that case, the SHORT version + screenshot of the OddsJam line are the right format
+### The platform rule
+**Pikkit requires real, placed bets — period.** Per Pikkit's own FAQ: *"Pikkit does not support manual bet entry and only supports syncing bets from sportsbooks at this time."* No manual entry, no text-only commentary posts, no "pick"/"prediction" mode separate from auto-synced slips. To post on Pikkit, the bet must exist in their system, which means it must have been placed on a linked sportsbook.
+
+### What this means for PPS
+- **Every Pikkit post = a real bet at small stakes.** Treat the wager as marketing spend, not as the play itself. ¼-Kelly on a $250-500 "post bankroll" is plenty — the public-facing math still shows the $1k/¼-Kelly reference numbers for educational consistency.
+- **Auto-capture handles everything.** Matchup, line, odds, stake, and CLV all populate from the synced slip. Commentary body is where the X-Ray math + "WHY" + replication block go.
+- **First 2-3 lines show in the feed scroll** — front-load the headline numbers in both SHORT and LONG formats.
+
+### The copy-bet flywheel (marketing upside)
+Pikkit has a one-tap **"copy bet"** feature — followers tap and the same bet drops into their own slip on their linked book. That's an organic distribution mechanism most other platforms don't have:
+- Every PPS-branded Pikkit post is a potential affiliate conversion if followers route through your tracked links to the destination book
+- Lean into it: name the book clearly in the post, make the line easy to find on that book
+
+### When NOT to post on Pikkit
+- **Bet is no longer available** (line moved, market closed) — post on X/Discord instead with the X-Ray screenshot as proof of when you found it
+- **You're limited or restricted on that book** — same; post elsewhere
+- **Pre-launch / educational content** (like "here's how to read the X-Ray") — that's website / blog content, not Pikkit
+
+### Channel split
+
+| Channel | What goes there |
+|---|---|
+| **Pikkit** | +EV plays you actually placed at small stakes |
+| **X / Twitter** | Plays you spotted but couldn't or didn't place (limits, closed line, demonstrations) — text + X-Ray screenshot, no fake slips |
+| **Discord** (eventually) | Real-time alerts to subscribers, same plays as Pikkit + expanded reasoning |
+| **PPS website / weekly recap** | Aggregated stats pulled from Pikkit dashboard |
+
+### CLV update format on Pikkit
+Pikkit auto-tracks closing line value on every settled bet — the "Live CLV Update" comment template above is for the **mid-flight** narrative (line moved pre-game), not for post-settlement. After the game settles, the post-game grading template applies, and you can reference Pikkit's own displayed CLV number in the post for credibility.
 
 ---
 
