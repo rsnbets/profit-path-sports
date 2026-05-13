@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PROFITPATH Sports — Brand Brief 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=DM+Mono:wght@400;500&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root {
+  --green: #4DFF78;
+  --green-dim: rgba(77,255,120,0.15);
+  --green-faint: rgba(77,255,120,0.06);
+  --green-border: rgba(77,255,120,0.18);
+  --black: #090909;
+  --surface: #0D0D0D;
+  --surface2: #141414;
+  --surface3: #1C1C1C;
+  --border: rgba(255,255,255,0.05);
+  --border2: rgba(255,255,255,0.08);
+  --text: #F0EEE8;
+  --text-muted: rgba(255,255,255,0.42);
+  --text-dim: rgba(255,255,255,0.25);
+  --red: #FF3D3D;
+  --cyan: #00D4FF;
+  --cyan-dim: rgba(0,212,255,0.12);
+  --cyan-border: rgba(0,212,255,0.22);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--black);
+  color: var(--text);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 300;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* grain */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 999;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ── COVER ─────────────────────────────────── */
+.cover {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 80px 40px;
+  position: relative;
+  background: radial-gradient(ellipse 70% 55% at 50% 35%, rgba(0,212,255,0.05) 0%, transparent 65%);
+}
+
+.cover-line { width: 1px; height: 72px; background: linear-gradient(to bottom, transparent, var(--cyan)); margin-bottom: 40px; }
+.cover-eye {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 10px; font-weight: 500;
+  letter-spacing: .35em; text-transform: uppercase;
+  color: var(--cyan); margin-bottom: 28px;
+}
+.cover-wordmark {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: clamp(56px, 10vw, 108px);
+  font-weight: 900; line-height: .9;
+  letter-spacing: -.03em; color: var(--text);
+  margin-bottom: 6px;
+}
+.cover-wordmark span { color: var(--green); }
+.cover-sports {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 13px; font-weight: 400;
+  letter-spacing: .55em; text-transform: uppercase;
+  color: var(--text-dim); margin-bottom: 48px; display: block;
+}
+.cover-rule { width: 100px; height: 1px; background: linear-gradient(to right, transparent, var(--cyan), transparent); margin: 0 auto 40px; }
+.cover-meta {
+  display: flex; gap: 40px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 10px; font-weight: 500;
+  letter-spacing: .2em; text-transform: uppercase;
+  color: var(--text-dim);
+}
+.cover-meta span:nth-child(2) { color: var(--cyan); }
+.cover-scroll {
+  position: absolute; bottom: 40px; left: 50%;
+  transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+}
+.cover-scroll span {
+  font-size: 9px; font-weight: 500;
+  letter-spacing: .3em; text-transform: uppercase;
+  color: var(--text-dim);
+}
+.scroll-line {
+  width: 1px; height: 40px;
+  background: linear-gradient(to bottom, var(--cyan), transparent);
+  animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse { 0%,100%{opacity:.3} 50%{opacity:1} }
+
+/* ── LAYOUT ─────────────────────────────────── */
+.section { max-width: 1080px; margin: 0 auto; padding: 96px 40px; position: relative; z-index: 1; }
+.section-divider { height: 1px; background: var(--border); }
+
+.s-num {
+  font-size: 10px; font-weight: 500;
+  letter-spacing: .35em; text-transform: uppercase;
+  color: var(--cyan); display: block; margin-bottom: 14px;
+}
+.s-heading {
+  font-family: 'DM Serif Display', serif;
+  font-style: normal;
+  font-size: clamp(38px, 5.5vw, 68px);
+  line-height: 1.04; color: var(--text);
+  margin-bottom: 20px; letter-spacing: -.01em;
+}
+.s-heading span { color: var(--green); font-style: italic; }
+.s-intro {
+  font-size: clamp(15px, 1.8vw, 18px);
+  line-height: 1.8; color: var(--text-muted);
+  max-width: 640px; margin-bottom: 56px; font-weight: 300;
+}
+
+/* ── DIAGNOSIS GRID ─────────────────────────── */
+.diag-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-bottom: 56px; }
+.diag-cell { background: var(--surface); padding: 32px; }
+.diag-cell:nth-child(1) { border-radius: 12px 0 0 0; }
+.diag-cell:nth-child(2) { border-radius: 0 12px 0 0; }
+.diag-cell:nth-child(3) { border-radius: 0 0 0 12px; }
+.diag-cell:nth-child(4) { border-radius: 0 0 12px 0; }
+.diag-lbl {
+  font-size: 9px; font-weight: 600;
+  letter-spacing: .28em; text-transform: uppercase;
+  margin-bottom: 14px; display: block;
+}
+.diag-lbl.bad { color: var(--red); }
+.diag-lbl.good { color: var(--cyan); }
+.diag-item {
+  font-size: 13px; color: var(--text-muted);
+  line-height: 1.8; padding: 5px 0;
+  border-bottom: 1px solid rgba(255,255,255,.03);
+}
+.diag-item::before { margin-right: 9px; }
+.diag-item.bad::before { content: '—'; color: var(--red); }
+.diag-item.good::before { content: '+'; color: var(--cyan); }
+
+/* ── IDENTITY TRIO ─────────────────────────── */
+.id-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1px; background: var(--cyan-border); border-radius: 14px; overflow: hidden; margin-bottom: 56px; }
+.id-cell { background: var(--surface); padding: 40px 32px; }
+.id-icon { font-size: 22px; margin-bottom: 20px; display: block; color: var(--cyan); }
+.id-title { font-family: 'DM Serif Display', serif; font-style: normal; font-size: 22px; color: var(--cyan); margin-bottom: 10px; }
+.id-desc { font-size: 13px; line-height: 1.8; color: var(--text-muted); }
+
+/* ── COLOUR ────────────────────────────────── */
+.pal-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; margin-bottom: 40px; }
+.swatch { border-radius: 8px; overflow: hidden; }
+.swatch-color { height: 72px; }
+.swatch-info { padding: 10px; background: var(--surface); }
+.swatch-name { font-size: 8px; font-weight: 600; letter-spacing: .15em; text-transform: uppercase; color: var(--text-dim); display: block; margin-bottom: 2px; }
+.swatch-hex { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text-muted); }
+
+.token-table { width: 100%; border-collapse: collapse; margin-bottom: 56px; }
+.token-table th { font-size: 9px; font-weight: 600; letter-spacing: .3em; text-transform: uppercase; color: var(--cyan); text-align: left; padding: 11px 16px; border-bottom: 1px solid var(--cyan-border); }
+.token-table td { padding: 13px 16px; font-size: 13px; color: var(--text-muted); border-bottom: 1px solid var(--border); vertical-align: top; line-height: 1.6; }
+.token-table tr:hover td { background: var(--cyan-dim); }
+.mono { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--cyan); }
+
+/* ── TYPOGRAPHY ────────────────────────────── */
+.type-showcase { background: var(--surface); border-radius: 16px; border: 1px solid var(--border); padding: 52px; margin-bottom: 56px; }
+.type-row { padding: 30px 0; border-bottom: 1px solid rgba(255,255,255,.04); }
+.type-row:last-child { border-bottom: none; padding-bottom: 0; }
+.type-lbl { font-size: 9px; font-weight: 600; letter-spacing: .3em; text-transform: uppercase; color: var(--cyan); display: block; margin-bottom: 12px; }
+
+/* ── LOGO ───────────────────────────────────── */
+.logo-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2px; margin-bottom: 56px; }
+.logo-cell {
+  background: var(--surface);
+  height: 220px; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 12px;
+  padding: 32px; transition: background .25s;
+}
+.logo-cell:hover { background: var(--surface2); }
+.logo-cell:first-child { border-radius: 12px 0 0 12px; }
+.logo-cell:last-child { border-radius: 0 12px 12px 0; }
+.logo-tag { font-size: 9px; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; color: var(--cyan); margin-top: 6px; }
+
+/* ── HERO MOCKUP ────────────────────────────── */
+.mockup-frame { background: var(--surface); border-radius: 16px; border: 1px solid var(--border2); overflow: hidden; margin-bottom: 56px; }
+.mockup-bar { background: var(--surface2); padding: 14px 24px; display: flex; align-items: center; gap: 8px; border-bottom: 1px solid var(--border); }
+.dot { width: 10px; height: 10px; border-radius: 50%; }
+.dot.r { background: #FF5F57; }
+.dot.y { background: #FEBC2E; }
+.dot.g { background: #28C840; }
+.mockup-url { flex: 1; text-align: center; font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-dim); }
+
+.mock-nav { padding: 18px 36px; display: flex; align-items: center; gap: 24px; border-bottom: 1px solid var(--border); }
+.mock-logo { font-size: 15px; font-weight: 900; letter-spacing: -.02em; }
+.mock-logo span { color: var(--green); }
+.mock-logo small { font-size: 9px; font-weight: 400; letter-spacing: .3em; text-transform: uppercase; color: var(--text-dim); margin-left: 8px; }
+.mock-links { margin-left: auto; display: flex; gap: 22px; align-items: center; }
+.mock-link { font-size: 10px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--text-dim); }
+.mock-cta { background: transparent; color: var(--cyan); font-size: 10px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; padding: 7px 18px; border-radius: 4px; border: 1px solid var(--cyan-border); cursor: pointer; }
+
+.mock-hero { padding: 72px 48px 60px; position: relative; overflow: hidden; background: radial-gradient(ellipse 60% 50% at 60% 0%, rgba(77,255,120,0.04) 0%, transparent 60%); }
+.mock-eye { font-size: 10px; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: var(--green); display: block; margin-bottom: 22px; }
+.mock-wm { font-size: clamp(44px,7vw,76px); font-weight: 900; line-height: .9; letter-spacing: -.03em; margin-bottom: 7px; }
+.mock-wm span { color: var(--green); }
+.mock-sports { font-size: 11px; font-weight: 400; letter-spacing: .45em; text-transform: uppercase; color: var(--text-dim); display: block; margin-bottom: 32px; }
+.mock-h1 { font-family: 'DM Serif Display', serif; font-style: normal; font-size: clamp(26px,3.5vw,42px); line-height: 1.07; color: var(--text); margin-bottom: 14px; }
+.mock-h1 span { color: var(--green); font-style: italic; }
+.mock-body { font-size: 14px; font-weight: 300; line-height: 1.75; color: var(--text-muted); max-width: 480px; margin-bottom: 32px; }
+.mock-btns { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 52px; }
+.mock-btn-p { background: var(--green); color: var(--black); font-size: 13px; font-weight: 700; padding: 14px 30px; border: none; border-radius: 5px; cursor: pointer; }
+.mock-btn-g { background: transparent; color: var(--cyan); font-size: 11px; font-weight: 600; letter-spacing: .07em; text-transform: uppercase; padding: 13px 26px; border: 1px solid var(--cyan-border); border-radius: 5px; cursor: pointer; }
+.mock-stats { display: flex; gap: 40px; padding-top: 28px; border-top: 1px solid var(--border); flex-wrap: wrap; }
+.mock-stat-n { font-size: 28px; font-weight: 900; color: var(--green); display: block; line-height: 1; letter-spacing: -.02em; }
+.mock-stat-l { font-size: 9px; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: var(--text-dim); margin-top: 3px; }
+
+.mock-paths { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--border); }
+.mock-path { background: var(--surface); padding: 26px 22px; }
+.mock-path-num { font-size: 9px; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; color: var(--cyan); display: block; margin-bottom: 8px; }
+.mock-path-name { font-family: 'DM Serif Display', serif; font-style: italic; font-size: 20px; color: var(--text); display: block; margin-bottom: 6px; }
+.mock-path-desc { font-size: 12px; color: var(--text-muted); line-height: 1.6; font-weight: 300; }
+
+/* ── CALCULATOR MOCKUP ──────────────────────── */
+.calc-mockup { padding: 48px; display: grid; grid-template-columns: 1fr 1fr; gap: 28px; align-items: start; }
+.calc-panel { background: var(--surface2); border: 1px solid var(--border2); border-radius: 10px; padding: 28px; }
+.calc-title { font-family: 'DM Serif Display', serif; font-style: italic; font-size: 20px; color: var(--text); margin-bottom: 4px; }
+.calc-sub { font-size: 9px; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; color: var(--cyan); margin-bottom: 24px; display: block; }
+.calc-lbl { font-size: 9px; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: var(--text-dim); display: block; margin-bottom: 5px; }
+.calc-input { background: var(--surface3); border: 1px solid var(--border); border-radius: 4px; padding: 10px 14px; font-family: 'DM Mono', monospace; font-size: 13px; color: var(--text); width: 100%; margin-bottom: 14px; }
+.calc-divider { height: 1px; background: var(--border); margin: 18px 0; }
+.calc-result-lbl { font-size: 9px; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: var(--cyan); opacity: 0.8; margin-bottom: 6px; }
+.calc-result-n { font-family: 'DM Mono', monospace; font-size: 40px; font-weight: 500; color: var(--green); line-height: 1; margin-bottom: 12px; }
+.calc-verdict { display: inline-block; background: rgba(77,255,120,.08); border: 1px solid rgba(77,255,120,.25); color: var(--green); font-size: 10px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; padding: 6px 14px; border-radius: 3px; }
+.calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.calc-mini-lbl { font-size: 8px; font-weight: 500; letter-spacing: .18em; text-transform: uppercase; color: var(--cyan); opacity: 0.7; display: block; margin-bottom: 4px; }
+.calc-mini-n { font-family: 'DM Mono', monospace; font-size: 20px; color: var(--text); }
+.calc-mini-n.green { color: var(--green); }
+.calc-mini-n.cyan { color: #00D4FF; }
+
+/* ── MOTION GRID ────────────────────────────── */
+.motion-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-bottom: 56px; }
+.motion-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 28px 22px; }
+.motion-icon { font-size: 20px; color: var(--cyan); margin-bottom: 14px; display: block; }
+.motion-title { font-family: 'DM Serif Display', serif; font-style: italic; font-size: 17px; color: var(--text); margin-bottom: 8px; }
+.motion-desc { font-size: 12px; line-height: 1.75; color: var(--text-muted); }
+.motion-spec { display: inline-block; margin-top: 12px; font-size: 8px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--cyan); border: 1px solid var(--cyan-border); padding: 4px 10px; border-radius: 2px; background: var(--cyan-dim); }
+
+/* ── VOICE GRID ─────────────────────────────── */
+.voice-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 56px; }
+.voice-card { background: var(--surface); border-radius: 10px; overflow: hidden; }
+.voice-header { padding: 11px 22px; font-size: 9px; font-weight: 600; letter-spacing: .25em; text-transform: uppercase; }
+.voice-header.bad { background: rgba(255,61,61,.1); color: var(--red); border-bottom: 1px solid rgba(255,61,61,.2); }
+.voice-header.good { background: rgba(0,212,255,.06); color: var(--cyan); border-bottom: 1px solid var(--cyan-border); }
+.voice-body { padding: 20px 22px; font-size: 13px; line-height: 1.8; color: var(--text-muted); }
+.voice-body strong { color: var(--text); font-weight: 600; }
+
+/* ── CONVERSION PLAYS ───────────────────────── */
+.plays-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 56px; }
+.play-card { background: var(--surface); border-radius: 10px; padding: 30px; border: 1px solid var(--border); position: relative; overflow: hidden; }
+.play-card.featured { border-color: var(--cyan-border); background: linear-gradient(135deg, var(--surface), rgba(0,212,255,0.04)); }
+.play-bg-num { font-family: 'DM Serif Display', serif; font-size: 80px; font-style: italic; color: rgba(0,212,255,0.07); position: absolute; top: 8px; right: 16px; line-height: 1; pointer-events: none; }
+.play-title { font-family: 'DM Serif Display', serif; font-style: italic; font-size: 20px; color: var(--text); margin-bottom: 6px; }
+.play-mech { font-size: 9px; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; color: var(--cyan); display: block; margin-bottom: 14px; }
+.play-desc { font-size: 13px; line-height: 1.8; color: var(--text-muted); }
+
+/* ── TIMELINE ───────────────────────────────── */
+.timeline { position: relative; margin-bottom: 56px; }
+.timeline::before { content: ''; position: absolute; left: 40px; top: 0; bottom: 0; width: 1px; background: linear-gradient(to bottom, var(--cyan), rgba(0,212,255,0.1)); }
+.tl-item { display: grid; grid-template-columns: 80px 1fr; gap: 28px; padding: 32px 0; border-bottom: 1px solid var(--border); }
+.tl-marker { text-align: center; position: relative; z-index: 1; padding-top: 2px; }
+.tl-dot { width: 12px; height: 12px; border-radius: 50%; background: var(--black); border: 2px solid var(--cyan); margin: 0 auto 7px; }
+.tl-phase { font-size: 9px; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: var(--cyan); display: block; }
+.tl-dur { font-size: 9px; color: var(--text-dim); display: block; margin-top: 2px; font-weight: 300; }
+.tl-title { font-family: 'DM Serif Display', serif; font-style: italic; font-size: 22px; color: var(--text); margin-bottom: 10px; }
+.tl-desc { font-size: 13px; line-height: 1.8; color: var(--text-muted); max-width: 600px; }
+.tl-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+.tl-tag { font-size: 9px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--cyan); background: var(--cyan-dim); border: 1px solid var(--cyan-border); padding: 4px 11px; border-radius: 2px; }
+
+/* ── FOOTER ─────────────────────────────────── */
+.brief-footer { background: var(--surface); border-top: 1px solid var(--border); padding: 80px 40px; text-align: center; }
+.footer-rule { width: 100px; height: 1px; background: linear-gradient(to right, transparent, var(--cyan), transparent); margin: 0 auto 40px; }
+.footer-wm { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 36px; font-weight: 900; letter-spacing: -.02em; margin-bottom: 6px; }
+.footer-wm span { color: var(--green); }
+.footer-sports { font-size: 11px; font-weight: 400; letter-spacing: .5em; text-transform: uppercase; color: var(--text-dim); display: block; margin-bottom: 36px; }
+.footer-meta { font-size: 12px; font-weight: 300; color: var(--text-dim); line-height: 2; }
+
+@media (max-width: 860px) {
+  .diag-grid { grid-template-columns: 1fr; }
+  .id-grid { grid-template-columns: 1fr; }
+  .pal-grid { grid-template-columns: repeat(3,1fr); }
+  .logo-grid { grid-template-columns: 1fr; gap: 2px; }
+  .logo-cell:first-child { border-radius: 12px 12px 0 0; }
+  .logo-cell:last-child { border-radius: 0 0 12px 12px; }
+  .motion-grid { grid-template-columns: 1fr; }
+  .voice-grid { grid-template-columns: 1fr; }
+  .plays-grid { grid-template-columns: 1fr; }
+  .calc-mockup { grid-template-columns: 1fr; }
+  .mock-links { display: none; }
+  .mock-paths { grid-template-columns: 1fr; }
+  .mock-stats { gap: 24px; }
+}
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-line"></div>
+  <div class="cover-eye">Confidential Design Brief · 2026</div>
+  <div class="cover-wordmark">PROFIT<span>PATH</span></div>
+  <span class="cover-sports">Sports</span>
+  <div class="cover-rule"></div>
+  <div class="cover-meta">
+    <span>Complete Rebrand</span>
+    <span>Version 2.0</span>
+    <span>Confidential</span>
+  </div>
+  <div class="cover-scroll"><span>Scroll</span><div class="scroll-line"></div></div>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- 01. DIAGNOSIS -->
+<div class="section">
+  <span class="s-num">01 — Diagnosis</span>
+  <h2 class="s-heading">Where the current<br>brand <span>loses the bet</span></h2>
+  <p class="s-intro">An honest audit of the gap between what Profit Path Sports actually offers — which is extraordinary — and what the current brand communicates. Every item below is a direct conversion cost.</p>
+
+  <div class="diag-grid">
+    <div class="diag-cell">
+      <span class="diag-lbl bad">Current Weaknesses</span>
+      <div class="diag-item bad">Generic fintech dark-blue palette — indistinguishable from 40 competitors</div>
+      <div class="diag-item bad">DM Mono eyebrow text reads typewriter-retro, not sharp-modern</div>
+      <div class="diag-item bad">Emoji navigation undermines tool credibility instantly</div>
+      <div class="diag-item bad">Free positioning devalues the premium suite it sits beside</div>
+      <div class="diag-item bad">No visual hierarchy — everything competes for attention equally</div>
+      <div class="diag-item bad">Passive conversion flow: no urgency, no aspiration, no hook</div>
+      <div class="diag-item bad">Copy buries the unique value prop (Bet X-Ray) below the fold</div>
+      <div class="diag-item bad">High-bankroll bettors bounce on aesthetics before reading a word</div>
+    </div>
+    <div class="diag-cell">
+      <span class="diag-lbl good">Competitive Moats to Amplify</span>
+      <div class="diag-item good">Bet X-Ray is genuinely unique — nothing else like it exists publicly</div>
+      <div class="diag-item good">Sharp Exchange Playbook signals rare institutional knowledge</div>
+      <div class="diag-item good">Three-path curriculum is elegant, sophisticated architecture</div>
+      <div class="diag-item good">No paywall is a massive trust advantage — position it as principle, not price</div>
+      <div class="diag-item good">Anti-BS positioning resonates deeply with the target audience</div>
+      <div class="diag-item good">Curated affiliate stack signals editorial integrity</div>
+      <div class="diag-item good">Real Bovada warning story creates extraordinary authenticity</div>
+      <div class="diag-item good">Mathematical rigor (EV, Kelly, devig) is genuinely rare in public tools</div>
+    </div>
+    <div class="diag-cell">
+      <span class="diag-lbl bad">Who We're Currently Losing</span>
+      <div class="diag-item bad">Finance-adjacent bettors who judge tools by how they look</div>
+      <div class="diag-item bad">High-bankroll operators who need to feel at peer level</div>
+      <div class="diag-item bad">Aspirational recreational bettors who want to feel elite</div>
+      <div class="diag-item bad">Affiliate conversions lost before trust is established</div>
+    </div>
+    <div class="diag-cell">
+      <span class="diag-lbl good">Core Brand Truth — Unchanged</span>
+      <div class="diag-item good">The math of sharp bettors, made accessible — free, honest, precise</div>
+      <div class="diag-item good">A professional-grade operator's toolkit, not a gambler's toy</div>
+      <div class="diag-item good">Real transparency in a space built on manipulation</div>
+      <div class="diag-item good">The only place recreational and serious bettors both graduate</div>
+    </div>
+  </div>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- 02. BRAND IDENTITY -->
+<div class="section">
+  <span class="s-num">02 — Brand Identity</span>
+  <h2 class="s-heading">The new<br><span>archetype</span></h2>
+  <p class="s-intro">PROFITPATH Sports is not a gambling site. It is a precision intelligence platform for serious bettors. The brand speaks the visual language of high-stakes performance — the aesthetic vocabulary of elite sports analytics, trading terminals, and premium Vegas sportsbooks.</p>
+
+  <div class="id-grid">
+    <div class="id-cell">
+      <span class="id-icon">◆</span>
+      <div class="id-title">The Archetype</div>
+      <div class="id-desc">The Sharp Operator. Not a degenerate gambler — a disciplined professional who views betting markets the way a quant views equity markets. Think: Bloomberg Terminal for sports betting. Expensive-feeling, trustworthy, precise — even when it's free.</div>
+    </div>
+    <div class="id-cell">
+      <span class="id-icon">▲</span>
+      <div class="id-title">The Promise</div>
+      <div class="id-desc">"The edge is in the math." Every long-term winner does exactly what we teach. Every loser doesn't. PROFITPATH is the institution that knows the difference — and will show you for free, because the mission is to defeat the house, not the user.</div>
+    </div>
+    <div class="id-cell">
+      <span class="id-icon">●</span>
+      <div class="id-title">The Persona</div>
+      <div class="id-desc">30–48, successful, analytically wired. Bets with meaningful but controlled bankrolls. Reads obsessively. Embarrassed by bad tools. Won't use a site that looks like a Reddit post. Responds to precision, restraint, and earned authority.</div>
+    </div>
+  </div>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- 03. COLOUR -->
+<div class="section">
+  <span class="s-num">03 — Colour System</span>
+  <h2 class="s-heading">Charcoal, Sharp Green<br>&amp; <span>Arctic Cyan</span></h2>
+  <p class="s-intro">Two accents, one hierarchy. Sharp Green is the primary signal — edge, profit, action, verdict. Arctic Cyan is everywhere else: navigation chrome, section markers, data labels, secondary actions, timelines. Green means <em>go</em>. Cyan means <em>look here</em>. On a dark background, the two neons together feel like a live trading terminal.</p>
+
+  <div class="pal-grid">
+    <div class="swatch">
+      <div class="swatch-color" style="background:#4DFF78"></div>
+      <div class="swatch-info"><span class="swatch-name">Sharp Green</span><span class="swatch-hex">#4DFF78</span></div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#090909;border:1px solid rgba(255,255,255,.1)"></div>
+      <div class="swatch-info"><span class="swatch-name">Void Black</span><span class="swatch-hex">#090909</span></div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#0D0D0D"></div>
+      <div class="swatch-info"><span class="swatch-name">Surface</span><span class="swatch-hex">#0D0D0D</span></div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#1C1C1C"></div>
+      <div class="swatch-info"><span class="swatch-name">Raised</span><span class="swatch-hex">#1C1C1C</span></div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#FF3D3D"></div>
+      <div class="swatch-info"><span class="swatch-name">Alert Red</span><span class="swatch-hex">#FF3D3D</span></div>
+    </div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#00D4FF"></div>
+      <div class="swatch-info"><span class="swatch-name">Arctic Cyan</span><span class="swatch-hex">#00D4FF</span></div>
+  </div>
+
+  <table class="token-table">
+    <thead><tr><th>Token</th><th>Value</th><th>Usage Rule</th></tr></thead>
+    <tbody>
+      <tr><td class="mono">--color-primary</td><td class="mono">#4DFF78</td><td>All CTAs, active states, key data outputs, logo PATH, positive EV verdicts. Used nowhere else.</td></tr>
+      <tr><td class="mono">--color-bg-1</td><td class="mono">#090909</td><td>Page background — deepest level. Never use pure #000000; this has just enough warmth.</td></tr>
+      <tr><td class="mono">--color-bg-2</td><td class="mono">#0D0D0D</td><td>Card backgrounds, panels, hero sections, calculator frames.</td></tr>
+      <tr><td class="mono">--color-bg-3</td><td class="mono">#141414</td><td>Input fields, nested panels, secondary cards.</td></tr>
+      <tr><td class="mono">--color-bg-4</td><td class="mono">#1C1C1C</td><td>Hover states, raised surfaces, divider backgrounds.</td></tr>
+      <tr><td class="mono">--color-text</td><td class="mono">#F0EEE8</td><td>All primary copy — slightly warm white, not pure #FFFFFF (too harsh on dark).</td></tr>
+      <tr><td class="mono">--color-text-muted</td><td class="mono">rgba(255,255,255,.42)</td><td>Body copy, descriptions, secondary labels.</td></tr>
+      <tr><td class="mono">--color-text-dim</td><td class="mono">rgba(255,255,255,.25)</td><td>Metadata, timestamps, "Sports" wordmark suffix, nav links.</td></tr>
+      <tr><td class="mono">--color-secondary</td><td class="mono">#00D4FF</td><td>Secondary data outputs (Kelly%, CLV, stake size), info badges, secondary CTAs, Bet Tracker accents, Path 02/03 labels. Sits back — never competes with green.</td></tr>
+      <tr><td class="mono">--color-danger</td><td class="mono">#FF3D3D</td><td>Avoid verdicts, negative EV, sportsbook warnings. Never decorative.</td></tr>
+      <tr><td class="mono">--color-border</td><td class="mono">rgba(255,255,255,.05)</td><td>Default borders. Green-tinted border: rgba(77,255,120,0.18) for featured elements only.</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- 04. TYPOGRAPHY -->
+<div class="section">
+  <span class="s-num">04 — Typography</span>
+  <h2 class="s-heading">Three voices,<br><span>one system</span></h2>
+  <p class="s-intro">The typographic hierarchy is built on deliberate contrast. DM Serif Display upright carries the weight of headlines — italic is reserved only for the key phrase in green, where it lands as an emphasis, not a style. Plus Jakarta Sans keeps every UI element clean and current. DM Mono signals computed truth — used only where numbers are outputs, never decoration.</p>
+
+  <div class="type-showcase">
+    <div class="type-row">
+      <span class="type-lbl">Display Headlines — DM Serif Display upright + italic green phrase</span>
+      <div style="font-family:'DM Serif Display',serif;font-style:normal;font-size:clamp(44px,7vw,80px);line-height:.95;color:var(--text);letter-spacing:-.01em">Beat the book.<br><span style="color:#4DFF78;font-style:italic">Run the math.</span></div>
+    </div>
+    <div class="type-row">
+      <span class="type-lbl">Section Headings — DM Serif Display upright, italic on key phrase</span>
+      <div style="font-family:'DM Serif Display',serif;font-style:normal;font-size:32px;color:var(--text)">The math every winning bettor <span style="font-style:italic;color:#4DFF78">runs on every line.</span></div>
+    </div>
+    <div class="type-row">
+      <span class="type-lbl">Card & Tool Titles — DM Serif Display italic (named elements only)</span>
+      <div style="display:flex;gap:40px;flex-wrap:wrap">
+        <span style="font-family:'DM Serif Display',serif;font-style:italic;font-size:20px;color:var(--text)">Begin</span>
+        <span style="font-family:'DM Serif Display',serif;font-style:italic;font-size:20px;color:var(--text)">Convert</span>
+        <span style="font-family:'DM Serif Display',serif;font-style:italic;font-size:20px;color:var(--text)">Maintain</span>
+        <span style="font-family:'DM Serif Display',serif;font-style:italic;font-size:20px;color:var(--text)">Bet X-Ray</span>
+      </div>
+    </div>
+    <div class="type-row">
+      <span class="type-lbl">Wordmark &amp; Nav — Plus Jakarta Sans 900 / 500</span>
+      <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:28px;font-weight:900;letter-spacing:-.02em;margin-bottom:12px">PROFIT<span style="color:#4DFF78">PATH</span> <span style="font-size:12px;font-weight:400;letter-spacing:.4em;text-transform:uppercase;color:rgba(255,255,255,.25)">Sports</span></div>
+      <div style="display:flex;gap:28px;font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.4)">
+        <span>Begin</span><span>Tools</span><span>Strategy</span><span>Sportsbooks</span>
+      </div>
+    </div>
+    <div class="type-row">
+      <span class="type-lbl">Labels &amp; Eyebrow — Plus Jakarta Sans 500, tracked</span>
+      <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:#4DFF78;margin-bottom:10px">No Picks · No Paywall · No Signup</div>
+      <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:9px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:rgba(255,255,255,.3)">Path 01 · Begin · 6 Lessons</div>
+    </div>
+    <div class="type-row">
+      <span class="type-lbl">Body Copy — Plus Jakarta Sans 300</span>
+      <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:300;line-height:1.78;color:rgba(255,255,255,.45);max-width:560px">Expected value isn't optional. Every bet either has positive EV or it doesn't. Bet X-Ray tells you which — in the time it takes to read this sentence. No tool like it exists publicly. That's not a claim — it's a search result you can verify in thirty seconds.</div>
+    </div>
+    <div class="type-row">
+      <span class="type-lbl">Data Outputs — DM Mono 400 (computed outputs only)</span>
+      <div style="font-family:'DM Mono',monospace;font-size:13px;letter-spacing:.04em"><span style="color:#4DFF78">EV: +4.7%</span>  ·  <span style="color:#00D4FF">Kelly: 2.1%</span>  ·  <span style="color:#00D4FF">CLV: +3.2%</span>  ·  <span style="color:#4DFF78">Verdict: SHARP BET</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- 05. LOGO -->
+<div class="section">
+  <span class="s-num">05 — Logo System</span>
+  <h2 class="s-heading">Three formats,<br><span>one identity</span></h2>
+  <p class="s-intro">PROFITPATH runs as a single compound word — no space — making it a brand mark rather than a description. PATH in Sharp Green creates the focal point. "Sports" follows at reduced weight and tracked out, answering the category question without competing with the mark.</p>
+
+  <div class="logo-grid">
+    <div class="logo-cell" style="border-radius:12px 0 0 12px">
+      <div style="text-align:center">
+        <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:32px;font-weight:900;letter-spacing:-.025em;line-height:1">PROFIT<span style="color:#4DFF78">PATH</span></div>
+        <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:10px;font-weight:400;letter-spacing:.45em;text-transform:uppercase;color:rgba(255,255,255,.25);margin-top:6px">Sports</div>
+      </div>
+      <span class="logo-tag">★ Primary Lockup</span>
+    </div>
+    <div class="logo-cell">
+      <div style="text-align:center">
+        <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:24px;font-weight:900;letter-spacing:-.02em">PROFIT<span style="color:#4DFF78">PATH</span></div>
+        <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:9px;font-weight:400;letter-spacing:.4em;text-transform:uppercase;color:rgba(255,255,255,.22);margin-top:5px">Sports</div>
+      </div>
+      <span class="logo-tag">Compact — Nav &amp; Mobile</span>
+    </div>
+    <div class="logo-cell" style="border-radius:0 12px 12px 0">
+      <div style="text-align:center;display:flex;flex-direction:column;align-items:center;gap:20px">
+        <div style="display:flex;gap:20px;align-items:flex-end">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
+            <span style="font-family:'Plus Jakarta Sans',sans-serif;font-size:8px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.25)">16px</span>
+            <svg width="16" height="16" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+              <rect width="40" height="40" rx="8" fill="#0D0D0D"/>
+              <text x="4" y="28" font-family="Plus Jakarta Sans,sans-serif" font-weight="900" font-size="24" fill="#4DFF78">$</text>
+              <line x1="22" y1="28" x2="36" y2="10" stroke="#00D4FF" stroke-width="2.5" stroke-linecap="round"/>
+              <polyline points="28,10 36,10 36,18" fill="none" stroke="#00D4FF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
+            <span style="font-family:'Plus Jakarta Sans',sans-serif;font-size:8px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.25)">32px</span>
+            <svg width="32" height="32" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+              <rect width="40" height="40" rx="8" fill="#0D0D0D"/>
+              <text x="4" y="28" font-family="Plus Jakarta Sans,sans-serif" font-weight="900" font-size="24" fill="#4DFF78">$</text>
+              <line x1="22" y1="28" x2="36" y2="10" stroke="#00D4FF" stroke-width="2.5" stroke-linecap="round"/>
+              <polyline points="28,10 36,10 36,18" fill="none" stroke="#00D4FF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
+            <span style="font-family:'Plus Jakarta Sans',sans-serif;font-size:8px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.25)">64px</span>
+            <svg width="64" height="64" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+              <rect width="40" height="40" rx="9" fill="#0D0D0D"/>
+              <rect width="40" height="40" rx="9" fill="none" stroke="#4DFF78" stroke-width="0.6" opacity="0.18"/>
+              <text x="4" y="28" font-family="Plus Jakarta Sans,sans-serif" font-weight="900" font-size="24" fill="#4DFF78">$</text>
+              <line x1="22" y1="28" x2="36" y2="10" stroke="#00D4FF" stroke-width="2.5" stroke-linecap="round"/>
+              <polyline points="28,10 36,10 36,18" fill="none" stroke="#00D4FF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+      <span class="logo-tag">Icon — Favicon &amp; App</span>
+    </div>
+  </div>
+
+  <table class="token-table">
+    <thead><tr><th>Format</th><th>Usage Context</th><th>Minimum Size</th></tr></thead>
+    <tbody>
+      <tr><td style="color:#00D4FF">Primary Lockup</td><td>Homepage hero, email headers, social profiles, open graph images</td><td>180px wide on screen</td></tr>
+      <tr><td>Compact</td><td>Navigation bars, mobile headers, any context under 200px wide</td><td>120px wide on screen</td></tr>
+      <tr><td>Icon Mark</td><td>Favicons, app icons, avatar contexts, watermarks on calculator outputs</td><td>24px × 24px</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- 06. WEBSITE -->
+<div class="section">
+  <span class="s-num">06 — Website Design</span>
+  <h2 class="s-heading">What the new<br><span>site feels like</span></h2>
+  <p class="s-intro">Every screen communicates the same thing: you are in the right place, you are being taken seriously, and the tools here were built by someone who has actually beaten the books. Sparse where competitors are cluttered. Precise where competitors are vague.</p>
+</div>
+
+<!-- Hero mockup -->
+<div style="max-width:1080px;margin:0 auto 2px;padding:0 40px">
+  <div class="mockup-frame">
+    <div class="mockup-bar">
+      <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+      <div class="mockup-url">profitpathsports.com</div>
+    </div>
+    <div class="mock-nav">
+      <span class="mock-logo">PROFIT<span>PATH</span><small>Sports</small></span>
+      <div class="mock-links">
+        <span class="mock-link">Begin</span>
+        <span class="mock-link">Tools</span>
+        <span class="mock-link">Strategy</span>
+        <span class="mock-link">Sportsbooks</span>
+        <button class="mock-cta">Enter</button>
+      </div>
+    </div>
+    <div class="mock-hero">
+      <span class="mock-eye">No Picks · No Paywall · No Signup</span>
+      <div class="mock-wm">PROFIT<span>PATH</span></div>
+      <span class="mock-sports">Sports</span>
+      <div class="mock-h1">Every winning bet starts<br>with <span>this math.</span></div>
+      <div class="mock-body">The calculators sharp bettors run on every line. Free, precise, and built for people who actually want to win.</div>
+      <div class="mock-btns">
+        <button class="mock-btn-p">Choose Your Path</button>
+        <button class="mock-btn-g">Launch Bet X-Ray</button>
+      </div>
+      <div class="mock-stats">
+        <div><span class="mock-stat-n">15</span><span class="mock-stat-l">Free Calculators</span></div>
+        <div><span class="mock-stat-n" style="color:#00D4FF">3</span><span class="mock-stat-l">Structured Paths</span></div>
+        <div><span class="mock-stat-n" style="color:#00D4FF">$0</span><span class="mock-stat-l">Cost. Always.</span></div>
+      </div>
+    </div>
+    <div class="mock-paths">
+      <div class="mock-path">
+        <span class="mock-path-num">Path 01</span>
+        <span class="mock-path-name">Begin</span>
+        <span class="mock-path-desc">The math every winning bettor runs daily.</span>
+      </div>
+      <div class="mock-path" style="border-left:1px solid var(--border);border-right:1px solid var(--border)">
+        <span class="mock-path-num">Path 02</span>
+        <span class="mock-path-name">Convert</span>
+        <span class="mock-path-desc">Turn welcome offers into guaranteed cash.</span>
+      </div>
+      <div class="mock-path">
+        <span class="mock-path-num">Path 03</span>
+        <span class="mock-path-name">Maintain</span>
+        <span class="mock-path-desc">Find +EV consistently. Manage variance.</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Calculator mockup -->
+<div style="max-width:1080px;margin:0 auto 80px;padding:0 40px">
+  <div class="mockup-frame">
+    <div class="mockup-bar">
+      <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+      <div class="mockup-url">profitpathsports.com/bet-x-ray</div>
+    </div>
+    <div class="calc-mockup">
+      <div>
+        <div style="font-size:10px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:#00D4FF;margin-bottom:10px">Flagship Tool</div>
+        <div style="font-family:'DM Serif Display',serif;font-style:italic;font-size:36px;color:var(--text);margin-bottom:6px;line-height:1.05">Bet <span style="color:#4DFF78">X-Ray</span></div>
+        <div style="font-size:13px;color:rgba(255,255,255,.4);font-weight:300;margin-bottom:28px;line-height:1.6">Devig → EV → Kelly → Verdict in one shot. Nothing else like it.</div>
+        <div class="calc-panel">
+          <div class="calc-title">Market Inputs</div>
+          <span class="calc-sub">Enter your line data</span>
+          <span class="calc-lbl">Sharp Book Odds</span>
+          <div class="calc-input">-108</div>
+          <span class="calc-lbl">Your Bet Odds (Soft Book)</span>
+          <div class="calc-input">+115</div>
+          <span class="calc-lbl">Bankroll ($)</span>
+          <div class="calc-input">$5,000</div>
+        </div>
+      </div>
+      <div>
+        <div class="calc-panel" style="margin-bottom:12px">
+          <div class="calc-result-lbl">Expected Value</div>
+          <div class="calc-result-n">+4.7%</div>
+          <span class="calc-verdict">◆ Sharp Bet</span>
+        </div>
+        <div class="calc-panel">
+          <div class="calc-grid">
+            <div><span class="calc-mini-lbl">No-Vig Fair</span><span class="calc-mini-n cyan">+109.4</span></div>
+            <div><span class="calc-mini-lbl">Kelly Stake</span><span class="calc-mini-n cyan">2.1%</span></div>
+            <div><span class="calc-mini-lbl">Bet Size</span><span class="calc-mini-n green">$105</span></div>
+            <div><span class="calc-mini-lbl">CLV Target</span><span class="calc-mini-n cyan">+3.2%</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- 07. MOTION -->
+<div class="section">
+  <span class="s-num">07 — Motion &amp; Interaction</span>
+  <h2 class="s-heading">Precision in<br><span>every frame</span></h2>
+  <p class="s-intro">Motion communicates the brand personality before a single word is read. Every animation should feel like a trading terminal update — purposeful, measured, never performative. The standard easing is cubic-bezier(0.16, 1, 0.3, 1) at 280ms. That is the brand's heartbeat.</p>
+
+  <div class="motion-grid">
+    <div class="motion-card">
+      <span class="motion-icon">◈</span>
+      <div class="motion-title">Number Countup</div>
+      <div class="motion-desc">All EV%, Kelly%, and dollar outputs count up from zero on first render. Custom ease-out, 800ms. This is the signature moment — the calculator visibly thinking before delivering a verdict.</div>
+      <span class="motion-spec">On load · 800ms ease-out</span>
+    </div>
+    <div class="motion-card">
+      <span class="motion-icon">◐</span>
+      <div class="motion-title">Verdict Reveal</div>
+      <div class="motion-desc">The Sharp/Avoid badge fades in 150ms after the number lands. On positive EV a single 1px green ring pulses outward once and fades — 600ms, opacity 1→0. No repeat. Restraint signals confidence.</div>
+      <span class="motion-spec">Post-calc · 150ms delay</span>
+    </div>
+    <div class="motion-card">
+      <span class="motion-icon">◑</span>
+      <div class="motion-title">Scroll Entrances</div>
+      <div class="motion-desc">Cards enter translateY(20px)→0 with fade. 80ms stagger between siblings. IntersectionObserver at 15% threshold. No bouncing, no spring — measured and deliberate throughout.</div>
+      <span class="motion-spec">On scroll · 80ms stagger</span>
+    </div>
+    <div class="motion-card">
+      <span class="motion-icon">◧</span>
+      <div class="motion-title">Chart Draw</div>
+      <div class="motion-desc">Long-run simulator paths draw left-to-right via SVG stroke-dashoffset at 1.2s. Positive EV paths in Sharp Green. Ruin paths in red at 40% opacity. Visual language of a trading desk.</div>
+      <span class="motion-spec">On render · 1.2s linear</span>
+    </div>
+    <div class="motion-card">
+      <span class="motion-icon">◩</span>
+      <div class="motion-title">Card Hover</div>
+      <div class="motion-desc">Cards lift translateY(-2px), border opacity shifts from 5% to 12% white. Buttons scale(1.02) with background fill. All hover transitions 180ms ease. Never jarring — always reassuring.</div>
+      <span class="motion-spec">On hover · 180ms</span>
+    </div>
+    <div class="motion-card">
+      <span class="motion-icon">◫</span>
+      <div class="motion-title">Custom Cursor</div>
+      <div class="motion-desc">Desktop only: 5px Sharp Green dot with a 22px lagging ring at 120ms. Ring compresses on click (scale 0.7, 80ms). Nav links get a green underline that slides in from left at 200ms. Desktop only.</div>
+      <span class="motion-spec">Persistent · Desktop only</span>
+    </div>
+  </div>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- 08. VOICE -->
+<div class="section">
+  <span class="s-num">08 — Voice &amp; Copy</span>
+  <h2 class="s-heading">Write like a sharp,<br><span>not a shill</span></h2>
+  <p class="s-intro">The copy voice is the brand's most valuable trust asset. It must stay direct and honest — but elevate from "savvy Reddit poster" to "analyst who actually beats the books." One rule governs everything: be specific, be honest, never hype.</p>
+
+  <div class="voice-grid">
+    <div class="voice-card">
+      <div class="voice-header bad">✕ Before</div>
+      <div class="voice-body">Most bettors think they know this stuff. Most bettors are losing. The two facts are related. 🎓 Newcomers get the on-ramp; everyone else gets the foundation they probably skipped.</div>
+    </div>
+    <div class="voice-card">
+      <div class="voice-header good">✓ After</div>
+      <div class="voice-body">Losing bettors skip the math. Winning bettors run it on every single bet. <strong>Path 01 is where that gap closes</strong> — six lessons, the arithmetic that separates profitable bettors from the other 97%.</div>
+    </div>
+    <div class="voice-card">
+      <div class="voice-header bad">✕ Before</div>
+      <div class="voice-body">Every other site makes you bounce between five separate calculators. Bet X-Ray runs the whole sharp pipeline in one shot. <strong>You won't find this anywhere else.</strong></div>
+    </div>
+    <div class="voice-card">
+      <div class="voice-header good">✓ After</div>
+      <div class="voice-body">Bet X-Ray runs the complete pipeline in one tool. <strong>Enter your market. Get your verdict.</strong> No comparable tool exists publicly — that's not a claim, it's a search result you can verify in 30 seconds.</div>
+    </div>
+    <div class="voice-card">
+      <div class="voice-header bad">✕ Before CTA</div>
+      <div class="voice-body">"Start here" with emoji-prefixed links and no clear hierarchy. The user doesn't know what matters or why anything deserves a click.</div>
+    </div>
+    <div class="voice-card">
+      <div class="voice-header good">✓ After CTA</div>
+      <div class="voice-body"><strong>"Choose your path. The math doesn't care where you start."</strong> Secondary: "Launch Bet X-Ray — see your first real EV number in 90 seconds." Every CTA promises a specific outcome.</div>
+    </div>
+  </div>
+
+  <table class="token-table">
+    <thead><tr><th>Principle</th><th>Execution</th></tr></thead>
+    <tbody>
+      <tr><td style="color:#00D4FF">Specificity Over Hype</td><td>Replace "nothing else like it on the internet" with verifiable claims. "The only public tool that runs devig, EV, Kelly, and CLV in sequence" is a claim. "Best calculator ever" is noise.</td></tr>
+      <tr><td style="color:#00D4FF">Respect Intelligence</td><td>Never over-explain. Trust the audience to follow a sentence with a technical term. Jargon defined once, inline, the first time only. They chose a sharp tool — write to match.</td></tr>
+      <tr><td style="color:#00D4FF">The Free Paradox</td><td>Never lead with "free." It cheapens the tool. Instead: "No paywall, no signup — the tools are here because they should be." Free as principle, not discount. Principle has more value.</td></tr>
+      <tr><td style="color:#00D4FF">Confidence Without Arrogance</td><td>State things. "Path 02 converts welcome offers into withdrawable cash in four steps." Not "we believe our approach can potentially help you convert offers." State. Don't hedge.</td></tr>
+      <tr><td style="color:#00D4FF">Anti-Sportsbook Positioning</td><td>The Bovada warning story is the brand's single most differentiating asset. Every page should feel like it was written by someone who has personally been limited by a book — because it was.</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- 09. CONVERSION -->
+<div class="section">
+  <span class="s-num">09 — Conversion Architecture</span>
+  <h2 class="s-heading">Design for action,<br><span>not applause</span></h2>
+  <p class="s-intro">Beautiful design that doesn't convert is expensive decoration. Every layout decision is made with the conversion hierarchy in mind: affiliate click-through, email capture, tool engagement as trust signal, return visit rate.</p>
+
+  <div class="plays-grid">
+    <div class="play-card featured">
+      <div class="play-bg-num">01</div>
+      <div class="play-title">The 90-Second Hook</div>
+      <span class="play-mech">Primary Conversion · Engagement</span>
+      <div class="play-desc">A live, interactive mini-calculator embedded directly in the hero section — not linked, embedded. User enters one odds line and sees instant devig + EV output. First meaningful interaction in under 90 seconds. The tool proves itself before any copy does. This is the single most important conversion decision in the brief.</div>
+    </div>
+    <div class="play-card">
+      <div class="play-bg-num">02</div>
+      <div class="play-title">The Playbook Gate</div>
+      <span class="play-mech">Email Capture · Lead Generation</span>
+      <div class="play-desc">Replace the "email us" Sharp Exchange Playbook access with an inline email capture form. Auto-populated subject line, instant send confirmation. This single change is worth 300–500 engaged subscribers per month. Email list is the brand's highest-value long-term asset and future newsletter revenue channel.</div>
+    </div>
+    <div class="play-card">
+      <div class="play-bg-num">03</div>
+      <div class="play-title">The Book Room</div>
+      <span class="play-mech">Affiliate CTR · Revenue</span>
+      <div class="play-desc">Redesign the sportsbook section as a curated "Book Room" — editorial card layout with expected cash value in Sharp Green at large type. "$105 cash" drives more clicks than offer descriptions. Lead with the highest-EV offer for the current date. Sequence is a conversion lever.</div>
+    </div>
+    <div class="play-card">
+      <div class="play-bg-num">04</div>
+      <div class="play-title">Bet X-Ray Flagship</div>
+      <span class="play-mech">SEO · Brand Authority</span>
+      <div class="play-desc">Bet X-Ray deserves its own landing page with an independent SEO strategy. "Sports betting EV calculator," "devig calculator," "Kelly criterion sports betting" — high-intent, low-competition keywords. Opens with a bold statement no competitor can match.</div>
+    </div>
+    <div class="play-card">
+      <div class="play-bg-num">05</div>
+      <div class="play-title">Path Progress System</div>
+      <span class="play-mech">Retention · Return Visits</span>
+      <div class="play-desc">localStorage progress tracker for all three paths. No account required. A progress bar ("4 of 8 lessons complete") dramatically increases return visit rates. Users who complete Path 01 convert on affiliates at 3× the rate of those who don't — finishing the education creates the buyer.</div>
+    </div>
+    <div class="play-card">
+      <div class="play-bg-num">06</div>
+      <div class="play-title">The Live Ticker</div>
+      <span class="play-mech">Trust · Social Proof</span>
+      <div class="play-desc">A subtle ticker below the nav: "4,200 EV calculations run today · $18,400 in offers claimed this week via PROFITPATH links." No names, no fabrication — real analytics. Numbers build trust faster than any copy. Green text on void black reads as a live data feed, not marketing.</div>
+    </div>
+  </div>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- 10. ROADMAP -->
+<div class="section">
+  <span class="s-num">10 — Implementation Roadmap</span>
+  <h2 class="s-heading">The path to<br><span>new market position</span></h2>
+  <p class="s-intro">Three phases protect SEO equity, maintain tool uptime, and allow real-user feedback at each stage. Nothing is deleted — everything is elevated. The full rebrand completes in 12 weeks with zero downtime to existing tools.</p>
+
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-marker">
+        <div class="tl-dot"></div>
+        <span class="tl-phase">Phase I</span>
+        <span class="tl-dur">Weeks 1–3</span>
+      </div>
+      <div>
+        <div class="tl-title">Design System & Identity</div>
+        <div class="tl-desc">Establish the complete design system: colour tokens, typography scale, spacing system, logo finalization, icon language. Build the component library. No public-facing changes yet — this phase is the foundation. All existing tool functionality remains untouched.</div>
+        <div class="tl-tags">
+          <span class="tl-tag">Figma System</span>
+          <span class="tl-tag">Logo Suite (SVG)</span>
+          <span class="tl-tag">Token File</span>
+          <span class="tl-tag">Typography Spec</span>
+          <span class="tl-tag">Component Library</span>
+        </div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-marker">
+        <div class="tl-dot"></div>
+        <span class="tl-phase">Phase II</span>
+        <span class="tl-dur">Weeks 4–7</span>
+      </div>
+      <div>
+        <div class="tl-title">Homepage & Flagship Tools</div>
+        <div class="tl-desc">Rebuild the homepage with the new identity: hero with embedded mini-calculator, new navigation, Book Room sportsbook section, updated copy. Simultaneously launch the Bet X-Ray flagship page and the Playbook email capture system. All redirects maintained for SEO.</div>
+        <div class="tl-tags">
+          <span class="tl-tag">New Homepage</span>
+          <span class="tl-tag">Bet X-Ray Page</span>
+          <span class="tl-tag">Book Room</span>
+          <span class="tl-tag">Email Capture</span>
+          <span class="tl-tag">Mobile Build</span>
+        </div>
+      </div>
+    </div>
+    <div class="tl-item" style="border-bottom:none">
+      <div class="tl-marker">
+        <div class="tl-dot"></div>
+        <span class="tl-phase">Phase III</span>
+        <span class="tl-dur">Weeks 8–12</span>
+      </div>
+      <div>
+        <div class="tl-title">Full Platform Rollout</div>
+        <div class="tl-desc">Migrate all lesson pages, calculator tools, and strategy guides to the new system. Implement the path progress tracker, live ticker, and newsletter infrastructure. Full rebrand complete. Brief delivered.</div>
+        <div class="tl-tags">
+          <span class="tl-tag">All Tool Pages</span>
+          <span class="tl-tag">Lesson Pages</span>
+          <span class="tl-tag">Progress Tracker</span>
+          <span class="tl-tag">Live Ticker</span>
+          <span class="tl-tag">Newsletter Launch</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <table class="token-table">
+    <thead><tr><th>Metric</th><th>Baseline</th><th>90-Day Target</th><th>Mechanism</th></tr></thead>
+    <tbody>
+      <tr><td style="color:#00D4FF">Affiliate CTR</td><td>Unknown baseline</td><td>+40–60%</td><td>Book Room redesign, cash value prominence, trust signals above the fold</td></tr>
+      <tr><td style="color:#00D4FF">Email Subscribers</td><td>~0 (email-gate only)</td><td>300+ / month</td><td>Inline Playbook capture, newsletter infrastructure</td></tr>
+      <tr><td style="color:#00D4FF">Bet X-Ray Engagement</td><td>Unknown baseline</td><td>+80% session depth</td><td>Flagship page, embedded hero calculator, SEO campaign</td></tr>
+      <tr><td style="color:#00D4FF">Return Visit Rate</td><td>Unknown baseline</td><td>+25% returning</td><td>Path progress tracker, newsletter, tool bookmarking</td></tr>
+      <tr><td style="color:#00D4FF">Perceived Brand Tier</td><td>Generic fintech</td><td>Peer to OddsJam / Pinnacle</td><td>Full visual identity, DM Serif Display, motion system</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- FOOTER -->
+<div class="brief-footer">
+  <div class="footer-rule"></div>
+  <div class="footer-wm">PROFIT<span>PATH</span></div>
+  <span class="footer-sports">Sports</span>
+  <div class="footer-meta">
+    Complete Brand Brief · 2026<br>
+    10 Sections · Identity System · Colour · Typography · Logo · Motion · Voice · Conversion · Roadmap<br><br>
+    All tools stay free. The brand gets sharper. The edge compounds.
+  </div>
+</div>
+
+</body>
+</html>
