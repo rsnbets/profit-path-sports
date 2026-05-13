@@ -64,6 +64,31 @@
   .lesson-body a { color: var(--blue); text-decoration: none; border-bottom: 1px dashed var(--blue); transition: color 0.15s, border-color 0.15s; }
   .lesson-body a:hover { color: var(--yellow); border-color: var(--yellow); }
 
+  /* 5-step visual timeline */
+  .steps-visual { margin: 0 0 36px; }
+  .step-visual { display: grid; grid-template-columns: 64px 1fr; gap: 18px; align-items: stretch; margin-bottom: 8px; }
+  .step-num-col { position: relative; display: flex; flex-direction: column; align-items: center; }
+  .step-num { width: 48px; height: 48px; border-radius: 50%; background: var(--panel-deep); border: 2px solid var(--yellow); color: var(--yellow); display: flex; align-items: center; justify-content: center; font-family: 'Orbitron', sans-serif; font-size: 18px; font-weight: 900; letter-spacing: 0.5px; box-shadow: 0 0 18px var(--yellow-glow); flex-shrink: 0; z-index: 2; }
+  .step-num.final { background: var(--yellow); color: #1a0f0a; }
+  .step-connector { flex: 1; width: 2px; background: linear-gradient(180deg, var(--yellow) 0%, rgba(245,181,69,0.2) 100%); margin-top: 4px; min-height: 14px; }
+  .step-visual:last-child .step-connector { display: none; }
+  .step-card { background: var(--panel); border: 1px solid var(--border-soft); border-left: 3px solid var(--yellow); border-radius: 10px; padding: 16px 22px; margin-bottom: 12px; }
+  .step-card.final { border-left-color: var(--green); background: linear-gradient(135deg, rgba(74,222,128,0.05), var(--panel)); }
+  .step-action { font-family: 'Orbitron', sans-serif; font-size: 14.5px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text); font-weight: 800; margin-bottom: 6px; }
+  .step-card.final .step-action { color: var(--green); }
+  .step-detail { font-family: 'Rajdhani', sans-serif; font-size: 15.5px; color: var(--muted); line-height: 1.5; }
+  .step-detail strong { color: var(--text); font-weight: 600; }
+  .step-detail .hi { color: var(--yellow); font-weight: 600; font-style: normal; }
+  .step-card.final .step-detail .hi { color: var(--green); }
+
+  @media (max-width: 600px) {
+    .step-visual { grid-template-columns: 48px 1fr; gap: 12px; }
+    .step-num { width: 38px; height: 38px; font-size: 15px; }
+    .step-action { font-size: 13px; letter-spacing: 1px; }
+    .step-detail { font-size: 14px; }
+    .step-card { padding: 14px 16px; }
+  }
+
   /* Three-edge cards */
   .edges-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 18px 0; }
   @media (max-width: 640px) { .edges-row { grid-template-columns: 1fr; } }
@@ -218,74 +243,106 @@
   </div>
 
   <section class="lesson-section">
-    <h3>Why most parlays are a tax on hope</h3>
+    <h3>The play — 5 steps</h3>
     <div class="lesson-body">
-      <p>Sportsbooks love parlays because <strong>vig compounds across legs.</strong> A single -110 bet has ~4.5% house edge. Stack four into a parlay and the house edge balloons to ~17%. The losses hide in the multiplication.</p>
-      <p>So why play parlays at all? Because there's a <strong>specific shape</strong> where the book gives back enough edge — through boosts and alt-line mispricing — that the math flips. Three things have to be true at the same time:</p>
+      <div class="steps-visual">
+
+        <div class="step-visual">
+          <div class="step-num-col">
+            <div class="step-num">01</div>
+            <div class="step-connector"></div>
+          </div>
+          <div class="step-card">
+            <div class="step-action">Find a parlay boost</div>
+            <div class="step-detail">DK or FD promo tab. Note the spec: <span class="hi">3-4 legs · +300-400 min odds · 20-50% boost</span>.</div>
+          </div>
+        </div>
+
+        <div class="step-visual">
+          <div class="step-num-col">
+            <div class="step-num">02</div>
+            <div class="step-connector"></div>
+          </div>
+          <div class="step-card">
+            <div class="step-action">Find good plays — one late game</div>
+            <div class="step-detail">Sharp-consensus favorites for tonight (PtO / Stokastic / your cappers). <span class="hi">One game starts later than the rest</span> — that's your hedge target.</div>
+          </div>
+        </div>
+
+        <div class="step-visual">
+          <div class="step-num-col">
+            <div class="step-num">03</div>
+            <div class="step-connector"></div>
+          </div>
+          <div class="step-card">
+            <div class="step-action">Bet alts: −200/−300 · late leg −400/−600</div>
+            <div class="step-detail">Buy points on each leg. Earlier legs <span class="hi">−200 to −300</span>. Late game is your heaviest favorite at <span class="hi">−400 to −600</span> (wider alt range = easier middle). Apply boost. Submit.</div>
+          </div>
+        </div>
+
+        <div class="step-visual">
+          <div class="step-num-col">
+            <div class="step-num">04</div>
+            <div class="step-connector"></div>
+          </div>
+          <div class="step-card">
+            <div class="step-action">Hope the early legs hit</div>
+            <div class="step-detail">If any leg loses, parlay's dead — <span class="hi">oh well, it was a loser</span>. Move on. If they all hit, you're sitting on a live ticket pending the last game.</div>
+          </div>
+        </div>
+
+        <div class="step-visual">
+          <div class="step-num-col">
+            <div class="step-num final">05</div>
+          </div>
+          <div class="step-card final">
+            <div class="step-action">Live-bet the alt for your middle</div>
+            <div class="step-detail">Once the final game tips, your locked −400/−600 alt fav is <span class="hi">now showing +300/+400 on the live market</span>. Hedge with a plus-money alt on the opposite side → arb middle. Worst case = guaranteed profit. Best case = both sides hit.</div>
+          </div>
+        </div>
+
+      </div>
+
+      <p style="font-size: 14.5px; color: var(--muted); margin-top: 4px; text-align: center;"><a href="/triple-stack.html">Open the Triple Stack Calculator →</a> for the exact hedge stake and per-parlay EV.</p>
     </div>
   </section>
 
   <section class="lesson-section">
-    <h3>The flip — three stacked edges on one ticket</h3>
+    <h3>Why this works — three stacked edges</h3>
     <div class="lesson-body">
-      <p>Each of these edges, on its own, can turn a losing bet into a winning one. <strong>Stack all three on the same parlay</strong> and you're playing a different game than the person next to you.</p>
+      <p>Sportsbooks love parlays because vig compounds — a single −110 bet has 4.5% house edge, but a 4-leg parlay balloons to ~17%. This play flips that because it stacks <strong>three independent edges</strong> on one ticket:</p>
 
       <div class="edges-row">
         <div class="edge-card">
           <div class="num">EDGE 01</div>
           <h4>The Boost</h4>
-          <p>DK and FD hand out <strong>+25% to +50% boost tokens</strong> on 3+ leg parlays at +300 odds or longer. The boost raises your payout above the fair price. <strong>That delta is free money</strong> — built into the ticket before you've picked a side.</p>
+          <p>+25-50% on the payout. Free money baked into the ticket.</p>
         </div>
         <div class="edge-card b">
           <div class="num">EDGE 02</div>
           <h4>Sharp Legs</h4>
-          <p>Pick 3-4 games where <strong>sharp cappers agree on the favorite</strong> (PtO consensus, Stokastic, etc.). Take alt lines in the favorite direction — shorter spread, higher win prob per leg, parlay still totals +300-500.</p>
+          <p>Consensus picks + alt lines = positive per-leg EV before stacking.</p>
         </div>
         <div class="edge-card p">
           <div class="num">EDGE 03</div>
-          <h4>Arb-Middle Hedge</h4>
-          <p>Stagger your games so the <strong>biggest favorite plays last</strong>. If the earlier legs hit, you're sitting on a $300-500 ticket. Hedge the final leg with an alt line at plus money on the opposite side — that's an arb at worst, a middle at best.</p>
+          <h4>Live Arb-Middle</h4>
+          <p>Final-leg price inverts live. Plus money on both sides = locked profit + middle bonus.</p>
         </div>
       </div>
-
-      <p style="margin-top: 18px;"><em>The third edge is the cherry — the first two do most of the work.</em> But when the third one lands, it can swing a $500 outcome into $1,500.</p>
     </div>
   </section>
 
   <section class="lesson-section">
-    <h3>The "arb middle" in plain English — the Weather Bracket</h3>
+    <h3>The middle, in plain English</h3>
     <div class="lesson-body">
-      <p>This is the part that confuses people. The hedge isn't a normal hedge — it's an <em>arb middle</em>, where BOTH bets can pay. Easiest way to see it:</p>
-
       <div class="analogy">
         <div class="tag">🌡️ THE WEATHER BRACKET</div>
-        <p>I bet you <strong>$50</strong> that tomorrow's high will be <strong>above 70°F</strong>. Someone else bets you <strong>$40</strong> that the high will be <strong>under 80°F</strong>. Both bets pay <em>plus money</em>. Three things can happen:</p>
-        <p>• <strong>Cold day (below 70°F):</strong> first bet loses, second wins. You keep <strong>$40</strong>.<br>
-        • <strong>Hot day (above 80°F):</strong> first bet wins, second loses. You keep <strong>$50</strong>.<br>
-        • <strong>Mild day (between 70-80°F):</strong> BOTH bets win. You keep <strong>$90</strong>.</p>
-        <p>You can't lose both. The mild-day zone is your <em>middle</em> — the bigger the bracket, the more often the temperature falls inside it.</p>
-        <p>The Triple Stack on the final parlay leg is exactly this, except the temperature is the <strong>final game's score margin</strong> and the bracket is two alt-spreads or alt-totals on opposite sides.</p>
+        <p>I bet you <strong>$50</strong> that tomorrow's high will be <strong>above 70°F</strong>. Someone else bets you <strong>$40</strong> that the high will be <strong>under 80°F</strong>. Both at <em>plus money</em>.</p>
+        <p>• <strong>Cold (below 70°F):</strong> lose first, win second → keep <strong>$40</strong>.<br>
+        • <strong>Hot (above 80°F):</strong> win first, lose second → keep <strong>$50</strong>.<br>
+        • <strong>Mild (70-80°F):</strong> BOTH win → keep <strong>$90</strong>.</p>
+        <p>You can't lose both. The mild-day zone is your <em>middle</em>. The Triple Stack's final leg is exactly this — the temperature is the <strong>final game's score margin</strong> and the bracket is two alt-spreads on opposite sides.</p>
       </div>
-
-      <p>The whole point: when you can get plus money on both sides of an alt line, <strong>you can't lose</strong> — worst case you arb out a small profit, best case the result lands in the gap and you collect twice.</p>
-    </div>
-  </section>
-
-  <section class="lesson-section">
-    <h3>The play, step by step</h3>
-    <div class="lesson-body">
-      <ol>
-        <li><strong>Find a parlay boost in your DK or FD promotions tab.</strong> They drop these regularly — usually "boost any 3-4 leg parlay at +300-400 minimum odds by 20-50%." Note the exact requirements: number of legs, minimum total odds, boost percentage. <em>The boost dictates the shape of the parlay you're about to build.</em></li>
-        <li><strong>Build the parlay to spec with sharp-aligned alt-fav legs.</strong>
-          <br>• Pick 3-4 sharp-consensus favorites (PtO, Stokastic, your cappers) for tonight's slate.
-          <br>• Take <strong>alt lines in the favorite direction</strong> — buy points to shorten each spread. Each leg should price around <strong>-200 to -300</strong> so they multiply out to hit the boost's required total (e.g., four legs at -250 = ~+406, qualifies for a +300 minimum).
-          <br>• <strong>Make the heaviest favorite the last game to play.</strong> Biggest spread = widest alt-line range = easiest arb-middle hedge later.</li>
-        <li><strong>Apply the boost. Submit.</strong> Confirm the slip shows the boosted payout before tapping place.</li>
-        <li><strong>Wait for the earlier legs to settle.</strong> If any leg loses, the parlay's dead — move on. If 2-3 hit and you're sitting on a live ticket pending only the final game, proceed.</li>
-        <li><strong>Find the arb-middle on the final leg.</strong> Open the final game's alt-line market on the opposite side of your locked parlay leg — at another book, or on an exchange (ProphetX, Novig). Look for <strong>plus money (+100 or longer)</strong>. Size the hedge with the <a href="/triple-stack.html">Triple Stack Calculator</a>. Place it.</li>
-      </ol>
-
-      <p style="font-size: 15px; color: var(--muted); margin-top: 6px;"><em>No plus-money hedge available?</em> Take a minus-money hedge to reduce variance (locks less profit but locks something), or let it ride for the full payout. The calculator handles all three scenarios.</p>
     </div>
   </section>
 
