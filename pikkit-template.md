@@ -6,6 +6,32 @@
 
 ---
 
+## ⚠️ STRATEGIC POSITIONING (read this first)
+
+**This is a demonstration channel, not a tipster service.**
+
+PPS does not give out picks as its product. The X-Ray calculator and the educational guides are the product. Pikkit is a finite-duration traction tool to drive awareness back to the site — not a long-term content channel.
+
+**Every post is an example of methodology**, not a recommendation. The bet is the vehicle; the X-Ray demonstration is the cargo. Readers should leave wanting to *run the X-Ray themselves*, not wanting to copy the bet.
+
+**Posting discipline:**
+- **Max 1-3 posts/day**, varying the *type* of edge demonstrated (stale line / alt-ladder / cross-market / devig discrepancy / live middle / etc.)
+- **Every post ends with the home CTA** — see the "Required outbound CTA" section below
+- **60-90 day traction window**, then transition Pikkit to a weekly stats-recap channel (CLV %, ROI, hit rate) rather than daily plays
+- **Never use language that says "tail me," "copy this," "lock," "free money," or "guaranteed."** Always frame as "here's what the tool found" / "here's the pattern"
+- **Place the bet at small stakes** ($5-25 from a dedicated $250-500 "post bankroll") — Pikkit requires real slips, and the discipline keeps quality high
+
+### Required outbound CTA (closes every post)
+
+```
+Plays like this aren't the product — the X-Ray is.
+Find your own: profitpathsports.com/bet-x-ray.html
+```
+
+This single line is the most important sentence in every post. Never omit it.
+
+---
+
 ## Locked-in defaults
 
 | Setting | Default | Rationale |
@@ -42,27 +68,30 @@
 ## SHORT template (Pikkit feed-card length, ≤280 chars)
 
 ```
-🩻 +EV: [Player/Team] [Market] [Side] [Line] @ [Book] [Odds]
+🩻 X-Ray flagged: [Player/Team] [Market] [Side] [Line] @ [Book] [Odds]
 
-Fair (PX devig):  [Fair-A] → Edge +[EV%-A] · +$[EV/100-A]/100
-Fair (Mkt avg):   [Fair-B] → Edge +[EV%-B] · +$[EV/100-B]/100
+Fair (sharp): [Fair-A] · Edge +[EV%-A]
+Fair (avg):   [Fair-B] · Edge +[EV%-B]
 
-¼-Kelly: $[Stake-low]–$[Stake-high] ([U-low]–[U-high]u · $1k roll)
-Found via @ProfitPathSports X-Ray
+The tool, not the tip → profitpathsports.com/bet-x-ray.html
 #PlusEV #[Sport] #[Book]
 ```
 
 **Notes:**
-- SHORT always shows both fair-line reads — they're the headline differentiator
-- Stake range = mkt-avg ¼-Kelly (low) to sharp ¼-Kelly (high)
-- Drop `Found via @ProfitPathSports X-Ray` line if over character limit, but keep it whenever possible
+- Lead with "X-Ray flagged" — positions the tool as the actor, not you
+- SHORT always shows both fair-line reads — they're the methodology signal
+- Closing line is non-negotiable: routes readers to the actual product
+- If character limit is tight, drop the hashtags first; keep the X-Ray URL
 
 ---
 
 ## LONG template (full commentary body)
 
 ```
-🩻 +EV PLAY · [Player/Team] [Market] [Line] [Side] @ [Book] [Odds]
+🩻 X-RAY DEMO · [Player/Team] [Market] [Line] [Side] @ [Book] [Odds]
+
+EDGE TYPE: [Stale line · Alt-ladder gap · Cross-market · Devig discrepancy · Live middle]
+   ↑ pick one — varies what readers learn each post
 
 📊 X-RAY · TWO DEVIG SOURCES (same calc, two runs)
 
@@ -88,19 +117,29 @@ Found via @ProfitPathSports X-Ray
    Aggressive ([Source]):    $[Stake-high]  ([%-high]% of roll · [u-high]u)
    Midpoint suggestion:      $[Stake-mid]   ([%-mid]% · [u-mid]u)
 
-🎯 WHY
-[1-3 sentence reasoning. Standard angles:
- - Which book is the outlier and which way (stale line)
- - Where the rest of the market sits (cluster)
- - Cross-book signals (e.g. another book offering best price on the opposite side
-   = they're trying to attract action that way = action has been on YOUR side)
- - Game-script / injury / pace / matchup edge if relevant]
+🎯 WHY THIS PATTERN MATTERS
+[1-3 sentence reasoning, framed as TEACHING the pattern, not selling the bet:
+ - Name the pattern explicitly ("This is a stale-line pattern — when one book
+   sits 20+ cents above the market average...")
+ - Explain how the reader can spot this pattern themselves on their own screen
+ - Cross-book signals worth flagging:
+   - Best opposite-side price on a different book = action on YOUR side, line
+     hasn't caught up
+   - Limit / lock icon = sharps already attacking this number
+   - Multi-book consensus vs. one outlier = textbook stale-line setup]
 
-🎯 CLV TARGET
-[Expected closing line on the specific book — usually fair odds ± book's typical
-juice pattern. e.g. "Expect FD to drop to +110/+120 by tip."]
+🎯 CLV WATCH
+[Expected closing line on the specific book — readers can verify pre-game
+that the math was right by watching this number converge.
+e.g. "Watch FD — expect it to drop to +110/+120 by tip. If it doesn't, the
+X-Ray was wrong on this one. That's the test."]
 
-#PlusEV #SharpAction #[Sport] #[Book] #DegenButMakeItMath
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Plays like this aren't the product — the X-Ray is.
+Find your own: profitpathsports.com/bet-x-ray.html
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+#PlusEV #SharpAction #[Sport] #[Book] #LearnTheMath
 ```
 
 ---
@@ -162,19 +201,20 @@ juice pattern. e.g. "Expect FD to drop to +110/+120 by tip."]
 
 **SHORT output:**
 ```
-🩻 +EV: Courtney Williams O5.5 assists @ FD +140
+🩻 X-Ray flagged: Courtney Williams O5.5 assists @ FD +140
 
-Fair (PX devig):  +120 → Edge +8.83% · +$8.83/100
-Fair (Mkt avg):   +127 → Edge +5.53% · +$5.53/100
+Fair (sharp): +120 · Edge +8.83%
+Fair (avg):   +127 · Edge +5.53%
 
-¼-Kelly: $10–$16 (1.0–1.6u · $1k roll)
-Found via @ProfitPathSports X-Ray
+The tool, not the tip → profitpathsports.com/bet-x-ray.html
 #PlusEV #WNBA #FanDuel
 ```
 
 **LONG output:**
 ```
-🩻 +EV PLAY · Courtney Williams O5.5 assists @ FanDuel +140
+🩻 X-RAY DEMO · Courtney Williams O5.5 assists @ FanDuel +140
+
+EDGE TYPE: Stale line — one book lagging the market
 
 📊 X-RAY · TWO DEVIG SOURCES (same calc, two runs)
 
@@ -189,29 +229,33 @@ Found via @ProfitPathSports X-Ray
    Implied @ FD:        41.67%
    Breakeven rate:      41.67%
 
-📐 REPLICATE — run the X-Ray twice with these sharp inputs:
+📐 REPLICATE — run the X-Ray twice yourself:
    Run 1 (PX exchange):  Sharp A +106 / Sharp B −141 / Book +140
    Run 2 (Market avg):   Sharp A +113 / Sharp B −149 / Book +140
    Both: Multiplicative devig method
    → profitpathsports.com/bet-x-ray.html
 
-💰 SIZING · $1,000 bankroll · ¼-Kelly
-   Conservative (mkt avg):   $10  (1.00% of roll · 1.0u)
-   Aggressive  (PX sharp):   $16  (1.58% of roll · 1.6u)
-   Midpoint suggestion:      $13  (1.30% · 1.3u)
+🎯 WHY THIS PATTERN MATTERS
+This is a textbook stale-line pattern. FanDuel is the lone outlier at +140
+while every other book sits +106 to +120, with the market average at +113.
+When you see one book sitting 20+ cents above consensus, that's a line
+that hasn't caught up to where action has been hitting. Bonus signal:
+Hard Rock is offering the best UNDER at −135 — they're trying to attract
+under action, meaning money's been on the over and FD is the last book
+holding the stale number. You can spot this same pattern on any OddsJam
+screen in 30 seconds.
 
-🎯 WHY
-FanDuel stands alone at +140. Rest of the market: PX +106 · DK +115 ·
-BetX +116 · Bet365 +120 · MGM −105 (outlier). ProphetX (sharpest
-two-way) devigs to +120 fair; market average devigs to +127. Either
-way, FD's +140 is the stale line. Hard Rock offering the best UNDER
-at −135 = they're trying to attract under action, meaning money's
-been hitting the over and FD hasn't moved yet.
+🎯 CLV WATCH
+Watch FD — expect it to drop to +110 / +120 by tip. If it doesn't, the
+X-Ray was wrong here. That convergence test is how you verify the math
+before you ever care about the result.
 
-🎯 CLV TARGET
-Expect FD to drop to +110 / +120 by tip. Track CLV at lock.
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Plays like this aren't the product — the X-Ray is.
+Find your own: profitpathsports.com/bet-x-ray.html
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-#PlusEV #SharpAction #WNBA #FanDuel #DegenButMakeItMath
+#PlusEV #SharpAction #WNBA #FanDuel #LearnTheMath
 ```
 
 ---
@@ -315,12 +359,16 @@ Pikkit auto-tracks closing line value on every settled bet — the "Live CLV Upd
 ## Voice + branding rules
 
 - **No exclamation points.** Confident, factual tone.
-- **Bold the actual play**, not the marketing copy. The bet is the hero.
-- **Always show the math.** Pikkit's audience is bet-tracking nerds who respect "show your work."
-- **Never overclaim certainty.** "+EV" is a long-run expectation, not a guarantee of this bet hitting. Phrase as "edge" / "fair line" / "stale line" — not "lock" / "free money" / "easy win."
-- **Tag PPS sparingly.** `@ProfitPathSports` once in SHORT, X-Ray URL once in LONG, brand hashtags in both. Don't spam the brand in the body.
-- **Always disclose book.** Transparency about which book has the price prevents confusion + signals you're not a tout pushing a non-public line.
+- **The methodology is the hero, not the bet.** Lead with what the X-Ray did, not what to bet.
+- **Always show the math.** Pikkit's audience is bet-tracking nerds who respect "show your work." Plus the math is the actual asset PPS is teaching.
+- **Never overclaim certainty.** "+EV" is a long-run expectation, not a guarantee of this bet hitting. Phrase as "edge" / "fair line" / "stale line" / "pattern" — never "lock" / "free money" / "easy win" / "tail me" / "smash."
+- **Frame as a teaching example, not a recommendation.** Use language like "this is a stale-line pattern," "X-Ray flagged this," "here's how to spot it yourself" — never "I love this play," "hammer this," "best play of the day."
+- **Always disclose book + how to find it.** Transparency about which book and which screen tools surfaced it builds trust. Hiding sources = tipster red flag.
+- **End every post with the home CTA.** "Plays like this aren't the product — the X-Ray is. Find your own: profitpathsports.com/bet-x-ray.html" — non-negotiable.
+- **Don't post if you can't teach something new.** If a play doesn't demonstrate a different pattern than yesterday's post, skip it. Quality of demonstration > quantity of plays.
 
 ---
 
-*Template version 1.0 — May 2026. Refine as we run more posts and learn what converts.*
+*Template version 2.0 — May 2026.*
+
+*v1.0 → v2.0 changelog: Reframed entire workflow from tipster mode to demonstration mode. PPS is an education brand, not a picks service. Pikkit is now a finite 60-90 day traction tool; every post leads with "X-Ray flagged this" and closes with a mandatory CTA back to the calc. Posting cap dropped to 1-3/day, varying edge type each post. Voice rules updated to ban tipster language ("tail me," "smash," "lock," "easy money"). After traction window, Pikkit transitions to weekly stats-recap channel.*
