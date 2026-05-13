@@ -620,6 +620,37 @@
     </div>
   </section>
 
+  <section class="lesson-section">
+    <h3>Why this actually works (in plain English)</h3>
+    <div class="lesson-body">
+      <div style="background: rgba(74, 222, 128, 0.05); border: 1px solid rgba(74, 222, 128, 0.30); border-left: 3px solid var(--green); border-radius: 10px; padding: 22px 26px; margin: 18px 0;">
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.2em; color: var(--green); margin-bottom: 14px; font-weight: 700;">✈️ THE AIRPORT CURRENCY EXCHANGE</div>
+        <p>You land in another country with $100 USD. The bank's real exchange rate is 1 USD = 1.30 EUR. But at the airport currency kiosk, you see two prices posted:</p>
+        <ul>
+          <li><strong>They BUY USD at 1.25</strong> (when you sell them your dollars)</li>
+          <li><strong>They SELL USD at 1.35</strong> (when you buy dollars from them)</li>
+        </ul>
+        <p>That 10-cent spread is how the kiosk makes money. Every transaction, in both directions, leaves a small cut for the house. <strong>You always pay something just to make the trade.</strong></p>
+        <p style="margin-bottom: 0;">That's vig. On a real 50/50 bet, a "fair" sportsbook would offer +100 on both sides — bet $10, win $10. But the sportsbook offers −110 on both sides instead. You bet $11 to win $10. That extra dollar per $11 is the sportsbook's currency-kiosk spread. <strong>Whichever side wins, the house keeps a cut.</strong></p>
+      </div>
+      <table style="width: 100%; border-collapse: collapse; font-family: 'Rajdhani', sans-serif; font-size: 15px; margin: 14px 0;">
+        <thead>
+          <tr style="background: var(--panel-deep);">
+            <th style="text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--border); font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--dim); font-weight: 700;">In the analogy</th>
+            <th style="text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--border); font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--dim); font-weight: 700;">In real betting</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td style="padding: 8px 14px; border-bottom: 1px solid var(--border-soft);">Bank rate (1.30)</td><td style="padding: 8px 14px; border-bottom: 1px solid var(--border-soft);">"Fair" odds with no vig</td></tr>
+          <tr><td style="padding: 8px 14px; border-bottom: 1px solid var(--border-soft);">Kiosk spread (1.25 / 1.35)</td><td style="padding: 8px 14px; border-bottom: 1px solid var(--border-soft);">Vigged odds (−110 / −110)</td></tr>
+          <tr><td style="padding: 8px 14px; border-bottom: 1px solid var(--border-soft);">10-cent gap</td><td style="padding: 8px 14px; border-bottom: 1px solid var(--border-soft);">The vig — typically 4-5% on most bets</td></tr>
+          <tr><td style="padding: 8px 14px;">Both directions pay the spread</td><td style="padding: 8px 14px;">Both sides of a bet pay vig</td></tr>
+        </tbody>
+      </table>
+      <p><strong>Why this matters:</strong> every time you place a bet at a regular sportsbook, you're starting in a small hole. To be profitable long-term, your edge has to be big enough to overcome the vig. That's why finding +EV prices is the only way to consistently win — your edge has to exceed the built-in spread.</p>
+    </div>
+  </section>
+
   <!-- THE MATH -->
   <section class="lesson-section">
     <h3>The math behind it</h3>

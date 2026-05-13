@@ -321,6 +321,42 @@
   </section>
 
   <section class="lesson-section">
+    <h3>Why this actually works (in plain English)</h3>
+    <div class="lesson-body">
+      <div style="background: rgba(74, 222, 128, 0.05); border: 1px solid rgba(74, 222, 128, 0.30); border-left: 3px solid var(--green); border-radius: 10px; padding: 22px 26px; margin: 18px 0;">
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.2em; color: var(--green); margin-bottom: 14px; font-weight: 700;">🚶 THE WALK-TO-LUNCH ROUTINE</div>
+        <p>You decide to walk to lunch instead of driving every workday. Each walk saves you $10 (gas + parking). About 10% of days it rains and you Uber for $20 instead.</p>
+        <p>The math over a typical 20-day month:</p>
+        <ul>
+          <li>18 dry days × <strong>+$10 saved</strong> = +$180</li>
+          <li>2 rainy days × <strong>−$20 Ubered</strong> = −$40</li>
+          <li><strong>Net: +$140 a month, every month.</strong></li>
+        </ul>
+        <p>Positive expected value. The math is solid. Walking is the right move.</p>
+        <p>Then Week 1 happens. It rains Monday. Rains Tuesday. Rains Wednesday. You've Ubered $60 in three days and the "math" says you should be ahead. You're not. You're down.</p>
+        <p style="margin-bottom: 0;">That's variance. <strong>The expected value didn't change — three rainy days in a row is just what randomness looks like at small samples.</strong> Some weeks you'll have zero rainy days and feel like a genius. Some weeks four and wonder if walking even works.</p>
+      </div>
+      <table style="width: 100%; border-collapse: collapse; font-family: 'Rajdhani', sans-serif; font-size: 15px; margin: 14px 0;">
+        <thead>
+          <tr style="background: var(--panel-deep);">
+            <th style="text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--border); font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--dim); font-weight: 700;">In the analogy</th>
+            <th style="text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--border); font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--dim); font-weight: 700;">In real betting</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td style="padding: 8px 14px; border-bottom: 1px solid var(--border-soft);">Average $7/day savings</td><td style="padding: 8px 14px; border-bottom: 1px solid var(--border-soft);">Your bet's expected value</td></tr>
+          <tr><td style="padding: 8px 14px; border-bottom: 1px solid var(--border-soft);">Dry day (save $10)</td><td style="padding: 8px 14px; border-bottom: 1px solid var(--border-soft);">A winning bet</td></tr>
+          <tr><td style="padding: 8px 14px; border-bottom: 1px solid var(--border-soft);">Rainy day (lose $20)</td><td style="padding: 8px 14px; border-bottom: 1px solid var(--border-soft);">A losing bet</td></tr>
+          <tr><td style="padding: 8px 14px; border-bottom: 1px solid var(--border-soft);">3 rainy days in a row</td><td style="padding: 8px 14px; border-bottom: 1px solid var(--border-soft);">A losing streak (variance)</td></tr>
+          <tr><td style="padding: 8px 14px; border-bottom: 1px solid var(--border-soft);">20 workdays / month</td><td style="padding: 8px 14px; border-bottom: 1px solid var(--border-soft);">Your sample size</td></tr>
+          <tr><td style="padding: 8px 14px;">Net +$140/month over time</td><td style="padding: 8px 14px;">The edge materializing in the long run</td></tr>
+        </tbody>
+      </table>
+      <p><strong>The takeaway:</strong> if your math is right, variance is just the cost of waiting for the math to work. Don't change your strategy because of a bad week. Change it only if your underlying math is wrong.</p>
+    </div>
+  </section>
+
+  <section class="lesson-section">
     <h3>The formulas, side by side</h3>
     <div class="lesson-body">
       <div class="example-block">
