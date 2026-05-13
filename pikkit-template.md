@@ -445,9 +445,10 @@ Once Pikkit traction is real (say, 200+ followers or 30+ posts in), the next big
 
 ### Highest-priority single video to build first
 
-**PTO Free Bet Converter walkthrough** — short (~3 min), screen-recorded, shows:
+**PTO Free Bet Converter walkthrough** — short (~3:25), screen-recorded, shows:
 - Signing up for a free Pick the Odds account at picktheodds.app
 - Where the Free Bet Converter lives in the sidebar (calculator-style icon)
+- **Filtering the book list down to FanDuel + ProphetX only** (the critical step that newbies will miss — without it the list shows 40,000+ candidates across every book, including ones they don't have accounts at)
 - How to read the table: game / bet / FanDuel side / ProphetX side / conversion %
 - Adjusting the wager amount (default $25, drop to $10 for first conversion)
 - Sorting by conversion % to find the best candidates
