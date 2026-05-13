@@ -68,20 +68,21 @@ This single line is the most important sentence in every post. Never omit it.
 ## SHORT template (Pikkit feed-card length, ≤280 chars)
 
 ```
-🩻 X-Ray flagged: [Player/Team] [Market] [Side] [Line] @ [Book] [Odds]
+🩻 [Player/Team] [Market] [Side] [Line] @ [Book] [Odds]
 
 Fair (sharp): [Fair-A] · Edge +[EV%-A]
 Fair (avg):   [Fair-B] · Edge +[EV%-B]
 
-The tool, not the tip → profitpathsports.com/bet-x-ray.html
+Found on [PTO / OddsJam] · Verified by PPS X-Ray
+profitpathsports.com/bet-x-ray.html
 #PlusEV #[Sport] #[Book]
 ```
 
 **Notes:**
-- Lead with "X-Ray flagged" — positions the tool as the actor, not you
+- "Found on X · Verified by Y" attribution makes the workflow explicit and credits the screening tool honestly
 - SHORT always shows both fair-line reads — they're the methodology signal
-- Closing line is non-negotiable: routes readers to the actual product
-- If character limit is tight, drop the hashtags first; keep the X-Ray URL
+- Closing X-Ray URL is non-negotiable: routes readers to the actual product
+- If character limit is tight, drop the hashtags first; keep the attribution + X-Ray URL
 
 ---
 
@@ -90,8 +91,10 @@ The tool, not the tip → profitpathsports.com/bet-x-ray.html
 ```
 🩻 X-RAY DEMO · [Player/Team] [Market] [Line] [Side] @ [Book] [Odds]
 
-EDGE TYPE: [Stale line · Alt-ladder gap · Cross-market · Devig discrepancy · Live middle]
-   ↑ label whichever pattern actually surfaced — don't force a category
+EDGE TYPE:  [Stale line · Alt-ladder gap · Cross-market · Devig discrepancy · Live middle]
+            ↑ label whichever pattern actually surfaced — don't force a category
+DISCOVERED: [PTO manual scan · PTO +EV filter · OddsJam +EV filter · OddsJam line discrepancy · OddsJam alt builder · etc.]
+VERIFIED:   PPS Bet X-Ray (devig + EV check)
 
 📊 X-RAY · TWO DEVIG SOURCES (same calc, two runs)
 
@@ -201,12 +204,13 @@ Find your own: profitpathsports.com/bet-x-ray.html
 
 **SHORT output:**
 ```
-🩻 X-Ray flagged: Courtney Williams O5.5 assists @ FD +140
+🩻 Courtney Williams O5.5 assists @ FD +140
 
 Fair (sharp): +120 · Edge +8.83%
 Fair (avg):   +127 · Edge +5.53%
 
-The tool, not the tip → profitpathsports.com/bet-x-ray.html
+Found on PTO · Verified by PPS X-Ray
+profitpathsports.com/bet-x-ray.html
 #PlusEV #WNBA #FanDuel
 ```
 
@@ -214,7 +218,9 @@ The tool, not the tip → profitpathsports.com/bet-x-ray.html
 ```
 🩻 X-RAY DEMO · Courtney Williams O5.5 assists @ FanDuel +140
 
-EDGE TYPE: Stale line — one book lagging the market
+EDGE TYPE:  Stale line — one book lagging the market
+DISCOVERED: PTO manual scan (WNBA assists prop board)
+VERIFIED:   PPS Bet X-Ray (devig + EV check)
 
 📊 X-RAY · TWO DEVIG SOURCES (same calc, two runs)
 
@@ -369,6 +375,35 @@ Pikkit auto-tracks closing line value on every settled bet — the "Live CLV Upd
 
 ---
 
-*Template version 2.0 — May 2026.*
+## Future PPS site additions (parked for build-out)
+
+The Pikkit posts hint at the workflow ("Found on PTO · Verified by PPS X-Ray") — but the deeper "how to actually screen" content needs to live on the PPS site as proper video tutorials. Parked here so we don't lose track:
+
+### Planned: `learn-screening-workflows.html` (or equivalent)
+
+A dedicated hub on profitpathsports.com that teaches the full discovery-to-verification workflow with **screen-recorded videos**. Sections:
+
+1. **Manual scan on PTO** — record a real screening session where the user opens PTO, picks a sport, scans the prop board for outlier prices, identifies a candidate edge (like the Courtney Williams O5.5 +140 example), then exports to the X-Ray. ~3-5 min video.
+2. **OddsJam +EV filter workflow** — using OJ's positive EV alerts as the discovery layer, then plugging into the X-Ray for verification + sizing.
+3. **OddsJam line discrepancy view** — using the discrepancy table to spot stale lines.
+4. **PTO + OJ side-by-side** — comparing the two tools, when to use which, what each shows you that the other doesn't.
+5. **The full workflow** — one longer video that goes screening → verification → sizing → Pikkit-style posting, end-to-end.
+
+### Why this is the right next education content
+
+- **It's the missing link.** Right now PPS teaches the math (X-Ray, devig, Kelly) and the theory (guides). What it doesn't show is the *actual discovery step* — the eyeball + tool workflow that gets you to a candidate bet in the first place. Pikkit posts hint at it; the site needs to teach it explicitly.
+- **It's defensible.** OddsJam and PTO will never make tutorials that route traffic to your verification tool. PPS can — and that's a natural moat.
+- **It feeds the funnel.** Pikkit posts attribute "Found on PTO" → curious readers click to PPS site → they hit the screening tutorials → they learn to find their own → they sign up for the email list / use the calcs / engage with the brand long-term.
+- **It justifies the affiliate relationships.** If/when PPS has affiliate deals with PTO or OJ, the tutorial content is the natural conversion path. Until then, it's still pure educational gold.
+
+### Recommended trigger to build
+
+Once Pikkit traction is real (say, 200+ followers or 30+ posts in), the next big content sprint should be these videos. They turn the Pikkit feed from "here are plays" into "here's the full apprenticeship — Pikkit shows the result, the site shows the how."
+
+---
+
+*Template version 2.1 — May 2026.*
 
 *v1.0 → v2.0 changelog: Reframed entire workflow from tipster mode to demonstration mode. PPS is an education brand, not a picks service. Pikkit is now a finite 60-90 day traction tool; every post leads with "X-Ray flagged this" and closes with a mandatory CTA back to the calc. Posting cap dropped to 1-3/day, varying edge type each post. Voice rules updated to ban tipster language ("tail me," "smash," "lock," "easy money"). After traction window, Pikkit transitions to weekly stats-recap channel.*
+
+*v2.0 → v2.1 changelog: Added "Found on X · Verified by PPS X-Ray" attribution to SHORT format and DISCOVERED + VERIFIED metadata lines to LONG format — credits the screening tool (PTO / OddsJam) honestly while positioning PPS as the verification+sizing layer (defensible, math-y, non-commodity role). Added parked section flagging planned site videos for manual-scan / +EV-filter / discrepancy-view tutorials on PTO and OddsJam — the natural next content sprint once Pikkit traction is real.*
