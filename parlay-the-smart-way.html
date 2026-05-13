@@ -135,7 +135,7 @@
   }
 
   /* Math stat cards */
-  .stat-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 18px 0 10px; }
+  .stat-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin: 18px 0 10px; }
   @media (max-width: 720px) { .stat-row { grid-template-columns: repeat(2, 1fr); } }
   .stat-card { background: var(--panel-deep); border: 1px solid var(--border-soft); border-radius: 10px; padding: 18px 14px; text-align: center; }
   .stat-card.hero { border-color: var(--yellow); background: linear-gradient(135deg, rgba(245,181,69,0.08), var(--panel-deep)); box-shadow: 0 0 20px var(--yellow-glow); }
@@ -531,9 +531,13 @@
           <div class="stat-num">30%</div>
           <div class="stat-label">Reach the<br>final-leg state</div>
         </div>
+        <div class="stat-card">
+          <div class="stat-num">~1</div>
+          <div class="stat-label">Middle hits<br>per 100 parlays</div>
+        </div>
       </div>
 
-      <p style="font-size: 13.5px; color: var(--muted); margin: 14px 0 22px;"><em>The boost alone delivers +14.9% ROI even with zero per-leg edge. The hedge adds another +1.1 pp.</em></p>
+      <p style="font-size: 13.5px; color: var(--muted); margin: 14px 0 22px;"><em>The boost alone delivers +14.9% ROI even with zero per-leg edge. The hedge adds another +1.1 pp. Middle hits are rare bonuses — expect ~1 per 100 parlays, with a payout of +$466 over the lock when it lands.</em></p>
 
       <div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.15em;text-transform:uppercase;color:var(--green);margin:18px 0 8px;font-weight:700;">▼ Expected case · 3-5pp per-leg sharp edge, +25% boost, +300 hedge, 20% middle, 33% hedge exec</div>
 
@@ -554,9 +558,13 @@
           <div class="stat-num">34%</div>
           <div class="stat-label">Reach the<br>final-leg state</div>
         </div>
+        <div class="stat-card">
+          <div class="stat-num">~2</div>
+          <div class="stat-label">Middle hits<br>per 100 parlays</div>
+        </div>
       </div>
 
-      <p style="font-size: 13.5px; color: var(--muted); margin: 14px 0 6px;"><em>At realistic sharp-pick edge + better hedge prices, the hedge contributes +5.4 pp on top of +40% boost+picks. Both cases assume 4-leg shape: 3 × −200 + 1 × −500 late heavy fav. Plug your real numbers into the <a href="/triple-stack.html">calculator</a>.</em></p>
+      <p style="font-size: 13.5px; color: var(--muted); margin: 14px 0 6px;"><em>At realistic sharp-pick edge + better hedge prices, the hedge contributes +5.4 pp on top of +40% boost+picks. Expect a middle to hit ~2× per 100 parlays — rare windfalls of +$481 over the locked arb. Both cases assume 4-leg shape: 3 × −200 + 1 × −500 late heavy fav. Plug your real numbers into the <a href="/triple-stack.html">calculator</a>.</em></p>
 
       <div style="background: rgba(248, 113, 113, 0.05); border: 1px solid rgba(248, 113, 113, 0.30); border-left: 3px solid var(--red); border-radius: 10px; padding: 16px 20px; margin: 24px 0 0;">
         <div style="font-family: 'JetBrains Mono', monospace; font-size: 10.5px; letter-spacing: 0.2em; color: var(--red); margin-bottom: 10px; font-weight: 700;">⚠ SCALING REALITY CHECK</div>
