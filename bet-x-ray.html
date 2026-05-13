@@ -156,6 +156,56 @@
   @media (max-width: 880px) { .steps-row { grid-template-columns: 1fr; } }
   .row-arrow { display: none; }
 
+  /* Combined Setup card — Step 01 + 02 share one row of inputs */
+  .step.setup-step .step-num em {
+    font-style: normal;
+    color: var(--cyan);
+    opacity: .65;
+    margin: 0 6px;
+  }
+  .inputs-master {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+    gap: 14px;
+    margin-bottom: 22px;
+  }
+  @media (max-width: 720px) { .inputs-master { grid-template-columns: 1fr; gap: 12px; } }
+  .inputs-master .inputs-row { margin-bottom: 0; }
+  /* Sharp inputs (market) and model inputs share the LEFT slot — only one visible at a time */
+  .inputs-master > #marketInputs { grid-column: 1; grid-row: 1; }
+  .inputs-master > #modelInputs { grid-column: 1; grid-row: 1; }
+  /* Book inputs always hold the RIGHT slot */
+  .inputs-master > .inputs-book { grid-column: 2; grid-row: 1; }
+  @media (max-width: 720px) {
+    .inputs-master > #marketInputs,
+    .inputs-master > #modelInputs { grid-column: 1; grid-row: 1; }
+    .inputs-master > .inputs-book { grid-column: 1; grid-row: 2; }
+  }
+
+  .output-section { margin-top: 20px; }
+  .output-section + .output-section { margin-top: 18px; }
+  .output-section-head {
+    display: flex; align-items: baseline; gap: 12px;
+    margin-bottom: 10px;
+  }
+  .output-section-label {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 10px; font-weight: 700;
+    letter-spacing: .22em; text-transform: uppercase;
+    color: var(--cyan);
+  }
+  .output-section-sub {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 11px; font-weight: 400;
+    color: var(--dim);
+    letter-spacing: 0;
+  }
+  .output-section-rule {
+    flex: 1; height: 1px;
+    background: linear-gradient(to right, var(--cyan-border), transparent);
+  }
+
   .connector {
     height: 1px;
     background: linear-gradient(to right, transparent, var(--border-2), transparent);
@@ -681,15 +731,12 @@
 
   <div class="body">
 
-    <!-- STEPS 1 & 2 side by side -->
-    <div class="steps-row">
-
-    <!-- STEP 1: FAIR PRICE -->
-    <div class="step" id="step1">
+    <!-- STEP 01 + 02 — Combined setup row -->
+    <div class="step setup-step" id="step1">
       <div class="step-head">
-        <span class="step-num">Step 01</span>
-        <span class="step-title">Fair Price</span>
-        <span class="step-sub">What is this bet actually worth?</span>
+        <span class="step-num">Step 01<em>·</em>02</span>
+        <span class="step-title">Set up the bet</span>
+        <span class="step-sub">Sharp market on the left, your book's price on the right.</span>
       </div>
 
       <div class="sub-toolbar">
@@ -705,60 +752,6 @@
         </div>
       </div>
 
-      <div id="marketInputs" class="inputs-row cols-2">
-        <div class="input-cell">
-          <label>Sharp side A odds</label>
-          <input type="text" inputmode="numeric" id="sharpA" placeholder="−110">
-        </div>
-        <div class="input-cell">
-          <label>Sharp side B odds</label>
-          <input type="text" inputmode="numeric" id="sharpB" placeholder="−110">
-        </div>
-      </div>
-
-      <div id="modelInputs" class="inputs-row cols-2" style="display:none;">
-        <div class="input-cell">
-          <label>Your true probability</label>
-          <input type="text" inputmode="decimal" id="modelProb" placeholder="55">
-        </div>
-        <div class="input-cell">
-          <label>Format</label>
-          <select id="modelProbFormat">
-            <option value="pct" selected>Percent (e.g. 55)</option>
-            <option value="dec">Decimal (e.g. 0.55)</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="outputs-grid cols-3">
-        <div class="out-box">
-          <div class="out-label" id="fairALabel">Fair · Side A</div>
-          <div class="out-value accent empty" id="fairAmerA">—</div>
-          <div class="out-sub" id="fairPctA">—</div>
-        </div>
-        <div class="out-box">
-          <div class="out-label" id="fairBLabel">Fair · Side B</div>
-          <div class="out-value accent empty" id="fairAmerB">—</div>
-          <div class="out-sub" id="fairPctB">—</div>
-        </div>
-        <div class="out-box">
-          <div class="out-label">Vig in market</div>
-          <div class="out-value empty" id="marketVig">—</div>
-          <div class="out-sub">total juice</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="row-arrow"></div>
-
-    <!-- STEP 2: YOUR BET -->
-    <div class="step" id="step2">
-      <div class="step-head">
-        <span class="step-num">Step 02</span>
-        <span class="step-title">Your Bet</span>
-        <span class="step-sub">What is the book offering?</span>
-      </div>
-
       <div class="sub-toolbar" id="sideToolbar">
         <span class="sub-label">Side I'm betting</span>
         <div class="pill-group" id="sideGroup">
@@ -767,37 +760,99 @@
         </div>
       </div>
 
-      <div class="inputs-row cols-2">
-        <div class="input-cell">
-          <label>Your book's price (American)</label>
-          <input type="text" inputmode="numeric" id="bookPrice" placeholder="+105">
+      <!-- Inputs master row: sharp inputs on the left, book inputs on the right.
+           Visually flows left → right as one 4-input row. -->
+      <div class="inputs-master">
+        <div id="marketInputs" class="inputs-row cols-2">
+          <div class="input-cell">
+            <label>Sharp side A odds</label>
+            <input type="text" inputmode="numeric" id="sharpA" placeholder="−110">
+          </div>
+          <div class="input-cell">
+            <label>Sharp side B odds</label>
+            <input type="text" inputmode="numeric" id="sharpB" placeholder="−110">
+          </div>
         </div>
-        <div class="input-cell">
-          <label>Sportsbook (optional)</label>
-          <input type="text" id="bookName" placeholder="e.g. BetMGM">
+
+        <div id="modelInputs" class="inputs-row cols-2" style="display:none;">
+          <div class="input-cell">
+            <label>Your true probability</label>
+            <input type="text" inputmode="decimal" id="modelProb" placeholder="55">
+          </div>
+          <div class="input-cell">
+            <label>Format</label>
+            <select id="modelProbFormat">
+              <option value="pct" selected>Percent (e.g. 55)</option>
+              <option value="dec">Decimal (e.g. 0.55)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="inputs-row inputs-book cols-2">
+          <div class="input-cell">
+            <label>Your book's price (American)</label>
+            <input type="text" inputmode="numeric" id="bookPrice" placeholder="+105">
+          </div>
+          <div class="input-cell">
+            <label>Sportsbook (optional)</label>
+            <input type="text" id="bookName" placeholder="e.g. BetMGM">
+          </div>
         </div>
       </div>
 
-      <div class="outputs-grid cols-4">
-        <div class="out-box">
-          <div class="out-label">Implied %</div>
-          <div class="out-value empty" id="bookImplied">—</div>
+      <!-- Outputs · Fair Price -->
+      <div class="output-section">
+        <div class="output-section-head">
+          <span class="output-section-label">Fair Price</span>
+          <span class="output-section-sub">what this bet is actually worth</span>
+          <span class="output-section-rule"></span>
         </div>
-        <div class="out-box">
-          <div class="out-label">Probability gap</div>
-          <div class="out-value empty" id="probGap">—</div>
+        <div class="outputs-grid cols-3">
+          <div class="out-box">
+            <div class="out-label" id="fairALabel">Fair · Side A</div>
+            <div class="out-value accent empty" id="fairAmerA">—</div>
+            <div class="out-sub" id="fairPctA">—</div>
+          </div>
+          <div class="out-box">
+            <div class="out-label" id="fairBLabel">Fair · Side B</div>
+            <div class="out-value accent empty" id="fairAmerB">—</div>
+            <div class="out-sub" id="fairPctB">—</div>
+          </div>
+          <div class="out-box">
+            <div class="out-label">Vig in market</div>
+            <div class="out-value empty" id="marketVig">—</div>
+            <div class="out-sub">total juice</div>
+          </div>
         </div>
-        <div class="out-box">
-          <div class="out-label">EV%</div>
-          <div class="out-value empty" id="evPct">—</div>
+      </div>
+
+      <!-- Outputs · Your Bet -->
+      <div class="output-section">
+        <div class="output-section-head">
+          <span class="output-section-label">Your Bet</span>
+          <span class="output-section-sub">your edge vs. the book's price</span>
+          <span class="output-section-rule"></span>
         </div>
-        <div class="out-box">
-          <div class="out-label">EV per $100</div>
-          <div class="out-value empty" id="evDollar">—</div>
+        <div class="outputs-grid cols-4">
+          <div class="out-box">
+            <div class="out-label">Implied %</div>
+            <div class="out-value empty" id="bookImplied">—</div>
+          </div>
+          <div class="out-box">
+            <div class="out-label">Probability gap</div>
+            <div class="out-value empty" id="probGap">—</div>
+          </div>
+          <div class="out-box">
+            <div class="out-label">EV%</div>
+            <div class="out-value empty" id="evPct">—</div>
+          </div>
+          <div class="out-box">
+            <div class="out-label">EV per $100</div>
+            <div class="out-value empty" id="evDollar">—</div>
+          </div>
         </div>
       </div>
     </div>
-    </div><!-- /.steps-row -->
 
     <div class="connector"></div>
 
