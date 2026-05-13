@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>⚡ The Triple Stack — Boost · Sharp Legs · Arb Middle — Profit Path Sports</title>
+  <meta name="description" content="The boosted parlay → arb-middle hedge strategy. Stack three edges on one ticket. Free calculator: per-leg odds, boost %, hedge price, middle hit rate → per-parlay EV and ROI.">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="⚡ The Triple Stack — Profit Path Sports">
+  <meta property="og:description" content="Boost, sharp legs, arb middle — three edges on one ticket. Calculate strategy EV and ROI per parlay.">
+  <meta property="og:image" content="https://profitpathsports.com/images/og-default.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:url" content="https://profitpathsports.com/triple-stack.html">
+  <meta property="og:site_name" content="Profit Path Sports">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="⚡ The Triple Stack — Profit Path Sports">
+  <meta name="twitter:description" content="Boost, sharp legs, arb middle — three edges on one ticket.">
+  <meta name="twitter:image" content="https://profitpathsports.com/images/og-default.png">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230a0f1c'/%3E%3Cpolyline points='5,24 12,16 16,19 22,9 27,5' fill='none' stroke='%234ade80' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Orbitron:wght@700;800;900&family=JetBrains+Mono:wght@400;500;600;700&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:#0a0f1c;--surface:#0f1524;--surface2:#141a2b;--border:#1e2638;--border-soft:#141c30;
+      --panel:#0f1524;--panel-inset:#141a2b;--panel-deep:#0c1120;
+      --accent:#f5b545;--yellow:#f5b545;--blue:#3d8bff;--green:#4ade80;--red:#f87171;
+      --text:#e5e7eb;--muted:#8b94a8;--dim:#6b7689;--purple:#BC8CFF;
+      --mono:'JetBrains Mono',ui-monospace,monospace;
+      --title:'Orbitron',sans-serif;
+      --body:'IBM Plex Sans',sans-serif;
+      --display:'JetBrains Mono',ui-monospace,monospace;
+    }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{background:var(--bg);color:var(--text);font-family:var(--display);min-height:100vh;}
+    a{color:var(--green);}
+
+    .bt-header{background:var(--surface);border-bottom:1px solid var(--border);padding:22px 20px 16px;display:flex;flex-direction:column;align-items:center;gap:6px;}
+    .bt-brand-text{font-family:var(--title);font-size:28px;font-weight:900;letter-spacing:0.08em;text-transform:uppercase;color:var(--blue);white-space:nowrap;}
+    .bt-brand-text .bolt{color:var(--accent);}
+    .bt-sub{font-family:var(--title);font-size:11px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);}
+
+    .back-bar{padding:10px 20px;background:var(--bg);border-bottom:1px solid var(--border);}
+    .back-bar a{color:var(--muted);font-family:var(--mono);font-size:12px;text-decoration:none;letter-spacing:0.06em;}
+    .back-bar a:hover{color:var(--text);}
+
+    /* Hero */
+    .hero{padding:36px 24px 28px;background:linear-gradient(180deg,rgba(245,181,69,0.06),var(--bg));border-bottom:1px solid var(--border);text-align:center;}
+    .hero-inner{max-width:820px;margin:0 auto;}
+    .hero-eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:14px;}
+    .hero-title{font-family:var(--title);font-size:42px;font-weight:900;letter-spacing:0.04em;text-transform:uppercase;line-height:1.05;margin-bottom:14px;background:linear-gradient(180deg,#ffd884 0%,#f5b545 60%,#c98a30 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+    @media (max-width:600px){.hero-title{font-size:32px;}}
+    .hero-tagline{font-family:var(--body);font-size:17px;line-height:1.55;color:var(--text);margin:0 auto 22px;max-width:600px;}
+    .hero-tagline strong{color:var(--accent);font-weight:600;}
+    .stack-chips{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:8px;}
+    .chip{padding:8px 14px;border:1px solid var(--border);border-radius:999px;font-family:var(--mono);font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);font-weight:600;}
+    .chip.green{border-color:rgba(74,222,128,0.5);color:var(--green);background:rgba(74,222,128,0.06);}
+    .chip.blue{border-color:rgba(61,139,255,0.5);color:var(--blue);background:rgba(61,139,255,0.06);}
+    .chip.purple{border-color:rgba(188,140,255,0.5);color:var(--purple);background:rgba(188,140,255,0.06);}
+
+    /* Strategy explainer */
+    .explainer{padding:32px 24px;background:var(--bg);border-bottom:1px solid var(--border);}
+    .explainer-inner{max-width:820px;margin:0 auto;}
+    .explainer h2{font-family:var(--title);font-size:13px;letter-spacing:0.22em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:18px;text-align:center;}
+    .edges-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+    @media (max-width:720px){.edges-grid{grid-template-columns:1fr;}}
+    .edge-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px 18px;border-left:3px solid var(--accent);}
+    .edge-card.b{border-left-color:var(--blue);}
+    .edge-card.p{border-left-color:var(--purple);}
+    .edge-num{font-family:var(--mono);font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:6px;}
+    .edge-card.b .edge-num{color:var(--blue);}
+    .edge-card.p .edge-num{color:var(--purple);}
+    .edge-title{font-family:var(--title);font-size:15px;letter-spacing:0.05em;text-transform:uppercase;color:var(--text);font-weight:800;margin-bottom:10px;}
+    .edge-body{font-family:var(--body);font-size:14px;line-height:1.6;color:var(--muted);}
+    .edge-body strong{color:var(--text);font-weight:600;}
+
+    /* Walkthrough */
+    .walkthrough{padding:28px 24px;background:var(--surface);border-bottom:1px solid var(--border);}
+    .walkthrough-inner{max-width:820px;margin:0 auto;}
+    .walkthrough h3{font-family:var(--title);font-size:13px;letter-spacing:0.22em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:14px;}
+    .walkthrough ol{font-family:var(--body);font-size:14.5px;line-height:1.7;color:var(--text);padding-left:22px;}
+    .walkthrough ol li{margin-bottom:10px;}
+    .walkthrough ol li strong{color:var(--accent);font-weight:600;}
+    .walkthrough .note{margin-top:14px;padding:12px 16px;background:rgba(74,222,128,0.05);border:1px solid rgba(74,222,128,0.25);border-left:3px solid var(--green);border-radius:8px;font-family:var(--body);font-size:13.5px;line-height:1.6;color:var(--text);}
+
+    /* Calculator */
+    .calc-section{padding:32px 20px;background:var(--bg);border-bottom:1px solid var(--border);}
+    .calc-inner{max-width:820px;margin:0 auto;}
+    .calc-title{font-family:var(--title);font-size:13px;letter-spacing:0.22em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:18px;text-align:center;}
+
+    .form-panel{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:24px 22px;margin-bottom:24px;}
+    .form-section-label{font-family:var(--mono);font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:14px;}
+    .form-section-label.b{color:var(--blue);}
+    .form-section-label.p{color:var(--purple);}
+    .form-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-bottom:22px;}
+    @media (max-width:600px){.form-grid{grid-template-columns:1fr;}}
+    .form-group{display:flex;flex-direction:column;gap:6px;}
+    .form-label{font-family:var(--title);font-size:10.5px;letter-spacing:0.13em;text-transform:uppercase;color:var(--muted);font-weight:700;}
+    .form-input{background:var(--bg);border:1px solid var(--border);color:var(--text);padding:11px 14px;font-family:var(--mono);font-size:17px;font-weight:600;border-radius:8px;outline:none;transition:border-color 0.15s;width:100%;}
+    .form-input:focus{border-color:var(--accent);}
+    .form-hint{font-family:var(--mono);font-size:10.5px;color:var(--dim);min-height:13px;letter-spacing:0.02em;}
+    .form-hint.warn{color:var(--red);}
+    .form-hint.ok{color:var(--green);}
+
+    /* Results */
+    .results{margin-top:8px;}
+    .stats-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border-radius:10px;overflow:hidden;border:1px solid var(--border);margin-bottom:18px;}
+    @media (max-width:600px){.stats-bar{grid-template-columns:repeat(2,1fr);}}
+    .stat-cell{background:var(--surface);padding:16px 12px;text-align:center;}
+    .stat-label{font-family:var(--title);font-size:10px;letter-spacing:0.13em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:6px;}
+    .stat-value{font-family:var(--mono);font-size:22px;font-weight:700;color:var(--text);letter-spacing:0.02em;}
+    .stat-value.pos{color:var(--green);}
+    .stat-value.neg{color:var(--red);}
+    .stat-value.accent{color:var(--accent);}
+    .stat-value.blue{color:var(--blue);}
+    .stat-sub{font-family:var(--mono);font-size:10px;color:var(--dim);margin-top:3px;letter-spacing:0.02em;}
+
+    /* Scenario row */
+    .scenario-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border-radius:10px;overflow:hidden;border:1px solid var(--border);margin-bottom:18px;}
+    @media (max-width:720px){.scenario-row{grid-template-columns:1fr;}}
+    .scenario{background:var(--surface);padding:22px 18px;text-align:center;}
+    .scenario.boost{background:linear-gradient(180deg,rgba(245,181,69,0.10),var(--surface));}
+    .scenario.middle{background:linear-gradient(180deg,rgba(74,222,128,0.10),var(--surface));}
+    .scenario-tag{font-family:var(--mono);font-size:9.5px;letter-spacing:0.16em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:6px;}
+    .scenario.boost .scenario-tag{color:var(--accent);}
+    .scenario.middle .scenario-tag{color:var(--green);}
+    .scenario-title{font-family:var(--title);font-size:13.5px;letter-spacing:0.08em;text-transform:uppercase;color:var(--text);font-weight:800;margin-bottom:14px;}
+    .scenario-pnl{font-family:var(--title);font-size:28px;font-weight:900;line-height:1;margin-bottom:6px;letter-spacing:0.02em;}
+    .scenario-pnl.pos{color:var(--green);}
+    .scenario-pnl.neg{color:var(--red);}
+    .scenario-pnl.zero{color:var(--muted);}
+    .scenario-detail{font-family:var(--mono);font-size:11px;color:var(--dim);line-height:1.5;margin-top:4px;}
+    .scenario-roi{font-family:var(--title);font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-top:8px;font-weight:700;}
+    .scenario-roi span{color:var(--text);}
+
+    /* Per-100 summary */
+    .summary-panel{background:linear-gradient(135deg,rgba(74,222,128,0.06),var(--surface));border:1px solid var(--green);border-radius:12px;padding:24px 22px;margin-bottom:16px;}
+    .summary-title{font-family:var(--mono);font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--green);font-weight:700;margin-bottom:14px;}
+    .summary-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;font-family:var(--mono);font-size:13.5px;line-height:1.7;color:var(--text);}
+    @media (max-width:600px){.summary-grid{grid-template-columns:1fr;gap:8px;}}
+    .summary-grid .row{display:flex;justify-content:space-between;border-bottom:1px dashed var(--border);padding-bottom:6px;}
+    .summary-grid .row span:first-child{color:var(--muted);}
+    .summary-grid .row span:last-child{color:var(--text);font-weight:600;}
+    .summary-grid .row span.pos{color:var(--green);}
+    .summary-grid .total{display:flex;justify-content:space-between;font-size:17px;font-weight:700;margin-top:8px;padding-top:10px;border-top:1px solid var(--green);}
+    .summary-grid .total span:last-child{color:var(--green);}
+
+    /* Caveats */
+    .caveats{padding:30px 24px;background:var(--surface);border-bottom:1px solid var(--border);}
+    .caveats-inner{max-width:820px;margin:0 auto;}
+    .caveats h3{font-family:var(--title);font-size:13px;letter-spacing:0.22em;text-transform:uppercase;color:var(--red);font-weight:700;margin-bottom:16px;}
+    .caveats ol{font-family:var(--body);font-size:14.5px;line-height:1.7;color:var(--text);padding-left:22px;}
+    .caveats ol li{margin-bottom:12px;}
+    .caveats ol li strong{color:var(--red);font-weight:600;}
+
+    /* CTA */
+    .cta-section{padding:32px 24px;background:var(--bg);text-align:center;}
+    .cta-section-inner{max-width:680px;margin:0 auto;}
+    .cta-title{font-family:var(--title);font-size:22px;letter-spacing:0.04em;color:var(--text);font-weight:800;margin-bottom:10px;}
+    .cta-blurb{font-family:var(--body);font-size:14.5px;line-height:1.6;color:var(--muted);margin-bottom:18px;}
+    .cta-btn{display:inline-block;padding:13px 26px;background:var(--accent);color:var(--bg);font-family:var(--title);font-size:13px;letter-spacing:0.14em;text-transform:uppercase;font-weight:800;text-decoration:none;border-radius:8px;}
+    .cta-btn:hover{background:#ffd884;}
+
+    /* Footer */
+    .footer{padding:24px 20px;text-align:center;font-family:var(--mono);font-size:11px;color:var(--dim);border-top:1px solid var(--border);background:var(--bg);}
+    .footer a{color:var(--muted);text-decoration:none;}
+    .footer a:hover{color:var(--text);}
+  </style>
+</head>
+<body>
+
+<header class="bt-header">
+  <div class="bt-brand-text"><span class="bolt">⚡</span> PROFIT PATH SPORTS</div>
+  <div class="bt-sub">The Triple Stack</div>
+</header>
+
+<div class="back-bar">
+  <a href="/index.html#guides">← Back to Deep Dives</a>
+</div>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">★ Boost-Stacked Parlay → Arb Middle</div>
+    <h1 class="hero-title">The Triple Stack</h1>
+    <p class="hero-tagline">A boost-eligible parlay built on sharp consensus picks, designed so the <strong>final leg can be middled with plus money on both sides</strong>. Three independent edges on a single ticket.</p>
+    <div class="stack-chips">
+      <div class="chip">⚡ +30-50% Parlay Boost</div>
+      <div class="chip green">🎯 Sharp Consensus Legs</div>
+      <div class="chip purple">🔁 Arb-Middle Final-Leg Hedge</div>
+    </div>
+  </div>
+</section>
+
+<section class="explainer">
+  <div class="explainer-inner">
+    <h2>The three stacked edges</h2>
+    <div class="edges-grid">
+      <div class="edge-card">
+        <div class="edge-num">EDGE 1</div>
+        <div class="edge-title">Parlay Boost</div>
+        <div class="edge-body">DK and FD offer recurring <strong>+25% to +50% boost tokens</strong> on 3+ leg parlays at +300 odds or longer. The boost raises the parlay payout above its fair price — that delta is +EV before you've even picked a side.</div>
+      </div>
+      <div class="edge-card b">
+        <div class="edge-num">EDGE 2</div>
+        <div class="edge-title">Sharp Legs at Alt Lines</div>
+        <div class="edge-body">Pick 3-4 games where sharp cappers (PtO consensus, Stokastic, etc.) agree on the favorite. Take <strong>alt lines in the favorite direction</strong> to shorten the spread — sharper edge per leg, parlay stays in the +300-500 boost range.</div>
+      </div>
+      <div class="edge-card p">
+        <div class="edge-num">EDGE 3</div>
+        <div class="edge-title">Arb-Middle on Final Leg</div>
+        <div class="edge-body">Stagger games so the <strong>biggest favorite plays last</strong>. If the first 2-3 legs hit, you sit on a +300-500 ticket. Hedge the final leg with an alt line at plus money on the opposite side — that's an arb (worst case) and potentially a middle (best case).</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="walkthrough">
+  <div class="walkthrough-inner">
+    <h3>★ The play, step by step</h3>
+    <ol>
+      <li><strong>Find 3-4 sharp-aligned favorite picks</strong> — same night, games in different time slots. Total boost-eligible parlay odds should land around <strong>+300 to +500</strong>.</li>
+      <li><strong>Build the parlay at DK or FD</strong> using alt lines in the favorite direction. Apply your boost token. Submit.</li>
+      <li><strong>Wait for the first 2-3 legs to settle.</strong> If any earlier leg loses, the parlay dies — you lose the stake, move on.</li>
+      <li><strong>If you reach 3-of-4 (or 2-of-3), open the final leg's alt-line market</strong> at another book or exchange. Find an alt-spread or alt-total on the OPPOSITE side priced at plus money (+100 or longer).</li>
+      <li><strong>Size the hedge to lock equal profit on the two non-middle outcomes</strong> (calculator below). When the middle hits, both sides pay.</li>
+    </ol>
+    <div class="note"><strong>Why "biggest favorite last":</strong> the bigger the spread, the wider the alt range and the bigger the middle zone you can build. A 12-pt fav → 6-pt dog setup gives you a 6-pt middle window; a 4-pt fav setup gives you a ~1-pt window.</div>
+  </div>
+</section>
+
+<section class="calc-section">
+  <div class="calc-inner">
+    <h2 class="calc-title">★ The Triple Stack Calculator</h2>
+
+    <div class="form-panel">
+      <div class="form-section-label">Parlay setup</div>
+      <div class="form-grid">
+        <div class="form-group">
+          <label class="form-label">Number of legs</label>
+          <input type="number" id="legs" class="form-input" value="4" min="2" max="6" step="1">
+          <div class="form-hint" id="legsHint"></div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Parlay stake ($)</label>
+          <input type="number" id="stake" class="form-input" value="100" min="1" step="1">
+          <div class="form-hint" id="stakeHint"></div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Per-leg odds (American)</label>
+          <input type="number" id="legOdds" class="form-input" value="-200" step="5">
+          <div class="form-hint" id="legOddsHint"></div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Per-leg true win prob (%)</label>
+          <input type="number" id="legProb" class="form-input" value="72" min="1" max="99" step="0.5">
+          <div class="form-hint" id="legProbHint"></div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Boost (%)</label>
+          <input type="number" id="boost" class="form-input" value="30" min="0" max="200" step="5">
+          <div class="form-hint">DK/FD typical: 25-50%</div>
+        </div>
+      </div>
+
+      <div class="form-section-label p">Final-leg hedge (the arb middle)</div>
+      <div class="form-grid">
+        <div class="form-group">
+          <label class="form-label">Hedge side odds (American)</label>
+          <input type="number" id="hedgeOdds" class="form-input" value="110" step="5">
+          <div class="form-hint" id="hedgeOddsHint"></div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Middle hit probability (%)</label>
+          <input type="number" id="middleProb" class="form-input" value="25" min="0" max="60" step="1">
+          <div class="form-hint">CBB 10-pt total middle: 25-35%. Tight spread middle: 5-15%.</div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Hedge execution rate (%)</label>
+          <input type="number" id="execRate" class="form-input" value="50" min="0" max="100" step="5">
+          <div class="form-hint">% of reach-states where an arb-middle is actually available.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="results">
+      <div class="stats-bar">
+        <div class="stat-cell">
+          <div class="stat-label">Parlay Decimal (boosted)</div>
+          <div class="stat-value accent" id="parlayDec">—</div>
+          <div class="stat-sub" id="parlayAmerican">—</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-label">Parlay Win Prob</div>
+          <div class="stat-value blue" id="parlayWinProb">—</div>
+          <div class="stat-sub">all legs hit</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-label">Reach State Prob</div>
+          <div class="stat-value blue" id="reachProb">—</div>
+          <div class="stat-sub">3 of 4 hit, last pending</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-label">Strategy ROI</div>
+          <div class="stat-value pos" id="totalROI">—</div>
+          <div class="stat-sub">per $ of stake</div>
+        </div>
+      </div>
+
+      <div class="scenario-row">
+        <div class="scenario">
+          <div class="scenario-tag">Baseline</div>
+          <div class="scenario-title">Boost only · no hedge</div>
+          <div class="scenario-pnl" id="baseEV">—</div>
+          <div class="scenario-detail">Expected per parlay</div>
+          <div class="scenario-roi">ROI: <span id="baseROI">—</span></div>
+        </div>
+        <div class="scenario boost">
+          <div class="scenario-tag">+ Arb Middle</div>
+          <div class="scenario-title">Boost + sharp + hedge</div>
+          <div class="scenario-pnl" id="stackEV">—</div>
+          <div class="scenario-detail">Expected per parlay</div>
+          <div class="scenario-roi">ROI: <span id="stackROI">—</span></div>
+        </div>
+        <div class="scenario middle">
+          <div class="scenario-tag">When middle hits</div>
+          <div class="scenario-title">Middle payoff</div>
+          <div class="scenario-pnl pos" id="middlePayoff">—</div>
+          <div class="scenario-detail">Total cash if both sides win</div>
+          <div class="scenario-roi" id="middleRoi">—</div>
+        </div>
+      </div>
+
+      <div class="summary-panel">
+        <div class="summary-title">★ Per 100 Parlays — Where the EV Comes From</div>
+        <div class="summary-grid">
+          <div class="row"><span>Bust (legs lose early)</span><span id="bustCount">— parlays</span></div>
+          <div class="row"><span>Reach final leg</span><span id="reachCount">— parlays</span></div>
+          <div class="row"><span>Hedge executed (arb middle found)</span><span id="hedgeCount">— parlays</span></div>
+          <div class="row"><span>Middle zone hits</span><span id="middleCount">— parlays</span></div>
+          <div class="row"><span>Total wagered</span><span id="totalWagered">—</span></div>
+          <div class="row"><span>Total expected return</span><span id="totalReturn">—</span></div>
+          <div class="row"><span>Hedge bonus EV added</span><span class="pos" id="hedgeBonus">—</span></div>
+          <div class="row"><span>Break-even exec rate</span><span id="breakeven">—</span></div>
+          <div class="total"><span>NET PROFIT (100 PARLAYS)</span><span id="netProfit">—</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="caveats">
+  <div class="caveats-inner">
+    <h3>⚠ The real constraints (not math, practice)</h3>
+    <ol>
+      <li><strong>Boost stake limits.</strong> DK and FD typically cap boost-eligible bets at $25-$50 max once they notice you using them repeatedly. Account survival is real — don't assume $100 stakes will hold up over months. Rotate accounts (yours, partner's, household members') if you want to scale.</li>
+      <li><strong>Arb-middle availability.</strong> You don't always find plus money on both sides of an alt line at game time. CBB totals on mainstream conference games yes; mid-major mismatches often no. The "execution rate" input above is the lever — be honest with yourself about what's achievable.</li>
+      <li><strong>Sharp-pick accuracy is the foundation.</strong> The math assumes your per-leg win probability is real. If sharp consensus picks are actually 65% true (not the 72% the calculator assumes), the parlay EV drops sharply — and no hedge fixes that. The boost and the middle are amplifiers, not creators of edge.</li>
+      <li><strong>Variance is brutal.</strong> Even a +80% ROI strategy has 50+ parlay losing streaks possible at 4-leg shape. Don't bet more than you can stomach watching bust 10 times in a row.</li>
+      <li><strong>Lineup risk.</strong> If one of your alt-fav legs depends on a key player, late scratches can torpedo the leg before any game even plays. Same protocol as the bonus-conversion play: wait for confirmed lineups before submitting.</li>
+    </ol>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="cta-section-inner">
+    <div class="cta-title">More tools and deep dives</div>
+    <p class="cta-blurb">The Triple Stack is one of several stacked-edge plays we cover. Browse the full set of calculators and strategy guides on the homepage.</p>
+    <a class="cta-btn" href="/index.html#guides">All Deep Dives →</a>
+  </div>
+</section>
+
+<div class="footer">
+  Educational tool — not betting advice. Sports betting carries risk; bet responsibly. 21+ where legal. <strong>1-800-GAMBLER</strong>.<br>
+  &copy; 2026 Profit Path Sports · <a href="/index.html">Home</a> · <a href="/disclaimer.html">Disclaimer</a>
+</div>
+
+<script>
+(function() {
+  // Helpers
+  function americanToDecimal(a) {
+    a = Number(a);
+    if (!a || isNaN(a)) return null;
+    if (a > 0) return 1 + a/100;
+    return 1 + 100/Math.abs(a);
+  }
+  function decimalToAmerican(d) {
+    if (!d || d <= 1) return '—';
+    if (d >= 2) return '+' + Math.round((d - 1) * 100);
+    return '-' + Math.round(100 / (d - 1));
+  }
+  function fmt$(n) {
+    if (!isFinite(n)) return '—';
+    var sign = n < 0 ? '-' : '+';
+    var abs = Math.abs(n);
+    if (abs >= 10000) return sign + '$' + abs.toLocaleString('en-US', {maximumFractionDigits:0});
+    return sign + '$' + abs.toFixed(2);
+  }
+  function fmtPct(p) {
+    if (!isFinite(p)) return '—';
+    return (p * 100).toFixed(1) + '%';
+  }
+  function fmtPctSigned(p) {
+    if (!isFinite(p)) return '—';
+    var sign = p < 0 ? '-' : '+';
+    return sign + (Math.abs(p) * 100).toFixed(1) + '%';
+  }
+
+  function recalc() {
+    var legs = Math.max(2, Math.min(6, parseInt(document.getElementById('legs').value) || 4));
+    var stake = Math.max(1, parseFloat(document.getElementById('stake').value) || 100);
+    var legOdds = parseFloat(document.getElementById('legOdds').value);
+    var legProbPct = parseFloat(document.getElementById('legProb').value);
+    var boostPct = parseFloat(document.getElementById('boost').value) || 0;
+    var hedgeOdds = parseFloat(document.getElementById('hedgeOdds').value);
+    var middleProbPct = parseFloat(document.getElementById('middleProb').value) || 0;
+    var execRatePct = parseFloat(document.getElementById('execRate').value) || 0;
+
+    var legDec = americanToDecimal(legOdds);
+    var hedgeDec = americanToDecimal(hedgeOdds);
+    var legProb = legProbPct / 100;
+    var middleProb = middleProbPct / 100;
+    var execRate = execRatePct / 100;
+    var boost = boostPct / 100;
+
+    if (!legDec || !hedgeDec || legProb <= 0 || legProb >= 1) {
+      document.getElementById('parlayDec').textContent = '—';
+      return;
+    }
+
+    // Parlay math
+    var parlayDecBase = Math.pow(legDec, legs);
+    var parlayDecBoosted = parlayDecBase * (1 + boost);
+    var parlayPayout = stake * parlayDecBoosted; // total return (stake + profit)
+    var parlayProfit = parlayPayout - stake;
+    var pAllWin = Math.pow(legProb, legs);
+    var pReach = Math.pow(legProb, legs - 1); // first (legs-1) win
+    var pBustBeforeFinal = 1 - pReach;
+    var pFinalLegWins = legProb; // conditional on reaching
+
+    // Per-leg implied vs true (sanity flag)
+    var legImplied = 1 / legDec;
+    var perLegEdge = legProb - legImplied;
+
+    // Baseline EV (no hedge): win all = parlayProfit, else = -stake
+    var baseEV = pAllWin * parlayProfit + (1 - pAllWin) * (-stake);
+    var baseROI = baseEV / stake;
+
+    // Hedge math (when reaching final leg AND hedge available)
+    // Ticket at reach state: pays "parlayProfit" if final leg wins, $0 otherwise (in addition to recovering stake which was sunk).
+    // From the reach state, decision is to optionally bet H additional on hedge side at hedgeDec.
+    // For an arb-style hedge to lock equal profit in the two non-middle outcomes:
+    //   Parlay-side wins (no middle): +parlayProfit - H
+    //   Hedge wins (no middle):       +H * (hedgeDec - 1)
+    // Equalize: parlayProfit - H = H*(hedgeDec - 1) => H = parlayProfit / hedgeDec
+    var H = parlayProfit / hedgeDec;
+    var lockNoMiddle = parlayProfit - H; // = H*(hedgeDec-1) confirmed
+    // Middle scenario: both sides win
+    //   Parlay leg wins (collect parlayProfit) AND hedge wins (collect H*(hedgeDec-1))
+    //   Net: parlayProfit + H*(hedgeDec-1) - 0 (we already paid the H stake but get it back since hedge won)
+    //   Wait: H staked, hedge wins so collect H + H*(hedgeDec-1) = H*hedgeDec back. Net hedge gain = H*(hedgeDec-1).
+    var middleProfit = parlayProfit + H * (hedgeDec - 1);
+
+    // EV per reach if hedge executed:
+    // Assume middleProb is conditional probability of middle zone given we reached this point.
+    // Outside middle, the two non-middle outcomes split the remaining probability.
+    // Both lock the same amount, so we don't need to know which one.
+    var evPerReachHedged = middleProb * middleProfit + (1 - middleProb) * lockNoMiddle;
+    var evPerReachUnhedged = pFinalLegWins * parlayProfit; // (1 - pFinalLegWins)*0 = 0
+
+    // Strategy EV: per parlay
+    //   - With prob pBustBeforeFinal: lose stake (-stake)
+    //   - With prob pReach * execRate: hedge → evPerReachHedged - stake (net of original stake)
+    //   - With prob pReach * (1 - execRate): no hedge → evPerReachUnhedged - stake
+    var evIfHedged = pReach * execRate * (evPerReachHedged - stake);
+    var evIfNoHedge = pReach * (1 - execRate) * (evPerReachUnhedged - stake);
+    var evBust = pBustBeforeFinal * (-stake);
+    var stackEV = evBust + evIfHedged + evIfNoHedge;
+    var stackROI = stackEV / stake;
+
+    // Hedge bonus = stackEV - baseEV (how much hedging adds vs. unhedged)
+    var hedgeBonus = stackEV - baseEV;
+
+    // Break-even exec rate: at what execRate does stackEV = baseEV?
+    // stackEV(e) = evBust + pReach*e*(evPerReachHedged - stake) + pReach*(1-e)*(evPerReachUnhedged - stake)
+    // = evBust + pReach*(evPerReachUnhedged - stake) + pReach*e*(evPerReachHedged - evPerReachUnhedged)
+    // At e=0: stackEV(0) = evBust + pReach*(evPerReachUnhedged - stake) = baseEV (sanity check)
+    // So hedgeBonus = pReach*e*(evPerReachHedged - evPerReachUnhedged)
+    // If hedging is +EV (evPerReachHedged > evPerReachUnhedged), any e>0 helps → "break-even" = 0%
+    // If hedging is -EV from EV perspective (evPerReachHedged < evPerReachUnhedged), no exec rate helps → "negative — skip hedge"
+    var hedgeDelta = evPerReachHedged - evPerReachUnhedged;
+    var breakevenStr;
+    if (hedgeDelta > 0) {
+      breakevenStr = '0% (any rate +EV)';
+    } else if (Math.abs(hedgeDelta) < 0.01) {
+      breakevenStr = 'EV-neutral';
+    } else {
+      breakevenStr = 'Hedge -EV — skip';
+    }
+
+    // Per-100 parlays
+    var pHedgeFired = pReach * execRate;
+    var pMiddleHit = pHedgeFired * middleProb;
+    var totalWagered = 100 * stake + 100 * pHedgeFired * H;
+    var totalReturn = 100 * stake + 100 * stackEV; // return = stake back + EV gain (rough)
+    var netProfit = 100 * stackEV;
+
+    // Update UI
+    document.getElementById('parlayDec').textContent = parlayDecBoosted.toFixed(2);
+    document.getElementById('parlayAmerican').textContent = decimalToAmerican(parlayDecBoosted) + ' boosted';
+    document.getElementById('parlayWinProb').textContent = fmtPct(pAllWin);
+    document.getElementById('reachProb').textContent = fmtPct(pReach);
+    document.getElementById('totalROI').textContent = fmtPctSigned(stackROI);
+    document.getElementById('totalROI').className = 'stat-value ' + (stackROI > 0 ? 'pos' : 'neg');
+
+    document.getElementById('baseEV').textContent = fmt$(baseEV);
+    document.getElementById('baseEV').className = 'scenario-pnl ' + (baseEV > 0 ? 'pos' : baseEV < 0 ? 'neg' : 'zero');
+    document.getElementById('baseROI').textContent = fmtPctSigned(baseROI);
+
+    document.getElementById('stackEV').textContent = fmt$(stackEV);
+    document.getElementById('stackEV').className = 'scenario-pnl ' + (stackEV > 0 ? 'pos' : stackEV < 0 ? 'neg' : 'zero');
+    document.getElementById('stackROI').textContent = fmtPctSigned(stackROI);
+
+    document.getElementById('middlePayoff').textContent = fmt$(middleProfit);
+    document.getElementById('middleRoi').innerHTML = 'Hits ~<span>' + fmtPct(middleProb * pReach * execRate) + '</span> of parlays';
+
+    document.getElementById('bustCount').textContent = (pBustBeforeFinal * 100).toFixed(1) + ' parlays';
+    document.getElementById('reachCount').textContent = (pReach * 100).toFixed(1) + ' parlays';
+    document.getElementById('hedgeCount').textContent = (pHedgeFired * 100).toFixed(1) + ' parlays';
+    document.getElementById('middleCount').textContent = (pMiddleHit * 100).toFixed(2) + ' parlays';
+    document.getElementById('totalWagered').textContent = fmt$(totalWagered).replace('+', '');
+    document.getElementById('totalReturn').textContent = fmt$(totalReturn).replace('+', '');
+    document.getElementById('hedgeBonus').textContent = fmt$(hedgeBonus);
+    document.getElementById('hedgeBonus').className = hedgeBonus > 0 ? 'pos' : '';
+    document.getElementById('breakeven').textContent = breakevenStr;
+    document.getElementById('netProfit').textContent = fmt$(netProfit);
+
+    // Sanity hints
+    var hedgeImplied = 1 / hedgeDec;
+    var sumImplied = legImplied + hedgeImplied; // not quite an arb check on full parlay, but on final leg vs hedge
+    document.getElementById('hedgeOddsHint').textContent = hedgeOdds > 100 ? '✓ plus money on hedge side' : 'Hedge is minus money — variance hedge only, not arb';
+    document.getElementById('hedgeOddsHint').className = 'form-hint ' + (hedgeOdds > 100 ? 'ok' : 'warn');
+
+    var legSanity = '';
+    if (perLegEdge > 0.10) legSanity = '⚠ very large per-leg edge — verify sharp picks';
+    else if (perLegEdge > 0) legSanity = '✓ +EV per leg (' + (perLegEdge * 100).toFixed(1) + '% over implied)';
+    else legSanity = '⚠ per-leg edge negative (' + (perLegEdge * 100).toFixed(1) + '%) — losing strategy';
+    document.getElementById('legProbHint').textContent = legSanity;
+    document.getElementById('legProbHint').className = 'form-hint ' + (perLegEdge > 0 && perLegEdge < 0.10 ? 'ok' : 'warn');
+    document.getElementById('legOddsHint').textContent = 'Implied prob: ' + (legImplied * 100).toFixed(1) + '%';
+
+    var parlayAm = decimalToAmerican(parlayDecBoosted);
+    var parlayAmNum = parseInt(parlayAm.replace('+', '')) || 0;
+    if (parlayAmNum >= 300 && parlayAm.startsWith('+')) {
+      document.getElementById('legsHint').textContent = '✓ Boost-eligible (≥ +300)';
+      document.getElementById('legsHint').className = 'form-hint ok';
+    } else {
+      document.getElementById('legsHint').textContent = 'Parlay = ' + parlayAm + ' — boost typically needs ≥ +300';
+      document.getElementById('legsHint').className = 'form-hint warn';
+    }
+
+    document.getElementById('stakeHint').textContent = 'DK/FD often cap boost stakes at $25-$50';
+  }
+
+  document.querySelectorAll('.form-input').forEach(function(el) {
+    el.addEventListener('input', recalc);
+  });
+  recalc();
+})();
+</script>
+
+</body>
+</html>
