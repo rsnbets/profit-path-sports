@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 — Off the Board | Profit Path Sports</title>
+  <meta name="description" content="That page didn't land. Find your way back to the tools and lessons that did.">
+  <meta name="robots" content="noindex,nofollow">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="404 — Off the Board | Profit Path Sports">
+  <meta property="og:description" content="That page didn't land. Find your way back to the tools and lessons that did.">
+  <meta property="og:image" content="https://profitpathsports.com/images/og-default.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:site_name" content="Profit Path Sports">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230a0f1c'/%3E%3Cpolyline points='5,24 12,16 16,19 22,9 27,5' fill='none' stroke='%234ade80' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Orbitron:wght@700;800;900&family=JetBrains+Mono:wght@400;500;600;700&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0f1c; --surface: #0f1524; --surface2: #141a2b; --border: #1e2638; --border-soft: #141c30;
+      --panel: #0f1524; --panel-inset: #141a2b; --panel-deep: #0c1120;
+      --accent: #f5b545; --yellow: #f5b545; --blue: #3d8bff; --green: #4ade80; --red: #f87171; --purple: #BC8CFF;
+      --text: #e5e7eb; --muted: #8b94a8; --dim: #6b7689;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'IBM Plex Sans', system-ui, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Brand bar */
+    .brand-bar {
+      padding: 22px 24px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+    }
+    .brand-bar a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--blue);
+      font-family: 'Orbitron', sans-serif;
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .brand-bar svg {
+      width: 20px;
+      height: 16px;
+      color: var(--green);
+      filter: drop-shadow(0 0 6px rgba(74, 222, 128, 0.55));
+    }
+    .brand-bar a:hover { color: #5fa1ff; }
+
+    /* Main hero */
+    .hero {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 60px 24px 40px;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    .err-code {
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(96px, 18vw, 180px);
+      font-weight: 900;
+      letter-spacing: 0.04em;
+      line-height: 1;
+      background: linear-gradient(135deg, var(--yellow), var(--red));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 8px;
+      text-shadow: 0 0 60px rgba(245, 181, 69, 0.15);
+    }
+    .err-eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 18px;
+      font-weight: 700;
+    }
+    .err-headline {
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(26px, 4.5vw, 38px);
+      font-weight: 900;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--text);
+      margin-bottom: 18px;
+      line-height: 1.15;
+    }
+    .err-headline .accent { color: var(--accent); }
+    .err-body {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 18px;
+      line-height: 1.6;
+      color: var(--muted);
+      margin-bottom: 44px;
+      max-width: 560px;
+    }
+    .err-body strong { color: var(--text); font-weight: 600; }
+
+    /* Action grid */
+    .actions {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      width: 100%;
+      max-width: 640px;
+      margin-bottom: 40px;
+    }
+    @media (max-width: 540px) { .actions { grid-template-columns: 1fr; } }
+    .action {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px 22px;
+      text-decoration: none;
+      color: var(--text);
+      transition: all 0.15s;
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .action:hover {
+      border-color: var(--green);
+      background: var(--panel-inset);
+      transform: translateY(-1px);
+    }
+    .action .a-icon {
+      font-size: 22px;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .action .a-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text);
+    }
+    .action .a-desc {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+    .action .a-arrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--green);
+      letter-spacing: 0.1em;
+      margin-top: 4px;
+      font-weight: 700;
+    }
+
+    /* Footer note */
+    .footer-note {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--dim);
+      letter-spacing: 0.05em;
+      text-align: center;
+      padding: 24px 20px;
+      border-top: 1px solid var(--border);
+      line-height: 1.6;
+    }
+    .footer-note a { color: var(--blue); text-decoration: none; }
+    .footer-note a:hover { color: var(--accent); }
+  </style>
+</head>
+<body>
+
+  <div class="brand-bar">
+    <a href="/index.html">
+      <svg viewBox="0 0 28 22" xmlns="http://www.w3.org/2000/svg" fill="none">
+        <polyline points="2,18 8,12 12,15 18,7 26,3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span>Profit Path Sports</span>
+      <svg viewBox="0 0 28 22" xmlns="http://www.w3.org/2000/svg" fill="none">
+        <polyline points="2,18 8,12 12,15 18,7 26,3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
+  </div>
+
+  <main class="hero">
+    <div class="err-code">404</div>
+    <div class="err-eyebrow">// Off the board</div>
+    <h1 class="err-headline">That URL <span class="accent">didn't land</span></h1>
+    <p class="err-body">
+      The page you tried to reach either moved, never existed, or got renamed. <strong>No worries</strong> — here are the highest-value places on the site to get you back on track.
+    </p>
+
+    <div class="actions">
+      <a class="action" href="/index.html">
+        <div class="a-icon">🏠</div>
+        <div class="a-title">Home</div>
+        <div class="a-desc">All tools, lessons, and books in one place.</div>
+        <div class="a-arrow">→ profitpathsports.com</div>
+      </a>
+      <a class="action" href="/bet-x-ray.html">
+        <div class="a-icon">🩻</div>
+        <div class="a-title">Bet X-Ray</div>
+        <div class="a-desc">The flagship calc — devig, EV, Kelly, CLV in one tool.</div>
+        <div class="a-arrow">→ bet-x-ray.html</div>
+      </a>
+      <a class="action" href="/learn-ev.html">
+        <div class="a-icon">📐</div>
+        <div class="a-title">Start Learning</div>
+        <div class="a-desc">The foundational lesson on +EV — read this first.</div>
+        <div class="a-arrow">→ learn-ev.html</div>
+      </a>
+      <a class="action" href="/lane-new.html">
+        <div class="a-icon">🗺️</div>
+        <div class="a-title">Pick a Path</div>
+        <div class="a-desc">Begin · Convert · Maintain — find the path that fits where you are.</div>
+        <div class="a-arrow">→ lane-new.html</div>
+      </a>
+    </div>
+  </main>
+
+  <div class="footer-note">
+    Looking for something specific? Try the <a href="/index.html#tools">Toolbox</a> or <a href="/index.html#guides">Strategy Guides</a> on the homepage.<br>
+    &copy; 2026 Profit Path Sports &middot; <a href="/privacy.html">Privacy</a> &middot; <a href="/disclaimer.html">Disclaimer</a>
+  </div>
+
+</body>
+</html>
