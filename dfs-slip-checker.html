@@ -77,6 +77,19 @@
     .slip-info-value{font-family:var(--title);font-size:20px;font-weight:900;color:var(--text);}
     .slip-info-value.benchmark{color:var(--yellow);}
     .slip-info-value.payout{color:var(--green);}
+    .slip-info-value.custom{color:var(--purple);}
+
+    /* Custom payout row */
+    .custom-row{display:flex;align-items:center;gap:14px;flex-wrap:wrap;background:var(--panel-deep);border:1px solid var(--border);border-radius:8px;padding:12px 16px;margin-bottom:20px;}
+    .custom-toggle{display:flex;align-items:center;gap:9px;cursor:pointer;user-select:none;font-family:'IBM Plex Sans',sans-serif;font-size:13.5px;color:var(--text);flex:1;min-width:200px;}
+    .custom-toggle input{width:16px;height:16px;accent-color:var(--purple);cursor:pointer;}
+    .custom-toggle .hint{color:var(--muted);font-size:12px;}
+    .custom-mult-wrap{display:none;align-items:center;gap:10px;}
+    .custom-mult-wrap.show{display:flex;}
+    .custom-mult-wrap label{font-family:var(--mono);font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);font-weight:700;}
+    .custom-mult-input{background:var(--bg);border:1px solid var(--purple);color:var(--text);padding:8px 10px;font-family:var(--mono);font-size:14.5px;font-weight:700;border-radius:6px;outline:none;width:90px;text-align:center;}
+    .custom-mult-input:focus{border-color:var(--purple);box-shadow:0 0 0 2px rgba(188,140,255,0.18);}
+    .custom-mult-suffix{font-family:var(--mono);font-size:14px;color:var(--purple);font-weight:700;}
 
     /* Per-leg inputs */
     .leg-list{display:flex;flex-direction:column;gap:10px;}
@@ -335,6 +348,18 @@
       </div>
     </div>
 
+    <div class="custom-row">
+      <label class="custom-toggle">
+        <input type="checkbox" id="customToggle" onchange="onCustomToggle()">
+        <span>Custom payout <span class="hint">(goblin / demon / boosted ticket · exact DK Pick6 multiplier)</span></span>
+      </label>
+      <div class="custom-mult-wrap" id="customMultWrap">
+        <label for="customMult">Override</label>
+        <input class="custom-mult-input" id="customMult" type="number" step="0.1" min="1.01" placeholder="5.5" oninput="calc()">
+        <span class="custom-mult-suffix">x</span>
+      </div>
+    </div>
+
     <div class="form-row-title">Step 2 · Mode</div>
     <div class="mode-row">
       <div class="mode-pill active" data-mode="devig" onclick="setMode('devig')">Devig fair odds</div>
@@ -358,6 +383,7 @@
   <h3>Reading the checker</h3>
   <ol class="how-to-steps">
     <li><strong>Pick your platform and slip type.</strong> That sets the benchmark you have to beat on each leg, and the payout multiplier when all legs hit.</li>
+    <li><strong>Custom payout (optional).</strong> If your ticket has goblins / demons / a boost — or you're on DK Pick6 where slips often show "at least 5.5x" — flip on <em>Custom payout</em> and type the exact multiplier shown on the ticket. The implied-odds-per-pick benchmark recalculates from <code>mult^(–1/picks)</code> automatically.</li>
     <li><strong>Choose your mode.</strong> <em>Devig fair odds</em> is the right input — the no-vig consensus price from a sharp book. If you only have the best book's vigged odds, use <em>Best book odds</em> mode (the slip EV will be conservative — your actual edge is bigger after devigging).</li>
     <li><strong>Enter American odds for each leg.</strong> Each row shows the leg's implied probability, the edge vs. the slip benchmark, and a per-leg verdict (BEATS / MISSES).</li>
     <li><strong>Read the top bar.</strong> The Slip Verdict banner tells you if the entire slip is +EV at the prices you entered. The five stats show: probability all legs hit, the break-even hit rate you need to clear, the slip's payout multiplier, the EV per $100 entry, and the ROI.</li>
@@ -425,6 +451,15 @@
     if (!o || isNaN(o)) return null;
     return o > 0 ? 100 / (o + 100) : Math.abs(o) / (Math.abs(o) + 100);
   }
+  function probToAmerican(p) {
+    if (p == null || !isFinite(p) || p <= 0 || p >= 1) return null;
+    if (p >= 0.5) return Math.round(-100 * p / (1 - p));
+    return Math.round(100 * (1 - p) / p);
+  }
+  function fmtAmerican(o) {
+    if (o == null || !isFinite(o)) return '—';
+    return o > 0 ? '+' + o : '' + o;
+  }
   function fmtPct(v, digits) {
     digits = digits == null ? 2 : digits;
     if (v == null || !isFinite(v)) return '—';
@@ -467,14 +502,62 @@
     return SLIPS[platform].slips.find(s => s.id === slipId);
   }
 
+  function getEffectiveSlip() {
+    const slip = getCurrentSlip();
+    if (!slip) return null;
+    const customOn = document.getElementById('customToggle').checked;
+    const customVal = parseFloat(document.getElementById('customMult').value);
+    if (customOn && isFinite(customVal) && customVal > 1) {
+      // Derive new per-leg benchmark from the custom multiplier:
+      // probAllHit = 1/mult → probPerLeg = mult^(-1/picks)
+      const probPerLeg = Math.pow(1 / customVal, 1 / slip.picks);
+      const bench = probToAmerican(probPerLeg);
+      return { ...slip, mult: customVal, bench: bench, custom: true };
+    }
+    return { ...slip, custom: false };
+  }
+
   function onSlipChange() {
     const slip = getCurrentSlip();
     if (!slip) return;
-    document.getElementById('info-picks').textContent = slip.picks;
-    document.getElementById('info-benchmark').textContent = slip.bench;
-    document.getElementById('info-multiplier').textContent = slip.mult + 'x';
+    // If custom toggle is OFF, also reset the custom input so a fresh stale value
+    // doesn't surprise the user when they re-enable it.
+    if (!document.getElementById('customToggle').checked) {
+      document.getElementById('customMult').value = '';
+    } else {
+      // Reseed with the new slip's default mult so the user can tweak from there.
+      document.getElementById('customMult').value = slip.mult;
+    }
     renderLegs(slip.picks);
+    updateSlipInfo();
     calc();
+  }
+
+  function onCustomToggle() {
+    const on = document.getElementById('customToggle').checked;
+    document.getElementById('customMultWrap').classList.toggle('show', on);
+    if (on) {
+      // Seed the input with the current slip's default multiplier
+      const slip = getCurrentSlip();
+      const input = document.getElementById('customMult');
+      if (slip && !input.value) input.value = slip.mult;
+      input.focus();
+      input.select();
+    }
+    updateSlipInfo();
+    calc();
+  }
+
+  function updateSlipInfo() {
+    const eff = getEffectiveSlip();
+    if (!eff) return;
+    document.getElementById('info-picks').textContent = eff.picks;
+    const benchEl = document.getElementById('info-benchmark');
+    const multEl = document.getElementById('info-multiplier');
+    benchEl.textContent = fmtAmerican(eff.bench);
+    multEl.textContent = eff.mult + 'x';
+    benchEl.className = 'slip-info-value ' + (eff.custom ? 'custom' : 'benchmark');
+    multEl.className = 'slip-info-value ' + (eff.custom ? 'custom' : 'payout');
   }
 
   function renderLegs(n) {
@@ -520,9 +603,13 @@
   // CALCULATE
   // ─────────────────────────────────────────────────────────
   function calc() {
-    const slip = getCurrentSlip();
+    const slip = getEffectiveSlip();
     if (!slip) return;
-    const benchProb = americanToImplied(slip.bench);
+    // Always recompute slip info in case the custom mult changed
+    updateSlipInfo();
+    // Per-leg benchmark probability: probAllHit must be ≥ 1/mult to be +EV,
+    // which means each leg's implied prob must average above mult^(-1/picks).
+    const benchProb = Math.pow(1 / slip.mult, 1 / slip.picks);
     const legInputs = document.querySelectorAll('.leg-input');
     let probAllHit = 1;
     let anyValid = false;
