@@ -918,6 +918,104 @@ runCalc();
 
 <div class="divider"></div>
 
+<!-- SIZING & SURVIVAL -->
+<section id="sizing-survival">
+  <div class="container">
+    <div class="section-label" style="color: var(--yellow);">Chapter 07</div>
+    <h2 class="section-title">Sizing &amp; Survival: The Variance Reality</h2>
+    <p class="section-intro">+EV is a long-run statement, not a per-slip promise. On a 6-man flex, even a sharp +EV slip <strong style="color: var(--text);">loses 97% of the time.</strong> Most bettors blow up their bankroll before the math has a chance to work. Here's how to actually survive the variance.</p>
+
+    <!-- The hit rate truth -->
+    <div style="background: var(--panel); border: 1px solid var(--red); border-left: 4px solid var(--red); border-radius: 14px; padding: 32px 36px; margin: 32px 0 36px;">
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.25em; color: var(--red); margin-bottom: 14px; font-weight: 700;">⚠ THE BRUTAL TRUTH</div>
+      <h3 style="font-family: 'Orbitron', sans-serif; font-size: 22px; letter-spacing: 1px; text-transform: uppercase; font-weight: 900; margin-bottom: 16px; color: var(--text);">A sharp +EV 6-man hits ~2.6% of the time</h3>
+      <p style="font-family: 'Rajdhani', sans-serif; color: var(--muted); font-size: 16.5px; line-height: 1.65; margin-bottom: 14px;">An Underdog 6-pick flex needs to clear an implied <strong style="color: var(--text);">-116 per leg</strong> just to break even. A genuinely +EV slip (your average leg priced around -120 fair when the slip benchmark is -116) hits roughly <strong style="color: var(--text);">1 time in every 38 slips</strong>.</p>
+      <p style="font-family: 'Rajdhani', sans-serif; color: var(--muted); font-size: 16.5px; line-height: 1.65; margin-bottom: 0;">If you deposit $100 and place five $20 slips, there's a <strong style="color: var(--red);">~88% chance you go bust before your first hit</strong> — even if every slip you placed was +EV. <strong style="color: var(--text);">The math doesn't care if you ran out of money before it could work.</strong></p>
+    </div>
+
+    <!-- The variance simulation -->
+    <div style="margin: 36px 0;">
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.2em; color: var(--accent); margin-bottom: 16px; font-weight: 700;">⟶ THE VARIANCE SIMULATION</div>
+      <p style="font-family: 'Rajdhani', sans-serif; color: var(--muted); font-size: 16px; line-height: 1.65; margin-bottom: 22px;">Assuming a true +EV 6-man slip with a 2.6% hit rate, here's the probability of going <strong style="color: var(--text);">zero-for-N</strong> in a row — i.e., the chance you've placed N slips without a single winner:</p>
+      <div style="overflow-x: auto;">
+        <table class="slip-table" style="min-width: 580px;">
+          <thead>
+            <tr>
+              <th>Slips placed</th>
+              <th>Chance of going 0-for-N</th>
+              <th>What that means</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>5</td><td style="color: var(--red); font-weight: 700;">88%</td><td>Common. Routinely happens to every +EV bettor.</td></tr>
+            <tr><td>10</td><td style="color: var(--red); font-weight: 700;">77%</td><td>Still the default outcome. Variance is real.</td></tr>
+            <tr><td>30</td><td style="color: var(--yellow); font-weight: 700;">45%</td><td>Almost a coin flip on whether you've hit yet.</td></tr>
+            <tr><td>50</td><td style="color: var(--yellow); font-weight: 700;">26%</td><td>One in four +EV bettors hits 50 slips before their first cash.</td></tr>
+            <tr><td>100</td><td style="color: var(--green); font-weight: 700;">7%</td><td>Now you're in the long run — but few survive to it without proper sizing.</td></tr>
+            <tr><td>200</td><td style="color: var(--green); font-weight: 700;">0.5%</td><td>The math has caught up. Sample size has done its job.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="font-family: 'Rajdhani', sans-serif; color: var(--muted); font-size: 15px; line-height: 1.65; margin-top: 18px;">This is what people mean when they say "DFS is high variance." A 26% chance of zero hits across 50 slips means <strong style="color: var(--text);">one in four +EV bettors will go a month without a single win.</strong> If your bankroll can't absorb that, you'll quit before the math works.</p>
+    </div>
+
+    <!-- The Kelly reality -->
+    <div style="background: var(--panel); border: 1px solid var(--border); border-radius: 14px; padding: 32px 36px; margin: 32px 0 36px;">
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.25em; color: var(--blue); margin-bottom: 14px; font-weight: 700;">⟶ WHAT KELLY ACTUALLY RECOMMENDS</div>
+      <h3 style="font-family: 'Orbitron', sans-serif; font-size: 20px; letter-spacing: 1px; text-transform: uppercase; font-weight: 900; margin-bottom: 16px; color: var(--text);">Full Kelly on a +EV 6-man = 0.14% of bankroll</h3>
+      <p style="font-family: 'Rajdhani', sans-serif; color: var(--muted); font-size: 16px; line-height: 1.65; margin-bottom: 14px;">For a 6-man slip with <strong style="color: var(--text);">2.6% hit rate and 40x payout</strong>, the Kelly formula prescribes <strong style="color: var(--text);">0.14% of your bankroll per slip</strong> at full Kelly. Quarter Kelly (the standard conservative size) is <strong style="color: var(--text);">0.036%</strong>.</p>
+      <p style="font-family: 'Rajdhani', sans-serif; color: var(--muted); font-size: 16px; line-height: 1.65; margin-bottom: 14px;">In dollars:</p>
+      <ul style="font-family: 'Rajdhani', sans-serif; color: var(--muted); font-size: 16px; line-height: 1.75; margin: 0 0 14px 22px;">
+        <li><strong style="color: var(--text);">$1,000 bankroll</strong> → full Kelly = <strong style="color: var(--green);">$1.40/slip</strong>. ¼-Kelly = $0.36/slip.</li>
+        <li><strong style="color: var(--text);">$5,000 bankroll</strong> → full Kelly = $7. ¼-Kelly = $1.80/slip.</li>
+        <li><strong style="color: var(--text);">$14,000 bankroll</strong> → ¼-Kelly = $5/slip (the typical platform minimum).</li>
+      </ul>
+      <p style="font-family: 'Rajdhani', sans-serif; color: var(--muted); font-size: 16px; line-height: 1.65; margin-bottom: 0;">If you can't bet less than $5 and you don't have $14k, <strong style="color: var(--text);">you're already over-betting Kelly on every slip you place.</strong> That's the reality of DFS for most people. Run the numbers through the <a href="/dfs-slip-checker.html" style="color: var(--green);">DFS Slip Checker</a> to see your actual edge on any slip, then decide if your bankroll can absorb the variance at the platform minimum.</p>
+    </div>
+
+    <!-- Practical recommendations -->
+    <h3 style="font-family: 'Orbitron', sans-serif; font-size: 24px; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 900; margin: 36px 0 22px; color: var(--text);">How to actually play this</h3>
+    <p style="font-family: 'Rajdhani', sans-serif; color: var(--muted); font-size: 16px; line-height: 1.65; margin-bottom: 24px;">If you can't realistically size for proper Kelly, you have a few paths that still let you play +EV DFS without going broke. None of them involve "deposit $100 and bet $20 slips."</p>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px;">
+      <div style="background: var(--panel); border: 1px solid var(--border); border-left: 3px solid var(--green); border-radius: 12px; padding: 26px 24px;">
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.2em; color: var(--green); margin-bottom: 12px; font-weight: 700;">PATH 1 · FREE-ROLL THE VARIANCE</div>
+        <div style="font-family: 'Orbitron', sans-serif; font-size: 15px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 12px; color: var(--text);">Start with bonuses, not cash</div>
+        <p style="font-family: 'Rajdhani', sans-serif; color: var(--muted); font-size: 15px; line-height: 1.65;">Every platform offers first-deposit promos — bonus slips, deposit matches, special-entry tickets. <strong style="color: var(--text);">Use those to fund your variance before risking real money.</strong> Hitting cold with promo credits costs you nothing. Run 30-50 free or bonus slips first to see how the variance feels — then decide if you want to deposit real cash.</p>
+      </div>
+
+      <div style="background: var(--panel); border: 1px solid var(--border); border-left: 3px solid var(--blue); border-radius: 12px; padding: 26px 24px;">
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.2em; color: var(--blue); margin-bottom: 12px; font-weight: 700;">PATH 2 · DROP THE SLIP SIZE</div>
+        <div style="font-family: 'Orbitron', sans-serif; font-size: 15px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 12px; color: var(--text);">Smaller slips, higher hit rates</div>
+        <p style="font-family: 'Rajdhani', sans-serif; color: var(--muted); font-size: 15px; line-height: 1.65;">A 3-pick standard pays ~6x and hits ~16% of the time. A 4-pick pays ~10x and hits ~10%. Both are <strong style="color: var(--text);">far more survivable</strong> than a 6-man on a small bankroll. The per-leg benchmark is slightly tougher (-122 vs -116), but you only need 3-4 legs to clear it instead of 6 — and you'll see a winner every 6-10 slips instead of every 38.</p>
+      </div>
+
+      <div style="background: var(--panel); border: 1px solid var(--border); border-left: 3px solid var(--accent); border-radius: 12px; padding: 26px 24px;">
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.2em; color: var(--accent); margin-bottom: 12px; font-weight: 700;">PATH 3 · TREAT IT AS A SLEEVE</div>
+        <div style="font-family: 'Orbitron', sans-serif; font-size: 15px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 12px; color: var(--text);">DFS is 5-10% of your roll, max</div>
+        <p style="font-family: 'Rajdhani', sans-serif; color: var(--muted); font-size: 15px; line-height: 1.65;">If sportsbook +EV is your main play, DFS lives as a <strong style="color: var(--text);">small, high-variance sleeve</strong> on top of it — never the whole strategy. With $5,000 in your main +EV bankroll, allocate $250-500 to DFS as risk capital you've fully written off mentally. Hit or miss, your sportsbook ROI is doing the real work.</p>
+      </div>
+
+      <div style="background: var(--panel); border: 1px solid var(--border); border-left: 3px solid var(--purple); border-radius: 12px; padding: 26px 24px;">
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.2em; color: var(--purple); margin-bottom: 12px; font-weight: 700;">PATH 4 · VOLUME OVER TIME</div>
+        <div style="font-family: 'Orbitron', sans-serif; font-size: 15px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 12px; color: var(--text);">Hundreds of slips, not dozens</div>
+        <p style="font-family: 'Rajdhani', sans-serif; color: var(--muted); font-size: 15px; line-height: 1.65;">A +EV strategy needs <strong style="color: var(--text);">200+ slips before the variance settles down</strong>. If you're playing 1-2 slips a week, that's two years of data before you'll know if your edge is real. Plan for the volume. Track every slip in a spreadsheet — if you can't sustain 50+ slips a month for several months, the math won't catch up before you lose interest.</p>
+      </div>
+    </div>
+
+    <!-- The honest verdict -->
+    <div style="background: linear-gradient(135deg, rgba(245, 181, 69, 0.08), rgba(245, 181, 69, 0.02)); border: 1px solid var(--yellow); border-radius: 14px; padding: 32px 36px; margin: 36px 0 0;">
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.25em; color: var(--yellow); margin-bottom: 14px; font-weight: 700;">⟶ THE HONEST VERDICT</div>
+      <h3 style="font-family: 'Orbitron', sans-serif; font-size: 22px; letter-spacing: 1px; text-transform: uppercase; font-weight: 900; margin-bottom: 16px; color: var(--text);">DFS is harder to operationalize than sportsbook +EV</h3>
+      <p style="font-family: 'Rajdhani', sans-serif; color: var(--muted); font-size: 16.5px; line-height: 1.7; margin-bottom: 14px;">Traditional sportsbook +EV at -110 odds hits ~52-55% of the time. You see a winner every 2-3 bets. Drawdowns of 20-30 bets are rare. The bankroll math is forgiving.</p>
+      <p style="font-family: 'Rajdhani', sans-serif; color: var(--muted); font-size: 16.5px; line-height: 1.7; margin-bottom: 14px;">DFS slips at 40x payouts hit ~3% of the time. You'll go 30-50 slips between winners. Drawdowns will feel apocalyptic even when your math is correct.</p>
+      <p style="font-family: 'Rajdhani', sans-serif; color: var(--muted); font-size: 16.5px; line-height: 1.7; margin-bottom: 0;"><strong style="color: var(--text);">For most users, +EV DFS is a side play, not a main play.</strong> Convert sportsbook bonuses first (<a href="/lane-bonus.html" style="color: var(--green);">Path 02</a>), build a real bankroll through low-variance +EV (<a href="/lane-maintain.html" style="color: var(--green);">Path 03</a>), then allocate a small sleeve to DFS once you can afford the variance. That's the honest sequence. Anyone telling you to deposit $100 and start crushing 6-mans hasn't done the math — or they're selling you something.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
 <!-- AFFILIATE -->
 <section style="padding: 80px 0;">
   <div class="container">
