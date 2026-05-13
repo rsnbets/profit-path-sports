@@ -107,6 +107,18 @@
     .how-to-note em { color: var(--blue); font-style: normal; font-weight: 600; }
     .how-to-note strong { color: var(--text); font-weight: 600; }
 
+    /* CTA strip — conversion hook to companion lesson */
+    .pps-cta-strip{max-width:880px;margin:8px auto 56px;padding:28px 32px;background:linear-gradient(135deg,rgba(61,139,255,0.07),rgba(188,140,255,0.04));border:1px solid rgba(61,139,255,0.32);border-radius:16px;display:flex;align-items:center;gap:28px;flex-wrap:wrap;}
+    .pps-cta-strip .cta-left{flex:1;min-width:280px;}
+    .pps-cta-strip .cta-eyebrow{font-family:var(--mono);font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:var(--blue);font-weight:700;margin-bottom:10px;}
+    .pps-cta-strip h3{font-family:'Orbitron',sans-serif;font-size:18px;font-weight:800;letter-spacing:0.8px;color:var(--text);margin:0 0 8px;text-transform:uppercase;}
+    .pps-cta-strip h3 em{color:var(--blue);font-style:normal;}
+    .pps-cta-strip p{font-family:'IBM Plex Sans',sans-serif;font-size:14.5px;line-height:1.55;color:var(--muted);margin:0;}
+    .pps-cta-strip .cta-button{display:inline-flex;align-items:center;gap:8px;background:var(--blue);color:#0a0f1c;text-decoration:none;padding:13px 22px;border-radius:9px;font-family:'Orbitron',sans-serif;font-size:12.5px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;white-space:nowrap;transition:all 0.15s;border:1px solid var(--blue);}
+    .pps-cta-strip .cta-button:hover{background:transparent;color:var(--blue);box-shadow:0 0 18px rgba(61,139,255,0.25);}
+    .pps-cta-strip .cta-fineprint{font-family:var(--mono);font-size:10.5px;color:var(--dim);margin-top:10px;letter-spacing:0.04em;}
+    @media(max-width:640px){.pps-cta-strip{padding:22px 20px;gap:18px;}.pps-cta-strip .cta-button{width:100%;justify-content:center;}}
+
     .disclaimer{text-align:center;padding:24px 20px;font-size:11px;color:var(--muted);font-family:var(--mono);border-top:1px solid var(--border);line-height:1.6;}
     .disclaimer a{color:var(--blue);text-decoration:none;}
     .disclaimer a:hover{color:var(--accent);}
@@ -413,6 +425,16 @@
   <div class="how-to-note">
     <strong>Realistic middle probabilities:</strong> NFL totals rarely middle (1-3% on standard 3-point gaps); NBA half-point middles cluster around 5-8%; MLB run totals with multi-run gaps are higher. <em>Don't guess — pull the probability from a sharp book's price on the exact result range.</em>
   </div>
+</div>
+
+<!-- CTA STRIP → MIDDLES DEEP DIVE -->
+<div class="pps-cta-strip">
+  <div class="cta-left">
+    <div class="cta-eyebrow">Deep dive · free lesson</div>
+    <h3>New to middles? <em>Start here.</em></h3>
+    <p>The middles deep dive covers <strong style="color:var(--text);">live-middle technique</strong> (plus-money pre-game → alt-line plus-money live), the CFB 1Q O3.5/U5.5 trap, pre-game middles, and the math behind when a middle is genuinely +EV vs. cosmetic.</p>
+  </div>
+  <a class="cta-button" href="/learn-middles.html">Read the Deep Dive →</a>
 </div>
 
 <div class="disclaimer">

@@ -126,6 +126,18 @@
     .how-to-note em { color: var(--blue); font-style: normal; font-weight: 600; }
     .how-to-note strong { color: var(--text); font-weight: 600; }
 
+    /* CTA strip — conversion hook to companion guide/lesson */
+    .pps-cta-strip{max-width:880px;margin:8px auto 56px;padding:28px 32px;background:linear-gradient(135deg,rgba(74,222,128,0.06),rgba(61,139,255,0.05));border:1px solid rgba(74,222,128,0.30);border-radius:16px;display:flex;align-items:center;gap:28px;flex-wrap:wrap;}
+    .pps-cta-strip .cta-left{flex:1;min-width:280px;}
+    .pps-cta-strip .cta-eyebrow{font-family:var(--mono);font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:var(--green);font-weight:700;margin-bottom:10px;}
+    .pps-cta-strip h3{font-family:'Orbitron',sans-serif;font-size:18px;font-weight:800;letter-spacing:0.8px;color:var(--text);margin:0 0 8px;text-transform:uppercase;}
+    .pps-cta-strip h3 em{color:var(--green);font-style:normal;}
+    .pps-cta-strip p{font-family:'IBM Plex Sans',sans-serif;font-size:14.5px;line-height:1.55;color:var(--muted);margin:0;}
+    .pps-cta-strip .cta-button{display:inline-flex;align-items:center;gap:8px;background:var(--green);color:#0a0f1c;text-decoration:none;padding:13px 22px;border-radius:9px;font-family:'Orbitron',sans-serif;font-size:12.5px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;white-space:nowrap;transition:all 0.15s;border:1px solid var(--green);box-shadow:0 0 0 0 rgba(74,222,128,0.4);}
+    .pps-cta-strip .cta-button:hover{background:transparent;color:var(--green);box-shadow:0 0 18px rgba(74,222,128,0.25);}
+    .pps-cta-strip .cta-fineprint{font-family:var(--mono);font-size:10.5px;color:var(--dim);margin-top:10px;letter-spacing:0.04em;}
+    @media(max-width:640px){.pps-cta-strip{padding:22px 20px;gap:18px;}.pps-cta-strip .cta-button{width:100%;justify-content:center;}}
+
     .disclaimer{text-align:center;padding:24px 20px;font-size:11px;color:var(--muted);font-family:var(--mono);border-top:1px solid var(--border);line-height:1.6;}
     .disclaimer a{color:var(--blue);text-decoration:none;}
     .disclaimer a:hover{color:var(--accent);}
@@ -391,6 +403,17 @@
   <div class="how-to-note">
     <strong>The core idea:</strong> <em>any slip type</em> can be +EV if every leg beats that slip's implied odds per pick. The "best" slip isn't inherently better — it just has a lower benchmark (e.g., -116 on a 6-man vs. -200 on a 2-pick). Your job: find picks with sharper market lines than the bar your slip sets. Full theory in the <a href="/profit-path-dfs-guide.html">DFS Edge guide</a>.
   </div>
+</div>
+
+<!-- CTA STRIP → DFS EDGE GUIDE -->
+<div class="pps-cta-strip">
+  <div class="cta-left">
+    <div class="cta-eyebrow">Free playbook · email opt-in</div>
+    <h3>Want to know <em>how to find</em> the picks?</h3>
+    <p>This checker tells you whether a slip is +EV. The <strong style="color:var(--text);">DFS Edge playbook</strong> shows you the exact workflow to find legs sharp enough to clear the benchmark — sport by sport, slip by slip. Free, no fluff.</p>
+    <div class="cta-fineprint">No spam · single welcome email with the guide · unsubscribe anytime</div>
+  </div>
+  <a class="cta-button" href="/profit-path-dfs-guide.html">Get the Playbook →</a>
 </div>
 
 <div class="disclaimer">
