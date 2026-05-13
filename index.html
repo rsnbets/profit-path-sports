@@ -3,69 +3,81 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Profit Path Sports — Tools, Education & Edge</title>
-<meta name="description" content="Free, professional-grade calculators and education for sports bettors. EV, arbitrage, devig, bonus conversion, and more. No paywall, no signup.">
+<title>PROFITPATH Sports — Beat the book. Run the math.</title>
+<meta name="description" content="The calculators sharp bettors run on every line. Free, precise, and built for people who actually want to win. No picks, no paywall, no signup.">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Profit Path Sports — Tools, Education & Edge">
-  <meta property="og:description" content="Free, professional-grade calculators and education for sports bettors. EV, arbitrage, devig, bonus conversion, and more. No paywall, no signup.">
+  <meta property="og:title" content="PROFITPATH Sports — Beat the book. Run the math.">
+  <meta property="og:description" content="The calculators sharp bettors run on every line. Free, precise, and built for people who actually want to win.">
   <meta property="og:image" content="https://profitpathsports.com/images/og-default.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:url" content="https://profitpathsports.com/">
-  <meta property="og:site_name" content="Profit Path Sports">
+  <meta property="og:site_name" content="PROFITPATH Sports">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Profit Path Sports — Tools, Education & Edge">
-  <meta name="twitter:description" content="Free, professional-grade calculators and education for sports bettors. EV, arbitrage, devig, bonus conversion, and more. No paywall, no signup.">
+  <meta name="twitter:title" content="PROFITPATH Sports — Beat the book. Run the math.">
+  <meta name="twitter:description" content="The calculators sharp bettors run on every line. Free, precise, and built for people who actually want to win.">
   <meta name="twitter:image" content="https://profitpathsports.com/images/og-default.png">
 
-<!-- Favicon: SVG lightning bolt -->
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230a0f1c'/%3E%3Cpolyline points='5,24 12,16 16,19 22,9 27,5' fill='none' stroke='%234ade80' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="icon" type="image/svg+xml" href="/logo.svg">
 
-<!-- Open Graph / Social sharing -->
-<meta property="og:type" content="website">
-<meta property="og:title" content="Profit Path Sports — Tools, Education & Edge">
-<meta property="og:description" content="Free, professional-grade calculators and education for sports bettors. EV, arbitrage, devig, bonus conversion, and more. No paywall, no signup.">
-<meta property="og:site_name" content="Profit Path Sports">
-
-<!-- Twitter Card -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Profit Path Sports — Tools, Education & Edge">
-<meta name="twitter:description" content="Free, professional-grade calculators and education for sports bettors. EV, arbitrage, devig, bonus conversion, and more. No paywall, no signup.">
-
-<!-- Theme color for mobile browser chrome -->
-<meta name="theme-color" content="#0a0f1c">
+<meta name="theme-color" content="#090909">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Orbitron:wght@700;800;900&family=JetBrains+Mono:wght@400;500;700&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=DM+Mono:wght@400;500&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #0a0f1c;
-    --panel: #0f1524;
-    --panel-inset: #141a2b;
-    --panel-deep: #0c1120;
-    --border: #1e2638;
-    --border-soft: #141c30;
-    --text: #e5e7eb;
-    --muted: #8b94a8;
-    --dim: #6b7689;
-    --blue: #3d8bff;
-    --blue-glow: rgba(61, 139, 255, 0.15);
-    --yellow: #f5b545;
-    --yellow-glow: rgba(245, 181, 69, 0.15);
-    --green: #4ade80;
-    --green-glow: rgba(74, 222, 128, 0.15);
-    --purple: #BC8CFF;
-    --red: #f87171;
+    /* PROFITPATH v2 tokens — /brand-brief-v2.html */
+    --bg: #090909;
+    --panel: #0D0D0D;
+    --panel-inset: #141414;
+    --panel-deep: #0D0D0D;
+    --surface: #0D0D0D;
+    --surface-2: #141414;
+    --surface-3: #1C1C1C;
+    --border: rgba(255,255,255,0.05);
+    --border-soft: rgba(255,255,255,0.05);
+    --border-2: rgba(255,255,255,0.08);
+    --text: #F0EEE8;
+    --muted: rgba(255,255,255,0.42);
+    --dim: rgba(255,255,255,0.25);
+    --green: #4DFF78;
+    --green-glow: rgba(77,255,120,0.15);
+    --green-dim: rgba(77,255,120,0.15);
+    --green-faint: rgba(77,255,120,0.06);
+    --green-border: rgba(77,255,120,0.22);
+    --cyan: #00D4FF;
+    --cyan-dim: rgba(0,212,255,0.12);
+    --cyan-border: rgba(0,212,255,0.22);
+    /* Legacy aliases — old class rules still reference these names */
+    --blue: #00D4FF;
+    --blue-glow: rgba(0,212,255,0.15);
+    --purple: #00D4FF;
+    --yellow: #F5B545;
+    --yellow-glow: rgba(245,181,69,0.15);
+    --red: #FF3D3D;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
-    background: radial-gradient(ellipse at top, #111a2e 0%, var(--bg) 60%);
+    background: var(--bg);
     color: var(--text);
-    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    font-weight: 300;
     min-height: 100vh;
     padding: 24px 16px 60px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 999;
+    opacity: 0.025;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 
   .wrap { max-width: 1100px; margin: 0 auto; }
@@ -110,15 +122,15 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    color: #4ade80;
-    filter: drop-shadow(0 0 10px rgba(74, 222, 128, 0.65)) drop-shadow(0 0 3px rgba(34, 197, 94, 0.5));
+    color: #4DFF78;
+    filter: drop-shadow(0 0 10px rgba(77, 255, 120, 0.65)) drop-shadow(0 0 3px rgba(34, 197, 94, 0.5));
     width: 36px;
     height: 28px;
   }
   .brand-chart svg { width: 100%; height: 100%; }
 
   .brand-name {
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 32px;
     font-weight: 900;
     letter-spacing: 4px;
@@ -130,7 +142,7 @@
   }
 
   .tagline {
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 12px;
     letter-spacing: 4px;
     text-transform: uppercase;
@@ -140,7 +152,7 @@
   }
 
   .hero-pitch {
-    font-family: 'Rajdhani', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 19px;
     line-height: 1.6;
     color: var(--text);
@@ -163,7 +175,7 @@
   }
 
   .btn-cta {
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 11px;
     letter-spacing: 2px;
     text-transform: uppercase;
@@ -215,7 +227,7 @@
   }
 
   .section-eyebrow {
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 11px;
     letter-spacing: 2.5px;
     color: var(--dim);
@@ -252,7 +264,7 @@
   .section-eyebrow.red { color: var(--red); }
 
   .section-title {
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 22px;
     font-weight: 800;
     letter-spacing: 2px;
@@ -261,7 +273,7 @@
   }
 
   .section-sub {
-    font-family: 'Rajdhani', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 16px;
     color: var(--muted);
     margin-top: 6px;
@@ -273,7 +285,7 @@
 
   /* ── About ── */
   .about-body {
-    font-family: 'Rajdhani', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 17px;
     line-height: 1.7;
     color: var(--muted);
@@ -291,7 +303,7 @@
     margin-top: 22px;
     padding-top: 18px;
     border-top: 1px solid var(--border);
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 13px;
     letter-spacing: 2px;
     color: var(--yellow);
@@ -347,7 +359,7 @@
   }
 
   .tool-name {
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 14px;
     font-weight: 800;
     letter-spacing: 1.5px;
@@ -356,7 +368,7 @@
   }
 
   .tool-desc {
-    font-family: 'Rajdhani', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 14px;
     color: var(--muted);
     line-height: 1.5;
@@ -364,7 +376,7 @@
   }
 
   .tool-cta {
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 10px;
     letter-spacing: 2px;
     text-transform: uppercase;
@@ -405,15 +417,15 @@
 
   /* Featured book card — used for DK to surface a live promo */
   .book-card.featured {
-    background: linear-gradient(180deg, rgba(74, 222, 128, 0.10), var(--panel-deep));
+    background: linear-gradient(180deg, rgba(77, 255, 120, 0.10), var(--panel-deep));
     border-color: var(--green);
-    box-shadow: 0 0 22px rgba(74, 222, 128, 0.10);
+    box-shadow: 0 0 22px rgba(77, 255, 120, 0.10);
     position: relative;
     overflow: visible;
   }
   .book-card.featured:hover {
     border-color: var(--green);
-    box-shadow: 0 0 32px rgba(74, 222, 128, 0.22);
+    box-shadow: 0 0 32px rgba(77, 255, 120, 0.22);
     transform: translateY(-2px);
   }
   .book-card.featured .book-bonus {
@@ -430,7 +442,7 @@
     transform: translateX(-50%);
     background: var(--green);
     color: #062014;
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 8px;
     letter-spacing: 1.5px;
     text-transform: uppercase;
@@ -438,13 +450,13 @@
     padding: 4px 9px;
     border-radius: 999px;
     white-space: nowrap;
-    box-shadow: 0 3px 10px rgba(74, 222, 128, 0.35);
+    box-shadow: 0 3px 10px rgba(77, 255, 120, 0.35);
   }
   .book-card .book-promo-flag {
     display: inline-flex;
     align-items: center;
     gap: 5px;
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 8px;
     letter-spacing: 1.4px;
     text-transform: uppercase;
@@ -502,7 +514,7 @@
   @keyframes bookPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
 
   .book-name {
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 13px;
     font-weight: 800;
     letter-spacing: 1.5px;
@@ -511,14 +523,14 @@
   }
 
   .book-bonus {
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'DM Mono', monospace;
     font-size: 11px;
     color: var(--yellow);
     letter-spacing: 0.5px;
   }
 
   .book-tag {
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 9px;
     letter-spacing: 1.5px;
     text-transform: uppercase;
@@ -567,7 +579,7 @@
   .donate-info { flex: 1; min-width: 0; }
 
   .donate-name {
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 13px;
     font-weight: 800;
     letter-spacing: 1.5px;
@@ -577,7 +589,7 @@
   }
 
   .donate-handle {
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'DM Mono', monospace;
     font-size: 12px;
     color: var(--muted);
     overflow: hidden;
@@ -605,7 +617,7 @@
     position: absolute;
     top: 12px;
     right: 12px;
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 8px;
     letter-spacing: 1.5px;
     text-transform: uppercase;
@@ -620,7 +632,7 @@
   .coming-icon { font-size: 24px; margin-bottom: 10px; }
 
   .coming-name {
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 13px;
     font-weight: 800;
     letter-spacing: 1.5px;
@@ -630,7 +642,7 @@
   }
 
   .coming-desc {
-    font-family: 'Rajdhani', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 14px;
     color: var(--muted);
     line-height: 1.5;
@@ -650,7 +662,7 @@
     max-width: 720px;
     margin: 0 auto 14px;
     color: var(--dim);
-    font-family: 'Rajdhani', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 13px;
     letter-spacing: 0.3px;
   }
@@ -665,7 +677,7 @@
     max-width: 720px;
   }
   .path-fork-eyebrow {
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 10px;
     letter-spacing: 3px;
     text-transform: uppercase;
@@ -675,7 +687,7 @@
     opacity: 0.9;
   }
   .path-fork-title {
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 28px;
     font-weight: 900;
     letter-spacing: 3px;
@@ -685,7 +697,7 @@
     margin-bottom: 12px;
   }
   .path-fork-sub {
-    font-family: 'IBM Plex Sans', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 15px;
     color: var(--muted);
     line-height: 1.55;
@@ -800,7 +812,7 @@
     position: absolute;
     top: 16px;
     right: 18px;
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 10px;
     letter-spacing: 2px;
     text-transform: uppercase;
@@ -819,7 +831,7 @@
     filter: drop-shadow(0 0 14px rgba(74,222,128,0.4));
   }
   .exclusive-eyebrow {
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 10px;
     letter-spacing: 2.5px;
     text-transform: uppercase;
@@ -828,7 +840,7 @@
     margin-bottom: 8px;
   }
   .exclusive-name {
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 38px;
     font-weight: 900;
     letter-spacing: 2.5px;
@@ -838,7 +850,7 @@
     line-height: 1;
   }
   .exclusive-tagline {
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'DM Mono', monospace;
     font-size: 13px;
     letter-spacing: 0.5px;
     color: var(--green);
@@ -846,7 +858,7 @@
     margin-bottom: 14px;
   }
   .exclusive-desc {
-    font-family: 'IBM Plex Sans', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 15.5px;
     line-height: 1.6;
     color: var(--muted);
@@ -858,7 +870,7 @@
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 12px;
     letter-spacing: 2px;
     text-transform: uppercase;
@@ -930,7 +942,7 @@
   }
 
   .hero-path-eyebrow {
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 9px;
     letter-spacing: 2.5px;
     text-transform: uppercase;
@@ -940,7 +952,7 @@
   }
 
   .hero-path-title {
-    font-family: 'IBM Plex Sans', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 21px;
     font-weight: 700;
     letter-spacing: -0.015em;
@@ -949,7 +961,7 @@
   }
 
   .hero-path-desc {
-    font-family: 'IBM Plex Sans', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 14px;
     color: var(--muted);
     line-height: 1.5;
@@ -965,7 +977,7 @@
     padding: 0;
   }
   .hero-path-list li {
-    font-family: 'IBM Plex Sans', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 12px;
     color: var(--dim);
     padding: 3px 0 3px 16px;
@@ -982,7 +994,7 @@
   }
 
   .hero-path-cta {
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 11px;
     letter-spacing: 2px;
     text-transform: uppercase;
@@ -1046,7 +1058,7 @@
   }
 
   .lane-eyebrow {
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 10px;
     letter-spacing: 2.5px;
     text-transform: uppercase;
@@ -1055,7 +1067,7 @@
   }
 
   .lane-title {
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 17px;
     font-weight: 800;
     letter-spacing: 1.5px;
@@ -1065,7 +1077,7 @@
   }
 
   .lane-blurb {
-    font-family: 'Rajdhani', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 15px;
     color: var(--muted);
     line-height: 1.55;
@@ -1073,7 +1085,7 @@
   }
 
   .lane-cta {
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 11px;
     letter-spacing: 2px;
     text-transform: uppercase;
@@ -1089,7 +1101,7 @@
   .path-grid.bonus .path-step:hover { border-color: var(--green); }
   .path-grid.bonus .path-num {
     color: var(--green);
-    text-shadow: 0 0 14px rgba(74, 222, 128, 0.45);
+    text-shadow: 0 0 14px rgba(77, 255, 120, 0.45);
   }
   .path-grid.bonus .path-step:hover .path-tool { color: var(--green); }
 
@@ -1097,13 +1109,13 @@
   .path-grid.learn .path-step:hover { border-color: var(--blue); }
   .path-grid.learn .path-num {
     color: var(--blue);
-    text-shadow: 0 0 14px rgba(61, 139, 255, 0.45);
+    text-shadow: 0 0 14px rgba(0, 212, 255, 0.45);
   }
   .path-grid.learn .path-step:hover .path-tool { color: var(--blue); }
 
   /* ── Inclusive manifesto line ── */
   .hero-manifesto {
-    font-family: 'Rajdhani', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 15.5px;
     font-style: italic;
     color: var(--muted);
@@ -1127,7 +1139,7 @@
   .brand-mark.small .brand-name { font-size: 52px; letter-spacing: 6px; }
 
   .brand-tagline {
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 11px;
     letter-spacing: 3px;
     text-transform: uppercase;
@@ -1138,7 +1150,7 @@
   }
 
   .hero-headline {
-    font-family: 'Rajdhani', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 58px;
     font-weight: 700;
     line-height: 1.04;
@@ -1158,7 +1170,7 @@
   .skip-link {
     display: inline-block;
     margin-top: 22px;
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'DM Mono', monospace;
     font-size: 12px;
     color: var(--dim);
     text-decoration: none;
@@ -1195,7 +1207,7 @@
   }
 
   .path-num {
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 30px;
     font-weight: 800;
     color: var(--yellow);
@@ -1206,7 +1218,7 @@
   .path-body { min-width: 0; }
 
   .path-title {
-    font-family: 'Rajdhani', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 20px;
     font-weight: 700;
     color: var(--text);
@@ -1215,14 +1227,14 @@
   }
 
   .path-blurb {
-    font-family: 'Rajdhani', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 15px;
     color: var(--muted);
     line-height: 1.55;
   }
 
   .path-tool {
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 10px;
     letter-spacing: 2px;
     text-transform: uppercase;
@@ -1250,7 +1262,7 @@
     display: block;
     width: fit-content;
     margin: 18px auto 0;
-    font-family: 'IBM Plex Sans', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 11px;
     letter-spacing: 1.4px;
     text-transform: uppercase;
@@ -1267,12 +1279,12 @@
     content: 'Click to collapse ▴';
     color: var(--blue);
     border-color: var(--blue);
-    background: rgba(61, 139, 255, 0.08);
+    background: rgba(0, 212, 255, 0.08);
   }
   details.section > summary:hover::after {
     color: var(--blue);
     border-color: var(--blue);
-    background: rgba(61, 139, 255, 0.12);
+    background: rgba(0, 212, 255, 0.12);
     transform: translateY(-1px);
   }
   details.section > summary:hover .section-title { color: var(--blue); transition: color 0.15s; }
@@ -1358,7 +1370,7 @@
 
   /* Brand mark kept as original (Orbitron, gradient, glow). Tagline restyled below. */
   .brand-tagline {
-    font-family: 'IBM Plex Sans', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 14px;
     letter-spacing: 0;
     text-transform: none;
@@ -1370,7 +1382,7 @@
 
   /* Hero copy */
   .hero-headline {
-    font-family: 'IBM Plex Sans', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 22px;
     font-weight: 600;
     letter-spacing: -0.01em;
@@ -1381,7 +1393,7 @@
   }
   .hero-headline .accent { background: none; -webkit-text-fill-color: var(--text); color: var(--text); }
   .hero-pitch {
-    font-family: 'IBM Plex Sans', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 18px;
     font-weight: 400;
     letter-spacing: 0;
@@ -1394,7 +1406,7 @@
 
   /* Generic CTAs */
   .btn-cta {
-    font-family: 'IBM Plex Sans', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 14px;
     letter-spacing: 0;
     text-transform: none;
@@ -1403,20 +1415,20 @@
 
   /* Section heads */
   .section-eyebrow {
-    font-family: 'IBM Plex Sans', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 12px;
     letter-spacing: 0.08em;
     font-weight: 600;
   }
   .section-title {
-    font-family: 'IBM Plex Sans', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 28px;
     letter-spacing: -0.02em;
     text-transform: none;
     font-weight: 700;
   }
   .section-sub {
-    font-family: 'IBM Plex Sans', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 16px;
     font-weight: 400;
     letter-spacing: 0;
@@ -1429,20 +1441,20 @@
 
   /* Path step cards */
   .path-num {
-    font-family: 'IBM Plex Sans', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-weight: 700;
     letter-spacing: -0.02em;
     text-shadow: none;
   }
   .path-title {
-    font-family: 'IBM Plex Sans', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 17px;
     font-weight: 600;
     letter-spacing: 0;
   }
-  .path-blurb { font-family: 'IBM Plex Sans', sans-serif; font-size: 14px; color: var(--muted); line-height: 1.55; }
+  .path-blurb { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px; color: var(--muted); line-height: 1.55; }
   .path-tool {
-    font-family: 'IBM Plex Sans', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 12px;
     letter-spacing: 0;
     text-transform: none;
@@ -1452,16 +1464,16 @@
 
   /* Tool cards */
   .tool-name {
-    font-family: 'IBM Plex Sans', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 15px;
     letter-spacing: 0;
     text-transform: none;
     font-weight: 600;
     color: var(--text);
   }
-  .tool-desc { font-family: 'IBM Plex Sans', sans-serif; font-size: 14px; color: var(--muted); line-height: 1.55; }
+  .tool-desc { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px; color: var(--muted); line-height: 1.55; }
   .tool-cta {
-    font-family: 'IBM Plex Sans', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 12px;
     letter-spacing: 0;
     text-transform: none;
@@ -1470,15 +1482,15 @@
 
   /* Sportsbook cards */
   .book-name {
-    font-family: 'IBM Plex Sans', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 15px;
     letter-spacing: 0;
     text-transform: none;
     font-weight: 600;
   }
-  .book-bonus { font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; }
+  .book-bonus { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13px; }
   .book-tag {
-    font-family: 'IBM Plex Sans', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 12px;
     letter-spacing: 0;
     text-transform: none;
@@ -1487,16 +1499,16 @@
 
   /* Donate / Coming Soon */
   .donate-name, .coming-name {
-    font-family: 'IBM Plex Sans', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 14px;
     letter-spacing: 0;
     text-transform: none;
     font-weight: 600;
   }
-  .donate-handle { font-family: 'JetBrains Mono', monospace; font-size: 12px; }
-  .coming-desc { font-family: 'IBM Plex Sans', sans-serif; font-size: 14px; line-height: 1.55; }
+  .donate-handle { font-family: 'DM Mono', monospace; font-size: 12px; }
+  .coming-desc { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px; line-height: 1.55; }
   .coming-card .badge {
-    font-family: 'IBM Plex Sans', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     letter-spacing: 0.06em;
     font-weight: 600;
   }
@@ -1525,7 +1537,7 @@
   .lead-magnet-badge {
     position: absolute;
     top: 16px; right: 18px;
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 10px;
     letter-spacing: 2px;
     text-transform: uppercase;
@@ -1545,7 +1557,7 @@
     text-align: center;
   }
   .lead-magnet-eyebrow {
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 10px;
     letter-spacing: 2.5px;
     text-transform: uppercase;
@@ -1555,7 +1567,7 @@
     text-align: center;
   }
   .lead-magnet-name {
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 30px;
     font-weight: 900;
     letter-spacing: 2px;
@@ -1566,7 +1578,7 @@
     margin-bottom: 16px;
   }
   .lead-magnet-desc {
-    font-family: 'IBM Plex Sans', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 14.5px;
     line-height: 1.65;
     color: var(--muted);
@@ -1585,7 +1597,7 @@
     z-index: 1;
   }
   .lead-magnet-cta-text {
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'DM Mono', monospace;
     font-size: 12px;
     color: var(--muted);
     letter-spacing: 0.5px;
@@ -1594,7 +1606,7 @@
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 11px;
     letter-spacing: 2px;
     text-transform: uppercase;
@@ -1631,9 +1643,9 @@
   }
 
   /* About */
-  .about-body { font-family: 'IBM Plex Sans', sans-serif; font-size: 16px; line-height: 1.7; }
+  .about-body { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 16px; line-height: 1.7; }
   .about-sig {
-    font-family: 'IBM Plex Sans', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 13px;
     letter-spacing: 0.04em;
     text-transform: none;
@@ -1642,8 +1654,8 @@
   }
 
   /* Footer */
-  .footer { font-family: 'IBM Plex Sans', sans-serif; }
-  .footer .disclaimer { font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; }
+  .footer { font-family: 'Plus Jakarta Sans', sans-serif; }
+  .footer .disclaimer { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13px; }
 
   /* Paid tools section */
   .paid-grid {
@@ -1670,21 +1682,21 @@
     transform: translateY(-2px);
   }
   .paid-name {
-    font-family: 'IBM Plex Sans', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 19px;
     font-weight: 700;
     color: var(--text);
     letter-spacing: -0.01em;
   }
   .paid-tagline {
-    font-family: 'IBM Plex Sans', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 12px;
     color: var(--yellow);
     font-weight: 600;
     letter-spacing: 0.04em;
   }
   .paid-desc {
-    font-family: 'IBM Plex Sans', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 14px;
     color: var(--muted);
     line-height: 1.55;
@@ -1692,7 +1704,7 @@
     margin-top: 4px;
   }
   .paid-cta {
-    font-family: 'IBM Plex Sans', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 12px;
     font-weight: 600;
     color: var(--dim);
@@ -1736,7 +1748,7 @@
     box-shadow: 0 0 40px rgba(188,140,255,0.20);
   }
   .find-tier {
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 10px;
     letter-spacing: 2px;
     text-transform: uppercase;
@@ -1746,7 +1758,7 @@
   }
   .find-card.featured .find-tier { color: var(--purple); }
   .find-name {
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 19px;
     font-weight: 800;
     letter-spacing: 1.5px;
@@ -1755,7 +1767,7 @@
     margin-bottom: 2px;
   }
   .find-tagline {
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'DM Mono', monospace;
     font-size: 12.5px;
     color: var(--blue);
     font-weight: 500;
@@ -1764,7 +1776,7 @@
   }
   .find-card.featured .find-tagline { color: var(--purple); }
   .find-desc {
-    font-family: 'Rajdhani', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 15px;
     color: var(--muted);
     line-height: 1.55;
@@ -1772,7 +1784,7 @@
   }
   .find-desc strong { color: var(--text); font-weight: 600; }
   .find-cta {
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 11px;
     letter-spacing: 2px;
     text-transform: uppercase;
@@ -1789,7 +1801,7 @@
     transform: translateX(-50%);
     background: var(--purple);
     color: #1a0f2a;
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 9px;
     letter-spacing: 1.5px;
     text-transform: uppercase;
@@ -1828,21 +1840,21 @@
     transform: translateY(-2px);
   }
   .free-name {
-    font-family: 'IBM Plex Sans', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 19px;
     font-weight: 700;
     color: var(--text);
     letter-spacing: -0.01em;
   }
   .free-tagline {
-    font-family: 'IBM Plex Sans', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 12px;
     color: var(--green);
     font-weight: 600;
     letter-spacing: 0.04em;
   }
   .free-desc {
-    font-family: 'IBM Plex Sans', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 14px;
     color: var(--muted);
     line-height: 1.55;
@@ -1850,7 +1862,7 @@
     margin-top: 4px;
   }
   .free-cta {
-    font-family: 'IBM Plex Sans', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 12px;
     font-weight: 600;
     color: var(--dim);
@@ -1859,7 +1871,7 @@
   }
   .free-card:hover .free-cta { color: var(--green); }
   .paid-code {
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'DM Mono', monospace;
     font-size: 12px;
     color: var(--muted);
     background: rgba(245, 181, 69, 0.08);
@@ -1901,21 +1913,21 @@
     margin-bottom: 4px;
   }
   .guide-name {
-    font-family: 'IBM Plex Sans', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 17px;
     font-weight: 700;
     color: var(--text);
     letter-spacing: -0.005em;
   }
   .guide-desc {
-    font-family: 'IBM Plex Sans', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 14px;
     color: var(--muted);
     line-height: 1.55;
     flex: 1;
   }
   .guide-cta {
-    font-family: 'IBM Plex Sans', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 12px;
     font-weight: 600;
     color: var(--dim);
@@ -1929,7 +1941,7 @@
   .subsection:first-of-type { margin-top: 24px; }
   .subsection-head { margin-bottom: 14px; }
   .subsection-title {
-    font-family: 'IBM Plex Sans', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 20px;
     font-weight: 700;
     color: var(--text);
@@ -1937,7 +1949,7 @@
     margin-top: 4px;
   }
   .subsection-sub {
-    font-family: 'IBM Plex Sans', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 14px;
     color: var(--muted);
     line-height: 1.55;
@@ -1962,14 +1974,14 @@
     gap: 8px;
   }
   .warn-name {
-    font-family: 'IBM Plex Sans', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 19px;
     font-weight: 700;
     color: var(--text);
     letter-spacing: -0.01em;
   }
   .warn-tag {
-    font-family: 'IBM Plex Sans', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 11px;
     letter-spacing: 0.08em;
     text-transform: uppercase;
@@ -1977,7 +1989,7 @@
     font-weight: 700;
   }
   .warn-desc {
-    font-family: 'IBM Plex Sans', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 14px;
     color: var(--muted);
     line-height: 1.6;
@@ -2013,7 +2025,7 @@
     transform: translateX(-100%);
     transition: transform .3s cubic-bezier(.4,0,.2,1);
     overflow-y: auto;
-    font-family: 'IBM Plex Sans', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
   }
   body.pps-sidebar-open .pps-sidebar { transform: translateX(0); }
   body.pps-sidebar-open { padding-left: 240px; transition: padding-left .3s cubic-bezier(.4,0,.2,1); }
@@ -2050,23 +2062,23 @@
 
   .pps-sidebar-brand {
     display: flex;
-    align-items: center;
+    align-items: baseline;
     justify-content: center;
-    gap: 8px;
-    color: var(--blue);
+    gap: 6px;
+    color: var(--text);
     text-decoration: none;
-    font-family: 'Orbitron', sans-serif;
-    font-weight: 800;
-    font-size: 11px;
-    letter-spacing: 1.6px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 900;
+    font-size: 13px;
+    letter-spacing: -.02em;
     padding: 4px 0 16px;
     border-bottom: 1px solid var(--border-soft);
     margin-bottom: 14px;
-    text-transform: uppercase;
   }
-  .pps-sidebar-brand svg { width: 18px; height: 14px; flex-shrink: 0; color: var(--green); filter: drop-shadow(0 0 6px rgba(74, 222, 128, 0.55)); }
-  .pps-sidebar-brand span { white-space: nowrap; }
-  .pps-sidebar-brand:hover { color: #5fa1ff; }
+  .pps-sidebar-brand .pps-sidebar-wordmark { white-space: nowrap; }
+  .pps-sidebar-brand .accent { color: var(--green); }
+  .pps-sidebar-brand small { font-size: 8px; font-weight: 400; letter-spacing: .4em; text-transform: uppercase; color: var(--dim); }
+  .pps-sidebar-brand:hover .accent { filter: brightness(1.1); }
 
   .pps-sidebar-nav { display: flex; flex-direction: column; gap: 1px; }
 
@@ -2097,13 +2109,13 @@
     color: #fff;
   }
   .pps-nav-link.active {
-    background: rgba(74, 222, 128, 0.09);
+    background: rgba(77, 255, 120, 0.09);
     color: var(--green);
     border-left-color: var(--green);
   }
 
   .pps-nav-num {
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'DM Mono', monospace;
     font-size: 10.5px;
     color: var(--dim);
     font-weight: 700;
@@ -2173,6 +2185,324 @@
   .pps-sidebar::-webkit-scrollbar-track { background: transparent; }
   .pps-sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
   .pps-sidebar::-webkit-scrollbar-thumb:hover { background: var(--dim); }
+
+  /* ═════════════════════════════════════════════════════════════
+     PROFITPATH v2 — Hero overrides (Phase A foundation)
+     ═════════════════════════════════════════════════════════════ */
+  .hero {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 0 40px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.02) inset;
+    margin-bottom: 28px;
+    position: relative;
+  }
+  .hero-inner {
+    text-align: center;
+    padding: 80px 32px 64px;
+    background: radial-gradient(ellipse 70% 55% at 50% 30%, rgba(0,212,255,0.04) 0%, transparent 60%);
+    position: relative;
+  }
+  .hero-inner::after { display: none; }
+
+  /* Hide legacy hero elements we don't use in v2 */
+  .brand-mark.small { display: none; }
+  .hero-cta { display: none !important; }
+  .hero-manifesto { display: none !important; }
+  .path-fork-svg { display: none; }
+
+  .hero-eyebrow {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 11px; font-weight: 500;
+    letter-spacing: .35em; text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 36px;
+  }
+  .v2-wordmark {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: clamp(64px, 11vw, 120px);
+    font-weight: 900;
+    line-height: 0.92;
+    letter-spacing: -.03em;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+  .v2-wordmark .accent { color: var(--green); }
+  .v2-sports-suffix {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: clamp(13px, 1.6vw, 17px);
+    font-weight: 400;
+    letter-spacing: .55em; text-transform: uppercase;
+    color: var(--dim);
+    margin-bottom: 48px; display: block;
+  }
+
+  /* Override the legacy gradient/text-fill on .hero-headline */
+  .hero-headline {
+    font-family: 'DM Serif Display', serif;
+    font-weight: 400; font-style: normal;
+    font-size: clamp(30px, 4.2vw, 50px);
+    line-height: 1.08;
+    letter-spacing: -.01em;
+    color: var(--text);
+    max-width: 760px; margin: 0 auto 18px;
+    background: none;
+    -webkit-background-clip: unset;
+    background-clip: unset;
+    -webkit-text-fill-color: var(--text);
+    text-transform: none;
+  }
+  .hero-headline .accent {
+    color: var(--green);
+    font-style: italic;
+    background: none;
+    -webkit-background-clip: unset;
+    background-clip: unset;
+    -webkit-text-fill-color: var(--green);
+  }
+  .hero-pitch {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: clamp(15px, 1.6vw, 17px);
+    font-weight: 300;
+    line-height: 1.65;
+    color: var(--muted);
+    max-width: 580px;
+    margin: 0 auto 36px;
+    letter-spacing: 0;
+  }
+  .hero-pitch strong { color: var(--text); font-weight: 600; }
+
+  .v2-hero-cta-row {
+    display: flex; gap: 12px;
+    justify-content: center; flex-wrap: wrap;
+    margin-bottom: 48px;
+  }
+  .v2-cta-primary {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--green); color: #0A1A0A;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 13px; font-weight: 700;
+    letter-spacing: .04em;
+    padding: 15px 30px; border: none; border-radius: 6px;
+    text-decoration: none; cursor: pointer;
+    transition: all .18s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 0 24px rgba(77,255,120,0.18);
+  }
+  .v2-cta-primary:hover { filter: brightness(1.08); transform: translateY(-1px); box-shadow: 0 0 30px rgba(77,255,120,0.28); }
+  .v2-cta-secondary {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: transparent; color: var(--cyan);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 12px; font-weight: 600;
+    letter-spacing: .06em; text-transform: uppercase;
+    padding: 14px 26px; border: 1px solid var(--cyan-border);
+    border-radius: 6px; text-decoration: none; cursor: pointer;
+    transition: all .18s;
+  }
+  .v2-cta-secondary:hover { background: var(--cyan-dim); border-color: var(--cyan); }
+
+  .v2-stats-row {
+    display: flex; gap: 48px;
+    justify-content: center; flex-wrap: wrap;
+    padding-top: 32px;
+    border-top: 1px solid var(--border-2);
+    max-width: 720px; margin: 0 auto;
+  }
+  .v2-stat-cell { text-align: center; }
+  .v2-stat-num {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 36px; font-weight: 900;
+    color: var(--green); line-height: 1;
+    letter-spacing: -.02em;
+    display: block; margin-bottom: 6px;
+  }
+  .v2-stat-num.cyan { color: var(--cyan); }
+  .v2-stat-label {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 10px; font-weight: 500;
+    letter-spacing: .22em; text-transform: uppercase;
+    color: var(--dim);
+  }
+
+  /* Starter Kit callout — kept, restyled v2 */
+  .v2-starter-kit {
+    display: block;
+    max-width: 760px; margin: 56px auto 0;
+    background: linear-gradient(135deg, var(--green-dim), rgba(77,255,120,0.02));
+    border: 1px solid var(--green-border);
+    border-radius: 14px;
+    padding: 26px 30px;
+    text-decoration: none; color: inherit;
+    transition: all .2s cubic-bezier(0.16, 1, 0.3, 1);
+    text-align: left;
+    box-shadow: 0 0 24px rgba(77,255,120,0.05);
+  }
+  .v2-starter-kit:hover { border-color: var(--green); box-shadow: 0 0 32px rgba(77,255,120,0.14); transform: translateY(-1px); }
+  .v2-starter-eyebrow {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 10px; font-weight: 700;
+    letter-spacing: .25em; text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 10px;
+  }
+  .v2-starter-headline {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: clamp(18px, 2vw, 22px);
+    font-weight: 800;
+    color: var(--text); line-height: 1.2;
+    margin-bottom: 10px;
+    letter-spacing: -.005em;
+  }
+  .v2-starter-body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 14.5px; font-weight: 300;
+    line-height: 1.65; color: var(--muted);
+    margin-bottom: 12px;
+  }
+  .v2-starter-body strong { color: var(--text); font-weight: 600; }
+  .v2-starter-body .hl { color: var(--green); font-weight: 600; }
+  .v2-starter-cta {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 11px; font-weight: 700;
+    letter-spacing: .18em; text-transform: uppercase;
+    color: var(--green);
+  }
+
+  /* Path fork intro */
+  .path-fork-intro {
+    margin-top: 80px;
+    text-align: center;
+  }
+  .path-fork-eyebrow {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 10px; font-weight: 600;
+    letter-spacing: .35em; text-transform: uppercase;
+    color: var(--cyan);
+    margin-bottom: 14px;
+    background: none;
+    -webkit-background-clip: unset; background-clip: unset;
+    -webkit-text-fill-color: var(--cyan);
+  }
+  .path-fork-title {
+    font-family: 'DM Serif Display', serif;
+    font-weight: 400; font-style: normal;
+    font-size: clamp(28px, 3.8vw, 44px);
+    line-height: 1.1;
+    color: var(--text);
+    margin-bottom: 14px;
+    letter-spacing: -.005em;
+    text-transform: none;
+    background: none;
+    -webkit-background-clip: unset; background-clip: unset;
+    -webkit-text-fill-color: var(--text);
+  }
+  .path-fork-sub {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 15px; font-weight: 300;
+    line-height: 1.65;
+    color: var(--muted);
+    max-width: 540px; margin: 0 auto 32px;
+  }
+
+  /* Path cards — v2 */
+  .hero-paths {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 14px; margin-top: 0;
+  }
+  @media (max-width: 880px) { .hero-paths { grid-template-columns: 1fr; } }
+  .hero-path {
+    background: var(--surface-2);
+    border: 1px solid var(--border-2);
+    border-radius: 12px;
+    padding: 32px 26px;
+    text-decoration: none;
+    color: var(--text);
+    transition: all .25s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative; overflow: hidden;
+    display: flex; flex-direction: column;
+    text-align: left;
+  }
+  .hero-path::before { display: none; }
+  .hero-path:hover {
+    background: var(--surface-3);
+    border-color: var(--cyan-border);
+    transform: translateY(-2px);
+  }
+  .hero-path-icon { display: none; }
+  .hero-path-eyebrow {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 10px; font-weight: 600;
+    letter-spacing: .22em; text-transform: uppercase;
+    color: var(--cyan);
+    margin-bottom: 10px;
+    background: none;
+    padding: 0;
+  }
+  .hero-path-title {
+    font-family: 'DM Serif Display', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 28px;
+    color: var(--text);
+    line-height: 1;
+    margin-bottom: 14px;
+    letter-spacing: 0;
+    text-transform: none;
+    background: none;
+    -webkit-background-clip: unset; background-clip: unset;
+    -webkit-text-fill-color: var(--text);
+  }
+  .hero-path-desc {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 13.5px; font-weight: 300;
+    line-height: 1.7;
+    color: var(--muted);
+    margin-bottom: 16px;
+    letter-spacing: 0;
+  }
+  .hero-path-desc strong { color: var(--text); font-weight: 600; }
+  .hero-path-list {
+    list-style: none; padding: 0; margin: 0 0 18px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 12.5px; font-weight: 400;
+    line-height: 1.7;
+    color: var(--muted);
+  }
+  .hero-path-list li {
+    padding: 5px 0 5px 14px;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+  }
+  .hero-path-list li:last-child { border-bottom: none; }
+  .hero-path-list li::before {
+    content: '+';
+    position: absolute; left: 0;
+    color: var(--cyan); font-weight: 600;
+  }
+  .hero-path-cta {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 11px; font-weight: 700;
+    letter-spacing: .18em; text-transform: uppercase;
+    color: var(--cyan);
+    margin-top: auto;
+    padding-top: 12px;
+    border-top: 1px solid var(--border-2);
+    transition: color .18s;
+  }
+  .hero-path:hover .hero-path-cta { color: var(--green); }
+
+  @media (max-width: 640px) {
+    .hero-inner { padding: 56px 20px 48px; }
+    .hero-eyebrow { font-size: 10px; margin-bottom: 24px; }
+    .v2-wordmark { font-size: 52px; }
+    .v2-sports-suffix { font-size: 11px; letter-spacing: .4em; margin-bottom: 32px; }
+    .v2-hero-cta-row { gap: 8px; margin-bottom: 36px; }
+    .v2-stats-row { gap: 28px; padding-top: 24px; }
+    .v2-stat-num { font-size: 28px; }
+    .path-fork-intro { margin-top: 56px; }
+    .v2-starter-kit { padding: 22px 22px; }
+  }
 </style>
 </head>
 <body>
@@ -2186,13 +2516,8 @@
 <aside class="pps-sidebar" id="ppsSidebar">
   <div class="pps-sidebar-inner">
     <a class="pps-sidebar-brand" href="/index.html">
-      <svg viewBox="0 0 28 22" xmlns="http://www.w3.org/2000/svg" fill="none">
-        <polyline points="2,18 8,12 12,15 18,7 26,3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-      <span>Profit Path Sports</span>
-      <svg viewBox="0 0 28 22" xmlns="http://www.w3.org/2000/svg" fill="none">
-        <polyline points="2,18 8,12 12,15 18,7 26,3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
+      <span class="pps-sidebar-wordmark">PROFIT<span class="accent">PATH</span></span>
+      <small>Sports</small>
     </a>
     <nav class="pps-sidebar-nav">
       <a class="pps-nav-link" href="/index.html">Home</a>
@@ -2290,77 +2615,64 @@
   <!-- HERO -->
   <div class="hero">
     <div class="hero-inner">
-      <div class="brand-mark small">
-        <span class="brand-chart" aria-hidden="true">
-          <svg viewBox="0 0 28 22" xmlns="http://www.w3.org/2000/svg" fill="none">
-            <polyline points="2,18 8,12 12,15 18,7 26,3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </span>
-        <span class="brand-name">Profit Path Sports</span>
-        <span class="brand-chart" aria-hidden="true">
-          <svg viewBox="0 0 28 22" xmlns="http://www.w3.org/2000/svg" fill="none">
-            <polyline points="2,18 8,12 12,15 18,7 26,3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </span>
-      </div>
-      <h1 class="hero-headline">Learn how to beat the sportsbooks and become profitable — no matter where you are on the path.</h1>
-      <p class="hero-pitch">
-        Free calculators. Structured lesson curriculums. Welcome-offer playbooks. Honest reviews of every sportsbook worth using. <strong>No paywalls, no picks, no signup.</strong>
-      </p>
 
-      <!-- FREE MONEY STARTER KIT — homepage hero callout for newbies -->
-      <a href="/free-money-guide.html" style="display: block; margin: 36px auto 0; max-width: 760px; text-decoration: none; color: inherit; background: linear-gradient(135deg, rgba(74, 222, 128, 0.12), rgba(74, 222, 128, 0.03)); border: 1px solid var(--green); border-radius: 16px; padding: 28px 32px; transition: all 0.18s; box-shadow: 0 0 32px rgba(74, 222, 128, 0.10);">
-        <div style="display: flex; align-items: center; gap: 22px; flex-wrap: wrap;">
-          <div style="font-size: 44px; line-height: 1; flex-shrink: 0;">💸</div>
-          <div style="flex: 1; min-width: 240px;">
-            <div style="font-family: 'Orbitron', sans-serif; font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--green); font-weight: 800; margin-bottom: 8px;">★ Free Starter Kit · For Total Newbies</div>
-            <h3 style="font-family: 'Orbitron', sans-serif; font-size: 22px; font-weight: 900; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text); line-height: 1.15; margin-bottom: 10px;">4 Steps to Free Money from Sports Books</h3>
-            <p style="font-family: 'Rajdhani', sans-serif; font-size: 15.5px; color: var(--muted); line-height: 1.55; margin-bottom: 10px;">Every major US sportsbook hands new users <strong style="color: var(--text);">$100-$1,500 in bonus bets</strong> just for signing up. Most people lose them gambling. A small group converts them into <strong style="color: var(--text);">guaranteed cash</strong> in 30 minutes. Four steps, mechanical math, zero predictive skill required. <strong style="color: var(--green);">$100 starter budget</strong> ($5 qualifier + $95 hedge buffer) → <strong style="color: var(--green);">~$165 cash from FanDuel's bonus pool alone</strong>, $300-$500 across a starter stack.</p>
-            <div style="font-family: 'Orbitron', sans-serif; font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--green); font-weight: 800;">Read the free guide →</div>
-          </div>
+      <div class="hero-eyebrow">No Picks · No Paywall · No Signup</div>
+      <div class="v2-wordmark">PROFIT<span class="accent">PATH</span></div>
+      <span class="v2-sports-suffix">Sports</span>
+
+      <h1 class="hero-headline">Every winning bet starts with <span class="accent">this math.</span></h1>
+      <p class="hero-pitch">The calculators sharp bettors run on every line. <strong>Free, precise, and built for people who actually want to win.</strong></p>
+
+      <div class="v2-hero-cta-row">
+        <a class="v2-cta-primary" href="#paths">Choose Your Path →</a>
+        <a class="v2-cta-secondary" href="/bet-x-ray.html">Launch Bet X-Ray</a>
+      </div>
+
+      <div class="v2-stats-row">
+        <div class="v2-stat-cell">
+          <span class="v2-stat-num">15</span>
+          <span class="v2-stat-label">Free Calculators</span>
         </div>
+        <div class="v2-stat-cell">
+          <span class="v2-stat-num cyan">3</span>
+          <span class="v2-stat-label">Structured Paths</span>
+        </div>
+        <div class="v2-stat-cell">
+          <span class="v2-stat-num cyan">$0</span>
+          <span class="v2-stat-label">Cost. Always.</span>
+        </div>
+      </div>
+
+      <!-- Starter Kit callout — Free Money Guide entry point, kept in hero per request -->
+      <a href="/free-money-guide.html" class="v2-starter-kit">
+        <div class="v2-starter-eyebrow">★ The Starter Kit · Free Welcome-Offer Walkthrough</div>
+        <div class="v2-starter-headline">4 Steps to Free Money from Sports Books</div>
+        <p class="v2-starter-body">Every major US sportsbook hands new users <strong>$100-$1,500 in bonus bets</strong> just for signing up. Most people lose them gambling. A small group converts them into <strong>guaranteed cash</strong> in 30 minutes — mechanical math, zero predictive skill. <span class="hl">$100 starter budget</span> → <span class="hl">~$165 cash from FanDuel's bonus alone</span>, $300-$500 across a starter stack.</p>
+        <div class="v2-starter-cta">Read the free guide →</div>
       </a>
 
       <div class="path-fork-intro" id="paths">
         <div class="path-fork-eyebrow">Start here</div>
-        <h2 class="path-fork-title">Choose Your Path</h2>
+        <h2 class="path-fork-title">Choose your path.</h2>
         <p class="path-fork-sub">Three stages, recommended in order. Skip what you already know — absorb what you don't.</p>
       </div>
 
-      <!-- Arrow fork — 3 arrows aligned to the 3 path tile columns (~16.67%, 50%, 83.33%) -->
-      <svg class="path-fork-svg" viewBox="0 0 400 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" fill="none" aria-hidden="true">
-        <!-- vertical stem from headline -->
-        <line x1="200" y1="0" x2="200" y2="28" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-        <!-- horizontal branch bar -->
-        <line x1="67" y1="28" x2="333" y2="28" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-        <!-- 3 long vertical drops at column centers (16.67%, 50%, 83.33%) -->
-        <line x1="67" y1="28" x2="67" y2="90" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-        <line x1="200" y1="28" x2="200" y2="90" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-        <line x1="333" y1="28" x2="333" y2="90" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-        <!-- 3 arrowheads at the bottom -->
-        <polyline points="59,82 67,94 75,82" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-        <polyline points="192,82 200,94 208,82" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-        <polyline points="325,82 333,94 341,82" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-      </svg>
-
       <div class="hero-paths">
         <a class="hero-path blue" href="lane-new.html">
-          <div class="hero-path-icon">🎓</div>
           <div class="hero-path-eyebrow">Path 01</div>
           <div class="hero-path-title">Begin</div>
-          <div class="hero-path-desc">The math every winning bettor runs daily — distilled into six short lessons. <strong>Most bettors think they know this stuff. Most bettors are losing. The two facts are related.</strong> Newcomers get the on-ramp; everyone else gets the foundation they probably skipped.</div>
+          <div class="hero-path-desc">The math every winning bettor runs daily — distilled into six short lessons. <strong>Most bettors think they know this stuff. Most bettors are losing. The two facts are related.</strong></div>
           <ul class="hero-path-list">
             <li>Odds → vig → EV → Kelly → CLV</li>
             <li>What most bettors actually skip</li>
-            <li>Refresher or first time, same page</li>
+            <li>Refresher or first-time, same page</li>
           </ul>
           <div class="hero-path-cta">Enter Path 01 →</div>
         </a>
         <a class="hero-path green" href="lane-bonus.html">
-          <div class="hero-path-icon">💰</div>
           <div class="hero-path-eyebrow">Path 02</div>
-          <div class="hero-path-title">Bonus Hunter</div>
-          <div class="hero-path-desc">Hundreds of dollars in free, withdrawable cash is sitting at every major sportsbook in welcome offers. <strong>Most bettors who go for it either give it right back to the book or quit halfway.</strong> Path 02 is the 7-step playbook that lands the cash — math is simple, but you'll want Path 01 down first.</div>
+          <div class="hero-path-title">Convert</div>
+          <div class="hero-path-desc">Hundreds of dollars in welcome-offer cash sit at every major book. <strong>Most bettors who go for it either give it right back to the book or quit halfway.</strong> Path 02 is the 7-step playbook that lands the cash.</div>
           <ul class="hero-path-list">
             <li>4 concept lessons + walkthrough</li>
             <li>7-step playbook to convert</li>
@@ -2369,10 +2681,9 @@
           <div class="hero-path-cta">Enter Path 02 →</div>
         </a>
         <a class="hero-path gold" href="lane-maintain.html">
-          <div class="hero-path-icon">🎯</div>
           <div class="hero-path-eyebrow">Path 03</div>
           <div class="hero-path-title">Maintain</div>
-          <div class="hero-path-desc">Now make it sustainable. Track every bet, find +EV consistently, manage your variance. The long-term EV-betting playbook — the one you'll live in once the basics and bonuses are behind you.</div>
+          <div class="hero-path-desc">Now make it sustainable. Track every bet, find +EV consistently, manage your variance. <strong>The long-term EV-betting playbook</strong> — the one you'll live in once the basics and bonuses are behind you.</div>
           <ul class="hero-path-list">
             <li>Track · Hunt · Manage</li>
             <li>Cross-Market EV + smart angles</li>
@@ -2890,7 +3201,7 @@
         <div class="coming-desc">A five-part deep-dive on the most underexplored edge in modern sports betting — reading exchange order books (ProphetX, Novig, Kalshi) like a trading desk. Translation rule, BEST-vs-PX heuristic, liquidity reads, maker tactics. <strong>Email <span style="color:var(--purple);">dr.rob@profitpathsports.com</span> to request access.</strong></div>
       </a>
       <a class="coming-card" href="mailto:dr.rob@profitpathsports.com?subject=DFS%20Edge%20Guide%20request&amp;body=Hey%20%E2%80%94%20I%27d%20like%20the%20DFS%20Edge%20guide.%20Thanks!" style="text-decoration:none; color:inherit; display:block;">
-        <div class="badge" style="background: rgba(74, 222, 128, 0.18); color: var(--green); border: 1px solid rgba(74, 222, 128, 0.35);">Email Request</div>
+        <div class="badge" style="background: rgba(77, 255, 120, 0.18); color: var(--green); border: 1px solid rgba(77, 255, 120, 0.35);">Email Request</div>
         <div class="coming-icon">🃏</div>
         <div class="coming-name">The DFS Edge</div>
         <div class="coming-desc">A full guide to beating fixed-payout DFS platforms (Underdog, PrizePicks, DK Pick6) — the data-driven framework, slip-type math, and an interactive hit-rate calculator. <strong>Email <span style="color:var(--green);">dr.rob@profitpathsports.com</span> to request access.</strong></div>
