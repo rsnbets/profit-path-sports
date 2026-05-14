@@ -2619,6 +2619,133 @@
     transition: color .18s;
   }
   .v2-original:hover .v2-original-cta { color: var(--green); filter: brightness(1.1); }
+
+  /* ─────────── Section header v2 overrides ─────────── */
+  .section-head {
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto 32px;
+    padding: 0;
+  }
+  .section-eyebrow {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 10px; font-weight: 700;
+    letter-spacing: .3em; text-transform: uppercase;
+    color: var(--cyan);
+    margin-bottom: 14px;
+    background: none;
+    border: none;
+    display: inline-block;
+    padding: 0;
+  }
+  .section-eyebrow::before,
+  .section-eyebrow::after { display: none !important; }
+  .section-eyebrow.gold,
+  .section-eyebrow.green,
+  .section-eyebrow.purple,
+  .section-eyebrow.red { color: var(--cyan); }
+  .section-eyebrow .accent { color: var(--green); font-style: italic; }
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-weight: 400; font-style: normal;
+    font-size: clamp(26px, 3.4vw, 40px);
+    line-height: 1.1;
+    color: var(--text);
+    margin-bottom: 14px;
+    letter-spacing: -.005em;
+    text-transform: none;
+    background: none;
+    -webkit-background-clip: unset; background-clip: unset;
+    -webkit-text-fill-color: var(--text);
+  }
+  .section-title .accent { color: var(--green); font-style: italic; }
+  .section-sub {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 14.5px; font-weight: 300;
+    line-height: 1.65;
+    color: var(--muted);
+    max-width: 640px;
+    margin: 0 auto;
+    letter-spacing: 0;
+  }
+  .section-sub strong { color: var(--text); font-weight: 600; }
+
+  /* ─────────── Tools grid v2 ─────────── */
+  .section#tools { margin-top: 56px; padding: 0; background: none; border: none; }
+  .tools-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-top: 24px;
+  }
+  @media (max-width: 880px) { .tools-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 540px) { .tools-grid { grid-template-columns: 1fr; } }
+
+  .tool-card {
+    background: var(--surface);
+    border: 1px solid var(--border-2);
+    border-radius: 12px;
+    padding: 24px 22px;
+    text-decoration: none;
+    color: var(--text);
+    transition: all .22s cubic-bezier(0.16, 1, 0.3, 1);
+    display: flex; flex-direction: column;
+    position: relative; overflow: hidden;
+  }
+  .tool-card::before { display: none !important; }
+  .tool-card:hover {
+    background: var(--surface-2);
+    border-color: var(--cyan-border);
+    transform: translateY(-2px);
+  }
+  .tool-card .icon {
+    font-size: 22px;
+    line-height: 1;
+    margin-bottom: 14px;
+    filter: grayscale(0.3);
+    opacity: 0.7;
+  }
+  .tool-name {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 15px; font-weight: 700;
+    color: var(--text);
+    letter-spacing: -.003em;
+    margin-bottom: 8px;
+    text-transform: none;
+    background: none;
+    -webkit-background-clip: unset; background-clip: unset;
+    -webkit-text-fill-color: var(--text);
+  }
+  .tool-desc {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 12.5px; font-weight: 300;
+    line-height: 1.65;
+    color: var(--muted);
+    margin-bottom: 16px;
+    flex: 1;
+  }
+  .tool-cta {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 10px; font-weight: 700;
+    letter-spacing: .18em; text-transform: uppercase;
+    color: var(--cyan);
+    margin-top: auto;
+    transition: color .18s;
+  }
+  .tool-card:hover .tool-cta { color: var(--green); }
+
+  /* Tools sub-group labels (optional decorative dividers) */
+  .tools-group-label {
+    grid-column: 1 / -1;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 10px; font-weight: 600;
+    letter-spacing: .25em; text-transform: uppercase;
+    color: var(--dim);
+    padding: 14px 4px 6px;
+    border-bottom: 1px dashed var(--border-2);
+    margin-bottom: 6px;
+  }
+  .tools-group-label:first-child { padding-top: 0; }
 </style>
 </head>
 <body>
@@ -2838,125 +2965,122 @@
     </div>
   </section>
 
-  <!-- TOOLBOX — visible under the lane tiles -->
+  <!-- TOOLBOX — every free tool, grouped by what you'd actually use them for -->
   <div class="section" id="tools">
     <div class="section-head">
-      <div class="section-eyebrow purple">The Toolbox</div>
-      <div class="section-title">Calculators built for serious bettors</div>
-      <div class="section-sub">Every winning bettor runs this math on every bet. <strong>Most losing bettors never open a single one of these tools.</strong> Free, no signup, no paywall — click any to launch.</div>
+      <div class="section-eyebrow">★ Built to make books <span class="accent">pay you.</span></div>
+      <div class="section-title">The toolbox.</div>
+      <div class="section-sub">Every free tool, grouped by what you'd actually use it for. <strong>Bet X-Ray and Triple Stack live up top</strong> — these are the supporting cast.</div>
     </div>
 
     <div class="tools-grid">
-      <a class="tool-card" href="bet-x-ray.html">
-        <div class="icon">🩻</div>
-        <div class="tool-name">Bet X-Ray</div>
-        <div class="tool-desc">The whole sharp-betting pipeline in one tool. Devig → EV → Kelly → Verdict, plus CLV preview, sensitivity, and risk of ruin. Featured up top.</div>
-        <div class="tool-cta">Launch →</div>
-      </a>
 
-      <a class="tool-card" href="bet-tracker.html">
-        <div class="icon">📊</div>
-        <div class="tool-name">Bet Tracker</div>
-        <div class="tool-desc">Log every bet, track CLV, monitor your ROI, and measure your edge over time. No account needed — data saves in your browser.</div>
-        <div class="tool-cta">Launch →</div>
-      </a>
+      <div class="tools-group-label">Find a good bet</div>
 
       <a class="tool-card" href="odds_calculator.html">
         <div class="icon">🎯</div>
-        <div class="tool-name">Implied Odds</div>
-        <div class="tool-desc">Convert American odds to implied probability and back, instantly.</div>
+        <div class="tool-name">Odds Converter</div>
+        <div class="tool-desc">Convert American odds to win probability and back, instantly. The 30-second sanity-check for any line.</div>
         <div class="tool-cta">Launch →</div>
       </a>
 
       <a class="tool-card" href="devig_calculator.html">
         <div class="icon">⚖️</div>
         <div class="tool-name">Devig Calculator</div>
-        <div class="tool-desc">Strip the vig from any market to reveal the true no-vig fair odds.</div>
+        <div class="tool-desc">Strip the sportsbook's built-in fee out of a price to reveal what the bet is actually worth.</div>
         <div class="tool-cta">Launch →</div>
       </a>
 
       <a class="tool-card" href="consensus-calculator.html">
         <div class="icon">📊</div>
         <div class="tool-name">Consensus Devig</div>
-        <div class="tool-desc">Type in odds from multiple sportsbooks, devig each, and weight-average them into a single consensus fair price. Your benchmark for finding +EV.</div>
+        <div class="tool-desc">Pull odds from multiple sportsbooks, strip the fee, weight-average them — your benchmark for "fair price."</div>
         <div class="tool-cta">Launch →</div>
       </a>
 
       <a class="tool-card" href="ev-calculator.html">
         <div class="icon">💵</div>
         <div class="tool-name">EV Calculator</div>
-        <div class="tool-desc">Plug in your odds and the fair (no-vig) odds to get true expected value in % and dollars, plus Kelly sizing.</div>
-        <div class="tool-cta">Launch →</div>
-      </a>
-
-      <a class="tool-card" href="kelly-calculator.html">
-        <div class="icon">💰</div>
-        <div class="tool-name">Kelly Calculator</div>
-        <div class="tool-desc">Size your bets optimally based on your edge and bankroll. Supports fractional Kelly.</div>
+        <div class="tool-desc">Compare your book's price to the fair price. Returns your true edge in % and dollars.</div>
         <div class="tool-cta">Launch →</div>
       </a>
 
       <a class="tool-card" href="edge-finder.html">
         <div class="icon">🔍</div>
         <div class="tool-name">Edge Finder</div>
-        <div class="tool-desc">Compare your available line to a sharper market line. Quick line-shopping check — see the probability gap at a glance.</div>
+        <div class="tool-desc">Side-by-side compare: your book's line vs. the sharp market. See if there's a real edge in 5 seconds.</div>
         <div class="tool-cta">Launch →</div>
       </a>
 
-      <a class="tool-card" href="arb-calculator.html">
-        <div class="icon">🔀</div>
-        <div class="tool-name">Arbitrage Calculator</div>
-        <div class="tool-desc">Find guaranteed-profit opportunities and size both sides perfectly.</div>
+      <div class="tools-group-label">Size & protect bets</div>
+
+      <a class="tool-card" href="kelly-calculator.html">
+        <div class="icon">💰</div>
+        <div class="tool-name">Kelly Calculator</div>
+        <div class="tool-desc">Tells you how much to bet given your edge and bankroll. The math pros use to grow without going broke.</div>
         <div class="tool-cta">Launch →</div>
       </a>
 
       <a class="tool-card" href="hedge-calculator.html">
         <div class="icon">🛡️</div>
         <div class="tool-name">Hedge Calculator</div>
-        <div class="tool-desc">Lock in profit or limit risk on live bets and futures. Optimal or custom hedge sizing.</div>
+        <div class="tool-desc">Locking in profit (or limiting loss) on a bet that's already live. Optimal or custom hedge sizing.</div>
+        <div class="tool-cta">Launch →</div>
+      </a>
+
+      <a class="tool-card" href="arb-calculator.html">
+        <div class="icon">🔀</div>
+        <div class="tool-name">Arbitrage Calculator</div>
+        <div class="tool-desc">When two books disagree enough, you can bet both sides for guaranteed profit. This sizes them perfectly.</div>
         <div class="tool-cta">Launch →</div>
       </a>
 
       <a class="tool-card" href="middle-calculator.html">
-        <div class="icon">🎯</div>
+        <div class="icon">⊙</div>
         <div class="tool-name">Middle Calculator</div>
-        <div class="tool-desc">Bet both sides of a line at different numbers. See worst-case loss, best-case middle profit, and the math when the final result lands in the gap.</div>
+        <div class="tool-desc">Bet both sides at different numbers. See worst-case loss, best-case "middle" payout, and the gap-zone math.</div>
+        <div class="tool-cta">Launch →</div>
+      </a>
+
+      <div class="tools-group-label">Parlays & DFS</div>
+
+      <a class="tool-card" href="parlay-calculator.html">
+        <div class="icon">🧩</div>
+        <div class="tool-name">Parlay Calculator</div>
+        <div class="tool-desc">Combine 2-10 legs into one ticket. Combined odds, payout, and the true edge after the book's compounded fee.</div>
         <div class="tool-cta">Launch →</div>
       </a>
 
       <a class="tool-card" href="dfs-slip-checker.html">
         <div class="icon">🃏</div>
         <div class="tool-name">DFS Slip Checker</div>
-        <div class="tool-desc">Pick a platform + slip type (Underdog, PrizePicks, DK Pick6), paste your per-leg odds, see whether each pick clears the slip's implied-odds-per-pick benchmark. Live slip EV verdict.</div>
+        <div class="tool-desc">For Underdog / PrizePicks / DK Pick6 slips. Tells you whether your picks clear the platform's break-even bar.</div>
         <div class="tool-cta">Launch →</div>
       </a>
+
+      <div class="tools-group-label">Free-cash plays</div>
 
       <a class="tool-card" href="bonus-converter.html">
         <div class="icon">🎁</div>
         <div class="tool-name">Bonus Bet Converter</div>
-        <div class="tool-desc">Hedge bonus bets into guaranteed cash and maximize your conversion rate.</div>
+        <div class="tool-desc">Turn sportsbook bonus bets into real, withdrawable cash. Computes the exact hedge size for max conversion.</div>
+        <div class="tool-cta">Launch →</div>
+      </a>
+
+      <div class="tools-group-label">Track & project</div>
+
+      <a class="tool-card" href="bet-tracker.html">
+        <div class="icon">📋</div>
+        <div class="tool-name">Bet Tracker</div>
+        <div class="tool-desc">Log every bet, watch your edge over time. No account — data saves in your browser, private to you.</div>
         <div class="tool-cta">Launch →</div>
       </a>
 
       <a class="tool-card" href="long-run-simulator.html">
         <div class="icon">📈</div>
         <div class="tool-name">Long Run Simulator</div>
-        <div class="tool-desc">Run your edge through a Monte Carlo simulation. See realistic best, worst, and median bankroll outcomes over thousands of bets.</div>
+        <div class="tool-desc">Project your edge over thousands of bets. Best-case, worst-case, and median bankroll trajectory.</div>
         <div class="tool-cta">Launch →</div>
-      </a>
-
-      <a class="tool-card" href="parlay-calculator.html">
-        <div class="icon">🧩</div>
-        <div class="tool-name">Parlay Calculator</div>
-        <div class="tool-desc">Combine 2-10 legs into one ticket. See combined odds, payout, and — when fair odds are entered — the true EV after compounded vig.</div>
-        <div class="tool-cta">Launch →</div>
-      </a>
-
-      <a class="tool-card" href="triple-stack.html" style="border-color: var(--accent);">
-        <div class="icon">⚡</div>
-        <div class="tool-name">Triple Stack <span style="font-size:9px;color:var(--accent);letter-spacing:1.5px;margin-left:6px;padding:2px 6px;background:rgba(245,181,69,0.15);border-radius:3px;vertical-align:middle;">NEW</span></div>
-        <div class="tool-desc">Boost + sharp legs + arb-middle hedge — per-parlay EV calculator for the "Parlay the Smart Way" play. Plug in your shape, see strategy ROI and per-100-parlays breakdown.</div>
-        <div class="tool-cta" style="color: var(--accent);">Launch →</div>
       </a>
     </div>
   </div>
