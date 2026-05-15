@@ -10,13 +10,13 @@ The living document that synthesizes everything PROFITPATH knows about modern sp
 
 | Metric | Current |
 |---|---|
-| Books processed (priority chapters complete) | **1** *(Logic of Sports Betting)* |
-| Books queued in `source-pdfs/` | **4** *(Funt, Wong, Konik, Appelbaum)* |
-| Topic syntheses written | **0** *(starts after 3-5 books processed)* |
-| Content opportunities in pipeline | **27** *(10 lessons / 8 guides / 8 tools / 4 originals)* |
-| Market gaps identified | **10** |
+| Books processed (priority chapters complete) | **2** *(LOSB + Funt partial)* |
+| Books queued in `source-pdfs/` | **3** *(Wong, Konik, Appelbaum)* |
+| Topic syntheses written | **0** *(spinning up after Funt Ch 10 + 11)* |
+| Content opportunities in pipeline | **35+** *(14 lessons / 12 guides / 10 tools / 5 originals)* |
+| Market gaps identified | **18** |
 
-**Last update:** Logic of Sports Betting (Miller & Davidow, 2019) — all priority chapters synthesized (Introduction, Market Making, Sportsbook Business Models, Strong vs Weak Markets, Props, Sportsbook Marketing, Chopping The Hold). Note at `notes/logic-of-sports-betting-miller-davidow.md`. Secondary chapters (Public Money, Multiway Markets, Angles, How Do I Know If I'm Winning, etc.) flagged for later pass.
+**Last update:** Everybody Loses (Danny Funt) — Intro + Ch 1 (Original Sin, partial) + Ch 5 (Winners Not Welcome, deep). Note at `notes/everybody-loses-danny-funt.md`. **Key finding: Funt explicitly names "ban or bankrupt" as the industry's operating model via Nevada bookmaker Robert Walker — direct validation of the PROFITPATH research paper's framework.** Funt's PointsBet trader interviews + DraftKings CEO/employee quotes + the author's own beard experiment confirm LOSB's analytical claims from the outside. Remaining Funt chapters (Ch 10 We Have a Problem + Ch 11 The House Doesn't Always Win + Ch 1 finish) pending next session.
 
 ---
 
@@ -41,13 +41,13 @@ The living document that synthesizes everything PROFITPATH knows about modern sp
 
 | Book | Authors | Year | Status | Synthesis quality |
 |---|---|---|---|---|
-| The Logic of Sports Betting | Miller & Davidow | 2019 | **priority chapters complete** | Strong on industry structure, profiling, market making, props, marketing, hold-chopping, weak markets, CLV. Secondary chapters (Public Money, Angles, Multiway, etc.) pending later pass. |
+| The Logic of Sports Betting | Miller & Davidow | 2019 | **priority chapters + pedagogy complete** | Strong on industry structure, profiling, market making, props, marketing, hold-chopping, weak markets, CLV. Secondary chapters (Public Money, Angles, Multiway, etc.) pending later pass. |
+| Everybody Loses | Danny Funt | recent | **highest-priority chapters complete** (Intro + Ch 1 partial + Ch 5 deep) | Strong on industry critique, ban-or-bankrupt naming, PASPA history, profiling/limiting first-person accounts, league hypocrisy, beard economy. Remaining 8 chapters pending. |
 
 ### Queued (in `source-pdfs/`, not yet processed)
 
 | Book | Authors | Year | Pages | Why we have it |
 |---|---|---|---|---|
-| Everybody Loses | Danny Funt | recent | 298 | Journalism / industry critique — dark-side angle, real cases |
 | Sharp Sports Betting | Stanford Wong | 2009ish | 355 | Classic foundational math, older-era cross-reference |
 | The Smart Money | Michael Konik | 2006 | 355 | Syndicate narrative, Billy Walters era authority |
 | The Everything Guide to Sports Betting | Josh Appelbaum | recent | 335 | Beginner intro — curriculum source for Path 01 |
@@ -60,19 +60,26 @@ Updated after every book read. This is the "where does sports betting knowledge 
 
 ### What's well-established (multi-source consensus, when we have multiple sources)
 
-*(Currently single-source claims from LOSB only. Will firm up to "consensus" as Wong, Funt, etc. confirm.)*
+*Bold = now corroborated by 2+ sources.*
 
-- Sportsbook line-making relies heavily on copying from market makers, not independent pricing at every book. *(LOSB)*
-- Market makers and retail books operate as fundamentally different business models. *(LOSB)*
-- Customer profiling for sharpness is standard practice at both market makers (to set prices) and retail books (to limit winners). *(LOSB)*
-- Sports betting is a multiplayer adversarial game, structurally unlike casino games. *(LOSB)*
-- CLV ≥ half the hold over hundreds of bets is a strong predictor of long-term profitability. *(LOSB)*
-- Weak markets (single market maker, low limits, derivatives, props) are where exploitable edges live. *(LOSB)*
-- Props create a "massive attack surface" of mispriced or stale markets that books can't keep current. *(LOSB)*
-- Most retail sportsbooks add 4-8 second delays to in-play bets, which (combined with TV delay) makes hold-bearing in-play betting structurally unwinnable for casual bettors. *(LOSB — directly named; will look for corroboration in Funt)*
-- The "chopping-the-hold" mental model — start with the book's hold, subtract via cross-book shopping, angles, and cross-derivative comparison — is the operating strategy of winning bettors. *(LOSB)*
-- Sportsbook marketing budgets (deposit bonuses, free play, odds boosts, rebates) are a temporary but real profit pool for skilled bettors during industry expansion phases. *(LOSB)*
-- The math of deposit bonuses *favors "go for broke" strategies* over grinding the rollover, when the rollover requirement is meaningfully high. *(LOSB — counter-conventional but mathematically proven)*
+- **Sportsbook line-making relies heavily on copying from market makers, not independent pricing at every book.** *(LOSB + Funt trader interviews)*
+- **Market makers and retail books operate as fundamentally different business models.** *(LOSB analytically + Funt's South Point vs PointsBet contrast)*
+- **Customer profiling for sharpness is standard practice; at market makers it informs line movement, at retail books it informs limiting.** *(LOSB framework + Funt trader interviews + Funt beard experiment)*
+- **The closing-line-value signal is the #1 trigger for limiting at retail books.** *(LOSB + Funt — multiple trader sources)*
+- **US sportsbooks operate under a "ban or bankrupt" model: limit the few who could win, push high-margin parlays at the rest.** *(LOSB analytical structure + Funt's explicit naming via Walker)*
+- **Sports betting is a multiplayer adversarial game, structurally unlike casino games.** *(LOSB)*
+- **CLV ≥ half the hold over hundreds of bets is a strong predictor of long-term profitability.** *(LOSB)*
+- **Weak markets (single market maker, low limits, derivatives, props) are where exploitable edges live.** *(LOSB)*
+- **Props create a "massive attack surface" of mispriced or stale markets that books can't keep current.** *(LOSB)*
+- **Most retail sportsbooks add 4-8 second delays to in-play bets, which (combined with TV delay) makes hold-bearing in-play betting structurally unwinnable for casual bettors.** *(LOSB)*
+- **The "chopping-the-hold" mental model — start with the book's hold, subtract via cross-book shopping, angles, and cross-derivative comparison — is the operating strategy of winning bettors.** *(LOSB)*
+- **Sportsbook marketing budgets (deposit bonuses, free play, odds boosts, rebates) are a temporary but real profit pool for skilled bettors during industry expansion phases.** *(LOSB)*
+- **The math of deposit bonuses *favors "go for broke" strategies* over grinding the rollover, when the rollover requirement is meaningfully high.** *(LOSB — counter-conventional but mathematically proven)*
+- **The major US sports leagues testified under oath in 1991-92 that sports betting was structurally corrupting; post-2018 they reversed course and signed partnership deals with sportsbooks.** *(Funt PASPA reconstruction)*
+- **"Gaming" is a deliberate corporate-linguistic strategy invented by the AGA in 1994 to launder "gambling."** *(Funt + Derevensky source)*
+- **The fan-team relationship is transformed by betting: cheering for the spread instead of the team, fans booing meaningless points that cost them bets.** *(Funt + Bradley + Stern testimony)*
+- **Athlete harassment from gamblers exploded after 2018 legalization (NCAA's word: "wildfire").** *(Funt + NCAA's Hangebrauck)*
+- **Sportsbooks limit accounts they *anticipate* will win, not just those that *have* won.** *(Funt's beard experiment + Crab Sports pre-bet rejection)*
 
 ### Where sources conflict (cross-source reconciliations)
 
