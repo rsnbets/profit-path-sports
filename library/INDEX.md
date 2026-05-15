@@ -10,15 +10,29 @@ The living document that synthesizes everything PROFITPATH knows about modern sp
 
 | Metric | Current |
 |---|---|
-| Books processed (comprehensive first pass) | **6** *(LOSB + Funt + MV + Sharper + Mathletics + Duke)* |
-| Books queued in `source-pdfs/` | **8** *(Scorecasting, Trading Bases, Monte Carlo or Bust, Sports Betting for Winners, Wong, Konik, Appelbaum + 30pp quick-skim)* |
+| Books processed (comprehensive first pass) | **7** *(LOSB + Funt + MV + Sharper + Mathletics + Duke + Scorecasting)* |
+| Books queued in `source-pdfs/` | **7** *(Trading Bases, Monte Carlo or Bust, Sports Betting for Winners, Wong, Konik, Appelbaum + 30pp quick-skim)* |
 | Topic syntheses written | **0** *(deferred — user prefers more ingestion first)* |
-| Content opportunities in pipeline | **125+** *(51+ lessons / 37+ guides / 34+ tools / 18 originals)* |
-| Market gaps identified | **57** |
+| Content opportunities in pipeline | **140+** *(59+ lessons / 41+ guides / 36+ tools / 21 originals)* |
+| Market gaps identified | **64** |
 | Cross-source conflicts being tracked | **1** *(CLV: LOSB-as-skill-signal vs Sharper-as-deepity)* |
-| Cross-source syntheses ready | **2** *(Favorite-bias × Longshot-bias coexistence + the Decision-Quality vs Outcome-Quality / Levitt-Duke contrast)* |
+| Cross-source syntheses ready | **3** *(Favorite × Longshot bias coexistence + Levitt-Duke bookmaker myth + the HFA Origin Story)* |
 
-**Last update:** Thinking in Bets (Annie Duke, Portfolio/Penguin 2018) — first pass complete on all 6 chapters. Note at `notes/thinking-in-bets-annie-duke.md`. **Key findings:**
+**Last update:** Scorecasting (Tobias Moskowitz & L. Jon Wertheim, Crown Archetype 2011) — first pass complete on PPS-relevant chapters. Note at `notes/scorecasting-moskowitz-wertheim.md`. **Key findings:**
+- ⭐ **The popular-press companion to MV — same Moskowitz as our peer-reviewed pillar.** Bridges PPS readers from accessible content to academic rigor. Citation depth: same author across mass-market and peer-reviewed sources signals real research depth, not one-paper credibility.
+- **🔑 THE HOME-FIELD-ADVANTAGE MECHANISM:** None of the conventional explanations (crowd, travel, roster construction, weather) survives data. The real driver is **referee bias** — ~2/3 of MLB HFA, ~75% of NBA HFA, ~83% of NHL HFA, large NFL share (HFA dropped 29% after instant replay was introduced). Refs aren't corrupt — they're conforming to crowd pressure (Sherif 1935). **The QuesTec natural experiment** is the smoking gun: same umpire, same season, ref bias only when monitor cameras are absent.
+- **The 4th-down coaching irrationality** — Romer 2005 (NBER) documented 90% suboptimal call rate across 1,068 fourth-down situations. **Kevin Kelley** (Pulaski Academy HS) operationalized the math: never punt, onside kick routinely. 77-17-1 record, 2 state titles.
+- **Loss aversion (Kahneman-Tversky 1979) is the master psychological variable** — drives coaches to punt too much AND drives bettors to overweight favorites (Levitt 2004). Same mechanism, two market impacts.
+- **Hot Hand is a myth — confirmed across three sources now** (Gilovich-Vallone-Tversky 1985 → Huizinga & Weil 2002-08 → Mathletics Albright + 2002-3 NBA z-test → Scorecasting team-momentum analysis). Triple-source consensus. Hot teams *reverse* (outscored by 0.31 pts in subsequent minute).
+- **Icing the kicker doesn't work** — 76% conversion iced vs 76% non-iced (NBA free throws), identical kicker rates in NFL.
+- **Omission bias** — refs prefer non-calls. NBA's "When the game steps up, you step down" directive is structural bias.
+- **Self-attribution bias** — Cubs aren't cursed (3.5% drought is ~1 in 30, not extraordinary); Yankees ARE outliers (27 titles in 100 years = 1 in 32 billion). Direct overlap with Duke's fielding-outcomes framework.
+- **Damned Statistics** — "4 of his last 5" almost always means 4 of his last 6+. Selective-framing pattern in all sports broadcasting.
+
+**NEW PPS-ORIGINAL CROSS-SOURCE SYNTHESIS #3 surfaced:**
+- **The HFA Origin Story** — Mathletics (empirical σ + magnitude) + Sharper (compression over time, ~3 → ~2 NFL pts) + Scorecasting (mechanism = ref bias) + Levitt (book exploitation of favorite-bias). No public source has packaged this complete picture. PPS flagship-quality content ready to ship.
+
+**Earlier update:** Thinking in Bets (Annie Duke, Portfolio/Penguin 2018) — first pass complete on all 6 chapters. Note at `notes/thinking-in-bets-annie-duke.md`. **Key findings:**
 - ⭐⭐⭐ **The single most strategically important addition to the library so far.** Where every other source is *about sports betting*, Duke is about **thinking like a sharp** — applied to life. This source changes what PPS *can position itself as*: not "a sports-betting tool" but a "decision-clarity brand that happens to apply to sports betting." Celebrity-author asset.
 - **"Resulting"** — names the dominant cognitive error in betting: confusing decision quality with outcome quality. Pete Carroll's Super Bowl XLIX call wasn't bad — the result was bad. PPS can now ship "resulting" as a brand concept with a clean name.
 - **"All decisions are bets"** mindset reframe — extensible to investing, career, parenting, all life. Audience-expansion vehicle.
@@ -100,6 +114,7 @@ Now have enough material from three sources (industry-analytical + journalistic 
 | Sharper | True Pokerjoe (Richard Bennet) | 2016 (rev. 2021) | **first pass complete** | Operational-tactical companion to LOSB. Spreadsheet formulas for vig-free line, push frequencies, buying points, Kelly, alt-line decisions. Risk-free + free-play promo math. CLV-as-deepity critique. Trailing-vs-leading-edge concept. Three-pronged handicapping taxonomy. Wong teaser case study. Direct LOSB cross-citation. |
 | Mathletics | Wayne L. Winston | 2009 (rev. 2012) | **first pass complete on Part IV + scattered relevant chapters** | THE quantitative-foundations academic source. Sport σ values (NFL 13.86, NBA 12, NCAAB 10, CFB 16) for spread→probability translation. Levitt 2004 finding on bookmaker favorite-bias exploitation. Kelly derivation + sensitivity table. Streakiness debunking. Donaghy detection methodology. Monte Carlo for series/tournaments. Princeton University Press credentials. |
 | Thinking in Bets | Annie Duke | 2018 | **first pass complete** | The decision-science / decision-discipline tier. "Resulting," fielding outcomes, belief vetting, group truthseeking (Tetlock/Lerner + CUDOS), mental time travel (10-10-10, Ulysses contracts, decision swear jar, scenario planning, backcasting, premortems). Mass-market crossover voice. Celebrity-author asset. Brand-aligned: gives PPS the "decision-clarity brand that applies to sports betting" positioning. ⚠️ Repeats the "bookmakers balance action" myth — correct when citing. |
+| Scorecasting | Moskowitz & Wertheim | 2011 | **first pass complete on PPS-relevant chapters** | Popular-press companion to MV — *same Moskowitz*. THE source on the HFA mechanism: ref bias, NOT crowd/travel/roster. Cross-sport empirical HFA table. QuesTec natural experiment. Romer 2005 4th-down irrationality. Loss aversion in coaching. Hot Hand triple-source consensus debunking. Icing-the-kicker doesn't work. Self-attribution (Cubs/Yankees). Damned Statistics framing critique. |
 
 ### Queued (in `source-pdfs/`, not yet processed)
 
@@ -153,6 +168,11 @@ Updated after every book read. This is the "where does sports betting knowledge 
 - **Self-serving bias / fielding errors:** humans systematically field good outcomes into the "skill" bucket and bad outcomes into the "luck" bucket. MacCoun's auto-insurance research: 75-91% of accident victims blame others; even 37% of single-vehicle accident drivers do. Phil Hellmuth's iconic line: "If it weren't for luck, I'd win every one." *(Duke Ch 3)*
 - **Group truthseeking outperforms solo thinking when properly chartered.** Tetlock & Lerner (2002) blueprint: accountability + interest in accuracy + diversity of viewpoints. Confirmatory groups amplify bias; exploratory groups reduce it. *(Duke Ch 4-5)*
 - **Mental time travel discipline** (10-10-10, Ulysses contracts, decision swear jar, scenario planning, backcasting, premortem) outperforms in-the-moment intuition. Negative-scenario visualization (Oettingen) *outperforms* positive-only visualization for goal achievement. *(Duke Ch 6)*
+- **Home-field advantage is driven by referee bias, NOT crowd, travel, roster construction, or weather.** Confirmed across MLB (Pitch f/x + QuesTec natural experiment, ~2/3 of HFA), NBA (~75%), NHL (~83%), NFL (29% HFA drop after instant replay), and soccer (Garicano-Palacios-Huerta-Prendergast injury-time bias). Refs aren't corrupt — they're conforming to crowd pressure (Sherif 1935). *(Scorecasting Ch on HFA mechanism)*
+- **Hot Hand effects don't exist** in basketball, baseball, or team-level momentum. Gilovich-Vallone-Tversky 1985 → Huizinga & Weil 2002-08 → Mathletics Ch 11 → Scorecasting team-momentum analysis. Hot teams *reverse* (outscored by 0.31 pts in next minute). Bowling/billiards are the boundary exceptions. *(Scorecasting + Mathletics + Gilovich-Vallone-Tversky)*
+- **NFL coaches systematically underperform optimal 4th-down strategy.** Romer 2005: 90% of fourth-down situations where math says go-for-it, coaches punt. Driven by loss aversion (Kahneman-Tversky 1979). *(Scorecasting + Romer 2005)*
+- **Icing the kicker doesn't work.** 76% FT conversion iced vs 76% non-iced (NBA); identical NFL kicker rates. *(Scorecasting)*
+- **Selective stat framing in broadcasting** — "4 of his last 5" almost always means 4 of his last 6+. Universal across sports broadcasting. *(Scorecasting)*
 
 ### Where sources conflict (cross-source reconciliations)
 
@@ -192,6 +212,22 @@ This synthesis is ready to ship as a PPS Original: **"The Two Biases You Carry t
 - **Broader lesson PPS can extract:** *If the bookmaker model is this badly misunderstood by smart non-betting authors, what else is the public getting wrong about the industry?* This is the PPS thesis in microcosm.
 
 This synthesis is ready to ship as a PPS Original / blog piece: **"The Bookmaker Myth That Even Smart Authors Repeat"** — provocative, true, cite-anchored, brand-aligned.
+
+#### Cross-Source Synthesis #3: The Home-Field Advantage Origin Story
+
+- **Mathletics (2009):** Empirical HFA magnitudes — NFL 3 pts, NBA 3 pts (sometimes 3.21), NCAAB 4 pts. Foundational reference data.
+- **Sharper (2021):** NFL HFA has compressed to ~2 pts over the decade. (Same direction, smaller magnitude.)
+- **Scorecasting (2011):** The mechanism. Crowd noise, travel, roster construction, and weather all isolate to zero. What's left is referee bias — ~2/3 of MLB HFA, ~75% of NBA HFA, ~83% of NHL HFA, dramatic NFL change after instant-replay introduction. QuesTec natural experiment shows umpire bias flips when monitored. Driven by conformity-to-crowd (Sherif 1935), not corruption.
+- **Levitt (2004) via Mathletics:** Books exploit favorite-bias for ~6.16% per $10 vs textbook 4.55%. The line is already pricing HFA, but the line is *also* pricing favorite-bias on top of that.
+- **PPS synthesis (no public source has this):**
+  1. HFA is real and consistent across sports, leagues, eras.
+  2. The cause is overwhelmingly referee bias driven by crowd-conformity psychology.
+  3. The magnitude has *compressed* in the modern era due to surveillance technology (instant replay, Pitch f/x/QuesTec, NHL video review).
+  4. The line prices HFA, but the public still over-bets favorites — combining HFA (real, mechanism known) and favorite-bias (Levitt) gives books their actual ~6% hold.
+  5. **Operational implication:** when a rule change reduces ref bias (e.g., instant replay), books may be sluggish to update their HFA assumptions. Edge potentially exists in betting visiting favorites against home dogs in the early years after a surveillance-tech rollout.
+- **Content angle:** **"The Real Reason Home Teams Win"** — flagship PPS Original combining four sources into a single explanation no public site has published.
+
+This synthesis is ready to ship as a PPS Original. **Joins the Decision Discipline Framework + Promo Grind at the top of the priority shortlist.**
 
 **Tracking template (used when we find more):**
 - **Claim:** [what one source says]
@@ -242,6 +278,12 @@ This synthesis is ready to ship as a PPS Original / blog piece: **"The Bookmaker
 39. **The "decision swear jar" for sports bettors** — Annie pioneered the general concept; no betting site has the bettor-specific version. *(Duke)*
 40. **Premortem / backcasting applied to weekly slates** is absent in public content. *(Duke)*
 41. **The Levitt-Duke contrast** — smart-author-repeats-myth — is itself a content opportunity. *(Synthesis #2)*
+42. **The HFA mechanism is invisible to retail bettors.** Public content discusses "home dogs" as a generic angle but never explains *why* the bias is real (refs, not crowd/travel/roster). *(Scorecasting)*
+43. **The HFA-compression story** (Sharper 2021 vs Mathletics 2009) — books may be sluggish to update HFA assumptions after rule changes; potential sustained edge. *(Synthesis #3)*
+44. **Loss aversion as cross-domain explainer** (coaches + bettors + GMs all biased the same way) — invisible to public bettors. *(Scorecasting + Levitt + MV)*
+45. **The QuesTec natural experiment** — one of the cleanest causal identifications in all of sports research, never cited in mass-market betting content. *(Scorecasting)*
+46. **Romer 2005 90% suboptimal 4th-down rate** — bettor opportunity in 4th-down decision props / in-game lines. *(Scorecasting + Romer 2005)*
+47. **"4 of his last 5" cherry-pick heuristic** — broadcasters use it every game; no public content names the pattern. *(Scorecasting)*
 
 *(Each new book will surface more. Migration to `content-opportunities.md` happens as items mature.)*
 
@@ -289,7 +331,8 @@ library/
 │   ├── betting-without-beta-moskowitz-vasudevan.md
 │   ├── sharper-pokerjoe.md
 │   ├── mathletics-winston.md
-│   └── thinking-in-bets-annie-duke.md
+│   ├── thinking-in-bets-annie-duke.md
+│   └── scorecasting-moskowitz-wertheim.md
 ├── topics/                        ← cross-book topic syntheses (empty for now)
 └── our-book/                      ← eventual public manuscript (long-term)
 ```
@@ -346,6 +389,17 @@ Topics that will get their own `topics/{topic}.md` synthesis once we have 2-3+ b
 | `calibrated-uncertainty` | Duke ✓ + Sharper ✓ (estimated edge is not edge) | 🟢 ready to draft |
 | `probabilistic-thinking-foundations` | Duke ✓ + MV ✓ + Mathletics ✓ | 🟢 ready to draft — triangulated |
 | `hindsight-bias` | Duke ✓ | 🟢 ready to draft |
+| `home-field-advantage-mechanism` | Mathletics + Sharper + Scorecasting + Levitt (Synthesis #3) | 🟢 **flagship-ready** |
+| `referee-bias-cross-sport` | Scorecasting ✓ (primary) + Mathletics ✓ | 🟢 ready to draft |
+| `omission-bias` | Scorecasting ✓ | 🟢 ready to draft |
+| `loss-aversion-coaching-and-betting` | Scorecasting + Romer 2005 + Levitt + Kahneman-Tversky | 🟢 ready to draft |
+| `fourth-down-decisions` | Scorecasting + Romer 2005 + Kelley case | 🟢 ready to draft |
+| `gambler-fallacy` | Scorecasting ✓ + Sharper ✓ | 🟢 ready to draft |
+| `mean-reversion-in-sports` | Scorecasting team-momentum analysis | 🟢 ready to draft |
+| `icing-the-kicker` | Scorecasting ✓ (primary) | 🟢 ready to draft |
+| `selective-statistics-framing` | Scorecasting ✓ + Duke (Decision Swear Jar) | 🟢 ready to draft |
+| `self-attribution-bias` | Scorecasting (Cubs/Yankees) + Duke (fielding outcomes) | 🟢 ready to draft |
+| `conformity-and-social-pressure` | Scorecasting + Sherif 1935 | 🟢 ready to draft |
 | `sharp-line-construction` | LOSB ✓ · Sharper ✓ (names the books) | 🟢 ready to draft |
 | `square-vs-sharp-thinking` | Sharper ✓ (primary) · LOSB ✓ (1-5 scale variant) | 🟢 ready to draft |
 | `price-vs-juice` | Sharper ✓ (primary) | 🟢 ready to draft — Sharper is THE source |
@@ -376,12 +430,15 @@ Topics that will get their own `topics/{topic}.md` synthesis once we have 2-3+ b
 4. ✅ ~~Process Sharper (Pokerjoe).~~ (Complete — operational tier + first cross-source conflict surfaced: CLV.)
 5. ✅ ~~Process Mathletics (Winston).~~ (Complete — quantitative-foundations tier + Levitt 2004 finding + first PPS-original cross-source synthesis.)
 6. ✅ ~~Process Thinking in Bets (Duke).~~ (Complete — decision-science tier + brand-positioning unlock + second cross-source synthesis.)
-7. **Next book decision point.** Top candidates from the new batch:
-   - **Scorecasting (Moskowitz & Wertheim, 2011)** — same Moskowitz as our MV pillar. Extends academic credibility into popular-press content. **Easiest lateral add.**
-   - **Trading Bases (Joe Peta, 2013)** — Wall Street → baseball-betting bridge. MV explicitly cites it. Unique cross-pollination.
-   - **Monte Carlo or Bust (Joseph Buchdahl)** — quant variance / value-betting from a respected European sharp/quant. Extends Mathletics quant tier.
+7. ✅ ~~Process Scorecasting (Moskowitz & Wertheim).~~ (Complete — popular-press companion to MV + HFA-mechanism unlock + third cross-source synthesis.)
+8. **Next book decision point.** Top candidates from the remaining queue:
+   - **Trading Bases (Joe Peta, 2013)** — Wall Street → MLB betting bridge. MV-cited. Pure US-sports. **Recommended next.**
    - **Sports Betting for Winners (Rob Miech)** — unknown content; will determine when opened.
-   - **Konik / Wong / Appelbaum / Complete Book** — earlier queue, lower priority given current coverage.
+   - **Konik (Smart Money)** — Billy Walters narrative; US-sports.
+   - **Appelbaum (Everything Guide)** — beginner intro; useful for Path 01 mapping.
+   - **Wong (Sharp Sports Betting)** — likely highly redundant.
+   - **Monte Carlo or Bust (Buchdahl)** — deprioritized (soccer-heavy).
+   - **Complete Book of Sports Betting** — quick-skim only.
 6. **Spin up first `topics/` syntheses.** With 4 sources, the topics most ready to draft (multi-source or single-strong-source + PPS-original-content):
    - `closing-line-value` — **flagship synthesis (Conflict #1 reconciliation)**
    - `bonus-conversion` — **flagship (combined LOSB + Sharper full promo treatment)**

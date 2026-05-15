@@ -2,7 +2,7 @@
 
 > **Purpose:** Self-contained project state document. Read this if you're (a) returning to the project after a break, (b) starting a new Claude conversation and need to refresh context, or (c) onboarding a collaborator. As of last update, this brief reflects 6 books processed into the library and the brand positioning that has emerged from that work.
 >
-> **Last updated:** 2026-05-15
+> **Last updated:** 2026-05-15 (after Scorecasting)
 
 ---
 
@@ -77,13 +77,13 @@ library/
 
 | Metric | Current |
 |---|---|
-| Books processed | **6** *(LOSB, Funt, MV, Sharper, Mathletics, Duke)* |
-| Books queued | **8** *(Scorecasting, Trading Bases, Monte Carlo or Bust, Miech, Wong, Konik, Appelbaum, Complete Book)* |
+| Books processed | **7** *(LOSB, Funt, MV, Sharper, Mathletics, Duke, Scorecasting)* |
+| Books queued | **7** *(Trading Bases, Monte Carlo or Bust, Miech, Wong, Konik, Appelbaum, Complete Book)* |
 | Topic syntheses | **0** *(deferred — user wants more ingestion first)* |
-| Content opportunities | **125+** |
-| Market gaps identified | **57** |
+| Content opportunities | **140+** |
+| Market gaps identified | **64** |
 | Cross-source conflicts | **1** *(CLV)* |
-| Cross-source syntheses ready to ship | **2** |
+| Cross-source syntheses ready to ship | **3** |
 
 ### Books processed and their roles in the library
 
@@ -95,17 +95,17 @@ library/
 | Sharper | True Pokerjoe (Bennet) | 2016 | Operational-tactical (spreadsheet formulas) |
 | Mathletics | Wayne Winston | 2009 | Applied-statistics academic (Princeton) — σ values, Kelly, Levitt |
 | Thinking in Bets | Annie Duke | 2018 | Decision-science / brand positioning |
+| Scorecasting | Moskowitz & Wertheim | 2011 | Popular-press companion to MV — HFA mechanism, hot hand debunking, coaching loss aversion |
 
 ### Active queue (in recommended order)
 
-1. **Scorecasting** (Moskowitz & Wertheim, 2011) — same Moskowitz as our pillar; extends academic credibility into popular content
-2. **Trading Bases** (Joe Peta, 2013) — Wall Street → MLB betting bridge; MV explicitly cited it
-3. **Sports Betting for Winners** (Rob Miech) — unknown content; will determine when opened
-4. **Konik / Smart Money** — Billy Walters biographical narrative
-5. **Appelbaum / Everything Guide** — beginner intro; useful for Path 01 mapping
-6. **Wong / Sharp Sports Betting** — likely highly redundant at this point
-7. **Monte Carlo or Bust** (Buchdahl) — **deprioritized**; heavily soccer-focused, user not interested in soccer
-8. **Complete Book of Sports Betting** — 30pp quick-skim, likely dated
+1. **Trading Bases** (Joe Peta, 2013) — Wall Street → MLB betting bridge; MV explicitly cited it. **Recommended next.**
+2. **Sports Betting for Winners** (Rob Miech) — unknown content; will determine when opened
+3. **Konik / Smart Money** — Billy Walters biographical narrative
+4. **Appelbaum / Everything Guide** — beginner intro; useful for Path 01 mapping
+5. **Wong / Sharp Sports Betting** — likely highly redundant at this point
+6. **Monte Carlo or Bust** (Buchdahl) — **deprioritized**; heavily soccer-focused, user not interested in soccer
+7. **Complete Book of Sports Betting** — 30pp quick-skim, likely dated
 
 ### Per-source synthesis template
 
@@ -161,6 +161,14 @@ These are PPS-original positions that **no public source has made**. Both are fl
 - **The point:** A smart, thoughtful, decision-science author repeats a myth that peer-reviewed academic research had already debunked 14 years earlier. **The misconception is durable.**
 - **Content angle:** "The Bookmaker Myth Even Smart Authors Repeat" — provocative, cite-anchored, brand-aligned.
 
+### Synthesis #3: The Home-Field Advantage Origin Story
+
+- **Mathletics (2009):** Empirical HFA magnitudes — NFL 3 pts, NBA 3 pts, NCAAB 4 pts. Foundational reference data.
+- **Sharper (2021):** NFL HFA has compressed to ~2 pts over the decade.
+- **Scorecasting (2011):** The mechanism. Crowd, travel, roster, weather all isolate to zero. The real driver is **referee bias** — ~2/3 of MLB HFA, ~75% of NBA HFA, ~83% of NHL HFA, dramatic NFL change after instant-replay introduction. The QuesTec natural experiment is the smoking gun. Driven by conformity-to-crowd (Sherif 1935), not corruption.
+- **Levitt (2004) via Mathletics:** Books exploit favorite-bias for ~6% per $10. The line already prices HFA but also prices favorite-bias on top.
+- **Content angle:** "The Real Reason Home Teams Win" — flagship PPS Original combining four sources into an explanation no public site has published.
+
 ---
 
 ## 6. The one cross-source conflict actively tracked
@@ -181,14 +189,16 @@ These are PPS-original positions that **no public source has made**. Both are fl
 
 If we shipped one thing tomorrow, ranked by (impact × differentiation × ease):
 
-1. **PROFITPATH Decision Discipline Framework** (PPS Original) — packaging Duke's 5-tool mental kit (10-10-10, Ulysses contracts, decision swear jar, scenario planning, backcasting, premortem) with LOSB/Sharper/MV citations. The signature methodology that anchors the brand.
-2. **The Promo Grind** (master guide + 4 calculators) — LOSB Go-For-Broke + Sharper Risk-Free + Free-Play + Deposit-Bonus Churn. Complete operational US-legal-market promo treatment.
-3. **"Resulting: the cognitive trap every sports bettor falls into"** (Duke + LOSB + Sharper + Mathletics) — pillar Path 03 lesson.
-4. **The Hold Chopper** calc + guide — builds on existing calculator credibility.
-5. **The CLV Reconciliation** — Conflict #1 synthesis piece.
-6. **The Two Biases You Carry to the Sportsbook** — Synthesis #1.
-7. **The Bookmaker Myth Even Smart Authors Repeat** — Synthesis #2.
-8. **Vig-Free Line Calculator + Push Frequency Estimator + Bet Review Worksheet** — three low-build-cost foundational tools.
+1. **PROFITPATH Decision Discipline Framework** (PPS Original) — Duke's 5-tool mental kit (10-10-10, Ulysses contracts, decision swear jar, scenario planning, backcasting, premortem) with LOSB/Sharper/MV citations. The signature methodology.
+2. **The Real Reason Home Teams Win** (PPS Original) — Synthesis #3: Scorecasting + Mathletics + Sharper + Levitt. Genuinely unique synthesis no public source has packaged.
+3. **The Promo Grind** (master guide + 4 calculators) — LOSB + Sharper combined.
+4. **"Resulting: the cognitive trap every sports bettor falls into"** (Duke + LOSB + Sharper + Mathletics + Scorecasting) — pillar Path 03 lesson.
+5. **The Hot Hand Triple-Source Debunking** — Gilovich-Vallone-Tversky 1985 → Mathletics → Scorecasting. Maximum-confidence content.
+6. **The Hold Chopper** calc + guide.
+7. **The CLV Reconciliation** — Conflict #1 synthesis.
+8. **The Two Biases You Carry to the Sportsbook** — Synthesis #1.
+9. **The Bookmaker Myth Even Smart Authors Repeat** — Synthesis #2.
+10. **Vig-Free Line Calculator + Push Frequency Estimator + Bet Review Worksheet + HFA-by-League Reference** — four low-build-cost foundational tools.
 
 User has explicitly deferred shipping any of this until more library ingestion is complete. **Don't ship without checking in with the user first.**
 

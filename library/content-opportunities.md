@@ -58,6 +58,14 @@ Rolled up from every `notes/` synthesis. As we process more books, this file gro
 | Premortem your parlay | Duke Ch 6 | 🟢 | Brand-aligned operational tool |
 | Why most cappers sound "sure" (and what that should tell you) | Duke Ch 2 + 5 | 🟢 | Counter-tout brand piece |
 | The bookmaker myth even Annie Duke repeats | Duke Ch 1-2 + Levitt + Sharper | 🟢 | Cross-source synthesis #2 lesson |
+| Why home teams really win | Scorecasting + Mathletics + Sharper + Levitt | 🟢 | **Synthesis #3 lesson** — pillar candidate |
+| The hot hand is a myth (40 years of research) | Scorecasting + Mathletics + Gilovich-Vallone-Tversky 1985 | 🟢 | Triple-source consensus debunking |
+| Why NFL coaches punt too much | Scorecasting + Romer 2005 + Kelley case | 🟢 | Connects coaching loss-aversion to bettor decisions |
+| Icing the kicker doesn't work — stop fading iced kickers | Scorecasting | 🟢 | Actionable mini-lesson for in-play bettors |
+| The stat-framing trick every broadcaster uses | Scorecasting (Damned Statistics) | 🟢 | Broadly applicable; brand-aligned |
+| Your team isn't cursed — the math | Scorecasting (Cubs/Yankees) | 🟡 | Fan-friendly self-attribution lesson |
+| Coaches and bettors share the same bias | Scorecasting + Levitt + Romer + Kahneman-Tversky | 🟢 | Cross-domain loss-aversion synthesis |
+| Why ref bias is bigger in close games | Scorecasting (Leverage Index applied to live betting) | 🟡 | Live-betting nuance |
 
 ## Guides (deep-dive pages)
 
@@ -92,6 +100,10 @@ Rolled up from every `notes/` synthesis. As we process more books, this file gro
 | How to build a betting truthseeking group | Duke Ch 4-5 (Tetlock & Lerner + CUDOS) | 🟡 | Community-design guide |
 | Calibrated uncertainty: how sharps actually think | Duke + Sharper + MV synthesis | 🟢 | Cross-source pillar |
 | The CUDOS norms for sports-betting truthseekers | Duke Ch 5 | 🟡 | Community / brand cornerstone |
+| **The Real Reason Home Teams Win** | Scorecasting + Mathletics + Sharper + Levitt (Synthesis #3) | 🟢 | **FLAGSHIP PILLAR** — complete HFA picture no public source has |
+| The Hot Hand: 40 Years of Research | Scorecasting + Mathletics + Gilovich-Vallone-Tversky 1985 + Huizinga & Weil | 🟢 | Academic-anchored deep dive |
+| Why coaches make bets that hurt your team (and yours) | Scorecasting + Romer + Kelley | 🟢 | Loss-aversion cross-domain guide |
+| How to read betting media skeptically | Scorecasting + Duke | 🟢 | Damned Statistics + belief-vetting combined |
 
 ## Tools / calculators
 
@@ -122,6 +134,9 @@ Rolled up from every `notes/` synthesis. As we process more books, this file gro
 | **Decision Swear Jar Trigger** | Duke Ch 6 | 🟡 | UI feature: bettor types rationale; certain phrases trigger "Wanna bet?" prompt |
 | **10-10-10 Bet Decision Prompt** | Duke Ch 6 | 🟢 | Before bets above $X: "How will you feel about this in 10 min / 10 weeks / 10 months?" LOW build cost |
 | **Premortem Generator** | Duke Ch 6 | 🟡 | UI prompt: "Imagine this bet lost. List the reasons it could have lost." Brand-builder |
+| **HFA-by-League Reference Tool** | Scorecasting + Mathletics | 🟢 | Cross-sport empirical table with mechanism breakdown. LOW build cost |
+| **Live-Bet Ref-Bias Awareness Module** | Scorecasting (Leverage Index applied) | 🟡 | Flag ref-bias multiplier on live prop lines in high-leverage home situations |
+| **The Selective-Stats Decoder** | Scorecasting (Damned Statistics) | 🟡 | Paste broadcaster stat → tool surfaces likely larger sample + cherry-pick pattern |
 | **Spread-to-Probability Calculator** | Mathletics Ch 43 (σ values + NORMDIST) | 🟢 | **Foundational operational tool** — input spread + sport → output P(cover) and P(win). LOW build cost |
 | **Power-Rating Difference → Implied Spread** | Mathletics Ch 40 + Sharper Ch 25 | 🟢 | Input two team ratings + home/away → implied spread + edge vs market |
 | **Kelly Sensitivity Lookup tool** | Mathletics Figure 44.1 | 🟢 | Interactive sensitivity table; user inputs win% → recommended f + growth |
@@ -150,6 +165,9 @@ Rolled up from every `notes/` synthesis. As we process more books, this file gro
 | **The Two-Bucket Tracker** | Duke Ch 3 + bet-tracker integration | 🟢 | Skill/luck fielding built into the bet tracker UI |
 | **The Bettor's Swear Jar** | Duke Ch 6 (bettor-specific version) | 🟢 | Content series — shareable, social-friendly |
 | **The Bookmaker Myth Even Smart Authors Repeat** | Duke + Levitt + Sharper synthesis #2 | 🟢 | Provocative cite-anchored brand piece |
+| **The Real Reason Home Teams Win** | Scorecasting + Mathletics + Sharper + Levitt synthesis #3 | 🟢 | **NEW FLAGSHIP CANDIDATE** — complete HFA picture no public source has |
+| **The Bias That Owns the Sportsbook AND the Sideline** | Kahneman-Tversky 1979 → Romer 2005 → Levitt 2004 → MV 2022 | 🟢 | Cross-domain loss-aversion synthesis |
+| **Why the Hot Hand Is the Most Profitable Myth in Sports Betting** | Gilovich-Vallone-Tversky + Huizinga & Weil + Mathletics + Scorecasting + Sharper + Duke | 🟢 | Operational fade-momentum content |
 
 ## Market gaps identified
 
@@ -196,6 +214,12 @@ Things this library has surfaced that **nothing public explains well**:
 39. **The decision swear jar for sports bettors** — Annie pioneered the general concept; no betting site has the bettor-specific version. *(Duke)*
 40. **Premortem / backcasting applied to weekly slates** is absent. *(Duke)*
 41. **The Levitt-Duke contrast** — smart-author-repeats-myth — is itself a content opportunity. *(Synthesis #2)*
+42. **The HFA mechanism is invisible to retail bettors.** *(Scorecasting)*
+43. **The HFA-compression × line-pricing gap** — books may be sluggish to update post-rule-change. *(Synthesis #3)*
+44. **Loss aversion as cross-domain explainer** — coaches + bettors share the same bias. *(Scorecasting + Levitt + MV)*
+45. **The QuesTec natural experiment** — cleanest causal ID of ref bias, never cited publicly. *(Scorecasting)*
+46. **Romer 2005 90% suboptimal 4th-down rate** — bettor opportunity in 4th-down decision props. *(Scorecasting)*
+47. **"4 of his last 5" cherry-pick heuristic** — broadcasters do it every game; nobody names it. *(Scorecasting)*
 
 ---
 
@@ -209,22 +233,25 @@ After every 3-5 books processed:
 
 After 10 books processed: build the first `library/topics/` syntheses around the most cross-referenced topic tags. Those become the source of truth for the corresponding content pieces.
 
-## Current priority shortlist (LOSB + Funt + MV + Sharper + Mathletics + Duke state)
+## Current priority shortlist (7-source state)
 
-If we shipped one thing from this pipeline tomorrow, top candidates ranked by ratio of (impact × differentiation × ease):
+If we shipped one thing from this pipeline tomorrow, top candidates ranked by (impact × differentiation × ease):
 
-1. **PROFITPATH Decision Discipline Framework** (PPS Original) — packaging Duke's 5-tool mental toolkit with LOSB + Sharper + MV citations. **New top candidate** — the signature methodology that anchors the brand.
-2. **The Promo Grind** (master guide + 4 calculators) — combines LOSB Go-For-Broke + Sharper Risk-Free + Free-Play + Deposit-Bonus Churn. Strongest operational flagship.
-3. **"Resulting: the cognitive trap every sports bettor falls into"** (Duke + LOSB + Sharper + Mathletics) — pillar Path 03 lesson; massive audience reach.
-4. **The Hold Chopper calc + guide** — flagship PPS Original; builds on existing calculator credibility.
-5. **The CLV Reconciliation** — independent PPS synthesis of the LOSB/Sharper Conflict #1. Brand-builder.
-6. **The Two Biases You Carry to the Sportsbook** (Levitt + MV synthesis #1) — reputation-builder.
-7. **The Bookmaker Myth Even Smart Authors Repeat** (synthesis #2) — provocative, cite-anchored, shareable.
-8. **Vig-Free Line Calculator + Push Frequency Estimator + Bet Review Worksheet** — three low-build-cost foundational tools.
-9. **Price-is-not-Juice + Sportsbook Hold Tier-Map** — concept reframe paired with our tier-map tool.
-10. **The Go-For-Broke Bonus Method** (guide + calc) — counter-intuitive, brand-aligned, viral potential.
-11. **"Market makers vs retail books"** guide — fills the biggest legacy market gap.
-12. **"How sportsbook prices actually get made"** lesson — Path 01 staple.
-13. **"The Favorite-Longshot Bias paper, in plain English"** — reputation-builder from MV.
-14. **"Behavioral finance for sports bettors"** guide — distinctive content; bridges betting + 401k.
-15. **The Leagues' 180** (PASPA-testimony reversal) — Funt source; flagship credibility piece for `/research/`.
+1. **PROFITPATH Decision Discipline Framework** (PPS Original) — packaging Duke's 5-tool mental toolkit with LOSB + Sharper + MV citations. The signature methodology.
+2. **The Real Reason Home Teams Win** (PPS Original, synthesis #3) — Scorecasting + Mathletics + Sharper + Levitt. **New flagship candidate.** Genuinely unique synthesis.
+3. **The Promo Grind** (master guide + 4 calculators) — LOSB Go-For-Broke + Sharper Risk-Free + Free-Play + Deposit-Bonus Churn.
+4. **"Resulting: the cognitive trap every sports bettor falls into"** (Duke + LOSB + Sharper + Mathletics + Scorecasting) — pillar Path 03 lesson.
+5. **The Hold Chopper calc + guide** — flagship PPS Original.
+6. **The Hot Hand Triple-Source Debunking** — Gilovich-Vallone-Tversky 1985 → Mathletics → Scorecasting.
+7. **The CLV Reconciliation** — synthesis of Conflict #1.
+8. **The Two Biases You Carry to the Sportsbook** (synthesis #1).
+9. **The Bookmaker Myth Even Smart Authors Repeat** (synthesis #2).
+10. **The Bias That Owns the Sportsbook AND the Sideline** — loss-aversion cross-domain piece.
+11. **Vig-Free Line Calculator + Push Frequency Estimator + Bet Review Worksheet + HFA-by-League Reference Tool** — four low-build-cost foundational tools.
+12. **Price-is-not-Juice + Sportsbook Hold Tier-Map** — concept reframe paired with our tier-map.
+13. **The Go-For-Broke Bonus Method** (guide + calc).
+14. **"Market makers vs retail books"** guide.
+15. **"How sportsbook prices actually get made"** lesson.
+16. **"The Favorite-Longshot Bias paper, in plain English"** — reputation-builder.
+17. **"Behavioral finance for sports bettors"** guide.
+18. **The Leagues' 180** (PASPA-testimony reversal) — Funt; flagship for `/research/`.
