@@ -39,6 +39,13 @@ Rolled up from every `notes/` synthesis. As we process more books, this file gro
 | Risk-free promo on the dog beats it on the favorite (4× the EV) | Sharper Addendum | 🟢 | Strong viral potential |
 | Power ratings 101: the three ways to rate a team | Sharper Ch 25 | 🟡 | Clean taxonomy |
 | Why edge estimation errors on big favorites are catastrophic | Sharper Ch 17 + MV cross-pollination | 🟡 | Counter-Kelly intuition with two-source support |
+| Why your favorite is statistically worse than you think (Levitt 2004) | Mathletics Ch 39 | 🟢 | Peer-reviewed source for Path-01 staple |
+| The math of point spreads → probabilities | Mathletics Ch 43 | 🟢 | Foundational operational lesson |
+| Why hot teams aren't really hot | Mathletics Ch 11 (Albright + Mathletics z-test) | 🟢 | Counter-conventional with academic backbone |
+| How much should you bet? Kelly without the math | Mathletics Ch 44 (sensitivity table) | 🟢 | Beginner-Kelly using lookup-only |
+| Sharps don't always cover: the favorite-bias trap | Mathletics Ch 39 + Levitt 2004 historical data | 🟡 | Path-01 counter-intuitive piece |
+| Statistical anomaly vs. profitable edge (refs call more fouls but you can't bet it) | Mathletics Ch 39 | 🟡 | Sophistication signal; more advanced reader |
+| The Two Biases You Carry to the Sportsbook (favorite + longshot coexistence) | Levitt + MV synthesis | 🟢 | **PPS-original synthesis; no public source has the bridge** |
 
 ## Guides (deep-dive pages)
 
@@ -61,6 +68,13 @@ Rolled up from every `notes/` synthesis. As we process more books, this file gro
 | **Closing line value: what it actually measures (and what it doesn't)** | LOSB + Sharper (Conflict #1) | 🟢 | PPS independent synthesis — brand-builder |
 | Choosing between alternate lines on the same game | Sharper Ch 15 | 🟡 | Practical decision guide |
 | Sharp books vs square books (operational map) | LOSB + Sharper named roster | 🟢 | Cross-validates the Sportsbook Tier-Map |
+| **The math behind the spread: complete probability translation guide** | Mathletics Ch 43 (σ values + NORMDIST) | 🟢 | **Flagship pillar page** — math reference for the site |
+| **Kelly Criterion: derivation, sensitivity, big-favorite penalty** | Mathletics Ch 44 + Sharper Ch 17 | 🟢 | Full operational Kelly guide combining both sources |
+| **How sports betting markets exploit your biases — the Levitt finding** | Mathletics Ch 39 (Levitt 2004 *Economic Journal*) | 🟢 | Research-grade; Ban-or-Bankrupt input |
+| **Streakiness, hot hands, and momentum: what the math says** | Mathletics Ch 11 + Albright | 🟢 | Big-audience content with peer-reviewed backbone |
+| How NBA refs affect totals (and why you can't profit from it) | Mathletics Ch 39 ref-bias data | 🟡 | Nuanced "signal vs tradable" piece |
+| Did Tim Donaghy actually fix games? The statistics | Mathletics Ch 36 | 🟡 | Integrity case study; Ban-or-Bankrupt adjacent |
+| Are college basketball games fixed? Wolfers vs Heston-Bernhardt | Mathletics Ch 35 | 🟡 | Academic-style integrity piece |
 
 ## Tools / calculators
 
@@ -85,6 +99,13 @@ Rolled up from every `notes/` synthesis. As we process more books, this file gro
 | **Deposit-Bonus Churn Calculator** | LOSB + Sharper Addendum | 🟢 | Input bonus %, rollover multiple, avg juice → expected profit |
 | **Alternate Line Comparator** | Sharper Ch 15 | 🟡 | Choose between alt-line offers by relative edge |
 | **Kelly + fractional Kelly + big-favorite warning** | Sharper Ch 17 | 🟢 | Extends what we already have; adds the favorite-penalty toggle |
+| **Spread-to-Probability Calculator** | Mathletics Ch 43 (σ values + NORMDIST) | 🟢 | **Foundational operational tool** — input spread + sport → output P(cover) and P(win). LOW build cost |
+| **Power-Rating Difference → Implied Spread** | Mathletics Ch 40 + Sharper Ch 25 | 🟢 | Input two team ratings + home/away → implied spread + edge vs market |
+| **Kelly Sensitivity Lookup tool** | Mathletics Figure 44.1 | 🟢 | Interactive sensitivity table; user inputs win% → recommended f + growth |
+| **Monte Carlo Series Win Probability** | Mathletics Ch 43 | 🟡 | Best of 3/5/7 series simulator |
+| **NCAA Bracket Simulator** | Mathletics Ch 43 | 🟡 | March Madness traffic; higher build cost |
+| **Streakiness Detector** | Mathletics Ch 11 | 🟡 | Paste W/L sequence → z-score + interpretation |
+| **Power-Rating Builder** | Mathletics Ch 40 (Solver methodology) | 🟡 | Paste in season scores → least-squares team ratings |
 
 ## PPS Originals (in-house content no one else publishes)
 
@@ -99,6 +120,9 @@ Rolled up from every `notes/` synthesis. As we process more books, this file gro
 | **The Promo Grind** (master guide + 4 calculators) | LOSB go-for-broke + Sharper risk-free + free-play + churn | 🟢 | **Strongest flagship candidate in the library** — complete operational treatment of US legal-market promos |
 | **The CLV Reconciliation** | LOSB ↔ Sharper Conflict #1 synthesis | 🟢 | Brand-builder; first cross-source independent position |
 | **Price-is-not-Juice** explainer + Sportsbook Hold Tier pairing | Sharper Ch 5 + LOSB Sportsbook Business Models | 🟢 | Concept + tool pair |
+| **The Two Biases You Carry to the Sportsbook** (Levitt + MV) | Cross-source synthesis | 🟢 | **PPS-original**; reputation-builder; no public source has this bridge |
+| **The Hold Chopper Mark II** (theoretical vs actual hold via Levitt) | Mathletics Ch 39 + LOSB Hold Chopper concept | 🟡 | Extends the existing Hold Chopper concept |
+| **Sports Collapses, Ranked by Probability** | Mathletics Ch 45 | 🟡 | Viral-friendly entertainment piece |
 
 ## Market gaps identified
 
@@ -130,6 +154,14 @@ Things this library has surfaced that **nothing public explains well**:
 24. **Generic-vs-spread points (PF-adjusted)** — power-rating edges aren't 1:1 betting edges. *(Sharper Ch 26)*
 25. **"Bet more on faves, less on dogs at equal edge"** — Counter-Kelly intuition with MV cross-support. *(Sharper Ch 17 + MV)*
 26. **Sharp-books named roster + structural reasoning** — combines named books with business-model logic. *(Sharper + LOSB)*
+27. **The Levitt 2004 finding** — favorites cover <50%, bookies earn 6%+ not 4.5% — invisible to retail bettors. *(Mathletics)*
+28. **Spread → probability translation** rarely explained operationally with the math. *(Mathletics Ch 43)*
+29. **The σ values** for each sport — foundational reference, nowhere in mass-market content. *(Mathletics)*
+30. **Peer-reviewed evidence against streakiness / hot hand** — invisible to mass-market bettors. *(Mathletics + Albright)*
+31. **Public Kelly sensitivity lookup tool** doesn't exist. *(Mathletics)*
+32. **Favorite-bias × longshot-bias coexistence** — PPS-original synthesis; no public source. *(Levitt + MV)*
+33. **Statistical signal ≠ tradable signal** — sophistication concept rarely surfaced (ref-bias is real; you can't profit from it). *(Mathletics)*
+34. **The Wolfers vs Heston-Bernhardt college-basketball debate** — academic-only; bettors deserve an accessible summary. *(Mathletics)*
 
 ---
 
@@ -143,7 +175,7 @@ After every 3-5 books processed:
 
 After 10 books processed: build the first `library/topics/` syntheses around the most cross-referenced topic tags. Those become the source of truth for the corresponding content pieces.
 
-## Current priority shortlist (LOSB + Funt + MV + Sharper state)
+## Current priority shortlist (LOSB + Funt + MV + Sharper + Mathletics state)
 
 If we shipped one thing from this pipeline tomorrow, top candidates ranked by ratio of (impact × differentiation × ease):
 

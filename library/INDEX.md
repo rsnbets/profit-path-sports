@@ -10,14 +10,26 @@ The living document that synthesizes everything PROFITPATH knows about modern sp
 
 | Metric | Current |
 |---|---|
-| Books processed (comprehensive first pass) | **4** *(LOSB + Funt + MV + Sharper/Pokerjoe)* |
+| Books processed (comprehensive first pass) | **5** *(LOSB + Funt + MV + Sharper + Mathletics)* |
 | Books queued in `source-pdfs/` | **3** *(Wong, Konik, Appelbaum)* — plus a quick-skim 30pp dated book |
-| Topic syntheses written | **0** *(ready to spin up — multiple topics now have 3-4 sources)* |
-| Content opportunities in pipeline | **80+** *(33+ lessons / 24+ guides / 21+ tools / 11 originals)* |
-| Market gaps identified | **42** |
+| Topic syntheses written | **0** *(deferred — user prefers more ingestion first)* |
+| Content opportunities in pipeline | **100+** *(40+ lessons / 31+ guides / 28+ tools / 14 originals)* |
+| Market gaps identified | **50** |
 | Cross-source conflicts being tracked | **1** *(CLV: LOSB-as-skill-signal vs Sharper-as-deepity)* |
+| Cross-source syntheses ready | **1** *(Favorite-bias × Longshot-bias coexistence: Levitt 2004 + MV 2022)* |
 
-**Last update:** Sharper (Pokerjoe / Richard Bennet, 2016 rev. 2021) — first pass complete. Note at `notes/sharper-pokerjoe.md`. **Key findings:**
+**Last update:** Mathletics (Wayne L. Winston, Princeton 2009/2012) — first pass complete on Part IV gambling chapters + Ch 11 (Streakiness) + Ch 35-36 (Game fixing / Donaghy) + Ch 37 (End-game). Note at `notes/mathletics-winston.md`. **Key findings:**
+- **THE quantitative-foundations source.** Where MV is the *behavioral-finance* academic, Mathletics is the *applied-statistics* academic. Foundational operational math for every probabilistic claim PPS will make.
+- **The σ values:** NFL margin σ=13.86 (Stern 1991), NBA σ=12, NCAAB σ=10, CFB σ=16 (Sagarin). **Foundational reference material for every spread-to-probability calculator PPS will build.**
+- **Spread → Probability translation** is operational and quantifiable using the normal distribution + sport-specific σ. Direct calculator content.
+- **The Levitt 2004 finding** (NFL favorites cover <50%; bookies earn 6%+ not the textbook 4.5%): peer-reviewed empirical evidence that bookmakers structurally exploit favorite-bias. Sample: 20,000 bettors, 2001 NFL season. **Direct quantitative support for Ban-or-Bankrupt + cross-validates Sharper's "books charge what their clientele will tolerate."**
+- **Streakiness doesn't exist** under proper statistical testing. Most "hot streaks" are random; Albright's hot-hand analysis shows year-to-year streakiness doesn't persist. Mass-market betting content trades on momentum narratives that the math refutes. Massive content opportunity.
+- **Kelly Criterion derivation + sensitivity table** — clean mathematical treatment. Pair with Sharper's operational humility for full operational picture (at 60% winners, betting 30%+ of bankroll *destroys* your bankroll despite the edge).
+- **The Levitt × MV cross-source synthesis surfaced** — favorite-bias (Levitt, NFL spread market) and longshot-bias (MV, moneyline markets) **coexist in the same bettors at different decision points.** Two biases, two markets, same squares. No public source makes this connection. **PPS-original synthesis content ready.**
+- **Statistical detection of game fixing** (Donaghy: p=0.005 z-test; Wolfers/HB college basketball debate). Foundation for the Ban-or-Bankrupt paper's integrity section.
+- **Monte Carlo simulation methodology** — operational template for series-win probability and tournament bracket simulators.
+
+**Earlier update:** Sharper (Pokerjoe / Richard Bennet, 2016 rev. 2021) — first pass complete. Note at `notes/sharper-pokerjoe.md`. **Key findings:**
 - **The operational-tactical companion to LOSB.** Where LOSB is "how the business works," Sharper is "here's the spreadsheet formula." Two-source convergence on most LOSB themes + heavy operational depth.
 - **Direct LOSB cross-citation** in Ch 6 — Pokerjoe recommends LOSB on linemaking; the books are in explicit dialogue.
 - **First cross-source conflict surfaced:** ⚠️ **CLV.** LOSB positions CLV ≥ half the hold as the #1 long-run profitability predictor. Sharper calls CLV partly a *deepity* (Dennett) — tautological for line grinders, partial signal for handicappers, and the closing line is not always the most efficient line. **PPS reconciliation candidate ready** (CLV as necessary-not-sufficient; distinguish handicapper-CLV from grinder-CLV).
@@ -74,6 +86,7 @@ Now have enough material from three sources (industry-analytical + journalistic 
 | Everybody Loses | Danny Funt | 2024-2025 | **comprehensive first pass complete** | All 12 chapters mapped at appropriate depth. Deep: Intro, Ch 1, 5, 10, 11. Skim: 2-4, 6-9, 12. Strong on industry critique, ban-or-bankrupt naming, PASPA history, profiling/limiting, league hypocrisy, beard economy, addiction-and-public-health, bookmaker bloodbath, state tax history, historical foundations, integrity/corruption, UK precedent. |
 | Betting Without Beta | Moskowitz & Vasudevan | 2022 | **first pass complete (academic paper)** | THE academic primary source. Resolves FLB causality (preferences, not beliefs) via Moneyline-vs-Spread differencing on 36,609 games. Implied volatility smile parallel to options markets. Unifying behavioral framework across betting + finance. 40+ peer-reviewed citations cataloged. Yale + NBER + AQR credentials. |
 | Sharper | True Pokerjoe (Richard Bennet) | 2016 (rev. 2021) | **first pass complete** | Operational-tactical companion to LOSB. Spreadsheet formulas for vig-free line, push frequencies, buying points, Kelly, alt-line decisions. Risk-free + free-play promo math. CLV-as-deepity critique. Trailing-vs-leading-edge concept. Three-pronged handicapping taxonomy. Wong teaser case study. Direct LOSB cross-citation. |
+| Mathletics | Wayne L. Winston | 2009 (rev. 2012) | **first pass complete on Part IV + scattered relevant chapters** | THE quantitative-foundations academic source. Sport σ values (NFL 13.86, NBA 12, NCAAB 10, CFB 16) for spread→probability translation. Levitt 2004 finding on bookmaker favorite-bias exploitation. Kelly derivation + sensitivity table. Streakiness debunking. Donaghy detection methodology. Monte Carlo for series/tournaments. Princeton University Press credentials. |
 
 ### Queued (in `source-pdfs/`, not yet processed)
 
@@ -118,6 +131,10 @@ Updated after every book read. This is the "where does sports betting knowledge 
 - **Juice (theoretical hold) is the bookie's business; for sharps the operative variable is *price* on the side they want.** A -1000/+800 line carries ~2% juice — less than -110/-110 (4.55%). *(Sharper Ch 5, mathematically demonstrated)*
 - **Published edges decay as the market absorbs them.** NFL turnover system (57.7% → ~49%), Wong teasers (Ganchrow's Heritage fix), the public-system survivorship problem. *(Sharper Ch 8 + Ganchrow primary source)*
 - **Three legitimate handicapping skill tests:** ATS results (large sample needed), CLV (with caveats — see Conflict #1 below), forward-linemaking (single weekend possible). *(Sharper Ch 18 + Ch 22; partial overlap with LOSB)*
+- **The final margin of a sports game ≈ Normal(predicted margin, σ)** where σ ≈ 13.86 for NFL, 12 for NBA, 10 for NCAAB, 16 for CFB. Foundation for every spread→probability translation. *(Mathletics Ch 43; Stern 1991, *American Statistician* + Sagarin)*
+- **Bookmakers exploit bettor favorite-bias to earn actual hold above the textbook 4.5%** — Levitt's 2001 NFL sample showed actual bookie profit was ~6.16% per $10 bet (~23% above the balanced-action theoretical hold). NFL home favorites cover 48.8%; visiting favorites 46.7% (1980-2001). *(Mathletics Ch 39, citing Levitt 2004 *Economic Journal*; cross-validates Sharper's "books charge what their clientele tolerates" and Funt's hold-inflation narrative)*
+- **Streakiness and "hot hand" largely don't exist under proper statistical testing.** Year-to-year streakiness doesn't persist among MLB hitters (Albright); NBA team streakiness explained by random variation (Mathletics' 2002-3 z-test analysis). Mass-market betting content trades on momentum narratives the math refutes. *(Mathletics Ch 11)*
+- **Kelly's edge-protection math is rigorous: betting above optimal-f destroys bankroll despite positive edge.** At 60% winners, betting >30% of bankroll guarantees long-run decline. *(Mathletics Ch 44; complements Sharper's fractional-Kelly humility)*
 
 ### Where sources conflict (cross-source reconciliations)
 
@@ -134,6 +151,19 @@ Updated after every book read. This is the "where does sports betting knowledge 
   4. **The three skill tests from Sharper (ATS results, CLV with caveats, forward-linemaking) are a better composite signal** than CLV alone.
 
 This reconciliation can become its own PPS content piece: "What CLV actually measures (and what it doesn't)." Genuine cross-source synthesis content; unique in market.
+
+#### Cross-Source Synthesis #1 (not a conflict — a *both/and* combination): Favorite-Bias and Longshot-Bias Coexist
+
+- **Claim (Levitt 2004, via Mathletics Ch 39):** NFL point-spread bettors are biased toward favorites. Books exploit this by inflating favorite spreads. NFL home favorites cover 48.8% of the time; visiting favorites 46.7% (1980-2001). Bettors lose ~6.16% per $10 bet vs the 4.55% theoretical hold.
+- **Claim (Moskowitz & Vasudevan 2022):** Sports bettors exhibit Favorite-Longshot Bias (FLB) on the moneyline — underdog returns are systematically lower than favorite returns. Driven by lottery preferences (overweighting rare big-win events).
+- **Apparent contradiction:** Levitt says squares love favorites; MV says squares love underdogs.
+- **PPS synthesis (no public source has this):** **The biases are not contradictory; they live in different markets and decision points.**
+  1. On the *spread*, squares are biased toward the favorite (Levitt — overconfidence in named-brand teams covering big margins). Books exploit this with inflated favorite spreads.
+  2. On the *moneyline*, squares are biased toward the underdog (MV — lottery-preference for rare-but-big underdog wins). Books exploit this with FLB-inflated underdog moneyline prices.
+  3. **The same square can simultaneously be (a) overpaying for a favorite ATS and (b) overpaying for an underdog moneyline.** It's the same bettor with different biases at different decision points.
+  4. **Bookmakers structurally exploit both directions.** This is the empirical core of the Ban-or-Bankrupt economics.
+
+This synthesis is ready to ship as a PPS Original: **"The Two Biases You Carry to the Sportsbook" (Levitt + MV)** — distinctive, brand-aligned, math-anchored, peer-reviewed citations on both sides.
 
 **Tracking template (used when we find more):**
 - **Claim:** [what one source says]
@@ -169,6 +199,14 @@ This reconciliation can become its own PPS content piece: "What CLV actually mea
 24. **Generic points vs spread points** (push-frequency-adjusted) — power-rating edges don't translate 1:1 to betting edges. *(Sharper Ch 26)*
 25. **The "bet more on faves, less on dogs at equal edge" Kelly adjustment** — Sharper operating practice; combines naturally with MV's FLB framework. *(Sharper Ch 17 + MV cross-pollination)*
 26. **The sharp-books roster + structural explanation** — Pinnacle, Circa, Heritage, Bookmaker, Westgate. PPS Tier-Map gets named candidates. *(Sharper Ch 10 + LOSB)*
+27. **The Levitt 2004 finding** — peer-reviewed empirical evidence that NFL favorites cover <50% and bookies earn ~6% not 4.5%. Largely invisible to retail bettors. *(Mathletics Ch 39, citing Levitt 2004)*
+28. **Spread → probability translation is rarely explained operationally.** Public content quotes "the line implies X%" without showing the normal-distribution math. *(Mathletics Ch 43)*
+29. **The σ values for each sport** (NFL 13.86, NBA 12, NCAAB 10, CFB 16) are foundational reference material that's nowhere in mass-market content. *(Mathletics Ch 43)*
+30. **Peer-reviewed evidence against streakiness / "hot hand"** is invisible to mass-market bettors who consume momentum-narrative content daily. *(Mathletics Ch 11; Albright; Gilovich)*
+31. **No good public Kelly sensitivity lookup tool** — Mathletics provides the table, no public site has built the interactive version. *(Mathletics Ch 44)*
+32. **The favorite-bias × longshot-bias coexistence** — neither Levitt nor MV makes the cross-reference; PPS-original synthesis. *(Cross-source #1)*
+33. **"Statistical signal ≠ tradable signal"** — sophistication concept rarely surfaced (e.g., ref-bias is real but the Total Line incorporates it; you can't profit from it). *(Mathletics Ch 39)*
+34. **The Wolfers/Heston-Bernhardt point-shaving debate** is academic-only; bettors deserve an accessible summary. *(Mathletics Ch 35)*
 
 *(Each new book will surface more. Migration to `content-opportunities.md` happens as items mature.)*
 
@@ -214,7 +252,8 @@ library/
 │   ├── logic-of-sports-betting-miller-davidow.md
 │   ├── everybody-loses-danny-funt.md
 │   ├── betting-without-beta-moskowitz-vasudevan.md
-│   └── sharper-pokerjoe.md
+│   ├── sharper-pokerjoe.md
+│   └── mathletics-winston.md
 ├── topics/                        ← cross-book topic syntheses (empty for now)
 └── our-book/                      ← eventual public manuscript (long-term)
 ```
@@ -247,7 +286,16 @@ Topics that will get their own `topics/{topic}.md` synthesis once we have 2-3+ b
 | `vig-free-line-calculation` | MV ✓ · Sharper ✓ (with formula) | 🟢 ready to draft |
 | `push-frequencies` | Sharper ✓ (primary) | 🟢 ready to draft — Sharper is THE source |
 | `buying-and-selling-points` | Sharper ✓ (primary) | 🟢 ready to draft |
-| `kelly-criterion-and-sizing` | Sharper ✓ (primary) | 🟢 ready to draft — Sharper is the operational source |
+| `kelly-criterion-and-sizing` | Sharper ✓ + Mathletics ✓ (derivation + sensitivity) | 🟢 ready to draft — full operational + mathematical treatment |
+| `spread-to-probability` | Mathletics ✓ (primary) | 🟢 ready to draft — Mathletics is THE source |
+| `normal-distribution-game-outcomes` | Mathletics ✓ (primary) | 🟢 ready to draft |
+| `monte-carlo-simulation-betting` | Mathletics ✓ (primary) | 🟢 ready to draft |
+| `streakiness-and-hot-hand` | Mathletics ✓ (primary) | 🟢 ready to draft — Mathletics is THE source |
+| `levitt-2004-bookmaker-exploits-bias` | Mathletics ✓ (primary) | 🟢 ready to draft |
+| `favorite-bias-vs-longshot-bias` | Mathletics + MV cross-synthesis | 🟢 ready to draft — **PPS-original** |
+| `game-fixing-detection` | Mathletics ✓ (Donaghy + Wolfers/HB) | 🟢 ready to draft |
+| `referee-bias` | Mathletics ✓ | 🟢 ready to draft |
+| `home-field-advantage` | Mathletics ✓ + Sharper ✓ (compressed values) | 🟢 ready to draft |
 | `sharp-line-construction` | LOSB ✓ · Sharper ✓ (names the books) | 🟢 ready to draft |
 | `square-vs-sharp-thinking` | Sharper ✓ (primary) · LOSB ✓ (1-5 scale variant) | 🟢 ready to draft |
 | `price-vs-juice` | Sharper ✓ (primary) | 🟢 ready to draft — Sharper is THE source |
@@ -276,11 +324,12 @@ Topics that will get their own `topics/{topic}.md` synthesis once we have 2-3+ b
 2. ✅ ~~Process Everybody Loses (Funt).~~ (Complete — all 12 chapters mapped.)
 3. ✅ ~~Process Moskowitz & Vasudevan academic paper.~~ (Complete — academic-credibility tier secured.)
 4. ✅ ~~Process Sharper (Pokerjoe).~~ (Complete — operational tier + first cross-source conflict surfaced: CLV.)
-5. **Next book decision point.** Top candidates:
-   - **Mathletics (Winston, 390pp)** — math/probability foundations including Kelly, variance, value-of-volatility. Complements MV's behavioral angle and operationalizes Sharper's Kelly material. **Recommendation.**
-   - **Wong (Sharp Sports Betting, 355pp)** — older-era foundational. Likely high redundancy with LOSB+Sharper for operations, but foundational-era voice may seed pedagogy.
+5. ✅ ~~Process Mathletics (Winston).~~ (Complete — quantitative-foundations tier + Levitt 2004 finding + first PPS-original cross-source synthesis.)
+6. **Next book decision point.** Top candidates:
+   - **Konik (Smart Money, 355pp)** — Billy Walters narrative; cross-pollinates with Funt journalistic angle. Adds sharp-pro biography to library. **Recommendation if continuing ingestion** — adds a narrative-source we don't have yet.
+   - **Wong (Sharp Sports Betting, 355pp)** — older-era foundational. Likely high redundancy with LOSB+Sharper+Mathletics for operations.
    - **Appelbaum (Everything Guide, 335pp)** — curriculum-level intro; useful for Path 01 mapping.
-   - **Konik (Smart Money, 355pp)** — Billy Walters narrative; cross-pollinates with Funt journalistic angle.
+   - **Complete Book of Sports Betting (30pp)** — quick-skim only, likely dated.
 6. **Spin up first `topics/` syntheses.** With 4 sources, the topics most ready to draft (multi-source or single-strong-source + PPS-original-content):
    - `closing-line-value` — **flagship synthesis (Conflict #1 reconciliation)**
    - `bonus-conversion` — **flagship (combined LOSB + Sharper full promo treatment)**
