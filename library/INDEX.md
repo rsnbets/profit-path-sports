@@ -10,13 +10,21 @@ The living document that synthesizes everything PROFITPATH knows about modern sp
 
 | Metric | Current |
 |---|---|
-| Books processed (comprehensive first pass) | **2** *(LOSB priority complete + Funt comprehensive)* |
+| Books processed (comprehensive first pass) | **3** *(LOSB priority + Funt comprehensive + Moskowitz/Vasudevan academic)* |
 | Books queued in `source-pdfs/` | **3** *(Wong, Konik, Appelbaum)* |
-| Topic syntheses written | **0** *(ready to spin up — most topics now have 2 sources)* |
-| Content opportunities in pipeline | **50+** *(20+ lessons / 15+ guides / 10+ tools / 6 originals)* |
-| Market gaps identified | **25** |
+| Topic syntheses written | **0** *(ready to spin up — most topics now have 2-3 sources)* |
+| Content opportunities in pipeline | **60+** *(24+ lessons / 18+ guides / 13+ tools / 8 originals)* |
+| Market gaps identified | **31** |
 
-**Last update:** Everybody Loses (Funt) — comprehensive first pass complete. Deep read on Ch 1, 5, 10, 11; skim w/ thesis capture on Ch 2-4, 6-9, 12. Note at `notes/everybody-loses-danny-funt.md`. **Key findings:**
+**Last update:** Betting Without Beta (Moskowitz & Vasudevan, Yale 2022) — first pass complete on the academic paper. Note at `notes/betting-without-beta-moskowitz-vasudevan.md`. **Key findings:**
+- **THE academic primary source.** Yale + NBER + AQR institutional credentials; resolves PPS's "where's the peer-reviewed credibility?" gap for the Ban-or-Bankrupt paper
+- **Favorite-Longshot Bias (FLB) is driven by preferences, not beliefs** — proven via novel Moneyline-vs-Spread differencing on 36,609 college and pro basketball + football games
+- **Implied volatility smile parallel to options markets** — sports betting contracts on extreme favorites/underdogs show higher implied volatility, qualitatively AND quantitatively similar to options
+- **One unified preference model** (Cumulative Prospect Theory with α ≈ γ ≈ 0.65, λ = 1) explains both FLB in sports betting AND low-risk anomalies in equities, options, bonds, commodities
+- **40+ peer-reviewed citations cataloged** — the bibliographic foundation the Ban-or-Bankrupt paper needs
+- **Methodological move worth borrowing:** differencing two contract types that vary in only one attribute isolates the causal variable
+
+**Earlier update:** Everybody Loses (Funt) — comprehensive first pass complete. Deep read on Ch 1, 5, 10, 11; skim w/ thesis capture on Ch 2-4, 6-9, 12. Note at `notes/everybody-loses-danny-funt.md`. **Key findings:**
 - **Ban-or-Bankrupt model is named within the industry** ("the European model") — Robert Walker (former MGM Mirage), Ch 5
 - **Population-level cost data:** NJ Rutgers 2023: 21% of sports bettors wished they were dead, 10% attempted suicide
 - **The bookmaker bloodbath:** 24+ operators failed since 2018; DraftKings cumulative EBITDA −$4.3B 2018-2023; FanDuel + DraftKings = ~75% market share
@@ -25,7 +33,7 @@ The living document that synthesizes everything PROFITPATH knows about modern sp
 - **The UK precedent ignored** (Joshua Grubbs: "I have not spoken to a single state legislature that was reading the research out of the UK")
 - **Matt Davidow (LOSB co-author) features in Funt Ch 11** — direct cross-pollination between our two primary sources
 
-Now have enough material from two sources to spin up topic syntheses + draft significant sections of the research paper.
+Now have enough material from three sources (industry-analytical + journalistic + academic) to spin up topic syntheses + draft significant sections of the research paper, including its behavioral-finance section grounded in peer-reviewed citations.
 
 ---
 
@@ -52,6 +60,7 @@ Now have enough material from two sources to spin up topic syntheses + draft sig
 |---|---|---|---|---|
 | The Logic of Sports Betting | Miller & Davidow | 2019 | **priority chapters + pedagogy + pain points complete** | Strong on industry structure, profiling, market making, props, marketing, hold-chopping, weak markets, CLV. Secondary chapters pending later pass. |
 | Everybody Loses | Danny Funt | 2024-2025 | **comprehensive first pass complete** | All 12 chapters mapped at appropriate depth. Deep: Intro, Ch 1, 5, 10, 11. Skim: 2-4, 6-9, 12. Strong on industry critique, ban-or-bankrupt naming, PASPA history, profiling/limiting, league hypocrisy, beard economy, addiction-and-public-health, bookmaker bloodbath, state tax history, historical foundations, integrity/corruption, UK precedent. |
+| Betting Without Beta | Moskowitz & Vasudevan | 2022 | **first pass complete (academic paper)** | THE academic primary source. Resolves FLB causality (preferences, not beliefs) via Moneyline-vs-Spread differencing on 36,609 games. Implied volatility smile parallel to options markets. Unifying behavioral framework across betting + finance. 40+ peer-reviewed citations cataloged. Yale + NBER + AQR credentials. |
 
 ### Queued (in `source-pdfs/`, not yet processed)
 
@@ -89,6 +98,9 @@ Updated after every book read. This is the "where does sports betting knowledge 
 - **The fan-team relationship is transformed by betting: cheering for the spread instead of the team, fans booing meaningless points that cost them bets.** *(Funt + Bradley + Stern testimony)*
 - **Athlete harassment from gamblers exploded after 2018 legalization (NCAA's word: "wildfire").** *(Funt + NCAA's Hangebrauck)*
 - **Sportsbooks limit accounts they *anticipate* will win, not just those that *have* won.** *(Funt's beard experiment + Crab Sports pre-bet rejection)*
+- **The Favorite-Longshot Bias (FLB) — underdog bets earn systematically lower risk-adjusted returns than favorite bets — is driven by bettor *preferences* (lottery love), not by mistaken *beliefs* about outcomes.** *(Moskowitz & Vasudevan 2022 — definitive empirical resolution via 36,609-game Moneyline-vs-Spread test)*
+- **Sports betting markets are a clean research laboratory for behavioral finance: contingent claims, idiosyncratic outcomes, no systematic risk, observable termination.** *(Thaler & Ziemba 1988 → Moskowitz & Vasudevan 2022 — methodological consensus)*
+- **The same preference framework (Cumulative Prospect Theory with probability weighting + diminishing sensitivity) explains both sports-betting FLB and equity/options low-risk anomalies — one model, two markets.** *(Moskowitz & Vasudevan 2022)*
 
 ### Where sources conflict (cross-source reconciliations)
 
@@ -112,6 +124,11 @@ Updated after every book read. This is the "where does sports betting knowledge 
 8. **Go-For-Broke deposit-bonus math** — provably correct, runs against universal "grind it out" advice. **Brand-aligned, contrarian, high-clickability.** *(LOSB)*
 9. **Chopping-the-Hold as a unified mental model** — sharp bettors apply intuitively; novices never learn the framework. *(LOSB)*
 10. **Free play longshot rule** — trivial math, almost never explained publicly. *(LOSB)*
+11. **Academic FLB research is invisible to bettors.** Most "betting strategy" content cites zero peer-reviewed work; bettors don't know economists have been studying the Favorite-Longshot Bias since 1949 (Griffith). *(Moskowitz & Vasudevan)*
+12. **Implied volatility for sports betting contracts** — Moskowitz & Vasudevan constructed an IV surface as a research artifact; no consumer tool exposes it. **First-of-kind product opportunity.** *(MV)*
+13. **The behavioral-finance ↔ sports-betting bridge** is rare in public content. Plenty of stock-bias content; plenty of betting-strategy content; almost nothing connecting them despite Moskowitz's explicit framework. *(MV)*
+14. **The "lottery preference" diagnosis** — bettors don't know that preferring underdogs is a well-documented bias (Cumulative Prospect Theory's probability weighting), traceable to their stock-market behavior too. *(MV)*
+15. **The MLB/NHL no-FLB anomaly** — niche but counter-intuitive content. Why does FLB show up in NCAAF / NCAAB / NBA / NFL but not in baseball or hockey? *(MV via Woodland & Woodland 1994/2001, Gil & Levitt 2007)*
 
 *(Each new book will surface more. Migration to `content-opportunities.md` happens as items mature.)*
 
@@ -119,7 +136,9 @@ Updated after every book read. This is the "where does sports betting knowledge 
 
 Original or extended frameworks that emerge from cross-source synthesis (not just lifted from any one book):
 
-1. **The Ban-or-Bankrupt Equilibrium** — Now explicitly named in industry by Robert Walker (former MGM Mirage, via Funt ch 5) as "the European model." PPS contribution: formalize the equilibrium model — when limiting works, when it fails, how it scales with market maturity, when it's stable vs unstable, social cost vs revenue trade-offs. Source-validated and ready for paper-grade development.
+1. **The Ban-or-Bankrupt Equilibrium** — Now explicitly named in industry by Robert Walker (former MGM Mirage, via Funt ch 5) as "the European model." PPS contribution: formalize the equilibrium model — when limiting works, when it fails, how it scales with market maturity, when it's stable vs unstable, social cost vs revenue trade-offs. **Now also grounded in peer-reviewed behavioral-finance work via Moskowitz & Vasudevan 2022** — if sharps (who would correct underdog mispricing) get limited, lottery-preference sets the marginal price unopposed, *worsening* FLB at retail books. Source-validated and ready for paper-grade development with academic citations.
+2. **Preference-distortion at retail vs sharp books** — extending MV's framework: their data is cross-sportsbook closing-line. PPS extension: do FLB magnitudes differ at FanDuel/DraftKings (recreational-skewed) vs Circa/South Point (sharp action allowed)? This is a *new* empirical question MV doesn't address but the framework supports.
+3. **The implied volatility surface for sports betting** — MV built it as a research artifact. PPS extension: operationalize it as a public tool. Input ML + Spread on a game → output the lottery-preference distortion factor.
 
 *(Will grow as we synthesize across more books.)*
 
@@ -152,7 +171,9 @@ library/
 ├── content-opportunities.md       ← shippable content pipeline (with status tags)
 ├── source-pdfs/                   ← raw PDFs (gitignored)
 ├── notes/                         ← per-book synthesis files
-│   └── logic-of-sports-betting-miller-davidow.md
+│   ├── logic-of-sports-betting-miller-davidow.md
+│   ├── everybody-loses-danny-funt.md
+│   └── betting-without-beta-moskowitz-vasudevan.md
 ├── topics/                        ← cross-book topic syntheses (empty for now)
 └── our-book/                      ← eventual public manuscript (long-term)
 ```
@@ -165,34 +186,44 @@ Topics that will get their own `topics/{topic}.md` synthesis once we have 2-3+ b
 
 | Topic slug | Books contributing | Status |
 |---|---|---|
-| `industry-structure-and-regulation` | LOSB ✓ · Funt (queued) | 🔵 needs 2nd source |
-| `account-profiling` | LOSB ✓ · Funt (queued) · Wong (queued) | 🔵 needs 2nd source |
-| `pricing-inefficiencies` | LOSB ✓ · Wong (queued) · *Interception* (future) | 🔵 needs 2nd source |
-| `market-making-and-price-discovery` | LOSB ✓ | 🔵 needs 2nd source (Wong should help) |
+| `industry-structure-and-regulation` | LOSB ✓ · Funt ✓ | 🟢 ready to draft |
+| `account-profiling` | LOSB ✓ · Funt ✓ · Wong (queued) | 🟢 ready to draft |
+| `pricing-inefficiencies` | LOSB ✓ · MV ✓ · Wong (queued) | 🟢 ready to draft |
+| `market-making-and-price-discovery` | LOSB ✓ · MV ✓ (sharp-book closing-line analysis) | 🟢 ready to draft |
 | `closing-line-value` | LOSB ✓ | 🔵 needs 2nd source (Wong, Appelbaum) |
 | `chopping-the-hold` | LOSB ✓ | 🔵 unique to LOSB so far |
 | `weak-vs-strong-markets` | LOSB ✓ | 🔵 needs Wong corroboration |
 | `props-and-derivatives` | LOSB ✓ | 🔵 needs 2nd source |
 | `bonus-conversion` | LOSB ✓ (go-for-broke math) | 🔵 PPS in-house knowledge fills out the practical side |
 | `in-play-betting-and-delay` | LOSB ✓ | 🔵 needs Funt corroboration |
-| `dark-patterns-behavioral-design` | LOSB ✓ (in-play delay only) | 🔵 main material expected from Funt + Scientific American |
-| `parlays-and-sgps` | LOSB ✓ · Wong (queued) | 🔵 needs 2nd source |
-| `psychology-of-the-bettor` | LOSB (light) | 🔵 needs Funt + academic papers |
-| `industry-fragility` | LOSB ✓ | ⚪ unique to LOSB so far |
-| `expected-value-foundations` | LOSB ✓ · Wong/Appelbaum (queued) | 🔵 needs 2nd source |
+| `dark-patterns-behavioral-design` | LOSB ✓ · Funt ✓ | 🟢 ready to draft |
+| `parlays-and-sgps` | LOSB ✓ · Funt ✓ · Wong (queued) | 🟢 ready to draft |
+| `psychology-of-the-bettor` | LOSB (light) · Funt ✓ · MV ✓ | 🟢 ready to draft — now with academic backbone |
+| `industry-fragility` | LOSB ✓ · Funt ✓ (bookmaker bloodbath) | 🟢 ready to draft |
+| `expected-value-foundations` | LOSB ✓ · MV ✓ · Wong/Appelbaum (queued) | 🟢 ready to draft |
 | `devig-methods` | LOSB (light) | 🔵 needs deeper source |
 | `kelly-criterion-and-sizing` | (not yet covered in depth) | 🔵 needs Wong + dedicated source |
+| `favorite-longshot-bias` | MV ✓ (primary) | 🟢 ready to draft — MV is THE source |
+| `behavioral-finance-and-sports-betting` | MV ✓ (primary) | 🟢 ready to draft |
+| `cumulative-prospect-theory-applications` | MV ✓ (primary) | 🟢 ready to draft |
+| `probability-weighting` | MV ✓ | 🟢 ready to draft |
+| `diminishing-sensitivity` | MV ✓ | 🟢 ready to draft |
+| `low-risk-anomalies-cross-market` | MV ✓ | 🟢 ready to draft (cross-market angle) |
+| `implied-volatility-and-betting` | MV ✓ | 🟢 ready to draft — novel concept |
+| `historical-academic-foundations` | MV ✓ (Griffith → Thaler & Ziemba → present) | 🟢 ready to draft — bibliographic spine |
+| `market-efficiency-sports-betting` | MV ✓ (secondary) | 🔵 needs Wong corroboration |
 
 ---
 
 ## Next moves (set by current state)
 
-1. ✅ ~~Finish Logic of Sports Betting priority chapters.~~ (Complete — all 7 priority chapters synthesized.)
-2. **Process Everybody Loses (Funt)** — opens the industry-critique angle. Will unlock topic syntheses for `account-profiling`, `dark-patterns-behavioral-design`, `industry-structure-and-regulation`.
-3. **Then Sharp Sports Betting (Wong)** — older-era foundational math. Will corroborate / contrast LOSB on market making, parlays, devig, Kelly.
-4. After 2-3 books done, spin up first `topics/` syntheses on the most cross-referenced subjects.
-5. After 3-5 books done, re-rank `content-opportunities.md`. The current shortlist (Hold Chopper, Go-For-Broke Bonus Method, Market-Makers-vs-Retail guide, Tier-Map) is already strong enough to potentially ship something from the LOSB material alone.
-6. After ~10 books processed: the index is mature enough to draft the Ban-or-Bankrupt paper from the synthesis (not from any one source).
+1. ✅ ~~Finish Logic of Sports Betting priority chapters.~~ (Complete.)
+2. ✅ ~~Process Everybody Loses (Funt).~~ (Complete — all 12 chapters mapped.)
+3. ✅ ~~Process Moskowitz & Vasudevan academic paper.~~ (Complete — academic-credibility tier secured.)
+4. **Next book decision point.** Top candidates: **Sharper (PokerJoe, 129pp)** — short, modern strategy. Or **Wong (Sharp Sports Betting, 355pp)** — older-era foundational math, would corroborate LOSB market making + parlays + devig. Or **Mathletics (Winston)** — math/probability foundations to firm up the EV foundations and reach Kelly. Recommendation: **Sharper next** — short, modern, complements LOSB tactically before stepping into the older Wong.
+5. **Spin up first `topics/` syntheses.** Most cross-referenced + ready-to-draft now: `account-profiling`, `industry-structure-and-regulation`, `psychology-of-the-bettor`, `favorite-longshot-bias`, `pricing-inefficiencies`. With three sources we have triangulation on several.
+6. **Ship a first piece.** Top candidates: Hold Chopper (LOSB-only, ready), Go-For-Broke Bonus Method (LOSB-only, ready), Market-Makers-vs-Retail guide (LOSB-only, ready). MV unlocks a new flagship-quality option: **"The Favorite-Longshot Bias paper, in plain English"** (PPS Original — reputation-builder).
+7. After ~10 books processed: the index is mature enough to draft the Ban-or-Bankrupt paper from the synthesis, with MV providing the peer-reviewed citation spine.
 
 ---
 

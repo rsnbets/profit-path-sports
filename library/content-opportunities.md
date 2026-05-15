@@ -26,6 +26,10 @@ Rolled up from every `notes/` synthesis. As we process more books, this file gro
 | Bet during timeouts only (defeats the in-play delay) | LOSB Sportsbook Marketing | 🟢 | Actionable tactical lesson |
 | The "go for broke" deposit-bonus method | LOSB Sportsbook Marketing | 🟢 | Counter-intuitive but math-proven; brand-aligned |
 | The free play longshot rule | LOSB Sportsbook Marketing | 🟢 | Trivial math, almost never explained publicly |
+| Why your gut wants the underdog — and why your gut is wrong | MV (FLB) | 🟢 | Plain-English FLB explanation; Path 01 candidate |
+| The bias you have in betting is the bias you have in stocks | MV (cross-market) | 🟢 | Distinctive — bridges betting and finance for a PPS reader |
+| What's a "lottery preference"? (And why it costs you money) | MV (probability weighting) | 🟢 | Plain-English Cumulative Prospect Theory |
+| Why FLB doesn't show up in MLB or NHL betting | MV (footnote 1; Woodland & Woodland) | 🟡 | Niche but counter-intuitive |
 
 ## Guides (deep-dive pages)
 
@@ -38,7 +42,10 @@ Rolled up from every `notes/` synthesis. As we process more books, this file gro
 | Why your in-play bet takes 8 seconds to confirm (and what to do) | LOSB Sportsbook Marketing | 🟢 | Exposé content; names pattern without naming books |
 | In-play modeling errors by sport | LOSB Sportsbook Marketing (p211 chart) | 🟡 | Long-tail SEO; sport-by-sport content |
 | Why a 0.25% federal tax structurally kills market making | LOSB Sportsbook Business Models | ⚪ | Policy-adjacent, narrower audience |
-| **The Ban-or-Bankrupt Equilibrium** (research paper + digestible guide pair) | LOSB + Funt (pending) + journalism | 🟡 | Already in roadmap; firms up after Funt processed |
+| **The Ban-or-Bankrupt Equilibrium** (research paper + digestible guide pair) | LOSB + Funt + MV + journalism | 🟢 | Now has industry-analytical + journalistic + peer-reviewed academic sources. Ready to outline. |
+| The Favorite-Longshot Bias: 75 years of research, in plain English | MV (Griffith → Thaler & Ziemba → Snowberg & Wolfers → MV) | 🟢 | Citation-anchored long-form deep-dive. Bibliographic spine in MV note. |
+| Implied volatility in sports betting | MV (IV smile section) | 🟢 | Novel content — no sportsbook content site explains this |
+| Behavioral finance for sports bettors | MV (cross-market bridge) | 🟢 | Path 03-aligned, distinctive |
 
 ## Tools / calculators
 
@@ -52,6 +59,9 @@ Rolled up from every `notes/` synthesis. As we process more books, this file gro
 | **In-Play Delay Detector** | LOSB Sportsbook Marketing | 🟡 | Times submit-to-confirm gap at chosen book. Needs API/extension |
 | CLV Performance Tracker (with the "half the hold" benchmark) | LOSB Strong vs Weak Markets | 🟢 | Already partly in Bet Tracker; emphasize the threshold |
 | Sharpness Profile Diagnostic | LOSB Sportsbook Business Models | ⚪ | Engaging hook, hard to validate |
+| **Implied Volatility Calculator** (sports betting contracts) | MV (IV surface methodology) | 🟡 | Input ML + Spread → output implied volatility / lottery distortion. First-of-kind. MEDIUM build |
+| "Are you a lottery-preference bettor?" Diagnostic | MV (FLB self-test) | 🟡 | Profile last 20 bets, show FLB tilt. Self-knowledge tool |
+| FLB Magnitude by Sport | MV (cross-sport patterns) | ⚪ | Visualization showing FLB across NCAAF / NCAAB / NBA / NFL and absence in MLB/NHL |
 
 ## PPS Originals (in-house content no one else publishes)
 
@@ -61,6 +71,8 @@ Rolled up from every `notes/` synthesis. As we process more books, this file gro
 | How sportsbooks decide what to charge for the bet you want | LOSB Market Making | 🟢 | 1500-word plain-English explainer |
 | **The Hold Chopper** (calc + guide pair) | LOSB Chopping the Hold | 🟢 | Original-quality, sits alongside Bet X-Ray |
 | **The Go-For-Broke Bonus Method** | LOSB Sportsbook Marketing | 🟢 | Counter-intuitive math + accompanying calc; brand-aligned |
+| **The Favorite-Longshot Bias paper, in plain English** | MV | 🟢 | Library-style reputation piece — PPS reads academic research for bettors |
+| **The Ban-or-Bankrupt Equilibrium** (paper) | LOSB + Funt + MV + journalism | 🟢 | Now peer-reviewed-citation-anchored. Bedrock research piece |
 
 ## Market gaps identified
 
@@ -76,6 +88,11 @@ Things this library has surfaced that **nothing public explains well**:
 8. **Go-For-Broke deposit-bonus math** — provably correct, runs against universal "grind it out" advice. **Brand-aligned, contrarian, high-clickability.** *(LOSB)*
 9. **Chopping-the-Hold as a unified mental model** — sharp bettors apply intuitively; novices never learn the framework. *(LOSB)*
 10. **Free play longshot rule** — trivial math, rarely explained. *(LOSB)*
+11. **Academic FLB research is invisible to bettors.** No "betting strategy" content cites peer-reviewed work; PPS can be the bridge. *(MV)*
+12. **No public tool computes implied volatility for sports betting contracts.** MV built the analysis as a research artifact. **First-of-kind product opportunity.** *(MV)*
+13. **The behavioral-finance ↔ sports-betting bridge is missing from public content** despite Moskowitz's explicit framework. PPS can own this angle. *(MV)*
+14. **The "lottery preference" self-diagnosis** — bettors don't know that preferring underdogs is a documented bias that also affects their stock portfolio. *(MV)*
+15. **The MLB/NHL no-FLB anomaly** — counter-intuitive niche content. *(MV via Woodland & Woodland, Gil & Levitt)*
 
 ---
 
@@ -89,7 +106,7 @@ After every 3-5 books processed:
 
 After 10 books processed: build the first `library/topics/` syntheses around the most cross-referenced topic tags. Those become the source of truth for the corresponding content pieces.
 
-## Current priority shortlist (LOSB-only state)
+## Current priority shortlist (LOSB + Funt + MV state)
 
 If we shipped one thing from this pipeline tomorrow, top candidates ranked by ratio of (impact × differentiation × ease):
 
@@ -98,3 +115,6 @@ If we shipped one thing from this pipeline tomorrow, top candidates ranked by ra
 3. **"Market makers vs retail books"** guide — fills the biggest market gap (#1), high SEO potential
 4. **The Sportsbook Tier-Map** tool — directly actionable, builds the moat (no one else has this)
 5. **"How sportsbook prices actually get made"** lesson — Path 01 staple, demolishes a myth a lot of bettors hold
+6. **"The Favorite-Longshot Bias paper, in plain English"** (PPS Original) — reputation-builder; signals PPS reads peer-reviewed research for bettors. New flagship option from the MV note
+7. **"Behavioral finance for sports bettors"** guide — distinctive content; bridges two reader interests (betting + 401k). New from MV
+8. **The Leagues' 180** (PASPA-testimony reversal) guide — Funt source; flagship credibility piece for `/research/`
