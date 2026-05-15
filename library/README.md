@@ -69,6 +69,24 @@ Honest assessment. We'll need this for reconciliation.
 ## Where we'd extend or disagree
 PPS's POV on the material.
 
+## Pedagogical patterns
+How the author teaches — what we can borrow, what to avoid.
+The published book has already done significant work figuring out
+how to explain hard concepts. Track:
+  - **Effective analogies** (memorable, accurate, transferable)
+  - **Sequencing tricks** (build assumption → flip it; concrete → abstract; etc.)
+  - **Borrowed mental models** (using reader's existing frames)
+  - **Counter-intuitive delivery patterns** (how they cushion surprising claims)
+  - **Worked examples vs abstract math** (when do they switch?)
+  - **Permission-giving language** (cushion phrases, foreshadowing, etc.)
+  - **Named-character scenarios** (Spencer-the-trader, "your friend with the gold")
+  - **Voice / tone moves** (self-deprecation, direct address, etc.)
+  - **What they choose NOT to explain** (assumed background, deferrals)
+  - **Where they lose clarity** (overload, jargon, etc. — what to avoid)
+
+Each item: a short observation + 1-2 example references. Becomes
+the meta-layer for HOW PPS teaches across all our content.
+
 ## Content opportunities this book seeds
 What PPS could ship informed by this material:
   - Lessons (curriculum pieces) — concepts to teach plainly

@@ -226,6 +226,58 @@ Same free play at -200 (70% true): EV = 0.70 × $50 = $35.
 - **Name the equilibrium.** Miller/Davidow describe the components of the ban-or-bankrupt dynamic without naming it as a formal equilibrium. PROFITPATH's contribution: formalize the model.
 - **Extend Chopping-the-Hold into a calculator.** Miller treats it as a mental model; we can make it interactive.
 
+## Pedagogical patterns
+
+How Miller teaches — what we can borrow, what to avoid. The book is dense but rarely loses the reader; the patterns are worth lifting.
+
+### Effective analogies
+- **The Gold Shop** (p43-44, reused p59-60). Persistent multi-chapter analogy: retail gold shop Googles "price of gold" and adjusts buy/sell around it; market-maker shop discovers price by quoting. Reused later to explain why retail books can't "move on action" without getting scalped. **The reuse is the key move** — invest in one strong analogy and amortize it across chapters.
+- **Mike McDermott / "spot the sucker"** (p7). Borrows a mental model the reader already has (Rounders) and extends it. Cheap, effective.
+- **Spencer the junior trader** (p149-150). Names a hypothetical book employee and walks his learning curve. Gives the abstract "books can adapt over time" a face.
+- **Mongolian netball** (p220). Throwaway example for "I could beat any market with a negative hold." Absurd-sport reference gets a laugh while making the point indelible — the concept attaches to the absurdity.
+
+### Sequencing tricks
+- **Build assumption → flip it.** Parlays chapter (p36-39): walks the reader through the "parlays hold 12.5% — bad!" assumption with worked numbers, then dismantles it ("Parlays don't hold more. They make you bet more"). The flip is the punchline; the setup makes it land.
+- **Concrete scenario before abstract concept.** Market Making chapter: "Let's say I'm a sportsbook and I want to make markets for college football... I just post every game PK -110..." (p45-47). The full mechanical walk-through before naming "price discovery."
+- **Provoking question → answer.** "Where does that number come from?" (p41). Sets up the demolition of the Vegas-oracle myth.
+- **Foreshadowing.** "I'll explain price discovery in detail in just a moment" (p42). Signals patience to the reader; reduces the urge to skim.
+
+### Counter-intuitive delivery
+- **The Go-For-Broke math.** Sets up the obvious assumption ("grind out the rollover, that's how bonuses work"), then walks the math step-by-step to the counter-conclusion. Critically: shows it two different ways (theoretical loss calculation + bankroll-end calculation) because he KNOWS readers won't trust the first proof. "I know this still likely seems like voodoo math, so I will break it down a different way as well" (p215).
+- **"Don't aim for 60%."** Anticipates the reader's instinct ("higher hit rate must be better") and inverts it with a logical proof, not data. The argument lands because it's mechanically clean ("Why pass on a 54% bet that wins?").
+
+### Worked examples > abstract math
+Almost every math claim uses **specific dollar amounts** and **named teams/sports**, not variables. "Let's say you have $500 deposit + $500 bonus" not "let stake S and bonus B." Examples reference real sports (NFL Sunday, Alabama, Knicks-Bucks) for grounding even when the specifics don't matter. **Lesson for PPS:** plug in real teams and dollar amounts, even in conceptual lessons. Variables alienate.
+
+### Permission-giving language
+- "Okay before I move on there's an exception to this concept big enough that I have to mention it." (p38). Signals scope; reader trusts they'll get the whole picture.
+- "Honestly, I couldn't tell you how often I've heard that advice." (p36). Self-deprecating, conversational; lowers the activation energy for the counter-claim that follows.
+- "TL;DR" replacement: "**Parlays don't hold more. They make you bet more money.**" (p38). Bold one-line summaries used as breaks; let readers re-emerge if they zoned out.
+
+### Voice / tone moves
+- **Direct address throughout.** "You" not "the bettor."
+- **Self-deprecating humor** to defuse big claims. "I hope Vegas gets paid overtime because that sounds like a lot of work for one guy" (p41). Disarms a potentially defensive reader.
+- **Wry asides.** "Then again, this is the actual perverse math of these bonus things" (p214). Calls out his own counter-intuition; reader stays with him.
+- **Bullets** used sparingly, mostly for enumerated processes (the 6-step prop finding, in-play modeling errors). Otherwise narrative paragraphs.
+
+### What he chooses NOT to explain
+- **The actual data work.** Repeatedly defers modeling/quant analysis to "another book" — keeps focus on logic + structure.
+- **Specific operator names.** Lawyerly — never says "FanDuel is a retail book." Trades citability for safety.
+- **Probability theory foundations.** Assumes reader can do basic implied-probability math; doesn't re-derive break-even percentages from scratch.
+
+### Where the book loses clarity (less common)
+- **Tax / regulatory section** (p55-56) gets dense fast. Three different tax types mentioned in close succession without a clean visual aid; a chart of "tax type → who pays → on what base" would help.
+- **The 1-5 profiling system** is described in prose without a visual. A simple "category → behavior pattern → book's response" table would land it better.
+
+### Net takeaways for PPS teaching style
+1. **Pick a few strong analogies and reuse them** across multiple lessons (like Miller's gold shop).
+2. **Plug in real teams and real dollar amounts** even in conceptual content.
+3. **Set up the wrong assumption explicitly before flipping it** — the flip is the lesson; the setup makes the flip land.
+4. **Show counter-intuitive math two different ways.** Readers won't trust one proof.
+5. **Use direct address and self-deprecating asides.** Trust-builders.
+6. **Bold one-line summaries between sections.** "[Bold claim in one sentence]." for re-entry points.
+7. **Defer rather than skim.** "I'll explain X later" is more honest than a half-baked aside.
+
 ## Content opportunities this book seeds
 
 ### Lessons (curriculum)
