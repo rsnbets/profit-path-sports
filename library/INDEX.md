@@ -10,14 +10,13 @@ The living document that synthesizes everything PROFITPATH knows about modern sp
 
 | Metric | Current |
 |---|---|
-| Books processed (full synthesis) | **0** |
-| Books processed (partial — priority chapters) | **1** *(Logic of Sports Betting)* |
-| Books queued in `source-pdfs/` | **5** |
+| Books processed (priority chapters complete) | **1** *(Logic of Sports Betting)* |
+| Books queued in `source-pdfs/` | **4** *(Funt, Wong, Konik, Appelbaum)* |
 | Topic syntheses written | **0** *(starts after 3-5 books processed)* |
-| Content opportunities in pipeline | **9** |
-| Market gaps identified | **4** |
+| Content opportunities in pipeline | **27** *(10 lessons / 8 guides / 8 tools / 4 originals)* |
+| Market gaps identified | **10** |
 
-**Last update:** First synthesis pass on Logic of Sports Betting (Miller & Davidow, 2019). See `notes/logic-of-sports-betting-miller-davidow.md`.
+**Last update:** Logic of Sports Betting (Miller & Davidow, 2019) — all priority chapters synthesized (Introduction, Market Making, Sportsbook Business Models, Strong vs Weak Markets, Props, Sportsbook Marketing, Chopping The Hold). Note at `notes/logic-of-sports-betting-miller-davidow.md`. Secondary chapters (Public Money, Multiway Markets, Angles, How Do I Know If I'm Winning, etc.) flagged for later pass.
 
 ---
 
@@ -42,7 +41,7 @@ The living document that synthesizes everything PROFITPATH knows about modern sp
 
 | Book | Authors | Year | Status | Synthesis quality |
 |---|---|---|---|---|
-| The Logic of Sports Betting | Miller & Davidow | 2019 | **partial — priority chapters complete** | Strong on industry structure, profiling, market making; pending: marketing, props, angles, chopping the hold |
+| The Logic of Sports Betting | Miller & Davidow | 2019 | **priority chapters complete** | Strong on industry structure, profiling, market making, props, marketing, hold-chopping, weak markets, CLV. Secondary chapters (Public Money, Angles, Multiway, etc.) pending later pass. |
 
 ### Queued (in `source-pdfs/`, not yet processed)
 
@@ -61,12 +60,19 @@ Updated after every book read. This is the "where does sports betting knowledge 
 
 ### What's well-established (multi-source consensus, when we have multiple sources)
 
-*(Will populate as multiple books confirm overlapping findings. After Logic of Sports Betting alone, this section reads as single-source claims.)*
+*(Currently single-source claims from LOSB only. Will firm up to "consensus" as Wong, Funt, etc. confirm.)*
 
-- Sportsbook line-making relies heavily on copying from market makers, not independent pricing at every book. *(Source: LOSB; expected confirmation from Wong, Interception.)*
+- Sportsbook line-making relies heavily on copying from market makers, not independent pricing at every book. *(LOSB)*
 - Market makers and retail books operate as fundamentally different business models. *(LOSB)*
 - Customer profiling for sharpness is standard practice at both market makers (to set prices) and retail books (to limit winners). *(LOSB)*
 - Sports betting is a multiplayer adversarial game, structurally unlike casino games. *(LOSB)*
+- CLV ≥ half the hold over hundreds of bets is a strong predictor of long-term profitability. *(LOSB)*
+- Weak markets (single market maker, low limits, derivatives, props) are where exploitable edges live. *(LOSB)*
+- Props create a "massive attack surface" of mispriced or stale markets that books can't keep current. *(LOSB)*
+- Most retail sportsbooks add 4-8 second delays to in-play bets, which (combined with TV delay) makes hold-bearing in-play betting structurally unwinnable for casual bettors. *(LOSB — directly named; will look for corroboration in Funt)*
+- The "chopping-the-hold" mental model — start with the book's hold, subtract via cross-book shopping, angles, and cross-derivative comparison — is the operating strategy of winning bettors. *(LOSB)*
+- Sportsbook marketing budgets (deposit bonuses, free play, odds boosts, rebates) are a temporary but real profit pool for skilled bettors during industry expansion phases. *(LOSB)*
+- The math of deposit bonuses *favors "go for broke" strategies* over grinding the rollover, when the rollover requirement is meaningfully high. *(LOSB — counter-conventional but mathematically proven)*
 
 ### Where sources conflict (cross-source reconciliations)
 
@@ -80,13 +86,16 @@ Updated after every book read. This is the "where does sports betting knowledge 
 
 ### Gaps in public content (PPS opportunities to be the first/best)
 
-1. **The market-maker vs. retail-book dichotomy** — completely absent from public sportsbook comparison content. Every comparison site rates on features/promos, never on business model. **Massive gap.** *(Surfaced from LOSB.)*
-
-2. **Lines are mostly copied, not independently set** — public betting media frames every line move as unique market intelligence; reality is one market-maker's price propagating through the system. *(LOSB.)*
-
-3. **The 1-5 sharpness profiling system** — sharps know they get tagged; recreationals have no idea. Nobody publicly explains the spectrum, what moves you on it, or what to do about it. *(LOSB.)*
-
-4. **Parlay-volume math** — the common "don't play parlays they hold 12.5%" advice is wrong-in-mechanism. The right framing (parlays multiply effective betting volume, not edge) is missing from public discourse. *(LOSB.)*
+1. **The market-maker vs retail-book dichotomy** — completely absent from public sportsbook comparison content. Every comparison rates on features/promos, never business model. **Massive gap.** *(LOSB)*
+2. **Lines are mostly copied, not independently set** — public betting media frames every line move as unique market intelligence. *(LOSB)*
+3. **The 1-5 sharpness profiling system** — sharps know they get tagged; recreationals have no idea. *(LOSB)*
+4. **Parlay-volume math** — common advice is wrong-in-mechanism (volume amplifier, not bad bets). *(LOSB)*
+5. **CLV specific benchmark (>50% of hold over hundreds of bets)** — everyone says "track CLV"; nobody states the threshold that actually predicts profitability. *(LOSB)*
+6. **"Attack weak markets" as the operating thesis** — every winning bettor does this; almost never spelled out for newer ones. Most public guides teach NFL/NBA, the *strongest* markets. *(LOSB)*
+7. **The in-play 4-8s sportsbook delay** — widely experienced, almost never named or explained. *(LOSB)*
+8. **Go-For-Broke deposit-bonus math** — provably correct, runs against universal "grind it out" advice. **Brand-aligned, contrarian, high-clickability.** *(LOSB)*
+9. **Chopping-the-Hold as a unified mental model** — sharp bettors apply intuitively; novices never learn the framework. *(LOSB)*
+10. **Free play longshot rule** — trivial math, almost never explained publicly. *(LOSB)*
 
 *(Each new book will surface more. Migration to `content-opportunities.md` happens as items mature.)*
 
@@ -122,15 +131,21 @@ Topics that will get their own `topics/{topic}.md` synthesis once we have 2-3+ b
 
 | Topic slug | Books contributing | Status |
 |---|---|---|
-| `industry-structure-and-regulation` | LOSB ✓ · Funt (queued) | 🔵 needs 2nd source before synthesis |
+| `industry-structure-and-regulation` | LOSB ✓ · Funt (queued) | 🔵 needs 2nd source |
 | `account-profiling` | LOSB ✓ · Funt (queued) · Wong (queued) | 🔵 needs 2nd source |
 | `pricing-inefficiencies` | LOSB ✓ · Wong (queued) · *Interception* (future) | 🔵 needs 2nd source |
-| `expected-value-foundations` | LOSB ✓ · Wong (queued) · Appelbaum (queued) | 🔵 needs 2nd source |
+| `market-making-and-price-discovery` | LOSB ✓ | 🔵 needs 2nd source (Wong should help) |
+| `closing-line-value` | LOSB ✓ | 🔵 needs 2nd source (Wong, Appelbaum) |
+| `chopping-the-hold` | LOSB ✓ | 🔵 unique to LOSB so far |
+| `weak-vs-strong-markets` | LOSB ✓ | 🔵 needs Wong corroboration |
+| `props-and-derivatives` | LOSB ✓ | 🔵 needs 2nd source |
+| `bonus-conversion` | LOSB ✓ (go-for-broke math) | 🔵 PPS in-house knowledge fills out the practical side |
+| `in-play-betting-and-delay` | LOSB ✓ | 🔵 needs Funt corroboration |
+| `dark-patterns-behavioral-design` | LOSB ✓ (in-play delay only) | 🔵 main material expected from Funt + Scientific American |
 | `parlays-and-sgps` | LOSB ✓ · Wong (queued) | 🔵 needs 2nd source |
-| `psychology-of-the-bettor` | LOSB (light) · academic papers (separate track) | 🔵 needs Funt + dark-patterns research |
+| `psychology-of-the-bettor` | LOSB (light) | 🔵 needs Funt + academic papers |
 | `industry-fragility` | LOSB ✓ | ⚪ unique to LOSB so far |
-| `dark-patterns-behavioral-design` | (not yet covered) | 🔵 pending Funt + Scientific American material |
-| `closing-line-value` | (not yet covered in depth) | 🔵 pending |
+| `expected-value-foundations` | LOSB ✓ · Wong/Appelbaum (queued) | 🔵 needs 2nd source |
 | `devig-methods` | LOSB (light) | 🔵 needs deeper source |
 | `kelly-criterion-and-sizing` | (not yet covered in depth) | 🔵 needs Wong + dedicated source |
 
@@ -138,11 +153,12 @@ Topics that will get their own `topics/{topic}.md` synthesis once we have 2-3+ b
 
 ## Next moves (set by current state)
 
-1. Finish Logic of Sports Betting priority chapters (Marketing, Chopping Hold, Strong/Weak, Props).
-2. Process Everybody Loses (Funt) — opens the industry-critique angle and unlocks topic syntheses for `account-profiling` and `dark-patterns-behavioral-design`.
-3. After 2 books done, spin up first `topics/` syntheses on the most cross-referenced subjects.
-4. After 3-5 books done, re-rank `content-opportunities.md` and pick the first 🟢 items to ship as actual PPS content (lessons, guides, tools).
-5. After ~10 books processed: the index is mature enough to draft the Ban-or-Bankrupt paper from the synthesis (not from any one source).
+1. ✅ ~~Finish Logic of Sports Betting priority chapters.~~ (Complete — all 7 priority chapters synthesized.)
+2. **Process Everybody Loses (Funt)** — opens the industry-critique angle. Will unlock topic syntheses for `account-profiling`, `dark-patterns-behavioral-design`, `industry-structure-and-regulation`.
+3. **Then Sharp Sports Betting (Wong)** — older-era foundational math. Will corroborate / contrast LOSB on market making, parlays, devig, Kelly.
+4. After 2-3 books done, spin up first `topics/` syntheses on the most cross-referenced subjects.
+5. After 3-5 books done, re-rank `content-opportunities.md`. The current shortlist (Hold Chopper, Go-For-Broke Bonus Method, Market-Makers-vs-Retail guide, Tier-Map) is already strong enough to potentially ship something from the LOSB material alone.
+6. After ~10 books processed: the index is mature enough to draft the Ban-or-Bankrupt paper from the synthesis (not from any one source).
 
 ---
 
