@@ -1,6 +1,16 @@
 # PPS Library
 
-The synthesized knowledge base behind PROFITPATH Sports content. Source material lives here, gets distilled into notes, then synthesized across topics, then turned into our own published work.
+The synthesized knowledge base behind PROFITPATH Sports — the institutional memory of the entire site.
+
+**This is not a research project for one paper. It's the spine of every guide, lesson, tool, and content piece PPS ships going forward.** Every book we process here surfaces:
+
+- Frameworks and concepts to teach (→ lessons)
+- Specific tactics to operationalize (→ guides)
+- Math that can be made interactive (→ calculators)
+- Gaps in the public market — things no one's explaining well (→ originals)
+- Citations and authority for everything we publish
+
+Source material lives here, gets distilled into notes, synthesized across topics, then turned into the actual products visitors see.
 
 ## Directory layout
 
@@ -55,6 +65,26 @@ Honest assessment. We'll need this for reconciliation.
 ## Where we'd extend or disagree
 PPS's POV on the material.
 
+## Content opportunities this book seeds
+What PPS could ship informed by this material:
+  - Lessons (curriculum pieces) — concepts to teach plainly
+  - Guides (deep-dive pages) — angles to explore in depth
+  - Tools (calculators / interactive) — math worth making clickable
+  - Originals — frameworks no one else has ported into plain English
+
+Each item: one-line description + a confidence tag (HIGH / MEDIUM /
+SPECULATIVE) for whether the book's evidence supports it.
+
+## Market gaps this book reveals
+Things this book covers that nothing in the public market does well:
+  - Concepts widely misunderstood (correction opportunities)
+  - Math no public tool exposes
+  - Strategies talked about but never explained step-by-step
+  - Industry practices no one explains in newbie language
+
+Each item: one-line description + why it's a gap (no one's done it /
+done badly / behind a paywall / etc.).
+
 ## Direct quotes (sparingly, with page numbers)
 For attribution when we cite later.
 
@@ -105,14 +135,20 @@ For cross-referencing into /topics/.
 - The PDFs themselves stay gitignored.
 - Anything we publish (paper, guides, eventual book) is our original work informed by these sources.
 
-## Long-term vision
+## What the library generates
 
-| Tier | Output | Audience |
-|------|--------|----------|
-| 1 | The library itself (notes + topics) | Internal reference |
-| 2 | "The Ban-or-Bankrupt Equilibrium" research paper | Press, policy, academic search |
-| 3 | "How the Books Really Work" digestible guide | Bettors, conversion |
-| 4 | PPS book manuscript (eventual) | Authority asset |
-| 5 | PPS Curriculum (college-class shape) | Long-term moat |
+The library isn't a tier system — it's a content engine. Every book processed feeds into multiple output streams:
 
-Each tier draws from the one above it. The library is the foundation everything rests on.
+| Output stream | What it produces |
+|---|---|
+| **Lessons** (Paths 01–03 curriculum) | Plain-English concept teaching, fed by `notes/` and `topics/` |
+| **Deep-dive guides** | Long-form pages on specific angles (e.g., "How sportsbooks really set prices") |
+| **Calculators / tools** | Math we expose interactively — many tool ideas surface in book notes |
+| **PPS Originals** | Frameworks no one else has ported into plain English (Bet X-Ray, Triple Stack — and more to come) |
+| **The Ban-or-Bankrupt Research Paper** | One specific scholarly-style output, drawing from `topics/industry-structure-and-regulation.md` and related |
+| **Eventual PPS book** | Long-form manuscript synthesizing the whole library |
+| **The PPS Curriculum** | College-class-shaped catalog of every concept the library covers |
+
+Each `notes/` file flags **content opportunities** explicitly. After every 3-5 books we roll those up into a master pipeline doc (`library/content-opportunities.md`) so we can see across the whole library what to ship next.
+
+The library is also our **market gap detector** — when we read across books, we naturally surface concepts and tactics nobody has explained well publicly. Those gaps are PPS's content roadmap.

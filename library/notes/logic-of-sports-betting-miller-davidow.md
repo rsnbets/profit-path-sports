@@ -118,6 +118,38 @@ Use as: the plain-English explanation for why retail sportsbooks DON'T move on a
 - **Add the **dark-pattern / behavioral-design** layer Miller/Davidow don't cover.** Their analysis stops at line-making and customer-curation; the behavioral UX (push notifications, cashout offers, parlay builders) is where modern sportsbook profitability now lives. The paper extends the framework to cover this. Tied to Funt (Everybody Loses) and Scientific American dark-patterns reporting.
 - **Name the equilibrium.** Miller/Davidow describe the components of the ban-or-bankrupt dynamic but don't name it as a formal equilibrium. PROFITPATH's contribution: formalize the model.
 
+## Content opportunities this book seeds
+
+### Lessons (curriculum)
+- **"How sportsbook prices actually get made"** — the 3 line-making methods, demolishing the Vegas-oracle myth. Newbie-friendly Path 01 lesson. **HIGH** confidence.
+- **"What 'sharp money pounding the line' really means"** — debunks sports-betting-media narratives about line movement. Brief, viral-friendly. **HIGH**.
+- **"Why parlays don't actually hold more"** — counter-intuitive math reframe; parlays = volume amplifiers, not bad bets per se. **HIGH**.
+- **"How books grade you (the 1-5 scale)"** — explanatory lesson; what behaviors push you up/down. **MEDIUM** (don't overclaim it's a real exact system).
+
+### Guides (deep-dive pages)
+- **"Market makers vs retail books — and why it matters which one you bet with"** — 9-dimension cross-tab from this book, with practical "find your book's tier" implications. **HIGH**.
+- **"The copy-chain fragility"** — most prices you see are reflections of one book's price. What that means for arbitrage, integrity monitoring, regulatory risk. **HIGH**.
+- **"Why a 0.25% federal tax kills market making"** — policy-adjacent piece for a more sophisticated audience. **SPECULATIVE** (smaller audience, narrower angle).
+
+### Tools
+- **Sportsbook Tier-Map** (or "Book Profile Estimator") — a maintained list/visualization of which books act more market-maker vs more retail, with limit-tolerance scoring. Helps users decide where to open accounts. **HIGH** value, **MEDIUM** to build (needs ongoing maintenance).
+- **"Estimated sharpness profile" diagnostic** — input your betting history snippet → estimate where you sit on the 1-5 scale and what'd push you up. **SPECULATIVE** (hard to operationalize without real data, but engaging hook).
+- **Parlay True Volume Calculator** — exposes the math that parlays multiply your effective volume. Plugs into existing Parlay Calculator. **MEDIUM**.
+
+### Originals
+- **The "Ban-or-Bankrupt Equilibrium" paper** — already planned. This book is its analytical spine.
+- **"How sportsbooks decide what to charge for the bet you want to make"** plain-English original piece — Miller/Davidow's market-making chapter as a 1500-word PPS Original. **HIGH**.
+
+## Market gaps this book reveals
+
+What's in this book that the public market doesn't explain well anywhere else:
+
+- **The market-maker / retail dichotomy is essentially absent from public sportsbook reviews.** Every comparison site rates "FanDuel vs DraftKings" on features and promos. Nobody explains that they have **fundamentally different business models** that affect whether YOU'LL get limited. Massive content gap. (No one / paywalled / siloed in industry-only Discord groups.)
+- **The "lines are copied" reveal is hidden from casual bettors.** Public sports-betting media treats line movement as if every book independently sets prices. The copy-chain reality is rarely surfaced for a general audience. Gap.
+- **The 1-5 profiling system is privately known but never operationalized for bettors.** Sharps know they get tagged; recreationals have no idea. Nobody explains the spectrum, what moves you on it, or what to do about it. Big gap.
+- **Parlay-volume math** is widely misunderstood. The standard advice ("don't play parlays, they hold 12.5%") is *wrong in mechanism* even when correct in outcome. The right framing (parlays multiply your betting volume) is almost never explained publicly. Gap.
+- **The integrity-fee / tax-policy analysis** is in industry trade press but never makes it to bettors. A "what would change if sports leagues got their 1% cut" piece is missing from public discourse. Smaller gap, more niche.
+
 ## Direct quotes (sparingly, with page numbers)
 
 > "If you can't spot the sucker in your first half hour at the table, then you are the sucker." (p7 — Rounders / Mike McDermott citation Miller borrows)
