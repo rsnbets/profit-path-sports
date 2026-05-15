@@ -10,13 +10,22 @@ The living document that synthesizes everything PROFITPATH knows about modern sp
 
 | Metric | Current |
 |---|---|
-| Books processed (priority chapters complete) | **2** *(LOSB + Funt partial)* |
+| Books processed (comprehensive first pass) | **2** *(LOSB priority complete + Funt comprehensive)* |
 | Books queued in `source-pdfs/` | **3** *(Wong, Konik, Appelbaum)* |
-| Topic syntheses written | **0** *(spinning up after Funt Ch 10 + 11)* |
-| Content opportunities in pipeline | **35+** *(14 lessons / 12 guides / 10 tools / 5 originals)* |
-| Market gaps identified | **18** |
+| Topic syntheses written | **0** *(ready to spin up — most topics now have 2 sources)* |
+| Content opportunities in pipeline | **50+** *(20+ lessons / 15+ guides / 10+ tools / 6 originals)* |
+| Market gaps identified | **25** |
 
-**Last update:** Everybody Loses (Danny Funt) — Intro + Ch 1 (Original Sin, partial) + Ch 5 (Winners Not Welcome, deep). Note at `notes/everybody-loses-danny-funt.md`. **Key finding: Funt explicitly names "ban or bankrupt" as the industry's operating model via Nevada bookmaker Robert Walker — direct validation of the PROFITPATH research paper's framework.** Funt's PointsBet trader interviews + DraftKings CEO/employee quotes + the author's own beard experiment confirm LOSB's analytical claims from the outside. Remaining Funt chapters (Ch 10 We Have a Problem + Ch 11 The House Doesn't Always Win + Ch 1 finish) pending next session.
+**Last update:** Everybody Loses (Funt) — comprehensive first pass complete. Deep read on Ch 1, 5, 10, 11; skim w/ thesis capture on Ch 2-4, 6-9, 12. Note at `notes/everybody-loses-danny-funt.md`. **Key findings:**
+- **Ban-or-Bankrupt model is named within the industry** ("the European model") — Robert Walker (former MGM Mirage), Ch 5
+- **Population-level cost data:** NJ Rutgers 2023: 21% of sports bettors wished they were dead, 10% attempted suicide
+- **The bookmaker bloodbath:** 24+ operators failed since 2018; DraftKings cumulative EBITDA −$4.3B 2018-2023; FanDuel + DraftKings = ~75% market share
+- **FanDuel CEO Amy Howe announced (Oct 2024)** plan to push hold from 12% → 16% by 2030 — direct hold-inflation roadmap
+- **The historical foundations:** vig (1907), point spread (1930s), props (1986), bookmaking software (mid-1980s) — bookmaking innovations are 40-115 years old
+- **The UK precedent ignored** (Joshua Grubbs: "I have not spoken to a single state legislature that was reading the research out of the UK")
+- **Matt Davidow (LOSB co-author) features in Funt Ch 11** — direct cross-pollination between our two primary sources
+
+Now have enough material from two sources to spin up topic syntheses + draft significant sections of the research paper.
 
 ---
 
@@ -41,8 +50,8 @@ The living document that synthesizes everything PROFITPATH knows about modern sp
 
 | Book | Authors | Year | Status | Synthesis quality |
 |---|---|---|---|---|
-| The Logic of Sports Betting | Miller & Davidow | 2019 | **priority chapters + pedagogy complete** | Strong on industry structure, profiling, market making, props, marketing, hold-chopping, weak markets, CLV. Secondary chapters (Public Money, Angles, Multiway, etc.) pending later pass. |
-| Everybody Loses | Danny Funt | recent | **highest-priority chapters complete** (Intro + Ch 1 partial + Ch 5 deep) | Strong on industry critique, ban-or-bankrupt naming, PASPA history, profiling/limiting first-person accounts, league hypocrisy, beard economy. Remaining 8 chapters pending. |
+| The Logic of Sports Betting | Miller & Davidow | 2019 | **priority chapters + pedagogy + pain points complete** | Strong on industry structure, profiling, market making, props, marketing, hold-chopping, weak markets, CLV. Secondary chapters pending later pass. |
+| Everybody Loses | Danny Funt | 2024-2025 | **comprehensive first pass complete** | All 12 chapters mapped at appropriate depth. Deep: Intro, Ch 1, 5, 10, 11. Skim: 2-4, 6-9, 12. Strong on industry critique, ban-or-bankrupt naming, PASPA history, profiling/limiting, league hypocrisy, beard economy, addiction-and-public-health, bookmaker bloodbath, state tax history, historical foundations, integrity/corruption, UK precedent. |
 
 ### Queued (in `source-pdfs/`, not yet processed)
 
