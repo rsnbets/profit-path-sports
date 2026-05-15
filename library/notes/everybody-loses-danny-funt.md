@@ -197,6 +197,65 @@ Super Bowl 2024: unfamiliar customer wants to bet $300k on 49ers. South Point di
 - **Extend the cost-side accounting.** Funt documents the cost to athletes, fans, addicts. We should extend to a more rigorous "social cost vs revenue" comparison (academic sources on addiction-attributable economic loss, integrity-incident frequency, etc.).
 - **Disagree with the implied "this should never have happened" framing.** PPS is pro-bettor, not anti-legalization. Our position: legalization happened; given it happened, here's how to win as a bettor and how to make it better as a society. Different conclusion than Funt's but compatible analysis.
 
+## Reader pain points exposed
+
+Funt is a goldmine for pain points. Where LOSB hits analytical insights, Funt hits the *feeling* of being on the wrong end of the modern sportsbook industry. PPS can lead content with these emotional hooks and then deliver the math.
+
+### "I won big and they punished me for it"
+**The Beau Wagner pain.** You finally get a good read, you size up confidently, you win $50,000 — and the morning after, your max bet on a player prop is $3.63. The book that retweeted your win is now the book that wants you gone. Universal pain point: *winning is supposed to be the goal; being penalized for it is a betrayal.*
+
+→ Use for: an opening to "Why DraftKings doesn't want you to win" or "What 'limited account' actually looks like."
+
+### "I'm doing math the way they hate"
+**The shopping-for-the-best-price pain.** Quote from Markus Ericsen (NJ bettor): *"If I was in the mall and four different stores have the same pair of sneakers, I'm going to see who's got the lowest price. Why do I get punished for doing that with sports lines?"* The exact same behavior that's smart in any other market gets you flagged at sportsbooks.
+
+→ Use for: an opening to "Market makers vs retail books" or the Hold Chopper guide.
+
+### "I'm being treated like a problem for being decent at this"
+**The mid-wit pain.** The PointsBet trader categorization: people who bet exactly $1,000 on a $1,000 risk-free offer are "mid-wits" — competent enough to be profitable, not sharp enough to hide. Many readers ARE that person. Pain point: *thinking you're playing the game smart, and being told you're too smart to be wanted, and not smart enough to avoid detection.*
+
+→ Use for: "How books decide you're sharp in 3 bets" lesson.
+
+### "I love sports less now"
+**The Josh Reid pain.** IT consultant from Minnesota started betting hockey during the pandemic at his wife's urging. *"Gambling was sucking the joy out of hockey... I couldn't watch games without yelling at the TV."* So he bets only on sports he doesn't care about anymore. **Lost the love of the thing he started with.** Massive pain point — and PPS can address it: structured/disciplined approach lets you bet selectively without ruining fandom.
+
+→ Use for: a brand-defining piece like "How to bet without ruining sports for yourself" — Path 03-aligned.
+
+### "I'm ashamed of this and don't want to tell anyone"
+**The Eddie Walls pain.** *"I was probably more financially sound than 90 percent of the people who women were meeting online, but if I told them I was a professional gambler, there was always something that stigmatized that."* His mother tells neighbors he's a "night nurse." Pain point: *gambling carries shame even when you're winning* — the stigma persists.
+
+→ Use for: brand-positioning content that explicitly removes shame (PROFITPATH treats betting as math, not vice).
+
+### "All this effort for $30/hour"
+**The Walls/Riordan pain.** Walls reports $138k from a year of pro betting. Calculated against time invested, it's ~$30/hour. *"You could do that washing dishes."* Pain point: *the dream of pro betting is glamorized; the reality is grinding, isolating, narrow-margin, exhausting.*
+
+→ Use for: "What pro sports betting actually looks like" reality-check content. Brand-aligned: PPS is honest about what's achievable.
+
+### "They sent me a promo right after I lost $5,000"
+**The Funt-beard pain.** After Funt's account got limited on tennis but still wide-open on baseball, FanDuel sent him a 50% deposit-match promo. *"As long as I kept betting on games that couldn't possibly earn me money in the long run, the company's appetite for my business was limitless."* Pain point: *they know how you lose, and they invest in keeping you losing.*
+
+→ Use for: dark-patterns content; promo-bonus traps.
+
+### "My team won but I lost and now I hate them"
+**The "cheering in the wrong places" pain.** Bill Bradley's anecdote: Knicks win by 10 instead of 8 in the dying seconds; Madison Square Garden fans BOO the late basket because it cost them the spread. Pain point: *betting has corrupted the basic emotional reward of being a fan.* Many readers have felt it.
+
+→ Use for: a brand-defining "Should you bet on your favorite team?" guide.
+
+### "I'm getting harassment messages and I'm not even the star"
+**The Carson Barrett pain.** Walk-on player hits a meaningless 3 → death threats. Pain point: even at the margins of a sport, your humanity gets stripped because someone lost a bet. **(This one's not for the reader to identify with — it's for the reader to feel guilt or anger about. Different lever: moral pain.)**
+
+→ Use for: ethical-side content. Could be a "what we're losing" piece, or a quiet line in the PPS values/about page that says we don't lose sight of this.
+
+### "I keep cycling through accounts"
+**The Tony/Alex pain.** Pro bettors using beards, disguises, and Vegas in-person trips because their main accounts have been "fried." Pain point for the reader who's getting limited: *you'll spend more time managing accounts than betting.* The infrastructure tax on winning.
+
+→ Use for: defensive-strategy content — how to keep accounts alive longer.
+
+### "The leagues sold me out"
+**The PASPA-reversal pain.** Tagliabue (NFL) testified in 1991: "Sports gambling is evil at any age." Same league, 30 years later, has FanDuel as its official sportsbook partner. Pain point for fans: *the institutions I trusted to protect the game now have a financial interest in monetizing my fandom against me.*
+
+→ Use for: "The leagues' 180 on gambling" historical piece. Powerful framing for an audience that's noticed the shift but couldn't name it.
+
 ## Pedagogical patterns
 
 Funt is journalism. Different toolkit than Miller's analytical mode. Key moves:

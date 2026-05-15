@@ -69,6 +69,25 @@ Honest assessment. We'll need this for reconciliation.
 ## Where we'd extend or disagree
 PPS's POV on the material.
 
+## Reader pain points exposed
+Specific moments in the source where the author surfaces a pain
+point the reader feels (or has felt). These become:
+  - **Opening hooks** for PPS content ("Lead with the pain, deliver
+    the math")
+  - **Empathy bridges** — show we understand the reader's situation
+    before we sell the solution
+  - **Trust signals** — acknowledging the dark side makes us
+    credible vs hype-merchants
+  - **Lead-gen angles** — pain-point search queries (e.g., "why does
+    FanDuel keep limiting me") are real demand
+
+For each pain point: a 1-sentence description + which content
+piece could lead with it.
+
+Even a book that's analytically thin can be rich here. Hit this
+section harder when the source is journalism, memoir, or a
+beginner guide; lighter when the source is pure analytics.
+
 ## Pedagogical patterns
 How the author teaches — what we can borrow, what to avoid.
 The published book has already done significant work figuring out

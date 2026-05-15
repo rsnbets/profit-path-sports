@@ -226,6 +226,46 @@ Same free play at -200 (70% true): EV = 0.70 × $50 = $35.
 - **Name the equilibrium.** Miller/Davidow describe the components of the ban-or-bankrupt dynamic without naming it as a formal equilibrium. PROFITPATH's contribution: formalize the model.
 - **Extend Chopping-the-Hold into a calculator.** Miller treats it as a mental model; we can make it interactive.
 
+## Reader pain points exposed
+
+LOSB is analytical, so pain points show up as flashes rather than sustained themes. A few worth capturing:
+
+### "I think I know this stuff but I keep losing"
+**The 'are you the sucker?' pain.** Miller's opening: *"If you can't spot the sucker, you are the sucker."* The reader's gut response: *am I the sucker?* Pain point: the suspicion that you've been the mark all along.
+
+→ Use for: opening to Path 01 content. The lesson then promises: read this, learn what the sucker doesn't know.
+
+### "I'm doing what every gambling website says — and losing"
+**The bad-advice pain.** LOSB systematically demolishes common bettor wisdom:
+- "Don't bet parlays, they hold 12.5%" — wrong-in-mechanism
+- "Aim for 60% hit rate" — wrong target
+- "Grind out the rollover" — leaves money on the table
+- "Cashout for the sure win" — almost always −EV
+
+Pain point: *every place you've gone for advice has taught you wrong things, and the wrong things FEEL right.*
+
+→ Use for: openers to debunker content. "If you've ever been told X, you've been getting bad advice. Here's the math."
+
+### "I keep getting limited and I don't know why"
+**The blindfolded-account pain.** Miller's retail-book section explains: profile decided in 3 bets, limits ladder up, no transparent communication. Pain point for the reader: *I don't know what behavior got me flagged, the book won't tell me, and I can't fix what I can't see.*
+
+→ Use for: opener to "How books decide you're sharp" or "How to stay under the radar" content.
+
+### "I bet during the game and the spinner keeps spinning"
+**The in-play delay pain.** Miller's 4-8 second delay explanation. The reader knows this experience — they've blamed lag, network, themselves. Pain point: *what felt like bad luck or bad WiFi was actually structural.*
+
+→ Use for: opener to "Why your in-play bet takes 8 seconds" exposé.
+
+### "I should be winning, but the math keeps not adding up"
+**The hold-blindness pain.** Most readers don't realize they're betting into a 4-6% structural disadvantage *before* they even pick a side. Miller's hold-chopping framework reveals it. Pain point: *I've been competing in a game where I started in a 4-6% hole, and nobody told me.*
+
+→ Use for: opener to the Hold Chopper guide or the "How sportsbook prices actually get made" lesson.
+
+### "The whole thing feels rigged"
+**The 'maybe it IS rigged' pain.** Casual bettors sometimes voice this and get dismissed by sharps. LOSB validates the feeling structurally without endorsing the conspiratorial framing: it's not rigged per se, but the system is designed against you in specific, named, mechanical ways.
+
+→ Use for: brand-positioning. PPS takes "the system is stacked against you" seriously without devolving into "everything is fixed" — that's the credible middle.
+
 ## Pedagogical patterns
 
 How Miller teaches — what we can borrow, what to avoid. The book is dense but rarely loses the reader; the patterns are worth lifting.

@@ -110,9 +110,27 @@ Updated after every book read. This is the "where does sports betting knowledge 
 
 Original or extended frameworks that emerge from cross-source synthesis (not just lifted from any one book):
 
-1. **The Ban-or-Bankrupt Equilibrium** — Phrase derives from journalism (ESPN reporting); we formalize it as a model of how retail books balance profit against winning bettors. PPS contribution: naming the equilibrium, mapping its components, defining its instability conditions. *(In progress — will firm up as Funt + Interception material is added.)*
+1. **The Ban-or-Bankrupt Equilibrium** — Now explicitly named in industry by Robert Walker (former MGM Mirage, via Funt ch 5) as "the European model." PPS contribution: formalize the equilibrium model — when limiting works, when it fails, how it scales with market maturity, when it's stable vs unstable, social cost vs revenue trade-offs. Source-validated and ready for paper-grade development.
 
 *(Will grow as we synthesize across more books.)*
+
+### Reader pain points (the emotional/positioning lens)
+
+A separate lens tracked across each note's "Reader pain points exposed" section. Goal: identify specific emotional moments where readers feel the pain of being on the wrong end of the modern sportsbook industry. PPS uses these as **opening hooks** in content ("lead with the pain, deliver the math"), **trust signals** (we acknowledge the dark side), and **lead-gen angles** (people search pain-point queries).
+
+Standout pain points already surfaced from LOSB + Funt:
+
+- **"I won big and they punished me for it"** (Beau Wagner / FanDuel beard experiment) — the betrayal of being limited after winning
+- **"I'm shopping for prices like any normal consumer and being punished"** (Markus Ericsen) — same behavior smart in any other market is flagged at books
+- **"I love sports less now"** (Josh Reid) — losing the joy of fandom to betting
+- **"I'm ashamed of this and don't want to tell anyone"** (Eddie Walls) — stigma even when you're winning
+- **"They sent me a promo right after I lost $5k"** (Funt's experiment) — predatory promo timing
+- **"My team won but I lost and now I hate them"** (Stern's "cheering in the wrong places")
+- **"I think I know this stuff but I keep losing"** (LOSB's are-you-the-sucker)
+- **"I keep getting limited and I don't know why"** (the blindfolded-account experience)
+- **"The whole thing feels rigged"** (validated structurally without endorsing conspiracy)
+
+PPS content can lead with these emotional moments and resolve them with math/tools. A guide on "Why DraftKings doesn't want you to win" should open with Beau Wagner's story, not with a definition of profiling.
 
 ---
 
