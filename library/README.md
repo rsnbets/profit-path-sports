@@ -2,6 +2,10 @@
 
 The synthesized knowledge base behind PROFITPATH Sports — the institutional memory of the entire site.
 
+> **Start here:** [`INDEX.md`](INDEX.md) — the living master document. Current state of the field, where sources agree/conflict, gaps PPS can fill, and what content the library is feeding into next. Updated every session.
+>
+> This README documents the *workflow* (templates, conventions, copyright). The INDEX documents the *knowledge*.
+
 **This is not a research project for one paper. It's the spine of every guide, lesson, tool, and content piece PPS ships going forward.** Every book we process here surfaces:
 
 - Frameworks and concepts to teach (→ lessons)
