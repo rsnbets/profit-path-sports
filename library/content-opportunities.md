@@ -46,6 +46,18 @@ Rolled up from every `notes/` synthesis. As we process more books, this file gro
 | Sharps don't always cover: the favorite-bias trap | Mathletics Ch 39 + Levitt 2004 historical data | 🟡 | Path-01 counter-intuitive piece |
 | Statistical anomaly vs. profitable edge (refs call more fouls but you can't bet it) | Mathletics Ch 39 | 🟡 | Sophistication signal; more advanced reader |
 | The Two Biases You Carry to the Sportsbook (favorite + longshot coexistence) | Levitt + MV synthesis | 🟢 | **PPS-original synthesis; no public source has the bridge** |
+| Resulting: why you're not as good as your wins or as bad as your losses | Duke Ch 1 | 🟢 | **Flagship Path 03 lesson** — names the dominant cognitive error |
+| Life is poker, not chess (and so is betting) | Duke Ch 1 | 🟢 | Path 03 mindset lesson; audience-expansion vehicle |
+| All decisions are bets: the mindset reframe | Duke Ch 2 | 🟢 | Path 03 candidate |
+| Wanna Bet? — A 5-Minute Belief Calibration Exercise | Duke Ch 2 | 🟢 | Brand-aligned interactive tool |
+| "I'm not sure" — the most underrated phrase in betting | Duke Ch 1 | 🟢 | Counter-tout / counter-lock-of-the-week |
+| Fielding outcomes: skill bucket vs luck bucket | Duke Ch 3 | 🟢 | Path 03 candidate; foundational for bet review |
+| Decision swear jar for sports bettors | Duke Ch 6 | 🟢 | Shareable list of bettor irrationality phrases |
+| How to tilt-proof your weekend | Duke Ch 6 + Sharper | 🟢 | Ulysses contracts for bettors |
+| Backcasting your season | Duke Ch 6 | 🟡 | Apply backcasting to bankroll plan |
+| Premortem your parlay | Duke Ch 6 | 🟢 | Brand-aligned operational tool |
+| Why most cappers sound "sure" (and what that should tell you) | Duke Ch 2 + 5 | 🟢 | Counter-tout brand piece |
+| The bookmaker myth even Annie Duke repeats | Duke Ch 1-2 + Levitt + Sharper | 🟢 | Cross-source synthesis #2 lesson |
 
 ## Guides (deep-dive pages)
 
@@ -75,6 +87,11 @@ Rolled up from every `notes/` synthesis. As we process more books, this file gro
 | How NBA refs affect totals (and why you can't profit from it) | Mathletics Ch 39 ref-bias data | 🟡 | Nuanced "signal vs tradable" piece |
 | Did Tim Donaghy actually fix games? The statistics | Mathletics Ch 36 | 🟡 | Integrity case study; Ban-or-Bankrupt adjacent |
 | Are college basketball games fixed? Wolfers vs Heston-Bernhardt | Mathletics Ch 35 | 🟡 | Academic-style integrity piece |
+| **Resulting: the cognitive trap every sports bettor falls into** | Duke Ch 1 + LOSB + Sharper + Mathletics | 🟢 | **Pillar content** — flagship Path 03 guide |
+| **The 5-Tool Mental Discipline Kit for Sports Bettors** | Duke Ch 6 (10-10-10 / Ulysses / swear jar / scenario / premortem) | 🟢 | **FLAGSHIP CANDIDATE** — packaged discipline toolkit |
+| How to build a betting truthseeking group | Duke Ch 4-5 (Tetlock & Lerner + CUDOS) | 🟡 | Community-design guide |
+| Calibrated uncertainty: how sharps actually think | Duke + Sharper + MV synthesis | 🟢 | Cross-source pillar |
+| The CUDOS norms for sports-betting truthseekers | Duke Ch 5 | 🟡 | Community / brand cornerstone |
 
 ## Tools / calculators
 
@@ -99,6 +116,12 @@ Rolled up from every `notes/` synthesis. As we process more books, this file gro
 | **Deposit-Bonus Churn Calculator** | LOSB + Sharper Addendum | 🟢 | Input bonus %, rollover multiple, avg juice → expected profit |
 | **Alternate Line Comparator** | Sharper Ch 15 | 🟡 | Choose between alt-line offers by relative edge |
 | **Kelly + fractional Kelly + big-favorite warning** | Sharper Ch 17 | 🟢 | Extends what we already have; adds the favorite-penalty toggle |
+| **The Bet Review Worksheet** | Duke Ch 3 (fielding outcomes) | 🟢 | For every settled bet: was this a good decision? Was the result skill or luck? Did I just result? LOW build cost |
+| **Confidence-Calibration Tracker** | Duke Ch 2 | 🟢 | Over time, was your "70% sure" stuff actually winning ~70%? Brier-score-style |
+| **Ulysses Contract Builder** | Duke Ch 6 | 🟢 | User pre-commits to loss limits / max bet size / no in-play / parlay caps; bet tracker enforces |
+| **Decision Swear Jar Trigger** | Duke Ch 6 | 🟡 | UI feature: bettor types rationale; certain phrases trigger "Wanna bet?" prompt |
+| **10-10-10 Bet Decision Prompt** | Duke Ch 6 | 🟢 | Before bets above $X: "How will you feel about this in 10 min / 10 weeks / 10 months?" LOW build cost |
+| **Premortem Generator** | Duke Ch 6 | 🟡 | UI prompt: "Imagine this bet lost. List the reasons it could have lost." Brand-builder |
 | **Spread-to-Probability Calculator** | Mathletics Ch 43 (σ values + NORMDIST) | 🟢 | **Foundational operational tool** — input spread + sport → output P(cover) and P(win). LOW build cost |
 | **Power-Rating Difference → Implied Spread** | Mathletics Ch 40 + Sharper Ch 25 | 🟢 | Input two team ratings + home/away → implied spread + edge vs market |
 | **Kelly Sensitivity Lookup tool** | Mathletics Figure 44.1 | 🟢 | Interactive sensitivity table; user inputs win% → recommended f + growth |
@@ -123,6 +146,10 @@ Rolled up from every `notes/` synthesis. As we process more books, this file gro
 | **The Two Biases You Carry to the Sportsbook** (Levitt + MV) | Cross-source synthesis | 🟢 | **PPS-original**; reputation-builder; no public source has this bridge |
 | **The Hold Chopper Mark II** (theoretical vs actual hold via Levitt) | Mathletics Ch 39 + LOSB Hold Chopper concept | 🟡 | Extends the existing Hold Chopper concept |
 | **Sports Collapses, Ranked by Probability** | Mathletics Ch 45 | 🟡 | Viral-friendly entertainment piece |
+| **PROFITPATH Decision Discipline Framework** | Duke + LOSB + Sharper + MV synthesis | 🟢 | **FLAGSHIP CANDIDATE** — signature methodology packaging the 5-tool kit with proper citations |
+| **The Two-Bucket Tracker** | Duke Ch 3 + bet-tracker integration | 🟢 | Skill/luck fielding built into the bet tracker UI |
+| **The Bettor's Swear Jar** | Duke Ch 6 (bettor-specific version) | 🟢 | Content series — shareable, social-friendly |
+| **The Bookmaker Myth Even Smart Authors Repeat** | Duke + Levitt + Sharper synthesis #2 | 🟢 | Provocative cite-anchored brand piece |
 
 ## Market gaps identified
 
@@ -162,6 +189,13 @@ Things this library has surfaced that **nothing public explains well**:
 32. **Favorite-bias × longshot-bias coexistence** — PPS-original synthesis; no public source. *(Levitt + MV)*
 33. **Statistical signal ≠ tradable signal** — sophistication concept rarely surfaced (ref-bias is real; you can't profit from it). *(Mathletics)*
 34. **The Wolfers vs Heston-Bernhardt college-basketball debate** — academic-only; bettors deserve an accessible summary. *(Mathletics)*
+35. **The "decision quality vs outcome quality" framework** is invisible to retail bettors. *(Duke)*
+36. **Calibrated uncertainty as a betting skill** — public content trades in "lock of the week" certainty. *(Duke)*
+37. **Pre-commitment / Ulysses contracts** for bet discipline aren't operationalized. *(Duke)*
+38. **CUDOS / truthseeking-group blueprint** for betting communities is absent. *(Duke)*
+39. **The decision swear jar for sports bettors** — Annie pioneered the general concept; no betting site has the bettor-specific version. *(Duke)*
+40. **Premortem / backcasting applied to weekly slates** is absent. *(Duke)*
+41. **The Levitt-Duke contrast** — smart-author-repeats-myth — is itself a content opportunity. *(Synthesis #2)*
 
 ---
 
@@ -175,18 +209,22 @@ After every 3-5 books processed:
 
 After 10 books processed: build the first `library/topics/` syntheses around the most cross-referenced topic tags. Those become the source of truth for the corresponding content pieces.
 
-## Current priority shortlist (LOSB + Funt + MV + Sharper + Mathletics state)
+## Current priority shortlist (LOSB + Funt + MV + Sharper + Mathletics + Duke state)
 
 If we shipped one thing from this pipeline tomorrow, top candidates ranked by ratio of (impact × differentiation × ease):
 
-1. **The Promo Grind** (master guide + 4 calculators) — combines LOSB Go-For-Broke + Sharper Risk-Free + Free-Play + Deposit-Bonus Churn. **Strongest flagship candidate now.** Complete operational treatment of US legal-market promos. Bundles guide + 4 calculators.
-2. **The Hold Chopper calc + guide** — flagship PPS Original; builds on existing calculator credibility
-3. **The CLV Reconciliation** — independent PPS synthesis of the LOSB/Sharper Conflict #1. Brand-builder.
-4. **Vig-Free Line Calculator + Push Frequency Estimator** — pasteable formulas, low build cost, fill operational gaps
-5. **Price-is-not-Juice + Sportsbook Hold Tier-Map** — concept reframe paired with our tier-map tool
-6. **The Go-For-Broke Bonus Method** (guide + calc) — counter-intuitive, brand-aligned, viral potential
-7. **"Market makers vs retail books"** guide — fills the biggest legacy market gap (#1), high SEO potential
-8. **"How sportsbook prices actually get made"** lesson — Path 01 staple, demolishes a myth
-9. **"The Favorite-Longshot Bias paper, in plain English"** (PPS Original) — reputation-builder; flagship from MV
-10. **"Behavioral finance for sports bettors"** guide — distinctive content; bridges betting + 401k
-11. **The Leagues' 180** (PASPA-testimony reversal) guide — Funt source; flagship credibility piece for `/research/`
+1. **PROFITPATH Decision Discipline Framework** (PPS Original) — packaging Duke's 5-tool mental toolkit with LOSB + Sharper + MV citations. **New top candidate** — the signature methodology that anchors the brand.
+2. **The Promo Grind** (master guide + 4 calculators) — combines LOSB Go-For-Broke + Sharper Risk-Free + Free-Play + Deposit-Bonus Churn. Strongest operational flagship.
+3. **"Resulting: the cognitive trap every sports bettor falls into"** (Duke + LOSB + Sharper + Mathletics) — pillar Path 03 lesson; massive audience reach.
+4. **The Hold Chopper calc + guide** — flagship PPS Original; builds on existing calculator credibility.
+5. **The CLV Reconciliation** — independent PPS synthesis of the LOSB/Sharper Conflict #1. Brand-builder.
+6. **The Two Biases You Carry to the Sportsbook** (Levitt + MV synthesis #1) — reputation-builder.
+7. **The Bookmaker Myth Even Smart Authors Repeat** (synthesis #2) — provocative, cite-anchored, shareable.
+8. **Vig-Free Line Calculator + Push Frequency Estimator + Bet Review Worksheet** — three low-build-cost foundational tools.
+9. **Price-is-not-Juice + Sportsbook Hold Tier-Map** — concept reframe paired with our tier-map tool.
+10. **The Go-For-Broke Bonus Method** (guide + calc) — counter-intuitive, brand-aligned, viral potential.
+11. **"Market makers vs retail books"** guide — fills the biggest legacy market gap.
+12. **"How sportsbook prices actually get made"** lesson — Path 01 staple.
+13. **"The Favorite-Longshot Bias paper, in plain English"** — reputation-builder from MV.
+14. **"Behavioral finance for sports bettors"** guide — distinctive content; bridges betting + 401k.
+15. **The Leagues' 180** (PASPA-testimony reversal) — Funt source; flagship credibility piece for `/research/`.

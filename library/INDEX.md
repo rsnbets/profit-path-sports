@@ -10,15 +10,27 @@ The living document that synthesizes everything PROFITPATH knows about modern sp
 
 | Metric | Current |
 |---|---|
-| Books processed (comprehensive first pass) | **5** *(LOSB + Funt + MV + Sharper + Mathletics)* |
-| Books queued in `source-pdfs/` | **3** *(Wong, Konik, Appelbaum)* — plus a quick-skim 30pp dated book |
+| Books processed (comprehensive first pass) | **6** *(LOSB + Funt + MV + Sharper + Mathletics + Duke)* |
+| Books queued in `source-pdfs/` | **8** *(Scorecasting, Trading Bases, Monte Carlo or Bust, Sports Betting for Winners, Wong, Konik, Appelbaum + 30pp quick-skim)* |
 | Topic syntheses written | **0** *(deferred — user prefers more ingestion first)* |
-| Content opportunities in pipeline | **100+** *(40+ lessons / 31+ guides / 28+ tools / 14 originals)* |
-| Market gaps identified | **50** |
+| Content opportunities in pipeline | **125+** *(51+ lessons / 37+ guides / 34+ tools / 18 originals)* |
+| Market gaps identified | **57** |
 | Cross-source conflicts being tracked | **1** *(CLV: LOSB-as-skill-signal vs Sharper-as-deepity)* |
-| Cross-source syntheses ready | **1** *(Favorite-bias × Longshot-bias coexistence: Levitt 2004 + MV 2022)* |
+| Cross-source syntheses ready | **2** *(Favorite-bias × Longshot-bias coexistence + the Decision-Quality vs Outcome-Quality / Levitt-Duke contrast)* |
 
-**Last update:** Mathletics (Wayne L. Winston, Princeton 2009/2012) — first pass complete on Part IV gambling chapters + Ch 11 (Streakiness) + Ch 35-36 (Game fixing / Donaghy) + Ch 37 (End-game). Note at `notes/mathletics-winston.md`. **Key findings:**
+**Last update:** Thinking in Bets (Annie Duke, Portfolio/Penguin 2018) — first pass complete on all 6 chapters. Note at `notes/thinking-in-bets-annie-duke.md`. **Key findings:**
+- ⭐⭐⭐ **The single most strategically important addition to the library so far.** Where every other source is *about sports betting*, Duke is about **thinking like a sharp** — applied to life. This source changes what PPS *can position itself as*: not "a sports-betting tool" but a "decision-clarity brand that happens to apply to sports betting." Celebrity-author asset.
+- **"Resulting"** — names the dominant cognitive error in betting: confusing decision quality with outcome quality. Pete Carroll's Super Bowl XLIX call wasn't bad — the result was bad. PPS can now ship "resulting" as a brand concept with a clean name.
+- **"All decisions are bets"** mindset reframe — extensible to investing, career, parenting, all life. Audience-expansion vehicle.
+- **The complete mental-time-travel toolkit** — 10-10-10, Ulysses contracts, decision swear jar, scenario planning, backcasting, premortems. Operational discipline tools PPS can productize.
+- **Group truthseeking blueprint** (Tetlock & Lerner 2002 + Mertonian CUDOS norms) — intellectual foundation for any PPS community / forum / Discord / membership offering.
+- **Belief-formation research** (Gilbert 1991/1993; Hastorf & Cantril 1954; Kahan 2012) — bettors form beliefs without vetting, then resist updating. Suited connectors are the universal example.
+- **Tilt + self-serving bias + fielding outcomes** — operational frame for bet review. Foundational for any PPS bet-tracker product.
+- **The "Two Buckets"** — skill vs luck. Every settled bet should be fielded.
+- ⚠️ **Caveat:** Duke repeats the "bookmakers balance action" myth (Ch 1-2) that Levitt 2004 (via Mathletics) refutes. PPS corrects this when citing her on betting topics.
+- **NEW PPS-original cross-source synthesis:** Decision-Quality-vs-Outcome-Quality / Levitt-Duke contrast — a smart-non-betting-author repeats a myth that the academic data refutes. Powerful teaching example for "see how deep the myth runs."
+
+**Earlier update:** Mathletics (Wayne L. Winston, Princeton 2009/2012) — first pass complete on Part IV gambling chapters + Ch 11 (Streakiness) + Ch 35-36 (Game fixing / Donaghy) + Ch 37 (End-game). Note at `notes/mathletics-winston.md`. **Key findings:**
 - **THE quantitative-foundations source.** Where MV is the *behavioral-finance* academic, Mathletics is the *applied-statistics* academic. Foundational operational math for every probabilistic claim PPS will make.
 - **The σ values:** NFL margin σ=13.86 (Stern 1991), NBA σ=12, NCAAB σ=10, CFB σ=16 (Sagarin). **Foundational reference material for every spread-to-probability calculator PPS will build.**
 - **Spread → Probability translation** is operational and quantifiable using the normal distribution + sport-specific σ. Direct calculator content.
@@ -87,6 +99,7 @@ Now have enough material from three sources (industry-analytical + journalistic 
 | Betting Without Beta | Moskowitz & Vasudevan | 2022 | **first pass complete (academic paper)** | THE academic primary source. Resolves FLB causality (preferences, not beliefs) via Moneyline-vs-Spread differencing on 36,609 games. Implied volatility smile parallel to options markets. Unifying behavioral framework across betting + finance. 40+ peer-reviewed citations cataloged. Yale + NBER + AQR credentials. |
 | Sharper | True Pokerjoe (Richard Bennet) | 2016 (rev. 2021) | **first pass complete** | Operational-tactical companion to LOSB. Spreadsheet formulas for vig-free line, push frequencies, buying points, Kelly, alt-line decisions. Risk-free + free-play promo math. CLV-as-deepity critique. Trailing-vs-leading-edge concept. Three-pronged handicapping taxonomy. Wong teaser case study. Direct LOSB cross-citation. |
 | Mathletics | Wayne L. Winston | 2009 (rev. 2012) | **first pass complete on Part IV + scattered relevant chapters** | THE quantitative-foundations academic source. Sport σ values (NFL 13.86, NBA 12, NCAAB 10, CFB 16) for spread→probability translation. Levitt 2004 finding on bookmaker favorite-bias exploitation. Kelly derivation + sensitivity table. Streakiness debunking. Donaghy detection methodology. Monte Carlo for series/tournaments. Princeton University Press credentials. |
+| Thinking in Bets | Annie Duke | 2018 | **first pass complete** | The decision-science / decision-discipline tier. "Resulting," fielding outcomes, belief vetting, group truthseeking (Tetlock/Lerner + CUDOS), mental time travel (10-10-10, Ulysses contracts, decision swear jar, scenario planning, backcasting, premortems). Mass-market crossover voice. Celebrity-author asset. Brand-aligned: gives PPS the "decision-clarity brand that applies to sports betting" positioning. ⚠️ Repeats the "bookmakers balance action" myth — correct when citing. |
 
 ### Queued (in `source-pdfs/`, not yet processed)
 
@@ -135,6 +148,11 @@ Updated after every book read. This is the "where does sports betting knowledge 
 - **Bookmakers exploit bettor favorite-bias to earn actual hold above the textbook 4.5%** — Levitt's 2001 NFL sample showed actual bookie profit was ~6.16% per $10 bet (~23% above the balanced-action theoretical hold). NFL home favorites cover 48.8%; visiting favorites 46.7% (1980-2001). *(Mathletics Ch 39, citing Levitt 2004 *Economic Journal*; cross-validates Sharper's "books charge what their clientele tolerates" and Funt's hold-inflation narrative)*
 - **Streakiness and "hot hand" largely don't exist under proper statistical testing.** Year-to-year streakiness doesn't persist among MLB hitters (Albright); NBA team streakiness explained by random variation (Mathletics' 2002-3 z-test analysis). Mass-market betting content trades on momentum narratives the math refutes. *(Mathletics Ch 11)*
 - **Kelly's edge-protection math is rigorous: betting above optimal-f destroys bankroll despite positive edge.** At 60% winners, betting >30% of bankroll guarantees long-run decline. *(Mathletics Ch 44; complements Sharper's fractional-Kelly humility)*
+- **"Resulting"** — confusing decision quality with outcome quality — is the dominant cognitive error in evaluating sports bets (and most decisions). A bet that wins isn't necessarily a good bet; a bet that loses isn't necessarily a bad bet. The decision must be evaluated at the moment it was made. *(Duke Ch 1; consistent with Sharper's "estimated edge is not edge" + Mathletics's Pete Carroll example)*
+- **Belief formation defaults to "believe first, vet later."** Humans are credulous; under cognitive load we treat labeled-false statements as true. Bettors inherit folk-wisdom beliefs (the "suited connector" problem) and rarely P&L-test them. *(Duke Ch 2 citing Gilbert 1991, 1993)*
+- **Self-serving bias / fielding errors:** humans systematically field good outcomes into the "skill" bucket and bad outcomes into the "luck" bucket. MacCoun's auto-insurance research: 75-91% of accident victims blame others; even 37% of single-vehicle accident drivers do. Phil Hellmuth's iconic line: "If it weren't for luck, I'd win every one." *(Duke Ch 3)*
+- **Group truthseeking outperforms solo thinking when properly chartered.** Tetlock & Lerner (2002) blueprint: accountability + interest in accuracy + diversity of viewpoints. Confirmatory groups amplify bias; exploratory groups reduce it. *(Duke Ch 4-5)*
+- **Mental time travel discipline** (10-10-10, Ulysses contracts, decision swear jar, scenario planning, backcasting, premortem) outperforms in-the-moment intuition. Negative-scenario visualization (Oettingen) *outperforms* positive-only visualization for goal achievement. *(Duke Ch 6)*
 
 ### Where sources conflict (cross-source reconciliations)
 
@@ -164,6 +182,16 @@ This reconciliation can become its own PPS content piece: "What CLV actually mea
   4. **Bookmakers structurally exploit both directions.** This is the empirical core of the Ban-or-Bankrupt economics.
 
 This synthesis is ready to ship as a PPS Original: **"The Two Biases You Carry to the Sportsbook" (Levitt + MV)** — distinctive, brand-aligned, math-anchored, peer-reviewed citations on both sides.
+
+#### Cross-Source Synthesis #2: The Decision-Quality vs. Outcome-Quality / Levitt-Duke Contrast
+
+- **Annie Duke (Thinking in Bets, 2018, Ch 1-2):** Bookmakers set lines to balance action between sides; their goal is to take their fee while remaining indifferent to outcome. (The conventional pre-Levitt-era textbook framing.)
+- **Steven Levitt (2004 *Economic Journal*) via Mathletics Ch 39:** Bookmakers do NOT balance action. They exploit bettors' favorite-bias to earn ~6.16% per $10 bet — ~23% above the textbook 4.55% theoretical hold. Empirically documented across 1980-2001 NFL data.
+- **Why this matters:** A smart, thoughtful, decision-science author repeats a myth that 14-year-old peer-reviewed academic research had already debunked. **This is itself a content opportunity** — it shows how durable the misconception is even among careful thinkers. PPS readers reading "the books just want balanced action" content (Annie's framing) need to be corrected.
+- **PPS reconciliation / content angle:** "Even Annie Duke gets this part wrong. Here's what bookmakers are actually doing." Use Duke as the proxy for conventional wisdom; use Levitt + Sharper + Funt's Amy Howe quote as the actual-industry-reality stack. Three-source academic + industry corroboration vs. one mass-market book that repeats the myth.
+- **Broader lesson PPS can extract:** *If the bookmaker model is this badly misunderstood by smart non-betting authors, what else is the public getting wrong about the industry?* This is the PPS thesis in microcosm.
+
+This synthesis is ready to ship as a PPS Original / blog piece: **"The Bookmaker Myth That Even Smart Authors Repeat"** — provocative, true, cite-anchored, brand-aligned.
 
 **Tracking template (used when we find more):**
 - **Claim:** [what one source says]
@@ -207,6 +235,13 @@ This synthesis is ready to ship as a PPS Original: **"The Two Biases You Carry t
 32. **The favorite-bias × longshot-bias coexistence** — neither Levitt nor MV makes the cross-reference; PPS-original synthesis. *(Cross-source #1)*
 33. **"Statistical signal ≠ tradable signal"** — sophistication concept rarely surfaced (e.g., ref-bias is real but the Total Line incorporates it; you can't profit from it). *(Mathletics Ch 39)*
 34. **The Wolfers/Heston-Bernhardt point-shaving debate** is academic-only; bettors deserve an accessible summary. *(Mathletics Ch 35)*
+35. **The "decision quality vs outcome quality" framework** is invisible to retail bettors. Public content evaluates bettors only on win rate / units, never on decision quality. *(Duke)*
+36. **Calibrated uncertainty as a betting skill** — public content trades in "lock of the week" certainty. The brand-aligned counter-position is rare. *(Duke)*
+37. **Pre-commitment / Ulysses contracts** for bet discipline aren't operationalized in public content. *(Duke)*
+38. **The CUDOS / truthseeking-group blueprint** for betting communities is absent in public content. *(Duke)*
+39. **The "decision swear jar" for sports bettors** — Annie pioneered the general concept; no betting site has the bettor-specific version. *(Duke)*
+40. **Premortem / backcasting applied to weekly slates** is absent in public content. *(Duke)*
+41. **The Levitt-Duke contrast** — smart-author-repeats-myth — is itself a content opportunity. *(Synthesis #2)*
 
 *(Each new book will surface more. Migration to `content-opportunities.md` happens as items mature.)*
 
@@ -253,7 +288,8 @@ library/
 │   ├── everybody-loses-danny-funt.md
 │   ├── betting-without-beta-moskowitz-vasudevan.md
 │   ├── sharper-pokerjoe.md
-│   └── mathletics-winston.md
+│   ├── mathletics-winston.md
+│   └── thinking-in-bets-annie-duke.md
 ├── topics/                        ← cross-book topic syntheses (empty for now)
 └── our-book/                      ← eventual public manuscript (long-term)
 ```
@@ -296,6 +332,20 @@ Topics that will get their own `topics/{topic}.md` synthesis once we have 2-3+ b
 | `game-fixing-detection` | Mathletics ✓ (Donaghy + Wolfers/HB) | 🟢 ready to draft |
 | `referee-bias` | Mathletics ✓ | 🟢 ready to draft |
 | `home-field-advantage` | Mathletics ✓ + Sharper ✓ (compressed values) | 🟢 ready to draft |
+| `decision-quality-vs-outcome-quality` | Duke ✓ (primary) | 🟢 ready to draft — Duke is THE source |
+| `resulting` | Duke ✓ (primary) | 🟢 ready to draft — Duke is THE source |
+| `belief-formation-and-vetting` | Duke ✓ (via Gilbert 1991, 1993) | 🟢 ready to draft |
+| `self-serving-bias-outcome-fielding` | Duke ✓ (primary) | 🟢 ready to draft |
+| `truthseeking-groups` | Duke ✓ (Tetlock & Lerner 2002 + Haidt) | 🟢 ready to draft |
+| `mertonian-norms-cudos` | Duke ✓ | 🟢 ready to draft |
+| `mental-time-travel` | Duke ✓ (primary) | 🟢 ready to draft |
+| `ulysses-contracts` | Duke ✓ | 🟢 ready to draft |
+| `decision-swear-jar` | Duke ✓ | 🟢 ready to draft |
+| `scenario-planning-backcasting-premortem` | Duke ✓ | 🟢 ready to draft |
+| `tilt-and-emotional-reactivity` | Duke ✓ | 🟢 ready to draft |
+| `calibrated-uncertainty` | Duke ✓ + Sharper ✓ (estimated edge is not edge) | 🟢 ready to draft |
+| `probabilistic-thinking-foundations` | Duke ✓ + MV ✓ + Mathletics ✓ | 🟢 ready to draft — triangulated |
+| `hindsight-bias` | Duke ✓ | 🟢 ready to draft |
 | `sharp-line-construction` | LOSB ✓ · Sharper ✓ (names the books) | 🟢 ready to draft |
 | `square-vs-sharp-thinking` | Sharper ✓ (primary) · LOSB ✓ (1-5 scale variant) | 🟢 ready to draft |
 | `price-vs-juice` | Sharper ✓ (primary) | 🟢 ready to draft — Sharper is THE source |
@@ -325,11 +375,13 @@ Topics that will get their own `topics/{topic}.md` synthesis once we have 2-3+ b
 3. ✅ ~~Process Moskowitz & Vasudevan academic paper.~~ (Complete — academic-credibility tier secured.)
 4. ✅ ~~Process Sharper (Pokerjoe).~~ (Complete — operational tier + first cross-source conflict surfaced: CLV.)
 5. ✅ ~~Process Mathletics (Winston).~~ (Complete — quantitative-foundations tier + Levitt 2004 finding + first PPS-original cross-source synthesis.)
-6. **Next book decision point.** Top candidates:
-   - **Konik (Smart Money, 355pp)** — Billy Walters narrative; cross-pollinates with Funt journalistic angle. Adds sharp-pro biography to library. **Recommendation if continuing ingestion** — adds a narrative-source we don't have yet.
-   - **Wong (Sharp Sports Betting, 355pp)** — older-era foundational. Likely high redundancy with LOSB+Sharper+Mathletics for operations.
-   - **Appelbaum (Everything Guide, 335pp)** — curriculum-level intro; useful for Path 01 mapping.
-   - **Complete Book of Sports Betting (30pp)** — quick-skim only, likely dated.
+6. ✅ ~~Process Thinking in Bets (Duke).~~ (Complete — decision-science tier + brand-positioning unlock + second cross-source synthesis.)
+7. **Next book decision point.** Top candidates from the new batch:
+   - **Scorecasting (Moskowitz & Wertheim, 2011)** — same Moskowitz as our MV pillar. Extends academic credibility into popular-press content. **Easiest lateral add.**
+   - **Trading Bases (Joe Peta, 2013)** — Wall Street → baseball-betting bridge. MV explicitly cites it. Unique cross-pollination.
+   - **Monte Carlo or Bust (Joseph Buchdahl)** — quant variance / value-betting from a respected European sharp/quant. Extends Mathletics quant tier.
+   - **Sports Betting for Winners (Rob Miech)** — unknown content; will determine when opened.
+   - **Konik / Wong / Appelbaum / Complete Book** — earlier queue, lower priority given current coverage.
 6. **Spin up first `topics/` syntheses.** With 4 sources, the topics most ready to draft (multi-source or single-strong-source + PPS-original-content):
    - `closing-line-value` — **flagship synthesis (Conflict #1 reconciliation)**
    - `bonus-conversion` — **flagship (combined LOSB + Sharper full promo treatment)**
