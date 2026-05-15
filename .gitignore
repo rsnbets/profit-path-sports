@@ -6,3 +6,9 @@
 ehthumbs.db
 Thumbs.db
 .claude/
+
+# PPS Library — source PDFs are copyrighted, never commit them.
+# Our synthesis notes (library/notes/, library/topics/) ARE committed.
+library/source-pdfs/*
+!library/source-pdfs/.gitkeep
+!library/source-pdfs/README.md
