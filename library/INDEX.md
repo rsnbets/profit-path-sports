@@ -10,13 +10,25 @@ The living document that synthesizes everything PROFITPATH knows about modern sp
 
 | Metric | Current |
 |---|---|
-| Books processed (comprehensive first pass) | **3** *(LOSB priority + Funt comprehensive + Moskowitz/Vasudevan academic)* |
-| Books queued in `source-pdfs/` | **3** *(Wong, Konik, Appelbaum)* |
-| Topic syntheses written | **0** *(ready to spin up — most topics now have 2-3 sources)* |
-| Content opportunities in pipeline | **60+** *(24+ lessons / 18+ guides / 13+ tools / 8 originals)* |
-| Market gaps identified | **31** |
+| Books processed (comprehensive first pass) | **4** *(LOSB + Funt + MV + Sharper/Pokerjoe)* |
+| Books queued in `source-pdfs/` | **3** *(Wong, Konik, Appelbaum)* — plus a quick-skim 30pp dated book |
+| Topic syntheses written | **0** *(ready to spin up — multiple topics now have 3-4 sources)* |
+| Content opportunities in pipeline | **80+** *(33+ lessons / 24+ guides / 21+ tools / 11 originals)* |
+| Market gaps identified | **42** |
+| Cross-source conflicts being tracked | **1** *(CLV: LOSB-as-skill-signal vs Sharper-as-deepity)* |
 
-**Last update:** Betting Without Beta (Moskowitz & Vasudevan, Yale 2022) — first pass complete on the academic paper. Note at `notes/betting-without-beta-moskowitz-vasudevan.md`. **Key findings:**
+**Last update:** Sharper (Pokerjoe / Richard Bennet, 2016 rev. 2021) — first pass complete. Note at `notes/sharper-pokerjoe.md`. **Key findings:**
+- **The operational-tactical companion to LOSB.** Where LOSB is "how the business works," Sharper is "here's the spreadsheet formula." Two-source convergence on most LOSB themes + heavy operational depth.
+- **Direct LOSB cross-citation** in Ch 6 — Pokerjoe recommends LOSB on linemaking; the books are in explicit dialogue.
+- **First cross-source conflict surfaced:** ⚠️ **CLV.** LOSB positions CLV ≥ half the hold as the #1 long-run profitability predictor. Sharper calls CLV partly a *deepity* (Dennett) — tautological for line grinders, partial signal for handicappers, and the closing line is not always the most efficient line. **PPS reconciliation candidate ready** (CLV as necessary-not-sufficient; distinguish handicapper-CLV from grinder-CLV).
+- **Price-vs-Juice reframe** — universally misunderstood concept. -1000/+800 is *less* juice than -110/-110. Juice is the bookie's business; sharps only care about price on the side they want.
+- **Push frequencies as the missing operational input** for buying points, middling, alt-line decisions, edge estimation. Sharper provides the back-out-from-alt-lines spreadsheet formula. **First true operational push-frequency methodology in the library.**
+- **The Risk-Free Promo Math** (Addendum) — counter-intuitive: 2-1 dog promo pays ~4× the EV of a 2-1 favorite promo. Worked-out results trees. Combines with LOSB's go-for-broke math to give PPS the full operational treatment of US legal-market promos.
+- **Three-pronged handicapping framework:** player-based + performance-based + market-based ratings, weighted across the season. Clean taxonomy.
+- **Trailing vs leading edge of line movement** — Sharper-original concept; specifies which side of a moved line is the sharper number depending on whether the move was square-driven or sharp-driven.
+- **The "Wong teaser" public-edge-collapse case** — Heritage's Ganchrow primary-source response; concrete documentation of how published edges die.
+
+**Earlier update:** Betting Without Beta (Moskowitz & Vasudevan, Yale 2022) — first pass complete on the academic paper. Note at `notes/betting-without-beta-moskowitz-vasudevan.md`. **Key findings:**
 - **THE academic primary source.** Yale + NBER + AQR institutional credentials; resolves PPS's "where's the peer-reviewed credibility?" gap for the Ban-or-Bankrupt paper
 - **Favorite-Longshot Bias (FLB) is driven by preferences, not beliefs** — proven via novel Moneyline-vs-Spread differencing on 36,609 college and pro basketball + football games
 - **Implied volatility smile parallel to options markets** — sports betting contracts on extreme favorites/underdogs show higher implied volatility, qualitatively AND quantitatively similar to options
@@ -61,6 +73,7 @@ Now have enough material from three sources (industry-analytical + journalistic 
 | The Logic of Sports Betting | Miller & Davidow | 2019 | **priority chapters + pedagogy + pain points complete** | Strong on industry structure, profiling, market making, props, marketing, hold-chopping, weak markets, CLV. Secondary chapters pending later pass. |
 | Everybody Loses | Danny Funt | 2024-2025 | **comprehensive first pass complete** | All 12 chapters mapped at appropriate depth. Deep: Intro, Ch 1, 5, 10, 11. Skim: 2-4, 6-9, 12. Strong on industry critique, ban-or-bankrupt naming, PASPA history, profiling/limiting, league hypocrisy, beard economy, addiction-and-public-health, bookmaker bloodbath, state tax history, historical foundations, integrity/corruption, UK precedent. |
 | Betting Without Beta | Moskowitz & Vasudevan | 2022 | **first pass complete (academic paper)** | THE academic primary source. Resolves FLB causality (preferences, not beliefs) via Moneyline-vs-Spread differencing on 36,609 games. Implied volatility smile parallel to options markets. Unifying behavioral framework across betting + finance. 40+ peer-reviewed citations cataloged. Yale + NBER + AQR credentials. |
+| Sharper | True Pokerjoe (Richard Bennet) | 2016 (rev. 2021) | **first pass complete** | Operational-tactical companion to LOSB. Spreadsheet formulas for vig-free line, push frequencies, buying points, Kelly, alt-line decisions. Risk-free + free-play promo math. CLV-as-deepity critique. Trailing-vs-leading-edge concept. Three-pronged handicapping taxonomy. Wong teaser case study. Direct LOSB cross-citation. |
 
 ### Queued (in `source-pdfs/`, not yet processed)
 
@@ -101,12 +114,28 @@ Updated after every book read. This is the "where does sports betting knowledge 
 - **The Favorite-Longshot Bias (FLB) — underdog bets earn systematically lower risk-adjusted returns than favorite bets — is driven by bettor *preferences* (lottery love), not by mistaken *beliefs* about outcomes.** *(Moskowitz & Vasudevan 2022 — definitive empirical resolution via 36,609-game Moneyline-vs-Spread test)*
 - **Sports betting markets are a clean research laboratory for behavioral finance: contingent claims, idiosyncratic outcomes, no systematic risk, observable termination.** *(Thaler & Ziemba 1988 → Moskowitz & Vasudevan 2022 — methodological consensus)*
 - **The same preference framework (Cumulative Prospect Theory with probability weighting + diminishing sensitivity) explains both sports-betting FLB and equity/options low-risk anomalies — one model, two markets.** *(Moskowitz & Vasudevan 2022)*
+- **Sports betting is a market, not a casino game** — adversarial multiplayer with line-makers, line-grinders, handicappers, and squares. Lines are initially set by linemakers but thereafter moved by bettors. *(LOSB + Funt + Sharper direct cross-citation)*
+- **Juice (theoretical hold) is the bookie's business; for sharps the operative variable is *price* on the side they want.** A -1000/+800 line carries ~2% juice — less than -110/-110 (4.55%). *(Sharper Ch 5, mathematically demonstrated)*
+- **Published edges decay as the market absorbs them.** NFL turnover system (57.7% → ~49%), Wong teasers (Ganchrow's Heritage fix), the public-system survivorship problem. *(Sharper Ch 8 + Ganchrow primary source)*
+- **Three legitimate handicapping skill tests:** ATS results (large sample needed), CLV (with caveats — see Conflict #1 below), forward-linemaking (single weekend possible). *(Sharper Ch 18 + Ch 22; partial overlap with LOSB)*
 
 ### Where sources conflict (cross-source reconciliations)
 
-*(Empty for now — populated as more books are read and disagreements surface.)*
+#### Conflict #1: How central is CLV to long-run profitability?
 
-**Tracking template (used when we find one):**
+- **Claim (LOSB):** CLV ≥ half the hold over hundreds of bets is *the* predictive signal of long-run profitability. The closing line is the most efficient line. Track CLV to know if you have edge.
+- **Source A:** Miller & Davidow, *The Logic of Sports Betting* (2019) — Strong vs Weak Markets chapter, CLV framework throughout.
+- **Counter-claim (Sharper):** CLV is partly a *deepity* (Dennett). For line grinders it's tautological — they bet because the available line was off-market, and the market then converges to consensus, which *is* CLV by construction. The closing line is *not always* the most efficient line — square money near close can de-anchor it (Seattle-StL Week 8 2013 example: line moved from -11 to -13.5 on square money for big favorites). "Beating the close" correlates with winning the same way that "winning the bet" correlates with winning.
+- **Source B:** Pokerjoe, *Sharper* (2016 rev. 2021) — Ch 20-21.
+- **PPS reconciliation:**
+  1. **CLV is necessary-but-not-sufficient.** Useful directional signal, but not the gospel LOSB makes it.
+  2. **Distinguish CLV-for-handicappers vs CLV-for-line-grinders.** For grinders, CLV is partly built into the methodology; the more interesting metric is "is my CLV better than the average line grinder's?" For handicappers, CLV is a partial skill signal but is partly contaminated by book-deference-to-winners (your bets move lines because the market trusts winners).
+  3. **The closing line is not the universal efficient-frontier oracle.** An hour pregame can be sharper than close on square-driven markets.
+  4. **The three skill tests from Sharper (ATS results, CLV with caveats, forward-linemaking) are a better composite signal** than CLV alone.
+
+This reconciliation can become its own PPS content piece: "What CLV actually measures (and what it doesn't)." Genuine cross-source synthesis content; unique in market.
+
+**Tracking template (used when we find more):**
 - **Claim:** [what one source says]
 - **Source A:** [book, page]
 - **Source B:** [book, page, contradictory framing]
@@ -129,6 +158,17 @@ Updated after every book read. This is the "where does sports betting knowledge 
 13. **The behavioral-finance ↔ sports-betting bridge** is rare in public content. Plenty of stock-bias content; plenty of betting-strategy content; almost nothing connecting them despite Moskowitz's explicit framework. *(MV)*
 14. **The "lottery preference" diagnosis** — bettors don't know that preferring underdogs is a well-documented bias (Cumulative Prospect Theory's probability weighting), traceable to their stock-market behavior too. *(MV)*
 15. **The MLB/NHL no-FLB anomaly** — niche but counter-intuitive content. Why does FLB show up in NCAAF / NCAAB / NBA / NFL but not in baseball or hockey? *(MV via Woodland & Woodland 1994/2001, Gil & Levitt 2007)*
+16. **Price-vs-Juice mental model** — almost universally misunderstood publicly. Every "best sportsbook" article ranks on hold/juice, when it's *price on the side you want* that matters. Massive gap. *(Sharper Ch 5)*
+17. **Push frequencies as the missing operational input** for buying points, alt-line shopping, teasers. No public content explains how to back PFs out of sportsbook alt-lines. *(Sharper Ch 12)*
+18. **Risk-free promo math** (4× more EV on dogs than faves) — counter-intuitive; almost never explained correctly in promo-grind blogs. *(Sharper Addendum)*
+19. **Free-play promo math** (~60¢ on the dollar; bet dogs) — same gap. *(Sharper Addendum)*
+20. **Deposit-bonus churn vs go-for-broke decision** — when to grind, when to YOLO. LOSB covers go-for-broke; Sharper covers churn. Public content covers neither well. *(LOSB + Sharper)*
+21. **"The closing line is not always the most efficient line"** — directly contradicts almost all public CLV content. *(Sharper Ch 21)*
+22. **Trailing vs leading edge of line movement** — Sharper-original framework; never explained publicly. *(Sharper Ch 11)*
+23. **The CLV-deepity tension** — public CLV content is uniform on "track and beat the close"; the disagreement between LOSB and Sharper isn't surfaced anywhere outside specialist forums. *(LOSB ↔ Sharper synthesis)*
+24. **Generic points vs spread points** (push-frequency-adjusted) — power-rating edges don't translate 1:1 to betting edges. *(Sharper Ch 26)*
+25. **The "bet more on faves, less on dogs at equal edge" Kelly adjustment** — Sharper operating practice; combines naturally with MV's FLB framework. *(Sharper Ch 17 + MV cross-pollination)*
+26. **The sharp-books roster + structural explanation** — Pinnacle, Circa, Heritage, Bookmaker, Westgate. PPS Tier-Map gets named candidates. *(Sharper Ch 10 + LOSB)*
 
 *(Each new book will surface more. Migration to `content-opportunities.md` happens as items mature.)*
 
@@ -173,7 +213,8 @@ library/
 ├── notes/                         ← per-book synthesis files
 │   ├── logic-of-sports-betting-miller-davidow.md
 │   ├── everybody-loses-danny-funt.md
-│   └── betting-without-beta-moskowitz-vasudevan.md
+│   ├── betting-without-beta-moskowitz-vasudevan.md
+│   └── sharper-pokerjoe.md
 ├── topics/                        ← cross-book topic syntheses (empty for now)
 └── our-book/                      ← eventual public manuscript (long-term)
 ```
@@ -190,19 +231,33 @@ Topics that will get their own `topics/{topic}.md` synthesis once we have 2-3+ b
 | `account-profiling` | LOSB ✓ · Funt ✓ · Wong (queued) | 🟢 ready to draft |
 | `pricing-inefficiencies` | LOSB ✓ · MV ✓ · Wong (queued) | 🟢 ready to draft |
 | `market-making-and-price-discovery` | LOSB ✓ · MV ✓ (sharp-book closing-line analysis) | 🟢 ready to draft |
-| `closing-line-value` | LOSB ✓ | 🔵 needs 2nd source (Wong, Appelbaum) |
+| `closing-line-value` | LOSB ✓ · Sharper ✓ | 🟢 ready to draft — *includes Conflict #1* |
 | `chopping-the-hold` | LOSB ✓ | 🔵 unique to LOSB so far |
 | `weak-vs-strong-markets` | LOSB ✓ | 🔵 needs Wong corroboration |
 | `props-and-derivatives` | LOSB ✓ | 🔵 needs 2nd source |
-| `bonus-conversion` | LOSB ✓ (go-for-broke math) | 🔵 PPS in-house knowledge fills out the practical side |
+| `bonus-conversion` | LOSB ✓ (go-for-broke) · Sharper ✓ (risk-free + free-play + churn) | 🟢 ready to draft — **flagship-quality combined treatment** |
 | `in-play-betting-and-delay` | LOSB ✓ | 🔵 needs Funt corroboration |
 | `dark-patterns-behavioral-design` | LOSB ✓ · Funt ✓ | 🟢 ready to draft |
-| `parlays-and-sgps` | LOSB ✓ · Funt ✓ · Wong (queued) | 🟢 ready to draft |
-| `psychology-of-the-bettor` | LOSB (light) · Funt ✓ · MV ✓ | 🟢 ready to draft — now with academic backbone |
+| `parlays-and-sgps` | LOSB ✓ · Funt ✓ · Sharper ✓ · Wong (queued) | 🟢 ready to draft |
+| `teasers` | Sharper ✓ (Wong-teaser case study) | 🟢 ready to draft |
+| `middling-scalping-arbing` | Sharper ✓ | 🟢 ready to draft |
+| `psychology-of-the-bettor` | LOSB (light) · Funt ✓ · MV ✓ · Sharper ✓ | 🟢 ready to draft — multi-source backbone |
 | `industry-fragility` | LOSB ✓ · Funt ✓ (bookmaker bloodbath) | 🟢 ready to draft |
-| `expected-value-foundations` | LOSB ✓ · MV ✓ · Wong/Appelbaum (queued) | 🟢 ready to draft |
-| `devig-methods` | LOSB (light) | 🔵 needs deeper source |
-| `kelly-criterion-and-sizing` | (not yet covered in depth) | 🔵 needs Wong + dedicated source |
+| `expected-value-foundations` | LOSB ✓ · MV ✓ · Sharper ✓ · Wong/Appelbaum (queued) | 🟢 ready to draft |
+| `vig-free-line-calculation` | MV ✓ · Sharper ✓ (with formula) | 🟢 ready to draft |
+| `push-frequencies` | Sharper ✓ (primary) | 🟢 ready to draft — Sharper is THE source |
+| `buying-and-selling-points` | Sharper ✓ (primary) | 🟢 ready to draft |
+| `kelly-criterion-and-sizing` | Sharper ✓ (primary) | 🟢 ready to draft — Sharper is the operational source |
+| `sharp-line-construction` | LOSB ✓ · Sharper ✓ (names the books) | 🟢 ready to draft |
+| `square-vs-sharp-thinking` | Sharper ✓ (primary) · LOSB ✓ (1-5 scale variant) | 🟢 ready to draft |
+| `price-vs-juice` | Sharper ✓ (primary) | 🟢 ready to draft — Sharper is THE source |
+| `line-movement-interpretation` | Sharper ✓ (trailing vs leading) | 🟢 ready to draft |
+| `handicapping-methodology` | Sharper ✓ (3-pronged) | 🟢 ready to draft |
+| `power-ratings` | Sharper ✓ | 🟢 ready to draft |
+| `injury-impact-modeling` | Sharper ✓ | 🔵 needs Mathletics/Winston corroboration |
+| `system-survivorship-bias` | Sharper ✓ (NFL turnover + Wong teaser cases) | 🟢 ready to draft |
+| `gambling-life-realism` | Sharper Ch 31 + Funt | 🟢 ready to draft |
+| `devig-methods` | LOSB (light) · Sharper ✓ (with formula) | 🟢 ready to draft |
 | `favorite-longshot-bias` | MV ✓ (primary) | 🟢 ready to draft — MV is THE source |
 | `behavioral-finance-and-sports-betting` | MV ✓ (primary) | 🟢 ready to draft |
 | `cumulative-prospect-theory-applications` | MV ✓ (primary) | 🟢 ready to draft |
@@ -220,10 +275,29 @@ Topics that will get their own `topics/{topic}.md` synthesis once we have 2-3+ b
 1. ✅ ~~Finish Logic of Sports Betting priority chapters.~~ (Complete.)
 2. ✅ ~~Process Everybody Loses (Funt).~~ (Complete — all 12 chapters mapped.)
 3. ✅ ~~Process Moskowitz & Vasudevan academic paper.~~ (Complete — academic-credibility tier secured.)
-4. **Next book decision point.** Top candidates: **Sharper (PokerJoe, 129pp)** — short, modern strategy. Or **Wong (Sharp Sports Betting, 355pp)** — older-era foundational math, would corroborate LOSB market making + parlays + devig. Or **Mathletics (Winston)** — math/probability foundations to firm up the EV foundations and reach Kelly. Recommendation: **Sharper next** — short, modern, complements LOSB tactically before stepping into the older Wong.
-5. **Spin up first `topics/` syntheses.** Most cross-referenced + ready-to-draft now: `account-profiling`, `industry-structure-and-regulation`, `psychology-of-the-bettor`, `favorite-longshot-bias`, `pricing-inefficiencies`. With three sources we have triangulation on several.
-6. **Ship a first piece.** Top candidates: Hold Chopper (LOSB-only, ready), Go-For-Broke Bonus Method (LOSB-only, ready), Market-Makers-vs-Retail guide (LOSB-only, ready). MV unlocks a new flagship-quality option: **"The Favorite-Longshot Bias paper, in plain English"** (PPS Original — reputation-builder).
-7. After ~10 books processed: the index is mature enough to draft the Ban-or-Bankrupt paper from the synthesis, with MV providing the peer-reviewed citation spine.
+4. ✅ ~~Process Sharper (Pokerjoe).~~ (Complete — operational tier + first cross-source conflict surfaced: CLV.)
+5. **Next book decision point.** Top candidates:
+   - **Mathletics (Winston, 390pp)** — math/probability foundations including Kelly, variance, value-of-volatility. Complements MV's behavioral angle and operationalizes Sharper's Kelly material. **Recommendation.**
+   - **Wong (Sharp Sports Betting, 355pp)** — older-era foundational. Likely high redundancy with LOSB+Sharper for operations, but foundational-era voice may seed pedagogy.
+   - **Appelbaum (Everything Guide, 335pp)** — curriculum-level intro; useful for Path 01 mapping.
+   - **Konik (Smart Money, 355pp)** — Billy Walters narrative; cross-pollinates with Funt journalistic angle.
+6. **Spin up first `topics/` syntheses.** With 4 sources, the topics most ready to draft (multi-source or single-strong-source + PPS-original-content):
+   - `closing-line-value` — **flagship synthesis (Conflict #1 reconciliation)**
+   - `bonus-conversion` — **flagship (combined LOSB + Sharper full promo treatment)**
+   - `account-profiling` — LOSB + Funt + Sharper (beard-farming)
+   - `psychology-of-the-bettor` — Funt + MV + Sharper triangulation
+   - `favorite-longshot-bias` — MV primary
+   - `vig-free-line-calculation` — MV + Sharper (with formula)
+   - `push-frequencies` — Sharper primary
+   - `price-vs-juice` — Sharper primary
+   - `sharp-line-construction` — LOSB + Sharper named books
+7. **Ship a first piece.** Top candidates after Sharper:
+   - **The Promo Grind** (master guide + 4 calculators: deposit-bonus rollover, go-for-broke, risk-free, free-play). Combined LOSB + Sharper — **strongest flagship candidate now in the library**. Operational, brand-aligned, math-anchored.
+   - **The CLV Reconciliation** — independent PPS synthesis. Brand-builder.
+   - **Price-is-not-Juice** + Sportsbook Hold Tier — concept + tool pair.
+   - **Vig-Free Line Calculator** and **Push Frequency Estimator** — pasteable formulas, low build cost.
+   - Older shortlist remains viable: Hold Chopper, Go-For-Broke Method, Market-Makers-vs-Retail, "FLB in plain English."
+8. After ~10 books processed: the index is mature enough to draft the Ban-or-Bankrupt paper from the synthesis, with MV providing the peer-reviewed citation spine and LOSB+Funt+Sharper as the industry/journalism/operational layers.
 
 ---
 

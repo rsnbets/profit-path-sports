@@ -30,6 +30,15 @@ Rolled up from every `notes/` synthesis. As we process more books, this file gro
 | The bias you have in betting is the bias you have in stocks | MV (cross-market) | 🟢 | Distinctive — bridges betting and finance for a PPS reader |
 | What's a "lottery preference"? (And why it costs you money) | MV (probability weighting) | 🟢 | Plain-English Cumulative Prospect Theory |
 | Why FLB doesn't show up in MLB or NHL betting | MV (footnote 1; Woodland & Woodland) | 🟡 | Niche but counter-intuitive |
+| Price is not Juice — and why this is the most-misunderstood concept | Sharper Ch 5 | 🟢 | Counter-intuitive reframe; Path-01 staple |
+| Why buying half-points is a math question | Sharper Ch 14 | 🟢 | Anti-square lesson + decision rule |
+| Why the closing line is not always the most efficient line | Sharper Ch 21 | 🟢 | Tied to CLV reconciliation |
+| Trailing vs leading edge: what line movement tells you | Sharper Ch 11 | 🟢 | Sharper-original concept |
+| The "Just Win, Baby" fallacy | Sharper Ch 19 | 🟡 | Tout-claim debunker |
+| Why your handicapping system stopped working when you wrote about it | Sharper Ch 8 (NFL turnover + Wong teaser cases) | 🟢 | System survivorship lesson |
+| Risk-free promo on the dog beats it on the favorite (4× the EV) | Sharper Addendum | 🟢 | Strong viral potential |
+| Power ratings 101: the three ways to rate a team | Sharper Ch 25 | 🟡 | Clean taxonomy |
+| Why edge estimation errors on big favorites are catastrophic | Sharper Ch 17 + MV cross-pollination | 🟡 | Counter-Kelly intuition with two-source support |
 
 ## Guides (deep-dive pages)
 
@@ -46,6 +55,12 @@ Rolled up from every `notes/` synthesis. As we process more books, this file gro
 | The Favorite-Longshot Bias: 75 years of research, in plain English | MV (Griffith → Thaler & Ziemba → Snowberg & Wolfers → MV) | 🟢 | Citation-anchored long-form deep-dive. Bibliographic spine in MV note. |
 | Implied volatility in sports betting | MV (IV smile section) | 🟢 | Novel content — no sportsbook content site explains this |
 | Behavioral finance for sports bettors | MV (cross-market bridge) | 🟢 | Path 03-aligned, distinctive |
+| **The vig-free line — what the market actually thinks the odds are** | MV + Sharper Ch 11 | 🟢 | Core handicapping concept + pasteable formula |
+| Push frequencies — the missing piece of your edge math | Sharper Ch 12 | 🟢 | Back-out-from-alt-lines formula included |
+| **The Promo Grind: 4 promo types, full math** | LOSB go-for-broke + Sharper risk-free/free-play/churn | 🟢 | **FLAGSHIP CANDIDATE** — strongest combined operational treatment in library |
+| **Closing line value: what it actually measures (and what it doesn't)** | LOSB + Sharper (Conflict #1) | 🟢 | PPS independent synthesis — brand-builder |
+| Choosing between alternate lines on the same game | Sharper Ch 15 | 🟡 | Practical decision guide |
+| Sharp books vs square books (operational map) | LOSB + Sharper named roster | 🟢 | Cross-validates the Sportsbook Tier-Map |
 
 ## Tools / calculators
 
@@ -62,6 +77,14 @@ Rolled up from every `notes/` synthesis. As we process more books, this file gro
 | **Implied Volatility Calculator** (sports betting contracts) | MV (IV surface methodology) | 🟡 | Input ML + Spread → output implied volatility / lottery distortion. First-of-kind. MEDIUM build |
 | "Are you a lottery-preference bettor?" Diagnostic | MV (FLB self-test) | 🟡 | Profile last 20 bets, show FLB tilt. Self-knowledge tool |
 | FLB Magnitude by Sport | MV (cross-sport patterns) | ⚪ | Visualization showing FLB across NCAAF / NCAAB / NBA / NFL and absence in MLB/NHL |
+| **Vig-Free Line Calculator** | MV + Sharper Ch 11 (formula provided) | 🟢 | Input two-sided prices, output juice-free fair odds. LOW build cost |
+| **Push Frequency Estimator** | Sharper Ch 12 (formula provided) | 🟢 | Back-out PFs from sportsbook alt-lines. LOW build cost |
+| **Buying Points Decision Tool** | Sharper Ch 14 | 🟢 | Input line/price/alt/PF → buy or don't. LOW build cost |
+| **Risk-Free Promo Optimizer** | Sharper Addendum | 🟢 | Input promo size + dog odds → expected $ value. HIGH SEO potential |
+| **Free-Play Optimizer** | Sharper Addendum | 🟢 | Similar; ~60¢/dollar valuation. LOW build cost |
+| **Deposit-Bonus Churn Calculator** | LOSB + Sharper Addendum | 🟢 | Input bonus %, rollover multiple, avg juice → expected profit |
+| **Alternate Line Comparator** | Sharper Ch 15 | 🟡 | Choose between alt-line offers by relative edge |
+| **Kelly + fractional Kelly + big-favorite warning** | Sharper Ch 17 | 🟢 | Extends what we already have; adds the favorite-penalty toggle |
 
 ## PPS Originals (in-house content no one else publishes)
 
@@ -73,6 +96,9 @@ Rolled up from every `notes/` synthesis. As we process more books, this file gro
 | **The Go-For-Broke Bonus Method** | LOSB Sportsbook Marketing | 🟢 | Counter-intuitive math + accompanying calc; brand-aligned |
 | **The Favorite-Longshot Bias paper, in plain English** | MV | 🟢 | Library-style reputation piece — PPS reads academic research for bettors |
 | **The Ban-or-Bankrupt Equilibrium** (paper) | LOSB + Funt + MV + journalism | 🟢 | Now peer-reviewed-citation-anchored. Bedrock research piece |
+| **The Promo Grind** (master guide + 4 calculators) | LOSB go-for-broke + Sharper risk-free + free-play + churn | 🟢 | **Strongest flagship candidate in the library** — complete operational treatment of US legal-market promos |
+| **The CLV Reconciliation** | LOSB ↔ Sharper Conflict #1 synthesis | 🟢 | Brand-builder; first cross-source independent position |
+| **Price-is-not-Juice** explainer + Sportsbook Hold Tier pairing | Sharper Ch 5 + LOSB Sportsbook Business Models | 🟢 | Concept + tool pair |
 
 ## Market gaps identified
 
@@ -93,6 +119,17 @@ Things this library has surfaced that **nothing public explains well**:
 13. **The behavioral-finance ↔ sports-betting bridge is missing from public content** despite Moskowitz's explicit framework. PPS can own this angle. *(MV)*
 14. **The "lottery preference" self-diagnosis** — bettors don't know that preferring underdogs is a documented bias that also affects their stock portfolio. *(MV)*
 15. **The MLB/NHL no-FLB anomaly** — counter-intuitive niche content. *(MV via Woodland & Woodland, Gil & Levitt)*
+16. **Price-vs-Juice mental model** — universal public confusion. *(Sharper Ch 5)*
+17. **Push-frequency back-out methodology** — operational gap. *(Sharper Ch 12)*
+18. **Risk-free promo math (bet dogs, 4× the EV)** — almost never explained correctly publicly. *(Sharper Addendum)*
+19. **Free-play promo math** — same gap. *(Sharper Addendum)*
+20. **Deposit-bonus churn vs go-for-broke decision** — combine for full operational map. *(LOSB + Sharper)*
+21. **Closing line is not always the most efficient line** — directly contradicts public CLV gospel. *(Sharper Ch 21)*
+22. **Trailing vs leading edge of line movement** — Sharper-original; never explained publicly. *(Sharper Ch 11)*
+23. **The CLV-deepity tension** — synthesized PPS position rare in public content. *(LOSB ↔ Sharper)*
+24. **Generic-vs-spread points (PF-adjusted)** — power-rating edges aren't 1:1 betting edges. *(Sharper Ch 26)*
+25. **"Bet more on faves, less on dogs at equal edge"** — Counter-Kelly intuition with MV cross-support. *(Sharper Ch 17 + MV)*
+26. **Sharp-books named roster + structural reasoning** — combines named books with business-model logic. *(Sharper + LOSB)*
 
 ---
 
@@ -106,15 +143,18 @@ After every 3-5 books processed:
 
 After 10 books processed: build the first `library/topics/` syntheses around the most cross-referenced topic tags. Those become the source of truth for the corresponding content pieces.
 
-## Current priority shortlist (LOSB + Funt + MV state)
+## Current priority shortlist (LOSB + Funt + MV + Sharper state)
 
 If we shipped one thing from this pipeline tomorrow, top candidates ranked by ratio of (impact × differentiation × ease):
 
-1. **The Hold Chopper calc + guide** — flagship-quality PPS Original, fills a major framework gap, builds on existing PPS calculator credibility
-2. **The Go-For-Broke Bonus Method** (guide + calc) — counter-intuitive, brand-aligned, viral potential, fills #8 gap
-3. **"Market makers vs retail books"** guide — fills the biggest market gap (#1), high SEO potential
-4. **The Sportsbook Tier-Map** tool — directly actionable, builds the moat (no one else has this)
-5. **"How sportsbook prices actually get made"** lesson — Path 01 staple, demolishes a myth a lot of bettors hold
-6. **"The Favorite-Longshot Bias paper, in plain English"** (PPS Original) — reputation-builder; signals PPS reads peer-reviewed research for bettors. New flagship option from the MV note
-7. **"Behavioral finance for sports bettors"** guide — distinctive content; bridges two reader interests (betting + 401k). New from MV
-8. **The Leagues' 180** (PASPA-testimony reversal) guide — Funt source; flagship credibility piece for `/research/`
+1. **The Promo Grind** (master guide + 4 calculators) — combines LOSB Go-For-Broke + Sharper Risk-Free + Free-Play + Deposit-Bonus Churn. **Strongest flagship candidate now.** Complete operational treatment of US legal-market promos. Bundles guide + 4 calculators.
+2. **The Hold Chopper calc + guide** — flagship PPS Original; builds on existing calculator credibility
+3. **The CLV Reconciliation** — independent PPS synthesis of the LOSB/Sharper Conflict #1. Brand-builder.
+4. **Vig-Free Line Calculator + Push Frequency Estimator** — pasteable formulas, low build cost, fill operational gaps
+5. **Price-is-not-Juice + Sportsbook Hold Tier-Map** — concept reframe paired with our tier-map tool
+6. **The Go-For-Broke Bonus Method** (guide + calc) — counter-intuitive, brand-aligned, viral potential
+7. **"Market makers vs retail books"** guide — fills the biggest legacy market gap (#1), high SEO potential
+8. **"How sportsbook prices actually get made"** lesson — Path 01 staple, demolishes a myth
+9. **"The Favorite-Longshot Bias paper, in plain English"** (PPS Original) — reputation-builder; flagship from MV
+10. **"Behavioral finance for sports bettors"** guide — distinctive content; bridges betting + 401k
+11. **The Leagues' 180** (PASPA-testimony reversal) guide — Funt source; flagship credibility piece for `/research/`
