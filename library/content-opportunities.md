@@ -76,6 +76,17 @@ Rolled up from every `notes/` synthesis. As we process more books, this file gro
 | Why strikeouts are the one pitcher stat you can trust | McCracken 2001 via Peta | 🟢 | MLB content tied to Pitcher K EV |
 | How to survive a betting drawdown | Peta + Duke + Sharper + Mathletics | 🟢 | Quad-source discipline guide |
 | Baseball bets are conditional on the listed pitcher | Peta Ch 6 | 🟡 | Operational MLB primer |
+| The 70-30 home-dog rule | Miech (Banker + Youmans) | 🟢 | Two-pro confirmed operational tactic + calculator pair |
+| Why betting the late game to get even destroys you | Miech (Cokin Bail-Out Special) | 🟢 | Multi-source emotional-discipline lesson |
+| How sportsbooks classify you (the 8-tier reality) | Miech via Kornegay + LOSB | 🟢 | Extends profiling content; brand-aligned transparency |
+| The IRS rule serious bettors should know ($10K threshold) | Miech (Bank Secrecy Act 6A) | 🟡 | Compliance primer |
+| How to spot a tout vs an honest handicapper | Miech (Stewart + Cokin + Barton + Youmans) | 🟢 | Anti-tout brand positioning |
+| Why betting on your favorite team makes you a worse bettor | Miech via Youmans | 🟢 | Brand-aligned, sharable |
+| What "professional sports bettor" actually looks like | Miech + Sharper Ch 31 + Peta drawdown | 🟢 | Multi-source reality check |
+| The 54-58% hit-rate ceiling (and why anyone claiming higher is selling something) | Miech via UNLV IGI + Stone + Peta | 🟢 | Calibration-discipline lesson |
+| How to pass on a bet (and why pros pass on most games) | Miech (Banker + Cokin + Van + Youmans) | 🟢 | Multi-pro "no-bet" discipline |
+| Bottom-6 vs Top-10 bounce-back: a real MLB angle | Miech via Van Smith | 🟡 | MLB-specific with appropriate caveats |
+| Free public power-rating sources you can use today | Miech via Stewart (Kenny White, Andy Iskoe, Ralph Michaels) | 🟢 | Operational referral |
 
 ## Guides (deep-dive pages)
 
@@ -119,6 +130,9 @@ Rolled up from every `notes/` synthesis. As we process more books, this file gro
 | What Wall Street knows about sports betting | Peta + MV practitioner-meets-academic | 🟢 | Credibility multiplier |
 | How to build a baseball betting model | Peta full framework | 🟡 | Long-form Path 04 (advanced) candidate |
 | Cluster luck: why last year's magic doesn't carry over | Peta | 🟡 | Futures deep dive |
+| **The Pro-Bettor Convergence Manual** | 9-source synthesis on sizing, sources, discipline, tout-avoidance, lifestyle | 🟢 | **Brand-defining synthesis guide** |
+| **How Vegas Sportsbooks Profile You (the 8-tier reality)** | Miech via Kornegay + LOSB + Roxborough | 🟢 | Operational transparency deep dive |
+| **The Anti-Tout Guide** | Miech (Stewart + Cokin + Barton + Youmans) + LOSB + Sharper | 🟢 | Brand-aligned multi-source critique |
 
 ## Tools / calculators
 
@@ -158,6 +172,10 @@ Rolled up from every `notes/` synthesis. As we process more books, this file gro
 | **Dime Line Juice Calculator** | Peta Ch 6 | 🟢 | Input MLB moneyline pair → output implied odds and juice. LOW build |
 | **MLB Bet-Sizing Tiered Recommender** | Peta variable-sizing schedule | 🟡 | Input bankroll + edge → recommended bet size in tiered bp/% format |
 | **Team Wins Stock Market** (speculative) | Peta Ch 16 Trading Floor concept | ⚪ | Long-term roadmap: "trade" team-win futures with bid/ask + intraday updates |
+| **70-30 Home Dog Split Calculator** | Miech (Banker + Youmans) | 🟢 | Input bankroll + edge + dog ML → output split bet sizes. LOW build |
+| **Tout Sniff-Test Checklist** | Miech multi-pro critique | 🟢 | Interactive guide: identify red flags in a tout pitch |
+| **Bankroll Risk Threshold Alarm** | Miech (1-3% consensus) + multi-source | 🟡 | Bet-tracker integration: warn on >3% bankroll attempts |
+| **MLB Bounce-Back Tracker** | Miech via Van Smith | 🟡 | Flag bottom-6 vs top-10 game-1-loss situations; recommend game-2 sizing |
 | **Spread-to-Probability Calculator** | Mathletics Ch 43 (σ values + NORMDIST) | 🟢 | **Foundational operational tool** — input spread + sport → output P(cover) and P(win). LOW build cost |
 | **Power-Rating Difference → Implied Spread** | Mathletics Ch 40 + Sharper Ch 25 | 🟢 | Input two team ratings + home/away → implied spread + edge vs market |
 | **Kelly Sensitivity Lookup tool** | Mathletics Figure 44.1 | 🟢 | Interactive sensitivity table; user inputs win% → recommended f + growth |
@@ -192,6 +210,8 @@ Rolled up from every `notes/` synthesis. As we process more books, this file gro
 | **Why MLB Is the Sharpest Sport to Bet** | Peta + MV + Mathletics/Levitt synthesis #4 | 🟢 | **NEW FLAGSHIP CANDIDATE** — complete MLB-edge picture no public source has |
 | **From McCracken to SIERA: 25 Years of Pitcher Math** | McCracken 2001 → Tango → Studeman → Swartz & Seidman via Peta | 🟢 | Citation-anchored reputation piece |
 | **What Sports Betting Can Learn From Wall Street** | Peta + MV + LOSB + Sharper | 🟢 | Distinctive cross-domain brand piece |
+| **The Pro-Bettor Convergence Report** | 9-source synthesis | 🟢 | Brand-defining reputation piece — what the smartest operators agree on |
+| **What Pro Sports Betting Actually Looks Like** | Miech + Sharper Ch 31 + Peta | 🟢 | Multi-source lifestyle reality vs Hollywood |
 
 ## Market gaps identified
 
@@ -252,6 +272,13 @@ Things this library has surfaced that **nothing public explains well**:
 53. **Variable bet sizing tied to edge magnitude** rarely operationalized. *(Peta)*
 54. **MLB listed-pitcher rule** auto-protection bettor-friendly feature nobody explains. *(Peta)*
 55. **Wall Street ↔ sports betting cross-domain frame** rare in public content. *(Peta + MV)*
+56. **70-30 home-dog split rule** named in pro circles but absent publicly. *(Miech)*
+57. **Bank Secrecy Act $10K Rule 6A** unknown to most retail bettors. *(Miech)*
+58. **8-tier customer profiling at Vegas books** operationally confirmed (extends LOSB). *(Miech via Kornegay)*
+59. **Bail-Out Special / late-game double-up trap** named warning unsurfaced publicly. *(Miech via Cokin)*
+60. **Free public power-rating sources** (Kenny White, Andy Iskoe, Ralph Michaels) known to Vegas pros only. *(Miech via Stewart)*
+61. **54-58% sustainable pro hit-rate ceiling** rarely communicated publicly. *(Miech via UNLV IGI + Stone)*
+62. **Vegas pro-bettor lifestyle reality** invisible behind Hollywood narrative. *(Miech)*
 
 ---
 
@@ -265,7 +292,7 @@ After every 3-5 books processed:
 
 After 10 books processed: build the first `library/topics/` syntheses around the most cross-referenced topic tags. Those become the source of truth for the corresponding content pieces.
 
-## Current priority shortlist (8-source state)
+## Current priority shortlist (9-source state)
 
 If we shipped one thing from this pipeline tomorrow, top candidates ranked by (impact × differentiation × ease):
 

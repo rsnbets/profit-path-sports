@@ -10,15 +10,30 @@ The living document that synthesizes everything PROFITPATH knows about modern sp
 
 | Metric | Current |
 |---|---|
-| Books processed (comprehensive first pass) | **8** *(LOSB + Funt + MV + Sharper + Mathletics + Duke + Scorecasting + Trading Bases)* |
-| Books queued in `source-pdfs/` | **6** *(Monte Carlo or Bust, Sports Betting for Winners, Wong, Konik, Appelbaum + 30pp quick-skim)* |
+| Books processed (comprehensive first pass) | **9** *(LOSB + Funt + MV + Sharper + Mathletics + Duke + Scorecasting + Trading Bases + Miech)* |
+| Books queued in `source-pdfs/` | **5** *(Monte Carlo or Bust, Wong, Konik, Appelbaum + 30pp quick-skim)* |
 | Topic syntheses written | **0** *(deferred — user prefers more ingestion first)* |
-| Content opportunities in pipeline | **155+** *(69+ lessons / 46+ guides / 42+ tools / 24 originals)* |
-| Market gaps identified | **72** |
+| Content opportunities in pipeline | **170+** *(79+ lessons / 49+ guides / 46+ tools / 26 originals)* |
+| Market gaps identified | **79** |
 | Cross-source conflicts being tracked | **1** *(CLV: LOSB-as-skill-signal vs Sharper-as-deepity)* |
 | Cross-source syntheses ready | **4** *(Favorite × Longshot bias coexistence + Levitt-Duke bookmaker myth + HFA Origin Story + MLB-as-sharpest-sport)* |
 
-**Last update:** Trading Bases (Joe Peta, Dutton/Penguin 2013) — first pass complete. Note at `notes/trading-bases-peta.md`. **Key findings:**
+**Last update:** Sports Betting for Winners (Rob Miech, Citadel Press 2019) — first pass complete. Note at `notes/sports-betting-for-winners-miech.md`. **Key findings:**
+- **The modern-era Vegas pro-bettor culture source.** Character-per-chapter profiles of working pros (Lem Banker, Roxy Roxborough, Jay Kornegay, Matt Youmans, Kelly Stewart, Dave Cokin, Tom Barton, Jimmy Vaccaro, Van Smith). Lighter on novel frameworks than the prior 8 sources but rich in **multi-pro cross-confirmation** of LOSB/Sharper/Peta/Duke principles.
+- **The 70-30 home-dog points/moneyline split rule** — named operational tactic used by **both Banker and Youmans independently.** On a strong home-underdog play: 70% on the points + 30% on the moneyline. Banker estimates NFL underdogs win outright 35-40% over many years. Youmans escalates to 80-20 on highest-conviction plays.
+- **Kornegay confirms 8-tier customer profiling** at the Westgate SuperBook (extends LOSB's 1-5 framework). Explicit "cat-and-mouse" detection of false-move vs true-move line bets by sharps.
+- **Bank Secrecy Act $10K Rule 6A** — any wager ≥$10K triggers IRS CTR paperwork. Pros stay below to operate "below the radar." Operational compliance fact absent from every other source.
+- **The Bail-Out Special / late-game double-up trap** (Cokin) — named warning against betting the last game of the day to "get even." Cross-confirmed by Sevransky. Cross-references Sharper/Duke/Peta emotional-discipline content.
+- **Multi-pro tout-industry critique** — Stewart, Cokin, Barton, Youmans all converge: ">50% scumbags." Operational red flags ("10-Star Picks," ">2-3% per bet recommendations," split-pitch scams) and counter-models (Barton's $99/mo flat fee, public-record plays).
+- **1-3% per bet sizing consensus** — Cokin's working-pro standard cross-validates Peta + Sharper + Mathletics + Duke. **Anyone selling "10-unit plays" is incompatible with the consensus.**
+- **Michael Gaughan quote on record:** *"The American public roots for the underdog but bets favorites."* Third-source confirmation of Synthesis #1 (Levitt + MV + Scorecasting).
+- **UNLV International Gaming Institute estimate** + Paul Stone: **sustainable pro hit-rate ceiling is 54-58%.** Anyone claiming consistently >60% is touting, streaking, or cherry-picking. Cross-validates Peta's 51.9% + Sharper's epistemic humility.
+- **Vaccaro mantra:** *"You never, ever know when it comes to athletes and sports"* — calibrated-uncertainty quadruple-source consensus (Vaccaro + Duke + Sharper + Peta).
+- **Van Smith's "Bottom-6 vs Top-10 bounce-back" MLB angle** — 16-0 on this single angle in 2018.
+- **Youmans's "stalk before you bet"** approach — month-long observation before pulling the trigger.
+- **Free public power-rating sources** named by Stewart: Kenny White, Andy Iskoe, Ralph Michaels.
+
+**Earlier update:** Trading Bases (Joe Peta, Dutton/Penguin 2013) — first pass complete. Note at `notes/trading-bases-peta.md`. **Key findings:**
 - ⭐ **The Wall Street ↔ baseball ↔ sports-betting bridge source.** Explicitly cited in MV's bibliography (their footnote 7). Practitioner's account of building a quantitative MLB betting model that returned **+41% in the 2011 season.** Brings finance-trading-discipline to sports betting in a way no other source has, and fills our library's MLB depth gap.
 - 🔑 **The dime line: MLB has structurally lower juice than football/basketball** — average 2011 MLB game has ~1.78% juice vs 4.76% standard NFL/NBA. As favorite price rises, MLB juice *decreases* (the dime line stays fixed; implied-odds gap shrinks).
 - **Cluster luck (Peta's named contribution):** the random clustering of hits with runners on base, beyond what player skill predicts. 2010 Rays scored +78 runs vs cluster-luck-adjusted expectation; 2011 reversion delivered exactly as Peta predicted. Operational tool for Vegas futures mispricings.
@@ -130,6 +145,7 @@ Now have enough material from three sources (industry-analytical + journalistic 
 | Thinking in Bets | Annie Duke | 2018 | **first pass complete** | The decision-science / decision-discipline tier. "Resulting," fielding outcomes, belief vetting, group truthseeking (Tetlock/Lerner + CUDOS), mental time travel (10-10-10, Ulysses contracts, decision swear jar, scenario planning, backcasting, premortems). Mass-market crossover voice. Celebrity-author asset. Brand-aligned: gives PPS the "decision-clarity brand that applies to sports betting" positioning. ⚠️ Repeats the "bookmakers balance action" myth — correct when citing. |
 | Scorecasting | Moskowitz & Wertheim | 2011 | **first pass complete on PPS-relevant chapters** | Popular-press companion to MV — *same Moskowitz*. THE source on the HFA mechanism: ref bias, NOT crowd/travel/roster. Cross-sport empirical HFA table. QuesTec natural experiment. Romer 2005 4th-down irrationality. Loss aversion in coaching. Hot Hand triple-source consensus debunking. Icing-the-kicker doesn't work. Self-attribution (Cubs/Yankees). Damned Statistics framing critique. |
 | Trading Bases | Joe Peta | 2013 | **first pass complete** | The Wall Street ↔ baseball ↔ sports-betting bridge. MV explicitly cites it. Practitioner's account of building a +41% MLB betting model in 2011. The dime line + structural MLB juice analysis. Cluster luck (Peta's named contribution). Pythagorean theorem applied to bet sizing. McCracken 2001 → FIP → xFIP → SIERA pitcher-evaluation genealogy. Managing-to-the-wrong-metric cross-domain frame. The Trading Floor NFL Market innovation. |
+| Sports Betting for Winners | Rob Miech | 2019 | **first pass complete** | The modern-era Vegas pro-bettor culture source. Character-per-chapter profiles. Multi-pro cross-confirmation of LOSB/Sharper/Peta/Duke principles. **70-30 home-dog rule** named (Banker + Youmans). Kornegay's **8-tier customer profiling** explicitly confirmed. **Bank Secrecy Act $10K Rule 6A** operational compliance fact. **Bail-Out Special** named warning. Multi-pro tout-industry critique. Gaughan's "rooting underdog, betting favorite" quote. UNLV IGI 57-58% sustainable ceiling. |
 
 ### Queued (in `source-pdfs/`, not yet processed)
 
@@ -193,6 +209,12 @@ Updated after every book read. This is the "where does sports betting knowledge 
 - **Cluster luck (Peta's named contribution):** random clustering of hits with runners on base, beyond what player skill predicts. Reverts over the following season. Operational tool for Vegas futures mispricings. *(Peta)*
 - **Pythagorean expected wins:** team winning % ≈ RS^1.83 / (RS^1.83 + RA^1.83). Deviations of 4+ games from Pythagorean are non-repeatable luck. *(James → Peta)*
 - **Managing to the wrong metric is a cross-domain pattern** — applies to baseball (saves, ERA, errors), Wall Street (loss ratios, gross margins), and bettors (units, hit rate, parlay payouts). The right metric is edge × bet-size compounded over time. *(Peta Ch 19; cross-pollinates with Duke decision swear jar + Sharper estimated-edge-is-not-edge)*
+- **The sustainable pro hit-rate ceiling is 54-58%.** UNLV International Gaming Institute estimate + Paul Stone industry consensus. Anyone claiming consistently >60% is touting, streaking, or cherry-picking. Cross-validates Peta's 51.9% / +41% result. *(Miech Ch 1)*
+- **1-3% per bet is the working-pro bankroll sizing consensus.** Cokin + Peta + Sharper + Mathletics + Duke converge. Anyone recommending >2-3% per bet is incompatible with the consensus. *(Miech Ch 12; multi-source)*
+- **Major sportsbooks profile every customer into 8 explicit tiers.** Kornegay (Westgate Las Vegas SuperBook VP) on record. Extends LOSB's 1-5 framework. False-move-vs-true-move line-bet detection is a deliberate cat-and-mouse. *(Miech Ch 1)*
+- **The 70-30 home-dog points/moneyline split** is a named operational tactic — 70% on the points + 30% on the moneyline for strong home-underdog plays. Used independently by both Banker and Youmans. *(Miech Ch 2 + Ch 7)*
+- **Late-game double-up bets to "get even" are doomed.** Cokin's "Bail-Out Special" warning + Sevransky agreement. Cross-references Sharper bankroll discipline + Duke tilt + Peta drawdown chapter. *(Miech Ch 12)*
+- **"You never, ever know when it comes to athletes and sports."** Jimmy Vaccaro mantra. Calibrated-uncertainty quadruple-source consensus (Vaccaro + Duke + Sharper + Peta). *(Miech recurring)*
 
 ### Where sources conflict (cross-source reconciliations)
 
@@ -327,6 +349,13 @@ This synthesis is ready to ship as a PPS Original. **Joins the Decision Discipli
 53. **Variable bet sizing tied to edge magnitude** rarely operationalized in public; most retail bettors flat-bet or use simple unit sizing. *(Peta)*
 54. **The MLB listed-pitcher rule** is a bettor-friendly auto-protection nobody explains to newer bettors. *(Peta)*
 55. **The Wall Street ↔ sports betting cross-domain frame** (Peta + MV) is rare in public content. PPS can own this angle. *(Peta + MV)*
+56. **The 70-30 home-dog split rule** is named in pro circles (Banker + Youmans) but absent from public content. *(Miech)*
+57. **The Bank Secrecy Act $10K Rule 6A** (CTR-triggering wager threshold) is a compliance fact even reasonably-informed bettors don't know. *(Miech)*
+58. **The 8-tier customer profiling at major Vegas books** — operationally confirmed by Kornegay; public content treats profiling as a vague concept. *(Miech extends LOSB)*
+59. **The Bail-Out Special / late-game double-up trap** is named in pro circles but not surfaced for retail bettors. *(Miech via Cokin)*
+60. **Free public power-rating sources** (Kenny White, Andy Iskoe, Ralph Michaels) are known to Vegas pros but not surfaced to retail bettors. *(Miech via Stewart)*
+61. **The 54-58% sustainable pro hit-rate ceiling** is rarely communicated to retail bettors. *(Miech via UNLV IGI + Paul Stone)*
+62. **The Vegas pro-bettor lifestyle reality** (notebooks, rented condos, modest sizing, passing on most games) is invisible behind the casino-loft Hollywood narrative. *(Miech)*
 
 *(Each new book will surface more. Migration to `content-opportunities.md` happens as items mature.)*
 
@@ -376,7 +405,8 @@ library/
 │   ├── mathletics-winston.md
 │   ├── thinking-in-bets-annie-duke.md
 │   ├── scorecasting-moskowitz-wertheim.md
-│   └── trading-bases-peta.md
+│   ├── trading-bases-peta.md
+│   └── sports-betting-for-winners-miech.md
 ├── topics/                        ← cross-book topic syntheses (empty for now)
 └── our-book/                      ← eventual public manuscript (long-term)
 ```
@@ -456,6 +486,15 @@ Topics that will get their own `topics/{topic}.md` synthesis once we have 2-3+ b
 | `mlb-listed-pitcher-rule` | Peta ✓ | 🟢 ready to draft |
 | `futures-betting-discipline` | Peta ✓ | 🟢 ready to draft |
 | `mental-discomfort-of-drawdown` | Peta + Duke + Sharper + Mathletics | 🟢 ready to draft |
+| `pro-bettor-lifestyle` | Miech + Sharper Ch 31 + Peta | 🟢 ready to draft |
+| `home-dog-points-moneyline-split` | Miech (Banker + Youmans) | 🟢 ready to draft |
+| `bail-out-special-late-game-trap` | Miech (Cokin + Sevransky) | 🟢 ready to draft |
+| `customer-profiling-tiers` | LOSB (1-5) + Miech via Kornegay (8-tier) | 🟢 ready to draft — extended |
+| `bank-secrecy-act-10k-rule` | Miech | 🟢 ready to draft |
+| `tout-industry-critique` | Miech (Stewart + Cokin + Barton + Youmans) + LOSB + Sharper | 🟢 ready to draft |
+| `stalking-a-bet-before-acting` | Miech via Youmans | 🟢 ready to draft |
+| `vegas-public-power-ratings` | Miech via Stewart (Kenny White, Andy Iskoe, Ralph Michaels) | 🟢 ready to draft |
+| `integrity-and-corruption-history` | Funt + Mathletics + Miech (1959 OU food poisoning) | 🟢 ready to draft |
 | `sharp-line-construction` | LOSB ✓ · Sharper ✓ (names the books) | 🟢 ready to draft |
 | `square-vs-sharp-thinking` | Sharper ✓ (primary) · LOSB ✓ (1-5 scale variant) | 🟢 ready to draft |
 | `price-vs-juice` | Sharper ✓ (primary) | 🟢 ready to draft — Sharper is THE source |
@@ -487,14 +526,14 @@ Topics that will get their own `topics/{topic}.md` synthesis once we have 2-3+ b
 5. ✅ ~~Process Mathletics (Winston).~~ (Complete — quantitative-foundations tier + Levitt 2004 finding + first PPS-original cross-source synthesis.)
 6. ✅ ~~Process Thinking in Bets (Duke).~~ (Complete — decision-science tier + brand-positioning unlock + second cross-source synthesis.)
 7. ✅ ~~Process Scorecasting (Moskowitz & Wertheim).~~ (Complete — popular-press companion to MV + HFA-mechanism unlock + third cross-source synthesis.)
-8. ✅ ~~Process Trading Bases (Joe Peta).~~ (Complete — Wall Street ↔ baseball ↔ betting bridge + MLB depth + 4th cross-source synthesis: MLB-as-sharpest-sport.)
-9. **Next book decision point.** Remaining queue:
-   - **Sports Betting for Winners (Rob Miech)** — unknown content; will determine when opened. **Recommended next.**
-   - **Konik (Smart Money)** — Billy Walters narrative; US-sports.
-   - **Appelbaum (Everything Guide)** — beginner intro; useful for Path 01 mapping.
-   - **Wong (Sharp Sports Betting)** — likely highly redundant given current 8-source coverage.
-   - **Monte Carlo or Bust (Buchdahl)** — deprioritized (soccer-heavy).
-   - **Complete Book of Sports Betting** — quick-skim only.
+8. ✅ ~~Process Trading Bases (Joe Peta).~~ (Complete — Wall Street ↔ baseball ↔ betting bridge + MLB depth + 4th cross-source synthesis.)
+9. ✅ ~~Process Sports Betting for Winners (Rob Miech).~~ (Complete — modern-era Vegas pro-bettor culture source + multi-pro cross-confirmation tier.)
+10. **Next book decision point.** Remaining queue:
+    - **Konik (Smart Money)** — Billy Walters narrative; US-sports. **Recommended next.**
+    - **Appelbaum (Everything Guide)** — beginner intro; useful for Path 01 mapping.
+    - **Wong (Sharp Sports Betting)** — likely highly redundant given current 9-source coverage.
+    - **Monte Carlo or Bust (Buchdahl)** — deprioritized (soccer-heavy).
+    - **Complete Book of Sports Betting** — quick-skim only.
 6. **Spin up first `topics/` syntheses.** With 4 sources, the topics most ready to draft (multi-source or single-strong-source + PPS-original-content):
    - `closing-line-value` — **flagship synthesis (Conflict #1 reconciliation)**
    - `bonus-conversion` — **flagship (combined LOSB + Sharper full promo treatment)**
