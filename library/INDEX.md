@@ -10,15 +10,29 @@ The living document that synthesizes everything PROFITPATH knows about modern sp
 
 | Metric | Current |
 |---|---|
-| Books processed (comprehensive first pass) | **7** *(LOSB + Funt + MV + Sharper + Mathletics + Duke + Scorecasting)* |
-| Books queued in `source-pdfs/` | **7** *(Trading Bases, Monte Carlo or Bust, Sports Betting for Winners, Wong, Konik, Appelbaum + 30pp quick-skim)* |
+| Books processed (comprehensive first pass) | **8** *(LOSB + Funt + MV + Sharper + Mathletics + Duke + Scorecasting + Trading Bases)* |
+| Books queued in `source-pdfs/` | **6** *(Monte Carlo or Bust, Sports Betting for Winners, Wong, Konik, Appelbaum + 30pp quick-skim)* |
 | Topic syntheses written | **0** *(deferred — user prefers more ingestion first)* |
-| Content opportunities in pipeline | **140+** *(59+ lessons / 41+ guides / 36+ tools / 21 originals)* |
-| Market gaps identified | **64** |
+| Content opportunities in pipeline | **155+** *(69+ lessons / 46+ guides / 42+ tools / 24 originals)* |
+| Market gaps identified | **72** |
 | Cross-source conflicts being tracked | **1** *(CLV: LOSB-as-skill-signal vs Sharper-as-deepity)* |
-| Cross-source syntheses ready | **3** *(Favorite × Longshot bias coexistence + Levitt-Duke bookmaker myth + the HFA Origin Story)* |
+| Cross-source syntheses ready | **4** *(Favorite × Longshot bias coexistence + Levitt-Duke bookmaker myth + HFA Origin Story + MLB-as-sharpest-sport)* |
 
-**Last update:** Scorecasting (Tobias Moskowitz & L. Jon Wertheim, Crown Archetype 2011) — first pass complete on PPS-relevant chapters. Note at `notes/scorecasting-moskowitz-wertheim.md`. **Key findings:**
+**Last update:** Trading Bases (Joe Peta, Dutton/Penguin 2013) — first pass complete. Note at `notes/trading-bases-peta.md`. **Key findings:**
+- ⭐ **The Wall Street ↔ baseball ↔ sports-betting bridge source.** Explicitly cited in MV's bibliography (their footnote 7). Practitioner's account of building a quantitative MLB betting model that returned **+41% in the 2011 season.** Brings finance-trading-discipline to sports betting in a way no other source has, and fills our library's MLB depth gap.
+- 🔑 **The dime line: MLB has structurally lower juice than football/basketball** — average 2011 MLB game has ~1.78% juice vs 4.76% standard NFL/NBA. As favorite price rises, MLB juice *decreases* (the dime line stays fixed; implied-odds gap shrinks).
+- **Cluster luck (Peta's named contribution):** the random clustering of hits with runners on base, beyond what player skill predicts. 2010 Rays scored +78 runs vs cluster-luck-adjusted expectation; 2011 reversion delivered exactly as Peta predicted. Operational tool for Vegas futures mispricings.
+- **Pythagorean expected wins** (Bill James, exponent 1.83): team wins ≈ RS^1.83 / (RS^1.83 + RA^1.83). When actual wins deviate 4+ from Pythagorean, non-repeatable luck is presumed. Operational futures-betting tool.
+- **Voros McCracken 2001 finding:** pitchers control only K rate, BB rate, HR rate. BABIP is essentially noise (.295-.300 mean). ERA is luck-contaminated; **SIERA** (Skill-Interactive ERA from Swartz & Seidman, building on Tango's FIP + Studeman's xFIP) is the bettor's tool.
+- **Managing to the Wrong Metric** — Peta's recurring cross-domain frame. 9 worked examples spanning baseball (saves, errors, ERA), Wall Street (loss ratios, gross margins, absolute returns), and decision-making generally. Cross-pollinates with Duke's decision-swear-jar and Sharper's "estimated edge is not edge."
+- **Variable bet sizing** keyed to edge magnitude (10bp → 2% bankroll tiers). 51.9% hit rate produced +41% return because of (a) MLB's lower juice and (b) disciplined sizing.
+- **The Trading Floor NFL Market** — Peta invented a security-style two-sided market for NFL team wins (refreshed Tuesdays during the season) at Lehman in 1997 that has spread across Wall Street trading desks. Potential PPS-original product concept.
+- **Markets can remain irrational longer than you can remain solvent** (Keynes) — direct cross-reference to Sharper's "the sharp line cannot be reduced beyond the width of the juice" and Duke's tilt-proofing.
+
+**NEW PPS-ORIGINAL CROSS-SOURCE SYNTHESIS #4 surfaced:**
+- **"Why MLB Is the Sharpest Sport to Bet"** — Peta (dime line + 1.78% juice) + MV (no FLB in MLB per Woodland & Woodland 1994) + Mathletics's Levitt (favorite-bias is in NFL spreads, doesn't translate to MLB moneylines) + the listed-pitcher rule (bettor-friendly auto-void). **No public source has packaged this complete picture.** Flagship-quality PPS Original ready to ship.
+
+**Earlier update:** Scorecasting (Tobias Moskowitz & L. Jon Wertheim, Crown Archetype 2011) — first pass complete on PPS-relevant chapters. Note at `notes/scorecasting-moskowitz-wertheim.md`. **Key findings:**
 - ⭐ **The popular-press companion to MV — same Moskowitz as our peer-reviewed pillar.** Bridges PPS readers from accessible content to academic rigor. Citation depth: same author across mass-market and peer-reviewed sources signals real research depth, not one-paper credibility.
 - **🔑 THE HOME-FIELD-ADVANTAGE MECHANISM:** None of the conventional explanations (crowd, travel, roster construction, weather) survives data. The real driver is **referee bias** — ~2/3 of MLB HFA, ~75% of NBA HFA, ~83% of NHL HFA, large NFL share (HFA dropped 29% after instant replay was introduced). Refs aren't corrupt — they're conforming to crowd pressure (Sherif 1935). **The QuesTec natural experiment** is the smoking gun: same umpire, same season, ref bias only when monitor cameras are absent.
 - **The 4th-down coaching irrationality** — Romer 2005 (NBER) documented 90% suboptimal call rate across 1,068 fourth-down situations. **Kevin Kelley** (Pulaski Academy HS) operationalized the math: never punt, onside kick routinely. 77-17-1 record, 2 state titles.
@@ -115,6 +129,7 @@ Now have enough material from three sources (industry-analytical + journalistic 
 | Mathletics | Wayne L. Winston | 2009 (rev. 2012) | **first pass complete on Part IV + scattered relevant chapters** | THE quantitative-foundations academic source. Sport σ values (NFL 13.86, NBA 12, NCAAB 10, CFB 16) for spread→probability translation. Levitt 2004 finding on bookmaker favorite-bias exploitation. Kelly derivation + sensitivity table. Streakiness debunking. Donaghy detection methodology. Monte Carlo for series/tournaments. Princeton University Press credentials. |
 | Thinking in Bets | Annie Duke | 2018 | **first pass complete** | The decision-science / decision-discipline tier. "Resulting," fielding outcomes, belief vetting, group truthseeking (Tetlock/Lerner + CUDOS), mental time travel (10-10-10, Ulysses contracts, decision swear jar, scenario planning, backcasting, premortems). Mass-market crossover voice. Celebrity-author asset. Brand-aligned: gives PPS the "decision-clarity brand that applies to sports betting" positioning. ⚠️ Repeats the "bookmakers balance action" myth — correct when citing. |
 | Scorecasting | Moskowitz & Wertheim | 2011 | **first pass complete on PPS-relevant chapters** | Popular-press companion to MV — *same Moskowitz*. THE source on the HFA mechanism: ref bias, NOT crowd/travel/roster. Cross-sport empirical HFA table. QuesTec natural experiment. Romer 2005 4th-down irrationality. Loss aversion in coaching. Hot Hand triple-source consensus debunking. Icing-the-kicker doesn't work. Self-attribution (Cubs/Yankees). Damned Statistics framing critique. |
+| Trading Bases | Joe Peta | 2013 | **first pass complete** | The Wall Street ↔ baseball ↔ sports-betting bridge. MV explicitly cites it. Practitioner's account of building a +41% MLB betting model in 2011. The dime line + structural MLB juice analysis. Cluster luck (Peta's named contribution). Pythagorean theorem applied to bet sizing. McCracken 2001 → FIP → xFIP → SIERA pitcher-evaluation genealogy. Managing-to-the-wrong-metric cross-domain frame. The Trading Floor NFL Market innovation. |
 
 ### Queued (in `source-pdfs/`, not yet processed)
 
@@ -173,6 +188,11 @@ Updated after every book read. This is the "where does sports betting knowledge 
 - **NFL coaches systematically underperform optimal 4th-down strategy.** Romer 2005: 90% of fourth-down situations where math says go-for-it, coaches punt. Driven by loss aversion (Kahneman-Tversky 1979). *(Scorecasting + Romer 2005)*
 - **Icing the kicker doesn't work.** 76% FT conversion iced vs 76% non-iced (NBA); identical NFL kicker rates. *(Scorecasting)*
 - **Selective stat framing in broadcasting** — "4 of his last 5" almost always means 4 of his last 6+. Universal across sports broadcasting. *(Scorecasting)*
+- **MLB has structurally lower juice than football/basketball** — average 2011 MLB juice ~1.78% vs the 4.76% standard for NFL/NBA. As favorite price rises, MLB juice DECREASES (dime line stays fixed). *(Peta Ch 6)*
+- **Pitchers control only K, BB, HR rates; everything else (BABIP, hits in play) is noise.** Voros McCracken 2001 finding, confirmed by a decade of follow-up research. ERA is luck-contaminated; SIERA is the bettor's predictive tool. *(Peta + McCracken 2001 + Swartz & Seidman)*
+- **Cluster luck (Peta's named contribution):** random clustering of hits with runners on base, beyond what player skill predicts. Reverts over the following season. Operational tool for Vegas futures mispricings. *(Peta)*
+- **Pythagorean expected wins:** team winning % ≈ RS^1.83 / (RS^1.83 + RA^1.83). Deviations of 4+ games from Pythagorean are non-repeatable luck. *(James → Peta)*
+- **Managing to the wrong metric is a cross-domain pattern** — applies to baseball (saves, ERA, errors), Wall Street (loss ratios, gross margins), and bettors (units, hit rate, parlay payouts). The right metric is edge × bet-size compounded over time. *(Peta Ch 19; cross-pollinates with Duke decision swear jar + Sharper estimated-edge-is-not-edge)*
 
 ### Where sources conflict (cross-source reconciliations)
 
@@ -229,6 +249,21 @@ This synthesis is ready to ship as a PPS Original / blog piece: **"The Bookmaker
 
 This synthesis is ready to ship as a PPS Original. **Joins the Decision Discipline Framework + Promo Grind at the top of the priority shortlist.**
 
+#### Cross-Source Synthesis #4: Why MLB Is the Sharpest Sport to Bet
+
+- **Peta (2013):** MLB's dime line gives the average game ~1.78% juice vs the 4.76% standard for NFL/NBA point-spread bets. As favorite price rises, the juice actually *decreases*. The listed-pitcher rule auto-voids bets if either starter is scratched — a bettor-friendly protection no other major sport has.
+- **MV (2022):** The Favorite-Longshot Bias is **absent in MLB** (Woodland & Woodland 1994, 2001; Gil & Levitt 2007 for NHL). MLB outcomes are closer to 50/50, so the lottery-preference mechanism that distorts NCAAF/NCAAB/NBA/NFL moneylines doesn't trigger.
+- **Mathletics via Levitt 2004:** Bookmakers exploit favorite-bias in NFL spreads — favorites cover <50% historically. This favorite-bias has been documented in NFL, not in MLB moneylines.
+- **PPS synthesis (no public source has this):**
+  1. MLB has the lowest structural house edge (Peta).
+  2. MLB has no FLB (MV / Woodland & Woodland).
+  3. MLB doesn't have the NFL-style favorite-bias exploitation (Levitt's NFL-specific finding).
+  4. The listed-pitcher rule gives bettors free auto-protection.
+  5. Bettor and player incentives are aligned (no spread-driven endgame perversity that football/basketball suffers).
+- **Result:** MLB is structurally the sharpest sport for a math-minded, disciplined bettor — but the betting public consistently bets football/basketball at 3× the MLB volume (Nevada Gaming Commission data via Peta).
+- **Operational implication:** A PPS reader who wants to maximize the chance of long-run profitability should consider shifting bankroll allocation toward MLB.
+- **Content angle:** **"Why MLB Is the Sharpest Sport to Bet — and Nobody Tells You This"** — flagship PPS Original. Joins the Decision Discipline Framework + HFA Origin Story + Promo Grind at the top of the priority shortlist.
+
 **Tracking template (used when we find more):**
 - **Claim:** [what one source says]
 - **Source A:** [book, page]
@@ -284,6 +319,14 @@ This synthesis is ready to ship as a PPS Original. **Joins the Decision Discipli
 45. **The QuesTec natural experiment** — one of the cleanest causal identifications in all of sports research, never cited in mass-market betting content. *(Scorecasting)*
 46. **Romer 2005 90% suboptimal 4th-down rate** — bettor opportunity in 4th-down decision props / in-game lines. *(Scorecasting + Romer 2005)*
 47. **"4 of his last 5" cherry-pick heuristic** — broadcasters use it every game; no public content names the pattern. *(Scorecasting)*
+48. **MLB's dime line / structurally lower juice** invisible to retail bettors. Most public content treats all sports as equivalent juice-wise. *(Peta)*
+49. **The McCracken 2001 BABIP finding** invisible to retail MLB bettors. Fans still talk about "induced weak contact" 25 years after the research disproved it. *(Peta + McCracken)*
+50. **SIERA as the bettor's predictive ERA tool** not surfaced in any public sportsbook-adjacent content. *(Peta + Swartz & Seidman)*
+51. **Cluster luck has no name in public content.** Fans see "lucky team" / "unlucky team" but no one operationalizes the regression. *(Peta)*
+52. **Pythagorean expected wins for season futures** barely discussed publicly despite being the 40-year foundation of MLB sabermetrics. *(Peta + James)*
+53. **Variable bet sizing tied to edge magnitude** rarely operationalized in public; most retail bettors flat-bet or use simple unit sizing. *(Peta)*
+54. **The MLB listed-pitcher rule** is a bettor-friendly auto-protection nobody explains to newer bettors. *(Peta)*
+55. **The Wall Street ↔ sports betting cross-domain frame** (Peta + MV) is rare in public content. PPS can own this angle. *(Peta + MV)*
 
 *(Each new book will surface more. Migration to `content-opportunities.md` happens as items mature.)*
 
@@ -332,7 +375,8 @@ library/
 │   ├── sharper-pokerjoe.md
 │   ├── mathletics-winston.md
 │   ├── thinking-in-bets-annie-duke.md
-│   └── scorecasting-moskowitz-wertheim.md
+│   ├── scorecasting-moskowitz-wertheim.md
+│   └── trading-bases-peta.md
 ├── topics/                        ← cross-book topic syntheses (empty for now)
 └── our-book/                      ← eventual public manuscript (long-term)
 ```
@@ -400,6 +444,18 @@ Topics that will get their own `topics/{topic}.md` synthesis once we have 2-3+ b
 | `selective-statistics-framing` | Scorecasting ✓ + Duke (Decision Swear Jar) | 🟢 ready to draft |
 | `self-attribution-bias` | Scorecasting (Cubs/Yankees) + Duke (fielding outcomes) | 🟢 ready to draft |
 | `conformity-and-social-pressure` | Scorecasting + Sherif 1935 | 🟢 ready to draft |
+| `mlb-betting-foundations` | Peta ✓ (primary) | 🟢 ready to draft — Peta is THE source |
+| `dime-line-and-juice` | Peta ✓ (primary) | 🟢 ready to draft |
+| `pythagorean-expected-wins` | James → Peta | 🟢 ready to draft |
+| `cluster-luck` | Peta ✓ (primary) | 🟢 ready to draft |
+| `babip-and-pitcher-luck` | McCracken 2001 → Peta | 🟢 ready to draft |
+| `siera-and-pitcher-projection` | Swartz & Seidman → Peta | 🟢 ready to draft |
+| `war-and-replacement-level` | Peta ✓ | 🟢 ready to draft |
+| `managing-to-the-wrong-metric` | Peta ✓ (primary) + Duke + Sharper | 🟢 ready to draft — triangulated |
+| `wall-street-and-sports-betting-bridge` | Peta + MV | 🟢 ready to draft |
+| `mlb-listed-pitcher-rule` | Peta ✓ | 🟢 ready to draft |
+| `futures-betting-discipline` | Peta ✓ | 🟢 ready to draft |
+| `mental-discomfort-of-drawdown` | Peta + Duke + Sharper + Mathletics | 🟢 ready to draft |
 | `sharp-line-construction` | LOSB ✓ · Sharper ✓ (names the books) | 🟢 ready to draft |
 | `square-vs-sharp-thinking` | Sharper ✓ (primary) · LOSB ✓ (1-5 scale variant) | 🟢 ready to draft |
 | `price-vs-juice` | Sharper ✓ (primary) | 🟢 ready to draft — Sharper is THE source |
@@ -431,12 +487,12 @@ Topics that will get their own `topics/{topic}.md` synthesis once we have 2-3+ b
 5. ✅ ~~Process Mathletics (Winston).~~ (Complete — quantitative-foundations tier + Levitt 2004 finding + first PPS-original cross-source synthesis.)
 6. ✅ ~~Process Thinking in Bets (Duke).~~ (Complete — decision-science tier + brand-positioning unlock + second cross-source synthesis.)
 7. ✅ ~~Process Scorecasting (Moskowitz & Wertheim).~~ (Complete — popular-press companion to MV + HFA-mechanism unlock + third cross-source synthesis.)
-8. **Next book decision point.** Top candidates from the remaining queue:
-   - **Trading Bases (Joe Peta, 2013)** — Wall Street → MLB betting bridge. MV-cited. Pure US-sports. **Recommended next.**
-   - **Sports Betting for Winners (Rob Miech)** — unknown content; will determine when opened.
+8. ✅ ~~Process Trading Bases (Joe Peta).~~ (Complete — Wall Street ↔ baseball ↔ betting bridge + MLB depth + 4th cross-source synthesis: MLB-as-sharpest-sport.)
+9. **Next book decision point.** Remaining queue:
+   - **Sports Betting for Winners (Rob Miech)** — unknown content; will determine when opened. **Recommended next.**
    - **Konik (Smart Money)** — Billy Walters narrative; US-sports.
    - **Appelbaum (Everything Guide)** — beginner intro; useful for Path 01 mapping.
-   - **Wong (Sharp Sports Betting)** — likely highly redundant.
+   - **Wong (Sharp Sports Betting)** — likely highly redundant given current 8-source coverage.
    - **Monte Carlo or Bust (Buchdahl)** — deprioritized (soccer-heavy).
    - **Complete Book of Sports Betting** — quick-skim only.
 6. **Spin up first `topics/` syntheses.** With 4 sources, the topics most ready to draft (multi-source or single-strong-source + PPS-original-content):

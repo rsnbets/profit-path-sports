@@ -2,7 +2,7 @@
 
 > **Purpose:** Self-contained project state document. Read this if you're (a) returning to the project after a break, (b) starting a new Claude conversation and need to refresh context, or (c) onboarding a collaborator. As of last update, this brief reflects 6 books processed into the library and the brand positioning that has emerged from that work.
 >
-> **Last updated:** 2026-05-15 (after Scorecasting)
+> **Last updated:** 2026-05-17 (after Trading Bases)
 
 ---
 
@@ -77,13 +77,13 @@ library/
 
 | Metric | Current |
 |---|---|
-| Books processed | **7** *(LOSB, Funt, MV, Sharper, Mathletics, Duke, Scorecasting)* |
-| Books queued | **7** *(Trading Bases, Monte Carlo or Bust, Miech, Wong, Konik, Appelbaum, Complete Book)* |
+| Books processed | **8** *(LOSB, Funt, MV, Sharper, Mathletics, Duke, Scorecasting, Trading Bases)* |
+| Books queued | **6** *(Monte Carlo or Bust, Miech, Wong, Konik, Appelbaum, Complete Book)* |
 | Topic syntheses | **0** *(deferred — user wants more ingestion first)* |
-| Content opportunities | **140+** |
-| Market gaps identified | **64** |
+| Content opportunities | **155+** |
+| Market gaps identified | **72** |
 | Cross-source conflicts | **1** *(CLV)* |
-| Cross-source syntheses ready to ship | **3** |
+| Cross-source syntheses ready to ship | **4** |
 
 ### Books processed and their roles in the library
 
@@ -96,16 +96,16 @@ library/
 | Mathletics | Wayne Winston | 2009 | Applied-statistics academic (Princeton) — σ values, Kelly, Levitt |
 | Thinking in Bets | Annie Duke | 2018 | Decision-science / brand positioning |
 | Scorecasting | Moskowitz & Wertheim | 2011 | Popular-press companion to MV — HFA mechanism, hot hand debunking, coaching loss aversion |
+| Trading Bases | Joe Peta | 2013 | Wall Street ↔ baseball ↔ sports-betting bridge — MV-cited; dime line; cluster luck; Pythagorean; SIERA; +41% 2011 model |
 
 ### Active queue (in recommended order)
 
-1. **Trading Bases** (Joe Peta, 2013) — Wall Street → MLB betting bridge; MV explicitly cited it. **Recommended next.**
-2. **Sports Betting for Winners** (Rob Miech) — unknown content; will determine when opened
-3. **Konik / Smart Money** — Billy Walters biographical narrative
-4. **Appelbaum / Everything Guide** — beginner intro; useful for Path 01 mapping
-5. **Wong / Sharp Sports Betting** — likely highly redundant at this point
-6. **Monte Carlo or Bust** (Buchdahl) — **deprioritized**; heavily soccer-focused, user not interested in soccer
-7. **Complete Book of Sports Betting** — 30pp quick-skim, likely dated
+1. **Sports Betting for Winners** (Rob Miech) — unknown content; will determine when opened. **Recommended next.**
+2. **Konik / Smart Money** — Billy Walters biographical narrative
+3. **Appelbaum / Everything Guide** — beginner intro; useful for Path 01 mapping
+4. **Wong / Sharp Sports Betting** — likely highly redundant given current 8-source coverage
+5. **Monte Carlo or Bust** (Buchdahl) — **deprioritized**; heavily soccer-focused, user not interested in soccer
+6. **Complete Book of Sports Betting** — 30pp quick-skim, likely dated
 
 ### Per-source synthesis template
 
@@ -169,6 +169,14 @@ These are PPS-original positions that **no public source has made**. Both are fl
 - **Levitt (2004) via Mathletics:** Books exploit favorite-bias for ~6% per $10. The line already prices HFA but also prices favorite-bias on top.
 - **Content angle:** "The Real Reason Home Teams Win" — flagship PPS Original combining four sources into an explanation no public site has published.
 
+### Synthesis #4: Why MLB Is the Sharpest Sport to Bet
+
+- **Peta (2013):** MLB dime line gives ~1.78% average juice vs the 4.76% standard for NFL/NBA. As favorite price rises, juice actually decreases. The listed-pitcher rule auto-voids bets if either starter is scratched.
+- **MV (2022):** FLB is **absent in MLB** (Woodland & Woodland 1994). The lottery-preference mechanism that distorts NCAAF/NCAAB/NBA/NFL moneylines doesn't trigger because MLB outcomes are closer to 50/50.
+- **Mathletics via Levitt 2004:** Bookmaker favorite-bias exploitation is documented in NFL spreads, not MLB moneylines.
+- **PPS synthesis:** MLB has the lowest structural house edge + no FLB + no NFL-style favorite-bias + bettor-friendly listed-pitcher rule + bettor-player incentive alignment (no spread perversity). The public bets football/basketball at 3× MLB volume — the wrong allocation for a math-minded bettor.
+- **Content angle:** "Why MLB Is the Sharpest Sport to Bet — and Nobody Tells You This" — flagship PPS Original. Ties directly to PPS's existing MLB tools (Pitcher K EV / Batter Hit EV).
+
 ---
 
 ## 6. The one cross-source conflict actively tracked
@@ -190,15 +198,17 @@ These are PPS-original positions that **no public source has made**. Both are fl
 If we shipped one thing tomorrow, ranked by (impact × differentiation × ease):
 
 1. **PROFITPATH Decision Discipline Framework** (PPS Original) — Duke's 5-tool mental kit (10-10-10, Ulysses contracts, decision swear jar, scenario planning, backcasting, premortem) with LOSB/Sharper/MV citations. The signature methodology.
-2. **The Real Reason Home Teams Win** (PPS Original) — Synthesis #3: Scorecasting + Mathletics + Sharper + Levitt. Genuinely unique synthesis no public source has packaged.
-3. **The Promo Grind** (master guide + 4 calculators) — LOSB + Sharper combined.
-4. **"Resulting: the cognitive trap every sports bettor falls into"** (Duke + LOSB + Sharper + Mathletics + Scorecasting) — pillar Path 03 lesson.
-5. **The Hot Hand Triple-Source Debunking** — Gilovich-Vallone-Tversky 1985 → Mathletics → Scorecasting. Maximum-confidence content.
-6. **The Hold Chopper** calc + guide.
-7. **The CLV Reconciliation** — Conflict #1 synthesis.
-8. **The Two Biases You Carry to the Sportsbook** — Synthesis #1.
-9. **The Bookmaker Myth Even Smart Authors Repeat** — Synthesis #2.
-10. **Vig-Free Line Calculator + Push Frequency Estimator + Bet Review Worksheet + HFA-by-League Reference** — four low-build-cost foundational tools.
+2. **Why MLB Is the Sharpest Sport to Bet** (PPS Original) — Synthesis #4: Peta + MV + Mathletics/Levitt. Ties to existing Pitcher K EV / Batter Hit EV tools.
+3. **The Real Reason Home Teams Win** (PPS Original) — Synthesis #3.
+4. **The Promo Grind** (master guide + 4 calculators) — LOSB + Sharper combined.
+5. **"Resulting: the cognitive trap every sports bettor falls into"** — pillar Path 03 lesson.
+6. **The MLB Bettor's Complete Toolkit** — Peta-derived flagship MLB guide.
+7. **The Hot Hand Triple-Source Debunking**.
+8. **The Hold Chopper** calc + guide.
+9. **The CLV Reconciliation** — Conflict #1.
+10. **The Two Biases You Carry to the Sportsbook** — Synthesis #1.
+11. **The Bookmaker Myth Even Smart Authors Repeat** — Synthesis #2.
+12. **Foundational tools cluster** — Vig-Free Line + Push Frequency + Bet Review Worksheet + HFA-by-League Reference + Pythagorean Wins Calc + Dime Line Juice Calc + Cluster Luck Detector — seven low-build-cost tools.
 
 User has explicitly deferred shipping any of this until more library ingestion is complete. **Don't ship without checking in with the user first.**
 

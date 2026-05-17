@@ -66,6 +66,16 @@ Rolled up from every `notes/` synthesis. As we process more books, this file gro
 | Your team isn't cursed — the math | Scorecasting (Cubs/Yankees) | 🟡 | Fan-friendly self-attribution lesson |
 | Coaches and bettors share the same bias | Scorecasting + Levitt + Romer + Kahneman-Tversky | 🟢 | Cross-domain loss-aversion synthesis |
 | Why ref bias is bigger in close games | Scorecasting (Leverage Index applied to live betting) | 🟡 | Live-betting nuance |
+| Why MLB is the sharpest sport to bet | Peta + MV + Mathletics + Levitt | 🟢 | **Synthesis #4 flagship lesson** — pillar candidate |
+| The Dime Line: why baseball juice is different | Peta Ch 6 | 🟢 | Path-01 staple operational lesson |
+| Why ERA is lying to you (and SIERA isn't) | Peta + McCracken + Swartz & Seidman | 🟢 | Actionable MLB content tied to existing Pitcher K EV tool |
+| What is cluster luck (and how to spot it) | Peta | 🟢 | Futures-betting lesson |
+| The Pythagorean theorem of baseball | James → Peta | 🟢 | Foundational MLB lesson |
+| Why your win rate doesn't matter (variable bet sizing) | Peta + Sharper + Mathletics | 🟢 | Brand-aligned discipline lesson |
+| Managing to the wrong metric (in betting) | Peta + Duke + Sharper | 🟢 | Cross-domain synthesis lesson |
+| Why strikeouts are the one pitcher stat you can trust | McCracken 2001 via Peta | 🟢 | MLB content tied to Pitcher K EV |
+| How to survive a betting drawdown | Peta + Duke + Sharper + Mathletics | 🟢 | Quad-source discipline guide |
+| Baseball bets are conditional on the listed pitcher | Peta Ch 6 | 🟡 | Operational MLB primer |
 
 ## Guides (deep-dive pages)
 
@@ -104,6 +114,11 @@ Rolled up from every `notes/` synthesis. As we process more books, this file gro
 | The Hot Hand: 40 Years of Research | Scorecasting + Mathletics + Gilovich-Vallone-Tversky 1985 + Huizinga & Weil | 🟢 | Academic-anchored deep dive |
 | Why coaches make bets that hurt your team (and yours) | Scorecasting + Romer + Kelley | 🟢 | Loss-aversion cross-domain guide |
 | How to read betting media skeptically | Scorecasting + Duke | 🟢 | Damned Statistics + belief-vetting combined |
+| **The MLB Bettor's Complete Toolkit** | Peta (dime line + Pythagorean + cluster luck + SIERA + listed-pitcher rule + variable sizing) | 🟢 | **Flagship MLB guide** |
+| SIERA: the most important pitcher stat you've never heard of | McCracken → FIP → xFIP → SIERA genealogy via Peta | 🟢 | Pillar piece for MLB content |
+| What Wall Street knows about sports betting | Peta + MV practitioner-meets-academic | 🟢 | Credibility multiplier |
+| How to build a baseball betting model | Peta full framework | 🟡 | Long-form Path 04 (advanced) candidate |
+| Cluster luck: why last year's magic doesn't carry over | Peta | 🟡 | Futures deep dive |
 
 ## Tools / calculators
 
@@ -137,6 +152,12 @@ Rolled up from every `notes/` synthesis. As we process more books, this file gro
 | **HFA-by-League Reference Tool** | Scorecasting + Mathletics | 🟢 | Cross-sport empirical table with mechanism breakdown. LOW build cost |
 | **Live-Bet Ref-Bias Awareness Module** | Scorecasting (Leverage Index applied) | 🟡 | Flag ref-bias multiplier on live prop lines in high-leverage home situations |
 | **The Selective-Stats Decoder** | Scorecasting (Damned Statistics) | 🟡 | Paste broadcaster stat → tool surfaces likely larger sample + cherry-pick pattern |
+| **Pythagorean Expected Wins Calculator** | Peta + James (exponent 1.83) | 🟢 | Input RS + RA → expected wins + actual-vs-expected luck flag. LOW build |
+| **Cluster Luck Detector** | Peta | 🟡 | Input team OBP/SLG/ISO/hits/runs → expected vs actual runs. MEDIUM build |
+| **SIERA-vs-ERA Mispricing Scanner** | Peta + Swartz & Seidman + FanGraphs data | 🟡 | Surface ERA-SIERA gap on starters → Vegas mispricings. HIGH build (needs feed) |
+| **Dime Line Juice Calculator** | Peta Ch 6 | 🟢 | Input MLB moneyline pair → output implied odds and juice. LOW build |
+| **MLB Bet-Sizing Tiered Recommender** | Peta variable-sizing schedule | 🟡 | Input bankroll + edge → recommended bet size in tiered bp/% format |
+| **Team Wins Stock Market** (speculative) | Peta Ch 16 Trading Floor concept | ⚪ | Long-term roadmap: "trade" team-win futures with bid/ask + intraday updates |
 | **Spread-to-Probability Calculator** | Mathletics Ch 43 (σ values + NORMDIST) | 🟢 | **Foundational operational tool** — input spread + sport → output P(cover) and P(win). LOW build cost |
 | **Power-Rating Difference → Implied Spread** | Mathletics Ch 40 + Sharper Ch 25 | 🟢 | Input two team ratings + home/away → implied spread + edge vs market |
 | **Kelly Sensitivity Lookup tool** | Mathletics Figure 44.1 | 🟢 | Interactive sensitivity table; user inputs win% → recommended f + growth |
@@ -168,6 +189,9 @@ Rolled up from every `notes/` synthesis. As we process more books, this file gro
 | **The Real Reason Home Teams Win** | Scorecasting + Mathletics + Sharper + Levitt synthesis #3 | 🟢 | **NEW FLAGSHIP CANDIDATE** — complete HFA picture no public source has |
 | **The Bias That Owns the Sportsbook AND the Sideline** | Kahneman-Tversky 1979 → Romer 2005 → Levitt 2004 → MV 2022 | 🟢 | Cross-domain loss-aversion synthesis |
 | **Why the Hot Hand Is the Most Profitable Myth in Sports Betting** | Gilovich-Vallone-Tversky + Huizinga & Weil + Mathletics + Scorecasting + Sharper + Duke | 🟢 | Operational fade-momentum content |
+| **Why MLB Is the Sharpest Sport to Bet** | Peta + MV + Mathletics/Levitt synthesis #4 | 🟢 | **NEW FLAGSHIP CANDIDATE** — complete MLB-edge picture no public source has |
+| **From McCracken to SIERA: 25 Years of Pitcher Math** | McCracken 2001 → Tango → Studeman → Swartz & Seidman via Peta | 🟢 | Citation-anchored reputation piece |
+| **What Sports Betting Can Learn From Wall Street** | Peta + MV + LOSB + Sharper | 🟢 | Distinctive cross-domain brand piece |
 
 ## Market gaps identified
 
@@ -220,6 +244,14 @@ Things this library has surfaced that **nothing public explains well**:
 45. **The QuesTec natural experiment** — cleanest causal ID of ref bias, never cited publicly. *(Scorecasting)*
 46. **Romer 2005 90% suboptimal 4th-down rate** — bettor opportunity in 4th-down decision props. *(Scorecasting)*
 47. **"4 of his last 5" cherry-pick heuristic** — broadcasters do it every game; nobody names it. *(Scorecasting)*
+48. **MLB's dime line / structurally lower juice** invisible to retail bettors. *(Peta)*
+49. **The McCracken 2001 BABIP finding** invisible to retail MLB bettors. *(Peta + McCracken)*
+50. **SIERA as the bettor's predictive ERA tool** not surfaced anywhere public. *(Peta + Swartz & Seidman)*
+51. **Cluster luck has no name** in public content. *(Peta)*
+52. **Pythagorean expected wins for season futures** barely discussed publicly. *(Peta + James)*
+53. **Variable bet sizing tied to edge magnitude** rarely operationalized. *(Peta)*
+54. **MLB listed-pitcher rule** auto-protection bettor-friendly feature nobody explains. *(Peta)*
+55. **Wall Street ↔ sports betting cross-domain frame** rare in public content. *(Peta + MV)*
 
 ---
 
@@ -233,25 +265,27 @@ After every 3-5 books processed:
 
 After 10 books processed: build the first `library/topics/` syntheses around the most cross-referenced topic tags. Those become the source of truth for the corresponding content pieces.
 
-## Current priority shortlist (7-source state)
+## Current priority shortlist (8-source state)
 
 If we shipped one thing from this pipeline tomorrow, top candidates ranked by (impact × differentiation × ease):
 
 1. **PROFITPATH Decision Discipline Framework** (PPS Original) — packaging Duke's 5-tool mental toolkit with LOSB + Sharper + MV citations. The signature methodology.
-2. **The Real Reason Home Teams Win** (PPS Original, synthesis #3) — Scorecasting + Mathletics + Sharper + Levitt. **New flagship candidate.** Genuinely unique synthesis.
-3. **The Promo Grind** (master guide + 4 calculators) — LOSB Go-For-Broke + Sharper Risk-Free + Free-Play + Deposit-Bonus Churn.
-4. **"Resulting: the cognitive trap every sports bettor falls into"** (Duke + LOSB + Sharper + Mathletics + Scorecasting) — pillar Path 03 lesson.
-5. **The Hold Chopper calc + guide** — flagship PPS Original.
-6. **The Hot Hand Triple-Source Debunking** — Gilovich-Vallone-Tversky 1985 → Mathletics → Scorecasting.
-7. **The CLV Reconciliation** — synthesis of Conflict #1.
-8. **The Two Biases You Carry to the Sportsbook** (synthesis #1).
-9. **The Bookmaker Myth Even Smart Authors Repeat** (synthesis #2).
-10. **The Bias That Owns the Sportsbook AND the Sideline** — loss-aversion cross-domain piece.
-11. **Vig-Free Line Calculator + Push Frequency Estimator + Bet Review Worksheet + HFA-by-League Reference Tool** — four low-build-cost foundational tools.
-12. **Price-is-not-Juice + Sportsbook Hold Tier-Map** — concept reframe paired with our tier-map.
-13. **The Go-For-Broke Bonus Method** (guide + calc).
-14. **"Market makers vs retail books"** guide.
-15. **"How sportsbook prices actually get made"** lesson.
-16. **"The Favorite-Longshot Bias paper, in plain English"** — reputation-builder.
-17. **"Behavioral finance for sports bettors"** guide.
-18. **The Leagues' 180** (PASPA-testimony reversal) — Funt; flagship for `/research/`.
+2. **Why MLB Is the Sharpest Sport to Bet** (PPS Original, synthesis #4) — Peta + MV + Mathletics/Levitt. **New flagship candidate.** Ties directly to PPS's existing MLB tools (Pitcher K EV / Batter Hit EV).
+3. **The Real Reason Home Teams Win** (PPS Original, synthesis #3) — Scorecasting + Mathletics + Sharper + Levitt.
+4. **The Promo Grind** (master guide + 4 calculators) — LOSB Go-For-Broke + Sharper Risk-Free + Free-Play + Deposit-Bonus Churn.
+5. **"Resulting: the cognitive trap every sports bettor falls into"** (Duke + LOSB + Sharper + Mathletics + Scorecasting + Peta) — pillar Path 03 lesson.
+6. **The MLB Bettor's Complete Toolkit** (Peta) — flagship MLB guide combining dime line + Pythagorean + cluster luck + SIERA + listed-pitcher rule + variable sizing.
+7. **The Hold Chopper calc + guide** — flagship PPS Original.
+8. **The Hot Hand Triple-Source Debunking** — Gilovich-Vallone-Tversky 1985 → Mathletics → Scorecasting.
+9. **The CLV Reconciliation** — synthesis of Conflict #1.
+10. **The Two Biases You Carry to the Sportsbook** (synthesis #1).
+11. **The Bookmaker Myth Even Smart Authors Repeat** (synthesis #2).
+12. **The Bias That Owns the Sportsbook AND the Sideline** — loss-aversion cross-domain piece.
+13. **Vig-Free Line Calculator + Push Frequency Estimator + Bet Review Worksheet + HFA-by-League + Pythagorean Wins + Dime Line + Cluster Luck Detector** — seven low-build-cost foundational tools.
+14. **Price-is-not-Juice + Sportsbook Hold Tier-Map** — concept reframe paired with our tier-map.
+15. **The Go-For-Broke Bonus Method** (guide + calc).
+16. **"Market makers vs retail books"** guide.
+17. **"How sportsbook prices actually get made"** lesson.
+18. **"The Favorite-Longshot Bias paper, in plain English"** — reputation-builder.
+19. **"Behavioral finance for sports bettors"** guide.
+20. **The Leagues' 180** (PASPA-testimony reversal) — Funt; flagship for `/research/`.
