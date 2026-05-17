@@ -10,13 +10,13 @@ The living document that synthesizes everything PROFITPATH knows about modern sp
 
 | Metric | Current |
 |---|---|
-| Books processed (comprehensive first pass) | **10** *(LOSB + Funt + MV + Sharper + Mathletics + Duke + Scorecasting + Trading Bases + Miech + Konik)* |
+| Books processed (comprehensive first pass) | **11** *(LOSB + Funt + MV + Sharper + Mathletics + Duke + Scorecasting + Trading Bases + Miech + Konik + Silver)* |
 | Books queued in `source-pdfs/` | **4** *(Monte Carlo or Bust, Wong, Appelbaum + 30pp quick-skim)* |
 | Topic syntheses written | **0** *(deferred — user prefers more ingestion first)* |
-| Content opportunities in pipeline | **180+** *(83+ lessons / 53+ guides / 46+ tools / 28 originals)* |
-| Market gaps identified | **86** |
-| Cross-source conflicts being tracked | **1** *(CLV: LOSB-as-skill-signal vs Sharper-as-deepity)* |
-| Cross-source syntheses ready | **4** *(Favorite × Longshot bias coexistence + Levitt-Duke bookmaker myth + HFA Origin Story + MLB-as-sharpest-sport)* |
+| Content opportunities in pipeline | **200+** *(95+ lessons / 60+ guides / 50+ tools / 35+ originals)* |
+| Market gaps identified | **95** |
+| Cross-source conflicts being tracked | **1** *(CLV: LOSB-as-skill-signal vs Sharper-as-deepity — **resolved-with-reservations in LOSB's favor after Silver public confirmation**)* |
+| Cross-source syntheses ready | **8** *(Favorite × Longshot bias coexistence + Levitt-Duke bookmaker myth + HFA Origin Story + MLB-as-sharpest-sport + Bottom-up vs Top-down curriculum + 13 Habits adapted + U of event popularity + Conscientious Contrarian)* |
 
 **Last update:** The Smart Money (Michael Konik, Simon & Schuster 2006) — first pass complete. Note at `notes/the-smart-money-konik.md`. **Key findings:**
 - **The syndicate-operation narrative source.** First-person memoir of a writer who spent ~3 years (1997-2000) as a "mule" for the Brain Trust — the syndicate widely understood to be **Billy Walters + associates** (names changed). Fills the "what does a multi-million-dollar betting syndicate actually look like operationally?" gap.
@@ -159,14 +159,19 @@ Now have enough material from three sources (industry-analytical + journalistic 
 | Trading Bases | Joe Peta | 2013 | **first pass complete** | The Wall Street ↔ baseball ↔ sports-betting bridge. MV explicitly cites it. Practitioner's account of building a +41% MLB betting model in 2011. The dime line + structural MLB juice analysis. Cluster luck (Peta's named contribution). Pythagorean theorem applied to bet sizing. McCracken 2001 → FIP → xFIP → SIERA pitcher-evaluation genealogy. Managing-to-the-wrong-metric cross-domain frame. The Trading Floor NFL Market innovation. |
 | Sports Betting for Winners | Rob Miech | 2019 | **first pass complete** | The modern-era Vegas pro-bettor culture source. Character-per-chapter profiles. Multi-pro cross-confirmation of LOSB/Sharper/Peta/Duke principles. **70-30 home-dog rule** named (Banker + Youmans). Kornegay's **8-tier customer profiling** explicitly confirmed. **Bank Secrecy Act $10K Rule 6A** operational compliance fact. **Bail-Out Special** named warning. Multi-pro tout-industry critique. Gaughan's "rooting underdog, betting favorite" quote. UNLV IGI 57-58% sustainable ceiling. |
 | The Smart Money | Michael Konik | 2006 | **first pass complete** | The syndicate-operation narrative source. First-person memoir of a Brain Trust mule (1997-2000) — widely understood to be the Billy Walters syndicate. Command structure (principal → brains → ~180 mules → couriers → offshore deputies → agents). The "getting built in" → "persona non grata" lifecycle. 10% mule profit-split. 0.0001% sustainable-pro rate. Glossary of period terms. Offshore architecture circa 2000. Hollywood Boys celebrity-mule arc. The most explicit burnout content in the library. |
+| On the Edge | Nate Silver | 2024 | **first pass complete** | ⭐⭐⭐ The brand-positioning capstone. Silver's "River" framework + 13 Habits of Highly Successful Risk-Takers + bottom-up/top-down bettor taxonomy (Spanky Kyrollos) + originator archetype (Rufus Peabody). **PUBLIC CONFIRMATION OF LOSB MARKET-MAKER/RETAIL FRAMEWORK** — Silver explicitly cites Miller as "perhaps the best practical gambling book I've ever read" and reproduces Miller's market-maker vs retail table. The carnival-game framing. The amenity framing (~2% Vegas Strip gaming revenue; $7.5B US online vs $20B frozen pizza). DraftKings $1.2B marketing on $2.2B revenue (promo-arbitrage math). The U of event popularity. Conscientious contrarianism (Galen Hall/DFT). "A bet is a tax on bullshit." Silver's personal $1,100 BOSS bet = $55 EV walkthrough. The Westgate "10 nerds in a dark room" reality of bookmaking. Spanky's 2-3% return on dollars bet ceiling. Annie Duke direct citation. Glossary-quality definitions of alpha, edge, EV maximizer, attack surface, anchoring bias, calibration, CLV, tilt, conscientious contrarian. |
 
 ### Queued (in `source-pdfs/`, not yet processed)
 
 | Book | Authors | Year | Pages | Why we have it |
 |---|---|---|---|---|
 | Sharp Sports Betting | Stanford Wong | 2009ish | 355 | Classic foundational math, older-era cross-reference |
-| The Smart Money | Michael Konik | 2006 | 355 | Syndicate narrative, Billy Walters era authority |
 | The Everything Guide to Sports Betting | Josh Appelbaum | recent | 335 | Beginner intro — curriculum source for Path 01 |
+| Master's Thesis | Fabian Moya | recent | ~80 | Academic, supervised by Tim Swartz (SIERA co-creator) |
+| Genius Sports 20-F SEC Filing | GENI | 2024 | ~250 | Data-supplier side of the industry; non-bettor perspective |
+| Fixed Odds Sports Betting | Joseph Buchdahl | ~2003 | ~280 | Quant tier extension; UK perspective |
+| Betting to Win | Leighton Vaughan Williams | 2002/2004 | ~250 | UK academic angle |
+| Gambling Wizards | Richard W. Munchkin | 2002 | ~250 | Interview-format; lower priority |
 
 ---
 
@@ -232,6 +237,13 @@ Updated after every book read. This is the "where does sports betting knowledge 
 - **The casino booting lifecycle is consistent across decades** (1998 Caesars → 2024 FanDuel): setup → high-roller persona → year-one wins → year-two investigation → limit cuts → booted. ~9 months at a typical major property. *(Konik + LOSB + Sharper + Miech + Funt)*
 - **The 0.0001% sustainable-pro rate** (Konik) vs the 3% short-term rate (Miech UNLV IGI) reconciles: ~3% can hit profitable hit rates over a finite window; only ~0.0001% sustain it across years and through the booting cycle. *(Konik + Miech synthesis)*
 - **Half-Kelly / Quarter-Kelly is the working-pro standard.** Five-source consensus: Konik + Mathletics + Peta + Sharper + Miech. Anyone recommending full-Kelly or above is incompatible with the pro consensus.
+- **The market-maker vs. retail-sportsbook dichotomy is real and operationally consequential.** **Five-source consensus now: LOSB (originator) + Sharper (confirmation) + Konik (operational confirmation via syndicate cat-and-mouse) + Miech (Kornegay's 8-tier profiling) + Silver (public/credentialed endorsement of LOSB framework).** The CLV "deepity" conflict is **resolved-with-reservations in LOSB's favor**: Silver, a credentialed Penguin Press author treats CLV implicitly as the operational sharpness signal via market-maker line-moves, while preserving Sharper's nuance that the closing line is not the universal efficient-frontier oracle.
+- **Pro sports bettors' return-on-dollars-bet ceiling is 2-3%.** Direct from Spanky Kyrollos via Silver Ch 4: *"I'd rather hold two percent of a billion than three percent of a million."* Reconciles with Peta's 51.9% / +41% (which is return-on-bankroll, not return-on-bet) and Konik's 0.0001% sustainability rate (which is the multi-year survival rate through the booting cycle). *(Silver primary; Peta + Konik harmonization)*
+- **Sports betting is structurally an "amenity" within Vegas casinos, not a profit center.** Sportsbook/racebook revenue is ~2% of Vegas Strip gaming revenue, ~1% of total Strip revenue. US legal online sports-betting generated ~$7.5B in 2022 — less than the US frozen pizza market ($20B annually). *(Silver Ch 4 via multiple Nevada regulators on the record)*
+- **DraftKings/FanDuel acquisition-spend math:** DraftKings spent ~$1.2B on sales and marketing in 2022 on $2.2B in revenue. New customer offers / free bets / deposit matches are the most reliable +EV opportunity for retail bettors during the post-2018 expansion. *(Silver Ch 4; cross-validates LOSB's go-for-broke deposit-bonus math)*
+- **The bottom-up vs. top-down bettor taxonomy is the cleanest field-level typology.** Bottom-up: model-builders (Peta, Peabody, Mathletics tradition). Top-down: assumes the line is correct, edge comes from arbitrage, information not in the line, and execution (Spanky, Walters, mid-2000s Vegas pros). Most successful pros mix both. *(Silver via Spanky primary)*
+- **Conscientious contrarianism — disagreeing with consensus with a thesis about misaligned incentives — outperforms both following-the-crowd and contrarianism-for-its-own-sake.** Silver Habit 12 / Galen Hall / DFT framework. Sports-betting application: fading the public works because the public's incentives (entertainment, identity, tribalism) differ from alpha-seeking — not because the public is dumb. *(Silver + Wong-Levitt + Peta + MV synthesis)*
+- **The "13 Habits of Highly Successful Risk-Takers" framework holds across domains** (poker, sports betting, NFL, hedge funds, VC, exploration, military, Nobel science). Cross-validates Duke's process-orientation, Sharper's calibrated uncertainty, Peta's drawdown discipline. *(Silver Ch 13 primary)*
 
 ### Where sources conflict (cross-source reconciliations)
 
@@ -302,6 +314,63 @@ This synthesis is ready to ship as a PPS Original. **Joins the Decision Discipli
 - **Result:** MLB is structurally the sharpest sport for a math-minded, disciplined bettor — but the betting public consistently bets football/basketball at 3× the MLB volume (Nevada Gaming Commission data via Peta).
 - **Operational implication:** A PPS reader who wants to maximize the chance of long-run profitability should consider shifting bankroll allocation toward MLB.
 - **Content angle:** **"Why MLB Is the Sharpest Sport to Bet — and Nobody Tells You This"** — flagship PPS Original. Joins the Decision Discipline Framework + HFA Origin Story + Promo Grind at the top of the priority shortlist.
+
+#### Cross-Source Synthesis #5: The Bottom-Up / Top-Down / Hybrid Bettor Curriculum
+
+- **Spanky Kyrollos (via Silver Ch 4):** Two types of sports bettors:
+  - **Bottom-up:** "Handicap games from the ground up using data, statistics, analytics, models." Moneyball / Peabody / Peta tradition.
+  - **Top-down:** "Assumes the line is correct" and finds edge in arbitrage, information not in the line, execution, line shopping. Spanky / Walters tradition.
+  - **The most successful pros use a mix of both.** Bottom-up guys still need execution; top-down guys still need to be data-literate.
+- **PPS synthesis (no public source has this curriculum):**
+  1. The PPS library has been almost entirely **bottom-up** in orientation (Peta, MV, Mathletics, Scorecasting, Sharper data passages).
+  2. Konik + Funt + Miech + LOSB (execution chapters) cover the operational side of top-down but don't theorize it.
+  3. Spanky's framing names the second tier explicitly. **Most retail bettors should start top-down** (line shopping, promo arbitrage, account opening across books, getting down) because the entry-level edge is more accessible than building a beat-the-line model.
+  4. A defensible PPS curriculum has **two parallel tracks** with a "halftime" handoff: top-down foundations → bottom-up sophistication for those who want it.
+- **Content angle:** "Are You a Bottom-Up or Top-Down Bettor?" diagnostic at the top of the funnel, then route. Reorganizes the entire PPS curriculum.
+
+#### Cross-Source Synthesis #6: The 13 Habits of the Sharp Bettor (PPS adaptation)
+
+- **Silver Ch 13 (Halftime):** 13 habits distilled from interviews with astronauts, NFL slot receivers, generals, explorers, Nobel laureates, hedge funders, poker pros.
+- **PPS synthesis (sport-specific adaptation):** Each Silver habit maps to a sports-betting-only worked example with cross-library citations:
+  1. Cool under pressure ↔ Duke (tilt) + Peta (drawdown discipline)
+  2. Courage ↔ Sharper (estimated edge is not edge — but commit anyway)
+  3. Strategic empathy ↔ LOSB (opponent modeling — the linemaker's worldview)
+  4. Process-oriented ↔ Duke (resulting); Peabody's namesake podcast
+  5. Take shots ↔ Sharper (opportunity cost) + Mathletics (Kelly)
+  6. Raise-or-fold ↔ LOSB (don't bet the middle); Konik (the syndicate doesn't half-commit)
+  7. Prepared ↔ Miech (Vegas pros stalking bets); Peta (model maintenance)
+  8. Selective attention to detail ↔ Sharper (push frequencies) + LOSB (weak markets)
+  9. Adaptable ↔ Mathletics (cross-sport transfer); Funt (market evolution)
+  10. Bayesian estimators ↔ Duke (belief updating); MV (probability weighting)
+  11. Stand out ↔ Konik / Walters (proprietary models)
+  12. Conscientiously contrarian ↔ Wong-Levitt + Peta + MV (fade the public with a thesis)
+  13. Not money-driven ↔ Sharper Ch 31 + Konik (burnout chapter)
+- **Content angle:** Flagship 13-part series; or a single combined "Bettor's 13 Habits" piece anchored on Silver with cross-source PPS depth. **Highest brand-leverage content project available.**
+
+#### Cross-Source Synthesis #7: The "U" of Edge — Where Sports-Betting Profits Live
+
+- **Silver Ch 4 (implicit):** Bettors find +EV at two extremes of event popularity — obscure (Peabody's Super Bowl props at Westgate, 30-sec US Open arb) and the most public (Super Bowl, March Madness, where public-money skew creates +EV unpopular sides). The middle (regular-season TV games) is hardest.
+- **MV (2022) / Levitt (2004) / Wong:** Public-money fading works on the biggest public events (favorite-bias on spread, FLB on moneyline).
+- **LOSB (2019):** Props create a "massive attack surface" of mispriced markets.
+- **Peabody (via Silver):** Specialized prop modeling beats the Westgate's generalist trading desk.
+- **PPS synthesis (Synthesis #4 — MLB sharpest sport — is *sport-level*; this synthesis is *event-level* within a sport, and they're compatible):**
+  1. Two profitable zones, hardest middle.
+  2. Obscure-event edge requires specialization and patience; public-event edge requires contrarian discipline and bet timing.
+  3. Most retail bettors live in the hardest middle (NFL Sunday TV slate, NBA prime time) because that's what TV shows them.
+- **Content angle:** **"The Two Places You Find Edge — The Obscure and the Overhyped"** — flagship PPS Original.
+
+#### Cross-Source Synthesis #8: The Conscientious Contrarian — Why Fading the Public Actually Works
+
+- **Silver Ch 13, Habit 12 (Galen Hall / DFT / "Conscientious Contrarianism"):** *"Every single thing we do, I can point to, like, 'here is the person who was doing a thing wrong.'"* Sharp contrarianism requires a thesis about *misaligned incentives*, not just opposite-side-of-the-crowd reflex.
+- **Wong / Levitt (via Mathletics):** Bettors are biased toward favorites on the spread; books exploit this.
+- **MV (2022):** Bettors are biased toward underdogs on the moneyline (lottery preference).
+- **Peta (2013):** Fading the public above 65% one-side action is a documented profitable strategy.
+- **PPS synthesis (no public source unifies these):**
+  1. The public bets for entertainment, identity, tribalism, and TV-narrative confirmation — not for alpha.
+  2. This *incentive mismatch* (not intelligence mismatch) is the actual source of contrarian edge.
+  3. Therefore: a contrarian bet without a thesis ("they're betting for the wrong reason X") is just gambling. A contrarian bet *with* a thesis is +EV.
+  4. The thesis matters because it's the falsifiable bridge between observation (% public on a side) and decision (bet the other side).
+- **Content angle:** **"The Conscientious Contrarian's Guide to Fading the Public"** — flagship PPS Original. Halfway between Wong/Levitt and Silver. Most distinctive content in the betting-strategy space.
 
 **Tracking template (used when we find more):**
 - **Claim:** [what one source says]
@@ -380,6 +449,24 @@ This synthesis is ready to ship as a PPS Original. **Joins the Decision Discipli
 67. **The 10% mule profit-split economics** are invisible to retail bettors who think pros bet their own money. *(Konik)*
 68. **The psychological/moral cost of pro sports betting** is invisible behind YouTube/social-media romanticism. *(Konik + Sharper Ch 31 + Peta + Funt)*
 69. **The "circled games" operational term** rarely surfaced in retail content. *(Konik)*
+70. **The "River" identity / probabilistic-thinker community framing** is a brand-positioning vocabulary missing from public sports-betting content. *(Silver)*
+71. **The 13 Habits of Successful Risk-Takers as a unified curriculum** — every public sports-betting curriculum is fragmented; Silver's framework provides a single spine. *(Silver)*
+72. **Bottom-up vs. Top-down bettor diagnostic** — Spanky's taxonomy isn't surfaced in public retail content; PPS would be first. *(Silver)*
+73. **Conscientious Contrarianism as a fade-the-public framework** — public content trades in "fade the public" without a thesis layer; Silver gives the thesis vocabulary. *(Silver + Wong + Levitt + Peta + MV)*
+74. **The "U" of event-popularity edge geography** — public retail content focuses on TV slate; the U-shape is invisible. *(Silver)*
+75. **Sports-betting industry scale calibration** — that US legal online sports-betting ($7.5B) is smaller than US frozen pizza ($20B) and that sportsbooks are amenities (~2% of Strip gaming revenue) is missing from public retail content. *(Silver)*
+76. **DraftKings $1.2B-on-$2.2B marketing math** — the promo-arbitrage justification — invisible to retail bettors. *(Silver)*
+77. **Silver's $1,100 BOSS bet walk-through as a teachable EV example** — public content lacks this kind of concrete, named-amount, real-time EV walkthrough. *(Silver)*
+78. **The "carnival game" metaphor for sportsbooks** — Miller via Silver — instantly grokable framing. *(Silver via Miller)*
+79. **"A bet is a tax on bullshit" as a PPS-brand-voice statement** — Silver gives PPS a citable accountability tagline. *(Silver)*
+80. **Spanky's 2-3% return-on-dollars-bet ceiling** — the most honest pro ROI published; missing from retail content. *(Silver)*
+81. **Rufus Peabody as the originator archetype** — process-driven, prop-focused, model-and-bet (vs. model-and-sell) — invisible to retail bettors who only see tout culture. *(Silver)*
+82. **The Westgate "10 nerds in a dark room" bookmaking reality** — public retail content imagines bookmakers as algorithmic black boxes. *(Silver via Kornegay + Murray)*
+83. **The Kevin Durant tell at Westgate** — concrete real-time inside-info detection by a sportsbook. *(Silver)*
+84. **The 30-second arbitrage on Nevada-vs-FanDuel live US Open odds** — concrete arb-able-lag example. *(Silver)*
+85. **The MIT Blackjack "Big Player" stereotype-leveraging** (Asian-as-Big-Player) — Ma's anti-counter-stereotype tactic — only in Silver. *(Silver via Ma)*
+86. **Annie Duke's "Quit" book** — Silver explicitly cites it; PPS hasn't covered Quit. Future ingestion candidate. *(Silver)*
+87. **The "Riverian glossary" vocabulary** — alpha, attack surface, calibration, anchoring bias, conscientious contrarian, EV maximizer, beard, tilt — borrowable cluster. *(Silver)*
 
 *(Each new book will surface more. Migration to `content-opportunities.md` happens as items mature.)*
 
@@ -431,7 +518,8 @@ library/
 │   ├── scorecasting-moskowitz-wertheim.md
 │   ├── trading-bases-peta.md
 │   ├── sports-betting-for-winners-miech.md
-│   └── the-smart-money-konik.md
+│   ├── the-smart-money-konik.md
+│   └── on-the-edge-nate-silver.md
 ├── topics/                        ← cross-book topic syntheses (empty for now)
 └── our-book/                      ← eventual public manuscript (long-term)
 ```
@@ -547,6 +635,20 @@ Topics that will get their own `topics/{topic}.md` synthesis once we have 2-3+ b
 | `implied-volatility-and-betting` | MV ✓ | 🟢 ready to draft — novel concept |
 | `historical-academic-foundations` | MV ✓ (Griffith → Thaler & Ziemba → present) | 🟢 ready to draft — bibliographic spine |
 | `market-efficiency-sports-betting` | MV ✓ (secondary) | 🔵 needs Wong corroboration |
+| `the-river-and-riverian-thinking` | Silver ✓ (primary) | 🟢 brand-positioning topic |
+| `village-vs-river` | Silver ✓ (primary) | 🟢 brand-positioning topic |
+| `13-habits-of-the-sharp-bettor` | Silver ✓ + Duke + Sharper + Peta + LOSB + Konik cross-citation | 🟢 **flagship-ready, highest-leverage** |
+| `bottom-up-vs-top-down-bettor` | Silver ✓ (via Spanky primary) | 🟢 curriculum-routing piece |
+| `conscientious-contrarianism` | Silver ✓ + Wong + Levitt + Peta + MV | 🟢 **flagship-ready** |
+| `u-of-event-popularity-edge` | Silver ✓ (implicit primary) | 🟢 ready to draft |
+| `sportsbook-as-amenity` | Silver ✓ (primary) | 🟢 ready to draft |
+| `draftkings-fanduel-acquisition-math` | Silver ✓ (primary) | 🟢 promo-arb foundation |
+| `the-carnival-game-framing` | LOSB via Silver | 🟢 ready to draft |
+| `silver-bossbet-ev-walkthrough` | Silver ✓ (primary) | 🟢 ready to draft |
+| `westgate-bookmaking-reality` | Silver ✓ (Kornegay/Murray) | 🟢 ready to draft |
+| `bet-as-tax-on-bullshit` | Silver ✓ (primary) | 🟢 brand-voice piece |
+| `pro-roi-honest-ceiling` | Silver/Spanky 2-3% + Konik 0.0001% + Peta 51.9% + Miech 54-58% | 🟢 multi-source calibration |
+| `pps-riverian-glossary` | Silver + Konik + LOSB + Sharper | 🟢 ready to draft |
 
 ---
 
@@ -562,10 +664,15 @@ Topics that will get their own `topics/{topic}.md` synthesis once we have 2-3+ b
 8. ✅ ~~Process Trading Bases (Joe Peta).~~ (Complete — Wall Street ↔ baseball ↔ betting bridge + MLB depth + 4th cross-source synthesis.)
 9. ✅ ~~Process Sports Betting for Winners (Rob Miech).~~ (Complete — modern-era Vegas pro-bettor culture source + multi-pro cross-confirmation tier.)
 10. ✅ ~~Process Konik (Smart Money).~~ (Complete — syndicate-operation narrative + Billy Walters insider memoir + 5-source burnout synthesis.)
-11. **Next book decision point.** Remaining queue:
-    - **Appelbaum (Everything Guide)** — beginner intro; useful for Path 01 mapping. **Recommended next** (curriculum-mapping value).
-    - **Wong (Sharp Sports Betting)** — likely highly redundant given current 10-source coverage.
-    - **Monte Carlo or Bust (Buchdahl)** — deprioritized (soccer-heavy).
+11. ✅ ~~Process Nate Silver (On the Edge).~~ (Complete — brand-positioning capstone + LOSB public confirmation + 13 Habits framework + bottom-up/top-down taxonomy + 4 new cross-source syntheses.)
+12. **Next book decision point.** Remaining queue:
+    - **Moya (Master's thesis, ~80pp)** — academic, supervised by Tim Swartz (SIERA co-creator). Quick academic tier addition.
+    - **GENI 20-F SEC filing** — data-supplier side; non-bettor industry perspective. Quick skim for industry-state callouts.
+    - **Buchdahl (Fixed Odds Sports Betting)** — quant tier extension; UK perspective. Likely high value.
+    - **Vaughan Williams (Betting to Win)** — UK academic; cross-validates MV from a different methodological tradition.
+    - **Appelbaum (Everything Guide)** — beginner intro; useful for Path 01 mapping.
+    - **Wong (Sharp Sports Betting)** — likely highly redundant.
+    - **Munchkin (Gambling Wizards)** — interview-format; lower priority.
     - **Complete Book of Sports Betting** — quick-skim only.
 6. **Spin up first `topics/` syntheses.** With 4 sources, the topics most ready to draft (multi-source or single-strong-source + PPS-original-content):
    - `closing-line-value` — **flagship synthesis (Conflict #1 reconciliation)**
