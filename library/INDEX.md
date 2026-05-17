@@ -10,15 +10,27 @@ The living document that synthesizes everything PROFITPATH knows about modern sp
 
 | Metric | Current |
 |---|---|
-| Books processed (comprehensive first pass) | **9** *(LOSB + Funt + MV + Sharper + Mathletics + Duke + Scorecasting + Trading Bases + Miech)* |
-| Books queued in `source-pdfs/` | **5** *(Monte Carlo or Bust, Wong, Konik, Appelbaum + 30pp quick-skim)* |
+| Books processed (comprehensive first pass) | **10** *(LOSB + Funt + MV + Sharper + Mathletics + Duke + Scorecasting + Trading Bases + Miech + Konik)* |
+| Books queued in `source-pdfs/` | **4** *(Monte Carlo or Bust, Wong, Appelbaum + 30pp quick-skim)* |
 | Topic syntheses written | **0** *(deferred — user prefers more ingestion first)* |
-| Content opportunities in pipeline | **170+** *(79+ lessons / 49+ guides / 46+ tools / 26 originals)* |
-| Market gaps identified | **79** |
+| Content opportunities in pipeline | **180+** *(83+ lessons / 53+ guides / 46+ tools / 28 originals)* |
+| Market gaps identified | **86** |
 | Cross-source conflicts being tracked | **1** *(CLV: LOSB-as-skill-signal vs Sharper-as-deepity)* |
 | Cross-source syntheses ready | **4** *(Favorite × Longshot bias coexistence + Levitt-Duke bookmaker myth + HFA Origin Story + MLB-as-sharpest-sport)* |
 
-**Last update:** Sports Betting for Winners (Rob Miech, Citadel Press 2019) — first pass complete. Note at `notes/sports-betting-for-winners-miech.md`. **Key findings:**
+**Last update:** The Smart Money (Michael Konik, Simon & Schuster 2006) — first pass complete. Note at `notes/the-smart-money-konik.md`. **Key findings:**
+- **The syndicate-operation narrative source.** First-person memoir of a writer who spent ~3 years (1997-2000) as a "mule" for the Brain Trust — the syndicate widely understood to be **Billy Walters + associates** (names changed). Fills the "what does a multi-million-dollar betting syndicate actually look like operationally?" gap.
+- **The syndicate command structure** documented from inside: Principal (Walters) → Brains (analyst pool) → ~180 mules/runners → couriers → offshore deputies → local agents. **10% of net profits** is the standard mule contract.
+- **The "Getting Built In" → "Persona Non Grata" lifecycle** at major Vegas casinos — ~9 months from setup-call to limit-cuts-to-booted. Documented at Caesars Palace, Las Vegas Hilton, Harrah's. Cross-validates Miech's 8-tier profiling + LOSB's 1-5 framework with first-person operational detail.
+- **The sustainability ceiling reframed:** Konik says **only ~0.0001% of bettors win consistently across years** (not just one season). Cross-pollinates with Miech's UNLV IGI 3% short-term + Peta's 51.9% one-season → calibrated answer: "3% short-term, 0.0001% sustainable through booting cycles."
+- **The offshore architecture circa 2000:** 10% deposit bonuses, 5% repeat bonuses, 8-cent lines vs Vegas 10-cent. LA-nightclub agent system with referral commissions.
+- **The Late-Sunday "send-out" line distribution** mechanism (fax/computer to subscribers, heavily bet before USA Today published it Monday).
+- **The Hollywood Boys arc:** Konik's secondary syndicate with celebrity-mules. $608K + $502K in consecutive weeks. Eventually exposed and shut down by offshore book ("Greg Champion" / BetonSports).
+- **The Burnout Arc** — most explicit psychological/moral-cost content in the library. *"There's no such thing as easy money. Betting on sports is making me clinically depressed."* Cross-pollinates Sharper Ch 31 + Peta drawdown + Funt harm + Miech lifestyle.
+- **Konik's Glossary** — period-specific terms (circled games, send-out, key game, whale, wiseguy, smart money, squares) that PPS can adapt for a modern glossary piece.
+- **Half-Kelly / Quarter-Kelly** confirmed as working-pro standard. Five-source consensus now (Konik + Mathletics + Peta + Sharper + Miech).
+
+**Earlier update:** Sports Betting for Winners (Rob Miech, Citadel Press 2019) — first pass complete. Note at `notes/sports-betting-for-winners-miech.md`. **Key findings:**
 - **The modern-era Vegas pro-bettor culture source.** Character-per-chapter profiles of working pros (Lem Banker, Roxy Roxborough, Jay Kornegay, Matt Youmans, Kelly Stewart, Dave Cokin, Tom Barton, Jimmy Vaccaro, Van Smith). Lighter on novel frameworks than the prior 8 sources but rich in **multi-pro cross-confirmation** of LOSB/Sharper/Peta/Duke principles.
 - **The 70-30 home-dog points/moneyline split rule** — named operational tactic used by **both Banker and Youmans independently.** On a strong home-underdog play: 70% on the points + 30% on the moneyline. Banker estimates NFL underdogs win outright 35-40% over many years. Youmans escalates to 80-20 on highest-conviction plays.
 - **Kornegay confirms 8-tier customer profiling** at the Westgate SuperBook (extends LOSB's 1-5 framework). Explicit "cat-and-mouse" detection of false-move vs true-move line bets by sharps.
@@ -146,6 +158,7 @@ Now have enough material from three sources (industry-analytical + journalistic 
 | Scorecasting | Moskowitz & Wertheim | 2011 | **first pass complete on PPS-relevant chapters** | Popular-press companion to MV — *same Moskowitz*. THE source on the HFA mechanism: ref bias, NOT crowd/travel/roster. Cross-sport empirical HFA table. QuesTec natural experiment. Romer 2005 4th-down irrationality. Loss aversion in coaching. Hot Hand triple-source consensus debunking. Icing-the-kicker doesn't work. Self-attribution (Cubs/Yankees). Damned Statistics framing critique. |
 | Trading Bases | Joe Peta | 2013 | **first pass complete** | The Wall Street ↔ baseball ↔ sports-betting bridge. MV explicitly cites it. Practitioner's account of building a +41% MLB betting model in 2011. The dime line + structural MLB juice analysis. Cluster luck (Peta's named contribution). Pythagorean theorem applied to bet sizing. McCracken 2001 → FIP → xFIP → SIERA pitcher-evaluation genealogy. Managing-to-the-wrong-metric cross-domain frame. The Trading Floor NFL Market innovation. |
 | Sports Betting for Winners | Rob Miech | 2019 | **first pass complete** | The modern-era Vegas pro-bettor culture source. Character-per-chapter profiles. Multi-pro cross-confirmation of LOSB/Sharper/Peta/Duke principles. **70-30 home-dog rule** named (Banker + Youmans). Kornegay's **8-tier customer profiling** explicitly confirmed. **Bank Secrecy Act $10K Rule 6A** operational compliance fact. **Bail-Out Special** named warning. Multi-pro tout-industry critique. Gaughan's "rooting underdog, betting favorite" quote. UNLV IGI 57-58% sustainable ceiling. |
+| The Smart Money | Michael Konik | 2006 | **first pass complete** | The syndicate-operation narrative source. First-person memoir of a Brain Trust mule (1997-2000) — widely understood to be the Billy Walters syndicate. Command structure (principal → brains → ~180 mules → couriers → offshore deputies → agents). The "getting built in" → "persona non grata" lifecycle. 10% mule profit-split. 0.0001% sustainable-pro rate. Glossary of period terms. Offshore architecture circa 2000. Hollywood Boys celebrity-mule arc. The most explicit burnout content in the library. |
 
 ### Queued (in `source-pdfs/`, not yet processed)
 
@@ -215,6 +228,10 @@ Updated after every book read. This is the "where does sports betting knowledge 
 - **The 70-30 home-dog points/moneyline split** is a named operational tactic — 70% on the points + 30% on the moneyline for strong home-underdog plays. Used independently by both Banker and Youmans. *(Miech Ch 2 + Ch 7)*
 - **Late-game double-up bets to "get even" are doomed.** Cokin's "Bail-Out Special" warning + Sevransky agreement. Cross-references Sharper bankroll discipline + Duke tilt + Peta drawdown chapter. *(Miech Ch 12)*
 - **"You never, ever know when it comes to athletes and sports."** Jimmy Vaccaro mantra. Calibrated-uncertainty quadruple-source consensus (Vaccaro + Duke + Sharper + Peta). *(Miech recurring)*
+- **Smart-money operates as syndicates with command structures, not as solo sharps.** Principal (computer model + analyst pool) → ~180 mules/runners → couriers → offshore deputies → local agents. Mule profit-split is typically 10% of net. *(Konik primary)*
+- **The casino booting lifecycle is consistent across decades** (1998 Caesars → 2024 FanDuel): setup → high-roller persona → year-one wins → year-two investigation → limit cuts → booted. ~9 months at a typical major property. *(Konik + LOSB + Sharper + Miech + Funt)*
+- **The 0.0001% sustainable-pro rate** (Konik) vs the 3% short-term rate (Miech UNLV IGI) reconciles: ~3% can hit profitable hit rates over a finite window; only ~0.0001% sustain it across years and through the booting cycle. *(Konik + Miech synthesis)*
+- **Half-Kelly / Quarter-Kelly is the working-pro standard.** Five-source consensus: Konik + Mathletics + Peta + Sharper + Miech. Anyone recommending full-Kelly or above is incompatible with the pro consensus.
 
 ### Where sources conflict (cross-source reconciliations)
 
@@ -356,6 +373,13 @@ This synthesis is ready to ship as a PPS Original. **Joins the Decision Discipli
 60. **Free public power-rating sources** (Kenny White, Andy Iskoe, Ralph Michaels) are known to Vegas pros but not surfaced to retail bettors. *(Miech via Stewart)*
 61. **The 54-58% sustainable pro hit-rate ceiling** is rarely communicated to retail bettors. *(Miech via UNLV IGI + Paul Stone)*
 62. **The Vegas pro-bettor lifestyle reality** (notebooks, rented condos, modest sizing, passing on most games) is invisible behind the casino-loft Hollywood narrative. *(Miech)*
+63. **Smart-money operates as syndicates with command structures**, not solo sharps — invisible to retail bettors. *(Konik)*
+64. **The casino booting lifecycle** is consistent across decades but invisible to retail bettors who first encounter limiting and think it's anomalous. *(Konik + cross-source)*
+65. **0.0001% sustainable rate vs 3% short-term rate** — retail bettors conflate these. *(Konik + Miech)*
+66. **The send-out line-distribution mechanism** (Sunday afternoon fax/computer to subscribers) is invisible to retail bettors. *(Konik)*
+67. **The 10% mule profit-split economics** are invisible to retail bettors who think pros bet their own money. *(Konik)*
+68. **The psychological/moral cost of pro sports betting** is invisible behind YouTube/social-media romanticism. *(Konik + Sharper Ch 31 + Peta + Funt)*
+69. **The "circled games" operational term** rarely surfaced in retail content. *(Konik)*
 
 *(Each new book will surface more. Migration to `content-opportunities.md` happens as items mature.)*
 
@@ -406,7 +430,8 @@ library/
 │   ├── thinking-in-bets-annie-duke.md
 │   ├── scorecasting-moskowitz-wertheim.md
 │   ├── trading-bases-peta.md
-│   └── sports-betting-for-winners-miech.md
+│   ├── sports-betting-for-winners-miech.md
+│   └── the-smart-money-konik.md
 ├── topics/                        ← cross-book topic syntheses (empty for now)
 └── our-book/                      ← eventual public manuscript (long-term)
 ```
@@ -495,6 +520,14 @@ Topics that will get their own `topics/{topic}.md` synthesis once we have 2-3+ b
 | `stalking-a-bet-before-acting` | Miech via Youmans | 🟢 ready to draft |
 | `vegas-public-power-ratings` | Miech via Stewart (Kenny White, Andy Iskoe, Ralph Michaels) | 🟢 ready to draft |
 | `integrity-and-corruption-history` | Funt + Mathletics + Miech (1959 OU food poisoning) | 🟢 ready to draft |
+| `syndicate-operations` | Konik (primary) | 🟢 ready to draft |
+| `mule-bet-runner-economics` | Konik (primary) | 🟢 ready to draft |
+| `high-roller-persona-maintenance` | Konik (primary) | 🟢 ready to draft |
+| `pro-bettor-burnout` | Konik + Sharper Ch 31 + Peta + Funt + Miech | 🟢 ready to draft — 5-source synthesis |
+| `the-real-rare-rate-of-sustainable-winning` | Konik 0.0001% + Miech 3% + Peta 51.9% | 🟢 ready to draft — calibration synthesis |
+| `circled-games` | Konik (primary) | 🟢 ready to draft |
+| `send-out-line-distribution` | Konik (primary) | 🟢 ready to draft |
+| `offshore-bookmaker-onboarding-historical` | Konik | 🟢 ready to draft (historical) |
 | `sharp-line-construction` | LOSB ✓ · Sharper ✓ (names the books) | 🟢 ready to draft |
 | `square-vs-sharp-thinking` | Sharper ✓ (primary) · LOSB ✓ (1-5 scale variant) | 🟢 ready to draft |
 | `price-vs-juice` | Sharper ✓ (primary) | 🟢 ready to draft — Sharper is THE source |
@@ -528,10 +561,10 @@ Topics that will get their own `topics/{topic}.md` synthesis once we have 2-3+ b
 7. ✅ ~~Process Scorecasting (Moskowitz & Wertheim).~~ (Complete — popular-press companion to MV + HFA-mechanism unlock + third cross-source synthesis.)
 8. ✅ ~~Process Trading Bases (Joe Peta).~~ (Complete — Wall Street ↔ baseball ↔ betting bridge + MLB depth + 4th cross-source synthesis.)
 9. ✅ ~~Process Sports Betting for Winners (Rob Miech).~~ (Complete — modern-era Vegas pro-bettor culture source + multi-pro cross-confirmation tier.)
-10. **Next book decision point.** Remaining queue:
-    - **Konik (Smart Money)** — Billy Walters narrative; US-sports. **Recommended next.**
-    - **Appelbaum (Everything Guide)** — beginner intro; useful for Path 01 mapping.
-    - **Wong (Sharp Sports Betting)** — likely highly redundant given current 9-source coverage.
+10. ✅ ~~Process Konik (Smart Money).~~ (Complete — syndicate-operation narrative + Billy Walters insider memoir + 5-source burnout synthesis.)
+11. **Next book decision point.** Remaining queue:
+    - **Appelbaum (Everything Guide)** — beginner intro; useful for Path 01 mapping. **Recommended next** (curriculum-mapping value).
+    - **Wong (Sharp Sports Betting)** — likely highly redundant given current 10-source coverage.
     - **Monte Carlo or Bust (Buchdahl)** — deprioritized (soccer-heavy).
     - **Complete Book of Sports Betting** — quick-skim only.
 6. **Spin up first `topics/` syntheses.** With 4 sources, the topics most ready to draft (multi-source or single-strong-source + PPS-original-content):

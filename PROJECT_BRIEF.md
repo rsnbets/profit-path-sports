@@ -2,7 +2,7 @@
 
 > **Purpose:** Self-contained project state document. Read this if you're (a) returning to the project after a break, (b) starting a new Claude conversation and need to refresh context, or (c) onboarding a collaborator. As of last update, this brief reflects 6 books processed into the library and the brand positioning that has emerged from that work.
 >
-> **Last updated:** 2026-05-17 (after Sports Betting for Winners)
+> **Last updated:** 2026-05-17 (after The Smart Money)
 
 ---
 
@@ -77,11 +77,11 @@ library/
 
 | Metric | Current |
 |---|---|
-| Books processed | **9** *(LOSB, Funt, MV, Sharper, Mathletics, Duke, Scorecasting, Trading Bases, Miech)* |
-| Books queued | **5** *(Monte Carlo or Bust, Wong, Konik, Appelbaum, Complete Book)* |
+| Books processed | **10** *(LOSB, Funt, MV, Sharper, Mathletics, Duke, Scorecasting, Trading Bases, Miech, Konik)* |
+| Books queued | **4** *(Monte Carlo or Bust, Wong, Appelbaum, Complete Book)* |
 | Topic syntheses | **0** *(deferred — user wants more ingestion first)* |
-| Content opportunities | **170+** |
-| Market gaps identified | **79** |
+| Content opportunities | **180+** |
+| Market gaps identified | **86** |
 | Cross-source conflicts | **1** *(CLV)* |
 | Cross-source syntheses ready to ship | **4** |
 
@@ -98,14 +98,14 @@ library/
 | Scorecasting | Moskowitz & Wertheim | 2011 | Popular-press companion to MV — HFA mechanism, hot hand debunking, coaching loss aversion |
 | Trading Bases | Joe Peta | 2013 | Wall Street ↔ baseball ↔ sports-betting bridge — MV-cited; dime line; cluster luck; Pythagorean; SIERA; +41% 2011 model |
 | Sports Betting for Winners | Rob Miech | 2019 | Modern Vegas pro-bettor culture source — character-per-chapter profiles; multi-pro cross-confirmation; 70-30 home-dog rule; 8-tier customer profiling; tout-industry critique |
+| The Smart Money | Michael Konik | 2006 | Syndicate-operation narrative — Billy Walters insider memoir (names changed); mule economics; casino booting lifecycle; 0.0001% sustainable rate; burnout arc |
 
 ### Active queue (in recommended order)
 
-1. **Konik / Smart Money** — Billy Walters biographical narrative. **Recommended next.**
-2. **Appelbaum / Everything Guide** — beginner intro; useful for Path 01 mapping
-3. **Wong / Sharp Sports Betting** — likely highly redundant given current 9-source coverage
-4. **Monte Carlo or Bust** (Buchdahl) — **deprioritized**; heavily soccer-focused, user not interested in soccer
-5. **Complete Book of Sports Betting** — 30pp quick-skim, likely dated
+1. **Appelbaum / Everything Guide** — beginner intro; useful for Path 01 mapping. **Recommended next.**
+2. **Wong / Sharp Sports Betting** — likely highly redundant given current 10-source coverage
+3. **Monte Carlo or Bust** (Buchdahl) — **deprioritized**; heavily soccer-focused, user not interested in soccer
+4. **Complete Book of Sports Betting** — 30pp quick-skim, likely dated
 
 ### Per-source synthesis template
 

@@ -87,6 +87,11 @@ Rolled up from every `notes/` synthesis. As we process more books, this file gro
 | How to pass on a bet (and why pros pass on most games) | Miech (Banker + Cokin + Van + Youmans) | 🟢 | Multi-pro "no-bet" discipline |
 | Bottom-6 vs Top-10 bounce-back: a real MLB angle | Miech via Van Smith | 🟡 | MLB-specific with appropriate caveats |
 | Free public power-rating sources you can use today | Miech via Stewart (Kenny White, Andy Iskoe, Ralph Michaels) | 🟢 | Operational referral |
+| How a Vegas casino kicks out a winning bettor — the full lifecycle | Konik + LOSB + Sharper + Miech + Funt | 🟢 | 5-source operational lifecycle lesson |
+| What "smart money" actually means (it's not what you think) | Konik | 🟢 | Counter to "fade the public" myths |
+| The real rare rate of professional sports betting (0.0001% / 3% / 51.9% explained) | Konik + Miech + Peta synthesis | 🟢 | Calibration discipline lesson |
+| Why the pro-bettor lifestyle isn't romantic | Konik burnout + Sharper Ch 31 + Peta + Miech + Funt | 🟢 | 5-source anti-romanticism lesson |
+| Half Kelly / Quarter Kelly: the working-pro standard | Konik + Mathletics + Peta + Sharper + Miech | 🟢 | 5-source bet-sizing consensus lesson |
 
 ## Guides (deep-dive pages)
 
@@ -133,6 +138,10 @@ Rolled up from every `notes/` synthesis. As we process more books, this file gro
 | **The Pro-Bettor Convergence Manual** | 9-source synthesis on sizing, sources, discipline, tout-avoidance, lifestyle | 🟢 | **Brand-defining synthesis guide** |
 | **How Vegas Sportsbooks Profile You (the 8-tier reality)** | Miech via Kornegay + LOSB + Roxborough | 🟢 | Operational transparency deep dive |
 | **The Anti-Tout Guide** | Miech (Stewart + Cokin + Barton + Youmans) + LOSB + Sharper | 🟢 | Brand-aligned multi-source critique |
+| **The Casino Booting Lifecycle** | Konik + LOSB + Sharper + Miech + Funt | 🟢 | 5-source operational deep dive |
+| **The Real Cost of Professional Sports Betting** | Konik + Sharper Ch 31 + Peta + Funt + Miech | 🟢 | 5-source psychological reality |
+| **A Modern Sports-Betting Glossary** | Konik style, modernized | 🟡 | Evergreen reference content |
+| **How Big Is the Smart Money? The Math of a Sports-Betting Syndicate** | Konik + Walters case | 🟡 | Educational deep dive |
 
 ## Tools / calculators
 
@@ -212,6 +221,8 @@ Rolled up from every `notes/` synthesis. As we process more books, this file gro
 | **What Sports Betting Can Learn From Wall Street** | Peta + MV + LOSB + Sharper | 🟢 | Distinctive cross-domain brand piece |
 | **The Pro-Bettor Convergence Report** | 9-source synthesis | 🟢 | Brand-defining reputation piece — what the smartest operators agree on |
 | **What Pro Sports Betting Actually Looks Like** | Miech + Sharper Ch 31 + Peta | 🟢 | Multi-source lifestyle reality vs Hollywood |
+| **The Pro-Bettor Reality Report** | Konik burnout + Sharper Ch 31 + Peta drawdown + Funt harm + Miech lifestyle | 🟢 | 5-source brand-aligned anti-romanticism |
+| **The Smart Money Demystified** | Konik's syndicate-structure framing | 🟡 | Counter to popular "fade the public" / "tail the sharps" framings |
 
 ## Market gaps identified
 
@@ -279,6 +290,13 @@ Things this library has surfaced that **nothing public explains well**:
 60. **Free public power-rating sources** (Kenny White, Andy Iskoe, Ralph Michaels) known to Vegas pros only. *(Miech via Stewart)*
 61. **54-58% sustainable pro hit-rate ceiling** rarely communicated publicly. *(Miech via UNLV IGI + Stone)*
 62. **Vegas pro-bettor lifestyle reality** invisible behind Hollywood narrative. *(Miech)*
+63. **Smart-money operates as syndicates with command structures** — invisible to retail bettors. *(Konik)*
+64. **The casino booting lifecycle** is consistent across decades but invisible to retail bettors. *(Konik + cross-source)*
+65. **0.0001% sustainable rate vs 3% short-term rate** — retail bettors conflate these. *(Konik + Miech)*
+66. **The send-out line-distribution mechanism** invisible to retail. *(Konik)*
+67. **The 10% mule profit-split economics** invisible to retail. *(Konik)*
+68. **The psychological/moral cost of pro sports betting** invisible behind YouTube/social-media romanticism. *(Konik + Sharper + Peta + Funt)*
+69. **The "circled games" operational term** rarely surfaced in retail content. *(Konik)*
 
 ---
 
@@ -292,7 +310,7 @@ After every 3-5 books processed:
 
 After 10 books processed: build the first `library/topics/` syntheses around the most cross-referenced topic tags. Those become the source of truth for the corresponding content pieces.
 
-## Current priority shortlist (9-source state)
+## Current priority shortlist (10-source state)
 
 If we shipped one thing from this pipeline tomorrow, top candidates ranked by (impact × differentiation × ease):
 
