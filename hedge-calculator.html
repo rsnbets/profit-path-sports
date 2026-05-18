@@ -449,6 +449,97 @@
     transform: rotate(45deg);
   }
 
+  /* ───────── PLAIN-ENGLISH INTRO ───────── */
+  .plain-intro {
+    display: flex;
+    gap: 13px;
+    align-items: flex-start;
+    margin: 22px 0 2px;
+    padding: 15px 18px;
+    background: var(--cyan-faint);
+    border: 1px solid var(--cyan-border);
+    border-radius: 10px;
+  }
+  .plain-intro-label {
+    flex-shrink: 0;
+    font-size: 9px; font-weight: 700;
+    letter-spacing: .14em; text-transform: uppercase;
+    color: var(--cyan);
+    background: var(--cyan-dim);
+    border: 1px solid var(--cyan-border);
+    border-radius: 5px;
+    padding: 5px 7px;
+    margin-top: 2px;
+  }
+  .plain-intro p {
+    margin: 0;
+    font-size: 14.5px;
+    font-weight: 400;
+    line-height: 1.6;
+    color: var(--text);
+  }
+  .plain-intro strong { color: var(--cyan); font-weight: 600; }
+  @media (max-width: 540px) {
+    .plain-intro { flex-direction: column; gap: 9px; }
+  }
+
+  /* ───────── GLOSSARY TERM ───────── */
+  .gloss {
+    position: relative;
+    border-bottom: 1px dashed var(--cyan);
+    color: inherit;
+    text-decoration: none;
+    cursor: help;
+    white-space: nowrap;
+  }
+  .gloss:focus { outline: none; }
+  .gloss:hover { color: var(--cyan); }
+  .gloss-pop {
+    position: absolute;
+    bottom: calc(100% + 9px);
+    left: 50%;
+    transform: translateX(-50%);
+    width: 232px;
+    max-width: 70vw;
+    background: var(--surface-3);
+    border: 1px solid var(--border-2);
+    border-radius: 9px;
+    padding: 11px 13px;
+    font-size: 12.5px;
+    font-weight: 400;
+    line-height: 1.5;
+    letter-spacing: 0;
+    text-transform: none;
+    white-space: normal;
+    color: rgba(240,238,232,0.9);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .14s ease;
+    z-index: 40;
+  }
+  .gloss-pop::after {
+    content: '';
+    position: absolute;
+    top: 100%; left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-top-color: var(--surface-3);
+  }
+  .gloss-pop b { color: var(--cyan); font-weight: 600; }
+  .gloss-pop .gloss-link {
+    display: block;
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid var(--border-2);
+    color: var(--cyan);
+    font-weight: 600;
+    font-size: 11.5px;
+  }
+  .gloss:hover .gloss-pop,
+  .gloss:focus .gloss-pop,
+  .gloss:focus-within .gloss-pop { opacity: 1; visibility: visible; }
+
   /* ───────── KEY NOTE ───────── */
   .key-note {
     margin-top: 24px;
@@ -765,6 +856,11 @@
     </p>
   </div>
 
+  <div class="plain-intro">
+    <span class="plain-intro-label">In plain English</span>
+    <p>You've already placed a bet that could win big. This tool shows you exactly how much to put on the <strong>other side</strong> so you come away with money — win or lose.</p>
+  </div>
+
   <p class="tool-redirect">Here to cash out a <strong>bonus bet</strong>? A bonus bet isn't a hedge — it's a separate play with its own tool. Head to the <a href="/bonus-converter.html">Bonus Converter</a> instead.</p>
 
   <div class="body">
@@ -785,7 +881,7 @@
         </div>
       </div>
       <div class="mode-note" id="modeNote">
-        <strong>Equal Profit</strong> — the same locked-in result no matter which side wins. The lowest-variance hedge.
+        <strong>Equal Profit</strong> — the same locked-in result no matter which side wins. The most predictable hedge — the exact same payout every time.
       </div>
 
       <div class="inputs-grid">
@@ -809,7 +905,7 @@
         </div>
       </div>
       <div class="input-hint">
-        Odds accept <b>American</b> (+250) or <b>decimal</b> (3.50). The hedge odds are the price on the <b>opposite outcome</b> at any book.
+        Odds accept <b><a class="gloss" href="/learn-odds.html">American<span class="gloss-pop"><b>American odds</b> — the +/− format US books use. <b>−150</b> means risk $150 to win $100; <b>+150</b> means risk $100 to win $150.<span class="gloss-link">Read the odds-formats lesson →</span></span></a></b> (+250) or <b><a class="gloss" href="/learn-odds.html">decimal<span class="gloss-pop"><b>Decimal odds</b> — one number showing your total return per $1 staked. <b>3.50</b> means a $1 bet pays back $3.50, your stake included.<span class="gloss-link">Read the odds-formats lesson →</span></span></a></b> (3.50). The hedge odds are the price on the <b>opposite outcome</b> at any book.
       </div>
 
       <div class="output-section">
@@ -830,7 +926,7 @@
             <div class="out-sub" id="profitSub">guaranteed either way</div>
           </div>
           <div class="out-box">
-            <div class="out-label">ROI</div>
+            <div class="out-label"><span class="gloss" tabindex="0">ROI<span class="gloss-pop"><b>ROI</b> — return on investment. Your profit as a percentage of everything you put at risk. $20 profit on $100 risked = <b>20% ROI</b>.</span></span></div>
             <div class="out-value empty" id="roi">—</div>
             <div class="out-sub">on total wagered</div>
           </div>
@@ -861,26 +957,26 @@
       </div>
 
       <div class="callout">
-        <div class="callout-label">Why hedging works — the concert-ticket resale</div>
-        <p>You bought 2 tickets to a show for $400 total. It's three months out. You're 75% sure you can go, 25% sure you'll be stuck out of town.</p>
-        <p>Resale tickets are running $300 each. Your options:</p>
+        <div class="callout-label">What a hedge actually is</div>
+        <p>Back before the season you put $100 on a team to win the title. They made it — the final is tomorrow. Win, and you collect <strong>$1,000</strong>. Lose, and you get <strong>nothing</strong>.</p>
+        <p>You don't have to just sit there and hope. You can place a second bet now — this time on the <strong>other team</strong> — so you walk away with money <em>no matter who wins</em>.</p>
+        <p>That second bet is the hedge. Here's the trade:</p>
         <ul>
-          <li><strong>Do nothing</strong> — 75% of the time you enjoy the show; 25% of the time it's $400 in the trash.</li>
-          <li><strong>Sell both ($600)</strong> — a guaranteed +$200, but you don't get to go. You locked the cash and killed the option.</li>
-          <li><strong>Sell one ($300)</strong> — if you go, you recouped $300 so your night cost just $100; if you can't, you sell the second closer to showtime and roughly break even.</li>
+          <li><strong>No hedge</strong> — your team wins, you get the full $1,000. They lose, you get $0.</li>
+          <li><strong>Hedge</strong> — you give up part of that $1,000, but in exchange you collect a guaranteed payout either way. Never the biggest win, never the empty-handed loss.</li>
         </ul>
-        <p>That third option is a hedge. <strong>You trade some of your upside for protection on the downside</strong> — never the best outcome, never the worst. That's exactly what a betting hedge does.</p>
+        <p>That's all a hedge is: <strong>a bet on the other side that turns "win big or win nothing" into "win something for sure."</strong> This calculator tells you exactly how much to put on that second bet.</p>
       </div>
 
       <div class="key-note">
-        <div class="key-note-head">★ Key Point — Don't Hedge a Real Edge</div>
+        <div class="key-note-head">★ Key Point — Don't Hedge Just Because You're Nervous</div>
         <div class="key-note-body">
-          A hedge trades expected value for certainty. Sometimes that's smart — sometimes it's a quiet, expensive mistake:
+          A hedge always costs you a little — that's the price of making it a sure thing. So only do it when it's actually worth it:
           <div class="kn-list">
-            <div class="kn-item"><span class="kn-tag hedge">Hedge</span><span><strong>Over-exposed</strong> — a futures or DFS ticket bigger than you're comfortable carrying. Lock a guaranteed result so you can sleep.</span></div>
-            <div class="kn-item"><span class="kn-tag ride">Let it ride</span><span><strong>A real +EV bet</strong> — hedging away a genuine edge because you're nervous costs you money long-run.</span></div>
+            <div class="kn-item"><span class="kn-tag hedge">Hedge</span><span><strong>The bet got too big.</strong> A futures ticket or DFS slip that's grown into more money than you can afford to lose. Lock in a guaranteed result and stop sweating it.</span></div>
+            <div class="kn-item"><span class="kn-tag ride">Let it ride</span><span><strong>You still think you'll win.</strong> You're just nervous. Hedging here only hands back money you'd probably have kept.</span></div>
           </div>
-          The rule of thumb: if a bet was good enough to make, it's usually good enough to leave alone. <a href="/learn-betting-vs-trading.html">More on betting vs. trading &#8594;</a>
+          Simple rule: hedge to protect money you can't afford to lose — not to calm your nerves. <a href="/learn-betting-vs-trading.html">More on this &#8594;</a>
         </div>
       </div>
 
@@ -890,7 +986,7 @@
     <details class="how-to" id="howto">
       <summary>How to use this</summary>
       <div class="how-to-body">
-        <p><strong>What it does.</strong> A hedge opportunity usually shows up in one of three spots: a <em>futures ticket</em> close to cashing (your preseason long shot made the final), a <em>live, in-play bet</em> where the odds have swung your way mid-game, or a <a href="/dfs-slip-checker.html">DFS pick'em slip</a> down to its last leg — where you can bet that final player's prop the other way at a sportsbook. In any of those you've got a bet working, and a hedge is a bet on the <em>opposite</em> outcome that locks in a result instead of leaving it to chance. This calculator sizes that hedge.</p>
+        <p><strong>What it does.</strong> A hedge opportunity usually shows up in one of three spots: a <a href="/learn-futures.html">futures ticket</a> close to cashing (your preseason long shot made the final), a <em>live, in-play bet</em> where the odds have swung your way mid-game, or a <a href="/dfs-slip-checker.html">DFS pick'em slip</a> down to its last leg — where you can bet that final player's prop the other way at a sportsbook. In any of those you've got a bet working, and a hedge is a bet on the <em>opposite</em> outcome that locks in a result instead of leaving it to chance. This calculator sizes that hedge.</p>
 
         <p><strong>How to use it.</strong></p>
         <ul>
@@ -901,7 +997,7 @@
 
         <p><strong>The three strategies.</strong></p>
         <ul>
-          <li><em>Equal Profit</em> — bet the hedge so you net the exact same amount whichever side wins. The lowest-variance lock.</li>
+          <li><em>Equal Profit</em> — bet the hedge so you net the exact same amount whichever side wins. The most predictable lock.</li>
           <li><em>Win Back Stake</em> — size the hedge to recover your original stake. If your original still wins you keep a free-roll profit; if it loses you break even.</li>
           <li><em>Custom Amount</em> — set your own hedge size, for partial hedges, live betting, or keeping some skin in the game.</li>
         </ul>
@@ -942,7 +1038,7 @@
   let mode = 'equal';
 
   const MODE_NOTE = {
-    equal: '<strong>Equal Profit</strong> — the same locked-in result no matter which side wins. The lowest-variance hedge.',
+    equal: '<strong>Equal Profit</strong> — the same locked-in result no matter which side wins. The most predictable hedge — the exact same payout every time.',
     stake: '<strong>Win Back Stake</strong> — the hedge recovers your original stake. Free-roll: keep the upside if your original still hits, break even if it doesn\'t.',
     custom: '<strong>Custom Amount</strong> — set your own hedge size. For partial hedges, live betting, or keeping some skin in the game.'
   };
@@ -1124,5 +1220,23 @@
   })();
 </script>
 
+<script>
+/* glossary popup edge-clamp — keeps tooltips inside the viewport */
+(function(){
+  document.querySelectorAll('.gloss').forEach(function(g){
+    var pop = g.querySelector('.gloss-pop');
+    if (!pop) return;
+    function place(){
+      pop.style.transform = 'translateX(-50%)';
+      var r = pop.getBoundingClientRect(), pad = 10, shift = 0;
+      if (r.left < pad) shift = pad - r.left;
+      else if (r.right > window.innerWidth - pad) shift = (window.innerWidth - pad) - r.right;
+      if (shift) pop.style.transform = 'translateX(calc(-50% + ' + Math.round(shift) + 'px))';
+    }
+    g.addEventListener('mouseenter', place);
+    g.addEventListener('focus', place);
+  });
+})();
+</script>
 </body>
 </html>
