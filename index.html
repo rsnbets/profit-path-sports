@@ -23,7 +23,7 @@
 <meta name="theme-color" content="#090909">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=DM+Mono:wght@400;500&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&family=DM+Mono:wght@400;500&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
 <style>
   :root {
     /* PROFITPATH v2 tokens — /brand-brief-v2.html */
@@ -2691,6 +2691,29 @@
 
   /* ─────────── Tools grid v2 ─────────── */
   .section#tools { margin-top: 56px; padding: 0; background: none; border: none; }
+  .section#tools .section-title {
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-weight: 700;
+    letter-spacing: -.02em;
+    background: linear-gradient(95deg, var(--green) 0%, var(--cyan) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    padding-bottom: 0.06em;
+  }
+  .toolbox-sub {
+    display: flex; flex-direction: column;
+    gap: 4px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 14px; font-weight: 300;
+    line-height: 1.55;
+    color: rgba(255,255,255,0.7);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  .toolbox-sub .accent { color: var(--cyan); font-weight: 400; }
+  .toolbox-sub strong { color: var(--text); font-weight: 600; }
   .tools-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -2979,12 +3002,16 @@
   <div class="section" id="tools">
     <div class="section-head">
       <div class="section-eyebrow">★ Built to make books <span class="accent">pay you.</span></div>
-      <div class="section-title">The toolbox.</div>
+      <div class="section-title">The toolbox</div>
       <div class="toolbox-tagline">
         <span class="tt-gut">Bet with your gut, fall in a rut.</span>
         <span class="tt-path">Bet with the math, follow the path.</span>
       </div>
-      <div class="section-sub">Every free tool, grouped by what you'd actually use it for. <strong>Bet X-Ray lives up top</strong> — these are the supporting cast.</div>
+      <div class="toolbox-sub">
+        <span>Every calculator a winning bettor actually uses — all free.</span>
+        <span class="accent">Grouped by the job: find a bet, size it, protect it, track it.</span>
+        <span><strong>Bet X-Ray</strong> sits up top; the rest are the supporting cast.</span>
+      </div>
     </div>
 
     <div class="tools-grid">
