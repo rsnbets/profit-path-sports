@@ -2587,16 +2587,23 @@
     margin-bottom: 14px;
   }
   .v2-original-name {
-    font-family: 'DM Serif Display', serif;
-    font-weight: 400; font-style: normal;
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-weight: 700; font-style: normal;
     font-size: clamp(28px, 3.4vw, 40px);
-    color: var(--text); line-height: 1;
-    letter-spacing: -.005em;
+    line-height: 1.1;
+    letter-spacing: -.02em;
     margin-bottom: 8px;
+    padding-bottom: 0.06em;
+    background: linear-gradient(95deg, var(--green) 0%, var(--cyan) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
   }
   .v2-original-name .accent {
-    color: var(--green);
-    font-style: italic;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    font-style: normal;
   }
   .v2-original-tagline {
     font-family: 'Plus Jakarta Sans', sans-serif;
@@ -2988,7 +2995,7 @@
     <div class="v2-originals-grid single">
       <a class="v2-original" href="/bet-x-ray.html">
         <div class="v2-original-tag">Original 01 · Flagship Tool</div>
-        <div class="v2-original-name">Bet <span class="accent">X-Ray.</span></div>
+        <div class="v2-original-name">Bet <span class="accent">X-Ray</span></div>
         <div class="v2-original-tagline">Type in a bet. See if it's worth taking.</div>
         <p class="v2-original-desc">See through any sports bet in one shot. <strong>What's the bet actually worth? Should you take it? How much should you bet?</strong> The tool answers all three at once — and tells you how confident you can be in the answer.</p>
         <span class="v2-original-cta">Launch Bet X-Ray →</span>
