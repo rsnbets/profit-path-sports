@@ -3,150 +3,448 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CLV — The Only Proof You're +EV | Profit Path Sports</title>
-<meta name="description" content="Closing line value (CLV) is the only short-term metric that doesn't lie. Learn why every winning bettor tracks CLV, not unit profit.">
-  <meta property="og:type" content="article">
-  <meta property="og:title" content="CLV — The Only Proof You're +EV | Profit Path Sports">
-  <meta property="og:description" content="Closing line value (CLV) is the only short-term metric that doesn't lie. Learn why every winning bettor tracks CLV, not unit profit.">
-  <meta property="og:image" content="https://profitpathsports.com/images/og-default.png">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta property="og:url" content="https://profitpathsports.com/learn-clv.html">
-  <meta property="og:site_name" content="Profit Path Sports">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="CLV — The Only Proof You're +EV | Profit Path Sports">
-  <meta name="twitter:description" content="Closing line value (CLV) is the only short-term metric that doesn't lie. Learn why every winning bettor tracks CLV, not unit profit.">
-  <meta name="twitter:image" content="https://profitpathsports.com/images/og-default.png">
-
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230a0f1c'/%3E%3Cpolyline points='5,24 12,16 16,19 22,9 27,5' fill='none' stroke='%234ade80' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
-
+<title>CLV — Closing Line Value, the Only Honest Scoreboard | PROFITPATH Sports</title>
+<meta name="description" content="Closing line value tells you whether your bet beat the final market price — and over a few hundred bets it's the best predictor of long-run profit there is. What CLV is and how to track it.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CLV — The Only Proof You're +EV | Profit Path Sports">
-<meta property="og:description" content="The only short-term metric that doesn't lie about whether you're a winning bettor.">
-<meta property="og:site_name" content="Profit Path Sports">
-<meta name="theme-color" content="#0a0f1c">
+<meta property="og:title" content="CLV — Closing Line Value, the Only Honest Scoreboard | PROFITPATH Sports">
+<meta property="og:description" content="Why beating the closing line is the only proof you're a winning bettor.">
+<meta property="og:image" content="https://profitpathsports.com/images/og-default.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://profitpathsports.com/learn-clv.html">
+<meta property="og:site_name" content="PROFITPATH Sports">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="CLV — Closing Line Value, the Only Honest Scoreboard">
+<meta name="twitter:description" content="Why beating the closing line is the only proof you're a winning bettor.">
+<meta name="twitter:image" content="https://profitpathsports.com/images/og-default.png">
+<meta name="theme-color" content="#090909">
+
+<link rel="icon" type="image/svg+xml" href="/logo.svg">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;800;900&family=JetBrains+Mono:wght@400;500;700&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
-  :root { --bg: #0a0f1c; --panel: #0f1524; --panel-inset: #141a2b; --panel-deep: #0c1120; --border: #1e2638; --border-soft: #141c30; --text: #e5e7eb; --muted: #8b94a8; --dim: #6b7689; --blue: #3d8bff; --blue-glow: rgba(61, 139, 255, 0.18); --yellow: #f5b545; --green: #4ade80; --red: #f87171; --purple: #BC8CFF; }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { background: radial-gradient(ellipse at top, #111a2e 0%, var(--bg) 60%); color: var(--text); font-family: 'JetBrains Mono', ui-monospace, monospace; min-height: 100vh; line-height: 1.5; }
-  .topnav { border-bottom: 1px solid var(--border-soft); background: rgba(10, 15, 28, 0.85); backdrop-filter: blur(8px); position: sticky; top: 0; z-index: 10; }
-  .topnav-inner { max-width: 1100px; margin: 0 auto; padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
-  .nav-brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; color: var(--blue); font-family: 'Orbitron', sans-serif; font-size: 13px; letter-spacing: 2.5px; font-weight: 800; text-transform: uppercase; }
-  .nav-brand-chart { display: inline-flex; width: 22px; height: 18px; color: #4ade80; filter: drop-shadow(0 0 6px rgba(74, 222, 128, 0.55)); }
-  .nav-brand-chart svg { width: 100%; height: 100%; }
-  .nav-back { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--muted); text-decoration: none; letter-spacing: 0.5px; transition: color 0.15s; }
-  .nav-back:hover { color: var(--blue); }
-  .wrap { max-width: 760px; margin: 0 auto; padding: 32px 20px 80px; }
-  .lesson-hero { margin-bottom: 36px; }
-  .lesson-eyebrow { font-family: 'Orbitron', sans-serif; font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--blue); font-weight: 700; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
-  .lesson-eyebrow::before { content: '▸'; color: var(--blue); font-size: 10px; }
-  .lesson-pill { margin-left: auto; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 1px; color: var(--muted); background: var(--panel-deep); border: 1px solid var(--border-soft); border-radius: 999px; padding: 4px 10px; text-transform: none; font-weight: 500; }
-  .lesson-title { font-family: 'Orbitron', sans-serif; font-size: 44px; font-weight: 900; letter-spacing: 3px; color: var(--text); text-transform: uppercase; line-height: 1.05; margin-bottom: 14px; }
-  .lesson-sub { font-family: 'Rajdhani', sans-serif; font-size: 22px; color: var(--muted); font-weight: 500; letter-spacing: 0.4px; line-height: 1.4; }
-  .lesson-section { margin-bottom: 36px; }
-  .lesson-section h3 { font-family: 'Orbitron', sans-serif; font-size: 18px; letter-spacing: 2px; text-transform: uppercase; color: var(--text); font-weight: 800; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--border-soft); }
-  .lesson-body { font-family: 'Rajdhani', sans-serif; font-size: 18px; line-height: 1.7; color: var(--text); letter-spacing: 0.2px; }
-  .lesson-body p { margin-bottom: 16px; }
+  :root {
+    --green: #4DFF78;
+    --green-dim: rgba(77,255,120,0.15);
+    --green-faint: rgba(77,255,120,0.06);
+    --green-border: rgba(77,255,120,0.22);
+    --cyan: #00D4FF;
+    --cyan-dim: rgba(0,212,255,0.12);
+    --cyan-faint: rgba(0,212,255,0.04);
+    --cyan-border: rgba(0,212,255,0.22);
+    --red: #FF3D3D;
+    --yellow: #F5B545;
+    --bg: #090909;
+    --surface: #0D0D0D;
+    --surface-2: #141414;
+    --surface-3: #1C1C1C;
+    --border: rgba(255,255,255,0.05);
+    --border-2: rgba(255,255,255,0.08);
+    --text: #F0EEE8;
+    --muted: rgba(255,255,255,0.62);
+    --dim: rgba(255,255,255,0.25);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    font-weight: 300;
+    min-height: 100vh;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  .math-block, .lesson-table { font-variant-numeric: tabular-nums; }
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 999;
+    opacity: 0.025;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  a { color: var(--cyan); text-decoration: none; }
+  a:hover { color: var(--green); }
+
+  /* ───────── CARD ───────── */
+  .card {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 32px 48px 80px;
+    position: relative;
+  }
+  @media (max-width: 640px) { .card { padding: 60px 20px 60px; } }
+
+  /* ───────── HEADER ───────── */
+  .header { margin-bottom: 36px; }
+  .header-meta {
+    display: flex; align-items: center; gap: 18px;
+    margin-bottom: 22px; flex-wrap: wrap;
+  }
+  .back-link {
+    font-size: 11px; font-weight: 500;
+    letter-spacing: .18em; text-transform: uppercase;
+    color: var(--dim); transition: color .15s;
+  }
+  .back-link:hover { color: var(--cyan); }
+  .header-eyebrow {
+    font-size: 10px; font-weight: 600;
+    letter-spacing: .28em; text-transform: uppercase;
+    color: var(--cyan);
+  }
+
+  .title-row {
+    display: flex; align-items: flex-end; justify-content: center;
+    gap: 16px; margin-bottom: 16px; flex-wrap: wrap; position: relative;
+  }
+  .title-row::before {
+    content: '';
+    position: absolute;
+    left: 50%; top: 50%;
+    width: 580px; height: 220px;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(ellipse at center,
+                  rgba(77,255,120,0.18) 0%,
+                  rgba(0,212,255,0.10) 35%,
+                  rgba(77,255,120,0) 70%);
+    filter: blur(28px);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .title-row > * { position: relative; z-index: 1; }
+  .header h1 {
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-size: clamp(40px, 6vw, 64px);
+    line-height: 1.1;
+    letter-spacing: -.025em;
+    font-weight: 700;
+    margin: 0;
+    padding-bottom: 0.08em;
+    background: linear-gradient(95deg, var(--green) 0%, var(--cyan) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+  .lesson-sub {
+    font-size: clamp(15px, 1.7vw, 18px);
+    color: rgba(240,238,232,0.74);
+    font-weight: 300;
+    line-height: 1.5;
+    max-width: 740px;
+    margin: 0 auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .lesson-sub .accent { color: var(--cyan); font-weight: 400; }
+  .lesson-sub strong { color: var(--text); font-weight: 600; }
+
+  /* ───────── SECTIONS ───────── */
+  .lesson-section { margin-bottom: 40px; }
+  .lesson-section h3 {
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-size: clamp(19px, 2.2vw, 23px);
+    font-weight: 700;
+    letter-spacing: -.01em;
+    color: var(--text);
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border-2);
+  }
+  .lesson-body { font-size: 15.5px; line-height: 1.75; color: rgba(240,238,232,0.92); }
+  .lesson-body p { margin-bottom: 15px; }
   .lesson-body p:last-child { margin-bottom: 0; }
-  .lesson-body strong { color: var(--text); font-weight: 700; }
-  .lesson-body em { color: var(--blue); font-style: normal; font-weight: 600; }
-  .math-block { background: var(--panel-deep); border: 1px solid var(--border-soft); border-left: 3px solid var(--blue); border-radius: 10px; padding: 20px 24px; font-family: 'JetBrains Mono', monospace; font-size: 15px; color: var(--text); margin: 18px 0; line-height: 1.8; overflow-x: auto; }
-  .math-block .label { color: var(--dim); font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; display: block; margin-bottom: 10px; }
-  .math-block .accent { color: var(--blue); font-weight: 700; }
+  .lesson-body strong { color: var(--text); font-weight: 600; }
+  .lesson-body em { color: var(--cyan); font-style: normal; font-weight: 500; }
+  .lesson-body ul { list-style: none; margin: 12px 0 16px; padding-left: 2px; }
+  .lesson-body li { position: relative; padding-left: 22px; margin-bottom: 10px; }
+  .lesson-body li::before {
+    content: '';
+    position: absolute;
+    left: 2px; top: 0.6em;
+    width: 6px; height: 6px;
+    background: var(--cyan);
+    transform: rotate(45deg);
+  }
+  .lesson-body a { color: var(--cyan); }
+  .lesson-body a:hover { color: var(--green); }
+
+  /* ───────── MATH BLOCK ───────── */
+  .math-block {
+    background: var(--surface-2);
+    border: 1px solid var(--border-2);
+    border-left: 3px solid var(--cyan);
+    border-radius: 10px;
+    padding: 18px 22px;
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-size: 15px;
+    color: var(--text);
+    margin: 18px 0;
+    line-height: 1.9;
+    overflow-x: auto;
+  }
+  .math-block .label {
+    color: var(--dim);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 10px; font-weight: 600;
+    letter-spacing: .2em; text-transform: uppercase;
+    display: block; margin-bottom: 10px;
+  }
+  .math-block .accent { color: var(--cyan); font-weight: 600; }
   .math-block .pos { color: var(--green); font-weight: 700; }
   .math-block .neg { color: var(--red); font-weight: 700; }
-  .cta-card { background: linear-gradient(135deg, rgba(61, 139, 255, 0.08), rgba(61, 139, 255, 0.02)); border: 1px solid var(--blue); border-radius: 16px; padding: 32px 28px; margin: 44px 0 32px; text-align: center; box-shadow: 0 0 40px rgba(61, 139, 255, 0.08), 0 20px 60px rgba(0, 0, 0, 0.3); }
-  .cta-eyebrow { font-family: 'Orbitron', sans-serif; font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--blue); font-weight: 700; margin-bottom: 10px; }
-  .cta-title { font-family: 'Rajdhani', sans-serif; font-size: 26px; font-weight: 700; color: var(--text); margin-bottom: 8px; letter-spacing: 0.3px; }
-  .cta-blurb { font-family: 'Rajdhani', sans-serif; font-size: 16px; color: var(--muted); line-height: 1.55; max-width: 480px; margin: 0 auto 22px; }
-  .cta-btn { display: inline-flex; align-items: center; gap: 10px; font-family: 'Orbitron', sans-serif; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; font-weight: 800; text-decoration: none; padding: 14px 26px; border-radius: 10px; background: var(--blue); color: #06101e; box-shadow: 0 0 20px var(--blue-glow); transition: all 0.15s; }
-  .cta-btn:hover { background: #5fa1ff; transform: translateY(-1px); box-shadow: 0 0 28px rgba(61, 139, 255, 0.35); }
-  .next-nav { display: flex; justify-content: space-between; align-items: stretch; gap: 14px; margin-top: 32px; }
-  .next-nav-card { flex: 1; background: var(--panel-deep); border: 1px solid var(--border-soft); border-radius: 12px; padding: 18px 20px; text-decoration: none; color: var(--text); transition: all 0.15s; }
-  .next-nav-card:hover { border-color: var(--blue); background: var(--panel-inset); }
+  .math-block .dim { color: var(--dim); }
+
+  /* ───────── CALLOUT ───────── */
+  .callout {
+    background: var(--surface-2);
+    border: 1px solid var(--border-2);
+    border-left: 3px solid var(--cyan);
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin: 18px 0;
+  }
+  .callout-label {
+    font-size: 10px; font-weight: 700;
+    letter-spacing: .22em; text-transform: uppercase;
+    color: var(--cyan);
+    margin-bottom: 12px;
+  }
+  .callout p { margin-bottom: 12px; }
+  .callout p:last-child { margin-bottom: 0; }
+  .callout strong { color: var(--text); font-weight: 600; }
+  .callout em { color: var(--cyan); font-style: normal; font-weight: 500; }
+
+  /* ───────── TABLE ───────── */
+  .lesson-table {
+    width: 100%; border-collapse: collapse;
+    margin: 16px 0; font-size: 14px;
+  }
+  .lesson-table th {
+    text-align: left; padding: 10px 14px;
+    font-size: 10px; font-weight: 700;
+    letter-spacing: .2em; text-transform: uppercase;
+    color: var(--cyan);
+    border-bottom: 1px solid var(--cyan-border);
+  }
+  .lesson-table td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+    color: rgba(240,238,232,0.84);
+  }
+  .lesson-table tr:last-child td { border-bottom: none; }
+  .lesson-table td strong { color: var(--text); font-weight: 700; }
+
+  /* ───────── KEY NOTE ───────── */
+  .key-note {
+    margin: 36px 0 8px;
+    padding: 16px 20px 18px;
+    background: var(--green-dim);
+    border: 1px solid var(--green-border);
+    border-left: 3px solid var(--green);
+    border-radius: 10px;
+    box-shadow: 0 0 26px rgba(77,255,120,0.07);
+  }
+  .key-note-head {
+    display: flex; align-items: center; gap: 7px;
+    font-size: 11px; font-weight: 700;
+    letter-spacing: .2em; text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 9px;
+  }
+  .key-note-body {
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 1.65;
+    color: rgba(240,238,232,0.82);
+  }
+  .key-note-body strong { color: var(--text); font-weight: 700; }
+  .key-note-body em { color: var(--cyan); font-style: normal; font-weight: 500; }
+  .key-note-body a { color: var(--green); font-weight: 600; }
+  .key-note-body a:hover { color: var(--cyan); }
+
+  /* ───────── CTA CARD ───────── */
+  .cta-card {
+    background: linear-gradient(135deg, var(--cyan-faint), transparent);
+    border: 1px solid var(--cyan-border);
+    border-radius: 14px;
+    padding: 32px 28px;
+    margin: 44px 0 32px;
+    text-align: center;
+  }
+  .cta-eyebrow {
+    font-size: 10px; font-weight: 700;
+    letter-spacing: .26em; text-transform: uppercase;
+    color: var(--cyan);
+    margin-bottom: 10px;
+  }
+  .cta-title {
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-size: 26px; font-weight: 700;
+    letter-spacing: -.02em;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+  .cta-blurb {
+    font-size: 14px; color: rgba(240,238,232,0.7);
+    line-height: 1.6; max-width: 480px;
+    margin: 0 auto 22px;
+  }
+  .cta-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 12px; font-weight: 700;
+    letter-spacing: .12em; text-transform: uppercase;
+    text-decoration: none;
+    padding: 13px 26px;
+    border-radius: 8px;
+    background: var(--cyan);
+    color: #06222a;
+    transition: all .16s;
+  }
+  .cta-btn:hover { background: var(--green); color: #06220f; transform: translateY(-1px); }
+
+  /* ───────── PREV / NEXT ───────── */
+  .next-nav { display: flex; justify-content: space-between; gap: 14px; margin-top: 32px; }
+  .next-nav-card {
+    flex: 1;
+    background: var(--surface-2);
+    border: 1px solid var(--border-2);
+    border-radius: 10px;
+    padding: 16px 20px;
+    text-decoration: none;
+    transition: all .15s;
+  }
+  .next-nav-card:hover { border-color: var(--cyan-border); background: var(--surface-3); }
   .next-nav-card.disabled { opacity: 0.4; pointer-events: none; }
-  .next-nav-card .nav-label { font-family: 'Orbitron', sans-serif; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--dim); margin-bottom: 6px; }
-  .next-nav-card .nav-title { font-family: 'Rajdhani', sans-serif; font-size: 17px; font-weight: 700; color: var(--text); }
+  .next-nav-card.complete { border-color: var(--green-border); background: var(--green-faint); }
+  .next-nav-card.complete:hover { border-color: var(--green); background: var(--green-dim); }
+  .next-nav-card .nav-label {
+    font-size: 9px; font-weight: 600;
+    letter-spacing: .2em; text-transform: uppercase;
+    color: var(--dim); margin-bottom: 6px;
+  }
+  .next-nav-card.complete .nav-label { color: var(--green); }
+  .next-nav-card .nav-title { font-size: 15px; font-weight: 600; color: var(--text); }
   .next-nav-card.next { text-align: right; }
-  .next-nav-card.complete { border-color: var(--purple); background: rgba(188, 140, 255, 0.06); }
-  .next-nav-card.complete .nav-label { color: var(--purple); }
-  .footer { text-align: center; margin-top: 60px; padding: 28px 20px 0; color: var(--dim); font-size: 11px; letter-spacing: 1px; line-height: 1.7; border-top: 1px solid var(--border-soft); }
-  .footer .disclaimer { max-width: 720px; margin: 0 auto 14px; color: var(--dim); font-family: 'Rajdhani', sans-serif; font-size: 13px; letter-spacing: 0.3px; }
-  .footer a { color: var(--muted); text-decoration: none; }
-  .footer a:hover { color: var(--blue); }
-  @media (max-width: 600px) {
-    .topnav-inner { padding: 12px 16px; }
-    .nav-brand { font-size: 11px; letter-spacing: 2px; }
-    .wrap { padding: 24px 16px 60px; }
-    .lesson-title { font-size: 32px; letter-spacing: 2px; }
-    .lesson-sub { font-size: 18px; }
-    .lesson-body { font-size: 16px; }
-    .lesson-section h3 { font-size: 15px; }
-    .cta-card { padding: 26px 20px; }
-    .cta-title { font-size: 22px; }
+  @media (max-width: 560px) {
     .next-nav { flex-direction: column; }
     .next-nav-card.next { text-align: left; }
   }
-  /* ═══ SIDEBAR NAVIGATION (prototype) ═══ */
-  .pps-sidebar { position: fixed; top: 0; left: 0; bottom: 0; width: 240px; background: linear-gradient(180deg, #0c1120 0%, #080d18 100%); border-right: 1px solid var(--border); z-index: 50; transform: translateX(-100%); transition: transform .3s cubic-bezier(.4,0,.2,1); overflow-y: auto; font-family: 'IBM Plex Sans', system-ui, sans-serif; }
+
+  /* ───────── FOOTER ───────── */
+  .footer {
+    text-align: center;
+    margin-top: 56px;
+    padding: 28px 20px 0;
+    color: var(--dim);
+    font-size: 11px;
+    letter-spacing: .04em;
+    line-height: 1.7;
+    border-top: 1px solid var(--border);
+  }
+  .footer .disclaimer { max-width: 680px; margin: 0 auto 12px; }
+  .footer a { color: var(--muted); }
+  .footer a:hover { color: var(--cyan); }
+
+  /* ═══ SIDEBAR ═══ */
+  .pps-sidebar {
+    position: fixed; top: 0; left: 0; bottom: 0;
+    width: 240px; background: var(--surface);
+    border-right: 1px solid var(--border-2); z-index: 50;
+    transform: translateX(-100%);
+    transition: transform .3s cubic-bezier(.4,0,.2,1);
+    overflow-y: auto;
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  }
   body.pps-sidebar-open .pps-sidebar { transform: translateX(0); }
   body.pps-sidebar-open { padding-left: 240px; transition: padding-left .3s cubic-bezier(.4,0,.2,1); }
   @media (max-width: 900px) {
     body.pps-sidebar-open { padding-left: 0; }
     .pps-sidebar { box-shadow: 4px 0 30px rgba(0,0,0,.7); width: 260px; }
   }
-  .pps-sidebar-toggle { position: fixed; top: 14px; left: 18px; z-index: 51; background: rgba(15, 21, 36, 0.92); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid var(--border); color: var(--text); width: 38px; height: 38px; border-radius: 9px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all .2s ease; }
-  .pps-sidebar-toggle:hover { background: var(--panel-inset); border-color: var(--green); color: var(--green); }
+  .pps-sidebar-toggle {
+    position: fixed; top: 14px; left: 18px; z-index: 51;
+    background: var(--surface);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--border-2);
+    color: var(--text);
+    width: 38px; height: 38px;
+    border-radius: 6px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all .18s ease;
+  }
+  .pps-sidebar-toggle:hover { background: var(--surface-2); border-color: var(--cyan-border); color: var(--cyan); }
   body.pps-sidebar-open .pps-sidebar-toggle { left: 256px; top: 14px; }
   @media (max-width: 900px) { body.pps-sidebar-open .pps-sidebar-toggle { left: 276px; } }
   .pps-sidebar-inner { padding: 22px 14px 30px; }
-  .pps-sidebar-brand { display: flex; align-items: center; justify-content: center; gap: 8px; color: var(--blue); text-decoration: none; font-family: 'Orbitron', sans-serif; font-weight: 800; font-size: 11px; letter-spacing: 1.6px; padding: 4px 0 16px; border-bottom: 1px solid var(--border-soft); margin-bottom: 14px; text-transform: uppercase; }
-  .pps-sidebar-brand svg { width: 18px; height: 14px; flex-shrink: 0; color: var(--green); filter: drop-shadow(0 0 6px rgba(74, 222, 128, 0.55)); }
-  .pps-sidebar-brand span { white-space: nowrap; }
-  .pps-sidebar-brand:hover { color: #5fa1ff; }
+  .pps-sidebar-brand {
+    display: flex; align-items: center; justify-content: center;
+    gap: 6px; color: var(--text); text-decoration: none;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 900; font-size: 13px;
+    letter-spacing: -.02em;
+    padding: 4px 0 16px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 14px;
+  }
+  .pps-sidebar-brand .accent { color: var(--green); }
+  .pps-sidebar-brand small { font-size: 8px; font-weight: 400; letter-spacing: .4em; text-transform: uppercase; color: var(--dim); margin-left: 6px; }
+  .pps-sidebar-brand:hover .accent { filter: brightness(1.1); }
   .pps-sidebar-nav { display: flex; flex-direction: column; gap: 1px; }
-  .pps-nav-group-label { font-size: 9.5px; text-transform: uppercase; letter-spacing: 1.8px; color: var(--dim); padding: 14px 8px 6px; margin-top: 2px; font-weight: 600; }
-  .pps-nav-link { display: flex; align-items: center; gap: 10px; color: #b8c0d0; text-decoration: none; padding: 8px 10px; border-radius: 7px; font-size: 13px; border-left: 2px solid transparent; transition: all .15s ease; }
-  .pps-nav-link:hover { background: var(--panel-inset); color: #fff; }
-  .pps-nav-link.active { background: rgba(74, 222, 128, 0.09); color: var(--green); border-left-color: var(--green); }
-  .pps-nav-num { font-family: 'JetBrains Mono', monospace; font-size: 10.5px; color: var(--dim); font-weight: 700; min-width: 18px; }
-  .pps-nav-link.path-blue .pps-nav-num { color: var(--blue); }
-  .pps-nav-link.path-green .pps-nav-num { color: var(--green); }
-  .pps-nav-link.path-gold .pps-nav-num { color: var(--yellow); }
+  .pps-nav-group-label {
+    font-size: 9px; text-transform: uppercase; letter-spacing: .22em;
+    color: var(--dim); padding: 14px 8px 6px;
+    margin-top: 2px; font-weight: 600;
+  }
+  .pps-nav-link {
+    display: flex; align-items: center; gap: 10px;
+    color: var(--muted); text-decoration: none;
+    padding: 7px 10px; border-radius: 4px;
+    font-size: 12px; font-weight: 400;
+    border-left: 2px solid transparent;
+    transition: all .15s ease;
+  }
+  .pps-nav-link:hover { background: var(--surface-2); color: var(--text); }
+  .pps-nav-link.active { background: var(--green-faint); color: var(--green); border-left-color: var(--green); font-weight: 500; }
+  .pps-nav-num { font-family: 'Space Grotesk', system-ui, sans-serif; font-size: 10px; color: var(--dim); font-weight: 500; min-width: 18px; }
   .pps-nav-group { margin: 1px 0; }
-  .pps-nav-group summary { list-style: none; cursor: pointer; padding: 8px 10px; font-size: 13px; color: #b8c0d0; border-radius: 7px; display: flex; align-items: center; justify-content: space-between; transition: all .15s ease; user-select: none; }
+  .pps-nav-group summary {
+    list-style: none; cursor: pointer;
+    padding: 7px 10px; font-size: 12px;
+    color: var(--muted); border-radius: 4px;
+    display: flex; align-items: center; justify-content: space-between;
+    transition: all .15s ease; user-select: none;
+    font-weight: 500;
+  }
   .pps-nav-group summary::-webkit-details-marker { display: none; }
   .pps-nav-group summary::after { content: '▾'; font-size: 9px; color: var(--dim); transition: transform .2s ease; }
   .pps-nav-group[open] summary::after { transform: rotate(180deg); }
-  .pps-nav-group summary:hover { background: var(--panel-inset); color: #fff; }
-  .pps-nav-group .pps-nav-link { padding: 6px 10px 6px 22px; font-size: 12px; color: #8b94a8; }
-  .pps-nav-group .pps-nav-link:hover { color: #fff; }
+  .pps-nav-group summary:hover { background: var(--surface-2); color: var(--text); }
+  .pps-nav-group .pps-nav-link { padding: 5px 10px 5px 22px; font-size: 11px; }
   .pps-path-group > summary { font-weight: 600; }
   .pps-path-group .pps-path-label { display: inline-flex; align-items: center; gap: 10px; }
-  .pps-path-group.path-blue > summary .pps-nav-num { color: var(--blue); }
+  .pps-path-group.path-blue > summary .pps-nav-num { color: var(--cyan); }
   .pps-path-group.path-green > summary .pps-nav-num { color: var(--green); }
   .pps-path-group.path-gold > summary .pps-nav-num { color: var(--yellow); }
-  .pps-path-group.path-blue[open] > summary { color: var(--blue); }
+  .pps-path-group.path-blue[open] > summary { color: var(--cyan); }
   .pps-path-group.path-green[open] > summary { color: var(--green); }
   .pps-path-group.path-gold[open] > summary { color: var(--yellow); }
-  .pps-nav-playbook { margin-top: 16px; padding: 10px 12px; background: linear-gradient(135deg, rgba(188,140,255,.10), rgba(74,222,128,.05)); border: 1px solid rgba(188,140,255,.25); border-left-width: 2px; color: var(--purple); font-weight: 600; border-radius: 7px; }
-  .pps-nav-playbook:hover { background: linear-gradient(135deg, rgba(188,140,255,.2), rgba(74,222,128,.1)); color: #fff; }
   .pps-sidebar::-webkit-scrollbar { width: 6px; }
   .pps-sidebar::-webkit-scrollbar-track { background: transparent; }
-  .pps-sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+  .pps-sidebar::-webkit-scrollbar-thumb { background: var(--border-2); border-radius: 3px; }
 
-
-  /* PPS-MOBILE-TOPNAV-CLEARANCE */
   @media (max-width: 640px) {
-    .topnav-inner { padding-left: 60px !important; padding-right: 12px !important; gap: 10px !important; }
-    .nav-brand { font-size: 10px !important; letter-spacing: 1.5px !important; gap: 6px !important; flex-shrink: 1; min-width: 0; }
-    .nav-brand-chart { display: none !important; }
-    .nav-back { font-size: 11px !important; white-space: nowrap; }
+    .card { padding-top: 60px; }
   }
 </style>
 </head>
@@ -162,26 +460,21 @@
 <aside class="pps-sidebar" id="ppsSidebar">
   <div class="pps-sidebar-inner">
     <a class="pps-sidebar-brand" href="/index.html">
-      <svg viewBox="0 0 28 22" xmlns="http://www.w3.org/2000/svg" fill="none">
-        <polyline points="2,18 8,12 12,15 18,7 26,3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-      <span>Profit Path Sports</span>
-      <svg viewBox="0 0 28 22" xmlns="http://www.w3.org/2000/svg" fill="none">
-        <polyline points="2,18 8,12 12,15 18,7 26,3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
+      <span>PROFIT<span class="accent">PATH</span></span>
+      <small>Sports</small>
     </a>
     <nav class="pps-sidebar-nav">
       <a class="pps-nav-link" href="/index.html">Home</a>
-      <a class="pps-nav-link" href="/free-money-guide.html" style="color: var(--green); font-weight: 600;">★ Free Money Guide</a>
+      <a class="pps-nav-link" href="/free-money-guide.html" style="color: var(--green); font-weight: 500;">★ Free Money Guide</a>
       <div class="pps-nav-group-label">Paths</div>
-      <details class="pps-nav-group pps-path-group path-blue">
+      <details class="pps-nav-group pps-path-group path-blue" open>
         <summary data-anchor="paths"><span class="pps-path-label"><span class="pps-nav-num">01</span> Begin</span></summary>
         <a class="pps-nav-link" href="/lane-new.html">Path Overview</a>
         <a class="pps-nav-link" href="/learn-odds.html">Odds Formats</a>
         <a class="pps-nav-link" href="/learn-implied.html">Implied Probability</a>
         <a class="pps-nav-link" href="/learn-vig.html">The Vig</a>
         <a class="pps-nav-link" href="/learn-ev.html">+EV</a>
-        <a class="pps-nav-link" href="/learn-clv.html">CLV</a>
+        <a class="pps-nav-link active" href="/learn-clv.html">CLV</a>
         <a class="pps-nav-link" href="/learn-kelly.html">Kelly Criterion</a>
         <a class="pps-nav-link" href="/learn-parlays.html">Parlays</a>
       </details>
@@ -195,7 +488,6 @@
         <a class="pps-nav-link" href="/learn-finding-bonus-bets.html">Finding Bonus Bets</a>
         <a class="pps-nav-link" href="/learn-bonus-step-by-step.html">Step-by-Step</a>
         <a class="pps-nav-link" href="/learn-prop-void-rules.html">Prop Void Rules</a>
-        <a class="pps-nav-link" href="/learn-finding-bets.html">Finding +EV Bets</a>
       </details>
       <details class="pps-nav-group pps-path-group path-gold">
         <summary data-anchor="paths"><span class="pps-path-label"><span class="pps-nav-num">03</span> Maintain</span></summary>
@@ -231,8 +523,6 @@
         <a class="pps-nav-link" href="/consensus-calculator.html">Consensus</a>
         <a class="pps-nav-link" href="/bonus-converter.html">Bonus Converter</a>
         <a class="pps-nav-link" href="/odds_calculator.html">Odds Converter</a>
-        <a class="pps-nav-link" href="/sharp-snapshot.html">Sharp Snapshot</a>
-        <a class="pps-nav-link" href="/roulette.html">Virtual Roulette</a>
       </details>
       <details class="pps-nav-group">
         <summary>Sportsbooks</summary>
@@ -260,109 +550,103 @@
 </aside>
 <!-- ═══ END SIDEBAR ═══ -->
 
-<nav class="topnav">
-  <div class="topnav-inner">
-    <a class="nav-brand" href="/index.html">
-      <span class="nav-brand-chart" aria-hidden="true">
-        <svg viewBox="0 0 28 22" xmlns="http://www.w3.org/2000/svg" fill="none">
-          <polyline points="2,18 8,12 12,15 18,7 26,3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </span>
-      Profit Path Sports
-      <span class="nav-brand-chart" aria-hidden="true">
-        <svg viewBox="0 0 28 22" xmlns="http://www.w3.org/2000/svg" fill="none">
-          <polyline points="2,18 8,12 12,15 18,7 26,3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </span>
-    </a>
-    <a class="nav-back" href="/index.html#start">← Back to Paths</a>
-  </div>
-</nav>
+<div class="card">
 
-<div class="wrap">
-
-  <div class="lesson-hero">
-    <div class="lesson-eyebrow">Path 01 · Lesson 06<span class="lesson-pill">06 / 06</span></div>
-    <h1 class="lesson-title">CLV</h1>
-    <p class="lesson-sub">Closing line value is the only honest scoreboard in sports betting — it tells you whether your bet beat the final price, and over a few hundred bets, it's the single best predictor of long-run profit. <strong>Most bettors track P&amp;L. The ones who track CLV know whether their P&amp;L will last.</strong></p>
+  <div class="header">
+    <div class="header-meta">
+      <a href="/index.html#start" class="back-link">← Back to Paths</a>
+      <span class="header-eyebrow">Path 01 · Lesson 06 of 6</span>
+    </div>
+    <div class="title-row">
+      <h1>CLV</h1>
+    </div>
+    <p class="lesson-sub">
+      <span>You can place a hundred +EV bets and still be down for the month.</span>
+      <span class="accent">Closing line value is the scoreboard that tells you the truth before the money does.</span>
+      <span>Most bettors track profit. The ones who track CLV know whether that profit will last.</span>
+    </p>
   </div>
 
   <section class="lesson-section">
-    <h3>What is it?</h3>
+    <h3>What it is</h3>
     <div class="lesson-body">
-      <p>You can place a hundred <a href="/learn-ev.html" style="color:var(--blue)">+EV bets</a> and still be down 8 units after a month. Variance is real. So how do you know — actually <em>know</em> — that you're a winning bettor and not just running good or running bad?</p>
+      <p>You can place a hundred <a href="/learn-ev.html">+EV bets</a> and still be down 8 units after a month. Variance is real. So how do you actually <em>know</em> you're a winning bettor — and not just running hot or running cold?</p>
       <p><strong>CLV. Closing Line Value.</strong></p>
-      <p>The closing line is the price the market lands on right before tip-off. It represents the sharpest, most-informed estimate the entire market could come up with — every sharp bettor, every model, every piece of late-breaking information baked in. By the time the line closes, almost all the noise has been squeezed out.</p>
-      <p>If you bet a line and it moves <em>toward</em> you by the time it closes — i.e. you got a price the closing market thinks was too good for you — you got positive CLV. You beat the close. Beating the close, over and over, is the only reliable proof you're +EV.</p>
+      <p>The closing line is the price the market lands on right before tip-off. It's the sharpest, most-informed number the entire market could produce — every sharp bettor, every model, every piece of late-breaking news baked in. By the time the line closes, almost all the noise has been squeezed out.</p>
+      <p>If you bet a line and it moves <em>toward</em> you by the time it closes — meaning you locked in a price the closing market now considers too generous — you got positive CLV. You beat the close. Beating the close, over and over, is the only reliable proof that you're +EV.</p>
     </div>
   </section>
 
   <section class="lesson-section">
     <h3>Why this actually works (in plain English)</h3>
     <div class="lesson-body">
-      <div style="background: rgba(74, 222, 128, 0.05); border: 1px solid rgba(74, 222, 128, 0.30); border-left: 3px solid var(--green); border-radius: 10px; padding: 22px 26px; margin: 18px 0;">
-        <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.2em; color: var(--green); margin-bottom: 14px; font-weight: 700;">🎫 THE CONCERT TICKET RESALE</div>
-        <p>You buy a concert ticket three months out for <strong>$50</strong>. The show is going to be popular, but at the time of purchase, demand was uncertain — that's why the price was low.</p>
-        <p>Show day rolls around. Resale tickets on StubHub are going for <strong>$80</strong>. Demand was higher than expected. The market <em>closed</em> at $80.</p>
-        <p>You paid $50 for something the market now values at $80. <strong>You got a great deal — and that's true whether or not you actually go to the show.</strong> If you don't show up, you can sell your ticket for $80. If you do show up, you got into a now-$80 event for $50. Either way, the math wins because you bought below where the market closed.</p>
-        <p style="margin-bottom: 0;">That's CLV — closing line value. The "closing line" is the final price the market settles on right before the event starts. If your bet's price was better than the closing price, you beat the close. <strong>Over many bets, consistently beating the close is the only proof that you're +EV.</strong> One bet outcome is noise. Beating the close 100+ times in a row is signal.</p>
+      <div class="callout">
+        <div class="callout-label">The Concert-Ticket Resale</div>
+        <p>You buy a concert ticket three months out for <strong>$50</strong>. The show looks like it'll be popular, but demand is still uncertain — that's why the price is low.</p>
+        <p>Show day arrives. Resale tickets are going for <strong>$80</strong>. Demand ran higher than expected; the market <em>closed</em> at $80.</p>
+        <p>You paid $50 for something the market now values at $80. <strong>You got a great deal — and that's true whether or not you actually go.</strong> Don't show up, you resell for $80. Do show up, you got into a now-$80 event for $50. Either way the math wins, because you bought below where the market closed.</p>
+        <p>That's CLV. The "closing line" is the final price the market settles on right before the event starts. If your bet's price was better than the closing price, you beat the close. <strong>Over many bets, consistently beating the close is the only proof you're +EV.</strong> One bet's outcome is noise. Beating the close 100+ times is signal.</p>
       </div>
-      <table style="width: 100%; border-collapse: collapse; font-family: 'Rajdhani', sans-serif; font-size: 15px; margin: 14px 0;">
+      <table class="lesson-table">
         <thead>
-          <tr style="background: var(--panel-deep);">
-            <th style="text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--border); font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--dim); font-weight: 700;">In the analogy</th>
-            <th style="text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--border); font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--dim); font-weight: 700;">In real betting</th>
-          </tr>
+          <tr><th>In the analogy</th><th>In real betting</th></tr>
         </thead>
         <tbody>
-          <tr><td style="padding: 8px 14px; border-bottom: 1px solid var(--border-soft);">Buying the ticket at $50</td><td style="padding: 8px 14px; border-bottom: 1px solid var(--border-soft);">Placing your bet at the opening odds</td></tr>
-          <tr><td style="padding: 8px 14px; border-bottom: 1px solid var(--border-soft);">Resale market closing at $80</td><td style="padding: 8px 14px; border-bottom: 1px solid var(--border-soft);">The closing line</td></tr>
-          <tr><td style="padding: 8px 14px; border-bottom: 1px solid var(--border-soft);">$30 difference</td><td style="padding: 8px 14px; border-bottom: 1px solid var(--border-soft);">Your CLV (in cents)</td></tr>
-          <tr><td style="padding: 8px 14px;">Going to the show vs. not</td><td style="padding: 8px 14px;">The actual bet result — irrelevant to whether you got a good price</td></tr>
+          <tr><td>Buying the ticket at $50</td><td>Placing your bet at the price you got</td></tr>
+          <tr><td>Resale market closing at $80</td><td>The closing line</td></tr>
+          <tr><td>The $30 gap in your favor</td><td>Your CLV</td></tr>
+          <tr><td>Going to the show, or not</td><td>The bet result — irrelevant to whether the price was good</td></tr>
         </tbody>
       </table>
-      <p><strong>The key insight:</strong> the price you paid was a great deal the moment you paid it, regardless of how the show turned out. Same with bets. A +EV bet is +EV at placement. CLV is the receipt that proves it — and the only metric that survives variance.</p>
+      <p><strong>The key insight:</strong> the price you paid was a great deal the moment you paid it, regardless of how the show turned out. Bets work the same way. A +EV bet is +EV at placement; CLV is the receipt that proves it — and the only metric that survives variance.</p>
     </div>
   </section>
 
   <section class="lesson-section">
     <h3>The math behind it</h3>
     <div class="lesson-body">
-      <p>You bet Mavs +6.5 at −110. By tip-off, the line has moved to Mavs +5.5 −110. The closing market is paying you on a number worse than what you got. Devig the close to get the fair price the market thinks +6.5 is worth — say, −125. Now compare:</p>
+      <p>You bet Mavs +6.5 at −110. By tip-off the line has moved to Mavs +5.5 — the closing market now pays less for the side you took, so your +6.5 was the better number. Devig the close to find the fair price the market thinks +6.5 is worth — say −125 — and compare:</p>
 
       <div class="math-block">
         <span class="label">Your CLV on this bet</span>
-        Price you got     :  <span class="accent">−110</span>  (decimal 1.91)<br>
-        Fair price at close:  <span class="accent">−125</span>  (decimal 1.80)<br>
-        ────────────────────────────────────<br>
-        CLV  =  (1.91 / 1.80) − 1  =  <span class="pos">+6.4%</span>
+        Price you got &nbsp;&nbsp;&nbsp;&nbsp;: &nbsp;<span class="accent">−110</span> &nbsp;(decimal 1.91)<br>
+        Fair price at close: &nbsp;<span class="accent">−125</span> &nbsp;(decimal 1.80)<br>
+        ──────────────────────────────────<br>
+        CLV &nbsp;=&nbsp; ( 1.91 &#247; 1.80 ) &#8722; 1 &nbsp;=&nbsp; <span class="pos">+6.1%</span>
       </div>
 
-      <p>The bet itself might lose. The Mavs might cover by 1, or not at all. CLV doesn't care. It's measuring the quality of the <em>price</em> you got, not the outcome.</p>
+      <p>The bet itself might still lose — the Mavs could cover by 1, or not at all. CLV doesn't care. It measures the quality of the <em>price</em> you got, not the outcome of the game.</p>
     </div>
   </section>
 
   <section class="lesson-section">
     <h3>Why it matters more than you think</h3>
     <div class="lesson-body">
-      <p>A bettor who's running <strong>+5% CLV over 200 bets</strong> is almost certainly a winning bettor — even if they're sitting at −3 units on the year. Variance just hasn't caught up yet.</p>
-      <p>A bettor who's running <strong>−2% CLV over 200 bets</strong> is almost certainly a losing bettor — even if they're sitting at +12 units on the year. They got lucky. Variance always catches up.</p>
-      <p>CLV is the only short-term metric that doesn't lie. Profit is too noisy. Win rate is too noisy. CLV is signal — at the cost of being slightly less satisfying than counting your winnings on a hot week.</p>
+      <p>A bettor running <strong>+5% CLV over 200 bets</strong> is almost certainly a winning bettor — even if they're sitting at −3 units on the year. Variance just hasn't caught up yet.</p>
+      <p>A bettor running <strong>−2% CLV over 200 bets</strong> is almost certainly a losing bettor — even if they're sitting at +12 units on the year. They got lucky. Variance always catches up.</p>
+      <p>CLV is the only short-term metric that doesn't lie. Profit is too noisy. Win rate is too noisy. CLV is signal — at the cost of being a little less satisfying than counting your winnings on a hot week.</p>
     </div>
   </section>
 
   <section class="lesson-section">
     <h3>What sharps do about it</h3>
     <div class="lesson-body">
-      <p>They review every bet at close. They track CLV obsessively, not unit profit. If their CLV is positive, they keep doing what they're doing — even on losing weeks. If their CLV turns negative, they investigate <em>before</em> blaming bad luck.</p>
-      <p>You can't always win. You can always check whether you're picking sharper than the market — and that's the only thing that tells you if winning is on the way.</p>
+      <p>They review every bet at close. They track CLV obsessively, not unit profit. Positive CLV — they keep doing exactly what they're doing, even through losing weeks. CLV turns negative — they investigate <em>before</em> blaming bad luck.</p>
+      <p>You can't always win. You can always check whether you're picking sharper than the market — and that's the only thing that tells you whether winning is on the way.</p>
+
+      <div class="key-note">
+        <div class="key-note-head">★ Key Point — CLV Doesn't Lie, Your Bankroll Does</div>
+        <div class="key-note-body">
+          Over a few hundred bets, profit is mostly variance — you can be a genuinely winning bettor sitting at a loss, or a losing one sitting at a profit. CLV cuts straight through it: it measures whether you're consistently buying a <strong>better price than the sharpest number the market produced</strong>. Positive CLV over 200+ bets means you're +EV and the money is coming; negative CLV means you're not and the money is going — no matter what this week's scoreboard says. Track CLV, not last week's profit. It's the same lesson as <a href="/learn-ev.html">+EV</a> — judge the <em>process</em>, not the result — with CLV as the process made measurable.
+        </div>
+      </div>
     </div>
   </section>
 
   <div class="cta-card">
     <div class="cta-eyebrow">Track your edge</div>
-    <div class="cta-title">Log every bet, watch your CLV.</div>
-    <p class="cta-blurb">The Bet Tracker logs every bet you place, captures the closing line automatically, and shows you your running CLV over time. No account needed — data lives in your browser. The number that matters most is the one you can finally see.</p>
+    <div class="cta-title">Log every bet, watch your CLV</div>
+    <p class="cta-blurb">The Bet Tracker logs every bet you place, captures the closing line, and shows your running CLV over time. No account needed — your data stays in your browser. The number that matters most is finally one you can see.</p>
     <a href="/bet-tracker.html" class="cta-btn">Open the Bet Tracker →</a>
   </div>
 
@@ -379,12 +663,13 @@
 
   <div class="footer">
     <div class="disclaimer">
-      Profit Path Sports is an educational resource. Nothing here is a guarantee, and sports betting carries financial risk. Bet responsibly. If gambling is a problem for you, call <strong>1-800-GAMBLER</strong>. Must be 21+ where legal.
+      PROFITPATH Sports is an educational resource. Nothing here is a guarantee, and sports betting carries financial risk. Bet responsibly. If gambling is a problem for you, call <strong>1-800-GAMBLER</strong>. Must be 21+ where legal.
     </div>
-    <div>© 2026 Profit Path Sports · <a href="/index.html">Home</a> · <a href="/index.html#start">Path 01 · Begin</a> &middot; <a href="/privacy.html">Privacy</a> &middot; <a href="/disclaimer.html">Disclaimer</a> &middot; <a href="/affiliate-disclosure.html">Affiliate</a></div>
+    <div>© 2026 PROFITPATH Sports · <a href="/index.html">Home</a> · <a href="/index.html#start">Path 01 · Begin</a> &middot; <a href="/privacy.html">Privacy</a> &middot; <a href="/disclaimer.html">Disclaimer</a> &middot; <a href="/affiliate-disclosure.html">Affiliate</a></div>
   </div>
 
 </div>
+
 <script>
   /* Sidebar behavior */
   (function() {
@@ -406,39 +691,11 @@
       body.classList.toggle('pps-sidebar-open');
     });
 
-    document.querySelectorAll('.pps-sidebar summary[data-anchor]').forEach(function(s) {
-      s.addEventListener('click', function() {
-        if (!isHome) return;
-        var anchor = s.getAttribute('data-anchor');
-        var target = document.getElementById(anchor);
-        if (target) {
-          setTimeout(function() {
-            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          }, 60);
-        }
-      });
-    });
-
-    // Only auto-open the sidebar on desktop-class viewports. On mobile/tablet
-    // (< 900px) it stays closed until the user taps the hamburger so it
-    // doesn't cover the content on first paint.
     var isDesktop = window.matchMedia('(min-width: 901px)').matches;
-
-    if (isDesktop) {
-      if (isHome) {
-        var autoOpened = false;
-        window.addEventListener('scroll', function() {
-          if (!autoOpened && window.scrollY > 600) {
-            body.classList.add('pps-sidebar-open');
-            autoOpened = true;
-          }
-        }, { passive: true });
-      } else {
-        body.classList.add('pps-sidebar-open');
-      }
+    if (isDesktop && !isHome) {
+      body.classList.add('pps-sidebar-open');
     }
 
-    // Mobile: tap outside the open sidebar to dismiss it
     document.addEventListener('click', function(e) {
       if (window.innerWidth >= 901) return;
       if (!body.classList.contains('pps-sidebar-open')) return;
@@ -449,7 +706,6 @@
     });
   })();
 </script>
-
 
 </body>
 </html>
