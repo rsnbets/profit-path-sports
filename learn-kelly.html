@@ -217,6 +217,107 @@
   }
   .callout p:last-child { margin-bottom: 0; }
 
+  /* ───────── KELLY GROWTH GRAPH ───────── */
+  .kelly-graph {
+    background: var(--surface-2);
+    border: 1px solid var(--border-2);
+    border-radius: 10px;
+    padding: 22px 24px 16px;
+    margin: 20px 0;
+  }
+  .kelly-graph svg { width: 100%; height: auto; display: block; }
+  .kelly-graph-cap {
+    font-size: 12.5px;
+    line-height: 1.6;
+    color: rgba(240,238,232,0.72);
+    margin-top: 14px;
+  }
+  .kelly-graph-cap strong { color: var(--text); font-weight: 600; }
+
+  /* ───────── FORMULA BOX ───────── */
+  .formula-box {
+    background: var(--surface-2);
+    border: 1px solid var(--border-2);
+    border-left: 3px solid var(--cyan);
+    border-radius: 10px;
+    padding: 24px 26px;
+    margin: 18px 0;
+  }
+  .formula-main {
+    display: flex; align-items: center; justify-content: center;
+    gap: 14px;
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-size: 23px; font-weight: 600;
+    color: var(--text);
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border-2);
+  }
+  .frac {
+    display: inline-flex; flex-direction: column;
+    text-align: center; line-height: 1.25;
+  }
+  .frac-top { padding: 0 16px 5px; color: var(--green); }
+  .frac-bot { padding: 5px 16px 0; border-top: 2px solid var(--cyan); color: var(--cyan); }
+  .formula-defs {
+    margin-top: 18px;
+    display: flex; flex-direction: column; gap: 14px;
+  }
+  .formula-defs > div { line-height: 1.5; font-size: 14px; }
+  .fd-term {
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-weight: 700;
+  }
+  .formula-defs > div:nth-child(1) .fd-term { color: var(--green); }
+  .formula-defs > div:nth-child(2) .fd-term { color: var(--cyan); }
+  .fd-note {
+    display: block;
+    color: var(--muted);
+    font-size: 12.5px;
+    margin-top: 2px;
+  }
+
+  /* ───────── WORKED EXAMPLES ───────── */
+  .examples-row {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 14px; margin: 18px 0;
+  }
+  @media (max-width: 560px) { .examples-row { grid-template-columns: 1fr; } }
+  .example-card {
+    background: var(--surface-2);
+    border: 1px solid var(--border-2);
+    border-radius: 10px;
+    padding: 18px 20px;
+  }
+  .ex-label {
+    font-size: 10px; font-weight: 700;
+    letter-spacing: .2em; text-transform: uppercase;
+    color: var(--cyan); margin-bottom: 6px;
+  }
+  .ex-given {
+    font-size: 12.5px; color: var(--muted);
+    margin-bottom: 14px; line-height: 1.5;
+  }
+  .ex-step {
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-size: 13.5px; color: rgba(240,238,232,0.86);
+    margin-bottom: 7px;
+    font-variant-numeric: tabular-nums;
+  }
+  .ex-step b { color: var(--text); font-weight: 700; }
+  .ex-k {
+    display: inline-block; width: 52px;
+    color: var(--cyan); font-weight: 600;
+  }
+  .ex-result {
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-size: 14.5px; font-weight: 600;
+    color: var(--text);
+    margin-top: 12px; padding-top: 12px;
+    border-top: 1px solid var(--border-2);
+    font-variant-numeric: tabular-nums;
+  }
+  .ex-pct { color: var(--green); font-weight: 700; }
+
   /* ───────── TABLE ───────── */
   .lesson-table {
     width: 100%; border-collapse: collapse;
@@ -551,7 +652,12 @@
     <h3>What is it? — the coin-flip thought experiment</h3>
     <div class="lesson-body">
       <p>A friend offers you a bet on a coin flip. Fair coin — 50/50 — but he's paying <strong>+110</strong>. You win, you get $1.10 for every $1 you bet. You lose, you lose your $1.</p>
-      <p><strong>If it's a one-shot bet, it's a no-brainer.</strong> The math: <em>0.5 × $1.10 − 0.5 × $1.00 = +$0.05</em> of expected value per dollar. A 5% edge. Take it every time.</p>
+      <p><strong>If it's a one-shot bet, it's a no-brainer.</strong> Win or lose is 50/50, but the payouts aren't — you win $1.10 yet only risk $1.00. Average both outcomes and every dollar bet turns a small profit. Here's the math:</p>
+      <div class="math-block">
+        <span class="label">Expected value per $1 bet</span>
+        0.5 &#215; <span class="pos">$1.10</span> &#8722; 0.5 &#215; <span class="neg">$1.00</span> &nbsp;=&nbsp; <span class="pos">+$0.05</span>
+      </div>
+      <p>Five cents of profit on every dollar — a <strong>5% edge</strong>. Take it every time.</p>
       <p>Now your friend says: <strong>same bet, but unlimited flips, on a fixed bankroll.</strong> How much should you bet on each flip?</p>
       <p>There has to be an optimal amount. The two extremes are obviously wrong:</p>
       <ul>
@@ -598,32 +704,49 @@
   <section class="lesson-section">
     <h3>The math behind it</h3>
     <div class="lesson-body">
-      <p>Kelly's formula spits out the fraction of bankroll to bet, given your edge and odds:</p>
+      <p>Underneath, Kelly is simple: <strong>bet a slice of your bankroll proportional to how big your edge is, relative to the payout.</strong> Two inputs go in — your edge and the odds — one number comes out: the fraction to stake.</p>
 
-      <div class="math-block">
-        <span class="label">Kelly stake as a percentage of bankroll</span>
-        Kelly%  =  (<span class="accent">decimal odds</span> × <span class="accent">true prob</span> − 1) / (<span class="accent">decimal odds</span> − 1)
+      <div class="formula-box">
+        <div class="formula-main">
+          <span>Kelly&#160;%</span>
+          <span>=</span>
+          <span class="frac">
+            <span class="frac-top">edge</span>
+            <span class="frac-bot">payout</span>
+          </span>
+        </div>
+        <div class="formula-defs">
+          <div>
+            <span class="fd-term">edge</span> &nbsp;=&nbsp; (decimal odds &#215; true probability) &#8722; 1
+            <span class="fd-note">Your expected value on each $1 staked — how much the bet is worth.</span>
+          </div>
+          <div>
+            <span class="fd-term">payout</span> &nbsp;=&nbsp; decimal odds &#8722; 1
+            <span class="fd-note">The profit on each $1 if the bet wins.</span>
+          </div>
+        </div>
       </div>
 
-      <p>For the coin flip from above — +110 (decimal 2.10), 50% true probability:</p>
+      <p>Run it on two bets — the coin flip from earlier, and a realistic sports bet. Same three steps each time:</p>
 
-      <div class="math-block">
-        <span class="label">Coin-flip example</span>
-        Kelly%  =  (2.10 × 0.50 − 1) / (2.10 − 1)<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=  0.05 / 1.10<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=  <span class="pos">4.55%</span>
+      <div class="examples-row">
+        <div class="example-card">
+          <div class="ex-label">Coin Flip</div>
+          <div class="ex-given">+110 odds (decimal 2.10) &middot; 50% true probability</div>
+          <div class="ex-step"><span class="ex-k">edge</span>= 2.10 &#215; 0.50 &#8722; 1 = <b>0.05</b></div>
+          <div class="ex-step"><span class="ex-k">payout</span>= 2.10 &#8722; 1 = <b>1.10</b></div>
+          <div class="ex-result"><span class="ex-k">Kelly</span>= 0.05 &#247; 1.10 = <span class="ex-pct">4.55%</span></div>
+        </div>
+        <div class="example-card">
+          <div class="ex-label">Sports Bet</div>
+          <div class="ex-given">+100 odds (decimal 2.0) &middot; 55% true probability</div>
+          <div class="ex-step"><span class="ex-k">edge</span>= 2.0 &#215; 0.55 &#8722; 1 = <b>0.10</b></div>
+          <div class="ex-step"><span class="ex-k">payout</span>= 2.0 &#8722; 1 = <b>1.0</b></div>
+          <div class="ex-result"><span class="ex-k">Kelly</span>= 0.10 &#247; 1.0 = <span class="ex-pct">10%</span></div>
+        </div>
       </div>
 
-      <p>For a bet you might actually see in sports — say 55% true probability at +100 odds (decimal 2.0):</p>
-
-      <div class="math-block">
-        <span class="label">Sports-bet example</span>
-        Kelly%  =  (2.0 × 0.55 − 1) / (2.0 − 1)<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=  0.10 / 1.0<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=  <span class="pos">10%</span>
-      </div>
-
-      <p>On a $1,000 bankroll, that's a $100 bet. The bigger your edge relative to the odds, the bigger the Kelly fraction — that's the whole logic.</p>
+      <p>On a $1,000 bankroll, the sports bet's 10% Kelly is a <strong>$100 stake</strong>. The bigger your edge relative to the payout, the bigger the Kelly fraction — that's the whole logic.</p>
     </div>
   </section>
 
@@ -632,12 +755,49 @@
     <div class="lesson-body">
       <p>The most counterintuitive part of Kelly: <strong>you can lose money long-term placing only +EV bets if you size them wrong.</strong></p>
       <p>The growth curve has a peak at the Kelly fraction. To the left of the peak (smaller bets) you grow slower. To the right of the peak you don't just grow slower — you fall off a cliff.</p>
-      <div class="math-block">
-        <span class="label">For the +110 coin flip — bet size vs. long-run growth</span>
-        <span class="accent">Below Kelly (~2%)</span>&nbsp;&nbsp;&nbsp;&nbsp;→  Slower growth, but still positive<br>
-        <span class="pos">At Kelly (~4.55%)</span>&nbsp;&nbsp;→  Maximum long-run growth (the peak)<br>
-        <span class="accent">Double Kelly (~9%)</span>&nbsp;&nbsp;&nbsp;→  <span class="neg">Zero</span> long-run growth — variance eats the edge<br>
-        <span class="accent">Triple Kelly (~14%)</span>&nbsp;&nbsp;→  <span class="neg">Negative</span> growth — you lose money on +EV bets
+      <div class="kelly-graph">
+        <svg viewBox="0 0 600 254" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Growth curve: long-run bankroll growth climbs through quarter, half and three-quarter Kelly to a peak at full Kelly, returns to zero at double Kelly, then turns sharply negative.">
+          <!-- vertical guides -->
+          <line x1="214" y1="32" x2="214" y2="210" stroke="rgba(77,255,120,0.20)" stroke-width="1" stroke-dasharray="2 4"/>
+          <line x1="365" y1="32" x2="365" y2="210" stroke="rgba(245,181,69,0.20)" stroke-width="1" stroke-dasharray="2 4"/>
+          <line x1="517" y1="32" x2="517" y2="210" stroke="rgba(255,61,61,0.18)" stroke-width="1" stroke-dasharray="2 4"/>
+          <!-- area fills -->
+          <polygon points="64,72 97,59.4 102,57.9 130,50 139,47.8 163,43.8 177,41.8 196,40.4 214,40 229,40.2 262,43.2 296,49.3 329,58.4 365,72" fill="rgba(77,255,120,0.14)"/>
+          <polygon points="365,72 395,86.1 428,104.8 461,125.9 494,151.8 527,179.7 560,210 560,72" fill="rgba(255,61,61,0.11)"/>
+          <!-- zero line -->
+          <line x1="64" y1="72" x2="560" y2="72" stroke="rgba(255,255,255,0.22)" stroke-width="1" stroke-dasharray="3 3"/>
+          <text x="58" y="76" text-anchor="end" fill="rgba(255,255,255,0.45)" font-family="'Plus Jakarta Sans',sans-serif" font-size="10" font-weight="600">0</text>
+          <!-- side labels -->
+          <text x="68" y="37" fill="var(--green)" font-family="'Plus Jakarta Sans',sans-serif" font-size="9.5" font-weight="700" letter-spacing="1.4" opacity="0.85">+ GROWTH</text>
+          <text x="68" y="200" fill="var(--red)" font-family="'Plus Jakarta Sans',sans-serif" font-size="9.5" font-weight="700" letter-spacing="1.4" opacity="0.85">&#8722; LOSS</text>
+          <!-- curve -->
+          <polyline points="64,72 97,59.4 102,57.9 130,50 139,47.8 163,43.8 177,41.8 196,40.4 214,40 229,40.2 262,43.2 296,49.3 329,58.4 365,72" fill="none" stroke="var(--green)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+          <polyline points="365,72 395,86.1 428,104.8 461,125.9 494,151.8 527,179.7 560,210" fill="none" stroke="var(--red)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+          <!-- fractional Kelly dots on the climb -->
+          <circle cx="102" cy="57.9" r="3.6" fill="#090909" stroke="var(--cyan)" stroke-width="2"/>
+          <text x="102" y="50" text-anchor="middle" fill="var(--cyan)" font-family="'Plus Jakarta Sans',sans-serif" font-size="10.5" font-weight="700">&#188;</text>
+          <circle cx="139" cy="47.8" r="3.6" fill="#090909" stroke="var(--cyan)" stroke-width="2"/>
+          <text x="139" y="40" text-anchor="middle" fill="var(--cyan)" font-family="'Plus Jakarta Sans',sans-serif" font-size="10.5" font-weight="700">&#189;</text>
+          <circle cx="177" cy="41.8" r="3.6" fill="#090909" stroke="var(--cyan)" stroke-width="2"/>
+          <text x="177" y="34" text-anchor="middle" fill="var(--cyan)" font-family="'Plus Jakarta Sans',sans-serif" font-size="10.5" font-weight="700">&#190;</text>
+          <!-- peak marker -->
+          <circle cx="214" cy="40" r="4.8" fill="var(--green)"/>
+          <text x="244" y="36" text-anchor="start" fill="var(--green)" font-family="'Plus Jakarta Sans',sans-serif" font-size="10.5" font-weight="700" letter-spacing="1.1">FULL KELLY &#8212; MAX GROWTH</text>
+          <!-- zero-crossing marker -->
+          <circle cx="365" cy="72" r="4.8" fill="#090909" stroke="var(--yellow)" stroke-width="2"/>
+          <!-- cliff annotation -->
+          <text x="506" y="148" fill="var(--red)" font-family="'Plus Jakarta Sans',sans-serif" font-size="11" font-weight="700" letter-spacing="1" opacity="0.92">THE CLIFF</text>
+          <!-- x-axis labels -->
+          <text x="214" y="228" text-anchor="middle" fill="var(--green)" font-family="'Plus Jakarta Sans',sans-serif" font-size="11" font-weight="700">Full Kelly</text>
+          <text x="214" y="243" text-anchor="middle" fill="var(--dim)" font-family="'Space Grotesk',sans-serif" font-size="10.5">the peak</text>
+          <text x="365" y="228" text-anchor="middle" fill="var(--yellow)" font-family="'Plus Jakarta Sans',sans-serif" font-size="11" font-weight="600">2&#215; Kelly</text>
+          <text x="365" y="243" text-anchor="middle" fill="var(--dim)" font-family="'Space Grotesk',sans-serif" font-size="10.5">zero growth</text>
+          <text x="517" y="228" text-anchor="middle" fill="var(--red)" font-family="'Plus Jakarta Sans',sans-serif" font-size="11" font-weight="600">3&#215; Kelly</text>
+          <text x="517" y="243" text-anchor="middle" fill="var(--dim)" font-family="'Space Grotesk',sans-serif" font-size="10.5">losing money</text>
+        </svg>
+        <div class="kelly-graph-cap">
+          Long-run bankroll growth vs. bet size, for the +110 coin flip. The cyan dots mark <strong>¼, ½, and ¾ Kelly</strong> climbing the slope — notice how the curve <strong>flattens near the top</strong>: half Kelly already captures roughly <strong>75% of peak growth</strong> at half the bet size and far less variance. Past the peak it falls — zero growth at 2&#215; Kelly, and beyond that you <strong>lose money on a bet that's still +EV</strong>. Bigger is only better up to the peak.
+        </div>
       </div>
       <p>That's not a typo. <em>Triple Kelly on a +EV bet loses money over time.</em> The reason: bankrolls grow geometrically, not arithmetically. A 50% loss requires a 100% gain to recover. The bigger the bet size, the deeper the drawdowns — and at some point the drawdowns swamp the wins no matter how much edge you have.</p>
       <p>Kelly finds the peak. Past the peak, the math turns on you fast.</p>
