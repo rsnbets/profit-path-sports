@@ -2675,6 +2675,20 @@
   }
   .section-sub strong { color: var(--text); font-weight: 600; }
 
+  /* ─────────── Toolbox tagline ─────────── */
+  .toolbox-tagline {
+    display: flex; flex-direction: column;
+    gap: 3px;
+    margin: 0 auto 16px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: clamp(15px, 2vw, 20px);
+    font-weight: 600;
+    line-height: 1.35;
+    letter-spacing: -.01em;
+  }
+  .toolbox-tagline .tt-gut { color: rgba(255,255,255,0.52); }
+  .toolbox-tagline .tt-path { color: var(--green); }
+
   /* ─────────── Tools grid v2 ─────────── */
   .section#tools { margin-top: 56px; padding: 0; background: none; border: none; }
   .tools-grid {
@@ -2966,6 +2980,10 @@
     <div class="section-head">
       <div class="section-eyebrow">★ Built to make books <span class="accent">pay you.</span></div>
       <div class="section-title">The toolbox.</div>
+      <div class="toolbox-tagline">
+        <span class="tt-gut">Bet with your gut, fall in a rut.</span>
+        <span class="tt-path">Bet with the math, follow the path.</span>
+      </div>
       <div class="section-sub">Every free tool, grouped by what you'd actually use it for. <strong>Bet X-Ray lives up top</strong> — these are the supporting cast.</div>
     </div>
 
