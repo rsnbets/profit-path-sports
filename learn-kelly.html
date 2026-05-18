@@ -138,11 +138,15 @@
     font-size: clamp(15px, 1.7vw, 18px);
     color: rgba(240,238,232,0.74);
     font-weight: 300;
-    line-height: 1.6;
-    max-width: 680px;
+    line-height: 1.5;
+    max-width: 740px;
     margin: 0 auto;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
   }
+  .lesson-sub .accent { color: var(--cyan); font-weight: 400; }
   .lesson-sub strong { color: var(--text); font-weight: 600; }
 
   /* ───────── SECTIONS ───────── */
@@ -645,7 +649,11 @@
     <div class="title-row">
       <h1>Kelly Sizing</h1>
     </div>
-    <p class="lesson-sub">Every winning bettor sizes their bets the same way — by the edge they have against the bankroll they have, in a known mathematical proportion. It's called Kelly. <strong>Most losing bettors size by gut.</strong> The size of the bet matters as much as the side you pick — here's the math behind why.</p>
+    <p class="lesson-sub">
+      <span>Picking the right side is only half the bet.</span>
+      <span class="accent">How much to stake is the other half — and that's exactly what Kelly solves.</span>
+      <span>Size by gut and even a real edge goes broke. Here's how to do it right.</span>
+    </p>
   </div>
 
   <section class="lesson-section">
