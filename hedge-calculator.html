@@ -162,6 +162,21 @@
     gap: 4px;
   }
   .tagline .mono { font-family: 'Space Grotesk', system-ui, sans-serif; color: var(--cyan); }
+  .tool-redirect {
+    text-align: center;
+    font-size: 12.5px;
+    font-weight: 300;
+    color: var(--muted);
+    line-height: 1.55;
+    max-width: 640px;
+    margin: 0 auto 28px;
+    padding: 11px 18px;
+    border: 1px dashed var(--border-2);
+    border-radius: 8px;
+  }
+  .tool-redirect strong { color: var(--text); font-weight: 600; }
+  .tool-redirect a { color: var(--cyan); font-weight: 600; }
+  .tool-redirect a:hover { color: var(--green); }
 
   /* ───────── BODY ───────── */
   .body { display: flex; flex-direction: column; gap: 24px; }
@@ -460,6 +475,21 @@
   .key-note-body strong { color: var(--text); font-weight: 700; }
   .key-note-body a { color: var(--green); font-weight: 600; }
   .key-note-body a:hover { color: var(--cyan); }
+  .kn-list {
+    display: flex; flex-direction: column; gap: 10px;
+    margin: 12px 0 12px;
+  }
+  .kn-item { display: flex; gap: 12px; line-height: 1.55; align-items: baseline; }
+  .kn-tag {
+    flex-shrink: 0;
+    font-size: 9px; font-weight: 700;
+    letter-spacing: .08em; text-transform: uppercase;
+    padding: 4px 8px;
+    border-radius: 4px;
+    min-width: 84px; text-align: center;
+  }
+  .kn-tag.hedge { color: var(--cyan); background: var(--cyan-dim); border: 1px solid var(--cyan-border); }
+  .kn-tag.ride { color: var(--green); background: var(--green-dim); border: 1px solid var(--green-border); }
 
   /* ───────── HOW TO ───────── */
   .how-to {
@@ -729,11 +759,13 @@
       <h1>Hedge Calculator</h1>
     </div>
     <p class="tagline">
-      <span>Your bet's looking good — or a futures ticket is suddenly live.</span>
+      <span>A futures ticket nears a payday — or a live bet swings your way.</span>
       <span class="mono">Hedge the other side to lock in a result — guaranteed profit, your stake back, or a custom split.</span>
       <span>Eyeball the hedge and you leave money on the table. This nails the stake to the cent.</span>
     </p>
   </div>
+
+  <p class="tool-redirect">Here to cash out a <strong>bonus bet</strong>? A bonus bet isn't a hedge — it's a separate play with its own tool. Head to the <a href="/bonus-converter.html">Bonus Converter</a> instead.</p>
 
   <div class="body">
 
@@ -843,7 +875,12 @@
       <div class="key-note">
         <div class="key-note-head">★ Key Point — Don't Hedge a Real Edge</div>
         <div class="key-note-body">
-          A hedge trades expected value for certainty. That's a great trade on a <strong>bonus bet</strong> — the value was free, so locking it in is pure profit; always hedge those. It's a fair trade when a futures ticket has you <strong>over-exposed</strong> and you'd genuinely rather sleep than sweat. But hedging a real <strong>+EV bet</strong> just because you're nervous is a quiet, expensive mistake — you're paying to delete your own edge. If a bet was good enough to make, it's usually good enough to let ride. <a href="/learn-betting-vs-trading.html">More on betting vs. trading &#8594;</a>
+          A hedge trades expected value for certainty. Sometimes that's smart — sometimes it's a quiet, expensive mistake:
+          <div class="kn-list">
+            <div class="kn-item"><span class="kn-tag hedge">Hedge</span><span><strong>Over-exposed</strong> — a futures or DFS ticket bigger than you're comfortable carrying. Lock a guaranteed result so you can sleep.</span></div>
+            <div class="kn-item"><span class="kn-tag ride">Let it ride</span><span><strong>A real +EV bet</strong> — hedging away a genuine edge because you're nervous costs you money long-run.</span></div>
+          </div>
+          The rule of thumb: if a bet was good enough to make, it's usually good enough to leave alone. <a href="/learn-betting-vs-trading.html">More on betting vs. trading &#8594;</a>
         </div>
       </div>
 
@@ -853,7 +890,7 @@
     <details class="how-to" id="howto">
       <summary>How to use this</summary>
       <div class="how-to-body">
-        <p><strong>What it does.</strong> You already have a bet working — a live ticket, an open futures position, a parlay one leg from cashing. A hedge is a bet on the <em>opposite</em> outcome that locks in a result instead of leaving it to chance. This calculator sizes that hedge.</p>
+        <p><strong>What it does.</strong> A hedge opportunity usually shows up in one of three spots: a <em>futures ticket</em> close to cashing (your preseason long shot made the final), a <em>live, in-play bet</em> where the odds have swung your way mid-game, or a <a href="/dfs-slip-checker.html">DFS pick'em slip</a> down to its last leg — where you can bet that final player's prop the other way at a sportsbook. In any of those you've got a bet working, and a hedge is a bet on the <em>opposite</em> outcome that locks in a result instead of leaving it to chance. This calculator sizes that hedge.</p>
 
         <p><strong>How to use it.</strong></p>
         <ul>
@@ -869,7 +906,7 @@
           <li><em>Custom Amount</em> — set your own hedge size, for partial hedges, live betting, or keeping some skin in the game.</li>
         </ul>
 
-        <p><strong>The honest part.</strong> Hedging isn't free — see the Key Point above. It converts an uncertain outcome into a certain (usually smaller) one. Use it on bonus bets and over-exposed positions; think twice before hedging away a genuine edge.</p>
+        <p><strong>The honest part.</strong> Hedging isn't free — see the Key Point above. It converts an uncertain outcome into a certain (usually smaller) one. Use it to lock in over-exposed positions; think twice before hedging away a genuine edge.</p>
       </div>
     </details>
 
@@ -877,7 +914,7 @@
 </div>
 
 <div class="footer">
-  © 2026 PROFITPATH Sports · <a href="/index.html">Home</a> · <a href="/arb-calculator.html">Arbitrage</a> · <a href="/middle-calculator.html">Middle</a> · <a href="/bonus-converter.html">Bonus Converter</a> · <a href="/bet-x-ray.html">Bet X-Ray</a> &middot; <a href="/privacy.html">Privacy</a> &middot; <a href="/disclaimer.html">Disclaimer</a> &middot; <a href="/affiliate-disclosure.html">Affiliate</a>
+  © 2026 PROFITPATH Sports · <a href="/index.html">Home</a> · <a href="/arb-calculator.html">Arbitrage</a> · <a href="/middle-calculator.html">Middle</a> · <a href="/dfs-slip-checker.html">DFS Slip Checker</a> · <a href="/bet-x-ray.html">Bet X-Ray</a> &middot; <a href="/privacy.html">Privacy</a> &middot; <a href="/disclaimer.html">Disclaimer</a> &middot; <a href="/affiliate-disclosure.html">Affiliate</a>
 </div>
 
 <script>
