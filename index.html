@@ -2651,19 +2651,21 @@
   .section-eyebrow.red { color: var(--cyan); }
   .section-eyebrow .accent { color: var(--green); font-style: italic; }
   .section-title {
-    font-family: 'DM Serif Display', serif;
-    font-weight: 400; font-style: normal;
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-weight: 700; font-style: normal;
     font-size: clamp(26px, 3.4vw, 40px);
-    line-height: 1.1;
-    color: var(--text);
+    line-height: 1.15;
     margin-bottom: 14px;
-    letter-spacing: -.005em;
+    letter-spacing: -.02em;
     text-transform: none;
-    background: none;
-    -webkit-background-clip: unset; background-clip: unset;
-    -webkit-text-fill-color: var(--text);
+    padding-bottom: 0.06em;
+    background: linear-gradient(95deg, var(--green) 0%, var(--cyan) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
   }
-  .section-title .accent { color: var(--green); font-style: italic; }
+  .section-title .accent { -webkit-text-fill-color: var(--cyan); color: var(--cyan); }
   .section-sub {
     font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 14.5px; font-weight: 300;
@@ -2691,17 +2693,6 @@
 
   /* ─────────── Tools grid v2 ─────────── */
   .section#tools { margin-top: 56px; padding: 0; background: none; border: none; }
-  .section#tools .section-title {
-    font-family: 'Space Grotesk', system-ui, sans-serif;
-    font-weight: 700;
-    letter-spacing: -.02em;
-    background: linear-gradient(95deg, var(--green) 0%, var(--cyan) 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    color: transparent;
-    padding-bottom: 0.06em;
-  }
   .toolbox-sub {
     display: flex; flex-direction: column;
     gap: 4px;
