@@ -2520,13 +2520,18 @@
     margin-bottom: 14px;
   }
   .v2-originals-title {
-    font-family: 'DM Serif Display', serif;
-    font-weight: 400; font-style: normal;
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-weight: 700; font-style: normal;
     font-size: clamp(26px, 3.4vw, 40px);
-    line-height: 1.1;
-    color: var(--text);
-    letter-spacing: -.005em;
+    line-height: 1.15;
+    letter-spacing: -.02em;
     margin-bottom: 14px;
+    padding-bottom: 0.06em;
+    background: linear-gradient(95deg, var(--green) 0%, var(--cyan) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
   }
   .v2-originals-sub {
     font-family: 'Plus Jakarta Sans', sans-serif;
