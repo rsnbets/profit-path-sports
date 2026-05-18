@@ -720,8 +720,8 @@
           <span class="sub-label">Kelly fraction</span>
           <div class="pill-group" id="kellyGroup">
             <button class="pill" data-kelly="1">Full</button>
-            <button class="pill" data-kelly="0.5">Half</button>
-            <button class="pill active" data-kelly="0.25">Quarter</button>
+            <button class="pill active" data-kelly="0.5">Half</button>
+            <button class="pill" data-kelly="0.25">Quarter</button>
             <button class="pill" data-kelly="0.125">Eighth</button>
           </div>
         </div>
@@ -808,7 +808,7 @@
   const recStakeEl = document.getElementById('recStake');
   const recPctEl = document.getElementById('recPct');
 
-  let kellyFrac = 0.25;
+  let kellyFrac = 0.5;
 
   // ─── Parse American or decimal odds → decimal (>1) or null ───
   function parseOddsToDecimal(str) {
