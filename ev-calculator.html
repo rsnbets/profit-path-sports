@@ -3,398 +3,524 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>⚡ EV Calculator — Profit Path Sports</title>
-  <meta name="description" content="EV calculator — enter book odds and fair odds, get expected value per $100, break-even hit rate, and Kelly stake. The math behind every sharp bet.">
-  <meta property="og:type" content="article">
-  <meta property="og:title" content="⚡ EV Calculator — Profit Path Sports">
-  <meta property="og:description" content="Expected value per $100, break-even rate, and Kelly stake in one tool.">
-  <meta property="og:image" content="https://profitpathsports.com/images/og-default.png">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta property="og:url" content="https://profitpathsports.com/ev-calculator.html">
-  <meta property="og:site_name" content="Profit Path Sports">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="⚡ EV Calculator — Profit Path Sports">
-  <meta name="twitter:description" content="Expected value per $100, break-even rate, and Kelly stake in one tool.">
-  <meta name="twitter:image" content="https://profitpathsports.com/images/og-default.png">
+<title>EV Calculator — Expected Value, Break-Even & Kelly | PROFITPATH Sports</title>
+<meta name="description" content="EV calculator — enter your price and the fair no-vig price, get expected value in % and dollars, the break-even hit rate, and the Kelly-sized stake. Free, no signup.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="EV Calculator — Expected Value, Break-Even & Kelly | PROFITPATH Sports">
+<meta property="og:description" content="Expected value in % and dollars, break-even hit rate, and Kelly stake — one tool. Free, no signup.">
+<meta property="og:image" content="https://profitpathsports.com/images/og-default.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://profitpathsports.com/ev-calculator.html">
+<meta property="og:site_name" content="PROFITPATH Sports">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="EV Calculator — Expected Value, Break-Even & Kelly">
+<meta name="twitter:description" content="Expected value in % and dollars, break-even hit rate, and Kelly stake — one tool.">
+<meta name="twitter:image" content="https://profitpathsports.com/images/og-default.png">
+<meta name="theme-color" content="#090909">
+
+<link rel="icon" type="image/svg+xml" href="/logo.svg">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
   :root {
-    --bg: #0a0f1c;
-    --panel: #0f1524;
-    --panel-inset: #141a2b;
-    --panel-deep: #0c1120;
-    --border: #1e2638;
-    --border-soft: #141c30;
-    --text: #e5e7eb;
-    --muted: #8b94a8;
-    --dim: #6b7689;
-    --blue: #3d8bff;
-    --blue-glow: rgba(61, 139, 255, 0.15);
-    --yellow: #f5b545;
-    --green: #4ade80;
-    --red: #f87171;
-    --purple: #BC8CFF;
+    --green: #4DFF78;
+    --green-dim: rgba(77,255,120,0.15);
+    --green-faint: rgba(77,255,120,0.06);
+    --green-border: rgba(77,255,120,0.22);
+    --cyan: #00D4FF;
+    --cyan-dim: rgba(0,212,255,0.12);
+    --cyan-faint: rgba(0,212,255,0.04);
+    --cyan-border: rgba(0,212,255,0.22);
+    --red: #FF3D3D;
+    --yellow: #F5B545;
+    --bg: #090909;
+    --surface: #0D0D0D;
+    --surface-2: #141414;
+    --surface-3: #1C1C1C;
+    --border: rgba(255,255,255,0.05);
+    --border-2: rgba(255,255,255,0.08);
+    --text: #F0EEE8;
+    --muted: rgba(255,255,255,0.42);
+    --dim: rgba(255,255,255,0.25);
   }
 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
   body {
-    background: radial-gradient(ellipse at top, #111a2e 0%, var(--bg) 60%);
+    background: var(--bg);
     color: var(--text);
-    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    font-weight: 300;
     min-height: 100vh;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  .out-value, .input-cell input { font-variant-numeric: tabular-nums; }
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 999;
+    opacity: 0.025;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 
-  /* Top back/learn bar */
-  .back-bar {
-    background: var(--panel-deep);
-    border-bottom: 1px solid var(--border);
-    padding: 12px 20px;
-  }
-  .back-bar-inner {
+  a { color: var(--cyan); text-decoration: none; }
+  a:hover { color: var(--green); }
+
+  /* ───────── CARD ───────── */
+  .card {
     max-width: 1100px;
     margin: 0 auto;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    font-family: 'Orbitron', sans-serif;
-    font-size: 10px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-  }
-  .back-bar a {
-    color: var(--dim);
-    text-decoration: none;
-    transition: color 0.15s;
-  }
-  .back-bar a:hover { color: var(--blue); }
-  .back-bar .sep { color: var(--border); }
-
-  /* Title strip */
-  .title-strip {
-    background: linear-gradient(180deg, #0d1220 0%, #0b0f1d 100%);
-    border-bottom: 1px solid var(--border);
-    padding: 32px 20px 28px;
-    text-align: center;
+    padding: 32px 40px 80px;
     position: relative;
   }
-  .title-strip::after {
+  @media (max-width: 640px) { .card { padding: 60px 20px 60px; } }
+
+  /* ───────── HEADER ───────── */
+  .header { margin-bottom: 36px; }
+  .header-meta {
+    display: flex; align-items: center; gap: 18px;
+    margin-bottom: 22px; flex-wrap: wrap;
+  }
+  .back-link {
+    font-size: 11px; font-weight: 500;
+    letter-spacing: .18em; text-transform: uppercase;
+    color: var(--dim); transition: color .15s;
+  }
+  .back-link:hover { color: var(--cyan); }
+  .header-eyebrow {
+    font-size: 10px; font-weight: 600;
+    letter-spacing: .28em; text-transform: uppercase;
+    color: var(--cyan);
+  }
+  .help-pill {
+    margin-left: auto;
+    background: transparent;
+    color: var(--cyan);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 10px; font-weight: 600;
+    letter-spacing: .14em; text-transform: uppercase;
+    padding: 7px 16px;
+    border: 1px solid var(--cyan-border);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all .18s;
+  }
+  .help-pill:hover { background: var(--cyan-dim); color: var(--green); border-color: var(--green-border); }
+
+  .title-row {
+    display: flex; align-items: flex-end; justify-content: center;
+    gap: 16px; margin-bottom: 14px; flex-wrap: wrap; position: relative;
+  }
+  .title-row::before {
     content: '';
     position: absolute;
-    bottom: -1px;
-    left: 30%;
-    right: 30%;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--blue), transparent);
-    opacity: 0.6;
+    left: 50%; top: 50%;
+    width: 600px; height: 220px;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(ellipse at center,
+                  rgba(77,255,120,0.18) 0%,
+                  rgba(0,212,255,0.10) 35%,
+                  rgba(77,255,120,0) 70%);
+    filter: blur(28px);
+    pointer-events: none;
+    z-index: 0;
   }
-  .title-strip h1 {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 24px;
-    font-weight: 800;
-    letter-spacing: 4px;
-    color: var(--blue);
-    text-transform: uppercase;
+  .title-row > * { position: relative; z-index: 1; }
+  .header h1 {
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-size: clamp(42px, 6.2vw, 70px);
+    line-height: 1.1;
+    letter-spacing: -.025em;
+    font-weight: 700;
+    margin: 0;
+    padding-bottom: 0.08em;
+    background: linear-gradient(95deg, var(--green) 0%, var(--cyan) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
   }
-  .title-sub {
-    font-family: 'IBM Plex Sans', sans-serif;
-    font-size: 14px;
+  .tagline {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: clamp(14px, 1.6vw, 17px);
     color: var(--muted);
-    line-height: 1.6;
-    max-width: 620px;
-    margin: 12px auto 0;
-    padding: 0 14px;
-  }
-  .title-sub strong { color: var(--text); font-weight: 600; }
-  .title-strip h1 .bolt {
-    color: var(--yellow);
-    filter: drop-shadow(0 0 6px rgba(245, 181, 69, 0.6));
-  }
-  .how-to-jump {
-    display: inline-block;
-    margin-top: 14px;
-    font-family: 'Orbitron', sans-serif;
-    font-size: 10px;
-    letter-spacing: 2px;
-    color: var(--muted);
-    text-decoration: none;
-    text-transform: uppercase;
-    padding: 10px 18px;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    background: var(--panel-deep);
-    transition: all 0.15s;
-  }
-  .how-to-jump:hover { color: var(--blue); border-color: var(--blue); transform: translateY(-1px); }
-
-  /* Stats row */
-  .stats-strip {
-    background: var(--panel);
-    border-bottom: 1px solid var(--border);
-  }
-  .stats-row {
-    max-width: 1200px;
+    font-weight: 300;
+    line-height: 1.55;
+    max-width: 780px;
     margin: 0 auto;
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-  }
-  .stat-cell {
-    padding: 16px 12px;
-    border-right: 1px solid var(--border);
     text-align: center;
-  }
-  .stat-cell:last-child { border-right: none; }
-  .stat-label {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 9px;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: var(--dim);
-    margin-bottom: 6px;
-    font-weight: 700;
-  }
-  .stat-value {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 22px;
-    font-weight: 700;
-    color: var(--text);
-    letter-spacing: 0.02em;
-  }
-  .stat-value.pos { color: var(--green); }
-  .stat-value.neg { color: var(--red); }
-  .stat-value.accent { color: var(--yellow); }
-  .stat-value.blue { color: var(--blue); }
-
-  /* Form section */
-  .form-strip {
-    background: var(--panel);
-    border-bottom: 1px solid var(--border);
-    padding: 28px 20px;
-  }
-  .form-inner {
-    max-width: 1100px;
-    margin: 0 auto;
-  }
-
-  .section-label {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 11px;
-    letter-spacing: 2.5px;
-    color: var(--dim);
-    text-transform: uppercase;
-    font-weight: 700;
     display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 14px;
-    margin-top: 24px;
+    flex-direction: column;
+    gap: 4px;
   }
-  .section-label:first-child { margin-top: 0; }
-  .section-label::before {
-    content: '▸';
-    color: var(--blue);
-    font-size: 10px;
+  .tagline .mono { font-family: 'Space Grotesk', system-ui, sans-serif; color: var(--cyan); }
+
+  /* ───────── BODY ───────── */
+  .body { display: flex; flex-direction: column; gap: 24px; }
+
+  .step {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px 26px;
+    transition: border-color .25s;
+  }
+  .step:hover { border-color: var(--border-2); }
+  .step-head { margin-bottom: 20px; }
+  .step-num {
+    display: block;
+    font-size: 10px; font-weight: 600;
+    letter-spacing: .28em; text-transform: uppercase;
+    color: var(--cyan);
+    margin-bottom: 6px;
+  }
+  .step-title {
+    display: block;
+    font-weight: 700;
+    font-size: clamp(19px, 2.2vw, 23px);
+    color: var(--text);
+    line-height: 1.15;
+    margin-bottom: 4px;
+    letter-spacing: -.005em;
+  }
+  .step-sub {
+    display: block;
+    font-size: 13px; font-weight: 300;
+    color: var(--muted);
+    line-height: 1.5;
   }
 
-  .form-grid {
+  /* ───────── TOOLBAR / PILLS ───────── */
+  .sub-toolbar {
+    display: flex; align-items: center;
+    gap: 10px; flex-wrap: wrap;
+    margin-bottom: 16px;
+  }
+  .sub-label {
+    font-size: 10px; font-weight: 600;
+    letter-spacing: .22em; text-transform: uppercase;
+    color: var(--cyan);
+  }
+  .pill-group { display: inline-flex; gap: 5px; flex-wrap: wrap; }
+  .pill {
+    background: var(--surface-2);
+    color: var(--muted);
+    border: 1px solid var(--border-2);
+    border-radius: 6px;
+    padding: 8px 15px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 11px; font-weight: 600;
+    letter-spacing: .06em;
+    cursor: pointer;
+    transition: all .16s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .pill:hover { color: var(--cyan); border-color: var(--cyan-border); background: var(--cyan-faint); }
+  .pill:active { transform: translateY(1px); }
+  .pill.active {
+    background: var(--cyan-dim);
+    color: var(--cyan);
+    border-color: var(--cyan);
+    box-shadow: 0 0 0 1px var(--cyan-border), 0 2px 14px rgba(0,212,255,0.14);
+  }
+
+  /* ───────── INPUTS ───────── */
+  .inputs-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 14px;
   }
-  .form-group { display: flex; flex-direction: column; gap: 6px; }
-  .form-group.span2 { grid-column: span 2; }
-  .form-group.span3 { grid-column: span 3; }
-  .form-group.full { grid-column: span 4; }
-
-  .form-label {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 11px;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: var(--muted);
-    font-weight: 700;
+  @media (max-width: 640px) { .inputs-grid { grid-template-columns: 1fr; } }
+  .inputs-grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
+  @media (max-width: 540px) { .inputs-grid.cols-2 { grid-template-columns: 1fr; } }
+  .input-cell label {
+    display: block;
+    font-size: 11px; font-weight: 600;
+    letter-spacing: .18em; text-transform: uppercase;
+    color: var(--cyan);
+    margin-bottom: 7px;
   }
-  .form-input {
-    background: var(--panel-deep);
-    border: 1px solid var(--border-soft);
-    color: var(--text);
-    padding: 12px 16px;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 18px;
-    font-weight: 600;
-    letter-spacing: 0.02em;
-    border-radius: 8px;
-    outline: none;
-    transition: border-color 0.15s;
+  .input-cell input {
     width: 100%;
-  }
-  .form-input:focus { border-color: var(--blue); }
-  .form-disp {
-    background: var(--panel-deep);
-    border: 1px solid var(--border-soft);
+    text-align: center;
+    background: #161616;
+    border: 1px solid rgba(255,255,255,0.18);
+    border-bottom: 2px solid rgba(0,212,255,0.32);
+    border-radius: 8px;
     color: var(--text);
-    padding: 12px 16px;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 18px;
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-size: 24px; font-weight: 600;
+    padding: 16px 12px;
+    transition: border-color .18s, background .18s, box-shadow .18s;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.03);
+  }
+  .input-cell input::placeholder { color: rgba(255,255,255,0.40); font-weight: 400; }
+  .input-cell input:hover {
+    border-color: rgba(0,212,255,0.45);
+    border-bottom-color: var(--cyan);
+    background: #1B1B1B;
+  }
+  .input-cell input:focus {
+    outline: none;
+    border-color: var(--cyan);
+    border-bottom-color: var(--cyan);
+    background: #1F1F1F;
+    box-shadow: 0 0 0 3px rgba(0,212,255,0.18), inset 0 1px 0 rgba(255,255,255,0.05);
+  }
+  .input-cell input.invalid {
+    border-color: rgba(255,61,61,0.55);
+    border-bottom-color: var(--red);
+    color: var(--red);
+  }
+  .input-hint {
+    font-size: 12px; font-weight: 300;
+    color: var(--dim);
+    margin-top: 10px;
+    letter-spacing: .02em;
+  }
+  .input-hint b { color: var(--muted); font-weight: 600; }
+
+  /* ───────── OUTPUT SECTIONS ───────── */
+  .output-section { margin-top: 26px; }
+  .output-section-head {
+    display: flex; align-items: baseline; gap: 12px;
+    margin-bottom: 14px;
+  }
+  .output-section-label {
+    font-size: 11px; font-weight: 700;
+    letter-spacing: .24em; text-transform: uppercase;
+    color: var(--cyan);
+  }
+  .output-section-sub { font-size: 11px; font-weight: 400; color: var(--dim); }
+  .output-section-rule {
+    flex: 1; height: 1px;
+    background: linear-gradient(to right, var(--cyan-border), transparent);
+  }
+
+  .outputs-grid { display: grid; gap: 10px; }
+  .outputs-grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+  @media (max-width: 640px) {
+    .outputs-grid.cols-3 { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 420px) {
+    .outputs-grid.cols-3 { grid-template-columns: 1fr; }
+  }
+  .out-box {
+    background: var(--surface-2);
+    border: 1px solid var(--border-2);
+    border-radius: 8px;
+    padding: 16px 18px;
+    transition: border-color .2s;
+  }
+  .out-box:hover { border-color: rgba(0,212,255,0.22); }
+  .out-label {
+    font-size: 10px; font-weight: 600;
+    letter-spacing: .2em; text-transform: uppercase;
+    color: var(--cyan);
+    margin-bottom: 10px;
+  }
+  .out-value {
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-size: clamp(23px, 2.7vw, 29px);
     font-weight: 600;
-    letter-spacing: 0.02em;
-    border-radius: 8px;
+    color: var(--text);
+    line-height: 1.05;
   }
-  .form-hint {
-    font-size: 11px;
-    font-family: 'JetBrains Mono', monospace;
-    min-height: 14px;
-    color: var(--blue);
-  }
-  .form-hint a {
-    color: var(--blue);
-    text-decoration: none;
-    border-bottom: 1px dashed var(--blue);
-  }
-  .form-hint a:hover { color: var(--yellow); border-color: var(--yellow); }
-
-  .scenario-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
-  .scenario-pill {
-    padding: 9px 16px;
-    border-radius: 8px;
-    font-size: 10px;
-    font-family: 'Orbitron', sans-serif;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    cursor: pointer;
-    border: 1px solid var(--border-soft);
-    background: var(--panel-deep);
-    color: var(--muted);
-    transition: all 0.15s;
-    white-space: nowrap;
-  }
-  .scenario-pill.active {
-    background: var(--blue);
-    color: #06101e;
-    border-color: var(--blue);
-    box-shadow: 0 0 18px var(--blue-glow);
-  }
-  .scenario-pill:hover:not(.active) {
-    border-color: var(--blue);
-    color: var(--blue);
+  .out-value.pos { color: var(--green); }
+  .out-value.neg { color: var(--red); }
+  .out-value.accent { color: var(--cyan); }
+  .out-value.empty { color: var(--dim); font-weight: 400; }
+  .out-sub {
+    font-size: 11px; color: var(--muted);
+    margin-top: 6px; letter-spacing: .04em;
   }
 
-  /* Help */
-  .help-strip {
-    padding: 20px 24px;
-    background: var(--panel-deep);
-    border-bottom: 1px solid var(--border);
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 12px;
-    color: var(--dim);
-    line-height: 1.7;
-    text-align: center;
+  /* ───────── KEY NOTE ───────── */
+  .key-note {
+    margin-top: 24px;
+    padding: 16px 20px 18px;
+    background: var(--green-dim);
+    border: 1px solid var(--green-border);
+    border-left: 3px solid var(--green);
+    border-radius: 10px;
+    box-shadow: 0 0 26px rgba(77,255,120,0.07);
   }
-  .help-strip-inner { max-width: 1100px; margin: 0 auto; }
-  .help-strip strong { color: var(--text); }
-  .help-strip a { color: var(--blue); text-decoration: none; border-bottom: 1px dashed var(--blue); }
-  .help-strip a:hover { color: var(--yellow); border-color: var(--yellow); }
+  .key-note-head {
+    display: flex; align-items: center; gap: 7px;
+    font-size: 11px; font-weight: 700;
+    letter-spacing: .2em; text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 9px;
+  }
+  .key-note-body {
+    font-size: 13.5px;
+    font-weight: 300;
+    line-height: 1.65;
+    color: rgba(240,238,232,0.80);
+  }
+  .key-note-body strong { color: var(--text); font-weight: 700; }
+  .key-note-body a { color: var(--green); font-weight: 600; }
+  .key-note-body a:hover { color: var(--cyan); }
 
-  /* "How to use" pieces */
-  .how-to-use {
-    max-width: 720px;
-    margin: 32px auto 60px;
-    padding: 28px 32px;
-    background: var(--panel);
+  /* ───────── HOW TO ───────── */
+  .how-to {
+    background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: 16px;
-    scroll-margin-top: 20px;
+    border-radius: 12px;
+    margin-top: 24px;
+    overflow: hidden;
   }
-  .how-to-eyebrow { font-family: 'Orbitron', sans-serif; font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--blue); font-weight: 700; margin-bottom: 8px; }
-  .how-to-use h3 { font-family: 'Orbitron', sans-serif; font-size: 17px; font-weight: 800; letter-spacing: 1.5px; color: var(--text); margin: 0 0 16px; text-transform: uppercase; }
-  .how-to-steps { margin: 0 0 18px; padding-left: 22px; font-family: system-ui, -apple-system, sans-serif; font-size: 15px; line-height: 1.65; color: var(--text); }
-  .how-to-steps li { margin-bottom: 8px; }
-  .how-to-steps strong { color: var(--blue); font-weight: 600; }
-  .how-to-note { font-family: system-ui, -apple-system, sans-serif; font-size: 14px; line-height: 1.55; color: var(--muted); background: var(--panel-deep); border-left: 3px solid var(--blue); border-radius: 0 8px 8px 0; padding: 14px 18px; }
-  .how-to-note em { color: var(--blue); font-style: normal; font-weight: 600; }
-  .how-to-note strong { color: var(--text); font-weight: 600; }
-
-  /* Disclaimer */
-  .disclaimer {
-    text-align: center;
-    padding: 24px 20px 40px;
-    font-size: 11px;
-    color: var(--dim);
-    font-family: 'JetBrains Mono', monospace;
+  .how-to summary {
+    cursor: pointer;
+    padding: 18px 26px;
+    font-size: 11px; font-weight: 600;
+    letter-spacing: .22em; text-transform: uppercase;
+    color: var(--cyan);
+    list-style: none;
+    user-select: none;
+    transition: background .18s;
+  }
+  .how-to summary::-webkit-details-marker { display: none; }
+  .how-to summary::after { content: ' ▾'; color: var(--dim); font-size: 10px; }
+  .how-to[open] summary { border-bottom: 1px solid var(--border); }
+  .how-to[open] summary::after { content: ' ▴'; }
+  .how-to summary:hover { background: var(--surface-2); }
+  .how-to-body {
+    padding: 28px;
+    font-size: 14px;
+    font-weight: 300;
     line-height: 1.7;
-    letter-spacing: 0.5px;
+    color: var(--muted);
   }
-  .disclaimer a { color: var(--muted); text-decoration: none; }
-  .disclaimer a:hover { color: var(--blue); }
+  .how-to-body p { margin-bottom: 13px; }
+  .how-to-body p:has(> strong:first-child) { margin-top: 26px; }
+  .how-to-body p:first-child { margin-top: 0; }
+  .how-to-body strong { color: var(--text); font-weight: 700; }
+  .how-to-body em { color: var(--cyan); font-style: normal; font-weight: 600; }
+  .how-to-body ul { list-style: none; margin: 10px 0 16px; padding-left: 2px; }
+  .how-to-body li { position: relative; padding-left: 20px; margin-bottom: 9px; }
+  .how-to-body li::before {
+    content: '';
+    position: absolute;
+    left: 2px; top: 0.62em;
+    width: 6px; height: 6px;
+    background: var(--cyan);
+    transform: rotate(45deg);
+  }
+  .how-to-body a { color: var(--cyan); }
+  .how-to-body a:hover { color: var(--green); }
 
-  @media (max-width: 720px) {
-    .stats-row { grid-template-columns: repeat(3, 1fr); }
-    .stat-cell:nth-child(1), .stat-cell:nth-child(2), .stat-cell:nth-child(3) { border-bottom: 1px solid var(--border); }
-    .stat-cell:nth-child(3), .stat-cell:nth-child(6) { border-right: none; }
-    .form-grid { grid-template-columns: repeat(2, 1fr); }
-    .form-group.span2, .form-group.span3, .form-group.full { grid-column: span 2; }
-    .title-strip h1 { font-size: 18px; letter-spacing: 2.5px; }
-    .stat-value { font-size: 16px; }
-    .scenario-pill { font-size: 9px; padding: 7px 12px; letter-spacing: 1px; }
-    .form-strip { padding: 22px 16px; }
-    .how-to-use { margin: 24px 16px 50px; padding: 22px 22px; }
+  /* ───────── FOOTER ───────── */
+  .footer {
+    text-align: center;
+    margin-top: 60px;
+    padding: 28px 20px;
+    color: var(--dim);
+    font-size: 11px;
+    letter-spacing: .04em;
+    line-height: 1.7;
+    border-top: 1px solid var(--border);
   }
-  /* ═══ SIDEBAR NAVIGATION (prototype) ═══ */
-  .pps-sidebar { position: fixed; top: 0; left: 0; bottom: 0; width: 240px; background: linear-gradient(180deg, #0c1120 0%, #080d18 100%); border-right: 1px solid var(--border); z-index: 50; transform: translateX(-100%); transition: transform .3s cubic-bezier(.4,0,.2,1); overflow-y: auto; font-family: 'IBM Plex Sans', system-ui, sans-serif; }
+  .footer a { color: var(--muted); }
+  .footer a:hover { color: var(--cyan); }
+
+  /* ═══ SIDEBAR ═══ */
+  .pps-sidebar {
+    position: fixed; top: 0; left: 0; bottom: 0;
+    width: 240px; background: var(--surface);
+    border-right: 1px solid var(--border-2); z-index: 50;
+    transform: translateX(-100%);
+    transition: transform .3s cubic-bezier(.4,0,.2,1);
+    overflow-y: auto;
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  }
   body.pps-sidebar-open .pps-sidebar { transform: translateX(0); }
   body.pps-sidebar-open { padding-left: 240px; transition: padding-left .3s cubic-bezier(.4,0,.2,1); }
   @media (max-width: 900px) {
     body.pps-sidebar-open { padding-left: 0; }
     .pps-sidebar { box-shadow: 4px 0 30px rgba(0,0,0,.7); width: 260px; }
   }
-  .pps-sidebar-toggle { position: fixed; top: 14px; left: 18px; z-index: 51; background: rgba(15, 21, 36, 0.92); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid var(--border); color: var(--text); width: 38px; height: 38px; border-radius: 9px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all .2s ease; }
-  .pps-sidebar-toggle:hover { background: var(--panel-inset); border-color: var(--green); color: var(--green); }
+  .pps-sidebar-toggle {
+    position: fixed; top: 14px; left: 18px; z-index: 51;
+    background: var(--surface);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--border-2);
+    color: var(--text);
+    width: 38px; height: 38px;
+    border-radius: 6px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all .18s ease;
+  }
+  .pps-sidebar-toggle:hover { background: var(--surface-2); border-color: var(--cyan-border); color: var(--cyan); }
   body.pps-sidebar-open .pps-sidebar-toggle { left: 256px; top: 14px; }
   @media (max-width: 900px) { body.pps-sidebar-open .pps-sidebar-toggle { left: 276px; } }
   .pps-sidebar-inner { padding: 22px 14px 30px; }
-  .pps-sidebar-brand { display: flex; align-items: center; justify-content: center; gap: 8px; color: var(--blue); text-decoration: none; font-family: 'Orbitron', sans-serif; font-weight: 800; font-size: 11px; letter-spacing: 1.6px; padding: 4px 0 16px; border-bottom: 1px solid var(--border-soft); margin-bottom: 14px; text-transform: uppercase; }
-  .pps-sidebar-brand svg { width: 18px; height: 14px; flex-shrink: 0; color: var(--green); filter: drop-shadow(0 0 6px rgba(74, 222, 128, 0.55)); }
-  .pps-sidebar-brand span { white-space: nowrap; }
-  .pps-sidebar-brand:hover { color: #5fa1ff; }
+  .pps-sidebar-brand {
+    display: flex; align-items: center; justify-content: center;
+    gap: 6px; color: var(--text); text-decoration: none;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 900; font-size: 13px;
+    letter-spacing: -.02em;
+    padding: 4px 0 16px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 14px;
+  }
+  .pps-sidebar-brand .accent { color: var(--green); }
+  .pps-sidebar-brand small { font-size: 8px; font-weight: 400; letter-spacing: .4em; text-transform: uppercase; color: var(--dim); margin-left: 6px; }
+  .pps-sidebar-brand:hover .accent { filter: brightness(1.1); }
   .pps-sidebar-nav { display: flex; flex-direction: column; gap: 1px; }
-  .pps-nav-group-label { font-size: 9.5px; text-transform: uppercase; letter-spacing: 1.8px; color: var(--dim); padding: 14px 8px 6px; margin-top: 2px; font-weight: 600; }
-  .pps-nav-link { display: flex; align-items: center; gap: 10px; color: #b8c0d0; text-decoration: none; padding: 8px 10px; border-radius: 7px; font-size: 13px; border-left: 2px solid transparent; transition: all .15s ease; }
-  .pps-nav-link:hover { background: var(--panel-inset); color: #fff; }
-  .pps-nav-link.active { background: rgba(74, 222, 128, 0.09); color: var(--green); border-left-color: var(--green); }
-  .pps-nav-num { font-family: 'JetBrains Mono', monospace; font-size: 10.5px; color: var(--dim); font-weight: 700; min-width: 18px; }
-  .pps-nav-link.path-blue .pps-nav-num { color: var(--blue); }
-  .pps-nav-link.path-green .pps-nav-num { color: var(--green); }
-  .pps-nav-link.path-gold .pps-nav-num { color: var(--yellow); }
+  .pps-nav-group-label {
+    font-size: 9px; text-transform: uppercase; letter-spacing: .22em;
+    color: var(--dim); padding: 14px 8px 6px;
+    margin-top: 2px; font-weight: 600;
+  }
+  .pps-nav-link {
+    display: flex; align-items: center; gap: 10px;
+    color: var(--muted); text-decoration: none;
+    padding: 7px 10px; border-radius: 4px;
+    font-size: 12px; font-weight: 400;
+    border-left: 2px solid transparent;
+    transition: all .15s ease;
+  }
+  .pps-nav-link:hover { background: var(--surface-2); color: var(--text); }
+  .pps-nav-link.active { background: var(--green-faint); color: var(--green); border-left-color: var(--green); font-weight: 500; }
+  .pps-nav-num { font-family: 'Space Grotesk', system-ui, sans-serif; font-size: 10px; color: var(--dim); font-weight: 500; min-width: 18px; }
   .pps-nav-group { margin: 1px 0; }
-  .pps-nav-group summary { list-style: none; cursor: pointer; padding: 8px 10px; font-size: 13px; color: #b8c0d0; border-radius: 7px; display: flex; align-items: center; justify-content: space-between; transition: all .15s ease; user-select: none; }
+  .pps-nav-group summary {
+    list-style: none; cursor: pointer;
+    padding: 7px 10px; font-size: 12px;
+    color: var(--muted); border-radius: 4px;
+    display: flex; align-items: center; justify-content: space-between;
+    transition: all .15s ease; user-select: none;
+    font-weight: 500;
+  }
   .pps-nav-group summary::-webkit-details-marker { display: none; }
   .pps-nav-group summary::after { content: '▾'; font-size: 9px; color: var(--dim); transition: transform .2s ease; }
   .pps-nav-group[open] summary::after { transform: rotate(180deg); }
-  .pps-nav-group summary:hover { background: var(--panel-inset); color: #fff; }
-  .pps-nav-group .pps-nav-link { padding: 6px 10px 6px 22px; font-size: 12px; color: #8b94a8; }
-  .pps-nav-group .pps-nav-link:hover { color: #fff; }
+  .pps-nav-group summary:hover { background: var(--surface-2); color: var(--text); }
+  .pps-nav-group .pps-nav-link { padding: 5px 10px 5px 22px; font-size: 11px; }
   .pps-path-group > summary { font-weight: 600; }
   .pps-path-group .pps-path-label { display: inline-flex; align-items: center; gap: 10px; }
-  .pps-path-group.path-blue > summary .pps-nav-num { color: var(--blue); }
+  .pps-path-group.path-blue > summary .pps-nav-num { color: var(--cyan); }
   .pps-path-group.path-green > summary .pps-nav-num { color: var(--green); }
   .pps-path-group.path-gold > summary .pps-nav-num { color: var(--yellow); }
-  .pps-path-group.path-blue[open] > summary { color: var(--blue); }
+  .pps-path-group.path-blue[open] > summary { color: var(--cyan); }
   .pps-path-group.path-green[open] > summary { color: var(--green); }
   .pps-path-group.path-gold[open] > summary { color: var(--yellow); }
-  .pps-nav-playbook { margin-top: 16px; padding: 10px 12px; background: linear-gradient(135deg, rgba(188,140,255,.10), rgba(74,222,128,.05)); border: 1px solid rgba(188,140,255,.25); border-left-width: 2px; color: var(--purple); font-weight: 600; border-radius: 7px; }
-  .pps-nav-playbook:hover { background: linear-gradient(135deg, rgba(188,140,255,.2), rgba(74,222,128,.1)); color: #fff; }
   .pps-sidebar::-webkit-scrollbar { width: 6px; }
   .pps-sidebar::-webkit-scrollbar-track { background: transparent; }
-  .pps-sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+  .pps-sidebar::-webkit-scrollbar-thumb { background: var(--border-2); border-radius: 3px; }
 
-/* PPS-MOBILE-HEADER-CLEARANCE */
-    @media (max-width: 640px) {
-      .bt-header { padding-top: 60px; padding-left: 56px; padding-right: 14px; }
-    }
+  @media (max-width: 640px) {
+    .card { padding-top: 60px; }
+  }
 </style>
 </head>
 <body>
@@ -409,17 +535,12 @@
 <aside class="pps-sidebar" id="ppsSidebar">
   <div class="pps-sidebar-inner">
     <a class="pps-sidebar-brand" href="/index.html">
-      <svg viewBox="0 0 28 22" xmlns="http://www.w3.org/2000/svg" fill="none">
-        <polyline points="2,18 8,12 12,15 18,7 26,3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-      <span>Profit Path Sports</span>
-      <svg viewBox="0 0 28 22" xmlns="http://www.w3.org/2000/svg" fill="none">
-        <polyline points="2,18 8,12 12,15 18,7 26,3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
+      <span>PROFIT<span class="accent">PATH</span></span>
+      <small>Sports</small>
     </a>
     <nav class="pps-sidebar-nav">
       <a class="pps-nav-link" href="/index.html">Home</a>
-      <a class="pps-nav-link" href="/free-money-guide.html" style="color: var(--green); font-weight: 600;">★ Free Money Guide</a>
+      <a class="pps-nav-link" href="/free-money-guide.html" style="color: var(--green); font-weight: 500;">★ Free Money Guide</a>
       <div class="pps-nav-group-label">Paths</div>
       <details class="pps-nav-group pps-path-group path-blue">
         <summary data-anchor="paths"><span class="pps-path-label"><span class="pps-nav-num">01</span> Begin</span></summary>
@@ -442,7 +563,6 @@
         <a class="pps-nav-link" href="/learn-finding-bonus-bets.html">Finding Bonus Bets</a>
         <a class="pps-nav-link" href="/learn-bonus-step-by-step.html">Step-by-Step</a>
         <a class="pps-nav-link" href="/learn-prop-void-rules.html">Prop Void Rules</a>
-        <a class="pps-nav-link" href="/learn-finding-bets.html">Finding +EV Bets</a>
       </details>
       <details class="pps-nav-group pps-path-group path-gold">
         <summary data-anchor="paths"><span class="pps-path-label"><span class="pps-nav-num">03</span> Maintain</span></summary>
@@ -461,10 +581,10 @@
         <a class="pps-nav-link" href="/learn-top-down-bottom-up.html">Top-Down / Bottom-Up</a>
         <a class="pps-nav-link" href="/learn-wide-markets.html">Wide Markets</a>
       </details>
-      <details class="pps-nav-group">
+      <details class="pps-nav-group" open>
         <summary data-anchor="tools">Calculators</summary>
         <a class="pps-nav-link" href="/bet-x-ray.html">Bet X-Ray</a>
-        <a class="pps-nav-link" href="/ev-calculator.html">EV Calculator</a>
+        <a class="pps-nav-link active" href="/ev-calculator.html">EV Calculator</a>
         <a class="pps-nav-link" href="/devig_calculator.html">Devig</a>
         <a class="pps-nav-link" href="/kelly-calculator.html">Kelly Sizer</a>
         <a class="pps-nav-link" href="/arb-calculator.html">Arbitrage</a>
@@ -478,8 +598,6 @@
         <a class="pps-nav-link" href="/consensus-calculator.html">Consensus</a>
         <a class="pps-nav-link" href="/bonus-converter.html">Bonus Converter</a>
         <a class="pps-nav-link" href="/odds_calculator.html">Odds Converter</a>
-        <a class="pps-nav-link" href="/sharp-snapshot.html">Sharp Snapshot</a>
-        <a class="pps-nav-link" href="/roulette.html">Virtual Roulette</a>
       </details>
       <details class="pps-nav-group">
         <summary>Sportsbooks</summary>
@@ -507,169 +625,290 @@
 </aside>
 <!-- ═══ END SIDEBAR ═══ -->
 
-<div class="back-bar">
-  <div class="back-bar-inner">
-    <a href="index.html">← Hub</a>
-    <span class="sep">·</span>
-    <a href="learn-ev.html">Learn +EV →</a>
-  </div>
-</div>
+<div class="card">
 
-<div class="title-strip">
-  <h1><span class="bolt">⚡</span> EV Calculator <span class="bolt">⚡</span></h1>
-  <p class="title-sub">Every winning bettor runs this math on every bet. <strong>Most losing bettors place hundreds without ever opening one.</strong> Type your bet's price and the fair (no-vig) price — get EV in %, EV in dollars, and Kelly stake.</p>
-  <a href="#how-to-use" class="how-to-jump">How to use this ↓</a>
-</div>
-
-<div class="form-strip">
-  <div class="form-inner">
-
-    <div class="section-label">The Bet</div>
-    <div class="form-grid">
-      <div class="form-group">
-        <label class="form-label">Your Odds (American)</label>
-        <input type="number" class="form-input" id="f-yours" value="-110" oninput="calc()">
-        <div class="form-hint" id="hint-yours"></div>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Fair / No-Vig Odds</label>
-        <input type="number" class="form-input" id="f-fair" value="-120" oninput="calc()">
-        <div class="form-hint" id="hint-fair"><a href="devig_calculator.html">Need fair odds? → Devig</a></div>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Stake ($)</label>
-        <input type="number" class="form-input" id="f-stake" value="100" min="0" oninput="calc()">
-      </div>
-      <div class="form-group">
-        <label class="form-label">Total Return</label>
-        <div class="form-disp" id="return-disp">—</div>
-      </div>
+  <div class="header">
+    <div class="header-meta">
+      <a href="/index.html" class="back-link">← Back</a>
+      <span class="header-eyebrow">Free Tool · EV Calculator</span>
+      <button class="help-pill" onclick="document.getElementById('howto').open = !document.getElementById('howto').open; document.getElementById('howto').scrollIntoView({behavior:'smooth', block:'nearest'});">How to use ↓</button>
     </div>
-
+    <div class="title-row">
+      <h1>EV Calculator</h1>
+    </div>
+    <p class="tagline">
+      <span>A bet is only worth making when the price beats the truth.</span>
+      <span class="mono">Your price vs. the fair price → the edge, in % and in dollars.</span>
+      <span>Plus the break-even you'd have to clear, and a Kelly-sized stake.</span>
+    </p>
   </div>
-</div>
 
-<div class="stats-strip">
-  <div class="stats-row">
-    <div class="stat-cell"><div class="stat-label">True Win %</div><div class="stat-value blue" id="s-prob">—</div></div>
-    <div class="stat-cell"><div class="stat-label">EV %</div><div class="stat-value" id="s-evpct">—</div></div>
-    <div class="stat-cell"><div class="stat-label">EV $</div><div class="stat-value" id="s-evdol">—</div></div>
-    <div class="stat-cell"><div class="stat-label">Profit if Win</div><div class="stat-value accent" id="s-profit">—</div></div>
-    <div class="stat-cell"><div class="stat-label">Kelly Bet</div><div class="stat-value" id="s-kdol">—</div></div>
-    <div class="stat-cell"><div class="stat-label">% of Bankroll</div><div class="stat-value" id="s-kpct">—</div></div>
-  </div>
-</div>
+  <div class="body">
 
-<div class="form-strip">
-  <div class="form-inner">
-
-    <div class="section-label">Bankroll &amp; Kelly Sizing</div>
-    <div class="form-grid">
-      <div class="form-group">
-        <label class="form-label">Bankroll ($)</label>
-        <input type="number" class="form-input" id="f-bankroll" value="1000" min="0" oninput="calc()">
+    <div class="step" id="step1">
+      <div class="step-head">
+        <span class="step-num">Expected Value</span>
+        <span class="step-title">Run the EV math</span>
+        <span class="step-sub">Compare the price you're getting to the fair, no-vig price.</span>
       </div>
-      <div class="form-group span3">
-        <label class="form-label">Kelly Fraction</label>
-        <div class="scenario-row">
-          <button class="scenario-pill" onclick="setKelly(1,this)">Full Kelly</button>
-          <button class="scenario-pill" onclick="setKelly(0.75,this)">3/4 Kelly</button>
-          <button class="scenario-pill active" onclick="setKelly(0.5,this)">1/2 Kelly</button>
-          <button class="scenario-pill" onclick="setKelly(0.25,this)">1/4 Kelly</button>
+
+      <div class="inputs-grid">
+        <div class="input-cell">
+          <label for="yourOdds">Your odds</label>
+          <input type="text" id="yourOdds" inputmode="text" spellcheck="false" autocomplete="off" value="-110">
+        </div>
+        <div class="input-cell">
+          <label for="fairOdds">Fair / no-vig odds</label>
+          <input type="text" id="fairOdds" inputmode="text" spellcheck="false" autocomplete="off" value="-120">
+        </div>
+        <div class="input-cell">
+          <label for="stake">Stake ($)</label>
+          <input type="text" id="stake" inputmode="decimal" spellcheck="false" autocomplete="off" value="100">
         </div>
       </div>
+      <div class="input-hint">
+        Odds accept <b>American</b> (−110) or <b>decimal</b> (1.91). Don't have a fair price? Strip the vig with the <a href="/devig_calculator.html">Devig Calculator</a> first.
+      </div>
+
+      <div class="output-section">
+        <div class="output-section-head">
+          <span class="output-section-label">Expected Value</span>
+          <span class="output-section-sub">your edge at this price</span>
+          <span class="output-section-rule"></span>
+        </div>
+        <div class="outputs-grid cols-3">
+          <div class="out-box">
+            <div class="out-label">True Win %</div>
+            <div class="out-value accent empty" id="trueWin">—</div>
+            <div class="out-sub">from the fair odds</div>
+          </div>
+          <div class="out-box">
+            <div class="out-label">Break-Even %</div>
+            <div class="out-value empty" id="breakEven">—</div>
+            <div class="out-sub">what your price needs</div>
+          </div>
+          <div class="out-box">
+            <div class="out-label">EV %</div>
+            <div class="out-value empty" id="evPct">—</div>
+            <div class="out-sub">edge per dollar staked</div>
+          </div>
+          <div class="out-box">
+            <div class="out-label">EV $</div>
+            <div class="out-value empty" id="evDollar">—</div>
+            <div class="out-sub">expected profit on stake</div>
+          </div>
+          <div class="out-box">
+            <div class="out-label">Profit if Win</div>
+            <div class="out-value empty" id="profitWin">—</div>
+            <div class="out-sub">payout minus stake</div>
+          </div>
+          <div class="out-box">
+            <div class="out-label">Total Return</div>
+            <div class="out-value empty" id="totalReturn">—</div>
+            <div class="out-sub">stake + profit if it hits</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="output-section">
+        <div class="output-section-head">
+          <span class="output-section-label">Kelly Sizing</span>
+          <span class="output-section-sub">how much to actually bet</span>
+          <span class="output-section-rule"></span>
+        </div>
+        <div class="sub-toolbar">
+          <span class="sub-label">Kelly fraction</span>
+          <div class="pill-group" id="kellyGroup">
+            <button class="pill" data-kelly="1">Full</button>
+            <button class="pill" data-kelly="0.5">Half</button>
+            <button class="pill active" data-kelly="0.25">Quarter</button>
+            <button class="pill" data-kelly="0.125">Eighth</button>
+          </div>
+        </div>
+        <div class="inputs-grid cols-2">
+          <div class="input-cell">
+            <label for="bankroll">Bankroll ($)</label>
+            <input type="text" id="bankroll" inputmode="decimal" spellcheck="false" autocomplete="off" value="1000">
+          </div>
+        </div>
+        <div class="outputs-grid cols-3" style="margin-top:14px;">
+          <div class="out-box">
+            <div class="out-label">Recommended Stake</div>
+            <div class="out-value pos empty" id="recStake">—</div>
+            <div class="out-sub">at the chosen fraction</div>
+          </div>
+          <div class="out-box">
+            <div class="out-label">% of Bankroll</div>
+            <div class="out-value empty" id="recPct">—</div>
+            <div class="out-sub">share of your roll</div>
+          </div>
+          <div class="out-box">
+            <div class="out-label">Full-Kelly Reference</div>
+            <div class="out-value empty" id="fullKellyRef">—</div>
+            <div class="out-sub">never bet more than this</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="key-note">
+        <div class="key-note-head">★ Key Point — A Thin Edge Needs a Sharp Number</div>
+        <div class="key-note-body">
+          The EV math here is exact — but the <strong>fair odds you typed in are an estimate, not a fact</strong>. Small edges are real money over hundreds of bets <strong>if that fair price is trustworthy</strong> — and pure noise if it isn't. So the thinner the edge, the sharper your fair price has to be: devig a <strong>sharp market</strong> (Pinnacle, Circa, a consensus line), never a soft book. If a couple-cent error in your fair odds would erase the edge, treat it as fragile. New here? The lesson <a href="/learn-ev.html">+EV</a> walks through it in plain English.
+        </div>
+      </div>
+
     </div>
 
+    <!-- HOW TO -->
+    <details class="how-to" id="howto">
+      <summary>How to use this</summary>
+      <div class="how-to-body">
+        <p><strong>What it does.</strong> Compares the price a sportsbook is offering you against the fair, no-vig price — and tells you whether the bet is worth making. Output: expected value in % and dollars, the break-even hit rate, and a Kelly-sized stake.</p>
+
+        <p><strong>How to use it.</strong></p>
+        <ul>
+          <li>Enter <em>your odds</em> — the price you can actually bet at any book.</li>
+          <li>Enter the <em>fair / no-vig odds</em> — the true price after the vig is stripped out. Don't have it? Run the market through the <a href="/devig_calculator.html">Devig Calculator</a> first.</li>
+          <li>Enter your <em>stake</em> to see EV in dollars.</li>
+          <li>Read <em>EV %</em>: positive (green) means the bet is +EV and worth placing; negative (red) means skip it.</li>
+        </ul>
+
+        <p><strong>The numbers.</strong></p>
+        <ul>
+          <li><em>True Win %</em> — the real chance of winning, from the fair odds.</li>
+          <li><em>Break-Even %</em> — the win rate your price needs just to break even. If True Win % beats Break-Even %, the bet is +EV.</li>
+          <li><em>EV %</em> and <em>EV $</em> — your edge, per dollar and on your actual stake.</li>
+          <li><em>Kelly Sizing</em> — how much to bet given your bankroll. Quarter-Kelly is the default; most pros bet quarter or half, never full.</li>
+        </ul>
+
+        <p><strong>Garbage in, garbage out.</strong> EV math is only as good as the fair odds you feed it. A fair price devigged off a soft book (BetMGM, Bet365) isn't sharp — devig the sharpest market available (Pinnacle, Circa, or a sharp consensus). Want the whole pipeline — devig, EV, Kelly, and a verdict — in one tool? Use <a href="/bet-x-ray.html">Bet X-Ray</a>.</p>
+      </div>
+    </details>
+
   </div>
 </div>
 
-<div class="help-strip">
-  <div class="help-strip-inner">
-    <strong>EV Formula:</strong> EV = p × (decimal odds − 1) − (1 − p), where p is your true win probability (1 ÷ fair decimal odds). Positive EV means you'll profit on average over many bets — even +1% EV is meaningful when stacked across hundreds of plays. Need fair odds? Strip the vig with the <a href="devig_calculator.html">Devig Calculator</a> first.
-  </div>
-</div>
-
-<div class="how-to-use" id="how-to-use">
-  <div class="how-to-eyebrow">How to use this</div>
-  <h3>Calculate true EV in 30 seconds</h3>
-  <ol class="how-to-steps">
-    <li>Enter the <strong>odds you're being offered</strong> at any sportsbook (American or decimal).</li>
-    <li>Enter the <strong>no-vig fair odds</strong> — the sharper market's price after stripping vig. Use <a href="devig_calculator.html" style="color:var(--blue);">Devig</a> if you don't have it.</li>
-    <li>Enter your <strong>stake</strong> to see EV in dollars (or leave blank for just the percentage).</li>
-    <li>Read <strong>EV %</strong> and <strong>EV $</strong>: positive = +EV (worth placing); negative = skip.</li>
-  </ol>
-  <div class="how-to-note">
-    <strong>Why this version helps:</strong> Most EV calculators give you just the EV percentage. We show <em>EV %, EV $, true win probability, and the Kelly stake</em> all on one screen — so once you confirm a bet is +EV, you immediately know how big to bet without opening a separate tool. <br><br>
-    <strong>Garbage in, garbage out:</strong> EV math is only as good as the no-vig fair odds you enter. Devig the sharp market first.
-  </div>
-</div>
-
-<div class="disclaimer">
-  EV math assumes the fair odds you enter are accurate — garbage in, garbage out. Use the <a href="devig_calculator.html">Devig Calculator</a> to compute fair odds from a market.<br>
-  Profit Path Sports is an educational resource. Bet responsibly. 21+ where legal. 1-800-GAMBLER.<br>
-  &copy; 2026 Profit Path Sports &middot; <a href="/privacy.html">Privacy</a> &middot; <a href="/disclaimer.html">Disclaimer</a> &middot; <a href="/affiliate-disclosure.html">Affiliate</a>
+<div class="footer">
+  © 2026 PROFITPATH Sports · <a href="/index.html">Home</a> · <a href="/odds_calculator.html">Odds Converter</a> · <a href="/devig_calculator.html">Devig</a> · <a href="/kelly-calculator.html">Kelly</a> · <a href="/bet-x-ray.html">Bet X-Ray</a> &middot; <a href="/privacy.html">Privacy</a> &middot; <a href="/disclaimer.html">Disclaimer</a> &middot; <a href="/affiliate-disclosure.html">Affiliate</a>
 </div>
 
 <script>
-  let kellyFrac = 0.5;
+  // ─── Element references ───
+  const yourOddsEl = document.getElementById('yourOdds');
+  const fairOddsEl = document.getElementById('fairOdds');
+  const stakeEl = document.getElementById('stake');
+  const bankrollEl = document.getElementById('bankroll');
+  const trueWinEl = document.getElementById('trueWin');
+  const breakEvenEl = document.getElementById('breakEven');
+  const evPctEl = document.getElementById('evPct');
+  const evDollarEl = document.getElementById('evDollar');
+  const profitWinEl = document.getElementById('profitWin');
+  const totalReturnEl = document.getElementById('totalReturn');
+  const fullKellyRefEl = document.getElementById('fullKellyRef');
+  const recStakeEl = document.getElementById('recStake');
+  const recPctEl = document.getElementById('recPct');
 
-  function americanToDecimal(o){o=Number(o);if(!o||isNaN(o))return null;return o>0?(o/100)+1:(100/Math.abs(o))+1;}
-  function impliedProb(o){o=Number(o);if(!o||isNaN(o))return null;return o>0?100/(o+100):Math.abs(o)/(Math.abs(o)+100);}
+  let kellyFrac = 0.25;
 
-  function setKelly(f,btn){
-    kellyFrac=f;
-    document.querySelectorAll('.scenario-pill').forEach(p=>p.classList.remove('active'));
-    btn.classList.add('active');
-    calc();
+  // ─── Parse American or decimal odds → decimal (>1) or null ───
+  function parseOddsToDecimal(str) {
+    if (!str) return null;
+    const s = str.trim().replace(/[−–—]/g, '-');
+    if (!s) return null;
+    if (s.includes('.')) {
+      const d = parseFloat(s);
+      return (isFinite(d) && d > 1) ? d : null;
+    }
+    const clean = s.replace(/^\+/, '');
+    if (!/^-?\d+$/.test(clean)) return null;
+    const n = parseInt(clean, 10);
+    if (!isFinite(n) || Math.abs(n) < 100) return null;
+    return n > 0 ? 1 + n / 100 : 1 + 100 / Math.abs(n);
+  }
+  function parseMoney(str) {
+    const n = parseFloat(String(str).replace(/[$,\s]/g, ''));
+    return (isFinite(n) && n >= 0) ? n : null;
+  }
+  function fmtDollar(n) {
+    return (n < 0 ? '-$' : '$') + Math.abs(n).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  }
+  function setVal(el, text, cls) {
+    el.textContent = text;
+    el.className = 'out-value' + (cls ? ' ' + cls : '');
   }
 
-  function calc(){
-    const y=document.getElementById('f-yours').value, f=document.getElementById('f-fair').value;
-    const stake=Number(document.getElementById('f-stake').value)||0;
-    const bankroll=Number(document.getElementById('f-bankroll').value)||0;
+  function calc() {
+    const dy = parseOddsToDecimal(yourOddsEl.value);
+    const df = parseOddsToDecimal(fairOddsEl.value);
+    const stake = parseMoney(stakeEl.value);
+    const bankroll = parseMoney(bankrollEl.value);
 
-    const dy=americanToDecimal(y), df=americanToDecimal(f);
-    const setStat=(id,text,cls)=>{const el=document.getElementById(id);el.textContent=text;el.className='stat-value'+(cls?' '+cls:'');};
+    yourOddsEl.classList.toggle('invalid', dy === null && yourOddsEl.value.trim() !== '');
+    fairOddsEl.classList.toggle('invalid', df === null && fairOddsEl.value.trim() !== '');
 
-    document.getElementById('hint-yours').textContent=dy?`Decimal: ${dy.toFixed(3)}`:'';
-    const fHint=document.getElementById('hint-fair');
-    if(df) fHint.innerHTML=`Decimal: ${df.toFixed(3)} &nbsp;·&nbsp; <a href="devig_calculator.html">Need fair? → Devig</a>`;
-    else fHint.innerHTML=`<a href="devig_calculator.html">Need fair odds? → Devig</a>`;
-
-    if(!dy||!df){
-      ['s-prob','s-evpct','s-evdol','s-profit','s-kdol','s-kpct'].forEach(id=>setStat(id,'—'));
-      document.getElementById('return-disp').textContent='—';
+    if (dy === null || df === null) {
+      [trueWinEl, breakEvenEl, evPctEl, evDollarEl, profitWinEl, totalReturnEl,
+       recStakeEl, recPctEl, fullKellyRefEl].forEach(el => setVal(el, '—', 'empty'));
       return;
     }
 
-    const p = 1/df;
-    const b = dy - 1;
-    const evPerDollar = p*dy - 1;
-    const evDol = evPerDollar * stake;
-    const profit = b * stake;
-    const totalReturn = profit + stake;
-
+    const p = 1 / df;                 // true win probability
+    const breakEven = 1 / dy;         // implied prob of your price
+    const b = dy - 1;                 // profit multiple on a win
+    const evPerDollar = p * dy - 1;   // expected value per $1 staked
     const evPctNum = evPerDollar * 100;
-    setStat('s-prob',`${(p*100).toFixed(2)}%`,'blue');
-    setStat('s-evpct',`${evPctNum>=0?'+':''}${evPctNum.toFixed(2)}%`,evPctNum>=0?'pos':'neg');
-    setStat('s-evdol',`${evDol>=0?'+$':'-$'}${Math.abs(evDol).toFixed(2)}`,evDol>=0?'pos':'neg');
-    setStat('s-profit',`+$${profit.toFixed(2)}`,'accent');
-    document.getElementById('return-disp').textContent=`$${totalReturn.toFixed(2)}`;
 
-    const fullKelly = (b*p - (1-p))/b;
-    const adj = fullKelly * kellyFrac;
-    if(fullKelly<=0 || bankroll<=0){
-      setStat('s-kdol','$0.00');
-      setStat('s-kpct','0.00%');
+    setVal(trueWinEl, (p * 100).toFixed(2) + '%', 'accent');
+    setVal(breakEvenEl, (breakEven * 100).toFixed(2) + '%');
+    setVal(evPctEl, (evPctNum >= 0 ? '+' : '') + evPctNum.toFixed(2) + '%', evPctNum >= 0 ? 'pos' : 'neg');
+
+    if (stake !== null && stake > 0) {
+      const evDol = evPerDollar * stake;
+      setVal(evDollarEl, fmtDollar(evDol), evDol >= 0 ? 'pos' : 'neg');
+      setVal(profitWinEl, fmtDollar(b * stake));
+      setVal(totalReturnEl, fmtDollar(dy * stake));
     } else {
-      const dol = bankroll * adj;
-      setStat('s-kdol',`$${dol.toFixed(2)}`,'pos');
-      setStat('s-kpct',`${(adj*100).toFixed(2)}%`,'pos');
+      setVal(evDollarEl, '—', 'empty');
+      setVal(profitWinEl, '—', 'empty');
+      setVal(totalReturnEl, '—', 'empty');
+    }
+
+    // ─── Kelly ───
+    const fullKelly = (b * p - (1 - p)) / b;   // full-Kelly fraction
+    if (fullKelly > 0) {
+      setVal(fullKellyRefEl, (fullKelly * 100).toFixed(2) + '%');
+    } else {
+      setVal(fullKellyRefEl, '0.00%', 'empty');
+    }
+
+    if (fullKelly > 0 && bankroll !== null && bankroll > 0) {
+      const adj = fullKelly * kellyFrac;
+      const recStake = bankroll * adj;
+      setVal(recStakeEl, fmtDollar(recStake), 'pos');
+      setVal(recPctEl, (adj * 100).toFixed(2) + '%');
+    } else {
+      setVal(recStakeEl, fullKelly <= 0 ? '$0.00' : '—', fullKelly <= 0 ? 'neg' : 'empty');
+      setVal(recPctEl, fullKelly <= 0 ? '0.00%' : '—', fullKelly <= 0 ? '' : 'empty');
     }
   }
 
+  [yourOddsEl, fairOddsEl, stakeEl, bankrollEl].forEach(el => {
+    el.addEventListener('input', calc);
+    el.addEventListener('focus', () => el.select());
+  });
+
+  document.getElementById('kellyGroup').addEventListener('click', e => {
+    const btn = e.target.closest('.pill');
+    if (!btn) return;
+    document.querySelectorAll('#kellyGroup .pill').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    kellyFrac = parseFloat(btn.dataset.kelly);
+    calc();
+  });
+
   calc();
 </script>
+
 <script>
   /* Sidebar behavior */
   (function() {
@@ -691,39 +930,11 @@
       body.classList.toggle('pps-sidebar-open');
     });
 
-    document.querySelectorAll('.pps-sidebar summary[data-anchor]').forEach(function(s) {
-      s.addEventListener('click', function() {
-        if (!isHome) return;
-        var anchor = s.getAttribute('data-anchor');
-        var target = document.getElementById(anchor);
-        if (target) {
-          setTimeout(function() {
-            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          }, 60);
-        }
-      });
-    });
-
-    // Only auto-open the sidebar on desktop-class viewports. On mobile/tablet
-    // (< 900px) it stays closed until the user taps the hamburger so it
-    // doesn't cover the content on first paint.
     var isDesktop = window.matchMedia('(min-width: 901px)').matches;
-
-    if (isDesktop) {
-      if (isHome) {
-        var autoOpened = false;
-        window.addEventListener('scroll', function() {
-          if (!autoOpened && window.scrollY > 600) {
-            body.classList.add('pps-sidebar-open');
-            autoOpened = true;
-          }
-        }, { passive: true });
-      } else {
-        body.classList.add('pps-sidebar-open');
-      }
+    if (isDesktop && !isHome) {
+      body.classList.add('pps-sidebar-open');
     }
 
-    // Mobile: tap outside the open sidebar to dismiss it
     document.addEventListener('click', function(e) {
       if (window.innerWidth >= 901) return;
       if (!body.classList.contains('pps-sidebar-open')) return;
