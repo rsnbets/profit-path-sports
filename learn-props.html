@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prop Bets — Reading the Lines and Finding the Edges | PROFITPATH Sports</title>
+<meta name="description" content="Prop bets are the market casual bettors live in and the one books price the loosest. How to read a prop line, why '17+' equals 'Over 16.5', the push trap, and where the edges hide.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Prop Bets — Reading the Lines and Finding the Edges | PROFITPATH Sports">
+<meta property="og:description" content="How to read a prop line, the whole-number push trap, and why props are the softest market on the board.">
+<meta property="og:image" content="https://profitpathsports.com/images/og-default.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://profitpathsports.com/learn-props.html">
+<meta property="og:site_name" content="PROFITPATH Sports">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Prop Bets — Reading the Lines and Finding the Edges">
+<meta name="twitter:description" content="How to read a prop line, the whole-number push trap, and why props are the softest market on the board.">
+<meta name="twitter:image" content="https://profitpathsports.com/images/og-default.png">
+<meta name="theme-color" content="#090909">
+
+<link rel="icon" type="image/svg+xml" href="/logo.svg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --green: #4DFF78;
+    --green-dim: rgba(77,255,120,0.15);
+    --green-faint: rgba(77,255,120,0.06);
+    --green-border: rgba(77,255,120,0.22);
+    --cyan: #00D4FF;
+    --cyan-dim: rgba(0,212,255,0.12);
+    --cyan-faint: rgba(0,212,255,0.04);
+    --cyan-border: rgba(0,212,255,0.22);
+    --red: #FF3D3D;
+    --yellow: #F5B545;
+    --bg: #090909;
+    --surface: #0D0D0D;
+    --surface-2: #141414;
+    --surface-3: #1C1C1C;
+    --border: rgba(255,255,255,0.05);
+    --border-2: rgba(255,255,255,0.08);
+    --text: #F0EEE8;
+    --muted: rgba(255,255,255,0.62);
+    --dim: rgba(255,255,255,0.25);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    font-weight: 300;
+    min-height: 100vh;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  .math-block, .lesson-table { font-variant-numeric: tabular-nums; }
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 999;
+    opacity: 0.025;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  a { color: var(--cyan); text-decoration: none; }
+  a:hover { color: var(--green); }
+
+  /* ───────── CARD ───────── */
+  .card {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 32px 48px 80px;
+    position: relative;
+  }
+  @media (max-width: 640px) { .card { padding: 60px 20px 60px; } }
+
+  /* ───────── HEADER ───────── */
+  .header { margin-bottom: 36px; }
+  .header-meta {
+    display: flex; align-items: center; gap: 18px;
+    margin-bottom: 22px; flex-wrap: wrap;
+  }
+  .back-link {
+    font-size: 11px; font-weight: 500;
+    letter-spacing: .18em; text-transform: uppercase;
+    color: var(--dim); transition: color .15s;
+  }
+  .back-link:hover { color: var(--cyan); }
+  .header-eyebrow {
+    font-size: 10px; font-weight: 600;
+    letter-spacing: .28em; text-transform: uppercase;
+    color: var(--cyan);
+  }
+
+  .title-row {
+    display: flex; align-items: flex-end; justify-content: center;
+    gap: 16px; margin-bottom: 16px; flex-wrap: wrap; position: relative;
+  }
+  .title-row::before {
+    content: '';
+    position: absolute;
+    left: 50%; top: 50%;
+    width: 580px; height: 220px;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(ellipse at center,
+                  rgba(77,255,120,0.18) 0%,
+                  rgba(0,212,255,0.10) 35%,
+                  rgba(77,255,120,0) 70%);
+    filter: blur(28px);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .title-row > * { position: relative; z-index: 1; }
+  .header h1 {
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-size: clamp(40px, 6vw, 64px);
+    line-height: 1.1;
+    letter-spacing: -.025em;
+    font-weight: 700;
+    margin: 0;
+    padding-bottom: 0.08em;
+    background: linear-gradient(95deg, var(--green) 0%, var(--cyan) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+  .lesson-sub {
+    font-size: clamp(15px, 1.7vw, 18px);
+    color: rgba(240,238,232,0.74);
+    font-weight: 300;
+    line-height: 1.5;
+    max-width: 740px;
+    margin: 0 auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .lesson-sub .accent { color: var(--cyan); font-weight: 400; }
+  .lesson-sub strong { color: var(--text); font-weight: 600; }
+
+  /* ───────── SECTIONS ───────── */
+  .lesson-section { margin-bottom: 40px; }
+  .lesson-section h3 {
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-size: clamp(19px, 2.2vw, 23px);
+    font-weight: 700;
+    letter-spacing: -.01em;
+    color: var(--text);
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border-2);
+  }
+  .lesson-body { font-size: 15.5px; line-height: 1.75; color: rgba(240,238,232,0.92); }
+  .lesson-body p { margin-bottom: 15px; }
+  .lesson-body p:last-child { margin-bottom: 0; }
+  .lesson-body strong { color: var(--text); font-weight: 600; }
+  .lesson-body em { color: var(--cyan); font-style: normal; font-weight: 500; }
+  .lesson-body ul { list-style: none; margin: 12px 0 16px; padding-left: 2px; }
+  .lesson-body li { position: relative; padding-left: 22px; margin-bottom: 10px; }
+  .lesson-body li::before {
+    content: '';
+    position: absolute;
+    left: 2px; top: 0.6em;
+    width: 6px; height: 6px;
+    background: var(--cyan);
+    transform: rotate(45deg);
+  }
+  .lesson-body a { color: var(--cyan); }
+  .lesson-body a:hover { color: var(--green); }
+
+  /* ───────── MATH BLOCK ───────── */
+  .math-block {
+    background: var(--surface-2);
+    border: 1px solid var(--border-2);
+    border-left: 3px solid var(--cyan);
+    border-radius: 10px;
+    padding: 18px 22px;
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-size: 15px;
+    color: var(--text);
+    margin: 18px 0;
+    line-height: 1.9;
+    overflow-x: auto;
+  }
+  .math-block .label {
+    color: var(--dim);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 10px; font-weight: 600;
+    letter-spacing: .2em; text-transform: uppercase;
+    display: block; margin-bottom: 10px;
+  }
+  .math-block .accent { color: var(--cyan); font-weight: 600; }
+  .math-block .pos { color: var(--green); font-weight: 700; }
+  .math-block .neg { color: var(--red); font-weight: 700; }
+  .math-block .yel { color: var(--yellow); font-weight: 700; }
+
+  /* ───────── TABLE ───────── */
+  .lesson-table {
+    width: 100%; border-collapse: collapse;
+    margin: 16px 0; font-size: 14px;
+  }
+  .lesson-table th {
+    text-align: left; padding: 10px 14px;
+    font-size: 10px; font-weight: 700;
+    letter-spacing: .14em; text-transform: uppercase;
+    color: var(--cyan);
+    border-bottom: 1px solid var(--cyan-border);
+  }
+  .lesson-table td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+    color: rgba(240,238,232,0.84);
+    vertical-align: top;
+  }
+  .lesson-table tr:last-child td { border-bottom: none; }
+  .lesson-table td strong { color: var(--text); font-weight: 700; }
+  .lesson-table .ok { color: var(--green); font-weight: 600; }
+  .lesson-table .push { color: var(--yellow); font-weight: 600; }
+
+  /* ───────── WARN BLOCK ───────── */
+  .warn-block {
+    background: var(--surface-2);
+    border: 1px solid var(--border-2);
+    border-left: 3px solid var(--red);
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin: 18px 0;
+    font-size: 14px;
+    line-height: 1.65;
+    color: rgba(240,238,232,0.82);
+  }
+  .warn-block strong { color: var(--red); font-weight: 700; }
+
+  /* ───────── PULL QUOTE ───────── */
+  .pull-quote {
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-size: clamp(16px, 2vw, 19px);
+    font-weight: 500;
+    font-style: italic;
+    color: var(--text);
+    line-height: 1.5;
+    border-left: 3px solid var(--cyan);
+    padding: 6px 0 6px 22px;
+    margin: 24px 0;
+  }
+
+  /* ───────── KEY NOTE ───────── */
+  .key-note {
+    margin: 36px 0 8px;
+    padding: 16px 20px 18px;
+    background: var(--green-dim);
+    border: 1px solid var(--green-border);
+    border-left: 3px solid var(--green);
+    border-radius: 10px;
+    box-shadow: 0 0 26px rgba(77,255,120,0.07);
+  }
+  .key-note-head {
+    display: flex; align-items: center; gap: 7px;
+    font-size: 11px; font-weight: 700;
+    letter-spacing: .2em; text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 9px;
+  }
+  .key-note-body {
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 1.65;
+    color: rgba(240,238,232,0.82);
+  }
+  .key-note-body strong { color: var(--text); font-weight: 700; }
+  .key-note-body em { color: var(--cyan); font-style: normal; font-weight: 500; }
+  .key-note-body a { color: var(--green); font-weight: 600; }
+  .key-note-body a:hover { color: var(--cyan); }
+
+  /* ───────── CTA CARD ───────── */
+  .cta-card {
+    background: linear-gradient(135deg, var(--cyan-faint), transparent);
+    border: 1px solid var(--cyan-border);
+    border-radius: 14px;
+    padding: 32px 28px;
+    margin: 44px 0 32px;
+    text-align: center;
+  }
+  .cta-eyebrow {
+    font-size: 10px; font-weight: 700;
+    letter-spacing: .26em; text-transform: uppercase;
+    color: var(--cyan);
+    margin-bottom: 10px;
+  }
+  .cta-title {
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-size: 26px; font-weight: 700;
+    letter-spacing: -.02em;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+  .cta-blurb {
+    font-size: 14px; color: rgba(240,238,232,0.7);
+    line-height: 1.6; max-width: 480px;
+    margin: 0 auto 22px;
+  }
+  .cta-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 12px; font-weight: 700;
+    letter-spacing: .12em; text-transform: uppercase;
+    text-decoration: none;
+    padding: 13px 26px;
+    border-radius: 8px;
+    background: var(--cyan);
+    color: #06222a;
+    transition: all .16s;
+  }
+  .cta-btn:hover { background: var(--green); color: #06220f; transform: translateY(-1px); }
+
+  /* ───────── PREV / NEXT ───────── */
+  .next-nav { display: flex; justify-content: space-between; gap: 14px; margin-top: 32px; }
+  .next-nav-card {
+    flex: 1;
+    background: var(--surface-2);
+    border: 1px solid var(--border-2);
+    border-radius: 10px;
+    padding: 16px 20px;
+    text-decoration: none;
+    transition: all .15s;
+  }
+  .next-nav-card:hover { border-color: var(--cyan-border); background: var(--surface-3); }
+  .next-nav-card .nav-label {
+    font-size: 9px; font-weight: 600;
+    letter-spacing: .2em; text-transform: uppercase;
+    color: var(--dim); margin-bottom: 6px;
+  }
+  .next-nav-card .nav-title { font-size: 15px; font-weight: 600; color: var(--text); }
+  .next-nav-card.next { text-align: right; }
+  @media (max-width: 560px) {
+    .next-nav { flex-direction: column; }
+    .next-nav-card.next { text-align: left; }
+  }
+
+  /* ───────── FOOTER ───────── */
+  .footer {
+    text-align: center;
+    margin-top: 56px;
+    padding: 28px 20px 0;
+    color: var(--dim);
+    font-size: 11px;
+    letter-spacing: .04em;
+    line-height: 1.7;
+    border-top: 1px solid var(--border);
+  }
+  .footer .disclaimer { max-width: 680px; margin: 0 auto 12px; }
+  .footer a { color: var(--muted); }
+  .footer a:hover { color: var(--cyan); }
+
+  /* ═══ SIDEBAR ═══ */
+  .pps-sidebar {
+    position: fixed; top: 0; left: 0; bottom: 0;
+    width: 240px; background: var(--surface);
+    border-right: 1px solid var(--border-2); z-index: 50;
+    transform: translateX(-100%);
+    transition: transform .3s cubic-bezier(.4,0,.2,1);
+    overflow-y: auto;
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  }
+  body.pps-sidebar-open .pps-sidebar { transform: translateX(0); }
+  body.pps-sidebar-open { padding-left: 240px; transition: padding-left .3s cubic-bezier(.4,0,.2,1); }
+  @media (max-width: 900px) {
+    body.pps-sidebar-open { padding-left: 0; }
+    .pps-sidebar { box-shadow: 4px 0 30px rgba(0,0,0,.7); width: 260px; }
+  }
+  .pps-sidebar-toggle {
+    position: fixed; top: 14px; left: 18px; z-index: 51;
+    background: var(--surface);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--border-2);
+    color: var(--text);
+    width: 38px; height: 38px;
+    border-radius: 6px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all .18s ease;
+  }
+  .pps-sidebar-toggle:hover { background: var(--surface-2); border-color: var(--cyan-border); color: var(--cyan); }
+  body.pps-sidebar-open .pps-sidebar-toggle { left: 256px; top: 14px; }
+  @media (max-width: 900px) { body.pps-sidebar-open .pps-sidebar-toggle { left: 276px; } }
+  .pps-sidebar-inner { padding: 22px 14px 30px; }
+  .pps-sidebar-brand {
+    display: flex; align-items: center; justify-content: center;
+    gap: 6px; color: var(--text); text-decoration: none;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 900; font-size: 13px;
+    letter-spacing: -.02em;
+    padding: 4px 0 16px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 14px;
+  }
+  .pps-sidebar-brand .accent { color: var(--green); }
+  .pps-sidebar-brand small { font-size: 8px; font-weight: 400; letter-spacing: .4em; text-transform: uppercase; color: var(--dim); margin-left: 6px; }
+  .pps-sidebar-brand:hover .accent { filter: brightness(1.1); }
+  .pps-sidebar-nav { display: flex; flex-direction: column; gap: 1px; }
+  .pps-nav-group-label {
+    font-size: 9px; text-transform: uppercase; letter-spacing: .22em;
+    color: var(--dim); padding: 14px 8px 6px;
+    margin-top: 2px; font-weight: 600;
+  }
+  .pps-nav-link {
+    display: flex; align-items: center; gap: 10px;
+    color: var(--muted); text-decoration: none;
+    padding: 7px 10px; border-radius: 4px;
+    font-size: 12px; font-weight: 400;
+    border-left: 2px solid transparent;
+    transition: all .15s ease;
+  }
+  .pps-nav-link:hover { background: var(--surface-2); color: var(--text); }
+  .pps-nav-link.active { background: var(--green-faint); color: var(--green); border-left-color: var(--green); font-weight: 500; }
+  .pps-nav-num { font-family: 'Space Grotesk', system-ui, sans-serif; font-size: 10px; color: var(--dim); font-weight: 500; min-width: 18px; }
+  .pps-nav-group { margin: 1px 0; }
+  .pps-nav-group summary {
+    list-style: none; cursor: pointer;
+    padding: 7px 10px; font-size: 12px;
+    color: var(--muted); border-radius: 4px;
+    display: flex; align-items: center; justify-content: space-between;
+    transition: all .15s ease; user-select: none;
+    font-weight: 500;
+  }
+  .pps-nav-group summary::-webkit-details-marker { display: none; }
+  .pps-nav-group summary::after { content: '▾'; font-size: 9px; color: var(--dim); transition: transform .2s ease; }
+  .pps-nav-group[open] summary::after { transform: rotate(180deg); }
+  .pps-nav-group summary:hover { background: var(--surface-2); color: var(--text); }
+  .pps-nav-group .pps-nav-link { padding: 5px 10px 5px 22px; font-size: 11px; }
+  .pps-path-group > summary { font-weight: 600; }
+  .pps-path-group .pps-path-label { display: inline-flex; align-items: center; gap: 10px; }
+  .pps-path-group.path-blue > summary .pps-nav-num { color: var(--cyan); }
+  .pps-path-group.path-green > summary .pps-nav-num { color: var(--green); }
+  .pps-path-group.path-gold > summary .pps-nav-num { color: var(--yellow); }
+  .pps-path-group.path-blue[open] > summary { color: var(--cyan); }
+  .pps-path-group.path-green[open] > summary { color: var(--green); }
+  .pps-path-group.path-gold[open] > summary { color: var(--yellow); }
+  .pps-sidebar::-webkit-scrollbar { width: 6px; }
+  .pps-sidebar::-webkit-scrollbar-track { background: transparent; }
+  .pps-sidebar::-webkit-scrollbar-thumb { background: var(--border-2); border-radius: 3px; }
+
+  @media (max-width: 640px) {
+    .card { padding-top: 60px; }
+  }
+</style>
+</head>
+<body>
+
+
+<!-- ═══ SIDEBAR NAVIGATION ═══ -->
+<button class="pps-sidebar-toggle" aria-label="Toggle navigation" id="ppsSidebarToggle">
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M2 4h12M2 8h12M2 12h12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+  </svg>
+</button>
+<aside class="pps-sidebar" id="ppsSidebar">
+  <div class="pps-sidebar-inner">
+    <a class="pps-sidebar-brand" href="/index.html">
+      <span>PROFIT<span class="accent">PATH</span></span>
+      <small>Sports</small>
+    </a>
+    <nav class="pps-sidebar-nav">
+      <a class="pps-nav-link" href="/index.html">Home</a>
+      <a class="pps-nav-link" href="/free-money-guide.html" style="color: var(--green); font-weight: 500;">★ Free Money Guide</a>
+      <div class="pps-nav-group-label">Paths</div>
+      <details class="pps-nav-group pps-path-group path-blue" open>
+        <summary data-anchor="paths"><span class="pps-path-label"><span class="pps-nav-num">01</span> Begin</span></summary>
+        <a class="pps-nav-link" href="/lane-new.html">Path Overview</a>
+        <a class="pps-nav-link" href="/learn-odds.html">Odds Formats</a>
+        <a class="pps-nav-link" href="/learn-implied.html">Implied Probability</a>
+        <a class="pps-nav-link" href="/learn-vig.html">The Vig</a>
+        <a class="pps-nav-link" href="/learn-ev.html">+EV</a>
+        <a class="pps-nav-link" href="/learn-clv.html">CLV</a>
+        <a class="pps-nav-link" href="/learn-kelly.html">Kelly Criterion</a>
+        <a class="pps-nav-link" href="/learn-parlays.html">Parlays</a>
+        <a class="pps-nav-link active" href="/learn-props.html">Prop Bets</a>
+      </details>
+      <details class="pps-nav-group pps-path-group path-green">
+        <summary data-anchor="paths"><span class="pps-path-label"><span class="pps-nav-num">02</span> Convert</span></summary>
+        <a class="pps-nav-link" href="/lane-bonus.html">Path Overview</a>
+        <a class="pps-nav-link" href="/learn-bonus.html">Bonus Conversion</a>
+        <a class="pps-nav-link" href="/learn-bonus-types.html">Bonus Types</a>
+        <a class="pps-nav-link" href="/learn-bonus-traps.html">Bonus Traps</a>
+        <a class="pps-nav-link" href="/learn-bonus-walkthrough.html">Walkthrough</a>
+        <a class="pps-nav-link" href="/learn-finding-bonus-bets.html">Finding Bonus Bets</a>
+        <a class="pps-nav-link" href="/learn-bonus-step-by-step.html">Step-by-Step</a>
+        <a class="pps-nav-link" href="/learn-prop-void-rules.html">Prop Void Rules</a>
+      </details>
+      <details class="pps-nav-group pps-path-group path-gold">
+        <summary data-anchor="paths"><span class="pps-path-label"><span class="pps-nav-num">03</span> Maintain</span></summary>
+        <a class="pps-nav-link" href="/lane-maintain.html">Path Overview</a>
+        <a class="pps-nav-link" href="/learn-prob-gap-vs-ev.html">Prob Gap vs EV</a>
+        <a class="pps-nav-link" href="/learn-arbitrage.html">Arbitrage</a>
+        <a class="pps-nav-link" href="/learn-middles.html">Middles</a>
+        <a class="pps-nav-link" href="/learn-betting-vs-trading.html">Betting vs Trading</a>
+        <a class="pps-nav-link" href="/learn-alt-ladder.html">Alt Ladder</a>
+        <a class="pps-nav-link" href="/learn-alt-lines.html">Alt Lines</a>
+        <a class="pps-nav-link" href="/learn-cross-market-ev.html">Cross-Market EV</a>
+        <a class="pps-nav-link" href="/learn-exchange-liquidity.html">Exchange Liquidity</a>
+        <a class="pps-nav-link" href="/learn-futures.html">Futures</a>
+        <a class="pps-nav-link" href="/learn-finding-bets.html">Finding +EV Bets</a>
+        <a class="pps-nav-link" href="/learn-manual-scan.html">Manual Scan</a>
+        <a class="pps-nav-link" href="/learn-top-down-bottom-up.html">Top-Down / Bottom-Up</a>
+        <a class="pps-nav-link" href="/learn-wide-markets.html">Wide Markets</a>
+      </details>
+      <details class="pps-nav-group">
+        <summary data-anchor="tools">Calculators</summary>
+        <a class="pps-nav-link" href="/bet-x-ray.html">Bet X-Ray</a>
+        <a class="pps-nav-link" href="/ev-calculator.html">EV Calculator</a>
+        <a class="pps-nav-link" href="/devig_calculator.html">Devig</a>
+        <a class="pps-nav-link" href="/kelly-calculator.html">Kelly Sizer</a>
+        <a class="pps-nav-link" href="/arb-calculator.html">Arbitrage</a>
+        <a class="pps-nav-link" href="/hedge-calculator.html">Hedge</a>
+        <a class="pps-nav-link" href="/middle-calculator.html">Middle</a>
+        <a class="pps-nav-link" href="/dfs-slip-checker.html">DFS Slip Checker</a>
+        <a class="pps-nav-link" href="/parlay-calculator.html">Parlay</a>
+        <a class="pps-nav-link" href="/edge-finder.html">Edge Finder</a>
+        <a class="pps-nav-link" href="/long-run-simulator.html">Long-Run Sim</a>
+        <a class="pps-nav-link" href="/bet-tracker.html">Bet Tracker</a>
+        <a class="pps-nav-link" href="/consensus-calculator.html">Consensus</a>
+        <a class="pps-nav-link" href="/bonus-converter.html">Bonus Converter</a>
+        <a class="pps-nav-link" href="/odds_calculator.html">Odds Converter</a>
+      </details>
+      <details class="pps-nav-group">
+        <summary>Sportsbooks</summary>
+        <a class="pps-nav-link" href="/book-draftkings.html">DraftKings</a>
+        <a class="pps-nav-link" href="/book-fanduel.html">FanDuel</a>
+        <a class="pps-nav-link" href="/book-hardrock.html">Hard Rock</a>
+        <a class="pps-nav-link" href="/book-betmgm.html">BetMGM</a>
+        <a class="pps-nav-link" href="/book-prophetx.html">ProphetX</a>
+      </details>
+      <details class="pps-nav-group">
+        <summary data-anchor="guides">Deep Dives</summary>
+        <a class="pps-nav-link" href="/learn-cross-market-ev.html">Cross-Market EV</a>
+        <a class="pps-nav-link" href="/learn-parlays.html">Parlays &amp; SGPs</a>
+        <a class="pps-nav-link" href="/learn-alt-lines.html">Same Bet, Two Prices</a>
+        <a class="pps-nav-link" href="/learn-alt-ladder.html">Shopping the Alt Ladder</a>
+        <a class="pps-nav-link" href="/learn-top-down-bottom-up.html">Top-Down vs Bottom-Up</a>
+        <a class="pps-nav-link" href="/learn-prob-gap-vs-ev.html">Probability Gap vs EV</a>
+        <a class="pps-nav-link" href="/learn-betting-vs-trading.html">EV Betting vs Trading</a>
+        <a class="pps-nav-link" href="/learn-arbitrage.html">Arbitrage Betting</a>
+        <a class="pps-nav-link" href="/learn-middles.html">Middles</a>
+        <a class="pps-nav-link" href="/learn-futures.html">Futures Betting</a>
+      </details>
+    </nav>
+  </div>
+</aside>
+<!-- ═══ END SIDEBAR ═══ -->
+
+<div class="card">
+
+  <div class="header">
+    <div class="header-meta">
+      <a href="/index.html#start" class="back-link">← Back to Paths</a>
+      <span class="header-eyebrow">Path 01 · Prop Bets</span>
+    </div>
+    <div class="title-row">
+      <h1>Prop Bets</h1>
+    </div>
+    <p class="lesson-sub">
+      <span>A prop bet isn't on who wins — it's on a number a player or team produces.</span>
+      <span class="accent">It's the market most casual bettors live in, and the one books price the loosest.</span>
+      <span>How to read a prop line, why the numbers are tricky, and where the edges hide.</span>
+    </p>
+  </div>
+
+  <section class="lesson-section">
+    <h3>What a prop is</h3>
+    <div class="lesson-body">
+      <p>A <strong>prop</strong> — short for <em>proposition bet</em> — isn't a bet on the final score or who wins. It's a bet on a specific number a player or team produces, or on whether some event happens at all.</p>
+      <p>Three common kinds:</p>
+      <ul>
+        <li><strong>Player props</strong> — Patrick Mahomes over 2.5 passing TDs, LeBron over 27.5 points, a pitcher over 6.5 strikeouts.</li>
+        <li><strong>Team props</strong> — the Lakers' team total over 112.5, a team to score first.</li>
+        <li><strong>Game props</strong> — will the game go to overtime, will there be a defensive or special-teams TD.</li>
+      </ul>
+      <p>Casual bettors love props because they're tied to watching one player do one thing. That's also exactly why books are happy to offer thousands of them — most are bet on vibes, not numbers. Which is the opportunity, once you can read them properly.</p>
+    </div>
+  </section>
+
+  <section class="lesson-section">
+    <h3>Reading a prop line — the notation trap</h3>
+    <div class="lesson-body">
+      <p>Here's the thing that trips up new bettors: <strong>the same bet gets written several different ways</strong>, and books aren't consistent about which they show.</p>
+      <p>"Over 16.5 points" and "17+ points" are the <em>identical bet</em>. Both win on 17 or more, both lose on 16 or fewer. One book lists a half-point line, another lists a "plus" threshold — same wager, different label.</p>
+
+      <div class="math-block">
+        <span class="label">The same bet, three ways of writing it</span>
+        <span class="accent">Over 16.5</span> &nbsp;=&nbsp; <span class="accent">17+</span> &nbsp;=&nbsp; needs <span class="pos">17 or more</span><br>
+        <span class="accent">Under 16.5</span> &nbsp;=&nbsp; <span class="accent">16 or fewer</span> &nbsp;=&nbsp; needs <span class="pos">16 or fewer</span>
+      </div>
+
+      <p>The part that actually costs people money is the difference between a <strong>half-point line and a whole-number line</strong>. A half-point line (16.5) can never tie — every result is either over or under it. A whole-number line (17) <em>can</em> tie: if the player lands on exactly 17, the bet <strong>pushes</strong> and your stake is refunded.</p>
+
+      <table class="lesson-table">
+        <thead>
+          <tr><th>You'll see it as</th><th>It means</th><th>Can it push?</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Over 16.5 &nbsp;/&nbsp; 17+</td><td>Win on <strong>17 or more</strong></td><td><span class="ok">No — half-point</span></td></tr>
+          <tr><td>Under 16.5 &nbsp;/&nbsp; 16 or fewer</td><td>Win on <strong>16 or fewer</strong></td><td><span class="ok">No — half-point</span></td></tr>
+          <tr><td>Over 17</td><td>Win on <strong>18 or more</strong></td><td><span class="push">Yes — exactly 17 refunds</span></td></tr>
+          <tr><td>Under 17</td><td>Win on <strong>16 or fewer</strong></td><td><span class="push">Yes — exactly 17 refunds</span></td></tr>
+        </tbody>
+      </table>
+
+      <div class="warn-block">
+        <strong>Watch the half-point.</strong> "Over 17" and "Over 16.5" look almost identical but they are not the same bet — "Over 17" needs <em>18</em>, and a result of exactly 17 gives you your money back instead of a win. Always confirm whether the number you're betting is a whole number or a half-point before you compare prices across books.
+      </div>
+    </div>
+  </section>
+
+  <section class="lesson-section">
+    <h3>Props don't land on every number</h3>
+    <div class="lesson-body">
+      <p>A side or total is the sum of a whole game's scoring, so it behaves almost like a smooth, continuous number. Props often don't. A single player's stat line is <strong>discrete and chunky</strong> — it jumps in steps, and some numbers are far more common than others.</p>
+      <p>Receiving yards land all over the place, so a yards prop is nearly smooth. But <em>receptions</em>, <em>made threes</em>, <em>touchdowns</em>, <em>strikeouts</em> come in small whole numbers — and the gap between "Over 0.5 TDs" and "Over 1.5 TDs" is an enormous jump in probability, not a small one.</p>
+      <p>This is why alternate prop lines have to be priced individually rather than slid up and down by a fixed amount — and why a "wide-looking" gap on a discrete stat can be far narrower in real probability than it looks. The <a href="/learn-middles.html">Middles</a> lesson breaks down the smooth-vs-clustered distinction in full; it applies directly to props.</p>
+    </div>
+  </section>
+
+  <section class="lesson-section">
+    <h3>Props are soft — and that cuts both ways</h3>
+    <div class="lesson-body">
+      <p>A sportsbook puts its sharpest pricing on the main side and total of big games — that's where the most money moves and where sharp bettors attack. But it also offers <em>thousands</em> of player props every night, and it can't price them all with the same care.</p>
+      <p>That makes props the <strong>softest market on the board</strong>. Prop lines move slower, lag injury and role news longer, and are more often simply wrong. For a bettor who isn't a full-time pro, props are where a real edge is most likely to be found.</p>
+      <p>But "soft" doesn't mean "free." Two costs come with the territory:</p>
+      <ul>
+        <li><strong>Higher vig.</strong> Props routinely carry 6–8% vig or more — versus 4–5% on a mainline. Your edge has to clear a taller hurdle just to break even.</li>
+        <li><strong>Over-only listings.</strong> Many props only show the Over price on screen. To <a href="/learn-vig.html">devig</a> one you need both sides — pull the Under from the alt ladder or from a sharper book.</li>
+      </ul>
+      <p>And one more, covered in the Key Point below: props are the fastest way to get your account limited.</p>
+    </div>
+  </section>
+
+  <section class="lesson-section">
+    <h3>What sharps do about props</h3>
+    <div class="lesson-body">
+      <ul>
+        <li><strong>They devig a sharp book, not the one they're betting.</strong> A prop line at a soft book (BetMGM, Bet365) isn't the fair price — they devig the same prop at a sharp book (Pinnacle, Circa) to get the true number, then check whether the soft book's price beats it.</li>
+        <li><strong>They line-shop hard.</strong> Prop lines vary between books far more than mainlines do — the same player can be Over 23.5 at one book and Over 25.5 at another. Half a point on a prop is a real edge.</li>
+        <li><strong>They demand a bigger edge.</strong> Because the vig is higher, a prop needs more margin than a mainline before it clears +EV.</li>
+        <li><strong>They expect limits and spread their action.</strong> Books profile prop bettors aggressively — a winning prop player gets cut faster than anyone.</li>
+      </ul>
+
+      <p class="pull-quote">Props are where the soft lines live — which means they're also where the books are watching hardest.</p>
+
+      <div class="key-note">
+        <div class="key-note-head">★ Key Point — Props Are Soft, Not Free</div>
+        <div class="key-note-body">
+          Props are the loosest-priced market a sportsbook offers, so for most bettors they're the <em>most likely place to find a real edge</em>. But two things eat into it: the vig runs <strong>6–8%+</strong> instead of 4–5%, so your edge has to be bigger to matter — and consistent prop winners get their accounts <strong>limited faster than anywhere else</strong>, because books watch this market closely. So treat props as the opportunity they are, but earn it: <a href="/learn-vig.html">devig</a> a sharp book for the true number, demand an edge that clears the higher juice, and don't expect a winning prop account to stay un-limited for long.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="cta-card">
+    <div class="cta-eyebrow">Check a prop properly</div>
+    <div class="cta-title">Run a prop through Bet X-Ray</div>
+    <p class="cta-blurb">Paste the prop's price and a sharp book's line. Bet X-Ray strips the vig, returns the true probability and the EV, and tells you whether the prop is actually worth betting — or just fun to watch.</p>
+    <a href="/bet-x-ray.html" class="cta-btn">Open Bet X-Ray →</a>
+  </div>
+
+  <div class="next-nav">
+    <a class="next-nav-card" href="/learn-parlays.html">
+      <div class="nav-label">← Previous</div>
+      <div class="nav-title">Parlays &amp; SGPs</div>
+    </a>
+    <a class="next-nav-card next" href="/index.html#tools">
+      <div class="nav-label">Next →</div>
+      <div class="nav-title">Open the Toolbox</div>
+    </a>
+  </div>
+
+  <div class="footer">
+    <div class="disclaimer">
+      PROFITPATH Sports is an educational resource. Vig and limit practices vary by book, market, and date — figures here reflect typical industry ranges, not a guarantee on any specific bet. Sports betting carries financial risk. Bet responsibly. If gambling is a problem for you, call <strong>1-800-GAMBLER</strong>. Must be 21+ where legal.
+    </div>
+    <div>© 2026 PROFITPATH Sports · <a href="/index.html">Home</a> · <a href="/index.html#start">Path 01 · Begin</a> &middot; <a href="/privacy.html">Privacy</a> &middot; <a href="/disclaimer.html">Disclaimer</a> &middot; <a href="/affiliate-disclosure.html">Affiliate</a></div>
+  </div>
+
+</div>
+
+<script>
+  /* Sidebar behavior */
+  (function() {
+    var body = document.body;
+    var toggle = document.getElementById('ppsSidebarToggle');
+    var path = window.location.pathname.replace(/\/$/, '') || '/index.html';
+    var isHome = (path === '/index.html' || path === '' || path === '/');
+
+    document.querySelectorAll('.pps-sidebar .pps-nav-link').forEach(function(link) {
+      var href = link.getAttribute('href');
+      if (href === path || (isHome && href === '/index.html')) {
+        link.classList.add('active');
+        var parent = link.closest('details');
+        if (parent) parent.open = true;
+      }
+    });
+
+    toggle.addEventListener('click', function() {
+      body.classList.toggle('pps-sidebar-open');
+    });
+
+    var isDesktop = window.matchMedia('(min-width: 901px)').matches;
+    if (isDesktop && !isHome) {
+      body.classList.add('pps-sidebar-open');
+    }
+
+    document.addEventListener('click', function(e) {
+      if (window.innerWidth >= 901) return;
+      if (!body.classList.contains('pps-sidebar-open')) return;
+      var sidebar = document.getElementById('ppsSidebar');
+      if (sidebar && !sidebar.contains(e.target) && e.target !== toggle && !toggle.contains(e.target)) {
+        body.classList.remove('pps-sidebar-open');
+      }
+    });
+  })();
+</script>
+
+</body>
+</html>
