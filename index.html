@@ -2385,17 +2385,19 @@
     -webkit-text-fill-color: var(--cyan);
   }
   .path-fork-title {
-    font-family: 'DM Serif Display', serif;
-    font-weight: 400; font-style: normal;
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-weight: 700; font-style: normal;
     font-size: clamp(28px, 3.8vw, 44px);
-    line-height: 1.1;
-    color: var(--text);
+    line-height: 1.15;
     margin-bottom: 14px;
-    letter-spacing: -.005em;
+    letter-spacing: -.02em;
     text-transform: none;
-    background: none;
-    -webkit-background-clip: unset; background-clip: unset;
-    -webkit-text-fill-color: var(--text);
+    padding-bottom: 0.06em;
+    background: linear-gradient(95deg, var(--green) 0%, var(--cyan) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
   }
   .path-fork-sub {
     font-family: 'Plus Jakarta Sans', sans-serif;
@@ -2928,7 +2930,7 @@
 
       <div class="path-fork-intro" id="paths">
         <div class="path-fork-eyebrow">Start here</div>
-        <h2 class="path-fork-title">Choose your path.</h2>
+        <h2 class="path-fork-title">Choose your path</h2>
         <p class="path-fork-sub">Three stages, recommended in order. Skip what you already know — absorb what you don't.</p>
       </div>
 
