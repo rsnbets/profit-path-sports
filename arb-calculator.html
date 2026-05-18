@@ -3,363 +3,546 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>⚡ Arb Calculator</title>
-  <meta name="description" content="Arbitrage calculator — find guaranteed-profit pairs between two books with opposite sides. Enter both odds, get exact stake sizing and locked-in return. Free, no signup.">
-  <meta property="og:type" content="article">
-  <meta property="og:title" content="⚡ Arb Calculator">
-  <meta property="og:description" content="Find guaranteed-profit pairs between books — instant stake sizing and locked-in return.">
-  <meta property="og:image" content="https://profitpathsports.com/images/og-default.png">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta property="og:url" content="https://profitpathsports.com/arb-calculator.html">
-  <meta property="og:site_name" content="Profit Path Sports">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="⚡ Arb Calculator">
-  <meta name="twitter:description" content="Find guaranteed-profit pairs between books — instant stake sizing and locked-in return.">
-  <meta name="twitter:image" content="https://profitpathsports.com/images/og-default.png">
-<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
-<style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+<title>Arbitrage Calculator — Lock Guaranteed Profit | PROFITPATH Sports</title>
+<meta name="description" content="Arbitrage calculator — find guaranteed-profit pairs between two books with opposite sides. Enter both odds, get the exact stake split and locked-in return. Free, no signup.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Arbitrage Calculator — Lock Guaranteed Profit | PROFITPATH Sports">
+<meta property="og:description" content="Find guaranteed-profit pairs between books — instant stake sizing and locked-in return. Free, no signup.">
+<meta property="og:image" content="https://profitpathsports.com/images/og-default.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://profitpathsports.com/arb-calculator.html">
+<meta property="og:site_name" content="PROFITPATH Sports">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Arbitrage Calculator — Lock Guaranteed Profit">
+<meta name="twitter:description" content="Find guaranteed-profit pairs between books — instant stake sizing and locked-in return.">
+<meta name="twitter:image" content="https://profitpathsports.com/images/og-default.png">
+<meta name="theme-color" content="#090909">
 
+<link rel="icon" type="image/svg+xml" href="/logo.svg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
   :root {
-    --bg:      #0D1117;
-    --surface: #161B22;
-    --inset:   #1C2430;
-    --border:  #30363D;
-    --blue:    #58A6FF;
-    --gold:    #D29922;
-    --green:   #3FB950;
-    --red:     #F85149;
-    --purple:  #BC8CFF;
-    --text:    #E6EDF3;
-    --muted:   #8B949E;
+    --green: #4DFF78;
+    --green-dim: rgba(77,255,120,0.15);
+    --green-faint: rgba(77,255,120,0.06);
+    --green-border: rgba(77,255,120,0.22);
+    --cyan: #00D4FF;
+    --cyan-dim: rgba(0,212,255,0.12);
+    --cyan-faint: rgba(0,212,255,0.04);
+    --cyan-border: rgba(0,212,255,0.22);
+    --red: #FF3D3D;
+    --yellow: #F5B545;
+    --bg: #090909;
+    --surface: #0D0D0D;
+    --surface-2: #141414;
+    --surface-3: #1C1C1C;
+    --border: rgba(255,255,255,0.05);
+    --border-2: rgba(255,255,255,0.08);
+    --text: #F0EEE8;
+    --muted: rgba(255,255,255,0.42);
+    --dim: rgba(255,255,255,0.25);
   }
 
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
   body {
     background: var(--bg);
     color: var(--text);
-    font-family: 'Rajdhani', sans-serif;
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    font-weight: 300;
     min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 2rem 1rem;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  .out-value, .input-cell input, .input-sub { font-variant-numeric: tabular-nums; }
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 999;
+    opacity: 0.025;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 
-  /* "How to use" pieces */
-  .how-to-jump { display: block; text-align: center; width: fit-content; margin: 14px auto 0; font-family: 'Orbitron', sans-serif; font-size: 10px; letter-spacing: 2px; color: var(--muted); text-decoration: none; text-transform: uppercase; padding: 10px 18px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface, var(--bg)); transition: all 0.15s; }
-  .how-to-jump:hover { color: var(--blue, #3d8bff); border-color: var(--blue, #3d8bff); transform: translateY(-1px); }
-  .how-to-use { max-width: 720px; margin: 24px auto 60px; padding: 28px 32px; background: var(--surface); border: 1px solid var(--border); border-radius: 16px; scroll-margin-top: 20px; }
-  .how-to-eyebrow { font-family: 'Orbitron', sans-serif; font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--blue, #3d8bff); font-weight: 700; margin-bottom: 8px; }
-  .how-to-use h3 { font-family: 'Orbitron', sans-serif; font-size: 17px; font-weight: 800; letter-spacing: 1.5px; color: var(--text); margin: 0 0 16px; text-transform: uppercase; }
-  .how-to-steps { margin: 0 0 18px; padding-left: 22px; font-family: system-ui, -apple-system, sans-serif; font-size: 15px; line-height: 1.65; color: var(--text); }
-  .how-to-steps li { margin-bottom: 8px; }
-  .how-to-steps strong { color: var(--blue, #3d8bff); font-weight: 600; }
-  .how-to-note { font-family: system-ui, -apple-system, sans-serif; font-size: 14px; line-height: 1.55; color: var(--muted); background: var(--bg); border-left: 3px solid var(--blue, #3d8bff); border-radius: 0 8px 8px 0; padding: 14px 18px; }
-  .how-to-note em { color: var(--blue, #3d8bff); font-style: normal; font-weight: 600; }
-  .how-to-note strong { color: var(--text); font-weight: 600; }
+  a { color: var(--cyan); text-decoration: none; }
+  a:hover { color: var(--green); }
 
+  /* ───────── CARD ───────── */
   .card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    width: 100%;
-    max-width: 820px;
-    overflow: hidden;
-  }
-
-  /* ── Header ── */
-  .header {
-    background: var(--bg);
-    padding: 1.75rem 2rem 1.5rem;
-    border-bottom: 1px solid var(--border);
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 32px 40px 80px;
     position: relative;
-    text-align: center;
   }
-  .header::after {
+  @media (max-width: 640px) { .card { padding: 60px 20px 60px; } }
+
+  /* ───────── HEADER ───────── */
+  .header { margin-bottom: 36px; }
+  .header-meta {
+    display: flex; align-items: center; gap: 18px;
+    margin-bottom: 22px; flex-wrap: wrap;
+  }
+  .back-link {
+    font-size: 11px; font-weight: 500;
+    letter-spacing: .18em; text-transform: uppercase;
+    color: var(--dim); transition: color .15s;
+  }
+  .back-link:hover { color: var(--cyan); }
+  .header-eyebrow {
+    font-size: 10px; font-weight: 600;
+    letter-spacing: .28em; text-transform: uppercase;
+    color: var(--cyan);
+  }
+  .help-pill {
+    margin-left: auto;
+    background: transparent;
+    color: var(--cyan);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 10px; font-weight: 600;
+    letter-spacing: .14em; text-transform: uppercase;
+    padding: 7px 16px;
+    border: 1px solid var(--cyan-border);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all .18s;
+  }
+  .help-pill:hover { background: var(--cyan-dim); color: var(--green); border-color: var(--green-border); }
+
+  .title-row {
+    display: flex; align-items: flex-end; justify-content: center;
+    gap: 16px; margin-bottom: 14px; flex-wrap: wrap; position: relative;
+  }
+  .title-row::before {
     content: '';
     position: absolute;
-    bottom: 0; left: 0; right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, var(--blue), transparent);
+    left: 50%; top: 50%;
+    width: 620px; height: 220px;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(ellipse at center,
+                  rgba(77,255,120,0.18) 0%,
+                  rgba(0,212,255,0.10) 35%,
+                  rgba(77,255,120,0) 70%);
+    filter: blur(28px);
+    pointer-events: none;
+    z-index: 0;
   }
-  .title {
-    font-size: 2rem;
+  .title-row > * { position: relative; z-index: 1; }
+  .header h1 {
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-size: clamp(40px, 6vw, 66px);
+    line-height: 1.1;
+    letter-spacing: -.025em;
     font-weight: 700;
-    letter-spacing: 0.08em;
-    color: var(--blue);
-    text-transform: uppercase;
+    margin: 0;
+    padding-bottom: 0.08em;
+    background: linear-gradient(95deg, var(--green) 0%, var(--cyan) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
   }
-  .title-sub { font-family: 'IBM Plex Sans', sans-serif; font-size: 14px; color: var(--muted); line-height: 1.6; max-width: 620px; margin: 12px auto 0; padding: 0 14px; text-align: center; }
-  .title-sub strong { color: var(--text); font-weight: 600; }
-
-  /* ── Status banner ── */
-  .status-bar {
-    padding: 0.6rem 1.75rem;
-    font-size: 0.8rem;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    text-align: center;
-    background: var(--inset);
-    border-bottom: 1px solid var(--border);
-    transition: color 0.3s, background 0.3s;
-  }
-
-  /* ── Inputs row ── */
-  .inputs-section {
-    padding: 1.4rem 1.75rem 1rem;
-    border-bottom: 1px solid var(--border);
-  }
-  .section-label {
-    font-size: 0.7rem;
-    font-weight: 600;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
+  .tagline {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: clamp(14px, 1.6vw, 17px);
     color: var(--muted);
-    margin-bottom: 1rem;
+    font-weight: 300;
+    line-height: 1.55;
+    max-width: 780px;
+    margin: 0 auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
   }
+  .tagline .mono { font-family: 'Space Grotesk', system-ui, sans-serif; color: var(--cyan); }
+
+  /* ───────── BODY ───────── */
+  .body { display: flex; flex-direction: column; gap: 24px; }
+
+  .step {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px 26px;
+    transition: border-color .25s;
+  }
+  .step:hover { border-color: var(--border-2); }
+  .step-head { margin-bottom: 20px; }
+  .step-num {
+    display: block;
+    font-size: 10px; font-weight: 600;
+    letter-spacing: .28em; text-transform: uppercase;
+    color: var(--cyan);
+    margin-bottom: 6px;
+  }
+  .step-title {
+    display: block;
+    font-weight: 700;
+    font-size: clamp(19px, 2.2vw, 23px);
+    color: var(--text);
+    line-height: 1.15;
+    margin-bottom: 4px;
+    letter-spacing: -.005em;
+  }
+  .step-sub {
+    display: block;
+    font-size: 13px; font-weight: 300;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  /* ───────── TOOLBAR / PILLS ───────── */
+  .sub-toolbar {
+    display: flex; align-items: center;
+    gap: 10px; flex-wrap: wrap;
+    margin-bottom: 16px;
+  }
+  .sub-label {
+    font-size: 10px; font-weight: 600;
+    letter-spacing: .22em; text-transform: uppercase;
+    color: var(--cyan);
+  }
+  .pill-group { display: inline-flex; gap: 5px; flex-wrap: wrap; }
+  .pill {
+    background: var(--surface-2);
+    color: var(--muted);
+    border: 1px solid var(--border-2);
+    border-radius: 6px;
+    padding: 8px 15px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 11px; font-weight: 600;
+    letter-spacing: .06em;
+    cursor: pointer;
+    transition: all .16s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .pill:hover { color: var(--cyan); border-color: var(--cyan-border); background: var(--cyan-faint); }
+  .pill:active { transform: translateY(1px); }
+  .pill.active {
+    background: var(--cyan-dim);
+    color: var(--cyan);
+    border-color: var(--cyan);
+    box-shadow: 0 0 0 1px var(--cyan-border), 0 2px 14px rgba(0,212,255,0.14);
+  }
+
+  /* ───────── INPUTS ───────── */
   .inputs-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 1rem;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
   }
-  .input-group {}
-  .input-label {
-    font-size: 0.72rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 0.35rem;
+  @media (max-width: 640px) { .inputs-grid { grid-template-columns: 1fr; } }
+  .inputs-grid.cols-1 { grid-template-columns: 1fr; max-width: 320px; }
+  .input-cell label {
+    display: block;
+    font-size: 11px; font-weight: 600;
+    letter-spacing: .18em; text-transform: uppercase;
+    color: var(--cyan);
+    margin-bottom: 7px;
   }
-  .odds-input {
+  .input-cell input {
     width: 100%;
-    background: var(--inset);
-    border: none;
-    border-bottom: 2px solid var(--border);
-    color: var(--text);
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 1.5rem;
-    font-weight: 600;
-    padding: 0.45rem 0.75rem;
-    border-radius: 6px 6px 0 0;
-    outline: none;
-    transition: border-color 0.2s;
     text-align: center;
-  }
-  #book1Odds  { color: var(--blue);   border-bottom-color: var(--blue); }
-  #book2Odds  { color: var(--purple); border-bottom-color: var(--purple); }
-  #totalStake { color: var(--gold);   border-bottom-color: var(--gold); }
-  #book1Odds:focus  { border-bottom-color: var(--blue); }
-  #book2Odds:focus  { border-bottom-color: var(--purple); }
-  #totalStake:focus { border-bottom-color: var(--gold); }
-
-  .implied-prob {
-    margin-top: 0.35rem;
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.75rem;
-    color: var(--muted);
-    text-align: center;
-  }
-  .implied-prob strong { color: var(--text); }
-
-  /* ── Results grid ── */
-  .results-section {
-    display: grid;
-    grid-template-columns: 1fr 1px 1fr;
-    border-bottom: 1px solid var(--border);
-  }
-  .results-divider { background: var(--border); }
-  .results-panel { padding: 1.4rem 1.75rem; }
-
-  .results-cols {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0.75rem;
-    margin-bottom: 0.75rem;
-  }
-
-  .result-card {
-    background: var(--inset);
-    border: 1px solid var(--border);
+    background: #161616;
+    border: 1px solid rgba(255,255,255,0.18);
+    border-bottom: 2px solid rgba(0,212,255,0.32);
     border-radius: 8px;
-    padding: 0.65rem 0.75rem;
+    color: var(--text);
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-size: 24px; font-weight: 600;
+    padding: 16px 12px;
+    transition: border-color .18s, background .18s, box-shadow .18s;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.03);
   }
-  .result-card-label {
-    font-size: 0.68rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
+  .input-cell input::placeholder { color: rgba(255,255,255,0.40); font-weight: 400; }
+  .input-cell input:hover {
+    border-color: rgba(0,212,255,0.45);
+    border-bottom-color: var(--cyan);
+    background: #1B1B1B;
+  }
+  .input-cell input:focus {
+    outline: none;
+    border-color: var(--cyan);
+    border-bottom-color: var(--cyan);
+    background: #1F1F1F;
+    box-shadow: 0 0 0 3px rgba(0,212,255,0.18), inset 0 1px 0 rgba(255,255,255,0.05);
+  }
+  .input-cell input.invalid {
+    border-color: rgba(255,61,61,0.55);
+    border-bottom-color: var(--red);
+    color: var(--red);
+  }
+  .input-sub {
+    text-align: center;
+    font-size: 11px; font-weight: 400;
+    color: var(--dim);
+    margin-top: 7px;
+    letter-spacing: .03em;
+  }
+  .input-sub b { color: var(--muted); font-weight: 600; }
+  .input-hint {
+    font-size: 12px; font-weight: 300;
+    color: var(--dim);
+    margin-top: 12px;
+    letter-spacing: .02em;
+  }
+  .input-hint b { color: var(--muted); font-weight: 600; }
+
+  /* ───────── STATUS BANNER ───────── */
+  .status-banner {
+    margin-top: 16px;
+    padding: 14px 18px;
+    border-radius: 8px;
+    background: var(--surface-2);
+    border: 1px solid var(--border-2);
+    border-left: 3px solid var(--dim);
+    font-size: 13px; font-weight: 600;
+    letter-spacing: .02em;
     color: var(--muted);
-    margin-bottom: 0.2rem;
+    transition: all .25s;
   }
-  .result-card-val {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 1.25rem;
-    font-weight: 600;
+  .status-banner.positive { border-left-color: var(--green); background: var(--green-faint); color: var(--green); }
+  .status-banner.negative { border-left-color: var(--red); background: rgba(255,61,61,0.07); color: var(--red); }
+  .status-banner.neutral  { border-left-color: var(--yellow); background: rgba(245,181,69,0.06); color: var(--yellow); }
+
+  /* ───────── OUTPUT SECTIONS ───────── */
+  .output-section { margin-top: 26px; }
+  .output-section-head {
+    display: flex; align-items: baseline; gap: 12px;
+    margin-bottom: 14px;
+  }
+  .output-section-label {
+    font-size: 11px; font-weight: 700;
+    letter-spacing: .24em; text-transform: uppercase;
+    color: var(--cyan);
+  }
+  .output-section-sub { font-size: 11px; font-weight: 400; color: var(--dim); }
+  .output-section-rule {
+    flex: 1; height: 1px;
+    background: linear-gradient(to right, var(--cyan-border), transparent);
   }
 
-  .result-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.5rem 0;
+  .outputs-grid { display: grid; gap: 10px; }
+  .outputs-grid.cols-4 { grid-template-columns: repeat(4, 1fr); }
+  @media (max-width: 640px) { .outputs-grid.cols-4 { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 380px) { .outputs-grid.cols-4 { grid-template-columns: 1fr; } }
+  .out-box {
+    background: var(--surface-2);
+    border: 1px solid var(--border-2);
+    border-radius: 8px;
+    padding: 16px 18px;
+    transition: border-color .2s;
+  }
+  .out-box:hover { border-color: rgba(0,212,255,0.22); }
+  .out-label {
+    font-size: 10px; font-weight: 600;
+    letter-spacing: .2em; text-transform: uppercase;
+    color: var(--cyan);
+    margin-bottom: 10px;
+  }
+  .out-value {
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-size: clamp(22px, 2.6vw, 28px);
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.05;
+  }
+  .out-value.book1 { color: var(--cyan); }
+  .out-value.book2 { color: var(--green); }
+  .out-value.profit { color: var(--green); }
+  .out-value.pos { color: var(--green); }
+  .out-value.neg { color: var(--red); }
+  .out-value.empty { color: var(--dim); font-weight: 400; }
+  .out-sub {
+    font-size: 11px; color: var(--muted);
+    margin-top: 6px; letter-spacing: .04em;
+  }
+
+  /* ───────── KEY NOTE ───────── */
+  .key-note {
+    margin-top: 24px;
+    padding: 16px 20px 18px;
+    background: var(--green-dim);
+    border: 1px solid var(--green-border);
+    border-left: 3px solid var(--green);
+    border-radius: 10px;
+    box-shadow: 0 0 26px rgba(77,255,120,0.07);
+  }
+  .key-note-head {
+    display: flex; align-items: center; gap: 7px;
+    font-size: 11px; font-weight: 700;
+    letter-spacing: .2em; text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 9px;
+  }
+  .key-note-body {
+    font-size: 13.5px;
+    font-weight: 300;
+    line-height: 1.65;
+    color: rgba(240,238,232,0.80);
+  }
+  .key-note-body strong { color: var(--text); font-weight: 700; }
+  .key-note-body a { color: var(--green); font-weight: 600; }
+  .key-note-body a:hover { color: var(--cyan); }
+
+  /* ───────── HOW TO ───────── */
+  .how-to {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    margin-top: 24px;
+    overflow: hidden;
+  }
+  .how-to summary {
+    cursor: pointer;
+    padding: 18px 26px;
+    font-size: 11px; font-weight: 600;
+    letter-spacing: .22em; text-transform: uppercase;
+    color: var(--cyan);
+    list-style: none;
+    user-select: none;
+    transition: background .18s;
+  }
+  .how-to summary::-webkit-details-marker { display: none; }
+  .how-to summary::after { content: ' ▾'; color: var(--dim); font-size: 10px; }
+  .how-to[open] summary { border-bottom: 1px solid var(--border); }
+  .how-to[open] summary::after { content: ' ▴'; }
+  .how-to summary:hover { background: var(--surface-2); }
+  .how-to-body {
+    padding: 28px;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 1.7;
+    color: var(--muted);
+  }
+  .how-to-body p { margin-bottom: 13px; }
+  .how-to-body p:has(> strong:first-child) { margin-top: 26px; }
+  .how-to-body p:first-child { margin-top: 0; }
+  .how-to-body strong { color: var(--text); font-weight: 700; }
+  .how-to-body em { color: var(--cyan); font-style: normal; font-weight: 600; }
+  .how-to-body ul { list-style: none; margin: 10px 0 16px; padding-left: 2px; }
+  .how-to-body li { position: relative; padding-left: 20px; margin-bottom: 9px; }
+  .how-to-body li::before {
+    content: '';
+    position: absolute;
+    left: 2px; top: 0.62em;
+    width: 6px; height: 6px;
+    background: var(--cyan);
+    transform: rotate(45deg);
+  }
+  .how-to-body a { color: var(--cyan); }
+  .how-to-body a:hover { color: var(--green); }
+
+  /* ───────── FOOTER ───────── */
+  .footer {
+    text-align: center;
+    margin-top: 60px;
+    padding: 28px 20px;
+    color: var(--dim);
+    font-size: 11px;
+    letter-spacing: .04em;
+    line-height: 1.7;
     border-top: 1px solid var(--border);
   }
-  .result-row-label { color: var(--muted); font-size: 0.88rem; letter-spacing: 0.04em; }
-  .result-row-val {
-    font-family: 'IBM Plex Mono', monospace;
-    font-weight: 600;
-    font-size: 1rem;
-  }
+  .footer a { color: var(--muted); }
+  .footer a:hover { color: var(--cyan); }
 
-  .profit-big {
-    background: var(--inset);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 0.75rem;
-    text-align: center;
-    margin-top: 0.5rem;
+  /* ═══ SIDEBAR ═══ */
+  .pps-sidebar {
+    position: fixed; top: 0; left: 0; bottom: 0;
+    width: 240px; background: var(--surface);
+    border-right: 1px solid var(--border-2); z-index: 50;
+    transform: translateX(-100%);
+    transition: transform .3s cubic-bezier(.4,0,.2,1);
+    overflow-y: auto;
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
   }
-  .profit-big-label {
-    font-size: 0.68rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 0.2rem;
-  }
-  .profit-big-val {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 2rem;
-    font-weight: 600;
-  }
-
-
-  /* ── Fixed stake section ── */
-  .fixed-section { border-top:1px solid var(--border); padding:1.4rem 1.75rem; }
-  .fixed-table {
-    display: grid;
-    grid-template-columns: 200px 1fr 1fr;
-    gap: 0 1rem;
-    margin-top: 0.75rem;
-  }
-  .ft-input-hdr, .ft-col-hdr {
-    font-size: 0.68rem;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--muted);
-    padding-bottom: 0.5rem;
-    border-bottom: 1px solid var(--border);
-    margin-bottom: 0.5rem;
-  }
-  .ft-col-hdr { text-align: center; }
-  .ft-input-cell { padding-right: 0.5rem; }
-  .ft-result-cell {
-    background: var(--inset);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 0.5rem 0.75rem;
-  }
-  .ft-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.4rem 0;
-    border-bottom: 1px solid var(--border);
-    font-size: 0.88rem;
-  }
-  .ft-row.last { border-bottom: none; }
-  .ft-lbl { color: var(--muted); }
-  .ft-val { font-family:"IBM Plex Mono",monospace; font-weight:600; font-size:0.95rem; }
-  .fixed-input-row {
-    display: flex; align-items: center; gap: 0.5rem;
-    background: var(--inset); border-radius: 6px 6px 0 0;
-    border-bottom: 2px solid var(--blue);
-    padding: 0.4rem 0.75rem; margin-bottom: 0.5rem;
-  }
-  .fixed-prefix { font-family:"IBM Plex Mono",monospace; font-size:1rem; color:var(--muted); }
-  .fixed-input {
-    background: none; border: none; outline: none;
-    font-family:"IBM Plex Mono",monospace;
-    font-size: 1.3rem; font-weight: 600; width: 100%; min-width: 0;
-  }
-  #fixedBook1Stake { color: var(--blue); }
-  #fixedBook2Stake { color: var(--purple); }
-  .fixed-result-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.45rem 0;
-    border-bottom: 1px solid var(--border);
-    font-size: 0.88rem;
-  }
-  .fixed-result-row:last-child { border-bottom: none; }
-  .fixed-result-label { color: var(--muted); letter-spacing: 0.04em; }
-  .fixed-result-val {
-    font-family: 'IBM Plex Mono', monospace;
-    font-weight: 600;
-    font-size: 1rem;
-  }
-
-  @media (max-width: 600px) {
-    .inputs-grid { grid-template-columns: 1fr; }
-    .results-section { grid-template-columns: 1fr; }
-    .results-divider { height: 1px; width: auto; }
-    .ref-grid { grid-template-columns: repeat(3, 1fr); }
-  }
-  /* ═══ SIDEBAR NAVIGATION (prototype) ═══ */
-  .pps-sidebar { position: fixed; top: 0; left: 0; bottom: 0; width: 240px; background: linear-gradient(180deg, #0c1120 0%, #080d18 100%); border-right: 1px solid var(--border); z-index: 50; transform: translateX(-100%); transition: transform .3s cubic-bezier(.4,0,.2,1); overflow-y: auto; font-family: 'IBM Plex Sans', system-ui, sans-serif; }
   body.pps-sidebar-open .pps-sidebar { transform: translateX(0); }
   body.pps-sidebar-open { padding-left: 240px; transition: padding-left .3s cubic-bezier(.4,0,.2,1); }
   @media (max-width: 900px) {
     body.pps-sidebar-open { padding-left: 0; }
     .pps-sidebar { box-shadow: 4px 0 30px rgba(0,0,0,.7); width: 260px; }
   }
-  .pps-sidebar-toggle { position: fixed; top: 14px; left: 18px; z-index: 51; background: rgba(15, 21, 36, 0.92); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid var(--border); color: var(--text); width: 38px; height: 38px; border-radius: 9px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all .2s ease; }
-  .pps-sidebar-toggle:hover { background: var(--panel-inset); border-color: var(--green); color: var(--green); }
+  .pps-sidebar-toggle {
+    position: fixed; top: 14px; left: 18px; z-index: 51;
+    background: var(--surface);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--border-2);
+    color: var(--text);
+    width: 38px; height: 38px;
+    border-radius: 6px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all .18s ease;
+  }
+  .pps-sidebar-toggle:hover { background: var(--surface-2); border-color: var(--cyan-border); color: var(--cyan); }
   body.pps-sidebar-open .pps-sidebar-toggle { left: 256px; top: 14px; }
   @media (max-width: 900px) { body.pps-sidebar-open .pps-sidebar-toggle { left: 276px; } }
   .pps-sidebar-inner { padding: 22px 14px 30px; }
-  .pps-sidebar-brand { display: flex; align-items: center; justify-content: center; gap: 8px; color: var(--blue); text-decoration: none; font-family: 'Orbitron', sans-serif; font-weight: 800; font-size: 11px; letter-spacing: 1.6px; padding: 4px 0 16px; border-bottom: 1px solid var(--border-soft); margin-bottom: 14px; text-transform: uppercase; }
-  .pps-sidebar-brand svg { width: 18px; height: 14px; flex-shrink: 0; color: var(--green); filter: drop-shadow(0 0 6px rgba(74, 222, 128, 0.55)); }
-  .pps-sidebar-brand span { white-space: nowrap; }
-  .pps-sidebar-brand:hover { color: #5fa1ff; }
+  .pps-sidebar-brand {
+    display: flex; align-items: center; justify-content: center;
+    gap: 6px; color: var(--text); text-decoration: none;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 900; font-size: 13px;
+    letter-spacing: -.02em;
+    padding: 4px 0 16px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 14px;
+  }
+  .pps-sidebar-brand .accent { color: var(--green); }
+  .pps-sidebar-brand small { font-size: 8px; font-weight: 400; letter-spacing: .4em; text-transform: uppercase; color: var(--dim); margin-left: 6px; }
+  .pps-sidebar-brand:hover .accent { filter: brightness(1.1); }
   .pps-sidebar-nav { display: flex; flex-direction: column; gap: 1px; }
-  .pps-nav-group-label { font-size: 9.5px; text-transform: uppercase; letter-spacing: 1.8px; color: var(--dim); padding: 14px 8px 6px; margin-top: 2px; font-weight: 600; }
-  .pps-nav-link { display: flex; align-items: center; gap: 10px; color: #b8c0d0; text-decoration: none; padding: 8px 10px; border-radius: 7px; font-size: 13px; border-left: 2px solid transparent; transition: all .15s ease; }
-  .pps-nav-link:hover { background: var(--panel-inset); color: #fff; }
-  .pps-nav-link.active { background: rgba(74, 222, 128, 0.09); color: var(--green); border-left-color: var(--green); }
-  .pps-nav-num { font-family: 'JetBrains Mono', monospace; font-size: 10.5px; color: var(--dim); font-weight: 700; min-width: 18px; }
-  .pps-nav-link.path-blue .pps-nav-num { color: var(--blue); }
-  .pps-nav-link.path-green .pps-nav-num { color: var(--green); }
-  .pps-nav-link.path-gold .pps-nav-num { color: var(--yellow); }
+  .pps-nav-group-label {
+    font-size: 9px; text-transform: uppercase; letter-spacing: .22em;
+    color: var(--dim); padding: 14px 8px 6px;
+    margin-top: 2px; font-weight: 600;
+  }
+  .pps-nav-link {
+    display: flex; align-items: center; gap: 10px;
+    color: var(--muted); text-decoration: none;
+    padding: 7px 10px; border-radius: 4px;
+    font-size: 12px; font-weight: 400;
+    border-left: 2px solid transparent;
+    transition: all .15s ease;
+  }
+  .pps-nav-link:hover { background: var(--surface-2); color: var(--text); }
+  .pps-nav-link.active { background: var(--green-faint); color: var(--green); border-left-color: var(--green); font-weight: 500; }
+  .pps-nav-num { font-family: 'Space Grotesk', system-ui, sans-serif; font-size: 10px; color: var(--dim); font-weight: 500; min-width: 18px; }
   .pps-nav-group { margin: 1px 0; }
-  .pps-nav-group summary { list-style: none; cursor: pointer; padding: 8px 10px; font-size: 13px; color: #b8c0d0; border-radius: 7px; display: flex; align-items: center; justify-content: space-between; transition: all .15s ease; user-select: none; }
+  .pps-nav-group summary {
+    list-style: none; cursor: pointer;
+    padding: 7px 10px; font-size: 12px;
+    color: var(--muted); border-radius: 4px;
+    display: flex; align-items: center; justify-content: space-between;
+    transition: all .15s ease; user-select: none;
+    font-weight: 500;
+  }
   .pps-nav-group summary::-webkit-details-marker { display: none; }
   .pps-nav-group summary::after { content: '▾'; font-size: 9px; color: var(--dim); transition: transform .2s ease; }
   .pps-nav-group[open] summary::after { transform: rotate(180deg); }
-  .pps-nav-group summary:hover { background: var(--panel-inset); color: #fff; }
-  .pps-nav-group .pps-nav-link { padding: 6px 10px 6px 22px; font-size: 12px; color: #8b94a8; }
-  .pps-nav-group .pps-nav-link:hover { color: #fff; }
+  .pps-nav-group summary:hover { background: var(--surface-2); color: var(--text); }
+  .pps-nav-group .pps-nav-link { padding: 5px 10px 5px 22px; font-size: 11px; }
   .pps-path-group > summary { font-weight: 600; }
   .pps-path-group .pps-path-label { display: inline-flex; align-items: center; gap: 10px; }
-  .pps-path-group.path-blue > summary .pps-nav-num { color: var(--blue); }
+  .pps-path-group.path-blue > summary .pps-nav-num { color: var(--cyan); }
   .pps-path-group.path-green > summary .pps-nav-num { color: var(--green); }
   .pps-path-group.path-gold > summary .pps-nav-num { color: var(--yellow); }
-  .pps-path-group.path-blue[open] > summary { color: var(--blue); }
+  .pps-path-group.path-blue[open] > summary { color: var(--cyan); }
   .pps-path-group.path-green[open] > summary { color: var(--green); }
   .pps-path-group.path-gold[open] > summary { color: var(--yellow); }
-  .pps-nav-playbook { margin-top: 16px; padding: 10px 12px; background: linear-gradient(135deg, rgba(188,140,255,.10), rgba(74,222,128,.05)); border: 1px solid rgba(188,140,255,.25); border-left-width: 2px; color: var(--purple); font-weight: 600; border-radius: 7px; }
-  .pps-nav-playbook:hover { background: linear-gradient(135deg, rgba(188,140,255,.2), rgba(74,222,128,.1)); color: #fff; }
   .pps-sidebar::-webkit-scrollbar { width: 6px; }
   .pps-sidebar::-webkit-scrollbar-track { background: transparent; }
-  .pps-sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+  .pps-sidebar::-webkit-scrollbar-thumb { background: var(--border-2); border-radius: 3px; }
 
-/* PPS-MOBILE-HEADER-CLEARANCE */
-    @media (max-width: 640px) {
-      .bt-header { padding-top: 60px; padding-left: 56px; padding-right: 14px; }
-    }
+  @media (max-width: 640px) {
+    .card { padding-top: 60px; }
+  }
 </style>
 </head>
 <body>
@@ -374,17 +557,12 @@
 <aside class="pps-sidebar" id="ppsSidebar">
   <div class="pps-sidebar-inner">
     <a class="pps-sidebar-brand" href="/index.html">
-      <svg viewBox="0 0 28 22" xmlns="http://www.w3.org/2000/svg" fill="none">
-        <polyline points="2,18 8,12 12,15 18,7 26,3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-      <span>Profit Path Sports</span>
-      <svg viewBox="0 0 28 22" xmlns="http://www.w3.org/2000/svg" fill="none">
-        <polyline points="2,18 8,12 12,15 18,7 26,3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
+      <span>PROFIT<span class="accent">PATH</span></span>
+      <small>Sports</small>
     </a>
     <nav class="pps-sidebar-nav">
       <a class="pps-nav-link" href="/index.html">Home</a>
-      <a class="pps-nav-link" href="/free-money-guide.html" style="color: var(--green); font-weight: 600;">★ Free Money Guide</a>
+      <a class="pps-nav-link" href="/free-money-guide.html" style="color: var(--green); font-weight: 500;">★ Free Money Guide</a>
       <div class="pps-nav-group-label">Paths</div>
       <details class="pps-nav-group pps-path-group path-blue">
         <summary data-anchor="paths"><span class="pps-path-label"><span class="pps-nav-num">01</span> Begin</span></summary>
@@ -407,7 +585,6 @@
         <a class="pps-nav-link" href="/learn-finding-bonus-bets.html">Finding Bonus Bets</a>
         <a class="pps-nav-link" href="/learn-bonus-step-by-step.html">Step-by-Step</a>
         <a class="pps-nav-link" href="/learn-prop-void-rules.html">Prop Void Rules</a>
-        <a class="pps-nav-link" href="/learn-finding-bets.html">Finding +EV Bets</a>
       </details>
       <details class="pps-nav-group pps-path-group path-gold">
         <summary data-anchor="paths"><span class="pps-path-label"><span class="pps-nav-num">03</span> Maintain</span></summary>
@@ -426,13 +603,13 @@
         <a class="pps-nav-link" href="/learn-top-down-bottom-up.html">Top-Down / Bottom-Up</a>
         <a class="pps-nav-link" href="/learn-wide-markets.html">Wide Markets</a>
       </details>
-      <details class="pps-nav-group">
+      <details class="pps-nav-group" open>
         <summary data-anchor="tools">Calculators</summary>
         <a class="pps-nav-link" href="/bet-x-ray.html">Bet X-Ray</a>
         <a class="pps-nav-link" href="/ev-calculator.html">EV Calculator</a>
         <a class="pps-nav-link" href="/devig_calculator.html">Devig</a>
         <a class="pps-nav-link" href="/kelly-calculator.html">Kelly Sizer</a>
-        <a class="pps-nav-link" href="/arb-calculator.html">Arbitrage</a>
+        <a class="pps-nav-link active" href="/arb-calculator.html">Arbitrage</a>
         <a class="pps-nav-link" href="/hedge-calculator.html">Hedge</a>
         <a class="pps-nav-link" href="/middle-calculator.html">Middle</a>
         <a class="pps-nav-link" href="/dfs-slip-checker.html">DFS Slip Checker</a>
@@ -443,8 +620,6 @@
         <a class="pps-nav-link" href="/consensus-calculator.html">Consensus</a>
         <a class="pps-nav-link" href="/bonus-converter.html">Bonus Converter</a>
         <a class="pps-nav-link" href="/odds_calculator.html">Odds Converter</a>
-        <a class="pps-nav-link" href="/sharp-snapshot.html">Sharp Snapshot</a>
-        <a class="pps-nav-link" href="/roulette.html">Virtual Roulette</a>
       </details>
       <details class="pps-nav-group">
         <summary>Sportsbooks</summary>
@@ -475,385 +650,376 @@
 <div class="card">
 
   <div class="header">
-    <div class="title"><span>⚡</span> Arb Calculator <span>⚡</span></div>
-    <p class="title-sub">When two books offer the same market at prices implying less than 100% combined probability, betting both sides locks guaranteed profit regardless of outcome. <strong>The catch isn't finding these — it's getting per-side stakes exactly right and clicking both before the line moves.</strong> This calc nails the math; you handle the speed.</p>
-    <a href="#how-to-use" class="how-to-jump">How to use this ↓</a>
+    <div class="header-meta">
+      <a href="/index.html" class="back-link">← Back</a>
+      <span class="header-eyebrow">Free Tool · Arbitrage Calculator</span>
+      <button class="help-pill" onclick="document.getElementById('howto').open = !document.getElementById('howto').open; document.getElementById('howto').scrollIntoView({behavior:'smooth', block:'nearest'});">How to use ↓</button>
+    </div>
+    <div class="title-row">
+      <h1>Arbitrage Calculator</h1>
+    </div>
+    <p class="tagline">
+      <span>Two books, opposite sides, prices that don't add up to 100%.</span>
+      <span class="mono">Bet both → a profit that's locked in no matter who wins.</span>
+      <span>This nails the stake split. You handle the speed.</span>
+    </p>
   </div>
 
-  <div class="status-bar" id="statusBar">Enter odds to check for arbitrage</div>
+  <div class="body">
 
-  <!-- Inputs -->
-  <div class="inputs-section">
-    <div class="section-label">▸ Input Data</div>
-    <div class="inputs-grid">
-      <div class="input-group">
-        <div class="input-label">Book 1 Odds</div>
-        <input class="odds-input" id="book1Odds" type="number" value="-650" />
-        <div class="implied-prob" id="prob1">Implied: <strong>—</strong></div>
+    <div class="step" id="step1">
+      <div class="step-head">
+        <span class="step-num">Arbitrage</span>
+        <span class="step-title">Find the arb</span>
+        <span class="step-sub">Two books, opposite sides of one market — get the split that locks profit either way.</span>
       </div>
-      <div class="input-group">
-        <div class="input-label">Book 2 Odds</div>
-        <input class="odds-input" id="book2Odds" type="number" value="1100" />
-        <div class="implied-prob" id="prob2">Implied: <strong>—</strong></div>
-      </div>
-      <div class="input-group">
-        <div class="input-label">Total Stake ($)</div>
-        <input class="odds-input" id="totalStake" type="number" value="10" min="0" />
-        <div class="implied-prob">&nbsp;</div>
-      </div>
-    </div>
-  </div>
 
-  <!-- Results -->
-  <div class="results-section">
-
-    <!-- Max Arb -->
-    <div class="results-panel">
-      <div class="section-label">▸ Max Arb — Optimal Split</div>
-      <div class="results-cols">
-        <div class="result-card">
-          <div class="result-card-label">Book 1 Stake</div>
-          <div class="result-card-val" id="maxBook1" style="color:var(--blue)">—</div>
+      <div class="inputs-grid">
+        <div class="input-cell">
+          <label for="book1Odds">Book 1 odds</label>
+          <input type="text" id="book1Odds" inputmode="text" spellcheck="false" autocomplete="off" value="-650">
+          <div class="input-sub" id="prob1">implied <b>—</b></div>
         </div>
-        <div class="result-card">
-          <div class="result-card-label">Book 2 Stake</div>
-          <div class="result-card-val" id="maxBook2" style="color:var(--purple)">—</div>
+        <div class="input-cell">
+          <label for="book2Odds">Book 2 odds</label>
+          <input type="text" id="book2Odds" inputmode="text" spellcheck="false" autocomplete="off" value="+1100">
+          <div class="input-sub" id="prob2">implied <b>—</b></div>
+        </div>
+        <div class="input-cell">
+          <label for="totalStake">Total stake ($)</label>
+          <input type="text" id="totalStake" inputmode="decimal" spellcheck="false" autocomplete="off" value="100">
+          <div class="input-sub">&nbsp;</div>
         </div>
       </div>
-      <div class="result-row">
-        <span class="result-row-label">% Arb</span>
-        <span class="result-row-val" id="maxArbPct">—</span>
+      <div class="input-hint">
+        Odds accept <b>American</b> (−650) or <b>decimal</b> (1.15). An arb exists when the two implied probabilities sum to <b>under 100%</b>.
       </div>
-      <div class="profit-big">
-        <div class="profit-big-label">Guaranteed Profit</div>
-        <div class="profit-big-val" id="maxProfit">—</div>
-      </div>
-    </div>
 
-    <div class="results-divider"></div>
+      <div class="status-banner neutral" id="statusBanner">Enter odds for both sides to check for an arb.</div>
 
-    <!-- Rounded -->
-    <div class="results-panel">
-      <div class="section-label">▸ Rounded — Easy to Place</div>
-      <div class="results-cols">
-        <div class="result-card">
-          <div class="result-card-label">Book 1 Stake</div>
-          <div class="result-card-val" id="rndBook1" style="color:var(--blue)">—</div>
+      <div class="output-section">
+        <div class="output-section-head">
+          <span class="output-section-label">Optimal Split</span>
+          <span class="output-section-sub">exact stakes — equal profit either way</span>
+          <span class="output-section-rule"></span>
         </div>
-        <div class="result-card">
-          <div class="result-card-label">Book 2 Stake</div>
-          <div class="result-card-val" id="rndBook2" style="color:var(--purple)">—</div>
-        </div>
-      </div>
-      <div class="result-row">
-        <span class="result-row-label">% Arb</span>
-        <span class="result-row-val" id="rndArbPct">—</span>
-      </div>
-      <div class="profit-big">
-        <div class="profit-big-label">Guaranteed Profit</div>
-        <div class="profit-big-val" id="rndProfit">—</div>
-      </div>
-    </div>
-
-  </div>
-
-  <!-- Fixed Stake -->
-  <div class="fixed-section">
-    <div class="section-label">&#9658;&nbsp; Already Placed a Bet? &mdash; Enter Your Stake to Find Optimal Counter</div>
-
-    <div class="fixed-table">
-
-      <!-- Column headers -->
-      <div class="ft-input-hdr"></div>
-      <div class="ft-col-hdr">Exact Optimal</div>
-      <div class="ft-col-hdr">Rounded (nearest $1)</div>
-
-      <!-- Book 1 row -->
-      <div class="ft-input-cell">
-        <div class="input-label" style="margin-bottom:0.35rem;">I bet on Book 1</div>
-        <div class="fixed-input-row">
-          <span class="fixed-prefix">$</span>
-          <input class="fixed-input" id="fixedBook1Stake" type="number" placeholder="0.00" min="0" style="color:var(--blue)" />
+        <div class="outputs-grid cols-4">
+          <div class="out-box">
+            <div class="out-label">Book 1 Stake</div>
+            <div class="out-value book1 empty" id="maxBook1">—</div>
+          </div>
+          <div class="out-box">
+            <div class="out-label">Book 2 Stake</div>
+            <div class="out-value book2 empty" id="maxBook2">—</div>
+          </div>
+          <div class="out-box">
+            <div class="out-label">Arb Return</div>
+            <div class="out-value empty" id="maxArbPct">—</div>
+          </div>
+          <div class="out-box">
+            <div class="out-label">Guaranteed Profit</div>
+            <div class="out-value profit empty" id="maxProfit">—</div>
+          </div>
         </div>
       </div>
-      <div class="ft-result-cell" id="b1ExactCol">
-        <div class="ft-row"><span class="ft-lbl">Book 2 Stake</span><span class="ft-val" id="optBook2" style="color:var(--purple)">—</span></div>
-        <div class="ft-row"><span class="ft-lbl">Arb %</span><span class="ft-val" id="fixedArbPct1">—</span></div>
-        <div class="ft-row"><span class="ft-lbl">Profit</span><span class="ft-val" id="fixedProfit1">—</span></div>
-        <div class="ft-row last"><span class="ft-lbl">Total Risk</span><span class="ft-val" id="fixedRisk1" style="color:var(--muted)">—</span></div>
-      </div>
-      <div class="ft-result-cell" id="b1RndCol">
-        <div class="ft-row"><span class="ft-lbl">Book 2 Stake</span><span class="ft-val" id="rndOptBook2" style="color:var(--purple)">—</span></div>
-        <div class="ft-row"><span class="ft-lbl">Arb %</span><span class="ft-val" id="rndArbPct1">—</span></div>
-        <div class="ft-row"><span class="ft-lbl">Profit</span><span class="ft-val" id="rndProfit1">—</span></div>
-        <div class="ft-row last"><span class="ft-lbl">Total Risk</span><span class="ft-val" id="rndRisk1" style="color:var(--muted)">—</span></div>
-      </div>
 
-      <!-- Divider -->
-      <div style="grid-column:1/-1; height:1px; background:var(--border); margin:0.25rem 0;"></div>
-
-      <!-- Book 2 row -->
-      <div class="ft-input-cell">
-        <div class="input-label" style="margin-bottom:0.35rem;">I bet on Book 2</div>
-        <div class="fixed-input-row" style="border-bottom-color:var(--purple)">
-          <span class="fixed-prefix">$</span>
-          <input class="fixed-input" id="fixedBook2Stake" type="number" placeholder="0.00" min="0" style="color:var(--purple)" />
+      <div class="output-section">
+        <div class="output-section-head">
+          <span class="output-section-label">Rounded</span>
+          <span class="output-section-sub">whole-dollar stakes — easier to place fast</span>
+          <span class="output-section-rule"></span>
+        </div>
+        <div class="outputs-grid cols-4">
+          <div class="out-box">
+            <div class="out-label">Book 1 Stake</div>
+            <div class="out-value book1 empty" id="rndBook1">—</div>
+          </div>
+          <div class="out-box">
+            <div class="out-label">Book 2 Stake</div>
+            <div class="out-value book2 empty" id="rndBook2">—</div>
+          </div>
+          <div class="out-box">
+            <div class="out-label">Arb Return</div>
+            <div class="out-value empty" id="rndArbPct">—</div>
+          </div>
+          <div class="out-box">
+            <div class="out-label">Guaranteed Profit</div>
+            <div class="out-value profit empty" id="rndProfit">—</div>
+          </div>
         </div>
       </div>
-      <div class="ft-result-cell" id="b2ExactCol">
-        <div class="ft-row"><span class="ft-lbl">Book 1 Stake</span><span class="ft-val" id="optBook1" style="color:var(--blue)">—</span></div>
-        <div class="ft-row"><span class="ft-lbl">Arb %</span><span class="ft-val" id="fixedArbPct2">—</span></div>
-        <div class="ft-row"><span class="ft-lbl">Profit</span><span class="ft-val" id="fixedProfit2">—</span></div>
-        <div class="ft-row last"><span class="ft-lbl">Total Risk</span><span class="ft-val" id="fixedRisk2" style="color:var(--muted)">—</span></div>
-      </div>
-      <div class="ft-result-cell" id="b2RndCol">
-        <div class="ft-row"><span class="ft-lbl">Book 1 Stake</span><span class="ft-val" id="rndOptBook1" style="color:var(--blue)">—</span></div>
-        <div class="ft-row"><span class="ft-lbl">Arb %</span><span class="ft-val" id="rndArbPct2">—</span></div>
-        <div class="ft-row"><span class="ft-lbl">Profit</span><span class="ft-val" id="rndProfit2">—</span></div>
-        <div class="ft-row last"><span class="ft-lbl">Total Risk</span><span class="ft-val" id="rndRisk2" style="color:var(--muted)">—</span></div>
+
+      <div class="key-note">
+        <div class="key-note-head">★ Key Point — Arbing Gets You Limited</div>
+        <div class="key-note-body">
+          An arb is real, guaranteed money — but it's also the <strong>fastest way to get your account limited</strong>. Books profile hard for it: betting both sides of a market, odd stake sizes, action only when there's an edge. They see the pattern and cut your max bet to pocket change. So <strong>vary your stakes, skip the thinnest arbs, and don't hammer the same book</strong> — a limited account can't make +EV bets later, either. And the arb has to be <strong>live when both bets land</strong>: if one line moves before you click the second, the lock is gone. New here? The <a href="/learn-arbitrage.html">Arbitrage</a> deep dive covers it.
+        </div>
       </div>
 
     </div>
-  </div>
 
+    <div class="step" id="step2">
+      <div class="step-head">
+        <span class="step-num">Counter</span>
+        <span class="step-title">Already placed one side?</span>
+        <span class="step-sub">Bet one side already? Enter it — get the exact stake to lock the other.</span>
+      </div>
+
+      <div class="sub-toolbar">
+        <span class="sub-label">I already bet</span>
+        <div class="pill-group" id="fixedSideGroup">
+          <button class="pill active" data-side="1">Book 1</button>
+          <button class="pill" data-side="2">Book 2</button>
+        </div>
+      </div>
+
+      <div class="inputs-grid cols-1">
+        <div class="input-cell">
+          <label for="fixedStake" id="fixedStakeLabel">My stake on Book 1 ($)</label>
+          <input type="text" id="fixedStake" inputmode="decimal" spellcheck="false" autocomplete="off" placeholder="50">
+        </div>
+      </div>
+
+      <div class="output-section">
+        <div class="output-section-head">
+          <span class="output-section-label">Lock the Other Side</span>
+          <span class="output-section-sub">stake the counter to guarantee profit</span>
+          <span class="output-section-rule"></span>
+        </div>
+        <div class="outputs-grid cols-4">
+          <div class="out-box">
+            <div class="out-label" id="counterLabel">Book 2 Stake</div>
+            <div class="out-value book2 empty" id="counterStake">—</div>
+            <div class="out-sub" id="counterRounded">&nbsp;</div>
+          </div>
+          <div class="out-box">
+            <div class="out-label">Arb Return</div>
+            <div class="out-value empty" id="counterPct">—</div>
+          </div>
+          <div class="out-box">
+            <div class="out-label">Guaranteed Profit</div>
+            <div class="out-value profit empty" id="counterProfit">—</div>
+          </div>
+          <div class="out-box">
+            <div class="out-label">Total Risk</div>
+            <div class="out-value empty" id="counterRisk">—</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- HOW TO -->
+    <details class="how-to" id="howto">
+      <summary>How to use this</summary>
+      <div class="how-to-body">
+        <p><strong>What it does.</strong> When two sportsbooks price opposite sides of the same market so that the two implied probabilities add up to <em>less than 100%</em>, betting both sides locks a guaranteed profit no matter who wins. This calculator does the stake math so the profit lands equal either way.</p>
+
+        <p><strong>How to use it.</strong></p>
+        <ul>
+          <li>Enter the odds for <em>each side</em> — from <em>different</em> sportsbooks (American or decimal).</li>
+          <li>Enter your <em>total stake</em> across the two bets.</li>
+          <li>If the status bar says an arb exists, read the <em>Optimal Split</em> — or the <em>Rounded</em> version for whole-dollar stakes that are faster to place.</li>
+          <li>Place both sides quickly, before either line moves.</li>
+        </ul>
+
+        <p><strong>Already placed one side?</strong> Use the second panel — pick which book you've already bet, enter your stake, and it returns the exact counter-stake to lock the arb (with a rounded option).</p>
+
+        <p><strong>Why rounded stakes matter.</strong> Most arb calculators hand you stakes like $34.27 / $65.73 — fine on paper, awkward at the betslip. We show both the exact optimal split and a clean whole-dollar version, so you can place real bets fast without rounding by hand.</p>
+
+        <p><strong>The real catch.</strong> Finding arbs is the easy part. The hard parts: getting both bets down before a line moves, and <em>not getting limited</em>. Arbing is one of the most heavily-profiled patterns in betting — see the Key Point above, and the <a href="/learn-arbitrage.html">Arbitrage</a> deep dive, before you make it a habit.</p>
+      </div>
+    </details>
+
+  </div>
 </div>
 
-<div class="how-to-use" id="how-to-use">
-  <div class="how-to-eyebrow">How to use this</div>
-  <h3>Find guaranteed-profit arbs</h3>
-  <ol class="how-to-steps">
-    <li>Enter the <strong>odds for both sides</strong> — must be from different sportsbooks for a real arb to exist.</li>
-    <li>Enter your <strong>total stake budget</strong> across the two bets.</li>
-    <li>Calculator splits the stake to lock in equal profit either way and shows <strong>profit %</strong> + <strong>profit $</strong>.</li>
-    <li>If profit is positive, you have an arb. Place both sides quickly before the lines move.</li>
-  </ol>
-  <div class="how-to-note">
-    <strong>Why this version helps:</strong> Most arb calculators return weird stakes like $34.27 / $65.73 — fine on paper, awkward at the cashier window. We show both the <em>exact</em> mathematically optimal split and a <em>rounded</em> version (whole dollars) so you can place real-world bets without doing the rounding yourself. <br><br>
-    <strong>One thing to know:</strong> books detect repeat arbing — vary your stake sizes, don't always pick the sharpest angle, and pass on small edges to stay under the radar.
-  </div>
+<div class="footer">
+  © 2026 PROFITPATH Sports · <a href="/index.html">Home</a> · <a href="/middle-calculator.html">Middle</a> · <a href="/hedge-calculator.html">Hedge</a> · <a href="/odds_calculator.html">Odds Converter</a> · <a href="/bet-x-ray.html">Bet X-Ray</a> &middot; <a href="/privacy.html">Privacy</a> &middot; <a href="/disclaimer.html">Disclaimer</a> &middot; <a href="/affiliate-disclosure.html">Affiliate</a>
 </div>
 
 <script>
-  function toDecimal(american) {
-    const o = parseFloat(american);
-    if (isNaN(o)) return null;
-    return o < 0 ? (100 / Math.abs(o)) + 1 : (o / 100) + 1;
+  // ─── Element references ───
+  const book1El = document.getElementById('book1Odds');
+  const book2El = document.getElementById('book2Odds');
+  const totalEl = document.getElementById('totalStake');
+  const prob1El = document.getElementById('prob1');
+  const prob2El = document.getElementById('prob2');
+  const statusEl = document.getElementById('statusBanner');
+  const fixedStakeEl = document.getElementById('fixedStake');
+  const fixedStakeLabelEl = document.getElementById('fixedStakeLabel');
+  const counterLabelEl = document.getElementById('counterLabel');
+
+  let fixedSide = 1;  // which book the user already bet
+
+  // ─── Parsers ───
+  function parseOddsToDecimal(str) {
+    if (!str) return null;
+    const s = str.trim().replace(/[−–—]/g, '-');
+    if (!s) return null;
+    if (s.includes('.')) {
+      const d = parseFloat(s);
+      return (isFinite(d) && d > 1) ? d : null;
+    }
+    const clean = s.replace(/^\+/, '');
+    if (!/^-?\d+$/.test(clean)) return null;
+    const n = parseInt(clean, 10);
+    if (!isFinite(n) || Math.abs(n) < 100) return null;
+    return n > 0 ? 1 + n / 100 : 1 + 100 / Math.abs(n);
+  }
+  function parseMoney(str) {
+    const n = parseFloat(String(str).replace(/[$,\s]/g, ''));
+    return (isFinite(n) && n >= 0) ? n : null;
+  }
+  function fmtDollar(n) {
+    return (n < 0 ? '-$' : '$') + Math.abs(n).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  }
+  function fmtPct(n) { return (n >= 0 ? '+' : '') + (n * 100).toFixed(2) + '%'; }
+  function setVal(el, text, cls) {
+    el.textContent = text;
+    el.className = 'out-value' + (cls ? ' ' + cls : '');
+  }
+  function setStatus(text, type) {
+    statusEl.textContent = text;
+    statusEl.className = 'status-banner ' + type;
+  }
+  // guaranteed profit of a two-leg position
+  function guaranteedProfit(sA, decA, sB, decB) {
+    return Math.min(sA * decA, sB * decB) - (sA + sB);
   }
 
-  function toImplied(american) {
-    const dec = toDecimal(american);
-    return dec ? 1 / dec : null;
-  }
-
-  function fmtMoney(n) {
-    return '$' + Math.abs(n).toFixed(2);
-  }
-
-  function fmtPct(n) {
-    return (n * 100).toFixed(2) + '%';
-  }
-
-  function calcArb(s1, s2, dec1, dec2) {
-    const ret1 = s1 * dec1;
-    const ret2 = s2 * dec2;
-    const total = s1 + s2;
-    const minReturn = Math.min(ret1, ret2);
-    const profit = minReturn - total;
-    const pct = profit / total;
-    return { profit, pct };
-  }
-
+  // ─── Main calc: optimal + rounded split ───
   function calc() {
-    const o1 = parseFloat(document.getElementById('book1Odds').value);
-    const o2 = parseFloat(document.getElementById('book2Odds').value);
-    const total = parseFloat(document.getElementById('totalStake').value) || 0;
+    const dec1 = parseOddsToDecimal(book1El.value);
+    const dec2 = parseOddsToDecimal(book2El.value);
+    const total = parseMoney(totalEl.value);
 
-    const dec1 = toDecimal(o1);
-    const dec2 = toDecimal(o2);
-    const impl1 = toImplied(o1);
-    const impl2 = toImplied(o2);
+    book1El.classList.toggle('invalid', dec1 === null && book1El.value.trim() !== '');
+    book2El.classList.toggle('invalid', dec2 === null && book2El.value.trim() !== '');
 
-    // Update implied probs
-    document.getElementById('prob1').innerHTML =
-      impl1 !== null ? `Implied: <strong>${fmtPct(impl1)}</strong>` : 'Implied: <strong>—</strong>';
-    document.getElementById('prob2').innerHTML =
-      impl2 !== null ? `Implied: <strong>${fmtPct(impl2)}</strong>` : 'Implied: <strong>—</strong>';
+    prob1El.innerHTML = dec1 ? 'implied <b>' + (100 / dec1).toFixed(2) + '%</b>' : 'implied <b>—</b>';
+    prob2El.innerHTML = dec2 ? 'implied <b>' + (100 / dec2).toFixed(2) + '%</b>' : 'implied <b>—</b>';
 
-    if (!dec1 || !dec2 || total <= 0) return;
+    const maxIds = ['maxBook1','maxBook2','maxArbPct','maxProfit'];
+    const rndIds = ['rndBook1','rndBook2','rndArbPct','rndProfit'];
 
-    const margin = impl1 + impl2;
+    if (dec1 === null || dec2 === null) {
+      [...maxIds, ...rndIds].forEach(id => setVal(document.getElementById(id), '—', 'empty'));
+      setStatus('Enter valid odds for both sides to check for an arb.', 'neutral');
+      return;
+    }
+
+    const margin = 1 / dec1 + 1 / dec2;   // combined implied probability
     const isArb = margin < 1;
 
-    // ── Status bar ─────────────────────────────────────────────────────────
-    const statusEl = document.getElementById('statusBar');
     if (isArb) {
-      const arbPct = ((1 - margin) / margin * 100).toFixed(2);
-      statusEl.textContent = `✅  ARB DETECTED — ${arbPct}% guaranteed return`;
-      statusEl.style.color = 'var(--green)';
-      statusEl.style.background = '#0d2317';
+      setStatus('Arb found — ' + ((1 / margin - 1) * 100).toFixed(2) + '% guaranteed return on total stake.', 'positive');
     } else {
-      const overround = ((margin - 1) * 100).toFixed(2);
-      statusEl.textContent = `❌  No Arb — Overround ${overround}% (books have ${(margin * 100).toFixed(2)}% combined margin)`;
-      statusEl.style.color = 'var(--red)';
-      statusEl.style.background = '#2d0f0f';
+      setStatus('No arb — the two prices carry ' + ((margin - 1) * 100).toFixed(2) + '% combined overround. Betting both sides loses.', 'negative');
     }
 
-    // ── Max Arb ─────────────────────────────────────────────────────────────
-    const s1Max = total * (impl1 / margin);
-    const s2Max = total * (impl2 / margin);
-    const maxArb = calcArb(s1Max, s2Max, dec1, dec2);
-    const maxPct = (1 - margin) / margin;
-
-    document.getElementById('maxBook1').textContent = fmtMoney(s1Max);
-    document.getElementById('maxBook2').textContent = fmtMoney(s2Max);
-    document.getElementById('maxArbPct').textContent = fmtPct(Math.abs(maxPct));
-    document.getElementById('maxArbPct').style.color = isArb ? 'var(--green)' : 'var(--red)';
-
-    const maxProfitEl = document.getElementById('maxProfit');
-    maxProfitEl.textContent = (maxArb.profit >= 0 ? '+' : '') + '$' + maxArb.profit.toFixed(2);
-    maxProfitEl.style.color = maxArb.profit >= 0 ? 'var(--green)' : 'var(--red)';
-
-    // ── Rounded ──────────────────────────────────────────────────────────────
-    // Try all 4 floor/ceil combos, pick the one with best guaranteed profit
-    const nearest = total < 20 ? 0.5 : 1;
-    const s1F = Math.max(nearest, Math.floor(s1Max / nearest) * nearest);
-    const s1C = Math.max(nearest, Math.ceil(s1Max  / nearest) * nearest);
-    const s2F = Math.max(nearest, Math.floor(s2Max / nearest) * nearest);
-    const s2C = Math.max(nearest, Math.ceil(s2Max  / nearest) * nearest);
-    const best = [[s1F,s2F],[s1F,s2C],[s1C,s2F],[s1C,s2C]]
-      .map(([a,b]) => ({ a, b, ...calcArb(a, b, dec1, dec2) }))
-      .sort((x,y) => y.profit - x.profit)[0];
-    const s1Rnd = best.a;
-    const s2Rnd = best.b;
-    const rndArb = { profit: best.profit };
-    const rndPct = best.profit / (s1Rnd + s2Rnd);
-
-    document.getElementById('rndBook1').textContent = fmtMoney(s1Rnd);
-    document.getElementById('rndBook2').textContent = fmtMoney(s2Rnd);
-    document.getElementById('rndArbPct').textContent = fmtPct(Math.abs(rndPct));
-    document.getElementById('rndArbPct').style.color = rndArb.profit >= 0 ? 'var(--green)' : 'var(--red)';
-
-    const rndProfitEl = document.getElementById('rndProfit');
-    rndProfitEl.textContent = (rndArb.profit >= 0 ? '+' : '') + '$' + rndArb.profit.toFixed(2);
-    rndProfitEl.style.color = rndArb.profit >= 0 ? 'var(--green)' : 'var(--red)';
-  }
-
-
-  function guaranteedProfit(sA, decA, sB, decB) {
-    const total = sA + sB;
-    return Math.min(sA * decA, sB * decB) - total;
-  }
-
-  function bestRounded(sFixed, decFixed, decOther) {
-    const opt = sFixed * decFixed / decOther;
-    const lo = Math.max(1, Math.floor(opt));
-    const hi = Math.max(1, Math.ceil(opt));
-    return [lo, hi]
-      .map(r => ({ r, profit: guaranteedProfit(sFixed, decFixed, r, decOther) }))
-      .sort((a, b) => b.profit - a.profit)[0];
-  }
-
-  function setFixed(ids, vals) {
-    ids.forEach((id, i) => {
-      const el = document.getElementById(id);
-      if (!el) return;
-      const v = vals[i];
-      if (v === null) { el.textContent = '—'; el.style.color = ''; return; }
-      el.textContent = v.text;
-      if (v.color) el.style.color = v.color;
-    });
-  }
-
-  function calcFixed() {
-    const o1 = parseFloat(document.getElementById('book1Odds').value);
-    const o2 = parseFloat(document.getElementById('book2Odds').value);
-    const dec1 = toDecimal(o1);
-    const dec2 = toDecimal(o2);
-    const clearIds1 = ['optBook2','fixedArbPct1','fixedProfit1','fixedRisk1','rndOptBook2','rndArbPct1','rndProfit1','rndRisk1'];
-    const clearIds2 = ['optBook1','fixedArbPct2','fixedProfit2','fixedRisk2','rndOptBook1','rndArbPct2','rndProfit2','rndRisk2'];
-    if (!dec1 || !dec2) { clearIds1.concat(clearIds2).forEach(id => { document.getElementById(id).textContent='—'; }); return; }
-
-    // ── Book 1 fixed ──────────────────────────────────────────────────────────
-    const f1 = parseFloat(document.getElementById('fixedBook1Stake').value);
-    if (!isNaN(f1) && f1 > 0) {
-      const opt2 = f1 * dec1 / dec2;
-      const exactProfit1 = guaranteedProfit(f1, dec1, opt2, dec2);
-      const exactRisk1   = f1 + opt2;
-      const exactPct1    = exactProfit1 / exactRisk1;
-      const rnd2         = bestRounded(f1, dec1, dec2);
-      const rndRisk1     = f1 + rnd2.r;
-      const rndPct1      = rnd2.profit / rndRisk1;
-      const c = (n) => n >= 0 ? 'var(--green)' : 'var(--red)';
-      setFixed(
-        ['optBook2','fixedArbPct1','fixedProfit1','fixedRisk1'],
-        [
-          { text: '$'+opt2.toFixed(2), color: 'var(--purple)' },
-          { text: (exactPct1*100).toFixed(2)+'%', color: c(exactProfit1) },
-          { text: (exactProfit1>=0?'+':'')+' $'+exactProfit1.toFixed(2), color: c(exactProfit1) },
-          { text: '$'+exactRisk1.toFixed(2), color: '' }
-        ]
-      );
-      setFixed(
-        ['rndOptBook2','rndArbPct1','rndProfit1','rndRisk1'],
-        [
-          { text: '$'+rnd2.r.toFixed(2), color: 'var(--purple)' },
-          { text: (rndPct1*100).toFixed(2)+'%', color: c(rnd2.profit) },
-          { text: (rnd2.profit>=0?'+':'')+' $'+rnd2.profit.toFixed(2), color: c(rnd2.profit) },
-          { text: '$'+rndRisk1.toFixed(2), color: '' }
-        ]
-      );
-    } else {
-      clearIds1.forEach(id => { document.getElementById(id).textContent='—'; document.getElementById(id).style.color=''; });
+    if (total === null || total <= 0) {
+      [...maxIds, ...rndIds].forEach(id => setVal(document.getElementById(id), '—', 'empty'));
+      return;
     }
 
-    // ── Book 2 fixed ──────────────────────────────────────────────────────────
-    const f2 = parseFloat(document.getElementById('fixedBook2Stake').value);
-    if (!isNaN(f2) && f2 > 0) {
-      const opt1 = f2 * dec2 / dec1;
-      const exactProfit2 = guaranteedProfit(opt1, dec1, f2, dec2);
-      const exactRisk2   = opt1 + f2;
-      const exactPct2    = exactProfit2 / exactRisk2;
-      const rnd1         = bestRounded(f2, dec2, dec1);
-      const rndRisk2     = rnd1.r + f2;
-      const rndPct2      = rnd1.profit / rndRisk2;
-      const c = (n) => n >= 0 ? 'var(--green)' : 'var(--red)';
-      setFixed(
-        ['optBook1','fixedArbPct2','fixedProfit2','fixedRisk2'],
-        [
-          { text: '$'+opt1.toFixed(2), color: 'var(--blue)' },
-          { text: (exactPct2*100).toFixed(2)+'%', color: c(exactProfit2) },
-          { text: (exactProfit2>=0?'+':'')+' $'+exactProfit2.toFixed(2), color: c(exactProfit2) },
-          { text: '$'+exactRisk2.toFixed(2), color: '' }
-        ]
-      );
-      setFixed(
-        ['rndOptBook1','rndArbPct2','rndProfit2','rndRisk2'],
-        [
-          { text: '$'+rnd1.r.toFixed(2), color: 'var(--blue)' },
-          { text: (rndPct2*100).toFixed(2)+'%', color: c(rnd1.profit) },
-          { text: (rnd1.profit>=0?'+':'')+' $'+rnd1.profit.toFixed(2), color: c(rnd1.profit) },
-          { text: '$'+rndRisk2.toFixed(2), color: '' }
-        ]
-      );
-    } else {
-      clearIds2.forEach(id => { document.getElementById(id).textContent='—'; document.getElementById(id).style.color=''; });
-    }
+    // ── Optimal split ──
+    const s1 = total * (1 / dec1) / margin;
+    const s2 = total * (1 / dec2) / margin;
+    const profit = guaranteedProfit(s1, dec1, s2, dec2);
+    const pct = profit / total;
+    setVal(document.getElementById('maxBook1'), fmtDollar(s1), 'book1');
+    setVal(document.getElementById('maxBook2'), fmtDollar(s2), 'book2');
+    setVal(document.getElementById('maxArbPct'), fmtPct(pct), pct >= 0 ? 'pos' : 'neg');
+    setVal(document.getElementById('maxProfit'), (profit >= 0 ? '+' : '') + fmtDollar(profit), profit >= 0 ? 'profit' : 'neg');
+
+    // ── Rounded split — try floor/ceil combos, pick best guaranteed profit ──
+    const step = total < 20 ? 0.5 : 1;
+    const r = (x, fn) => Math.max(step, fn(x / step) * step);
+    const combos = [
+      [r(s1, Math.floor), r(s2, Math.floor)],
+      [r(s1, Math.floor), r(s2, Math.ceil)],
+      [r(s1, Math.ceil),  r(s2, Math.floor)],
+      [r(s1, Math.ceil),  r(s2, Math.ceil)]
+    ].map(([a, b]) => ({ a, b, profit: guaranteedProfit(a, dec1, b, dec2) }))
+     .sort((x, y) => y.profit - x.profit)[0];
+    const rndPct = combos.profit / (combos.a + combos.b);
+    setVal(document.getElementById('rndBook1'), fmtDollar(combos.a), 'book1');
+    setVal(document.getElementById('rndBook2'), fmtDollar(combos.b), 'book2');
+    setVal(document.getElementById('rndArbPct'), fmtPct(rndPct), rndPct >= 0 ? 'pos' : 'neg');
+    setVal(document.getElementById('rndProfit'), (combos.profit >= 0 ? '+' : '') + fmtDollar(combos.profit), combos.profit >= 0 ? 'profit' : 'neg');
   }
 
+  // ─── Counter calc: one side already placed ───
+  function calcCounter() {
+    const dec1 = parseOddsToDecimal(book1El.value);
+    const dec2 = parseOddsToDecimal(book2El.value);
+    const stake = parseMoney(fixedStakeEl.value);
 
+    const stakeEl = document.getElementById('counterStake');
+    const roundedEl = document.getElementById('counterRounded');
+    const pctEl = document.getElementById('counterPct');
+    const profitEl = document.getElementById('counterProfit');
+    const riskEl = document.getElementById('counterRisk');
 
-  document.getElementById('book1Odds').addEventListener('input', () => { calc(); calcFixed(); });
-  document.getElementById('book2Odds').addEventListener('input', () => { calc(); calcFixed(); });
-  document.getElementById('totalStake').addEventListener('input', calc);
-  document.getElementById('fixedBook1Stake').addEventListener('input', calcFixed);
-  document.getElementById('fixedBook2Stake').addEventListener('input', calcFixed);
+    fixedStakeEl.classList.toggle('invalid', stake === null && fixedStakeEl.value.trim() !== '');
 
-  calc();
+    if (dec1 === null || dec2 === null || stake === null || stake <= 0) {
+      [stakeEl, pctEl, profitEl, riskEl].forEach(el => setVal(el, '—', 'empty'));
+      roundedEl.innerHTML = '&nbsp;';
+      return;
+    }
+
+    // fixedSide = the book already bet; counter goes on the other book
+    const decFixed = fixedSide === 1 ? dec1 : dec2;
+    const decOther = fixedSide === 1 ? dec2 : dec1;
+    const counterCls = fixedSide === 1 ? 'book2' : 'book1';
+
+    // counter stake so both legs return equal: stake·decFixed = counter·decOther
+    const counter = stake * decFixed / decOther;
+    const profit = guaranteedProfit(stake, decFixed, counter, decOther);
+    const risk = stake + counter;
+    const pct = profit / risk;
+
+    // rounded counter
+    const stepC = risk < 20 ? 0.5 : 1;
+    const lo = Math.max(stepC, Math.floor(counter / stepC) * stepC);
+    const hi = Math.max(stepC, Math.ceil(counter / stepC) * stepC);
+    const rnd = [lo, hi]
+      .map(c => ({ c, profit: guaranteedProfit(stake, decFixed, c, decOther) }))
+      .sort((x, y) => y.profit - x.profit)[0];
+
+    setVal(stakeEl, fmtDollar(counter), counterCls);
+    roundedEl.innerHTML = '≈ ' + fmtDollar(rnd.c) + ' rounded';
+    setVal(pctEl, fmtPct(pct), pct >= 0 ? 'pos' : 'neg');
+    setVal(profitEl, (profit >= 0 ? '+' : '') + fmtDollar(profit), profit >= 0 ? 'profit' : 'neg');
+    setVal(riskEl, fmtDollar(risk));
+  }
+
+  function runAll() { calc(); calcCounter(); }
+
+  [book1El, book2El].forEach(el => {
+    el.addEventListener('input', runAll);
+    el.addEventListener('focus', () => el.select());
+  });
+  totalEl.addEventListener('input', calc);
+  totalEl.addEventListener('focus', () => totalEl.select());
+  fixedStakeEl.addEventListener('input', calcCounter);
+  fixedStakeEl.addEventListener('focus', () => fixedStakeEl.select());
+
+  document.getElementById('fixedSideGroup').addEventListener('click', e => {
+    const btn = e.target.closest('.pill');
+    if (!btn) return;
+    document.querySelectorAll('#fixedSideGroup .pill').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    fixedSide = parseInt(btn.dataset.side, 10);
+    fixedStakeLabelEl.textContent = 'My stake on Book ' + fixedSide + ' ($)';
+    counterLabelEl.textContent = 'Book ' + (fixedSide === 1 ? 2 : 1) + ' Stake';
+    calcCounter();
+  });
+
+  runAll();
 </script>
-<div style="text-align:center;color:#6b7280;font-size:.78rem;padding:24px 16px 32px;border-top:1px solid rgba(255,255,255,.06);margin-top:32px;line-height:1.6;">
-  Profit Path Sports is an educational resource. Bet responsibly. 21+ where legal. 1-800-GAMBLER.<br>
-  &copy; 2026 Profit Path Sports &middot; <a href="/privacy.html" style="color:#9ca3af;">Privacy</a> &middot; <a href="/disclaimer.html" style="color:#9ca3af;">Disclaimer</a> &middot; <a href="/affiliate-disclosure.html" style="color:#9ca3af;">Affiliate</a>
-</div>
+
 <script>
   /* Sidebar behavior */
   (function() {
@@ -875,39 +1041,11 @@
       body.classList.toggle('pps-sidebar-open');
     });
 
-    document.querySelectorAll('.pps-sidebar summary[data-anchor]').forEach(function(s) {
-      s.addEventListener('click', function() {
-        if (!isHome) return;
-        var anchor = s.getAttribute('data-anchor');
-        var target = document.getElementById(anchor);
-        if (target) {
-          setTimeout(function() {
-            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          }, 60);
-        }
-      });
-    });
-
-    // Only auto-open the sidebar on desktop-class viewports. On mobile/tablet
-    // (< 900px) it stays closed until the user taps the hamburger so it
-    // doesn't cover the content on first paint.
     var isDesktop = window.matchMedia('(min-width: 901px)').matches;
-
-    if (isDesktop) {
-      if (isHome) {
-        var autoOpened = false;
-        window.addEventListener('scroll', function() {
-          if (!autoOpened && window.scrollY > 600) {
-            body.classList.add('pps-sidebar-open');
-            autoOpened = true;
-          }
-        }, { passive: true });
-      } else {
-        body.classList.add('pps-sidebar-open');
-      }
+    if (isDesktop && !isHome) {
+      body.classList.add('pps-sidebar-open');
     }
 
-    // Mobile: tap outside the open sidebar to dismiss it
     document.addEventListener('click', function(e) {
       if (window.innerWidth >= 901) return;
       if (!body.classList.contains('pps-sidebar-open')) return;
