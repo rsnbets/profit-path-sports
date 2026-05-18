@@ -23,7 +23,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=DM+Mono:wght@400;500&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
   :root {
@@ -72,6 +72,11 @@
     line-height: 1.55;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
+  }
+  /* Numeric readouts — tabular figures so digits stay column-aligned */
+  .out-value, .compare-table td, .input-cell input, .input-cell select,
+  .side-fair-mini, .step-num {
+    font-variant-numeric: tabular-nums;
   }
   body::after {
     content: '';
@@ -127,27 +132,57 @@
   }
   .help-pill:hover { background: var(--cyan-dim); color: var(--green); border-color: var(--green-border); }
 
-  .title-row { display: flex; align-items: flex-end; gap: 16px; margin-bottom: 14px; flex-wrap: wrap; }
-  .header h1 {
-    font-family: 'DM Serif Display', serif;
-    font-style: normal;
-    font-size: clamp(40px, 6vw, 64px);
-    line-height: 1;
-    color: var(--text);
-    letter-spacing: -.01em;
-    font-weight: 400;
-    margin: 0;
+  .title-row { display: flex; align-items: flex-end; justify-content: center; gap: 16px; margin-bottom: 14px; flex-wrap: wrap; position: relative; }
+  /* MOCK 2 — Space Grotesk + glow + green→cyan gradient on "X-Ray" */
+  .title-row::before {
+    content: '';
+    position: absolute;
+    left: 50%; top: 50%;
+    width: 540px; height: 220px;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(ellipse at center,
+                  rgba(77,255,120,0.18) 0%,
+                  rgba(0,212,255,0.10) 35%,
+                  rgba(77,255,120,0) 70%);
+    filter: blur(28px);
+    pointer-events: none;
+    z-index: 0;
   }
-  .header h1 .accent-phrase { color: var(--green); font-style: italic; }
+  .title-row > * { position: relative; z-index: 1; }
+  .header h1 {
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-style: normal;
+    font-size: clamp(44px, 6.4vw, 72px);
+    line-height: 1.1;
+    letter-spacing: -.025em;
+    font-weight: 700;
+    margin: 0;
+    padding-bottom: 0.08em;
+    /* Whole title gradient — green→cyan */
+    background: linear-gradient(95deg, var(--green) 0%, var(--cyan) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+  .header h1 .accent-phrase {
+    /* span retained for HTML compat — inherits the gradient */
+    font-style: normal;
+  }
   .tagline {
     font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: clamp(14px, 1.6vw, 17px);
     color: var(--muted);
     font-weight: 300;
     line-height: 1.55;
-    max-width: 640px;
+    max-width: 760px;
+    margin: 0 auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
   }
-  .tagline .mono { font-family: 'DM Mono', monospace; color: var(--cyan); }
+  .tagline .mono { font-family: 'Space Grotesk', system-ui, sans-serif; color: var(--cyan); }
 
   /* ───────── BODY layout ───────── */
   .body { display: flex; flex-direction: column; gap: 24px; }
@@ -191,8 +226,8 @@
   }
   .output-section-label {
     font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 10px; font-weight: 700;
-    letter-spacing: .22em; text-transform: uppercase;
+    font-size: 11px; font-weight: 700;
+    letter-spacing: .24em; text-transform: uppercase;
     color: var(--cyan);
   }
   .output-section-sub {
@@ -207,9 +242,27 @@
   }
 
   .connector {
+    position: relative;
+    height: 30px;
+    margin: 6px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .connector::before {
+    content: '';
+    position: absolute;
+    left: 0; right: 0; top: 50%;
     height: 1px;
-    background: linear-gradient(to right, transparent, var(--border-2), transparent);
-    margin: 4px 0;
+    background: linear-gradient(to right, transparent, var(--cyan-border), transparent);
+  }
+  .connector::after {
+    content: '';
+    position: relative;
+    width: 7px; height: 7px;
+    background: var(--cyan);
+    transform: rotate(45deg);
+    box-shadow: 0 0 0 5px var(--bg), 0 0 14px rgba(0,212,255,0.55);
   }
 
   /* ───────── STEP CARD ───────── */
@@ -258,31 +311,37 @@
   }
   .sub-label {
     font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 9px; font-weight: 600;
+    font-size: 10px; font-weight: 600;
     letter-spacing: .22em; text-transform: uppercase;
-    color: var(--dim);
+    color: var(--cyan);
   }
-  .pill-group { display: inline-flex; gap: 4px; flex-wrap: wrap; }
+  .pill-group { display: inline-flex; gap: 5px; flex-wrap: wrap; }
   .pill {
-    background: transparent;
+    background: var(--surface-2);
     color: var(--muted);
     border: 1px solid var(--border-2);
-    border-radius: 4px;
-    padding: 7px 14px;
+    border-radius: 6px;
+    padding: 8px 15px;
     font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 11px; font-weight: 500;
-    letter-spacing: .08em;
+    font-size: 11px; font-weight: 600;
+    letter-spacing: .06em;
     cursor: pointer;
-    transition: all .18s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: all .16s cubic-bezier(0.16, 1, 0.3, 1);
   }
-  .pill:hover { color: var(--cyan); border-color: var(--cyan-border); }
+  .pill:hover {
+    color: var(--cyan);
+    border-color: var(--cyan-border);
+    background: var(--cyan-faint);
+  }
+  .pill:active { transform: translateY(1px); }
   .pill.active {
     background: var(--cyan-dim);
     color: var(--cyan);
-    border-color: var(--cyan-border);
+    border-color: var(--cyan);
+    box-shadow: 0 0 0 1px var(--cyan-border), 0 2px 14px rgba(0,212,255,0.14);
   }
   .side-fair-mini {
-    font-family: 'DM Mono', monospace;
+    font-family: 'Space Grotesk', system-ui, sans-serif;
     font-size: 10px;
     color: var(--green);
     margin-left: 6px;
@@ -296,9 +355,9 @@
   .input-cell label {
     display: block;
     font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 10px; font-weight: 500;
+    font-size: 11px; font-weight: 600;
     letter-spacing: .18em; text-transform: uppercase;
-    color: var(--dim);
+    color: var(--cyan);
     margin-bottom: 6px;
   }
   .input-cell input,
@@ -309,7 +368,7 @@
     border-radius: 6px;
     color: var(--text);
     padding: 13px 16px;
-    font-family: 'DM Mono', monospace;
+    font-family: 'Space Grotesk', system-ui, sans-serif;
     font-size: 15px;
     font-weight: 500;
     width: 100%;
@@ -344,26 +403,26 @@
 
   .out-box {
     background: var(--surface-2);
-    border: 1px solid var(--border);
+    border: 1px solid var(--border-2);
     border-radius: 8px;
-    padding: 14px 16px;
-    transition: border-color .18s;
+    padding: 16px 18px;
+    transition: border-color .2s, background .2s;
   }
-  .out-box:hover { border-color: var(--border-2); }
+  .out-box:hover { border-color: rgba(0,212,255,0.22); }
   .out-label {
     font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 9px; font-weight: 600;
+    font-size: 10px; font-weight: 600;
     letter-spacing: .22em; text-transform: uppercase;
-    color: var(--dim);
-    margin-bottom: 8px;
+    color: var(--cyan);
+    margin-bottom: 10px;
   }
   .out-value {
-    font-family: 'DM Mono', monospace;
-    font-size: clamp(18px, 2vw, 22px);
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-size: clamp(24px, 2.8vw, 30px);
     font-weight: 500;
     color: var(--text);
-    line-height: 1.1;
-    letter-spacing: .01em;
+    line-height: 1.05;
+    letter-spacing: 0;
   }
   .out-value.accent { color: var(--green); }
   .out-value.pos { color: var(--green); }
@@ -371,65 +430,141 @@
   .out-value.empty { color: var(--dim); font-weight: 400; }
   .out-sub {
     font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 10px;
-    color: var(--dim);
-    margin-top: 4px;
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 6px;
     letter-spacing: .04em;
   }
 
-  /* ───────── VERDICT BANNER ───────── */
+  /* ───────── VERDICT — "The Diagnosis" hero ───────── */
   .verdict {
-    background: var(--surface-2);
+    position: relative;
+    background: var(--surface);
     border: 1px solid var(--border-2);
-    border-left: 3px solid var(--dim);
-    border-radius: 8px;
-    padding: 18px 22px;
-    margin-top: 18px;
+    border-radius: 16px;
+    padding: 40px 32px 44px;
+    margin-top: 28px;
+    text-align: center;
+    overflow: hidden;
+    transition: border-color .3s;
   }
-  .verdict.thin { border-left-color: var(--dim); }
-  .verdict.bad { border-left-color: var(--red); background: linear-gradient(135deg, var(--red-dim), var(--surface-2)); }
-  .verdict.marginal { border-left-color: var(--yellow); }
-  .verdict.solid { border-left-color: var(--green); background: linear-gradient(135deg, var(--green-faint), var(--surface-2)); }
-  .verdict.strong {
-    border-left-color: var(--green);
-    background: linear-gradient(135deg, var(--green-dim), var(--surface-2));
-    box-shadow: 0 0 24px rgba(77,255,120,0.06);
+  .verdict::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 640px 300px at center,
+                rgba(255,255,255,0.025) 0%,
+                transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+    transition: background .3s;
+  }
+  .verdict > * { position: relative; z-index: 1; }
+  .verdict-eyebrow {
+    display: block;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 17px; font-weight: 700;
+    letter-spacing: .24em; text-transform: uppercase;
+    color: var(--cyan);
+    margin-bottom: 14px;
+    transition: color .3s;
   }
   .verdict-title {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-weight: 800;
-    font-size: 20px;
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-weight: 700;
+    font-size: clamp(42px, 6vw, 66px);
+    line-height: 1.05;
+    letter-spacing: -.025em;
     color: var(--text);
-    margin-bottom: 6px;
-    line-height: 1.15;
-    letter-spacing: -.005em;
+    margin: 0 0 16px;
+    padding-bottom: 0.08em;
+    transition: color .3s;
   }
-  .verdict.solid .verdict-title,
-  .verdict.strong .verdict-title { color: var(--green); }
-  .verdict.bad .verdict-title { color: var(--red); }
   .verdict-body {
     font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 14px;
+    font-size: clamp(15px, 1.5vw, 17px);
     color: var(--muted);
     line-height: 1.65;
+    max-width: 620px;
+    margin: 0 auto;
     font-weight: 300;
+  }
+
+  /* State variants */
+  .verdict.thin .verdict-eyebrow { color: var(--dim); }
+
+  .verdict.bad { border-color: rgba(255,61,61,0.32); }
+  .verdict.bad::before {
+    background: radial-gradient(ellipse 640px 300px at center,
+                rgba(255,61,61,0.18) 0%,
+                rgba(255,61,61,0.04) 35%,
+                transparent 72%);
+  }
+  .verdict.bad .verdict-eyebrow { color: var(--red); }
+  .verdict.bad .verdict-title { color: var(--red); }
+
+  .verdict.marginal { border-color: rgba(245,181,69,0.32); }
+  .verdict.marginal::before {
+    background: radial-gradient(ellipse 640px 300px at center,
+                rgba(245,181,69,0.16) 0%,
+                rgba(245,181,69,0.03) 35%,
+                transparent 72%);
+  }
+  .verdict.marginal .verdict-eyebrow { color: var(--yellow); }
+  .verdict.marginal .verdict-title { color: var(--yellow); }
+
+  .verdict.solid { border-color: rgba(77,255,120,0.32); }
+  .verdict.solid::before {
+    background: radial-gradient(ellipse 640px 300px at center,
+                rgba(77,255,120,0.16) 0%,
+                rgba(77,255,120,0.04) 35%,
+                transparent 72%);
+  }
+  .verdict.solid .verdict-eyebrow { color: var(--green); }
+  .verdict.solid .verdict-title { color: var(--green); }
+
+  .verdict.strong { border-color: rgba(77,255,120,0.48); }
+  .verdict.strong::before {
+    background: radial-gradient(ellipse 720px 340px at center,
+                rgba(77,255,120,0.26) 0%,
+                rgba(0,212,255,0.10) 40%,
+                transparent 76%);
+  }
+  .verdict.strong .verdict-eyebrow { color: var(--green); }
+  .verdict.strong .verdict-title {
+    background: linear-gradient(95deg, var(--green) 0%, var(--cyan) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+  @media (max-width: 640px) {
+    .verdict { padding: 32px 22px 36px; }
   }
 
   /* ───────── BONUS CARDS ───────── */
   .bonus-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
   @media (max-width: 880px) { .bonus-grid { grid-template-columns: 1fr; } }
   .bonus-card {
-    background: var(--surface);
+    background: transparent;
     border: 1px solid var(--border);
     border-radius: 12px;
-    padding: 24px 26px;
+    padding: 22px 24px;
+  }
+  .bonus-eyebrow {
+    display: block;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 9px; font-weight: 700;
+    letter-spacing: .26em; text-transform: uppercase;
+    color: var(--dim);
+    margin-bottom: 7px;
   }
   .bonus-card h4 {
     font-family: 'Plus Jakarta Sans', sans-serif;
     font-weight: 700;
-    font-size: 18px;
+    font-size: 16px;
     color: var(--text);
-    margin-bottom: 10px;
+    margin-bottom: 9px;
     letter-spacing: -.005em;
   }
 
@@ -437,28 +572,87 @@
   .compare-table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 8px;
+    margin-top: 10px;
     font-family: 'Plus Jakarta Sans', sans-serif;
   }
   .compare-table th {
     text-align: left;
-    padding: 9px 12px;
-    font-size: 9px; font-weight: 600;
-    letter-spacing: .22em; text-transform: uppercase;
-    color: var(--dim);
-    border-bottom: 1px solid var(--border-2);
+    padding: 10px 14px;
+    font-size: 10px; font-weight: 600;
+    letter-spacing: .2em; text-transform: uppercase;
+    color: var(--cyan);
+    border-bottom: 1px solid var(--cyan-border);
   }
+  .compare-table th:not(:first-child),
+  .compare-table td:not(:first-child) { text-align: right; }
   .compare-table td {
-    padding: 10px 12px;
-    font-size: 12px;
+    padding: 11px 14px;
+    font-size: 13px;
     color: var(--text);
     border-bottom: 1px solid var(--border);
-    font-family: 'DM Mono', monospace;
+    font-family: 'Space Grotesk', system-ui, sans-serif;
   }
-  .compare-table td:first-child { font-family: 'Plus Jakarta Sans', sans-serif; color: var(--muted); }
+  .compare-table tbody tr:last-child td { border-bottom: none; }
+  .compare-table tbody tr { transition: background .15s; }
+  .compare-table tbody tr:hover td { background: rgba(255,255,255,0.02); }
+  .compare-table td:first-child {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    color: var(--muted);
+    font-weight: 500;
+  }
   .compare-table tr.highlight td { background: var(--cyan-faint); color: var(--text); }
+  .compare-table tr.highlight td:first-child {
+    color: var(--cyan);
+    font-weight: 600;
+    box-shadow: inset 2px 0 0 var(--cyan);
+  }
   .compare-table td.pos { color: var(--green); }
   .compare-table td.neg { color: var(--red); }
+
+  /* ───────── METHOD INFO ───────── */
+  .method-info {
+    margin: 2px 0 16px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+  .method-info summary {
+    cursor: pointer;
+    list-style: none;
+    display: inline-flex; align-items: center; gap: 7px;
+    font-size: 11px; font-weight: 600;
+    letter-spacing: .04em;
+    color: var(--cyan);
+    user-select: none;
+    transition: color .15s;
+  }
+  .method-info summary::-webkit-details-marker { display: none; }
+  .method-info summary::before {
+    content: 'i';
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 15px; height: 15px;
+    border: 1px solid var(--cyan-border);
+    border-radius: 50%;
+    font-size: 9px; font-weight: 700; font-style: italic;
+  }
+  .method-info summary:hover { color: var(--green); }
+  .method-info[open] summary { margin-bottom: 10px; }
+  .method-info-body {
+    max-width: 520px;
+    text-align: left;
+    padding: 16px 18px;
+    background: var(--surface-2);
+    border: 1px solid var(--border-2);
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 300;
+    line-height: 1.65;
+    color: var(--muted);
+  }
+  .method-info-body p { margin-bottom: 10px; }
+  .method-info-body p:last-child { margin-bottom: 0; }
+  .method-info-body strong { color: var(--cyan); font-weight: 600; }
 
   /* ───────── HOW TO ───────── */
   .how-to {
@@ -485,18 +679,29 @@
   .how-to[open] summary::after { content: ' ▴'; }
   .how-to summary:hover { background: var(--surface-2); }
   .how-to-body {
-    padding: 26px;
+    padding: 28px;
     font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 14px;
     font-weight: 300;
-    line-height: 1.75;
+    line-height: 1.7;
     color: var(--muted);
   }
-  .how-to-body p { margin-bottom: 14px; }
-  .how-to-body strong { color: var(--text); font-weight: 600; }
-  .how-to-body em { color: var(--cyan); font-style: normal; font-weight: 500; }
-  .how-to-body ul { margin: 8px 0 16px; padding-left: 20px; }
-  .how-to-body li { margin-bottom: 6px; }
+  .how-to-body p { margin-bottom: 13px; }
+  /* Section-lead paragraphs (What it does / Step X / Bonus / Caveats) get extra air */
+  .how-to-body p:has(> strong:first-child) { margin-top: 26px; }
+  .how-to-body p:first-child { margin-top: 0; }
+  .how-to-body strong { color: var(--text); font-weight: 700; }
+  .how-to-body em { color: var(--cyan); font-style: normal; font-weight: 600; }
+  .how-to-body ul { list-style: none; margin: 10px 0 16px; padding-left: 2px; }
+  .how-to-body li { position: relative; padding-left: 20px; margin-bottom: 9px; }
+  .how-to-body li::before {
+    content: '';
+    position: absolute;
+    left: 2px; top: 0.62em;
+    width: 6px; height: 6px;
+    background: var(--cyan);
+    transform: rotate(45deg);
+  }
   .how-to-body a { color: var(--cyan); }
   .how-to-body a:hover { color: var(--green); }
 
@@ -575,7 +780,7 @@
   }
   .pps-nav-link:hover { background: var(--surface-2); color: var(--text); }
   .pps-nav-link.active { background: var(--green-faint); color: var(--green); border-left-color: var(--green); font-weight: 500; }
-  .pps-nav-num { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--dim); font-weight: 500; min-width: 18px; }
+  .pps-nav-num { font-family: 'Space Grotesk', system-ui, sans-serif; font-size: 10px; color: var(--dim); font-weight: 500; min-width: 18px; }
   .pps-nav-link.path-blue .pps-nav-num,
   .pps-path-group.path-blue > summary .pps-nav-num { color: var(--cyan); }
   .pps-nav-link.path-green .pps-nav-num,
@@ -722,9 +927,13 @@
       <button class="help-pill" onclick="document.getElementById('howto').open = !document.getElementById('howto').open; document.getElementById('howto').scrollIntoView({behavior:'smooth', block:'nearest'});">How to use ↓</button>
     </div>
     <div class="title-row">
-      <h1>Bet <span class="accent-phrase">X-Ray.</span></h1>
+      <h1>Bet <span class="accent-phrase">X-Ray</span></h1>
     </div>
-    <p class="tagline">See straight through any price. <span class="mono">Devig → EV → Kelly → Verdict</span> in one shot. No comparable tool exists publicly — that's not a claim, it's a search result you can verify in 30 seconds.</p>
+    <p class="tagline">
+      <span>The whole bet, on one screen.</span>
+      <span class="mono">Devig the price. Calculate the edge. Size the bet. Get a verdict.</span>
+      <span>No tab-switching, no calculator-stacking, no math on the side.</span>
+    </p>
   </div>
 
   <div class="body">
@@ -732,8 +941,8 @@
     <!-- STEP 01 + 02 — Combined setup row -->
     <div class="step setup-step" id="step1">
       <div class="step-head">
-        <span class="step-num">Step 01<em>·</em>02</span>
-        <span class="step-title">Set up the bet</span>
+        <span class="step-num">Step 01</span>
+        <span class="step-title">Scan the bet</span>
         <span class="step-sub">Sharp market on the left, your book's price on the right.</span>
       </div>
 
@@ -749,6 +958,16 @@
           <button class="pill" data-method="additive">Additive</button>
         </div>
       </div>
+
+      <details class="method-info" id="methodInfo">
+        <summary>Proportional vs. Additive — which should I use?</summary>
+        <div class="method-info-body">
+          <p>Both strip the bookmaker's vig (juice) out of a market to find the fair price. They just split that vig differently.</p>
+          <p><strong>Proportional</strong> (default) removes the vig in proportion to each side's price — the book's margin is assumed to scale with how likely each side is. It's the industry standard and what most sharp tools use. Start here.</p>
+          <p><strong>Additive</strong> removes an equal slice of vig from each side. It hands underdogs slightly more fair probability than Proportional does — some bettors prefer it when they think the book loads its margin evenly.</p>
+          <p>On balanced markets (around −110 / −110) the two land within a fraction of a percent of each other. They only diverge on lopsided markets — heavy favorites and longshots. <strong>If switching methods flips your verdict, treat the edge as fragile</strong> and lean toward passing.</p>
+        </div>
+      </details>
 
       <div class="sub-toolbar" id="sideToolbar">
         <span class="sub-label">Side I'm betting</span>
@@ -788,7 +1007,7 @@
 
         <div class="inputs-row inputs-book cols-2">
           <div class="input-cell">
-            <label>Your book's price (American)</label>
+            <label>Your book's price</label>
             <input type="text" inputmode="numeric" id="bookPrice" placeholder="+105">
           </div>
           <div class="input-cell">
@@ -857,7 +1076,7 @@
     <!-- STEP 3: KELLY -->
     <div class="step" id="step3">
       <div class="step-head">
-        <span class="step-num">Step 03</span>
+        <span class="step-num">Step 02</span>
         <span class="step-title">Kelly Sizing</span>
         <span class="step-sub">How much should you actually bet?</span>
       </div>
@@ -904,7 +1123,7 @@
       </div>
 
       <details style="margin-top:16px;">
-        <summary style="cursor:pointer; font-family:'Plus Jakarta Sans',sans-serif; font-size:10px; letter-spacing:.22em; text-transform:uppercase; color:var(--dim); padding:8px 0; font-weight:600;">Compare alternate Kelly fractions ▾</summary>
+        <summary style="cursor:pointer; font-family:'Plus Jakarta Sans',sans-serif; font-size:10px; letter-spacing:.22em; text-transform:uppercase; color:var(--cyan); padding:8px 0; font-weight:600;">Compare alternate Kelly fractions ▾</summary>
         <table class="compare-table" id="kellyTable">
           <thead>
             <tr><th>Fraction</th><th>Stake</th><th>EV $</th><th>If wins</th><th>If loses</th></tr>
@@ -919,7 +1138,7 @@
     <!-- STEP 4: REALITY CHECK -->
     <div class="step" id="step4">
       <div class="step-head">
-        <span class="step-num">Step 04</span>
+        <span class="step-num">Step 03</span>
         <span class="step-title">Reality Check</span>
         <span class="step-sub">Is this bet as good as the EV says?</span>
       </div>
@@ -960,7 +1179,7 @@
         </div>
       </div>
 
-      <h4 style="font-family:'Plus Jakarta Sans',sans-serif; font-size:9px; letter-spacing:.24em; color:var(--dim); margin:24px 0 8px; text-transform:uppercase; font-weight:600;">Sensitivity — what if your true probability is off?</h4>
+      <h4 style="font-family:'Plus Jakarta Sans',sans-serif; font-size:10px; letter-spacing:.22em; color:var(--cyan); margin:24px 0 8px; text-transform:uppercase; font-weight:600;">Sensitivity — what if your true probability is off?</h4>
       <table class="compare-table" id="sensitivityTable">
         <thead>
           <tr><th>If true prob is</th><th>EV%</th><th>EV $</th><th>Recommended stake</th></tr>
@@ -969,16 +1188,21 @@
       </table>
 
       <div class="verdict thin" id="verdictBanner">
+        <span class="verdict-eyebrow">The Diagnosis</span>
         <div class="verdict-title">Awaiting inputs</div>
         <div class="verdict-body" id="verdictText">Fill in the steps above to get a verdict.</div>
       </div>
     </div>
 
-    <div class="connector"></div>
-
     <!-- BONUS TOOLS -->
+    <div class="output-section-head" style="margin: 30px 0 16px;">
+      <span class="output-section-label">Bonus Checks</span>
+      <span class="output-section-sub">optional — but the pros run these too</span>
+      <span class="output-section-rule"></span>
+    </div>
     <div class="bonus-grid">
       <div class="bonus-card">
+        <span class="bonus-eyebrow">Bonus</span>
         <h4>CLV Preview</h4>
         <p style="font-family:'Plus Jakarta Sans',sans-serif; font-size:13px; color:var(--muted); line-height:1.65; margin-bottom:14px; font-weight:300;">Enter the price you expect this market to close at. Beating the close is the strongest sign of a sustainable edge.</p>
         <div class="input-cell">
@@ -998,8 +1222,9 @@
       </div>
 
       <div class="bonus-card">
+        <span class="bonus-eyebrow">Bonus</span>
         <h4>Risk of Ruin</h4>
-        <p style="font-family:'Plus Jakarta Sans',sans-serif; font-size:13px; color:var(--muted); line-height:1.65; margin-bottom:14px; font-weight:300;">Estimated probability of a 50% bankroll drawdown over <span id="rorN" style="font-family:'DM Mono',monospace; color:var(--cyan);">1000</span> bets at the recommended stake. Lower is better.</p>
+        <p style="font-family:'Plus Jakarta Sans',sans-serif; font-size:13px; color:var(--muted); line-height:1.65; margin-bottom:14px; font-weight:300;">Estimated probability of a 50% bankroll drawdown over <span id="rorN" style="font-family:'Space Grotesk',system-ui,sans-serif; color:var(--cyan);">1000</span> bets at the recommended stake. Lower is better.</p>
         <div class="input-cell">
           <label>Bet horizon (number of bets)</label>
           <input type="text" inputmode="numeric" id="rorBets" placeholder="1000" value="1000">
@@ -1023,17 +1248,16 @@
       <div class="how-to-body">
         <p><strong>What it does.</strong> One calculator that runs the full sharp-betting pipeline: devig the market to get the fair price, compute your edge against your book's price, size with Kelly, then sanity-check the result with hit-rate, variance, sensitivity, CLV, and risk of ruin.</p>
 
-        <p><strong>Step 1 — Fair Price.</strong> Two ways in:</p>
+        <p><strong>Step 1 — Scan the bet.</strong> Two ways in:</p>
         <ul>
           <li><em>Sharp market</em>: enter both sides of a 2-way market from a sharp source (Pinnacle, Circa, or our <a href="/consensus-calculator.html">Consensus Calc</a>). The page strips the vig and outputs the fair % for both sides.</li>
           <li><em>My own model</em>: enter your true probability directly (in % or decimal). Skip the devig.</li>
         </ul>
+        <p>Then pick the side you're betting (only relevant in market mode), enter the price your book is offering, and optionally tag the book name. Output: fair price, probability gap, EV%, and EV per $100.</p>
 
-        <p><strong>Step 2 — Your Bet.</strong> Pick the side you're betting (only relevant in market mode), enter the price your book is offering, optionally tag the book name. Output: probability gap, EV%, and EV per $100.</p>
+        <p><strong>Step 2 — Kelly Sizing.</strong> Set bankroll and Kelly fraction. Half-Kelly is the default — most pros bet quarter or half, never full. Output: recommended stake, full Kelly reference, expected profit, potential loss. Expand the compare table to see all four common fractions side by side.</p>
 
-        <p><strong>Step 3 — Kelly Sizing.</strong> Set bankroll and Kelly fraction. Half-Kelly is the default — most pros bet quarter or half, never full. Output: recommended stake, full Kelly reference, expected profit, potential loss. Expand the compare table to see all four common fractions side by side.</p>
-
-        <p><strong>Step 4 — Reality Check.</strong> The most underrated step:</p>
+        <p><strong>Step 3 — Reality Check.</strong> The most underrated step:</p>
         <ul>
           <li><em>Breakeven hit rate</em>: how often you need to win to break even at this price.</li>
           <li><em>Margin of safety</em>: how much room your projection has before the bet flips negative.</li>
@@ -1214,7 +1438,7 @@
       fairAmerAEl.textContent = fmtAmerican(impliedToAmerican(tp.fairA));
       fairAmerAEl.classList.remove('empty');
       fairPctAEl.textContent = fmtPct(tp.fairA, 2) + ' implied';
-      sideAMini.textContent = '· ' + fmtAmerican(impliedToAmerican(tp.fairA));
+      sideAMini.textContent = fmtAmerican(impliedToAmerican(tp.fairA));
     } else {
       fairAmerAEl.textContent = '—'; fairAmerAEl.classList.add('empty');
       fairPctAEl.textContent = '—';
@@ -1225,7 +1449,7 @@
       fairAmerBEl.textContent = fmtAmerican(impliedToAmerican(tp.fairB));
       fairAmerBEl.classList.remove('empty');
       fairPctBEl.textContent = fmtPct(tp.fairB, 2) + ' implied';
-      sideBMini.textContent = '· ' + fmtAmerican(impliedToAmerican(tp.fairB));
+      sideBMini.textContent = fmtAmerican(impliedToAmerican(tp.fairB));
     } else {
       fairAmerBEl.textContent = '—'; fairAmerBEl.classList.add('empty');
       fairPctBEl.textContent = '—';
@@ -1502,6 +1726,7 @@
     document.getElementById('modelInputs').style.display = state.source === 'model' ? 'grid' : 'none';
     document.getElementById('methodGroup').style.display = state.source === 'market' ? 'inline-flex' : 'none';
     document.getElementById('methodLabel').style.display = state.source === 'market' ? 'inline' : 'none';
+    document.getElementById('methodInfo').style.display = state.source === 'market' ? 'block' : 'none';
     document.getElementById('sideToolbar').style.display = state.source === 'market' ? 'flex' : 'none';
     recompute();
   });
