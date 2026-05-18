@@ -242,6 +242,61 @@
   .lesson-table tr:last-child td { border-bottom: none; }
   .lesson-table td strong { color: var(--text); font-weight: 700; }
 
+  /* ───────── MINI CALC ───────── */
+  .minicalc {
+    background: var(--surface-2);
+    border: 1px solid var(--border-2);
+    border-radius: 12px;
+    padding: 22px 24px;
+    margin: 20px 0;
+  }
+  .minicalc-inputs { display: flex; gap: 14px; flex-wrap: wrap; }
+  .minicalc-field { flex: 1; min-width: 130px; }
+  .minicalc-field label {
+    display: block;
+    font-size: 10px; font-weight: 700;
+    letter-spacing: .16em; text-transform: uppercase;
+    color: var(--cyan); margin-bottom: 7px;
+  }
+  .minicalc-field input {
+    width: 100%;
+    background: var(--surface-3);
+    border: 1px solid var(--border-2);
+    border-radius: 8px;
+    padding: 12px 14px;
+    color: var(--text);
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-size: 20px; font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    text-align: center;
+  }
+  .minicalc-field input:focus { outline: none; border-color: var(--cyan); }
+  .minicalc-field input.invalid { border-color: var(--red); }
+  .minicalc-out {
+    display: flex; gap: 14px; flex-wrap: wrap;
+    margin-top: 16px; padding-top: 16px;
+    border-top: 1px solid var(--border-2);
+  }
+  .minicalc-out-cell { flex: 1; min-width: 130px; text-align: center; }
+  .minicalc-out-label {
+    font-size: 10px; font-weight: 700;
+    letter-spacing: .14em; text-transform: uppercase;
+    color: var(--dim); margin-bottom: 6px;
+  }
+  .minicalc-out-value {
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-size: 26px; font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    color: var(--dim);
+  }
+  .minicalc-out-value.profit { color: var(--green); }
+  .minicalc-out-value.total { color: var(--cyan); }
+  .minicalc-hint {
+    font-size: 12.5px; color: var(--muted);
+    margin-top: 14px; line-height: 1.55;
+  }
+  .minicalc-hint strong { color: var(--text); font-weight: 600; }
+
   /* ───────── KEY NOTE ───────── */
   .key-note {
     margin: 36px 0 8px;
@@ -617,6 +672,39 @@
   </section>
 
   <section class="lesson-section">
+    <h3>Now try it yourself</h3>
+    <div class="lesson-body">
+      <p>Odds click into place once you <em>play</em> with them. Here's a tiny calculator — type in a bet amount and the odds, and it shows what you'd win. Change the numbers and watch what happens:</p>
+
+      <div class="minicalc">
+        <div class="minicalc-inputs">
+          <div class="minicalc-field">
+            <label for="mcStake">Your bet ($)</label>
+            <input type="text" id="mcStake" inputmode="decimal" spellcheck="false" autocomplete="off" value="50">
+          </div>
+          <div class="minicalc-field">
+            <label for="mcOdds">The odds</label>
+            <input type="text" id="mcOdds" inputmode="text" spellcheck="false" autocomplete="off" value="+130">
+          </div>
+        </div>
+        <div class="minicalc-out">
+          <div class="minicalc-out-cell">
+            <div class="minicalc-out-label">If it wins, you profit</div>
+            <div class="minicalc-out-value profit" id="mcProfit">—</div>
+          </div>
+          <div class="minicalc-out-cell">
+            <div class="minicalc-out-label">Total back in your account</div>
+            <div class="minicalc-out-value total" id="mcTotal">—</div>
+          </div>
+        </div>
+        <div class="minicalc-hint">Try this: type <strong>−150</strong> and watch the profit shrink — a favorite pays less. Then type <strong>+400</strong> and watch it jump. Change your bet amount too, and notice everything scales with it.</div>
+      </div>
+
+      <p><strong>A quick challenge before you move on:</strong> using only the calculator, make the profit land on <em>exactly $100</em> — first with a favorite (a minus number), then with an underdog (a plus number). You'll need a very different bet amount for each. That gap between the two <em>is</em> this whole lesson — once you can feel it, you can read any line on the board.</p>
+    </div>
+  </section>
+
+  <section class="lesson-section">
     <h3>You'll see odds written two other ways</h3>
     <div class="lesson-body">
       <p>The plus/minus style above has a name — <strong>American odds</strong> — and it's what US sportsbooks use, so it's what you'll see most. But the exact same price can be written two other ways. You don't have to use them; you just want to recognize them.</p>
@@ -713,6 +801,54 @@
         body.classList.remove('pps-sidebar-open');
       }
     });
+  })();
+</script>
+
+<script>
+  /* Lesson 01 mini payout calculator */
+  (function(){
+    var stakeEl = document.getElementById('mcStake');
+    var oddsEl = document.getElementById('mcOdds');
+    var profitEl = document.getElementById('mcProfit');
+    var totalEl = document.getElementById('mcTotal');
+    if (!stakeEl || !oddsEl) return;
+
+    function parseOdds(str){
+      if (!str) return null;
+      var s = String(str).trim().replace(/[−–—]/g, '-');
+      if (!s) return null;
+      if (s.indexOf('.') > -1) {
+        var d = parseFloat(s);
+        return (isFinite(d) && d > 1) ? d : null;
+      }
+      var clean = s.replace(/^\+/, '');
+      if (!/^-?\d+$/.test(clean)) return null;
+      var n = parseInt(clean, 10);
+      if (!isFinite(n) || Math.abs(n) < 100) return null;
+      return n > 0 ? 1 + n / 100 : 1 + 100 / Math.abs(n);
+    }
+    function money(n){
+      return n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+    function calc(){
+      var stake = parseFloat(String(stakeEl.value).replace(/[$,\s]/g, ''));
+      var dec = parseOdds(oddsEl.value);
+      var stakeOk = isFinite(stake) && stake > 0;
+      stakeEl.classList.toggle('invalid', !stakeOk && stakeEl.value.trim() !== '');
+      oddsEl.classList.toggle('invalid', dec === null && oddsEl.value.trim() !== '');
+      if (!stakeOk || dec === null) {
+        profitEl.textContent = '—'; profitEl.className = 'minicalc-out-value';
+        totalEl.textContent = '—'; totalEl.className = 'minicalc-out-value';
+        return;
+      }
+      profitEl.textContent = '+$' + money(stake * (dec - 1));
+      profitEl.className = 'minicalc-out-value profit';
+      totalEl.textContent = '$' + money(stake * dec);
+      totalEl.className = 'minicalc-out-value total';
+    }
+    stakeEl.addEventListener('input', calc);
+    oddsEl.addEventListener('input', calc);
+    calc();
   })();
 </script>
 
