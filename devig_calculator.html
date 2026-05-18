@@ -3,461 +3,588 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Devig Calculator</title>
-  <meta name="description" content="Devig calculator — remove the sportsbook vig from any two-way market to find the true fair odds. Multiplicative, additive, and power methods supported.">
-  <meta property="og:type" content="article">
-  <meta property="og:title" content="Devig Calculator">
-  <meta property="og:description" content="Strip the vig out of any two-way market. Three devig methods, instant fair odds.">
-  <meta property="og:image" content="https://profitpathsports.com/images/og-default.png">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta property="og:url" content="https://profitpathsports.com/devig_calculator.html">
-  <meta property="og:site_name" content="Profit Path Sports">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Devig Calculator">
-  <meta name="twitter:description" content="Strip the vig out of any two-way market. Three devig methods, instant fair odds.">
-  <meta name="twitter:image" content="https://profitpathsports.com/images/og-default.png">
+<title>Devig Calculator — No-Vig Fair Odds | PROFITPATH Sports</title>
+<meta name="description" content="Strip the sportsbook's vig out of any two-way market to find the true no-vig fair odds. Proportional, additive, and power devig methods. Free, no signup.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Devig Calculator — No-Vig Fair Odds | PROFITPATH Sports">
+<meta property="og:description" content="Strip the vig out of any two-way market. Three devig methods, instant fair odds. Free, no signup.">
+<meta property="og:image" content="https://profitpathsports.com/images/og-default.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://profitpathsports.com/devig_calculator.html">
+<meta property="og:site_name" content="PROFITPATH Sports">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Devig Calculator — No-Vig Fair Odds">
+<meta name="twitter:description" content="Strip the vig out of any two-way market. Proportional, additive, and power methods.">
+<meta name="twitter:image" content="https://profitpathsports.com/images/og-default.png">
+<meta name="theme-color" content="#090909">
+
+<link rel="icon" type="image/svg+xml" href="/logo.svg">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
 <style>
   :root {
-    --bg: #0a0f1c;
-    --panel: #0f1524;
-    --panel-inset: #141a2b;
-    --panel-deep: #0c1120;
-    --border: #1e2638;
-    --border-soft: #141c30;
-    --text: #e5e7eb;
-    --muted: #8b94a8;
-    --dim: #6b7689;
-    --blue: #3d8bff;
-    --blue-glow: rgba(61, 139, 255, 0.15);
-    --yellow: #f5b545;
-    --yellow-glow: rgba(245, 181, 69, 0.15);
-    --green: #4ade80;
-    --green-glow: rgba(74, 222, 128, 0.15);
-    --red: #f87171;
-    --purple: #BC8CFF;
+    --green: #4DFF78;
+    --green-dim: rgba(77,255,120,0.15);
+    --green-faint: rgba(77,255,120,0.06);
+    --green-border: rgba(77,255,120,0.22);
+    --cyan: #00D4FF;
+    --cyan-dim: rgba(0,212,255,0.12);
+    --cyan-faint: rgba(0,212,255,0.04);
+    --cyan-border: rgba(0,212,255,0.22);
+    --red: #FF3D3D;
+    --yellow: #F5B545;
+    --bg: #090909;
+    --surface: #0D0D0D;
+    --surface-2: #141414;
+    --surface-3: #1C1C1C;
+    --border: rgba(255,255,255,0.05);
+    --border-2: rgba(255,255,255,0.08);
+    --text: #F0EEE8;
+    --muted: rgba(255,255,255,0.42);
+    --dim: rgba(255,255,255,0.25);
   }
 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
   body {
-    background: radial-gradient(ellipse at top, #111a2e 0%, var(--bg) 60%);
+    background: var(--bg);
     color: var(--text);
-    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    font-weight: 300;
     min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 24px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  .out-value, .input-cell input { font-variant-numeric: tabular-nums; }
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 999;
+    opacity: 0.025;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 
+  a { color: var(--cyan); text-decoration: none; }
+  a:hover { color: var(--green); }
+
+  /* ───────── CARD ───────── */
   .card {
-    width: 100%;
-    max-width: 820px;
-    background: var(--panel);
-    border: 1px solid var(--border);
-    border-radius: 18px;
-    overflow: hidden;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.02) inset;
-  }
-
-  .header {
-    text-align: center;
-    padding: 32px 20px 28px;
-    border-bottom: 1px solid var(--border);
-    background: linear-gradient(180deg, #0d1220 0%, #0b0f1d 100%);
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 32px 40px 80px;
     position: relative;
   }
+  @media (max-width: 640px) { .card { padding: 60px 20px 60px; } }
 
-  .header::after {
+  /* ───────── HEADER ───────── */
+  .header { margin-bottom: 36px; }
+  .header-meta {
+    display: flex; align-items: center; gap: 18px;
+    margin-bottom: 22px; flex-wrap: wrap;
+  }
+  .back-link {
+    font-size: 11px; font-weight: 500;
+    letter-spacing: .18em; text-transform: uppercase;
+    color: var(--dim); transition: color .15s;
+  }
+  .back-link:hover { color: var(--cyan); }
+  .header-eyebrow {
+    font-size: 10px; font-weight: 600;
+    letter-spacing: .28em; text-transform: uppercase;
+    color: var(--cyan);
+  }
+  .help-pill {
+    margin-left: auto;
+    background: transparent;
+    color: var(--cyan);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 10px; font-weight: 600;
+    letter-spacing: .14em; text-transform: uppercase;
+    padding: 7px 16px;
+    border: 1px solid var(--cyan-border);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all .18s;
+  }
+  .help-pill:hover { background: var(--cyan-dim); color: var(--green); border-color: var(--green-border); }
+
+  .title-row {
+    display: flex; align-items: flex-end; justify-content: center;
+    gap: 16px; margin-bottom: 14px; flex-wrap: wrap; position: relative;
+  }
+  .title-row::before {
     content: '';
     position: absolute;
-    bottom: -1px;
-    left: 10%;
-    right: 10%;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--blue), transparent);
-    opacity: 0.6;
+    left: 50%; top: 50%;
+    width: 600px; height: 220px;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(ellipse at center,
+                  rgba(77,255,120,0.18) 0%,
+                  rgba(0,212,255,0.10) 35%,
+                  rgba(77,255,120,0) 70%);
+    filter: blur(28px);
+    pointer-events: none;
+    z-index: 0;
   }
-
+  .title-row > * { position: relative; z-index: 1; }
   .header h1 {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 22px;
-    font-weight: 800;
-    color: var(--blue);
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    display: inline-flex;
-    align-items: center;
-    gap: 14px;
-  }
-
-  .bolt { font-size: 20px; filter: drop-shadow(0 0 8px rgba(245, 181, 69, 0.6)); }
-  .title-sub { font-family: 'IBM Plex Sans', sans-serif; font-size: 14px; color: var(--muted); line-height: 1.6; max-width: 620px; margin: 12px auto 0; padding: 0 14px; }
-  .title-sub strong { color: var(--text); font-weight: 600; }
-
-  .back-link {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    font-family: 'Orbitron', sans-serif;
-    font-size: 10px;
-    letter-spacing: 2px;
-    color: var(--dim);
-    text-decoration: none;
-    text-transform: uppercase;
-    transition: color 0.15s;
-  }
-
-  .back-link:hover { color: var(--blue); }
-
-  .learn-link {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    font-family: 'Orbitron', sans-serif;
-    font-size: 10px;
-    letter-spacing: 2px;
-    color: var(--dim);
-    text-decoration: none;
-    text-transform: uppercase;
-    transition: color 0.15s;
-  }
-  .learn-link:hover { color: var(--blue); }
-
-  .body { padding: 32px; }
-
-  .section-label {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 11px;
-    letter-spacing: 2.5px;
-    color: var(--dim);
-    text-transform: uppercase;
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-size: clamp(42px, 6.2vw, 70px);
+    line-height: 1.1;
+    letter-spacing: -.025em;
     font-weight: 700;
-    margin-bottom: 18px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
+    margin: 0;
+    padding-bottom: 0.08em;
+    background: linear-gradient(95deg, var(--green) 0%, var(--cyan) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
   }
-
-  .section-label::before {
-    content: '▸';
-    color: var(--blue);
-    font-size: 10px;
-  }
-
-  .section-label.green::before { color: var(--green); }
-  .section-label.yellow::before { color: var(--yellow); }
-
-  .two-col {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 24px;
-    margin-bottom: 28px;
-  }
-
-  .col-inner {
+  .tagline {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: clamp(14px, 1.6vw, 17px);
+    color: var(--muted);
+    font-weight: 300;
+    line-height: 1.55;
+    max-width: 760px;
+    margin: 0 auto;
+    text-align: center;
     display: flex;
     flex-direction: column;
-    gap: 18px;
+    gap: 4px;
   }
+  .tagline .mono { font-family: 'Space Grotesk', system-ui, sans-serif; color: var(--cyan); }
 
-  .side {
-    background: var(--panel-deep);
-    border: 1px solid var(--border-soft);
+  /* ───────── BODY ───────── */
+  .body { display: flex; flex-direction: column; gap: 24px; }
+
+  .step {
+    background: var(--surface);
+    border: 1px solid var(--border);
     border-radius: 12px;
-    padding: 18px;
+    padding: 24px 26px;
+    transition: border-color .25s;
   }
-
-  .side-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 12px;
-  }
-
-  .side-label {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 11px;
-    letter-spacing: 2px;
-    color: var(--muted);
-    text-transform: uppercase;
-    font-weight: 700;
-  }
-
-  .format-tag {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 9px;
-    letter-spacing: 1.5px;
-    color: var(--dim);
-    text-transform: uppercase;
-    padding: 3px 8px;
-    background: var(--panel-inset);
-    border-radius: 4px;
-    border: 1px solid var(--border);
-  }
-
-  .format-tag.active { color: var(--blue); border-color: var(--blue); }
-
-  /* Input styling */
-  .input-wrap {
-    position: relative;
-    background: var(--panel-inset);
-    border-radius: 10px;
-    overflow: hidden;
-  }
-
-  .input-wrap::after {
-    content: '';
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    height: 2px;
-    background: var(--blue);
-    box-shadow: 0 0 12px var(--blue-glow);
-  }
-
-  .input-wrap input {
-    width: 100%;
-    background: transparent;
-    border: none;
-    color: var(--blue);
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 28px;
-    font-weight: 700;
-    padding: 18px 20px;
-    text-align: center;
-    outline: none;
-    letter-spacing: 1px;
-  }
-
-  .input-wrap input::placeholder { color: #2e3a54; }
-
-  .input-wrap.error::after { background: var(--red); box-shadow: 0 0 12px rgba(248, 113, 113, 0.25); }
-  .input-wrap.error input { color: var(--red); }
-
-  /* Output styling */
-  .side.output { background: var(--panel-deep); }
-
-  .output-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-  }
-
-  .output-box {
-    background: var(--panel-inset);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 14px 10px;
-    text-align: center;
-  }
-
-  .output-box .label {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 9px;
-    letter-spacing: 1.5px;
-    color: var(--dim);
-    text-transform: uppercase;
+  .step:hover { border-color: var(--border-2); }
+  .step-head { margin-bottom: 20px; }
+  .step-num {
+    display: block;
+    font-size: 10px; font-weight: 600;
+    letter-spacing: .28em; text-transform: uppercase;
+    color: var(--cyan);
     margin-bottom: 6px;
   }
-
-  .output-box .value {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 22px;
+  .step-title {
+    display: block;
     font-weight: 700;
-    color: var(--green);
-    letter-spacing: 0.5px;
+    font-size: clamp(19px, 2.2vw, 23px);
+    color: var(--text);
+    line-height: 1.15;
+    margin-bottom: 4px;
+    letter-spacing: -.005em;
+  }
+  .step-sub {
+    display: block;
+    font-size: 13px; font-weight: 300;
+    color: var(--muted);
+    line-height: 1.5;
   }
 
-  .output-box .value.empty { color: var(--dim); font-weight: 400; }
+  /* ───────── METHOD TOOLBAR ───────── */
+  .sub-toolbar {
+    display: flex; align-items: center;
+    gap: 10px; flex-wrap: wrap;
+    margin-bottom: 8px;
+  }
+  .sub-label {
+    font-size: 10px; font-weight: 600;
+    letter-spacing: .22em; text-transform: uppercase;
+    color: var(--cyan);
+  }
+  .pill-group { display: inline-flex; gap: 5px; flex-wrap: wrap; }
+  .pill {
+    background: var(--surface-2);
+    color: var(--muted);
+    border: 1px solid var(--border-2);
+    border-radius: 6px;
+    padding: 8px 15px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 11px; font-weight: 600;
+    letter-spacing: .06em;
+    cursor: pointer;
+    transition: all .16s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .pill:hover { color: var(--cyan); border-color: var(--cyan-border); background: var(--cyan-faint); }
+  .pill:active { transform: translateY(1px); }
+  .pill.active {
+    background: var(--cyan-dim);
+    color: var(--cyan);
+    border-color: var(--cyan);
+    box-shadow: 0 0 0 1px var(--cyan-border), 0 2px 14px rgba(0,212,255,0.14);
+  }
 
-  /* Vig summary */
-  .vig-bar {
-    margin-top: 8px;
-    padding: 20px;
-    background: linear-gradient(135deg, #1a1a24 0%, var(--panel-deep) 100%);
+  /* ───────── METHOD INFO ───────── */
+  .method-info { margin: 0 0 20px; }
+  .method-info summary {
+    cursor: pointer;
+    list-style: none;
+    display: inline-flex; align-items: center; gap: 7px;
+    font-size: 11px; font-weight: 600;
+    letter-spacing: .04em;
+    color: var(--cyan);
+    user-select: none;
+    transition: color .15s;
+  }
+  .method-info summary::-webkit-details-marker { display: none; }
+  .method-info summary::before {
+    content: 'i';
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 15px; height: 15px;
+    border: 1px solid var(--cyan-border);
+    border-radius: 50%;
+    font-size: 9px; font-weight: 700; font-style: italic;
+  }
+  .method-info summary:hover { color: var(--green); }
+  .method-info[open] summary { margin-bottom: 10px; }
+  .method-info-body {
+    max-width: 620px;
+    padding: 16px 18px;
+    background: var(--surface-2);
+    border: 1px solid var(--border-2);
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 300;
+    line-height: 1.65;
+    color: var(--muted);
+  }
+  .method-info-body p { margin-bottom: 10px; }
+  .method-info-body p:last-child { margin-bottom: 0; }
+  .method-info-body strong { color: var(--cyan); font-weight: 600; }
+
+  /* ───────── INPUTS ───────── */
+  .devig-inputs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 6px;
+  }
+  @media (max-width: 540px) { .devig-inputs { grid-template-columns: 1fr; } }
+  .input-cell label {
+    display: flex; align-items: center; justify-content: space-between; gap: 8px;
+    font-size: 11px; font-weight: 600;
+    letter-spacing: .18em; text-transform: uppercase;
+    color: var(--cyan);
+    margin-bottom: 7px;
+  }
+  .fmt-chip {
+    font-size: 9px; font-weight: 600;
+    letter-spacing: .08em; text-transform: uppercase;
+    color: var(--dim);
+    border: 1px solid var(--border-2);
+    border-radius: 4px;
+    padding: 2px 7px;
+    white-space: nowrap;
+  }
+  .fmt-chip.active { color: var(--cyan); border-color: var(--cyan-border); }
+  .fmt-chip.bad { color: var(--red); border-color: rgba(255,61,61,0.4); }
+  .input-cell input {
+    width: 100%;
+    text-align: center;
+    background: #161616;
+    border: 1px solid rgba(255,255,255,0.18);
+    border-bottom: 2px solid rgba(0,212,255,0.32);
+    border-radius: 8px;
+    color: var(--text);
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-size: 25px; font-weight: 600;
+    padding: 18px 12px;
+    transition: border-color .18s, background .18s, box-shadow .18s;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.03);
+  }
+  .input-cell input::placeholder { color: rgba(255,255,255,0.40); font-weight: 400; }
+  .input-cell input:hover {
+    border-color: rgba(0,212,255,0.45);
+    border-bottom-color: var(--cyan);
+    background: #1B1B1B;
+  }
+  .input-cell input:focus {
+    outline: none;
+    border-color: var(--cyan);
+    border-bottom-color: var(--cyan);
+    background: #1F1F1F;
+    box-shadow: 0 0 0 3px rgba(0,212,255,0.18), inset 0 1px 0 rgba(255,255,255,0.05);
+  }
+  .input-cell input.invalid {
+    border-color: rgba(255,61,61,0.55);
+    border-bottom-color: var(--red);
+    color: var(--red);
+  }
+  .input-hint {
+    font-size: 12px; font-weight: 300;
+    color: var(--dim);
+    margin-top: 10px;
+    letter-spacing: .02em;
+  }
+  .input-hint b { color: var(--muted); font-weight: 600; }
+
+  /* ───────── OUTPUT SECTIONS ───────── */
+  .output-section { margin-top: 26px; }
+  .output-section-head {
+    display: flex; align-items: baseline; gap: 12px;
+    margin-bottom: 14px;
+  }
+  .output-section-label {
+    font-size: 11px; font-weight: 700;
+    letter-spacing: .24em; text-transform: uppercase;
+    color: var(--cyan);
+  }
+  .output-section-sub { font-size: 11px; font-weight: 400; color: var(--dim); }
+  .output-section-rule {
+    flex: 1; height: 1px;
+    background: linear-gradient(to right, var(--cyan-border), transparent);
+  }
+
+  .outputs-grid { display: grid; gap: 10px; }
+  .outputs-grid.cols-2 { grid-template-columns: 1fr 1fr; }
+  .outputs-grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+  .outputs-grid.cols-4 { grid-template-columns: repeat(4, 1fr); }
+  @media (max-width: 640px) {
+    .outputs-grid.cols-3, .outputs-grid.cols-4 { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 440px) {
+    .outputs-grid.cols-2 { grid-template-columns: 1fr; }
+  }
+  .out-pct {
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-size: 16px; font-weight: 500;
+    color: var(--green);
+    opacity: .72;
+    margin-top: 7px;
+    font-variant-numeric: tabular-nums;
+  }
+  .out-pct.empty { color: var(--dim); opacity: 1; font-weight: 400; }
+  /* Fair Odds boxes — centered to mirror the input windows */
+  .outputs-grid.cols-2 .out-box { text-align: center; }
+  .out-box {
+    background: var(--surface-2);
+    border: 1px solid var(--border-2);
+    border-radius: 8px;
+    padding: 16px 18px;
+    transition: border-color .2s;
+  }
+  .out-box:hover { border-color: rgba(0,212,255,0.22); }
+  .out-label {
+    font-size: 10px; font-weight: 600;
+    letter-spacing: .2em; text-transform: uppercase;
+    color: var(--cyan);
+    margin-bottom: 10px;
+  }
+  .out-value {
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-size: clamp(23px, 2.7vw, 29px);
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.05;
+  }
+  .out-value.fair { color: var(--green); }
+  .out-value.warn { color: var(--yellow); }
+  .out-value.empty { color: var(--dim); font-weight: 400; }
+  .out-sub {
+    font-size: 11px; color: var(--muted);
+    margin-top: 6px; letter-spacing: .04em;
+  }
+
+  /* ───────── KEY NOTE ───────── */
+  .key-note {
+    margin-top: 24px;
+    padding: 16px 20px 18px;
+    background: var(--green-dim);
+    border: 1px solid var(--green-border);
+    border-left: 3px solid var(--green);
+    border-radius: 10px;
+    box-shadow: 0 0 26px rgba(77,255,120,0.07);
+  }
+  .key-note-head {
+    display: flex; align-items: center; gap: 7px;
+    font-size: 11px; font-weight: 700;
+    letter-spacing: .2em; text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 9px;
+  }
+  .key-note-body {
+    font-size: 13.5px;
+    font-weight: 300;
+    line-height: 1.65;
+    color: rgba(240,238,232,0.80);
+  }
+  .key-note-body strong { color: var(--text); font-weight: 700; }
+  .key-note-body a { color: var(--green); font-weight: 600; }
+  .key-note-body a:hover { color: var(--cyan); }
+
+  /* ───────── HOW TO ───────── */
+  .how-to {
+    background: var(--surface);
     border: 1px solid var(--border);
     border-radius: 12px;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 20px;
-    text-align: center;
-  }
-
-  .vig-stat .label {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 10px;
-    letter-spacing: 1.5px;
-    color: var(--dim);
-    text-transform: uppercase;
-    margin-bottom: 8px;
-  }
-
-  .vig-stat .value {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 24px;
-    font-weight: 700;
-    color: var(--yellow);
-  }
-
-  .vig-stat .value.neutral { color: var(--text); }
-  .vig-stat .value.empty { color: var(--dim); font-weight: 400; }
-
-  .help {
     margin-top: 24px;
-    padding: 14px 18px;
-    background: var(--panel-inset);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    font-size: 11px;
-    color: var(--muted);
-    line-height: 1.7;
-    letter-spacing: 0.3px;
+    overflow: hidden;
   }
-
-  .help strong { color: var(--blue); font-weight: 700; }
-  .help .sep { color: var(--dim); margin: 0 8px; }
-
-  /* "How to use" pieces */
-  .how-to-jump {
-    display: block;
-    text-align: center;
-    width: fit-content;
-    margin: 14px auto 0;
-    font-family: 'Orbitron', sans-serif;
-    font-size: 10px;
-    letter-spacing: 2px;
-    color: var(--muted);
-    text-decoration: none;
-    text-transform: uppercase;
-    padding: 10px 18px;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    background: var(--panel-deep);
-    transition: all 0.15s;
+  .how-to summary {
+    cursor: pointer;
+    padding: 18px 26px;
+    font-size: 11px; font-weight: 600;
+    letter-spacing: .22em; text-transform: uppercase;
+    color: var(--cyan);
+    list-style: none;
+    user-select: none;
+    transition: background .18s;
   }
-  .how-to-jump:hover { color: var(--blue); border-color: var(--blue); transform: translateY(-1px); }
-
-  .how-to-use {
-    max-width: 720px;
-    margin: 24px auto 60px;
-    padding: 28px 32px;
-    background: var(--panel);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    scroll-margin-top: 20px;
-  }
-  .how-to-eyebrow {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 11px;
-    letter-spacing: 2.5px;
-    text-transform: uppercase;
-    color: var(--blue);
-    font-weight: 700;
-    margin-bottom: 8px;
-  }
-  .how-to-use h3 {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 17px;
-    font-weight: 800;
-    letter-spacing: 1.5px;
-    color: var(--text);
-    margin: 0 0 16px;
-    text-transform: uppercase;
-  }
-  .how-to-steps {
-    margin: 0 0 18px;
-    padding-left: 22px;
-    font-family: system-ui, -apple-system, sans-serif;
-    font-size: 15px;
-    line-height: 1.65;
-    color: var(--text);
-  }
-  .how-to-steps li { margin-bottom: 8px; }
-  .how-to-steps strong { color: var(--blue); font-weight: 600; }
-  .how-to-note {
-    font-family: system-ui, -apple-system, sans-serif;
+  .how-to summary::-webkit-details-marker { display: none; }
+  .how-to summary::after { content: ' ▾'; color: var(--dim); font-size: 10px; }
+  .how-to[open] summary { border-bottom: 1px solid var(--border); }
+  .how-to[open] summary::after { content: ' ▴'; }
+  .how-to summary:hover { background: var(--surface-2); }
+  .how-to-body {
+    padding: 28px;
     font-size: 14px;
-    line-height: 1.55;
+    font-weight: 300;
+    line-height: 1.7;
     color: var(--muted);
-    background: var(--panel-deep);
-    border-left: 3px solid var(--blue);
-    border-radius: 0 8px 8px 0;
-    padding: 14px 18px;
   }
-  .how-to-note em { color: var(--blue); font-style: normal; font-weight: 600; }
-  .how-to-note strong { color: var(--text); font-weight: 600; }
+  .how-to-body p { margin-bottom: 13px; }
+  .how-to-body p:has(> strong:first-child) { margin-top: 26px; }
+  .how-to-body p:first-child { margin-top: 0; }
+  .how-to-body strong { color: var(--text); font-weight: 700; }
+  .how-to-body em { color: var(--cyan); font-style: normal; font-weight: 600; }
+  .how-to-body ul { list-style: none; margin: 10px 0 16px; padding-left: 2px; }
+  .how-to-body li { position: relative; padding-left: 20px; margin-bottom: 9px; }
+  .how-to-body li::before {
+    content: '';
+    position: absolute;
+    left: 2px; top: 0.62em;
+    width: 6px; height: 6px;
+    background: var(--cyan);
+    transform: rotate(45deg);
+  }
+  .how-to-body a { color: var(--cyan); }
+  .how-to-body a:hover { color: var(--green); }
 
-  @media (max-width: 720px) {
-    .two-col { grid-template-columns: 1fr; gap: 18px; }
-    .vig-bar { grid-template-columns: 1fr; gap: 16px; }
-    .body { padding: 22px; }
-    .header h1 { font-size: 16px; letter-spacing: 2px; }
-    .input-wrap input { font-size: 22px; }
-    .output-box .value { font-size: 18px; }
-    .how-to-use { padding: 22px 22px; }
-    .how-to-use h3 { font-size: 15px; }
+  /* ───────── FOOTER ───────── */
+  .footer {
+    text-align: center;
+    margin-top: 60px;
+    padding: 28px 20px;
+    color: var(--dim);
+    font-size: 11px;
+    letter-spacing: .04em;
+    line-height: 1.7;
+    border-top: 1px solid var(--border);
   }
-  /* ═══ SIDEBAR NAVIGATION (prototype) ═══ */
-  .pps-sidebar { position: fixed; top: 0; left: 0; bottom: 0; width: 240px; background: linear-gradient(180deg, #0c1120 0%, #080d18 100%); border-right: 1px solid var(--border); z-index: 50; transform: translateX(-100%); transition: transform .3s cubic-bezier(.4,0,.2,1); overflow-y: auto; font-family: 'IBM Plex Sans', system-ui, sans-serif; }
+  .footer a { color: var(--muted); }
+  .footer a:hover { color: var(--cyan); }
+
+  /* ═══ SIDEBAR ═══ */
+  .pps-sidebar {
+    position: fixed; top: 0; left: 0; bottom: 0;
+    width: 240px; background: var(--surface);
+    border-right: 1px solid var(--border-2); z-index: 50;
+    transform: translateX(-100%);
+    transition: transform .3s cubic-bezier(.4,0,.2,1);
+    overflow-y: auto;
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  }
   body.pps-sidebar-open .pps-sidebar { transform: translateX(0); }
   body.pps-sidebar-open { padding-left: 240px; transition: padding-left .3s cubic-bezier(.4,0,.2,1); }
   @media (max-width: 900px) {
     body.pps-sidebar-open { padding-left: 0; }
     .pps-sidebar { box-shadow: 4px 0 30px rgba(0,0,0,.7); width: 260px; }
   }
-  .pps-sidebar-toggle { position: fixed; top: 14px; left: 18px; z-index: 51; background: rgba(15, 21, 36, 0.92); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid var(--border); color: var(--text); width: 38px; height: 38px; border-radius: 9px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all .2s ease; }
-  .pps-sidebar-toggle:hover { background: var(--panel-inset); border-color: var(--green); color: var(--green); }
+  .pps-sidebar-toggle {
+    position: fixed; top: 14px; left: 18px; z-index: 51;
+    background: var(--surface);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--border-2);
+    color: var(--text);
+    width: 38px; height: 38px;
+    border-radius: 6px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all .18s ease;
+  }
+  .pps-sidebar-toggle:hover { background: var(--surface-2); border-color: var(--cyan-border); color: var(--cyan); }
   body.pps-sidebar-open .pps-sidebar-toggle { left: 256px; top: 14px; }
   @media (max-width: 900px) { body.pps-sidebar-open .pps-sidebar-toggle { left: 276px; } }
   .pps-sidebar-inner { padding: 22px 14px 30px; }
-  .pps-sidebar-brand { display: flex; align-items: center; justify-content: center; gap: 8px; color: var(--blue); text-decoration: none; font-family: 'Orbitron', sans-serif; font-weight: 800; font-size: 11px; letter-spacing: 1.6px; padding: 4px 0 16px; border-bottom: 1px solid var(--border-soft); margin-bottom: 14px; text-transform: uppercase; }
-  .pps-sidebar-brand svg { width: 18px; height: 14px; flex-shrink: 0; color: var(--green); filter: drop-shadow(0 0 6px rgba(74, 222, 128, 0.55)); }
-  .pps-sidebar-brand span { white-space: nowrap; }
-  .pps-sidebar-brand:hover { color: #5fa1ff; }
+  .pps-sidebar-brand {
+    display: flex; align-items: center; justify-content: center;
+    gap: 6px; color: var(--text); text-decoration: none;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 900; font-size: 13px;
+    letter-spacing: -.02em;
+    padding: 4px 0 16px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 14px;
+  }
+  .pps-sidebar-brand .accent { color: var(--green); }
+  .pps-sidebar-brand small { font-size: 8px; font-weight: 400; letter-spacing: .4em; text-transform: uppercase; color: var(--dim); margin-left: 6px; }
+  .pps-sidebar-brand:hover .accent { filter: brightness(1.1); }
   .pps-sidebar-nav { display: flex; flex-direction: column; gap: 1px; }
-  .pps-nav-group-label { font-size: 9.5px; text-transform: uppercase; letter-spacing: 1.8px; color: var(--dim); padding: 14px 8px 6px; margin-top: 2px; font-weight: 600; }
-  .pps-nav-link { display: flex; align-items: center; gap: 10px; color: #b8c0d0; text-decoration: none; padding: 8px 10px; border-radius: 7px; font-size: 13px; border-left: 2px solid transparent; transition: all .15s ease; }
-  .pps-nav-link:hover { background: var(--panel-inset); color: #fff; }
-  .pps-nav-link.active { background: rgba(74, 222, 128, 0.09); color: var(--green); border-left-color: var(--green); }
-  .pps-nav-num { font-family: 'JetBrains Mono', monospace; font-size: 10.5px; color: var(--dim); font-weight: 700; min-width: 18px; }
-  .pps-nav-link.path-blue .pps-nav-num { color: var(--blue); }
-  .pps-nav-link.path-green .pps-nav-num { color: var(--green); }
-  .pps-nav-link.path-gold .pps-nav-num { color: var(--yellow); }
+  .pps-nav-group-label {
+    font-size: 9px; text-transform: uppercase; letter-spacing: .22em;
+    color: var(--dim); padding: 14px 8px 6px;
+    margin-top: 2px; font-weight: 600;
+  }
+  .pps-nav-link {
+    display: flex; align-items: center; gap: 10px;
+    color: var(--muted); text-decoration: none;
+    padding: 7px 10px; border-radius: 4px;
+    font-size: 12px; font-weight: 400;
+    border-left: 2px solid transparent;
+    transition: all .15s ease;
+  }
+  .pps-nav-link:hover { background: var(--surface-2); color: var(--text); }
+  .pps-nav-link.active { background: var(--green-faint); color: var(--green); border-left-color: var(--green); font-weight: 500; }
+  .pps-nav-num { font-family: 'Space Grotesk', system-ui, sans-serif; font-size: 10px; color: var(--dim); font-weight: 500; min-width: 18px; }
   .pps-nav-group { margin: 1px 0; }
-  .pps-nav-group summary { list-style: none; cursor: pointer; padding: 8px 10px; font-size: 13px; color: #b8c0d0; border-radius: 7px; display: flex; align-items: center; justify-content: space-between; transition: all .15s ease; user-select: none; }
+  .pps-nav-group summary {
+    list-style: none; cursor: pointer;
+    padding: 7px 10px; font-size: 12px;
+    color: var(--muted); border-radius: 4px;
+    display: flex; align-items: center; justify-content: space-between;
+    transition: all .15s ease; user-select: none;
+    font-weight: 500;
+  }
   .pps-nav-group summary::-webkit-details-marker { display: none; }
   .pps-nav-group summary::after { content: '▾'; font-size: 9px; color: var(--dim); transition: transform .2s ease; }
   .pps-nav-group[open] summary::after { transform: rotate(180deg); }
-  .pps-nav-group summary:hover { background: var(--panel-inset); color: #fff; }
-  .pps-nav-group .pps-nav-link { padding: 6px 10px 6px 22px; font-size: 12px; color: #8b94a8; }
-  .pps-nav-group .pps-nav-link:hover { color: #fff; }
+  .pps-nav-group summary:hover { background: var(--surface-2); color: var(--text); }
+  .pps-nav-group .pps-nav-link { padding: 5px 10px 5px 22px; font-size: 11px; }
   .pps-path-group > summary { font-weight: 600; }
   .pps-path-group .pps-path-label { display: inline-flex; align-items: center; gap: 10px; }
-  .pps-path-group.path-blue > summary .pps-nav-num { color: var(--blue); }
+  .pps-path-group.path-blue > summary .pps-nav-num { color: var(--cyan); }
   .pps-path-group.path-green > summary .pps-nav-num { color: var(--green); }
   .pps-path-group.path-gold > summary .pps-nav-num { color: var(--yellow); }
-  .pps-path-group.path-blue[open] > summary { color: var(--blue); }
+  .pps-path-group.path-blue[open] > summary { color: var(--cyan); }
   .pps-path-group.path-green[open] > summary { color: var(--green); }
   .pps-path-group.path-gold[open] > summary { color: var(--yellow); }
-  .pps-nav-playbook { margin-top: 16px; padding: 10px 12px; background: linear-gradient(135deg, rgba(188,140,255,.10), rgba(74,222,128,.05)); border: 1px solid rgba(188,140,255,.25); border-left-width: 2px; color: var(--purple); font-weight: 600; border-radius: 7px; }
-  .pps-nav-playbook:hover { background: linear-gradient(135deg, rgba(188,140,255,.2), rgba(74,222,128,.1)); color: #fff; }
   .pps-sidebar::-webkit-scrollbar { width: 6px; }
   .pps-sidebar::-webkit-scrollbar-track { background: transparent; }
-  .pps-sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+  .pps-sidebar::-webkit-scrollbar-thumb { background: var(--border-2); border-radius: 3px; }
 
-/* PPS-MOBILE-HEADER-CLEARANCE */
   @media (max-width: 640px) {
-    .header { padding-top: 58px !important; padding-left: 16px; padding-right: 16px; }
-    .back-link { display: none; }
+    .card { padding-top: 60px; }
   }
 </style>
 </head>
 <body>
+
 
 <!-- ═══ SIDEBAR NAVIGATION ═══ -->
 <button class="pps-sidebar-toggle" aria-label="Toggle navigation" id="ppsSidebarToggle">
@@ -468,17 +595,12 @@
 <aside class="pps-sidebar" id="ppsSidebar">
   <div class="pps-sidebar-inner">
     <a class="pps-sidebar-brand" href="/index.html">
-      <svg viewBox="0 0 28 22" xmlns="http://www.w3.org/2000/svg" fill="none">
-        <polyline points="2,18 8,12 12,15 18,7 26,3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-      <span>Profit Path Sports</span>
-      <svg viewBox="0 0 28 22" xmlns="http://www.w3.org/2000/svg" fill="none">
-        <polyline points="2,18 8,12 12,15 18,7 26,3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
+      <span>PROFIT<span class="accent">PATH</span></span>
+      <small>Sports</small>
     </a>
     <nav class="pps-sidebar-nav">
       <a class="pps-nav-link" href="/index.html">Home</a>
-      <a class="pps-nav-link" href="/free-money-guide.html" style="color: var(--green); font-weight: 600;">★ Free Money Guide</a>
+      <a class="pps-nav-link" href="/free-money-guide.html" style="color: var(--green); font-weight: 500;">★ Free Money Guide</a>
       <div class="pps-nav-group-label">Paths</div>
       <details class="pps-nav-group pps-path-group path-blue">
         <summary data-anchor="paths"><span class="pps-path-label"><span class="pps-nav-num">01</span> Begin</span></summary>
@@ -501,7 +623,6 @@
         <a class="pps-nav-link" href="/learn-finding-bonus-bets.html">Finding Bonus Bets</a>
         <a class="pps-nav-link" href="/learn-bonus-step-by-step.html">Step-by-Step</a>
         <a class="pps-nav-link" href="/learn-prop-void-rules.html">Prop Void Rules</a>
-        <a class="pps-nav-link" href="/learn-finding-bets.html">Finding +EV Bets</a>
       </details>
       <details class="pps-nav-group pps-path-group path-gold">
         <summary data-anchor="paths"><span class="pps-path-label"><span class="pps-nav-num">03</span> Maintain</span></summary>
@@ -520,11 +641,11 @@
         <a class="pps-nav-link" href="/learn-top-down-bottom-up.html">Top-Down / Bottom-Up</a>
         <a class="pps-nav-link" href="/learn-wide-markets.html">Wide Markets</a>
       </details>
-      <details class="pps-nav-group">
+      <details class="pps-nav-group" open>
         <summary data-anchor="tools">Calculators</summary>
         <a class="pps-nav-link" href="/bet-x-ray.html">Bet X-Ray</a>
         <a class="pps-nav-link" href="/ev-calculator.html">EV Calculator</a>
-        <a class="pps-nav-link" href="/devig_calculator.html">Devig</a>
+        <a class="pps-nav-link active" href="/devig_calculator.html">Devig</a>
         <a class="pps-nav-link" href="/kelly-calculator.html">Kelly Sizer</a>
         <a class="pps-nav-link" href="/arb-calculator.html">Arbitrage</a>
         <a class="pps-nav-link" href="/hedge-calculator.html">Hedge</a>
@@ -537,8 +658,6 @@
         <a class="pps-nav-link" href="/consensus-calculator.html">Consensus</a>
         <a class="pps-nav-link" href="/bonus-converter.html">Bonus Converter</a>
         <a class="pps-nav-link" href="/odds_calculator.html">Odds Converter</a>
-        <a class="pps-nav-link" href="/sharp-snapshot.html">Sharp Snapshot</a>
-        <a class="pps-nav-link" href="/roulette.html">Virtual Roulette</a>
       </details>
       <details class="pps-nav-group">
         <summary>Sportsbooks</summary>
@@ -567,247 +686,290 @@
 <!-- ═══ END SIDEBAR ═══ -->
 
 <div class="card">
+
   <div class="header">
-    <a href="index.html" class="back-link">← Hub</a>
-    <a href="learn-vig.html" class="learn-link">Learn the vig →</a>
-    <h1><span class="bolt">⚡</span> Devig Calculator <span class="bolt">⚡</span></h1>
-    <p class="title-sub">Strip the vig from any two-way line and see what the sportsbook's actual probability estimate is. <strong>Most bettors look at the price; sharps look at what's hiding behind it.</strong> Paste both sides — get the no-vig fair odds for each.</p>
-    <a href="#how-to-use" class="how-to-jump">How to use this ↓</a>
+    <div class="header-meta">
+      <a href="/index.html" class="back-link">← Back</a>
+      <span class="header-eyebrow">Free Tool · Devig Calculator</span>
+      <button class="help-pill" onclick="document.getElementById('howto').open = !document.getElementById('howto').open; document.getElementById('howto').scrollIntoView({behavior:'smooth', block:'nearest'});">How to use ↓</button>
+    </div>
+    <div class="title-row">
+      <h1>Devig Calculator</h1>
+    </div>
+    <p class="tagline">
+      <span>The price you see has the bookmaker's cut baked in.</span>
+      <span class="mono">Strip the vig out → the book's true probability for each side.</span>
+      <span>Paste both sides of any two-way market. Pick a method. Read the fair line.</span>
+    </p>
   </div>
 
   <div class="body">
-    <div class="two-col">
-      <!-- INPUT COLUMN -->
-      <div>
-        <div class="section-label">Input Odds</div>
-        <div class="col-inner">
-          <div class="side">
-            <div class="side-header">
-              <div class="side-label">Side 1</div>
-              <div class="format-tag" id="format1">—</div>
-            </div>
-            <div class="input-wrap" id="wrap1">
-              <input type="text" id="input1" placeholder="ex. -175" autocomplete="off" spellcheck="false" />
-            </div>
+
+    <div class="step" id="step1">
+      <div class="step-head">
+        <span class="step-num">Devig</span>
+        <span class="step-title">Strip the vig</span>
+        <span class="step-sub">Paste both sides of a two-way market — get the no-vig fair price for each.</span>
+      </div>
+
+      <div class="sub-toolbar">
+        <span class="sub-label">Method</span>
+        <div class="pill-group" id="methodGroup">
+          <button class="pill active" data-method="proportional">Proportional</button>
+          <button class="pill" data-method="additive">Additive</button>
+          <button class="pill" data-method="power">Power</button>
+        </div>
+      </div>
+
+      <details class="method-info" id="methodInfo">
+        <summary>Proportional, Additive, Power — which method?</summary>
+        <div class="method-info-body">
+          <p>All three strip the bookmaker's vig out of a two-way market — they just split it differently.</p>
+          <p><strong>Proportional</strong> (default) removes the vig in proportion to each side's price. It's the industry-standard method and what most sharp tools use. Start here.</p>
+          <p><strong>Additive</strong> removes an equal slice of vig from each side. It hands underdogs slightly more fair probability than Proportional does.</p>
+          <p><strong>Power</strong> solves for an exponent that pulls both sides down until they sum to exactly 100%. It's widely considered the most accurate on lopsided markets — heavy favorites and longshots — and the method many sharp bettors prefer there.</p>
+          <p>On balanced markets (around −110 / −110) all three land within a fraction of a percent of each other. They diverge on lopsided lines. <strong>If switching methods flips your read, treat the edge as fragile</strong> and lean toward passing.</p>
+        </div>
+      </details>
+
+      <div class="devig-inputs">
+        <div class="input-cell">
+          <label for="side1">Side 1 odds <span class="fmt-chip" id="fmt1">—</span></label>
+          <input type="text" id="side1" inputmode="text" spellcheck="false" autocomplete="off" placeholder="-175">
+        </div>
+        <div class="input-cell">
+          <label for="side2">Side 2 odds <span class="fmt-chip" id="fmt2">—</span></label>
+          <input type="text" id="side2" inputmode="text" spellcheck="false" autocomplete="off" placeholder="+135">
+        </div>
+      </div>
+      <div class="input-hint">
+        Enter <b>American</b> (−175), <b>decimal</b> (1.57), or <b>implied %</b> (63.64%) — format auto-detected.
+      </div>
+
+      <div class="output-section">
+        <div class="output-section-head">
+          <span class="output-section-label">Fair No-Vig Price</span>
+          <span class="output-section-sub">what the line really implies</span>
+          <span class="output-section-rule"></span>
+        </div>
+        <div class="outputs-grid cols-2">
+          <div class="out-box">
+            <div class="out-label">Side 1 · Fair Odds</div>
+            <div class="out-value fair empty" id="out1Odds">—</div>
+            <div class="out-pct empty" id="out1Pct">—</div>
           </div>
-          <div class="side">
-            <div class="side-header">
-              <div class="side-label">Side 2</div>
-              <div class="format-tag" id="format2">—</div>
-            </div>
-            <div class="input-wrap" id="wrap2">
-              <input type="text" id="input2" placeholder="ex. +135" autocomplete="off" spellcheck="false" />
-            </div>
+          <div class="out-box">
+            <div class="out-label">Side 2 · Fair Odds</div>
+            <div class="out-value fair empty" id="out2Odds">—</div>
+            <div class="out-pct empty" id="out2Pct">—</div>
           </div>
         </div>
       </div>
 
-      <!-- OUTPUT COLUMN -->
-      <div>
-        <div class="section-label green">Fair No-Vig</div>
-        <div class="col-inner">
-          <div class="side output">
-            <div class="side-header">
-              <div class="side-label">Side 1</div>
-            </div>
-            <div class="output-grid">
-              <div class="output-box">
-                <div class="label">No-Vig Odds</div>
-                <div class="value empty" id="out1Odds">—</div>
-              </div>
-              <div class="output-box">
-                <div class="label">No-Vig %</div>
-                <div class="value empty" id="out1Pct">—</div>
-              </div>
-            </div>
+      <div class="output-section">
+        <div class="output-section-head">
+          <span class="output-section-label">Market Analysis</span>
+          <span class="output-section-sub">how much the book is charging</span>
+          <span class="output-section-rule"></span>
+        </div>
+        <div class="outputs-grid cols-3">
+          <div class="out-box">
+            <div class="out-label">Total Implied</div>
+            <div class="out-value empty" id="totalImplied">—</div>
+            <div class="out-sub">both raw prices added up</div>
           </div>
-          <div class="side output">
-            <div class="side-header">
-              <div class="side-label">Side 2</div>
-            </div>
-            <div class="output-grid">
-              <div class="output-box">
-                <div class="label">No-Vig Odds</div>
-                <div class="value empty" id="out2Odds">—</div>
-              </div>
-              <div class="output-box">
-                <div class="label">No-Vig %</div>
-                <div class="value empty" id="out2Pct">—</div>
-              </div>
-            </div>
+          <div class="out-box">
+            <div class="out-label">Market Vig</div>
+            <div class="out-value warn empty" id="vigDisplay">—</div>
+            <div class="out-sub">overround above 100%</div>
+          </div>
+          <div class="out-box">
+            <div class="out-label">Hold %</div>
+            <div class="out-value warn empty" id="holdDisplay">—</div>
+            <div class="out-sub">what the book keeps long-run</div>
           </div>
         </div>
       </div>
+
+      <div class="key-note">
+        <div class="key-note-head">★ Key Point — Garbage In, Garbage Out</div>
+        <div class="key-note-body">
+          A no-vig price is only as sharp as the market you pulled it from. Devig a soft retail book — BetMGM, Bet365 — and the "fair" line just tells you what <strong>that book</strong> thinks, which usually isn't sharp at all. For a fair price worth trusting, devig the <strong>sharpest market you can find</strong>: Pinnacle, Circa, or a sharp <a href="/consensus-calculator.html">consensus line</a>. New to this? The lesson <a href="/learn-vig.html">The Vig</a> explains where the bookmaker's cut comes from in plain English.
+        </div>
+      </div>
+
     </div>
 
-    <!-- VIG BAR -->
-    <div class="section-label yellow">Market Analysis</div>
-    <div class="vig-bar">
-      <div class="vig-stat">
-        <div class="label">Total Implied</div>
-        <div class="value neutral empty" id="totalImplied">—</div>
-      </div>
-      <div class="vig-stat">
-        <div class="label">Market Vig</div>
-        <div class="value empty" id="vigDisplay">—</div>
-      </div>
-      <div class="vig-stat">
-        <div class="label">Hold %</div>
-        <div class="value empty" id="holdDisplay">—</div>
-      </div>
-    </div>
+    <!-- HOW TO -->
+    <details class="how-to" id="howto">
+      <summary>How to use this</summary>
+      <div class="how-to-body">
+        <p><strong>What it does.</strong> Strips the bookmaker's vig out of a two-way market so you can see the <em>true</em> probability the line implies for each side — the "no-vig fair odds." It's the first move behind finding a +EV bet.</p>
 
-    <div class="help">
-      <strong>American</strong> → integer (e.g. <code>-175</code>, <code>+135</code>)
-      <span class="sep">·</span>
-      <strong>Decimal</strong> → contains a dot (e.g. <code>1.57</code>, <code>2.35</code>)
-      <span class="sep">·</span>
-      <strong>Probability</strong> → append % (e.g. <code>63.64%</code>)
-    </div>
+        <p><strong>How to use it.</strong></p>
+        <ul>
+          <li>Find a market with both sides priced — e.g. <em>Lakers −110 / Mavericks +100</em>.</li>
+          <li>Paste each price into a field. American (−175), decimal (1.57), and implied % (63.64%) all work — the format is auto-detected and shown on the chip.</li>
+          <li>Pick a <em>method</em> — Proportional is the default and fine for most markets.</li>
+          <li>Read the <em>Fair No-Vig Price</em> — the true odds and probability once the vig is removed.</li>
+        </ul>
+
+        <p><strong>The three methods.</strong></p>
+        <ul>
+          <li><em>Proportional</em> — removes vig in proportion to price. Industry standard. Start here.</li>
+          <li><em>Additive</em> — removes an equal slice from each side; gives underdogs a touch more fair probability.</li>
+          <li><em>Power</em> — solves an exponent so both sides sum to 100%; most accurate on lopsided favorite/longshot markets.</li>
+        </ul>
+
+        <p><strong>Market Analysis.</strong> <em>Total Implied</em> is the two raw prices added together — anything over 100% is the vig. <em>Market Vig</em> is that overround; <em>Hold %</em> is the slice the book keeps long-run. Lower hold = a sharper, more efficient market.</p>
+
+        <p><strong>How to actually use the result.</strong> Compare the no-vig odds to what's offered at <em>other</em> books. If another book lets you bet a side at a better price than its no-vig fair odds, that bet is <a href="/ev-calculator.html">+EV</a>. Want the whole pipeline — devig, EV, Kelly sizing, and a verdict — in one tool? Use <a href="/bet-x-ray.html">Bet X-Ray</a>.</p>
+      </div>
+    </details>
+
   </div>
 </div>
 
-<div class="how-to-use" id="how-to-use">
-  <div class="how-to-eyebrow">How to use this</div>
-  <h3>Devig any market in 30 seconds</h3>
-  <ol class="how-to-steps">
-    <li>Find a market on any sportsbook with both sides priced (e.g. <strong>Lakers −110 / Mavs +100</strong>).</li>
-    <li>Plug both prices into the input boxes — American (<code>−175</code>), decimal (<code>1.57</code>), or implied probability (<code>63.64%</code>) all work.</li>
-    <li>Read the <strong>Fair No-Vig</strong> column on the right. Those are the true probabilities and odds the line implies once the book's vig is removed.</li>
-    <li>Compare the no-vig odds to what's available at other sportsbooks. If you can get a better price than the no-vig line at another book, that bet is <strong>+EV</strong>.</li>
-  </ol>
-  <div class="how-to-note">
-    <strong>Total Implied</strong> shows the sum of both raw prices — anything over 100% is the vig the book is charging on this market. <em>Hold %</em> is what the book keeps over time at that vig. The lower the hold, the sharper the market.
-  </div>
+<div class="footer">
+  © 2026 PROFITPATH Sports · <a href="/index.html">Home</a> · <a href="/odds_calculator.html">Odds Converter</a> · <a href="/ev-calculator.html">EV</a> · <a href="/consensus-calculator.html">Consensus</a> · <a href="/bet-x-ray.html">Bet X-Ray</a> &middot; <a href="/privacy.html">Privacy</a> &middot; <a href="/disclaimer.html">Disclaimer</a> &middot; <a href="/affiliate-disclosure.html">Affiliate</a>
 </div>
 
 <script>
-  const input1 = document.getElementById('input1');
-  const input2 = document.getElementById('input2');
-  const wrap1 = document.getElementById('wrap1');
-  const wrap2 = document.getElementById('wrap2');
-  const format1 = document.getElementById('format1');
-  const format2 = document.getElementById('format2');
+  // ─── Element references ───
+  const side1El = document.getElementById('side1');
+  const side2El = document.getElementById('side2');
+  const fmt1El = document.getElementById('fmt1');
+  const fmt2El = document.getElementById('fmt2');
   const out1Odds = document.getElementById('out1Odds');
   const out1Pct = document.getElementById('out1Pct');
   const out2Odds = document.getElementById('out2Odds');
   const out2Pct = document.getElementById('out2Pct');
-  const totalImplied = document.getElementById('totalImplied');
-  const vigDisplay = document.getElementById('vigDisplay');
-  const holdDisplay = document.getElementById('holdDisplay');
+  const totalImpliedEl = document.getElementById('totalImplied');
+  const vigEl = document.getElementById('vigDisplay');
+  const holdEl = document.getElementById('holdDisplay');
 
-  // Parse ANY odds format → implied probability as decimal (0-1)
+  let method = 'proportional';
+
+  // ─── Parse any odds format → implied probability (0-1) ───
   function parseOdds(str) {
-    if (!str) return { prob: null, format: null, valid: false };
-    const s = str.trim();
-    if (!s) return { prob: null, format: null, valid: false };
+    if (!str) return { prob: null, format: null, valid: false, empty: true };
+    const s = str.trim().replace(/[−–—]/g, '-');
+    if (!s) return { prob: null, format: null, valid: false, empty: true };
 
     // Probability: "63.64%"
     if (s.endsWith('%')) {
       const p = parseFloat(s.slice(0, -1));
-      if (isNaN(p) || p <= 0 || p >= 100) return { prob: null, format: 'prob', valid: false };
-      return { prob: p / 100, format: 'prob', valid: true };
+      if (!isFinite(p) || p <= 0 || p >= 100) return { prob: null, format: 'Prob %', valid: false };
+      return { prob: p / 100, format: 'Prob %', valid: true };
     }
-
     // Decimal: contains "."
     if (s.includes('.')) {
       const d = parseFloat(s);
-      if (isNaN(d) || d <= 1) return { prob: null, format: 'dec', valid: false };
-      return { prob: 1 / d, format: 'dec', valid: true };
+      if (!isFinite(d) || d <= 1) return { prob: null, format: 'Decimal', valid: false };
+      return { prob: 1 / d, format: 'Decimal', valid: true };
     }
-
     // American: integer
     const clean = s.replace(/^\+/, '');
+    if (!/^-?\d+$/.test(clean)) return { prob: null, format: null, valid: false };
     const n = parseInt(clean, 10);
-    if (isNaN(n) || n === 0) return { prob: null, format: 'am', valid: false };
-    if (Math.abs(n) < 100) return { prob: null, format: 'am', valid: false };
+    if (!isFinite(n) || Math.abs(n) < 100) return { prob: null, format: 'American', valid: false };
     const prob = n > 0 ? 100 / (n + 100) : -n / (-n + 100);
-    return { prob, format: 'am', valid: true };
+    return { prob, format: 'American', valid: true };
   }
 
   function probToAmerican(p) {
     if (p <= 0 || p >= 1) return null;
-    if (p === 0.5) return 100;
+    if (Math.abs(p - 0.5) < 1e-9) return 100;
     if (p > 0.5) return -Math.round((p / (1 - p)) * 100);
     return Math.round(((1 - p) / p) * 100);
   }
-
-  function formatAmerican(n) {
-    if (n === null || isNaN(n)) return '—';
+  function fmtAmerican(n) {
+    if (n === null || !isFinite(n)) return '—';
     return (n > 0 ? '+' : '') + n;
   }
 
-  const FORMAT_LABELS = { am: 'American', dec: 'Decimal', prob: 'Probability' };
-
-  function updateFormatTag(tag, parsed) {
-    if (!parsed.format) {
-      tag.textContent = '—';
-      tag.classList.remove('active');
-      return;
+  // ─── Devig methods: raw probs → fair probs [f1, f2] ───
+  function devig(p1, p2, m) {
+    const total = p1 + p2;
+    if (m === 'additive') {
+      const excess = (total - 1) / 2;
+      return [Math.max(p1 - excess, 1e-6), Math.max(p2 - excess, 1e-6)];
     }
-    tag.textContent = FORMAT_LABELS[parsed.format];
-    tag.classList.toggle('active', parsed.valid);
+    if (m === 'power') {
+      // solve k so that p1^k + p2^k = 1
+      let lo = 0.0001, hi = 100;
+      for (let i = 0; i < 100; i++) {
+        const k = (lo + hi) / 2;
+        const sum = Math.pow(p1, k) + Math.pow(p2, k);
+        if (sum > 1) lo = k; else hi = k;
+      }
+      const k = (lo + hi) / 2;
+      return [Math.pow(p1, k), Math.pow(p2, k)];
+    }
+    // proportional (default)
+    return [p1 / total, p2 / total];
   }
 
-  function updateInputState(wrap, parsed, rawEmpty) {
-    wrap.classList.remove('error');
-    if (!rawEmpty && !parsed.valid) wrap.classList.add('error');
+  function setFmtChip(el, parsed, raw) {
+    el.classList.remove('active', 'bad');
+    if (!raw || !raw.trim()) { el.textContent = '—'; return; }
+    if (parsed.valid) { el.textContent = parsed.format; el.classList.add('active'); }
+    else { el.textContent = parsed.format ? parsed.format + ' ?' : 'check input'; el.classList.add('bad'); }
   }
 
   function clearOutputs() {
-    [out1Odds, out1Pct, out2Odds, out2Pct].forEach(el => {
-      el.textContent = '—';
-      el.classList.add('empty');
-    });
-    [totalImplied, vigDisplay, holdDisplay].forEach(el => {
+    [out1Odds, out1Pct, out2Odds, out2Pct, totalImpliedEl, vigEl, holdEl].forEach(el => {
       el.textContent = '—';
       el.classList.add('empty');
     });
   }
 
   function calculate() {
-    const raw1 = input1.value.trim();
-    const raw2 = input2.value.trim();
+    const raw1 = side1El.value;
+    const raw2 = side2El.value;
     const p1 = parseOdds(raw1);
     const p2 = parseOdds(raw2);
 
-    updateFormatTag(format1, p1);
-    updateFormatTag(format2, p2);
-    updateInputState(wrap1, p1, !raw1);
-    updateInputState(wrap2, p2, !raw2);
+    setFmtChip(fmt1El, p1, raw1);
+    setFmtChip(fmt2El, p2, raw2);
+    side1El.classList.toggle('invalid', !p1.valid && !p1.empty);
+    side2El.classList.toggle('invalid', !p2.valid && !p2.empty);
 
     if (!p1.valid || !p2.valid) { clearOutputs(); return; }
 
     const total = p1.prob + p2.prob;
-    const fair1 = p1.prob / total;
-    const fair2 = p2.prob / total;
+    const [fair1, fair2] = devig(p1.prob, p2.prob, method);
     const vig = (total - 1) * 100;
     const hold = ((total - 1) / total) * 100;
 
-    out1Odds.textContent = formatAmerican(probToAmerican(fair1));
+    out1Odds.textContent = fmtAmerican(probToAmerican(fair1));
     out1Pct.textContent = (fair1 * 100).toFixed(2) + '%';
-    out2Odds.textContent = formatAmerican(probToAmerican(fair2));
+    out2Odds.textContent = fmtAmerican(probToAmerican(fair2));
     out2Pct.textContent = (fair2 * 100).toFixed(2) + '%';
-
     [out1Odds, out1Pct, out2Odds, out2Pct].forEach(el => el.classList.remove('empty'));
 
-    totalImplied.textContent = (total * 100).toFixed(2) + '%';
-    vigDisplay.textContent = (vig >= 0 ? '+' : '') + vig.toFixed(2) + '%';
-    holdDisplay.textContent = hold.toFixed(2) + '%';
-    [totalImplied, vigDisplay, holdDisplay].forEach(el => el.classList.remove('empty'));
+    totalImpliedEl.textContent = (total * 100).toFixed(2) + '%';
+    vigEl.textContent = (vig >= 0 ? '+' : '') + vig.toFixed(2) + '%';
+    holdEl.textContent = hold.toFixed(2) + '%';
+    [totalImpliedEl, vigEl, holdEl].forEach(el => el.classList.remove('empty'));
   }
 
-  input1.addEventListener('input', calculate);
-  input2.addEventListener('input', calculate);
+  side1El.addEventListener('input', calculate);
+  side2El.addEventListener('input', calculate);
+  [side1El, side2El].forEach(el => el.addEventListener('focus', () => el.select()));
 
-  [input1, input2].forEach(el => {
-    el.addEventListener('focus', () => el.select());
+  document.getElementById('methodGroup').addEventListener('click', e => {
+    const btn = e.target.closest('.pill');
+    if (!btn) return;
+    document.querySelectorAll('#methodGroup .pill').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    method = btn.dataset.method;
+    calculate();
   });
+
+  calculate();
 </script>
-<div style="text-align:center;color:#6b7280;font-size:.78rem;padding:24px 16px 32px;border-top:1px solid rgba(255,255,255,.06);margin-top:32px;line-height:1.6;">
-  Profit Path Sports is an educational resource. Bet responsibly. 21+ where legal. 1-800-GAMBLER.<br>
-  &copy; 2026 Profit Path Sports &middot; <a href="/privacy.html" style="color:#9ca3af;">Privacy</a> &middot; <a href="/disclaimer.html" style="color:#9ca3af;">Disclaimer</a> &middot; <a href="/affiliate-disclosure.html" style="color:#9ca3af;">Affiliate</a>
-</div>
+
 <script>
   /* Sidebar behavior */
   (function() {
@@ -829,39 +991,11 @@
       body.classList.toggle('pps-sidebar-open');
     });
 
-    document.querySelectorAll('.pps-sidebar summary[data-anchor]').forEach(function(s) {
-      s.addEventListener('click', function() {
-        if (!isHome) return;
-        var anchor = s.getAttribute('data-anchor');
-        var target = document.getElementById(anchor);
-        if (target) {
-          setTimeout(function() {
-            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          }, 60);
-        }
-      });
-    });
-
-    // Only auto-open the sidebar on desktop-class viewports. On mobile/tablet
-    // (< 900px) it stays closed until the user taps the hamburger so it
-    // doesn't cover the content on first paint.
     var isDesktop = window.matchMedia('(min-width: 901px)').matches;
-
-    if (isDesktop) {
-      if (isHome) {
-        var autoOpened = false;
-        window.addEventListener('scroll', function() {
-          if (!autoOpened && window.scrollY > 600) {
-            body.classList.add('pps-sidebar-open');
-            autoOpened = true;
-          }
-        }, { passive: true });
-      } else {
-        body.classList.add('pps-sidebar-open');
-      }
+    if (isDesktop && !isHome) {
+      body.classList.add('pps-sidebar-open');
     }
 
-    // Mobile: tap outside the open sidebar to dismiss it
     document.addEventListener('click', function(e) {
       if (window.innerWidth >= 901) return;
       if (!body.classList.contains('pps-sidebar-open')) return;

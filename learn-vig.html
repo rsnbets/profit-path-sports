@@ -601,7 +601,7 @@
     <h3>What is it?</h3>
     <div class="lesson-body">
       <p>Every line you've ever bet had a tax built in.</p>
-      <p>It's called the <strong>vig</strong> (short for <em>vigorish</em>) — also known as the "juice" or "the hold." It's how sportsbooks make money. Not by predicting games better than you. By pricing every line so the odds add up to <strong>more than 100%</strong>.</p>
+      <p>It's called the <strong>vig</strong> (short for <em>vigorish</em>) — also known as the "juice." It's how sportsbooks make money. Not by predicting games better than you. By pricing every line so the odds add up to <strong>more than 100%</strong>. (You'll also hear the word "hold" thrown around as if it means the same thing — it's close, but not identical. We'll clear that up below.)</p>
       <p>Here's the simplest possible example: a coin flip. Each side has a true 50% chance of winning. What would <em>fair</em> odds look like?</p>
 
       <div class="compare">
@@ -663,6 +663,25 @@
       </div>
 
       <p>That "extra" <strong>4.76%</strong> is the vig. It's why two evenly matched teams can both look like a slightly-worse-than-50/50 bet at the same time. The book isn't claiming both teams will win — it's just charging you 4.76% on every coin flip.</p>
+    </div>
+  </section>
+
+  <!-- VIG VS HOLD -->
+  <section class="lesson-section">
+    <h3>Vig vs. hold — not the same number</h3>
+    <div class="lesson-body">
+      <p>People use "vig" and "hold" like they mean the same thing. They're close — but they're two <em>different</em> measurements of the same market, and any devig tool will show them as separate numbers.</p>
+      <p><strong>Vig</strong> is the overround — how far the two prices sum <em>past</em> 100%. Our −110 / −110 market summed to 104.76%, so the vig is the 4.76% on top.</p>
+      <p><strong>Hold</strong> is the slice of <em>all the money wagered</em> the book actually keeps over the long run. That's the vig measured against the full 104.76% that came in — not against 100%.</p>
+
+      <div class="math-block">
+        <span class="label">Same −110 / −110 market, two measurements</span>
+        Vig&nbsp;&nbsp;= 104.76% − 100%&nbsp;&nbsp;&nbsp;&nbsp;= <span class="vig">4.76%</span><br>
+        Hold = 4.76% ÷ 104.76%&nbsp;&nbsp;= <span class="vig">4.55%</span>
+      </div>
+
+      <p>Think of vig as the <strong>sticker markup</strong> and hold as the book's <strong>actual profit margin</strong>. The hold is always a touch lower than the vig. It's a small gap on a −110 market, but it widens on higher-juice lines — so when a tool shows you both, now you know why the two numbers don't match.</p>
+      <p>One more layer: that 4.55% is the <em>theoretical</em> hold — what the book keeps if money lands evenly on both sides. Books often earn <em>more</em> than that, because bettors pile onto favorites and the book is happy to let them. But that's a story for a later lesson.</p>
     </div>
   </section>
 
