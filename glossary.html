@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Betting Glossary — Every Term in Plain English | PROFITPATH Sports</title>
+<meta name="description" content="A plain-English glossary of sports betting terms — odds, vig, EV, CLV, parlays, props, spreads and more. No jargon left undefined; full lessons one click away.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Betting Glossary — Every Term in Plain English | PROFITPATH Sports">
+<meta property="og:description" content="A plain-English A–Z of sports betting terms, with the full lesson one click away.">
+<meta property="og:image" content="https://profitpathsports.com/images/og-default.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://profitpathsports.com/glossary.html">
+<meta property="og:site_name" content="PROFITPATH Sports">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Betting Glossary — Every Term in Plain English">
+<meta name="twitter:description" content="A plain-English A–Z of sports betting terms, with the full lesson one click away.">
+<meta name="twitter:image" content="https://profitpathsports.com/images/og-default.png">
+<meta name="theme-color" content="#090909">
+
+<link rel="icon" type="image/svg+xml" href="/logo.svg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --green: #4DFF78;
+    --green-dim: rgba(77,255,120,0.15);
+    --green-faint: rgba(77,255,120,0.06);
+    --green-border: rgba(77,255,120,0.22);
+    --cyan: #00D4FF;
+    --cyan-dim: rgba(0,212,255,0.12);
+    --cyan-faint: rgba(0,212,255,0.04);
+    --cyan-border: rgba(0,212,255,0.22);
+    --red: #FF3D3D;
+    --yellow: #F5B545;
+    --bg: #090909;
+    --surface: #0D0D0D;
+    --surface-2: #141414;
+    --surface-3: #1C1C1C;
+    --border: rgba(255,255,255,0.05);
+    --border-2: rgba(255,255,255,0.08);
+    --text: #F0EEE8;
+    --muted: rgba(255,255,255,0.62);
+    --dim: rgba(255,255,255,0.25);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    font-weight: 300;
+    min-height: 100vh;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 999;
+    opacity: 0.025;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  a { color: var(--cyan); text-decoration: none; }
+  a:hover { color: var(--green); }
+
+  /* ───────── CARD ───────── */
+  .card {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 32px 48px 80px;
+    position: relative;
+  }
+  @media (max-width: 640px) { .card { padding: 60px 20px 60px; } }
+
+  /* ───────── HEADER ───────── */
+  .header { margin-bottom: 28px; }
+  .header-meta {
+    display: flex; align-items: center; gap: 18px;
+    margin-bottom: 22px; flex-wrap: wrap;
+  }
+  .back-link {
+    font-size: 11px; font-weight: 500;
+    letter-spacing: .18em; text-transform: uppercase;
+    color: var(--dim); transition: color .15s;
+  }
+  .back-link:hover { color: var(--cyan); }
+  .header-eyebrow {
+    font-size: 10px; font-weight: 600;
+    letter-spacing: .28em; text-transform: uppercase;
+    color: var(--cyan);
+  }
+  .title-row {
+    display: flex; align-items: flex-end; justify-content: center;
+    gap: 16px; margin-bottom: 16px; flex-wrap: wrap; position: relative;
+  }
+  .title-row::before {
+    content: '';
+    position: absolute;
+    left: 50%; top: 50%;
+    width: 580px; height: 220px;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(ellipse at center,
+                  rgba(77,255,120,0.18) 0%,
+                  rgba(0,212,255,0.10) 35%,
+                  rgba(77,255,120,0) 70%);
+    filter: blur(28px);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .title-row > * { position: relative; z-index: 1; }
+  .header h1 {
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-size: clamp(40px, 6vw, 64px);
+    line-height: 1.1;
+    letter-spacing: -.025em;
+    font-weight: 700;
+    margin: 0;
+    padding-bottom: 0.08em;
+    background: linear-gradient(95deg, var(--green) 0%, var(--cyan) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+  .lesson-sub {
+    font-size: clamp(15px, 1.7vw, 18px);
+    color: rgba(240,238,232,0.74);
+    font-weight: 300;
+    line-height: 1.5;
+    max-width: 680px;
+    margin: 0 auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .lesson-sub .accent { color: var(--cyan); font-weight: 400; }
+  .lesson-sub strong { color: var(--text); font-weight: 600; }
+
+  /* ───────── A–Z INDEX ───────── */
+  .gloss-index {
+    display: flex; flex-wrap: wrap;
+    gap: 6px; justify-content: center;
+    margin: 24px 0 8px;
+    padding: 16px 0;
+    border-top: 1px solid var(--border-2);
+    border-bottom: 1px solid var(--border-2);
+  }
+  .gloss-index a {
+    width: 32px; height: 32px;
+    display: flex; align-items: center; justify-content: center;
+    border: 1px solid var(--border-2);
+    border-radius: 6px;
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-weight: 600; font-size: 13px;
+    color: var(--cyan);
+    transition: all .14s;
+  }
+  .gloss-index a:hover { background: var(--surface-2); border-color: var(--cyan-border); color: var(--green); }
+
+  /* ───────── GLOSSARY ENTRIES ───────── */
+  .gloss-letter {
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-size: 24px; font-weight: 700;
+    color: var(--cyan);
+    letter-spacing: -.01em;
+    margin: 34px 0 2px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--cyan-border);
+    scroll-margin-top: 20px;
+  }
+  .gloss-entry {
+    padding: 16px 2px;
+    border-bottom: 1px solid var(--border);
+  }
+  .gloss-entry:last-child { border-bottom: none; }
+  .g-term {
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-size: 16px; font-weight: 600;
+    color: var(--text);
+    margin-bottom: 5px;
+  }
+  .g-def {
+    font-size: 14.5px; line-height: 1.62;
+    font-weight: 300;
+    color: rgba(240,238,232,0.82);
+  }
+  .g-def strong { color: var(--text); font-weight: 600; }
+  .g-link {
+    display: inline-block;
+    margin-top: 7px;
+    font-size: 10.5px; font-weight: 700;
+    letter-spacing: .12em; text-transform: uppercase;
+    color: var(--cyan);
+  }
+  .g-link:hover { color: var(--green); }
+
+  /* ───────── CTA CARD ───────── */
+  .cta-card {
+    background: linear-gradient(135deg, var(--cyan-faint), transparent);
+    border: 1px solid var(--cyan-border);
+    border-radius: 14px;
+    padding: 32px 28px;
+    margin: 44px 0 0;
+    text-align: center;
+  }
+  .cta-eyebrow {
+    font-size: 10px; font-weight: 700;
+    letter-spacing: .26em; text-transform: uppercase;
+    color: var(--cyan);
+    margin-bottom: 10px;
+  }
+  .cta-title {
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-size: 26px; font-weight: 700;
+    letter-spacing: -.02em;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+  .cta-blurb {
+    font-size: 14px; color: rgba(240,238,232,0.7);
+    line-height: 1.6; max-width: 460px;
+    margin: 0 auto 22px;
+  }
+  .cta-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 12px; font-weight: 700;
+    letter-spacing: .12em; text-transform: uppercase;
+    text-decoration: none;
+    padding: 13px 26px;
+    border-radius: 8px;
+    background: var(--cyan);
+    color: #06222a;
+    transition: all .16s;
+  }
+  .cta-btn:hover { background: var(--green); color: #06220f; transform: translateY(-1px); }
+
+  /* ───────── FOOTER ───────── */
+  .footer {
+    text-align: center;
+    margin-top: 48px;
+    padding: 28px 20px 0;
+    color: var(--dim);
+    font-size: 11px;
+    letter-spacing: .04em;
+    line-height: 1.7;
+    border-top: 1px solid var(--border);
+  }
+  .footer .disclaimer { max-width: 680px; margin: 0 auto 12px; }
+  .footer a { color: var(--muted); }
+  .footer a:hover { color: var(--cyan); }
+
+  /* ═══ SIDEBAR ═══ */
+  .pps-sidebar {
+    position: fixed; top: 0; left: 0; bottom: 0;
+    width: 240px; background: var(--surface);
+    border-right: 1px solid var(--border-2); z-index: 50;
+    transform: translateX(-100%);
+    transition: transform .3s cubic-bezier(.4,0,.2,1);
+    overflow-y: auto;
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  }
+  body.pps-sidebar-open .pps-sidebar { transform: translateX(0); }
+  body.pps-sidebar-open { padding-left: 240px; transition: padding-left .3s cubic-bezier(.4,0,.2,1); }
+  @media (max-width: 900px) {
+    body.pps-sidebar-open { padding-left: 0; }
+    .pps-sidebar { box-shadow: 4px 0 30px rgba(0,0,0,.7); width: 260px; }
+  }
+  .pps-sidebar-toggle {
+    position: fixed; top: 14px; left: 18px; z-index: 51;
+    background: var(--surface);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--border-2);
+    color: var(--text);
+    width: 38px; height: 38px;
+    border-radius: 6px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all .18s ease;
+  }
+  .pps-sidebar-toggle:hover { background: var(--surface-2); border-color: var(--cyan-border); color: var(--cyan); }
+  body.pps-sidebar-open .pps-sidebar-toggle { left: 256px; top: 14px; }
+  @media (max-width: 900px) { body.pps-sidebar-open .pps-sidebar-toggle { left: 276px; } }
+  .pps-sidebar-inner { padding: 22px 14px 30px; }
+  .pps-sidebar-brand {
+    display: flex; align-items: center; justify-content: center;
+    gap: 6px; color: var(--text); text-decoration: none;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 900; font-size: 13px;
+    letter-spacing: -.02em;
+    padding: 4px 0 16px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 14px;
+  }
+  .pps-sidebar-brand .accent { color: var(--green); }
+  .pps-sidebar-brand small { font-size: 8px; font-weight: 400; letter-spacing: .4em; text-transform: uppercase; color: var(--dim); margin-left: 6px; }
+  .pps-sidebar-brand:hover .accent { filter: brightness(1.1); }
+  .pps-sidebar-nav { display: flex; flex-direction: column; gap: 1px; }
+  .pps-nav-group-label {
+    font-size: 9px; text-transform: uppercase; letter-spacing: .22em;
+    color: var(--dim); padding: 14px 8px 6px;
+    margin-top: 2px; font-weight: 600;
+  }
+  .pps-nav-link {
+    display: flex; align-items: center; gap: 10px;
+    color: var(--muted); text-decoration: none;
+    padding: 7px 10px; border-radius: 4px;
+    font-size: 12px; font-weight: 400;
+    border-left: 2px solid transparent;
+    transition: all .15s ease;
+  }
+  .pps-nav-link:hover { background: var(--surface-2); color: var(--text); }
+  .pps-nav-link.active { background: var(--green-faint); color: var(--green); border-left-color: var(--green); font-weight: 500; }
+  .pps-nav-num { font-family: 'Space Grotesk', system-ui, sans-serif; font-size: 10px; color: var(--dim); font-weight: 500; min-width: 18px; }
+  .pps-nav-group { margin: 1px 0; }
+  .pps-nav-group summary {
+    list-style: none; cursor: pointer;
+    padding: 7px 10px; font-size: 12px;
+    color: var(--muted); border-radius: 4px;
+    display: flex; align-items: center; justify-content: space-between;
+    transition: all .15s ease; user-select: none;
+    font-weight: 500;
+  }
+  .pps-nav-group summary::-webkit-details-marker { display: none; }
+  .pps-nav-group summary::after { content: '▾'; font-size: 9px; color: var(--dim); transition: transform .2s ease; }
+  .pps-nav-group[open] summary::after { transform: rotate(180deg); }
+  .pps-nav-group summary:hover { background: var(--surface-2); color: var(--text); }
+  .pps-nav-group .pps-nav-link { padding: 5px 10px 5px 22px; font-size: 11px; }
+  .pps-path-group > summary { font-weight: 600; }
+  .pps-path-group .pps-path-label { display: inline-flex; align-items: center; gap: 10px; }
+  .pps-path-group.path-blue > summary .pps-nav-num { color: var(--cyan); }
+  .pps-path-group.path-green > summary .pps-nav-num { color: var(--green); }
+  .pps-path-group.path-gold > summary .pps-nav-num { color: var(--yellow); }
+  .pps-path-group.path-blue[open] > summary { color: var(--cyan); }
+  .pps-path-group.path-green[open] > summary { color: var(--green); }
+  .pps-path-group.path-gold[open] > summary { color: var(--yellow); }
+  .pps-sidebar::-webkit-scrollbar { width: 6px; }
+  .pps-sidebar::-webkit-scrollbar-track { background: transparent; }
+  .pps-sidebar::-webkit-scrollbar-thumb { background: var(--border-2); border-radius: 3px; }
+
+  @media (max-width: 640px) {
+    .card { padding-top: 60px; }
+  }
+</style>
+</head>
+<body>
+
+
+<!-- ═══ SIDEBAR NAVIGATION ═══ -->
+<button class="pps-sidebar-toggle" aria-label="Toggle navigation" id="ppsSidebarToggle">
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M2 4h12M2 8h12M2 12h12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+  </svg>
+</button>
+<aside class="pps-sidebar" id="ppsSidebar">
+  <div class="pps-sidebar-inner">
+    <a class="pps-sidebar-brand" href="/index.html">
+      <span>PROFIT<span class="accent">PATH</span></span>
+      <small>Sports</small>
+    </a>
+    <nav class="pps-sidebar-nav">
+      <a class="pps-nav-link" href="/index.html">Home</a>
+      <a class="pps-nav-link" href="/free-money-guide.html" style="color: var(--green); font-weight: 500;">★ Free Money Guide</a>
+      <a class="pps-nav-link active" href="/glossary.html">Glossary</a>
+      <div class="pps-nav-group-label">Paths</div>
+      <details class="pps-nav-group pps-path-group path-blue">
+        <summary data-anchor="paths"><span class="pps-path-label"><span class="pps-nav-num">01</span> Begin</span></summary>
+        <a class="pps-nav-link" href="/lane-new.html">Path Overview</a>
+        <a class="pps-nav-link" href="/learn-odds.html">Odds Formats</a>
+        <a class="pps-nav-link" href="/learn-implied.html">Implied Probability</a>
+        <a class="pps-nav-link" href="/learn-vig.html">The Vig</a>
+        <a class="pps-nav-link" href="/learn-ev.html">+EV</a>
+        <a class="pps-nav-link" href="/learn-clv.html">CLV</a>
+        <a class="pps-nav-link" href="/learn-kelly.html">Kelly Criterion</a>
+        <a class="pps-nav-link" href="/learn-parlays.html">Parlays</a>
+        <a class="pps-nav-link" href="/learn-props.html">Prop Bets</a>
+      </details>
+      <details class="pps-nav-group pps-path-group path-green">
+        <summary data-anchor="paths"><span class="pps-path-label"><span class="pps-nav-num">02</span> Convert</span></summary>
+        <a class="pps-nav-link" href="/lane-bonus.html">Path Overview</a>
+        <a class="pps-nav-link" href="/learn-bonus.html">Bonus Conversion</a>
+        <a class="pps-nav-link" href="/learn-bonus-types.html">Bonus Types</a>
+        <a class="pps-nav-link" href="/learn-bonus-traps.html">Bonus Traps</a>
+        <a class="pps-nav-link" href="/learn-bonus-walkthrough.html">Walkthrough</a>
+        <a class="pps-nav-link" href="/learn-finding-bonus-bets.html">Finding Bonus Bets</a>
+        <a class="pps-nav-link" href="/learn-bonus-step-by-step.html">Step-by-Step</a>
+        <a class="pps-nav-link" href="/learn-prop-void-rules.html">Prop Void Rules</a>
+      </details>
+      <details class="pps-nav-group pps-path-group path-gold">
+        <summary data-anchor="paths"><span class="pps-path-label"><span class="pps-nav-num">03</span> Maintain</span></summary>
+        <a class="pps-nav-link" href="/lane-maintain.html">Path Overview</a>
+        <a class="pps-nav-link" href="/learn-prob-gap-vs-ev.html">Prob Gap vs EV</a>
+        <a class="pps-nav-link" href="/learn-arbitrage.html">Arbitrage</a>
+        <a class="pps-nav-link" href="/learn-middles.html">Middles</a>
+        <a class="pps-nav-link" href="/learn-betting-vs-trading.html">Betting vs Trading</a>
+        <a class="pps-nav-link" href="/learn-alt-ladder.html">Alt Ladder</a>
+        <a class="pps-nav-link" href="/learn-alt-lines.html">Alt Lines</a>
+        <a class="pps-nav-link" href="/learn-cross-market-ev.html">Cross-Market EV</a>
+        <a class="pps-nav-link" href="/learn-exchange-liquidity.html">Exchange Liquidity</a>
+        <a class="pps-nav-link" href="/learn-futures.html">Futures</a>
+        <a class="pps-nav-link" href="/learn-finding-bets.html">Finding +EV Bets</a>
+        <a class="pps-nav-link" href="/learn-manual-scan.html">Manual Scan</a>
+        <a class="pps-nav-link" href="/learn-top-down-bottom-up.html">Top-Down / Bottom-Up</a>
+        <a class="pps-nav-link" href="/learn-wide-markets.html">Wide Markets</a>
+      </details>
+      <details class="pps-nav-group">
+        <summary data-anchor="tools">Calculators</summary>
+        <a class="pps-nav-link" href="/bet-x-ray.html">Bet X-Ray</a>
+        <a class="pps-nav-link" href="/ev-calculator.html">EV Calculator</a>
+        <a class="pps-nav-link" href="/devig_calculator.html">Devig</a>
+        <a class="pps-nav-link" href="/kelly-calculator.html">Kelly Sizer</a>
+        <a class="pps-nav-link" href="/arb-calculator.html">Arbitrage</a>
+        <a class="pps-nav-link" href="/hedge-calculator.html">Hedge</a>
+        <a class="pps-nav-link" href="/middle-calculator.html">Middle</a>
+        <a class="pps-nav-link" href="/dfs-slip-checker.html">DFS Slip Checker</a>
+        <a class="pps-nav-link" href="/parlay-calculator.html">Parlay</a>
+        <a class="pps-nav-link" href="/edge-finder.html">Edge Finder</a>
+        <a class="pps-nav-link" href="/long-run-simulator.html">Long-Run Sim</a>
+        <a class="pps-nav-link" href="/bet-tracker.html">Bet Tracker</a>
+        <a class="pps-nav-link" href="/consensus-calculator.html">Consensus</a>
+        <a class="pps-nav-link" href="/bonus-converter.html">Bonus Converter</a>
+        <a class="pps-nav-link" href="/odds_calculator.html">Odds Converter</a>
+      </details>
+      <details class="pps-nav-group">
+        <summary>Sportsbooks</summary>
+        <a class="pps-nav-link" href="/book-draftkings.html">DraftKings</a>
+        <a class="pps-nav-link" href="/book-fanduel.html">FanDuel</a>
+        <a class="pps-nav-link" href="/book-hardrock.html">Hard Rock</a>
+        <a class="pps-nav-link" href="/book-betmgm.html">BetMGM</a>
+        <a class="pps-nav-link" href="/book-prophetx.html">ProphetX</a>
+      </details>
+      <details class="pps-nav-group">
+        <summary data-anchor="guides">Deep Dives</summary>
+        <a class="pps-nav-link" href="/learn-cross-market-ev.html">Cross-Market EV</a>
+        <a class="pps-nav-link" href="/learn-parlays.html">Parlays &amp; SGPs</a>
+        <a class="pps-nav-link" href="/learn-alt-lines.html">Same Bet, Two Prices</a>
+        <a class="pps-nav-link" href="/learn-alt-ladder.html">Shopping the Alt Ladder</a>
+        <a class="pps-nav-link" href="/learn-top-down-bottom-up.html">Top-Down vs Bottom-Up</a>
+        <a class="pps-nav-link" href="/learn-prob-gap-vs-ev.html">Probability Gap vs EV</a>
+        <a class="pps-nav-link" href="/learn-betting-vs-trading.html">EV Betting vs Trading</a>
+        <a class="pps-nav-link" href="/learn-arbitrage.html">Arbitrage Betting</a>
+        <a class="pps-nav-link" href="/learn-middles.html">Middles</a>
+        <a class="pps-nav-link" href="/learn-futures.html">Futures Betting</a>
+      </details>
+    </nav>
+  </div>
+</aside>
+<!-- ═══ END SIDEBAR ═══ -->
+
+<div class="card">
+
+  <div class="header">
+    <div class="header-meta">
+      <a href="/index.html" class="back-link">← Back to Home</a>
+      <span class="header-eyebrow">Reference</span>
+    </div>
+    <div class="title-row">
+      <h1>Betting Glossary</h1>
+    </div>
+    <p class="lesson-sub">
+      <span>Every betting term you'll run into, written in plain English.</span>
+      <span class="accent">No jargon left undefined — and where a term has a full lesson, it's one click away.</span>
+      <span>Bookmark it. When a word stops you, this is where you come.</span>
+    </p>
+  </div>
+
+  <div class="gloss-index">
+    <a href="#a">A</a><a href="#b">B</a><a href="#c">C</a><a href="#d">D</a><a href="#e">E</a>
+    <a href="#f">F</a><a href="#h">H</a><a href="#i">I</a><a href="#j">J</a><a href="#k">K</a>
+    <a href="#l">L</a><a href="#m">M</a><a href="#o">O</a><a href="#p">P</a><a href="#s">S</a>
+    <a href="#u">U</a><a href="#v">V</a>
+  </div>
+
+  <h2 class="gloss-letter" id="a">A</h2>
+  <div class="gloss-entry">
+    <div class="g-term">Action</div>
+    <div class="g-def">Money you have riding on a live bet. "I've got action on that game" just means a bet is in play.</div>
+  </div>
+  <div class="gloss-entry">
+    <div class="g-term">American odds</div>
+    <div class="g-def">The +/− odds format US sportsbooks use. A minus number marks the favorite (bet that much to win $100); a plus number marks the underdog (bet $100 to win that much).</div>
+    <a class="g-link" href="/learn-odds.html">Lesson 01 · Reading the Odds →</a>
+  </div>
+  <div class="gloss-entry">
+    <div class="g-term">Arbitrage (arb)</div>
+    <div class="g-def">Betting every side of a market — usually at different sportsbooks — at prices that lock in a profit no matter which side wins.</div>
+    <a class="g-link" href="/learn-arbitrage.html">Arbitrage deep dive →</a>
+  </div>
+
+  <h2 class="gloss-letter" id="b">B</h2>
+  <div class="gloss-entry">
+    <div class="g-term">Bankroll</div>
+    <div class="g-def">The pool of money you've set aside specifically for betting — kept separate from money you actually need.</div>
+  </div>
+  <div class="gloss-entry">
+    <div class="g-term">Bonus bet</div>
+    <div class="g-def">A free-bet credit a sportsbook hands you, usually for signing up. If it wins you keep only the profit, not the credit itself — so it's worth less than its face value until you convert it.</div>
+    <a class="g-link" href="/learn-bonus.html">Path 02 · Bonus Conversion →</a>
+  </div>
+
+  <h2 class="gloss-letter" id="c">C</h2>
+  <div class="gloss-entry">
+    <div class="g-term">Chalk</div>
+    <div class="g-def">Slang for the favorite. "Betting chalk" means betting the favorites.</div>
+  </div>
+  <div class="gloss-entry">
+    <div class="g-term">Closing line</div>
+    <div class="g-def">The final price on a bet right before the event starts — the sharpest, most-informed number the market produces all day.</div>
+    <a class="g-link" href="/learn-clv.html">Lesson 06 · CLV →</a>
+  </div>
+  <div class="gloss-entry">
+    <div class="g-term">CLV (closing line value)</div>
+    <div class="g-def">Whether the price you got beat the closing line. Consistently positive CLV is the best short-run proof that you're a winning bettor.</div>
+    <a class="g-link" href="/learn-clv.html">Lesson 06 · CLV →</a>
+  </div>
+  <div class="gloss-entry">
+    <div class="g-term">Cover</div>
+    <div class="g-def">When a team beats the point spread — a favorite winning by more than the spread, or an underdog losing by less than it (or winning outright).</div>
+  </div>
+
+  <h2 class="gloss-letter" id="d">D</h2>
+  <div class="gloss-entry">
+    <div class="g-term">Decimal odds</div>
+    <div class="g-def">An odds format showing your total return per $1 staked. <strong>2.00</strong> means a $1 bet pays back $2.00. Common outside the US.</div>
+    <a class="g-link" href="/learn-odds.html">Lesson 01 · Reading the Odds →</a>
+  </div>
+  <div class="gloss-entry">
+    <div class="g-term">Devig</div>
+    <div class="g-def">Stripping the vig out of a market to uncover the true, fair probability hiding behind a price.</div>
+    <a class="g-link" href="/learn-vig.html">Lesson 03 · The Vig →</a>
+  </div>
+  <div class="gloss-entry">
+    <div class="g-term">Dutching</div>
+    <div class="g-def">Splitting one stake across several outcomes so you win the same amount whichever of them comes in.</div>
+  </div>
+
+  <h2 class="gloss-letter" id="e">E</h2>
+  <div class="gloss-entry">
+    <div class="g-term">Edge</div>
+    <div class="g-def">The gap between a bet's true probability of winning and the probability its price implies. A positive edge is what makes a bet worth placing.</div>
+    <a class="g-link" href="/learn-ev.html">Lesson 04 · +EV →</a>
+  </div>
+  <div class="gloss-entry">
+    <div class="g-term">EV (expected value)</div>
+    <div class="g-def">What a bet is worth on average if you made it over and over. Positive EV (+EV) makes money long-term; negative EV (−EV) loses.</div>
+    <a class="g-link" href="/learn-ev.html">Lesson 04 · +EV →</a>
+  </div>
+
+  <h2 class="gloss-letter" id="f">F</h2>
+  <div class="gloss-entry">
+    <div class="g-term">Favorite</div>
+    <div class="g-def">The side the market judges more likely to win. It carries minus odds — you risk more to win the same amount.</div>
+    <a class="g-link" href="/learn-odds.html">Lesson 01 · Reading the Odds →</a>
+  </div>
+  <div class="gloss-entry">
+    <div class="g-term">Fractional odds</div>
+    <div class="g-def">The traditional UK odds format, written as a fraction like <strong>5/1</strong> — winnings over stake. Mostly UK books and horse racing.</div>
+    <a class="g-link" href="/learn-odds.html">Lesson 01 · Reading the Odds →</a>
+  </div>
+  <div class="gloss-entry">
+    <div class="g-term">Futures</div>
+    <div class="g-def">A bet on a season-long outcome decided well down the road — a team to win the championship, a player to win MVP.</div>
+    <a class="g-link" href="/learn-futures.html">Futures deep dive →</a>
+  </div>
+
+  <h2 class="gloss-letter" id="h">H</h2>
+  <div class="gloss-entry">
+    <div class="g-term">Handle</div>
+    <div class="g-def">The total amount of money wagered — on a single market, or by a sportsbook over a period.</div>
+  </div>
+  <div class="gloss-entry">
+    <div class="g-term">Hedge</div>
+    <div class="g-def">Placing a bet on the opposite side of one you already have, sized to lock in a guaranteed result instead of leaving it to chance.</div>
+    <a class="g-link" href="/hedge-calculator.html">Hedge Calculator →</a>
+  </div>
+  <div class="gloss-entry">
+    <div class="g-term">Hold</div>
+    <div class="g-def">The share of all money wagered that a sportsbook actually keeps over the long run. Closely related to the vig, but measured against total handle — so it's always a touch lower.</div>
+    <a class="g-link" href="/learn-vig.html">Lesson 03 · The Vig →</a>
+  </div>
+
+  <h2 class="gloss-letter" id="i">I</h2>
+  <div class="gloss-entry">
+    <div class="g-term">Implied probability</div>
+    <div class="g-def">The win chance baked into a price, written as a percentage. It still includes the book's fee until you devig the market.</div>
+    <a class="g-link" href="/learn-implied.html">Lesson 02 · Implied Probability →</a>
+  </div>
+  <div class="gloss-entry">
+    <div class="g-term">In-play betting (live betting)</div>
+    <div class="g-def">Betting on a game after it has already started, with odds that update in real time as the game unfolds.</div>
+  </div>
+
+  <h2 class="gloss-letter" id="j">J</h2>
+  <div class="gloss-entry">
+    <div class="g-term">Juice</div>
+    <div class="g-def">Another word for the vig — the sportsbook's built-in cut on every bet.</div>
+    <a class="g-link" href="/learn-vig.html">Lesson 03 · The Vig →</a>
+  </div>
+
+  <h2 class="gloss-letter" id="k">K</h2>
+  <div class="gloss-entry">
+    <div class="g-term">Kelly criterion</div>
+    <div class="g-def">A formula for how much of your bankroll to put on a bet — sized to your edge — so your money grows as fast as possible without risking ruin.</div>
+    <a class="g-link" href="/learn-kelly.html">Lesson 05 · Kelly Sizing →</a>
+  </div>
+
+  <h2 class="gloss-letter" id="l">L</h2>
+  <div class="gloss-entry">
+    <div class="g-term">Limit</div>
+    <div class="g-def">The maximum a sportsbook will let you bet on a given market. Books cut the limits of bettors who consistently win.</div>
+  </div>
+  <div class="gloss-entry">
+    <div class="g-term">Line</div>
+    <div class="g-def">The odds or number a sportsbook is offering on a bet — the price, the spread, or the total.</div>
+  </div>
+
+  <h2 class="gloss-letter" id="m">M</h2>
+  <div class="gloss-entry">
+    <div class="g-term">Middle</div>
+    <div class="g-def">Betting both sides of a market at different numbers, so that if the result lands in the gap between them, <strong>both</strong> bets win.</div>
+    <a class="g-link" href="/learn-middles.html">Middles deep dive →</a>
+  </div>
+  <div class="gloss-entry">
+    <div class="g-term">Moneyline</div>
+    <div class="g-def">The simplest bet there is: pick which team wins the game, straight up — no spread, no total.</div>
+    <a class="g-link" href="/learn-odds.html">Lesson 01 · Reading the Odds →</a>
+  </div>
+
+  <h2 class="gloss-letter" id="o">O</h2>
+  <div class="gloss-entry">
+    <div class="g-term">Odds</div>
+    <div class="g-def">The price of a bet — it sets what you'd win for what you risk, and reveals the chance the book is giving that outcome.</div>
+    <a class="g-link" href="/learn-odds.html">Lesson 01 · Reading the Odds →</a>
+  </div>
+  <div class="gloss-entry">
+    <div class="g-term">Over / Under (the total)</div>
+    <div class="g-def">A bet on whether the combined score of a game lands above ("over") or below ("under") a number the book sets — that number is the <strong>total</strong>.</div>
+  </div>
+
+  <h2 class="gloss-letter" id="p">P</h2>
+  <div class="gloss-entry">
+    <div class="g-term">Parlay</div>
+    <div class="g-def">A single ticket combining several bets ("legs"). Every leg must win or the whole ticket loses — and the vig compounds with each leg you add.</div>
+    <a class="g-link" href="/learn-parlays.html">Parlays &amp; SGPs →</a>
+  </div>
+  <div class="gloss-entry">
+    <div class="g-term">Prop bet</div>
+    <div class="g-def">A bet on a number a player or team produces — points, yards, strikeouts — rather than on who wins the game.</div>
+    <a class="g-link" href="/learn-props.html">Prop Bets lesson →</a>
+  </div>
+  <div class="gloss-entry">
+    <div class="g-term">Push</div>
+    <div class="g-def">A tie between the result and the line — for example, a team winning by exactly the spread. The bet is cancelled and your stake refunded.</div>
+  </div>
+
+  <h2 class="gloss-letter" id="s">S</h2>
+  <div class="gloss-entry">
+    <div class="g-term">Sharp</div>
+    <div class="g-def">A consistently winning, professional-level bettor. Also used for a sportsbook that prices accurately and welcomes winners (Pinnacle, Circa).</div>
+  </div>
+  <div class="gloss-entry">
+    <div class="g-term">SGP (same-game parlay)</div>
+    <div class="g-def">A parlay built entirely from legs of one game. Books price these with extra markup, which makes them harder to beat than a normal parlay.</div>
+    <a class="g-link" href="/learn-parlays.html">Parlays &amp; SGPs →</a>
+  </div>
+  <div class="gloss-entry">
+    <div class="g-term">Spread (point spread)</div>
+    <div class="g-def">A handicap the book applies to the favorite — points it must win by — so that betting either side is roughly an even-money proposition.</div>
+  </div>
+  <div class="gloss-entry">
+    <div class="g-term">Square</div>
+    <div class="g-def">A casual, recreational bettor — the opposite of a sharp. Books make most of their money from squares.</div>
+  </div>
+  <div class="gloss-entry">
+    <div class="g-term">Stake</div>
+    <div class="g-def">The amount of money you put on a bet.</div>
+  </div>
+  <div class="gloss-entry">
+    <div class="g-term">Steam</div>
+    <div class="g-def">Fast, sharp movement of a line as heavy or informed money pours onto one side.</div>
+  </div>
+
+  <h2 class="gloss-letter" id="u">U</h2>
+  <div class="gloss-entry">
+    <div class="g-term">Underdog</div>
+    <div class="g-def">The side the market judges less likely to win. It carries plus odds — a bigger payout for taking the risk.</div>
+    <a class="g-link" href="/learn-odds.html">Lesson 01 · Reading the Odds →</a>
+  </div>
+  <div class="gloss-entry">
+    <div class="g-term">Unit</div>
+    <div class="g-def">A standard bet size — often around 1% of your bankroll — used to track results consistently no matter how big the bankroll grows.</div>
+  </div>
+
+  <h2 class="gloss-letter" id="v">V</h2>
+  <div class="gloss-entry">
+    <div class="g-term">Vig (vigorish)</div>
+    <div class="g-def">The sportsbook's built-in cut, shaded into every price so the two sides of a market add up to more than 100%. The reason most bettors slowly lose.</div>
+    <a class="g-link" href="/learn-vig.html">Lesson 03 · The Vig →</a>
+  </div>
+
+  <div class="cta-card">
+    <div class="cta-eyebrow">New to all this?</div>
+    <div class="cta-title">Start at the beginning</div>
+    <p class="cta-blurb">The glossary tells you what a word means. Path 01 teaches you what to <em>do</em> with it — six short lessons from reading odds to tracking your edge.</p>
+    <a href="/learn-odds.html" class="cta-btn">Open Lesson 01 →</a>
+  </div>
+
+  <div class="footer">
+    <div class="disclaimer">
+      PROFITPATH Sports is an educational resource. Nothing here is a guarantee, and sports betting carries financial risk. Bet responsibly. If gambling is a problem for you, call <strong>1-800-GAMBLER</strong>. Must be 21+ where legal.
+    </div>
+    <div>© 2026 PROFITPATH Sports · <a href="/index.html">Home</a> · <a href="/index.html#start">Paths</a> &middot; <a href="/index.html#tools">Toolbox</a> &middot; <a href="/privacy.html">Privacy</a> &middot; <a href="/disclaimer.html">Disclaimer</a></div>
+  </div>
+
+</div>
+
+<script>
+  /* Sidebar behavior */
+  (function() {
+    var body = document.body;
+    var toggle = document.getElementById('ppsSidebarToggle');
+    var path = window.location.pathname.replace(/\/$/, '') || '/index.html';
+    var isHome = (path === '/index.html' || path === '' || path === '/');
+
+    document.querySelectorAll('.pps-sidebar .pps-nav-link').forEach(function(link) {
+      var href = link.getAttribute('href');
+      if (href === path || (isHome && href === '/index.html')) {
+        link.classList.add('active');
+        var parent = link.closest('details');
+        if (parent) parent.open = true;
+      }
+    });
+
+    toggle.addEventListener('click', function() {
+      body.classList.toggle('pps-sidebar-open');
+    });
+
+    var isDesktop = window.matchMedia('(min-width: 901px)').matches;
+    if (isDesktop && !isHome) {
+      body.classList.add('pps-sidebar-open');
+    }
+
+    document.addEventListener('click', function(e) {
+      if (window.innerWidth >= 901) return;
+      if (!body.classList.contains('pps-sidebar-open')) return;
+      var sidebar = document.getElementById('ppsSidebar');
+      if (sidebar && !sidebar.contains(e.target) && e.target !== toggle && !toggle.contains(e.target)) {
+        body.classList.remove('pps-sidebar-open');
+      }
+    });
+  })();
+</script>
+
+</body>
+</html>
