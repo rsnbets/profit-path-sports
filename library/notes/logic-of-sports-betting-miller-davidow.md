@@ -441,3 +441,17 @@ For cross-referencing into `library/topics/`:
 - Appendix A (p234)
 
 When the Ban-or-Bankrupt paper draft is underway, return for: Public Money, Angles, Multiway Markets, How Do I Know If I'm Winning. These will tighten specific paper sections.
+
+---
+
+## Author update — *Interception* (2023) + sportshandle interview (2024)
+
+> Source: Ed Miller interview, sportshandle.com ("The Secrets of Modern Sports Betting"). Miller & Davidow's follow-up book is *Interception: The Secrets of Modern Sports Betting* (2023). Same worldview as LOSB — this is an update, not a new source. No contradictions with the LOSB synthesis above; the points below extend it.
+
+- **"Gambling is about finding people willing to lose to you."** Miller's blunt through-line: winning at gambling has always depended on *misdirection* — appearing weaker than you are. Reframes the skill set as social as much as mathematical.
+- **Limiting is triggered by sustained profit, not betting volume.** High stakes alone don't flag you; *winning over time* does. Miller's longevity tactic — occasionally lose on purpose to keep a recreational profile — and his honest admission that this is psychologically very hard to do. → Account-profiling guide material; pairs with LOSB's account-management content.
+- **"Hold percentage is essentially a useless metric"** for judging a sportsbook's *quality*. Hold measures what losing bettors happened to wager, not whether the book priced anything accurately. Miller argues modern US books chase betting-*menu breadth* over pricing accuracy. NOTE: this is hold as a *book-quality* metric — a different angle from the bettor-facing vig-vs-hold distinction taught in `learn-vig.html`; adjacent, not contradictory. Usable as an authority cross-reference.
+- **The math is mostly basic arithmetic.** Miller says most winning bettors lean more on sport knowledge than on heavy statistical modelling. Mild tension with a purely +EV-forward framing — true, but PPS should not let it dilute the "the price is the thing" message; treat sport knowledge as an *input* to a probability estimate, not a substitute for pricing discipline.
+- **Palpable-error rule.** Books void bets claiming "pricing mistakes"; Miller wants the rule capped so it can't be abused. → Consumer-protection angle for a sportsbook-mechanics guide.
+- **Prime Sports** praised as a fair-price, limited-market, sharp-friendly book serving an underserved niche — the anti-limiting business model. Worth tracking as the market counter-example.
+- **"All gambling opportunities are temporary."** Edge decays; markets correct. Mindset point, consistent with LOSB's market-efficiency framing.
