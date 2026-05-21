@@ -44,6 +44,8 @@
     --red: #f87171;
     --purple: #BC8CFF;
     --purple-glow: rgba(188, 140, 255, 0.18);
+    --cyan: #00D4FF;
+    --cyan-glow: rgba(0, 212, 255, 0.18);
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
@@ -272,6 +274,7 @@
     margin-bottom: 14px;
   }
   .output-block.translation { border-left: 3px solid var(--purple); }
+  .output-block.asymmetry { border-left: 3px solid var(--cyan); }
   .output-block.conviction { border-left: 3px solid var(--yellow); }
   .output-block.consensus { border-left: 3px solid var(--blue); }
   .output-block.target { border-left: 3px solid var(--green); }
@@ -294,6 +297,7 @@
     background: var(--panel-inset);
   }
   .output-block.translation .output-block-num { color: var(--purple); }
+  .output-block.asymmetry .output-block-num { color: var(--cyan); }
   .output-block.conviction .output-block-num { color: var(--yellow); }
   .output-block.consensus .output-block-num { color: var(--blue); }
   .output-block.target .output-block-num { color: var(--green); }
@@ -351,6 +355,59 @@
   .conviction-status.overflow { border-color: var(--yellow); background: rgba(245,181,69,0.06); color: var(--text); }
   .conviction-status .lbl { color: var(--dim); font-family: 'Orbitron', sans-serif; font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; margin-right: 8px; }
   .conviction-status strong { color: var(--yellow); font-weight: 700; }
+
+  /* OUTPUT 02: BOOK LIMIT ASYMMETRY */
+  .asymmetry-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  .asymmetry-card {
+    background: var(--panel-inset);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+  .asymmetry-card.protected-flag { border-color: var(--cyan); background: rgba(0,212,255,0.06); }
+  .asymmetry-card .a-label {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 10px; letter-spacing: 1.8px; text-transform: uppercase;
+    color: var(--dim); font-weight: 700; margin-bottom: 10px;
+  }
+  .asymmetry-card .a-limits {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px; color: var(--text);
+    letter-spacing: 0.3px; margin-bottom: 4px;
+  }
+  .asymmetry-card .a-limits .protected-side { color: var(--cyan); font-weight: 700; }
+  .asymmetry-card .a-ratio {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 22px; font-weight: 700;
+    color: var(--text); letter-spacing: 0.4px;
+  }
+  .asymmetry-card .a-ratio.empty { color: var(--dim); font-weight: 400; }
+  .asymmetry-card .a-ratio.flag { color: var(--cyan); }
+  .asymmetry-card .a-detail {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; color: var(--muted);
+    margin-top: 6px; letter-spacing: 0.3px;
+  }
+  .asymmetry-status {
+    background: var(--panel-inset);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 16px;
+    text-align: center;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 15px; color: var(--text);
+    line-height: 1.4;
+  }
+  .asymmetry-status.confirm { border-color: var(--cyan); background: rgba(0,212,255,0.06); }
+  .asymmetry-status.conflict { border-color: var(--red); background: rgba(248,113,113,0.05); }
+  .asymmetry-status .lbl { color: var(--dim); font-family: 'Orbitron', sans-serif; font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; margin-right: 8px; }
+  .asymmetry-status strong { color: var(--cyan); font-weight: 700; }
+  .asymmetry-status.conflict strong { color: var(--red); }
   .output-block-title {
     font-family: 'Orbitron', sans-serif;
     font-size: 13px;
@@ -847,10 +904,37 @@
       </div>
     </div>
 
-    <!-- OUTPUT 2: CONVICTION CHECK -->
-    <div class="output-block conviction">
+    <!-- OUTPUT 2: BOOK LIMIT ASYMMETRY -->
+    <div class="output-block asymmetry">
       <div class="output-block-head">
         <span class="output-block-num">Output 02</span>
+        <span class="output-block-title">Book Limit Asymmetry</span>
+      </div>
+
+      <div class="asymmetry-grid">
+        <div class="asymmetry-card" id="asymPinnacle">
+          <div class="a-label">Pinnacle</div>
+          <div class="a-limits" id="asymPinnLimits">—</div>
+          <div class="a-ratio empty" id="asymPinnRatio">—</div>
+          <div class="a-detail" id="asymPinnDetail">— enter both sides to read stance</div>
+        </div>
+        <div class="asymmetry-card" id="asymCirca">
+          <div class="a-label">Circa</div>
+          <div class="a-limits" id="asymCircaLimits">—</div>
+          <div class="a-ratio empty" id="asymCircaRatio">—</div>
+          <div class="a-detail" id="asymCircaDetail">— enter both sides to read stance</div>
+        </div>
+      </div>
+
+      <div class="asymmetry-status" id="asymStatus">
+        <span class="lbl">Stance</span><span id="asymStatusText">— · enter book limits on both sides to read book stance</span>
+      </div>
+    </div>
+
+    <!-- OUTPUT 3: CONVICTION CHECK -->
+    <div class="output-block conviction">
+      <div class="output-block-head">
+        <span class="output-block-num">Output 03</span>
         <span class="output-block-title">Conviction Check</span>
       </div>
 
@@ -872,10 +956,10 @@
       </div>
     </div>
 
-    <!-- OUTPUT 3: CONSENSUS FAIR -->
+    <!-- OUTPUT 4: CONSENSUS FAIR -->
     <div class="output-block consensus">
       <div class="output-block-head">
-        <span class="output-block-num">Output 03</span>
+        <span class="output-block-num">Output 04</span>
         <span class="output-block-title">Consensus Fair</span>
       </div>
 
@@ -893,10 +977,10 @@
       </div>
     </div>
 
-    <!-- OUTPUT 4: SOFT-BOOK TARGET -->
+    <!-- OUTPUT 5: SOFT-BOOK TARGET -->
     <div class="output-block target">
       <div class="output-block-head">
-        <span class="output-block-num">Output 04</span>
+        <span class="output-block-num">Output 05</span>
         <span class="output-block-title">Soft-Book Target</span>
       </div>
 
@@ -927,9 +1011,10 @@
 
         <p><strong>Inputs.</strong> Use American odds (e.g. <em>−110</em>, <em>+135</em>). For the dollar amounts: Pinnacle and Circa are book limits (the max they'll book at that line); ProphetX and Novig are exchange order-book depth (real user-posted money). Leave any source blank if Pick the Odds doesn't show it for that market.</p>
 
-        <p><strong>The four outputs:</strong></p>
+        <p><strong>The five outputs:</strong></p>
         <ul>
           <li><em>Sharp Translation</em> — translates exchange depth to the sharp's actual position (flip side, flip sign). Tallies how much sharp capital sits on each side and shows the imbalance ratio.</li>
+          <li><em>Book Limit Asymmetry</em> — per-book ratio of the higher to the lower limit. <strong>The LOWER-limit side is the side the book is protecting itself from</strong> — i.e. the inferred sharp-favored side. When both books protect the same side AND it matches the exchange flow, all signals align. When books and exchanges point opposite ways, that's a mixed signal worth down-weighting.</li>
           <li><em>Conviction Check</em> — compares exchange depth to book limits on each side. <strong>When exchange depth exceeds book limits, sharps wanted more capacity than the books would underwrite</strong> — they overflowed onto the exchange. That's a strong conviction signal and a leading indicator of line movement.</li>
           <li><em>Consensus Fair</em> — weighted no-vig fair price across the available sources. Pinnacle and Novig get the heaviest weight since they're the deepest references.</li>
           <li><em>Soft-Book Target</em> — the price you need to beat at a soft book to capture cross-market EV. The "primary" side is whichever the sharps want (heavier imbalance); the "secondary" side is the other one, lower-edge by default.</li>
@@ -941,6 +1026,8 @@
           <li><em>Solid</em> (2×-5×) — meaningful directional signal.</li>
           <li><em>Mild</em> (1.3×-2×) — small lean, treat with caution.</li>
           <li><em>Flat</em> (below 1.3×) — no clear sharp signal, just take the consensus fair.</li>
+          <li><em>"Books confirm" / "mixed book stance" modifiers</em> — appended when the Book Limit Asymmetry agrees with (escalates the verdict one level) or disagrees with (demotes one level) the exchange imbalance.</li>
+          <li><em>"Books-only lean"</em> — surfaced when there's no exchange depth but the sharp books are still asymmetrically protecting one side. Treat as a lean, not a conviction.</li>
         </ul>
 
         <p><strong>Caveats.</strong></p>
@@ -1149,7 +1236,101 @@
       imbTxt.textContent = '— · waiting for exchange inputs';
     }
 
-    // ─── Output 02: Conviction Check (exchange depth vs book limits) ───
+    // ─── Output 02: Book Limit Asymmetry (per-book confidence read) ───
+    // For each sharp book with both sides' limits filled, compute ratio and
+    // identify the LOWER-limit side as the "protected" side — the side the
+    // book is protecting itself from. That's the inferred sharp-favored side.
+    function readBookAsymmetry(srcKey, ratioElId, detailElId, limitsElId, cardElId) {
+      const d = data[srcKey];
+      const ratioEl = document.getElementById(ratioElId);
+      const detailEl = document.getElementById(detailElId);
+      const limitsEl = document.getElementById(limitsElId);
+      const cardEl = document.getElementById(cardElId);
+      const aAmt = d.aAmt, bAmt = d.bAmt;
+      if (aAmt === null || bAmt === null || aAmt <= 0 || bAmt <= 0) {
+        ratioEl.textContent = '—'; ratioEl.classList.add('empty'); ratioEl.classList.remove('flag');
+        cardEl.classList.remove('protected-flag');
+        if (aAmt !== null && aAmt > 0) limitsEl.innerHTML = `${fmtDollar(aAmt)} / —`;
+        else if (bAmt !== null && bAmt > 0) limitsEl.innerHTML = `— / ${fmtDollar(bAmt)}`;
+        else limitsEl.innerHTML = '—';
+        detailEl.textContent = '— enter both sides to read stance';
+        return null;
+      }
+      const ratio = Math.max(aAmt, bAmt) / Math.min(aAmt, bAmt);
+      const protectedSide = aAmt < bAmt ? 'A' : (bAmt < aAmt ? 'B' : null);
+      const protectedName = protectedSide === 'A' ? sideAName : (protectedSide === 'B' ? sideBName : null);
+
+      ratioEl.textContent = (ratio >= 100 ? ratio.toFixed(0) : ratio.toFixed(2)) + '×';
+      ratioEl.classList.remove('empty');
+      ratioEl.classList.toggle('flag', ratio >= 1.5);
+      cardEl.classList.toggle('protected-flag', ratio >= 1.5);
+
+      const aClass = (protectedSide === 'A') ? 'protected-side' : '';
+      const bClass = (protectedSide === 'B') ? 'protected-side' : '';
+      limitsEl.innerHTML = `<span class="${aClass}">${fmtDollar(aAmt)}</span> / <span class="${bClass}">${fmtDollar(bAmt)}</span>`;
+
+      if (ratio < 1.15) {
+        detailEl.textContent = 'Limits roughly balanced — no stance signal.';
+      } else if (ratio < 2) {
+        detailEl.textContent = `Mild lean — protecting ${protectedName} (${ratio.toFixed(2)}× lower limit).`;
+      } else if (ratio < 5) {
+        detailEl.textContent = `Protecting ${protectedName} — book is wary on that side.`;
+      } else {
+        detailEl.textContent = `Strong protection on ${protectedName} — book has effectively closed it.`;
+      }
+      return { protectedSide, ratio };
+    }
+
+    const asymPinn  = readBookAsymmetry('pinnacle', 'asymPinnRatio', 'asymPinnDetail', 'asymPinnLimits', 'asymPinnacle');
+    const asymCirca = readBookAsymmetry('circa',    'asymCircaRatio','asymCircaDetail','asymCircaLimits','asymCirca');
+
+    // Cross-book + cross-signal agreement
+    const asymStatus = document.getElementById('asymStatus');
+    const asymStatusText = document.getElementById('asymStatusText');
+    asymStatus.classList.remove('confirm', 'conflict');
+
+    const meaningful = (x) => x && x.ratio >= 1.5;
+    let bookProtectedSide = null;
+    let bookMeaningful = false;
+    if (meaningful(asymPinn) && meaningful(asymCirca)) {
+      if (asymPinn.protectedSide === asymCirca.protectedSide) {
+        bookProtectedSide = asymPinn.protectedSide;
+        bookMeaningful = true;
+      }
+    } else if (meaningful(asymPinn)) {
+      bookProtectedSide = asymPinn.protectedSide; bookMeaningful = true;
+    } else if (meaningful(asymCirca)) {
+      bookProtectedSide = asymCirca.protectedSide; bookMeaningful = true;
+    }
+
+    if (asymPinn === null && asymCirca === null) {
+      asymStatusText.innerHTML = '— · enter book limits on both sides to read book stance';
+    } else if (meaningful(asymPinn) && meaningful(asymCirca) && asymPinn.protectedSide !== asymCirca.protectedSide) {
+      const pName = asymPinn.protectedSide === 'A' ? sideAName : sideBName;
+      const cName = asymCirca.protectedSide === 'A' ? sideAName : sideBName;
+      asymStatusText.innerHTML = `Books <strong>disagree</strong> — Pinnacle protects <strong>${pName}</strong>, Circa protects <strong>${cName}</strong>. No clean book signal — fall back to exchange flow + consensus fair.`;
+      asymStatus.classList.add('conflict');
+    } else if (bookMeaningful) {
+      const protName = bookProtectedSide === 'A' ? sideAName : sideBName;
+      const preface = (meaningful(asymPinn) && meaningful(asymCirca)) ? 'Both books are' : (meaningful(asymPinn) ? 'Pinnacle is' : 'Circa is');
+      if (heavySide !== null) {
+        if (heavySide === bookProtectedSide) {
+          asymStatusText.innerHTML = `${preface} protecting <strong>${protName}</strong> — and the exchange flow agrees. <strong>All signals align on ${protName}.</strong>`;
+          asymStatus.classList.add('confirm');
+        } else {
+          const exchName = heavySide === 'A' ? sideAName : sideBName;
+          asymStatusText.innerHTML = `${preface} protecting <strong>${protName}</strong>, but exchange flow leans toward <strong>${exchName}</strong>. <strong>Mixed signal</strong> — down-weight the conviction.`;
+          asymStatus.classList.add('conflict');
+        }
+      } else {
+        asymStatusText.innerHTML = `${preface} protecting <strong>${protName}</strong> — book stance points to ${protName} as the inferred sharp-favored side (no exchange flow to cross-check).`;
+        asymStatus.classList.add('confirm');
+      }
+    } else {
+      asymStatusText.innerHTML = 'Limits roughly balanced across books — no asymmetry signal.';
+    }
+
+    // ─── Output 03: Conviction Check (exchange depth vs book limits) ───
     // Both book limits and exchange depth represent capacity to LAY each side.
     // When exchange depth exceeds book limits, sharps are deploying more capital on the
     // exchange than the books themselves are willing to underwrite — a strong conviction
@@ -1371,6 +1552,31 @@
         vTitle = vTitle === 'Strong sharp signal' ? 'Strong sharp signal · conviction overflow' : vTitle + ' · conviction overflow';
         vBody += ` <strong style="color: var(--yellow);">Plus: exchange depth available to back ${overflowDisplaySide} exceeds book limits — sharps wanted more lay-${overflowDisplaySide} capacity than the books would allow. High conviction; line movement likely.</strong>`;
       }
+
+      // Book limit asymmetry as a confidence modifier.
+      // Books protect the side they're afraid of → that's the inferred sharp-favored side.
+      // If the books' protected side matches heavySide, all signals align → escalate.
+      // If it disagrees, mixed signal → demote one level and flag.
+      if (bookMeaningful) {
+        if (bookProtectedSide === heavySide) {
+          if (vClass === 'mild') { vClass = 'solid'; vTitle = 'Solid sharp signal · books confirm'; }
+          else if (vClass === 'solid') { vClass = 'strong'; vTitle = 'Strong sharp signal · books confirm'; }
+          else if (vClass === 'strong' && !/books confirm/.test(vTitle)) { vTitle += ' · books confirm'; }
+          vBody += ` <strong style="color: var(--cyan);">Books are protecting ${heavySideName} too — the limit asymmetry confirms the exchange flow.</strong>`;
+        } else {
+          const bookName = bookProtectedSide === 'A' ? sideAName : sideBName;
+          if (vClass === 'strong') { vClass = 'solid'; vTitle = 'Solid sharp signal · mixed book stance'; }
+          else if (vClass === 'solid') { vClass = 'mild'; vTitle = 'Mild lean · mixed book stance'; }
+          else if (vClass === 'mild') { vTitle = 'Mild lean · mixed book stance'; }
+          vBody += ` <strong style="color: var(--red);">But the sharp books are protecting ${bookName}, not ${heavySideName} — mixed signal, down-weight the conviction.</strong>`;
+        }
+      }
+    } else if (bookMeaningful) {
+      // No exchange flow, but books are leaning one way — emit a books-only lean.
+      const protName = bookProtectedSide === 'A' ? sideAName : sideBName;
+      vClass = 'mild';
+      vTitle = 'Books-only lean';
+      vBody = `No exchange depth on file, but the sharp books are protecting <strong>${protName}</strong> — that's the inferred sharp-favored side. Weak signal without exchange flow; treat as a lean, not a conviction.`;
     }
 
     verdictBanner.className = 'verdict ' + vClass;
