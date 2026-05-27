@@ -436,6 +436,44 @@
   </section>
 
   <section class="lesson-section">
+    <h3>A real one — let's break down a ProphetX bet</h3>
+    <div class="lesson-body">
+      <p>Here's what the screen looks like when you tap a market on ProphetX. Colorado Rockies at LA Dodgers, moneyline:</p>
+
+      <img src="/images/prophetx-col-lad-moneyline.png"
+           alt="ProphetX moneyline order book for COL vs LAD. Best back-COL price highlighted in green at +345 with $118 of depth; best back-LAD price highlighted in blue at -360 with $2,260 of depth. Other rows visible on the COL side: +335 with $1,871 and +330 with $344. Other rows on the LAD side: -365 with $156 and -370 with $2,584. Last Match +335 on the COL side, -335 on the LAD side. Total implied probability across both best prices reads 100.73%. Total matched volume traded on this market: $271,237.48."
+           class="real-example-img">
+
+      <p>It's a lot of numbers on one screen — but each one is telling you something specific. Walking through them one at a time:</p>
+
+      <div class="example-block">
+        <span class="label">The two highlighted tiles — the current best prices</span>
+        <div class="row"><span class="src">COL <span class="accent">+345</span> · green tile</span><span class="body">The current best price to back the Rockies. The <strong>$118</strong> below it is how much of that bet is actually available right now — written by other users (mostly sharps).</span></div>
+        <div class="row"><span class="src">LAD <span class="accent">−360</span> · blue tile</span><span class="body">The current best price to back the Dodgers. <strong>$2,260</strong> of that bet is available.</span></div>
+      </div>
+
+      <div class="example-block">
+        <span class="label">The other rows — worse prices, more depth</span>
+        <div class="row"><span class="src">+335 · $1,871</span><span class="body">A <em>worse</em> price for backing COL (smaller payout). It's sitting behind the +345 best price <em>in line</em>: if the $118 at +345 gets fully taken, the next person who wants COL hits this row.</span></div>
+        <div class="row"><span class="src">+330 · $344</span><span class="body">Even further back in line. Worse price still, smaller depth.</span></div>
+        <div class="row"><span class="src">−365 · $156</span><span class="body">A worse price for backing LAD (you'd have to risk more for the same $100 payout). Thin depth — only a $156 maker behind the best price.</span></div>
+        <div class="row"><span class="src">−370 · $2,584</span><span class="body">Worse still — but with the biggest wall on the entire screen. Sharps stacked a lot of offers here as a deeper backstop.</span></div>
+      </div>
+
+      <div class="example-block">
+        <span class="label">The smaller numbers at the bottom</span>
+        <div class="row"><span class="src">Last Match +335 / −335</span><span class="body">The most recent completed bet went off at this number — the market's <em>actual</em> consensus price right now.</span></div>
+        <div class="row"><span class="src">100.73%</span><span class="body">Add the two best implied probabilities — back COL at +345 is 22.47%, back LAD at −360 is 78.26% — and you get 100.73%. <strong>That 0.73% above 100% is the entire <a href="/learn-vig.html">vig</a>.</strong> A traditional sportsbook on this same game would be 104–110%. Exchanges are <em>that</em> much closer to a fair price.</span></div>
+        <div class="row"><span class="src">Traded $271,237.48</span><span class="body">Total dollars that have <em>already</em> changed hands on this market — completed bets, not waiting offers. A big number means a mature, deep market, which means the signals on the book are more reliable.</span></div>
+      </div>
+
+      <div class="tip-block">
+        <strong>Don't worry if some of this doesn't click yet.</strong> Every section below is teaching you how to read one piece of what you just saw — the inversion that turns the displayed prices into the sharps' real position, why heavy depth on one side means they want the other, why one row deep in the book matters more than another. Come back to this screenshot at the end and it'll read instantly.
+      </div>
+    </div>
+  </section>
+
+  <section class="lesson-section">
     <h3>What you're actually looking at (the most important inversion)</h3>
     <div class="lesson-body">
       <p>Most people see a price on an exchange and read it like a sportsbook: "the line is X, here's what I'd pay." That reading is <em>wrong</em> on an exchange. Flip it, and every other signal in this lesson makes sense.</p>
