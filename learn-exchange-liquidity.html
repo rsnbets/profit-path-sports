@@ -429,35 +429,39 @@
   <section class="lesson-section">
     <h3>What you're actually looking at (the most important inversion)</h3>
     <div class="lesson-body">
-      <p>This is the part that flips the way most people read a book — and the part you have to internalize before any of the other signals make sense.</p>
-
-      <p>When you see <em>"Eagles +115 · $4,200 available"</em> on the exchange, that doesn't mean somebody bought Eagles at +115 with $4,200. It means <strong>somebody is offering that bet to you</strong>. They've posted $4,200 of capacity for someone to back Eagles at +115. They are the maker. They wrote the bet. The dollar amount you're looking at is the amount of risk they took on to make that side available.</p>
-
-      <p>And to take that risk, <strong>they are on the other side of the trade.</strong> When you click "back Eagles at +115" for $1,000, the maker collects your $1,000 and pays out $1,150 if Eagles win. They're effectively betting <em>against</em> Eagles at +115 — they want 49ers.</p>
+      <p>Most people see a price on an exchange and read it like a sportsbook: "the line is X, here's what I'd pay." That reading is <em>wrong</em> on an exchange. Flip it, and every other signal in this lesson makes sense.</p>
 
       <div class="warn-block">
-        <strong>Read this twice:</strong> high liquidity available to back side A means <strong>sharps want side B</strong>. The depth was created by makers (often sharps) who put up risk to offer side A — because they think side A is too generous and they want bettors to take it. They're not endorsing side A. They're <em>laying</em> it. The volume on side A is sharp conviction <em>against</em> side A.
+        <strong>The rule, in one sentence:</strong> every offered price on the exchange is a bet the sharps are <em>trying to trick you into taking</em>. To post it, they had to lock themselves into the opposite side, at the opposite sign of the same magnitude.
       </div>
 
-      <p class="pull-quote">The available liquidity is the bet sharps are daring you to take — because taking it locks them into the opposite side at the opposite price. That's how the depth got there in the first place.</p>
-
-      <h4>The translation rule (the fastest way to read any book)</h4>
-      <p>Here's the mental shortcut you should run on every line you look at. The displayed price is the <strong>taker's</strong> price — what you'd pay to back that side. The sharp who created that depth is on the <strong>inverse</strong>: the opposite team, at the opposite sign of the same magnitude.</p>
+      <h4>The translation rule — flip the side, flip the sign</h4>
+      <p>Every displayed price gets two operations, run together:</p>
+      <ul>
+        <li><strong>Flip the side</strong> — if the display says back <em>Eagles</em>, the sharp is on the <em>49ers</em>.</li>
+        <li><strong>Flip the sign of the price</strong> — if the display says <strong>−115</strong>, the sharp got <strong>+115</strong>. Same magnitude, opposite sign. (Not +100. Not +110. Exactly +115.)</li>
+      </ul>
 
       <div class="example-block">
-        <span class="label">Flip the sign, flip the side</span>
-        <div class="row"><span class="src">Display reads</span><span class="body">Jays <span class="accent">−115</span> with $5,000 available</span></div>
-        <div class="row"><span class="src">Sharp's actual position</span><span class="body">Rays <span class="accent">+115</span> with $5,000 of risk</span></div>
+        <span class="label">Flip the side, flip the sign — worked</span>
+        <div class="row"><span class="src">Display</span><span class="body">Jays <span class="accent">−115</span> · $5,000 available</span></div>
+        <div class="row"><span class="src">Sharp's position</span><span class="body">Rays <span class="accent">+115</span> · $5,000 at risk</span></div>
         <hr>
-        <div class="row"><span class="src">Display reads</span><span class="body">Eagles <span class="accent">+125</span> with $1,200 available</span></div>
-        <div class="row"><span class="src">Sharp's actual position</span><span class="body">49ers <span class="accent">−125</span> with $1,200 of risk</span></div>
+        <div class="row"><span class="src">Display</span><span class="body">Pistons <span class="accent">−110</span> · $5,800 available</span></div>
+        <div class="row"><span class="src">Sharp's position</span><span class="body">Cavs <span class="accent">+110</span> · $5,800 at risk</span></div>
         <hr>
-        <div class="conclusion"><strong>Why this matters:</strong> what you really want to know is what price the sharp got — not what the display shows. The sharp's locked-in price is the threshold you need to <em>beat</em> at a soft book to find a +EV bet on their side. Train yourself to read every offered price as its inverse: "Jays −115 with $5k available" → "the sharp is on Rays at +115 with $5k." Now you can compare directly to what FanDuel is offering you for Rays.</div>
+        <div class="row"><span class="src">Display</span><span class="body">Eagles <span class="accent">+125</span> · $1,200 available</span></div>
+        <div class="row"><span class="src">Sharp's position</span><span class="body">49ers <span class="accent">−125</span> · $1,200 at risk</span></div>
       </div>
 
-      <p>Run this translation automatically every time you look at a book. The number you care about isn't on the row you're looking at — it's the mirror image on the other side.</p>
+      <h4>Why the rule works</h4>
+      <p>When a sharp posts $5,800 of depth offering Pistons at −110, they didn't post it because they like the Pistons. They posted it <em>because they want it filled</em> — they think Cavs are the better side, and they need a bettor to take the Pistons bait so they can collect on Cavs. <strong>The deeper the offer, the harder the sharps are trying to get someone to take that side.</strong></p>
 
-      <p>Here's that stylized book again, read the right way:</p>
+      <p>So when you see "Pistons −110 · $5,800 available," translate it instantly: <em>"a sharp is sitting on Cavs +110 with $5,800 of conviction, hoping I take the Pistons bait."</em> Now compare to what FanDuel is offering you for Cavs. That gap is where the cross-market EV lives.</p>
+
+      <p class="pull-quote">The displayed price is what the sharps are <em>daring you to take</em>. Their real bet is the mirror image — and that's the number that matters.</p>
+
+      <p>Here's that stylized book again, now read the right way:</p>
 
       <div class="book-viz">
         <span class="viz-label">Eagles vs. 49ers · backing Eagles · order book</span>
