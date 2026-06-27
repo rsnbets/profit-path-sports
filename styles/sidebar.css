@@ -96,9 +96,9 @@ body.pps-sidebar-open .pps-sidebar-toggle { left: 258px !important; }
    different width. Pixel-identical letterforms at any scale. */
 .pps-sidebar-logo {
   display: block !important;
-  width: 180px !important;
+  width: 100% !important;
+  max-width: 220px !important;
   height: auto !important;
-  max-width: 100% !important;
   user-select: none !important;
   -webkit-user-drag: none !important;
 }
