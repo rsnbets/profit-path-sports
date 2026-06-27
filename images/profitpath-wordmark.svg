@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 165" preserveAspectRatio="xMinYMid meet" role="img" aria-label="PROFITPATH Sports">
+  <!--
+    PROFITPATH wordmark — single source of truth.
+    Rendered identically at any size (sidebar, hero, mobile).
+    PROFIT = off-white #F0EEE8 / PATH = brand green #4DFF78
+    SPORTS subtitle = dim white-25%, generous letter-spacing.
+  -->
+  <text
+    x="0" y="115"
+    font-family="'Plus Jakarta Sans', system-ui, -apple-system, sans-serif"
+    font-weight="800"
+    font-size="130"
+    letter-spacing="-4"
+    font-optical-sizing="none"
+    text-rendering="geometricPrecision">
+    <tspan fill="#F0EEE8">PROFIT</tspan><tspan fill="#4DFF78">PATH</tspan>
+  </text>
+  <text
+    x="4" y="152"
+    font-family="'Plus Jakarta Sans', system-ui, -apple-system, sans-serif"
+    font-weight="400"
+    font-size="17"
+    letter-spacing="9"
+    fill="rgba(240,238,232,0.32)"
+    text-rendering="geometricPrecision">SPORTS</text>
+</svg>

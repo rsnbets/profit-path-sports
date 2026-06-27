@@ -2230,6 +2230,16 @@
     font-synthesis: none;
     font-optical-sizing: none;
   }
+  /* SVG wordmark — same /images/profitpath-wordmark.svg used in sidebar,
+     just sized larger here. Pixel-identical letterforms at any scale. */
+  .hero-logo {
+    display: block;
+    width: clamp(280px, 56vw, 640px);
+    height: auto;
+    margin: 0 auto 24px;
+    user-select: none;
+    -webkit-user-drag: none;
+  }
   .v2-wordmark .accent { color: var(--green); }
   .v2-sports-suffix {
     font-family: 'Plus Jakarta Sans', sans-serif;
@@ -2808,9 +2818,8 @@
 </button>
 <aside class="pps-sidebar" id="ppsSidebar">
   <div class="pps-sidebar-inner">
-    <a class="pps-sidebar-brand" href="/index.html">
-      <span class="pps-sidebar-wordmark">PROFIT<span class="accent">PATH</span></span>
-      <small>Sports</small>
+    <a class="pps-sidebar-brand" href="/index.html" aria-label="PROFITPATH Sports — Home">
+      <img src="/images/profitpath-wordmark.svg" alt="PROFITPATH Sports" class="pps-sidebar-logo">
     </a>
     <nav class="pps-sidebar-nav">
       <a class="pps-nav-link" href="/index.html">Home</a>
@@ -2833,8 +2842,8 @@
     <div class="hero-inner">
 
       <div class="hero-eyebrow">No Picks · No Paywall · No Signup</div>
-      <div class="v2-wordmark">PROFIT<span class="accent">PATH</span></div>
-      <span class="v2-sports-suffix">Sports</span>
+      <img src="/images/profitpath-wordmark.svg" alt="PROFITPATH Sports" class="hero-logo">
+      <span class="v2-sports-suffix" hidden>Sports</span>
 
       <h1 class="hero-headline">Sportsbooks expect you to lose. <span class="accent">Disappoint them.</span></h1>
       <p class="hero-pitch">Free tools, beginner lessons, and deep-dive guides — <strong>everything you need to beat the sportsbooks at their own game.</strong> No picks, no paywall, no signup.</p>
