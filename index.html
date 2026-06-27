@@ -2190,11 +2190,9 @@
      PROFITPATH v2 — Hero overrides (Phase A foundation)
      ═════════════════════════════════════════════════════════════ */
   .hero {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    overflow: hidden;
-    box-shadow: 0 0 40px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.02) inset;
+    /* Was wrapped in a card (border + bg + shadow) — removed so the hero
+       flows on the page background. Page rhythm = inner cards only
+       (path cards, starter kit, originals). */
     margin-bottom: 28px;
     position: relative;
   }
