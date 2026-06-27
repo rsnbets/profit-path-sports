@@ -111,14 +111,6 @@ body.pps-sidebar-open .pps-sidebar-toggle { left: 258px !important; }
   text-transform: uppercase !important;
   color: var(--pps-sb-dim) !important;
 }
-.pps-sidebar-brand small {
-  font-family: 'Plus Jakarta Sans', system-ui, sans-serif !important;
-  font-size: 10px !important;
-  font-weight: 600 !important;
-  letter-spacing: .28em !important;
-  text-transform: uppercase !important;
-  color: var(--pps-sb-muted) !important;
-}
 .pps-sidebar-brand:hover .pps-sidebar-wordmark { opacity: .85 !important; }
 
 /* ───── Nav links ───── */
