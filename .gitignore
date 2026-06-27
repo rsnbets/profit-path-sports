@@ -7,6 +7,18 @@ ehthumbs.db
 Thumbs.db
 .claude/
 
+# HR Projector — private betting-model source. Keep OUT of this public site
+# repo entirely (it deploys separately to GitHub Pages and will live in its own
+# private repo). Prevents an accidental `git add .` from publishing the model
+# logic, park factors, weights, and DECISIONS.md.
+HR PROJ/
+
+# MLB_EV — private props/EV engine. Holds the SportsGameOdds API key and the
+# master-props fetcher logic. Keep OUT of this public repo entirely; it deploys
+# separately and will live in its own private repo. Prevents an accidental
+# `git add .` from publishing the key or model logic.
+MLB_EV/
+
 # PPS Library — source PDFs are copyrighted, never commit them.
 # Our synthesis notes (library/notes/, library/topics/) ARE committed.
 library/source-pdfs/*

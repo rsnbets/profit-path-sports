@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PROFITPATH Sports — Brand Kit & Playground</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --green: #4DFF78;
+    --green-dim: rgba(77,255,120,0.15);
+    --green-faint: rgba(77,255,120,0.06);
+    --green-border: rgba(77,255,120,0.22);
+    --cyan: #00D4FF;
+    --cyan-dim: rgba(0,212,255,0.12);
+    --cyan-faint: rgba(0,212,255,0.04);
+    --cyan-border: rgba(0,212,255,0.22);
+    --red: #FF3D3D;
+    --yellow: #F5B545;
+    --purple: #BC8CFF;
+    --bg: #090909;
+    --surface: #0D0D0D;
+    --surface-2: #141414;
+    --surface-3: #1C1C1C;
+    --border: rgba(255,255,255,0.05);
+    --border-2: rgba(255,255,255,0.08);
+    --text: #F0EEE8;
+    --muted: rgba(255,255,255,0.62);
+    --dim: rgba(255,255,255,0.25);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    font-weight: 300;
+    min-height: 100vh;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Layout */
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 56px 32px 120px; }
+  .kit-section { margin-bottom: 80px; }
+  .kit-section > .label {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .28em;
+    text-transform: uppercase;
+    color: var(--cyan);
+    margin-bottom: 8px;
+  }
+  .kit-section > h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(28px, 4vw, 42px);
+    font-weight: 700;
+    letter-spacing: -.02em;
+    margin-bottom: 12px;
+    color: var(--text);
+  }
+  .kit-section > .blurb {
+    font-size: 15px;
+    color: var(--muted);
+    max-width: 720px;
+    line-height: 1.6;
+    margin-bottom: 32px;
+  }
+
+  /* Brand identity card */
+  .brand-hero {
+    background: linear-gradient(135deg, var(--surface-2), var(--surface));
+    border: 1px solid var(--border-2);
+    border-radius: 16px;
+    padding: 56px 48px;
+    margin-bottom: 80px;
+    text-align: center;
+  }
+  .brand-hero .name {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(40px, 6vw, 64px);
+    font-weight: 700;
+    letter-spacing: -.025em;
+    background: linear-gradient(95deg, var(--green) 0%, var(--cyan) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    margin-bottom: 16px;
+  }
+  .brand-hero .tagline {
+    font-size: 18px;
+    color: var(--muted);
+    max-width: 560px;
+    margin: 0 auto 8px;
+    line-height: 1.5;
+  }
+  .brand-hero .tagline-accent { color: var(--cyan); font-weight: 500; }
+  .brand-hero .meta-row {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    margin-top: 28px;
+    flex-wrap: wrap;
+    font-size: 12px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--dim);
+    font-weight: 600;
+  }
+
+  /* Color swatches */
+  .swatches {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 18px;
+  }
+  .swatch {
+    border: 1px solid var(--border-2);
+    border-radius: 10px;
+    overflow: hidden;
+    background: var(--surface-2);
+  }
+  .swatch .chip {
+    height: 96px;
+    display: flex;
+    align-items: flex-end;
+    padding: 10px 14px;
+    font-family: 'Space Grotesk', monospace;
+    font-size: 11px;
+    color: rgba(0,0,0,0.55);
+    font-weight: 700;
+  }
+  .swatch .chip.dark { color: rgba(255,255,255,0.65); }
+  .swatch .info {
+    padding: 12px 14px;
+  }
+  .swatch .info .role {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 3px;
+  }
+  .swatch .info .hex {
+    font-family: 'Space Grotesk', monospace;
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  .color-note {
+    margin-top: 24px;
+    padding: 18px 22px;
+    background: var(--cyan-faint);
+    border: 1px solid var(--cyan-border);
+    border-left: 4px solid var(--cyan);
+    border-radius: 10px;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  .color-note strong { color: var(--cyan); font-weight: 600; }
+
+  /* Typography demo */
+  .type-stack > div { margin-bottom: 22px; padding-bottom: 22px; border-bottom: 1px solid var(--border); }
+  .type-stack > div:last-child { border-bottom: none; }
+  .type-stack .type-meta {
+    font-size: 11px;
+    color: var(--dim);
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .display-grotesk {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 48px;
+    font-weight: 700;
+    letter-spacing: -.02em;
+    color: var(--text);
+  }
+  .body-jakarta {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--text);
+    font-weight: 300;
+  }
+  .body-jakarta strong { font-weight: 600; }
+  .body-jakarta em { color: var(--cyan); font-style: italic; }
+
+  /* Components */
+  .component-block {
+    margin-bottom: 48px;
+    padding: 28px;
+    background: var(--surface);
+    border: 1px solid var(--border-2);
+    border-radius: 14px;
+  }
+  .component-block .name-row {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    margin-bottom: 20px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border);
+  }
+  .component-block .name {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text);
+  }
+  .component-block .css-class {
+    font-family: 'Space Grotesk', monospace;
+    font-size: 12px;
+    color: var(--cyan);
+    background: var(--cyan-faint);
+    padding: 3px 8px;
+    border-radius: 4px;
+  }
+  .component-block .when {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 16px;
+    line-height: 1.5;
+  }
+
+  /* === Actual playbook component styles, copied from exchange-playbook.html === */
+
+  /* Section eyebrow */
+  .pb-eyebrow {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 12px;
+  }
+  .pb-eyebrow::before {
+    content: 'Section ';
+  }
+
+  /* Section H2 */
+  .pb-h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(24px, 3.4vw, 32px);
+    line-height: 1.15;
+    letter-spacing: -.02em;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 12px;
+  }
+
+  /* Pull quote */
+  .pull-quote {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 19px;
+    font-style: italic;
+    font-weight: 500;
+    line-height: 1.5;
+    color: var(--text);
+    border-left: 3px solid var(--cyan);
+    padding: 4px 0 4px 22px;
+    margin: 16px 0;
+  }
+  .pull-quote em { color: var(--cyan); font-style: italic; }
+
+  /* Lock-in callout */
+  .lock-in {
+    margin: 0;
+    padding: 24px 28px;
+    background: var(--green-faint);
+    border: 1px solid var(--green-border);
+    border-left: 4px solid var(--green);
+    border-radius: 10px;
+  }
+  .lock-in::before {
+    content: '★ Lock this in';
+    display: block;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .26em;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 14px;
+  }
+  .lock-in p { margin: 0; font-size: 17px; line-height: 1.55; color: var(--text); font-weight: 500; }
+  .lock-in strong { color: var(--text); font-weight: 700; }
+  .lock-in em { color: var(--green); font-style: italic; font-weight: 500; }
+
+  /* Main takeaways */
+  .main-takeaways {
+    margin: 0;
+    padding: 24px 28px;
+    background: var(--cyan-faint);
+    border: 1px solid var(--cyan-border);
+    border-left: 4px solid var(--cyan);
+    border-radius: 10px;
+  }
+  .main-takeaways::before {
+    content: '★ Main Takeaways';
+    display: block;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .26em;
+    text-transform: uppercase;
+    color: var(--cyan);
+    margin-bottom: 14px;
+  }
+  .main-takeaways ul { list-style: none; padding: 0; margin: 0; }
+  .main-takeaways li {
+    position: relative;
+    padding-left: 22px;
+    margin-bottom: 10px;
+    font-size: 14.5px;
+    line-height: 1.55;
+    color: rgba(240,238,232,0.92);
+  }
+  .main-takeaways li:last-child { margin-bottom: 0; }
+  .main-takeaways li::before {
+    content: '';
+    position: absolute;
+    left: 2px; top: 0.55em;
+    width: 7px; height: 7px;
+    background: var(--cyan);
+    transform: rotate(45deg);
+  }
+  .main-takeaways strong { color: var(--text); font-weight: 600; }
+
+  /* What-you-get box */
+  .what-you-get {
+    margin: 0;
+    padding: 22px 24px;
+    background: var(--cyan-faint);
+    border: 1px solid var(--cyan-border);
+    border-radius: 12px;
+  }
+  .what-you-get h4 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--cyan);
+    margin: 0 0 14px;
+  }
+  .what-you-get ul { list-style: none; padding: 0; margin: 0; }
+  .what-you-get li {
+    position: relative;
+    padding-left: 22px;
+    margin-bottom: 9px;
+    font-size: 14.5px;
+    line-height: 1.55;
+    color: rgba(240,238,232,0.88);
+  }
+  .what-you-get li:last-child { margin-bottom: 0; }
+  .what-you-get li::before {
+    content: '';
+    position: absolute;
+    left: 2px; top: 0.55em;
+    width: 7px; height: 7px;
+    background: var(--cyan);
+    transform: rotate(45deg);
+  }
+  .what-you-get strong { color: var(--text); font-weight: 600; }
+
+  /* Tip block */
+  .tip-block {
+    margin: 0;
+    padding: 18px 22px;
+    background: var(--surface-2);
+    border: 1px solid var(--border-2);
+    border-left: 3px solid var(--green);
+    border-radius: 10px;
+    font-size: 14.5px;
+    line-height: 1.6;
+    color: rgba(240,238,232,0.85);
+  }
+  .tip-block strong { color: var(--text); font-weight: 600; }
+  .tip-block em { color: var(--cyan); font-style: normal; font-weight: 500; }
+
+  /* Walk block (worked examples) */
+  .walk-block {
+    background: var(--surface-2);
+    border: 1px solid var(--border-2);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .walk-block .wb-label {
+    display: block;
+    padding: 12px 18px;
+    background: var(--surface-3);
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--cyan);
+  }
+  .walk-block .row {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 18px;
+    padding: 14px 18px;
+    border-top: 1px solid var(--border);
+    font-size: 14px;
+  }
+  .walk-block .src {
+    color: var(--muted);
+    font-weight: 500;
+  }
+  .walk-block .body {
+    color: var(--text);
+  }
+  .walk-block .body strong { font-weight: 600; }
+  .walk-block .accent { color: var(--cyan); font-weight: 600; }
+
+  /* Bridge */
+  .section-bridge {
+    text-align: center;
+    font-size: 19px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--cyan);
+    font-weight: 600;
+    padding: 24px 0;
+  }
+
+  /* CTA buttons */
+  .cta-btn {
+    display: inline-block;
+    background: var(--green);
+    color: var(--bg);
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: .04em;
+    padding: 14px 26px;
+    border-radius: 8px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: transform .15s, filter .15s;
+  }
+  .cta-btn:hover { transform: translateY(-1px); filter: brightness(1.08); }
+  .cta-btn.secondary {
+    background: transparent;
+    color: var(--cyan);
+    border: 1px solid var(--cyan);
+  }
+
+  /* Playground */
+  .playground {
+    background: var(--surface);
+    border: 1px solid var(--border-2);
+    border-radius: 16px;
+    padding: 36px;
+  }
+  .playground-controls {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+    margin-bottom: 36px;
+  }
+  .control-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .control-group label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .control-group input[type="color"] {
+    width: 100%;
+    height: 44px;
+    border: 1px solid var(--border-2);
+    border-radius: 8px;
+    background: var(--surface-2);
+    cursor: pointer;
+  }
+  .control-group .hex-show {
+    font-family: 'Space Grotesk', monospace;
+    font-size: 11px;
+    color: var(--dim);
+  }
+  .playground-preview {
+    padding: 28px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+  }
+  .playground-preview h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 22px;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+  .playground-preview .preview-stack > * + * { margin-top: 18px; }
+  .reset-btn {
+    margin-top: 16px;
+    background: transparent;
+    color: var(--muted);
+    border: 1px solid var(--border-2);
+    padding: 8px 14px;
+    border-radius: 6px;
+    font-size: 12px;
+    cursor: pointer;
+    font-family: inherit;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+  .reset-btn:hover { color: var(--cyan); border-color: var(--cyan); }
+
+  /* Top kit header */
+  .kit-header {
+    text-align: center;
+    margin-bottom: 64px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid var(--border-2);
+  }
+  .kit-header .badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .26em;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 16px;
+  }
+  .kit-header h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(36px, 5vw, 52px);
+    font-weight: 700;
+    letter-spacing: -.02em;
+    margin-bottom: 14px;
+    color: var(--text);
+  }
+  .kit-header p {
+    font-size: 17px;
+    color: var(--muted);
+    max-width: 620px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <!-- Header -->
+  <header class="kit-header">
+    <div class="badge">★ Brand Kit · Playground</div>
+    <h1>PROFITPATH Sports</h1>
+    <p>Live reference for colors, type, and components. Scroll to the bottom to tweak palette in real time — change anything, see everything update.</p>
+  </header>
+
+  <!-- Brand identity -->
+  <div class="brand-hero">
+    <div class="name">PROFITPATH Sports</div>
+    <p class="tagline">
+      The sharps don't bet at FanDuel.<br>
+      <span class="tagline-accent">Welcome to the most underexplored edge in sports betting — top to bottom, from zero.</span>
+    </p>
+    <div class="meta-row">
+      <span>Display · Space Grotesk</span>
+      <span>Body · Plus Jakarta Sans</span>
+      <span>Background · #090909</span>
+    </div>
+  </div>
+
+  <!-- COLOR PALETTE -->
+  <section class="kit-section">
+    <div class="label">01 · Palette</div>
+    <h2>Color system</h2>
+    <p class="blurb">Six core colors. The rest are tints, surfaces, and text alphas derived from them. <strong style="color: var(--text);">Cyan is the everyday accent</strong> (labels, links, routine UI); <strong style="color: var(--green);">green is reserved</strong> for things that really matter (lock-this-in moments, key warnings, positive outcomes). Don't use green casually — it loses its weight.</p>
+
+    <div class="swatches">
+      <div class="swatch">
+        <div class="chip" style="background: var(--green);">#4DFF78</div>
+        <div class="info"><div class="role">Green — reserved</div><div class="hex">--green</div></div>
+      </div>
+      <div class="swatch">
+        <div class="chip" style="background: var(--cyan);">#00D4FF</div>
+        <div class="info"><div class="role">Cyan — everyday</div><div class="hex">--cyan</div></div>
+      </div>
+      <div class="swatch">
+        <div class="chip dark" style="background: var(--bg); border-right: 1px solid var(--border-2); border-bottom: 1px solid var(--border-2);">#090909</div>
+        <div class="info"><div class="role">Void black</div><div class="hex">--bg</div></div>
+      </div>
+      <div class="swatch">
+        <div class="chip dark" style="background: var(--text); color: rgba(0,0,0,0.6);">#F0EEE8</div>
+        <div class="info"><div class="role">Text — primary</div><div class="hex">--text</div></div>
+      </div>
+      <div class="swatch">
+        <div class="chip" style="background: var(--red);">#FF3D3D</div>
+        <div class="info"><div class="role">Red — danger</div><div class="hex">--red</div></div>
+      </div>
+      <div class="swatch">
+        <div class="chip" style="background: var(--yellow);">#F5B545</div>
+        <div class="info"><div class="role">Yellow — flag</div><div class="hex">--yellow</div></div>
+      </div>
+      <div class="swatch">
+        <div class="chip" style="background: var(--purple); color: rgba(0,0,0,0.6);">#BC8CFF</div>
+        <div class="info"><div class="role">Purple — sharp lane</div><div class="hex">--purple</div></div>
+      </div>
+      <div class="swatch">
+        <div class="chip dark" style="background: var(--surface-2); border-right: 1px solid var(--border-2); border-bottom: 1px solid var(--border-2);">#141414</div>
+        <div class="info"><div class="role">Surface elevated</div><div class="hex">--surface-2</div></div>
+      </div>
+    </div>
+
+    <div class="color-note">
+      <strong>The hierarchy rule:</strong> cyan = the working color of the site (labels, eyebrows, links, routine accents). Green = reserved for the truly load-bearing moments — "lock this in," positive-EV callouts, key warnings. If everything is green, nothing is.
+    </div>
+  </section>
+
+  <!-- TYPOGRAPHY -->
+  <section class="kit-section">
+    <div class="label">02 · Typography</div>
+    <h2>Type stack</h2>
+    <p class="blurb">Two fonts. Space Grotesk for display (titles, numbers, eyebrows, anything that needs presence). Plus Jakarta Sans for body and UI text — lighter default weight (300) for editorial feel, with bolder weights for emphasis.</p>
+
+    <div class="type-stack">
+      <div>
+        <div class="type-meta">Display · Space Grotesk · 48px / 700</div>
+        <div class="display-grotesk">The Sharp Exchange</div>
+      </div>
+      <div>
+        <div class="type-meta">Display Gradient · Space Grotesk · 64px / 700</div>
+        <div style="font-family: 'Space Grotesk', sans-serif; font-size: 64px; font-weight: 700; letter-spacing: -.025em; background: linear-gradient(95deg, var(--green) 0%, var(--cyan) 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent; line-height: 1.05;">PROFITPATH</div>
+      </div>
+      <div>
+        <div class="type-meta">Body · Plus Jakarta Sans · 17px / 300 + 600 emphasis</div>
+        <p class="body-jakarta">An exchange is the only place a winning bettor can actually keep winning. <strong>The depth on your screen was put there by makers — mostly sharps.</strong> That's the signal. Learning to read it is what <em>this whole playbook</em> is about.</p>
+      </div>
+      <div>
+        <div class="type-meta">Muted body · Plus Jakarta Sans · 14px / 300</div>
+        <p style="font-size: 14px; color: var(--muted); line-height: 1.6;">Secondary text — captions, helper copy, notes that support but don't compete with the primary line.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPONENTS -->
+  <section class="kit-section">
+    <div class="label">03 · Components</div>
+    <h2>Component library</h2>
+    <p class="blurb">Every reusable visual element from the playbook. Copy the markup, drop it anywhere — uses the same CSS variables as the rest of the site, so palette changes ripple through automatically.</p>
+
+    <!-- Section eyebrow + h2 -->
+    <div class="component-block">
+      <div class="name-row">
+        <span class="name">Section header</span>
+        <span class="css-class">.pb-eyebrow + .pb-h2</span>
+      </div>
+      <div class="when">Used to open every section of the playbook. Eyebrow auto-prefixes with "SECTION " via CSS.</div>
+      <div class="pb-eyebrow">01</div>
+      <h3 class="pb-h2">What a betting exchange is — and why it matters</h3>
+    </div>
+
+    <!-- Lock-in callout -->
+    <div class="component-block">
+      <div class="name-row">
+        <span class="name">★ Lock this in</span>
+        <span class="css-class">.lock-in</span>
+      </div>
+      <div class="when">Mid-section, foundational insight the reader cannot proceed without. Green = reserved for load-bearing ideas. Use sparingly — 1-2 per section max.</div>
+      <div class="lock-in">
+        <p>Every bet you see listed on an exchange has been <em>created</em> by one or more other users. <strong>It doesn't exist until somebody writes it.</strong></p>
+      </div>
+    </div>
+
+    <!-- Main takeaways -->
+    <div class="component-block">
+      <div class="name-row">
+        <span class="name">★ Main Takeaways</span>
+        <span class="css-class">.main-takeaways</span>
+      </div>
+      <div class="when">End-of-section wrap-up. Cyan, bulleted, 3–5 items. Every meaty teaching section gets one.</div>
+      <div class="main-takeaways">
+        <ul>
+          <li>A betting exchange is <strong>peer-to-peer</strong> — you're betting against other users, not against a sportsbook.</li>
+          <li><strong>Lower vig</strong> means even casual bettors save money per ticket.</li>
+          <li><strong>No flagging, no limit cuts</strong> — winning bettors can actually scale up.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- What you'll have -->
+    <div class="component-block">
+      <div class="name-row">
+        <span class="name">What you'll have when you're done</span>
+        <span class="css-class">.what-you-get</span>
+      </div>
+      <div class="when">Hero value box. Sits near the top of the page, lists outcome-promises in plain English (no jargon the reader hasn't earned yet).</div>
+      <div class="what-you-get">
+        <h4>What you'll have when you're done</h4>
+        <ul>
+          <li><strong>What a betting exchange actually is</strong> — and why both casual bettors and the sharps end up there.</li>
+          <li><strong>The skill to read what the smart money is doing</strong> — in real time, right on the screen.</li>
+          <li><strong>A 5-second way to find an edge</strong> — without paying for a scanner service.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Tip block -->
+    <div class="component-block">
+      <div class="name-row">
+        <span class="name">Tip block</span>
+        <span class="css-class">.tip-block</span>
+      </div>
+      <div class="when">Quieter callout for a useful aside — jargon notes, light warnings, "by the way" practical tips. Green left bar, surface background.</div>
+      <div class="tip-block">
+        <strong>Quick jargon note before we go further.</strong> You'll see two terms a lot: a <strong style="color: var(--text);">maker</strong> is someone who <em>posts</em> a price, and a <strong style="color: var(--text);">taker</strong> is someone who <em>accepts</em> a posted price.
+      </div>
+    </div>
+
+    <!-- Pull quote -->
+    <div class="component-block">
+      <div class="name-row">
+        <span class="name">Pull quote</span>
+        <span class="css-class">.pull-quote</span>
+      </div>
+      <div class="when">A single high-emphasis sentence. Cyan left bar, italic, larger type. Use for "this is the line you remember" moments.</div>
+      <p class="pull-quote">The displayed price is what the sharps are <em>daring you to take</em>. Their real bet is the mirror image — and that's the number that matters.</p>
+    </div>
+
+    <!-- Walk block -->
+    <div class="component-block">
+      <div class="name-row">
+        <span class="name">Walk block (worked example)</span>
+        <span class="css-class">.walk-block</span>
+      </div>
+      <div class="when">For step-by-step worked examples — show the data on the left, the read on the right. Used for translating prices, peer-set scans, signal walkthroughs.</div>
+      <div class="walk-block">
+        <span class="wb-label">Flip the side, flip the sign — worked</span>
+        <div class="row"><span class="src">Display</span><span class="body">Pistons <span class="accent">−110</span> · $5,800 available</span></div>
+        <div class="row"><span class="src">Sharp's position</span><span class="body">Cavs <span class="accent">+110</span> · $5,800 of conviction</span></div>
+      </div>
+    </div>
+
+    <!-- Section bridge -->
+    <div class="component-block">
+      <div class="name-row">
+        <span class="name">Section bridge</span>
+        <span class="css-class">.section-bridge</span>
+      </div>
+      <div class="when">Tonal pivot between the hero and the first section. Centered, uppercase, cyan, with down-arrow flanks.</div>
+      <div class="section-bridge">↓ Let's start at the beginning ↓</div>
+    </div>
+
+    <!-- Buttons -->
+    <div class="component-block">
+      <div class="name-row">
+        <span class="name">CTA buttons</span>
+        <span class="css-class">.cta-btn</span>
+      </div>
+      <div class="when">Primary green for action (Open ProphetX, Sign up, etc.). Secondary cyan for navigation / "next step" links.</div>
+      <a href="#" class="cta-btn">Open ProphetX ↗</a>
+      <a href="#" class="cta-btn secondary" style="margin-left: 12px;">Next: the calculator →</a>
+    </div>
+
+  </section>
+
+  <!-- PLAYGROUND -->
+  <section class="kit-section">
+    <div class="label">04 · Playground</div>
+    <h2>Tweak the palette</h2>
+    <p class="blurb">Change the colors and see every component on the page update live. Nothing here is saved — refresh the page to start over.</p>
+
+    <div class="playground">
+      <div class="playground-controls">
+        <div class="control-group">
+          <label>Green (reserved)</label>
+          <input type="color" id="ctrl-green" value="#4DFF78">
+          <span class="hex-show" id="hex-green">#4DFF78</span>
+        </div>
+        <div class="control-group">
+          <label>Cyan (everyday)</label>
+          <input type="color" id="ctrl-cyan" value="#00D4FF">
+          <span class="hex-show" id="hex-cyan">#00D4FF</span>
+        </div>
+        <div class="control-group">
+          <label>Background</label>
+          <input type="color" id="ctrl-bg" value="#090909">
+          <span class="hex-show" id="hex-bg">#090909</span>
+        </div>
+        <div class="control-group">
+          <label>Text</label>
+          <input type="color" id="ctrl-text" value="#F0EEE8">
+          <span class="hex-show" id="hex-text">#F0EEE8</span>
+        </div>
+        <div class="control-group">
+          <label>Yellow (flag)</label>
+          <input type="color" id="ctrl-yellow" value="#F5B545">
+          <span class="hex-show" id="hex-yellow">#F5B545</span>
+        </div>
+        <div class="control-group">
+          <label>Red (danger)</label>
+          <input type="color" id="ctrl-red" value="#FF3D3D">
+          <span class="hex-show" id="hex-red">#FF3D3D</span>
+        </div>
+      </div>
+
+      <button class="reset-btn" id="reset-btn">↺ Reset to defaults</button>
+
+      <div class="playground-preview" style="margin-top: 28px;">
+        <div class="preview-stack">
+          <div class="pb-eyebrow">01</div>
+          <h3 class="pb-h2">Live preview of the brand</h3>
+          <p style="font-size: 15px; color: var(--muted);">The components below all use the variables above. Change a color and watch this section change instantly.</p>
+          <div class="lock-in">
+            <p>This is what a <em>"lock this in"</em> callout looks like. <strong>Reserved for ideas the reader can't move on without.</strong></p>
+          </div>
+          <div class="main-takeaways">
+            <ul>
+              <li>Cyan-bordered <strong>summary box</strong> at the end of each section.</li>
+              <li>Bulleted recap of <strong>3–5 takeaways</strong>.</li>
+            </ul>
+          </div>
+          <p class="pull-quote">A pull-quote in the live preview — <em>cyan left bar, italic</em>.</p>
+          <div style="display: flex; gap: 14px; flex-wrap: wrap;">
+            <a href="#" class="cta-btn">Primary CTA</a>
+            <a href="#" class="cta-btn secondary">Secondary</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<script>
+  // Live palette editor
+  const vars = {
+    green: { id: 'ctrl-green', hex: 'hex-green', cssVar: '--green', default: '#4DFF78' },
+    cyan:  { id: 'ctrl-cyan',  hex: 'hex-cyan',  cssVar: '--cyan',  default: '#00D4FF' },
+    bg:    { id: 'ctrl-bg',    hex: 'hex-bg',    cssVar: '--bg',    default: '#090909' },
+    text:  { id: 'ctrl-text',  hex: 'hex-text',  cssVar: '--text',  default: '#F0EEE8' },
+    yellow:{ id: 'ctrl-yellow',hex: 'hex-yellow',cssVar: '--yellow',default: '#F5B545' },
+    red:   { id: 'ctrl-red',   hex: 'hex-red',   cssVar: '--red',   default: '#FF3D3D' },
+  };
+
+  // hex → rgb helper
+  function hexToRgb(hex) {
+    const h = hex.replace('#','');
+    return {
+      r: parseInt(h.substring(0,2),16),
+      g: parseInt(h.substring(2,4),16),
+      b: parseInt(h.substring(4,6),16)
+    };
+  }
+
+  // Apply a base color and its derived alpha tints
+  function applyColor(name, hex) {
+    const root = document.documentElement.style;
+    const cfg = vars[name];
+    root.setProperty(cfg.cssVar, hex);
+    document.getElementById(cfg.hex).textContent = hex.toUpperCase();
+
+    // Derive faint/border/dim tints for green and cyan
+    if (name === 'green' || name === 'cyan') {
+      const {r,g,b} = hexToRgb(hex);
+      root.setProperty('--' + name + '-faint',  `rgba(${r},${g},${b},0.06)`);
+      root.setProperty('--' + name + '-border', `rgba(${r},${g},${b},0.22)`);
+      root.setProperty('--' + name + '-dim',    `rgba(${r},${g},${b},0.15)`);
+    }
+  }
+
+  // Wire up inputs
+  Object.entries(vars).forEach(([name, cfg]) => {
+    const input = document.getElementById(cfg.id);
+    input.addEventListener('input', e => applyColor(name, e.target.value));
+  });
+
+  // Reset
+  document.getElementById('reset-btn').addEventListener('click', () => {
+    Object.entries(vars).forEach(([name, cfg]) => {
+      document.getElementById(cfg.id).value = cfg.default;
+      applyColor(name, cfg.default);
+    });
+  });
+</script>
+
+</body>
+</html>
