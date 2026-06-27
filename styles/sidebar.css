@@ -99,6 +99,7 @@ body.pps-sidebar-open .pps-sidebar-toggle { left: 258px !important; }
   color: var(--pps-sb-text) !important;
   line-height: 0.92 !important;
   font-synthesis: none !important;
+  font-optical-sizing: none !important;
 }
 .pps-sidebar-wordmark .accent {
   color: var(--pps-sb-green) !important;
