@@ -3,389 +3,597 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Sharp Exchange Playbook | Profit Path Sports</title>
-<meta name="description" content="A five-part curriculum on the most underexplored edge in modern sports betting — exchange order books and how to read them. From ProphetX basics to maker tactics, plus the Sharp Snapshot calculator.">
-  <meta property="og:type" content="article">
-  <meta property="og:title" content="The Sharp Exchange Playbook | Profit Path Sports">
-  <meta property="og:description" content="A five-part curriculum on the most underexplored edge in modern sports betting — exchange order books and how to read them. From ProphetX basics to maker tactics, plus the Sharp Snapshot calculator.">
-  <meta property="og:image" content="https://profitpathsports.com/images/og-default.png">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta property="og:url" content="https://profitpathsports.com/exchange-playbook.html">
-  <meta property="og:site_name" content="Profit Path Sports">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="The Sharp Exchange Playbook | Profit Path Sports">
-  <meta name="twitter:description" content="A five-part curriculum on the most underexplored edge in modern sports betting — exchange order books and how to read them. From ProphetX basics to maker tactics, plus the Sharp Snapshot calculator.">
-  <meta name="twitter:image" content="https://profitpathsports.com/images/og-default.png">
-
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230a0f1c'/%3E%3Cpolyline points='5,24 12,16 16,19 22,9 27,5' fill='none' stroke='%234ade80' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
-
+<title>The Sharp Exchange Playbook — From Your First Bet to Reading the Sharp Money | PROFITPATH Sports</title>
+<meta name="description" content="The complete, gated playbook for sports-betting exchanges — what they are, why regulars and sharps both use them, and how to read the offers like the smart money. Top to bottom, in one focused document.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="The Sharp Exchange Playbook — From Your First Bet to Reading the Sharp Money">
+<meta property="og:description" content="The complete playbook for sports-betting exchanges: what they are, why both regulars and sharps use them, and how to read the offers like the smart money.">
+<meta property="og:image" content="https://profitpathsports.com/images/og-default.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://profitpathsports.com/exchange-playbook.html">
+<meta property="og:site_name" content="PROFITPATH Sports">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Sharp Exchange Playbook — From Your First Bet to Reading the Sharp Money">
+<meta name="twitter:description" content="The complete gated playbook for sports-betting exchanges. Top to bottom in one focused document.">
+<meta name="twitter:image" content="https://profitpathsports.com/images/og-default.png">
+<meta name="theme-color" content="#090909">
 <meta name="robots" content="noindex,nofollow">
 
-<meta property="og:type" content="article">
-<meta property="og:title" content="The Sharp Exchange Playbook">
-<meta property="og:description" content="The most underexplored edge in modern sports betting — five lessons plus a dedicated calculator, free with email signup.">
-<meta property="og:site_name" content="Profit Path Sports">
-<meta name="theme-color" content="#0a0f1c">
+<link rel="icon" type="image/svg+xml" href="/logo.svg">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;800;900&family=JetBrains+Mono:wght@400;500;700&family=Rajdhani:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
-  :root { --bg: #0a0f1c; --panel: #0f1524; --panel-inset: #141a2b; --panel-deep: #0c1120; --border: #1e2638; --border-soft: #141c30; --text: #e5e7eb; --muted: #8b94a8; --dim: #6b7689; --blue: #3d8bff; --yellow: #f5b545; --green: #4ade80; --red: #f87171; --purple: #BC8CFF; }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { background: radial-gradient(ellipse at top, #111a2e 0%, var(--bg) 60%); color: var(--text); font-family: 'JetBrains Mono', ui-monospace, monospace; min-height: 100vh; line-height: 1.5; }
-  .topnav { border-bottom: 1px solid var(--border-soft); background: rgba(10, 15, 28, 0.85); backdrop-filter: blur(8px); position: sticky; top: 0; z-index: 10; }
-  .topnav-inner { max-width: 1100px; margin: 0 auto; padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
-  .nav-brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; color: var(--blue); font-family: 'Orbitron', sans-serif; font-size: 13px; letter-spacing: 2.5px; font-weight: 800; text-transform: uppercase; }
-  .nav-brand-chart { display: inline-flex; width: 22px; height: 18px; color: #4ade80; filter: drop-shadow(0 0 6px rgba(74, 222, 128, 0.55)); }
-  .nav-brand-chart svg { width: 100%; height: 100%; }
-  .nav-back { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--muted); text-decoration: none; letter-spacing: 0.5px; transition: color 0.15s; }
-  .nav-back:hover { color: var(--yellow); }
-  .wrap { max-width: 880px; margin: 0 auto; padding: 32px 20px 80px; }
+  :root {
+    --green: #4DFF78;
+    --green-dim: rgba(77,255,120,0.15);
+    --green-faint: rgba(77,255,120,0.06);
+    --green-border: rgba(77,255,120,0.22);
+    --cyan: #00D4FF;
+    --cyan-dim: rgba(0,212,255,0.12);
+    --cyan-faint: rgba(0,212,255,0.04);
+    --cyan-border: rgba(0,212,255,0.22);
+    --red: #FF3D3D;
+    --yellow: #F5B545;
+    --purple: #BC8CFF;
+    --bg: #090909;
+    --surface: #0D0D0D;
+    --surface-2: #141414;
+    --surface-3: #1C1C1C;
+    --border: rgba(255,255,255,0.05);
+    --border-2: rgba(255,255,255,0.08);
+    --text: #F0EEE8;
+    --muted: rgba(255,255,255,0.62);
+    --dim: rgba(255,255,255,0.25);
+  }
 
-  .playbook-hero {
-    text-align: center;
-    margin-bottom: 50px;
-    padding-bottom: 36px;
-    border-bottom: 1px solid var(--border-soft);
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    font-weight: 300;
+    min-height: 100vh;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  .math-block, .lesson-table { font-variant-numeric: tabular-nums; }
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 999;
+    opacity: 0.025;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  a { color: var(--cyan); text-decoration: none; }
+  a:hover { color: var(--green); }
+
+  /* ───────── CARD ───────── */
+  .card {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 32px 48px 80px;
     position: relative;
   }
-  .playbook-hero::after {
+  @media (max-width: 640px) { .card { padding: 60px 20px 60px; } }
+
+  /* ───────── HEADER ───────── */
+  .header { margin-bottom: 40px; }
+  .header-meta {
+    display: flex; align-items: center; gap: 18px;
+    margin-bottom: 22px; flex-wrap: wrap;
+  }
+  .back-link {
+    font-size: 11px; font-weight: 500;
+    letter-spacing: .18em; text-transform: uppercase;
+    color: var(--dim); transition: color .15s;
+  }
+  .back-link:hover { color: var(--cyan); }
+  .header-eyebrow {
+    font-size: 10px; font-weight: 700;
+    letter-spacing: .28em; text-transform: uppercase;
+    color: var(--green);
+  }
+
+  .title-row {
+    display: flex; align-items: flex-end; justify-content: center;
+    gap: 16px; margin-bottom: 18px; flex-wrap: wrap; position: relative;
+  }
+  .title-row::before {
     content: '';
     position: absolute;
-    bottom: -1px; left: 30%; right: 30%;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--yellow), transparent);
-    opacity: 0.6;
+    left: 50%; top: 50%;
+    width: 620px; height: 240px;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(ellipse at center,
+                  rgba(77,255,120,0.22) 0%,
+                  rgba(0,212,255,0.12) 35%,
+                  rgba(77,255,120,0) 70%);
+    filter: blur(34px);
+    pointer-events: none;
+    z-index: 0;
   }
-  .playbook-badge {
-    display: inline-block;
-    font-family: 'Orbitron', sans-serif;
-    font-size: 10px;
-    letter-spacing: 2.5px;
-    text-transform: uppercase;
-    color: #181208;
-    background: var(--yellow);
-    padding: 6px 14px;
-    border-radius: 4px;
-    font-weight: 800;
-    box-shadow: 0 0 18px rgba(245,181,69,0.4);
-    margin-bottom: 22px;
-  }
-  .playbook-title {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 44px;
-    font-weight: 900;
-    letter-spacing: 3px;
-    text-transform: uppercase;
+  .title-row > * { position: relative; z-index: 1; }
+  .header h1 {
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-size: clamp(40px, 6.4vw, 68px);
     line-height: 1.05;
-    color: var(--text);
-    margin-bottom: 18px;
+    letter-spacing: -.025em;
+    font-weight: 700;
+    margin: 0;
+    padding-bottom: 0.08em;
+    background: linear-gradient(95deg, var(--green) 0%, var(--cyan) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    text-align: center;
   }
-  .playbook-sub {
-    font-family: 'Rajdhani', sans-serif;
-    font-size: 22px;
-    color: var(--muted);
-    font-weight: 500;
-    letter-spacing: 0.4px;
+  .lesson-sub {
+    font-size: clamp(15px, 1.8vw, 19px);
+    color: rgba(240,238,232,0.78);
+    font-weight: 300;
     line-height: 1.5;
-    max-width: 680px;
-    margin: 0 auto 18px;
-  }
-  .playbook-intro {
-    font-family: 'IBM Plex Sans', sans-serif;
-    font-size: 16px;
-    color: var(--muted);
-    line-height: 1.7;
-    max-width: 680px;
+    max-width: 720px;
     margin: 0 auto;
-  }
-  .playbook-intro strong { color: var(--text); font-weight: 600; }
-
-  /* Curriculum step cards */
-  .step-card {
-    display: flex;
-    gap: 22px;
-    align-items: stretch;
-    background: var(--panel-deep);
-    border: 1px solid var(--border-soft);
-    border-radius: 14px;
-    padding: 22px 26px;
-    margin-bottom: 16px;
-    text-decoration: none;
-    color: var(--text);
-    transition: all 0.18s ease;
-  }
-  .step-card:hover {
-    border-color: var(--yellow);
-    transform: translateY(-2px);
-    box-shadow: 0 14px 44px rgba(0,0,0,0.4), 0 0 30px rgba(245,181,69,0.08);
-  }
-  .step-num {
-    flex-shrink: 0;
-    width: 64px;
-    height: 64px;
-    border-radius: 14px;
-    background: linear-gradient(135deg, rgba(245,181,69,0.18), rgba(188,140,255,0.10));
-    border: 1px solid var(--yellow);
+    text-align: center;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    color: var(--yellow);
-    font-family: 'Orbitron', sans-serif;
+    gap: 8px;
   }
-  .step-num .label { font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 700; opacity: 0.85; }
-  .step-num .digit { font-size: 28px; font-weight: 900; letter-spacing: 1px; line-height: 1; margin-top: 2px; }
-  .step-body { flex: 1; min-width: 0; }
-  .step-tag {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 10px;
-    letter-spacing: 1.8px;
-    text-transform: uppercase;
-    color: var(--purple);
-    font-weight: 700;
-    margin-bottom: 6px;
-  }
-  .step-card.lesson .step-tag { color: var(--blue); }
-  .step-card.calc .step-tag { color: var(--green); }
-  .step-card.book .step-tag { color: var(--purple); }
-  .step-title {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 19px;
-    font-weight: 800;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: var(--text);
-    margin-bottom: 8px;
-    line-height: 1.15;
-  }
-  .step-desc {
-    font-family: 'IBM Plex Sans', sans-serif;
+  .lesson-sub .accent { color: var(--cyan); font-weight: 400; }
+  .lesson-sub strong { color: var(--text); font-weight: 600; }
+
+  /* Hero meta — authority + scope */
+  .hero-authority {
+    margin: 32px 0 0;
+    padding: 18px 22px;
+    background: var(--surface-2);
+    border: 1px solid var(--border-2);
+    border-left: 3px solid var(--green);
+    border-radius: 10px;
     font-size: 14.5px;
-    color: var(--muted);
     line-height: 1.6;
-    margin-bottom: 10px;
+    color: rgba(240,238,232,0.85);
   }
-  .step-desc strong { color: var(--text); font-weight: 600; }
-  .step-cta {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 11px;
-    letter-spacing: 1.8px;
-    text-transform: uppercase;
-    color: var(--yellow);
-    font-weight: 700;
-  }
+  .hero-authority strong { color: var(--text); font-weight: 600; }
+  .hero-authority em { color: var(--cyan); font-style: normal; font-weight: 500; }
 
-  /* Connector */
-  .step-connector {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: var(--dim);
+  /* "What you'll have when you're done" */
+  .what-you-get {
+    margin: 32px 0 0;
+    padding: 22px 24px;
+    background: var(--cyan-faint);
+    border: 1px solid var(--cyan-border);
+    border-radius: 12px;
+  }
+  .what-you-get h4 {
+    font-family: 'Space Grotesk', system-ui, sans-serif;
     font-size: 14px;
-    height: 16px;
-    margin-bottom: 4px;
-  }
-  .step-connector::before { content: '↓'; opacity: 0.4; }
-
-  /* Section divider */
-  .section-divider {
-    margin: 48px 0 28px;
-    text-align: center;
-    font-family: 'Orbitron', sans-serif;
-    font-size: 11px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--dim);
     font-weight: 700;
-    position: relative;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--cyan);
+    margin: 0 0 14px;
   }
-  .section-divider::before,
-  .section-divider::after {
+  .what-you-get ul { list-style: none; padding: 0; margin: 0; }
+  .what-you-get li {
+    position: relative;
+    padding-left: 22px;
+    margin-bottom: 9px;
+    font-size: 14.5px;
+    line-height: 1.55;
+    color: rgba(240,238,232,0.88);
+  }
+  .what-you-get li:last-child { margin-bottom: 0; }
+  .what-you-get li::before {
     content: '';
     position: absolute;
-    top: 50%;
-    width: 30%;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--border-soft) 50%, transparent);
+    left: 2px; top: 0.55em;
+    width: 7px; height: 7px;
+    background: var(--cyan);
+    transform: rotate(45deg);
   }
-  .section-divider::before { left: 0; }
-  .section-divider::after { right: 0; }
+  .what-you-get strong { color: var(--text); font-weight: 600; }
+  .what-you-get .authority-note {
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid var(--cyan-border);
+    font-size: 13px;
+    line-height: 1.55;
+    color: var(--muted);
+  }
+  .what-you-get .authority-note strong { color: var(--text); }
+  .what-you-get .authority-note em { color: var(--cyan); font-style: italic; }
 
-  /* What you'll learn callout */
-  .what-you-learn {
-    background: var(--panel-deep);
-    border: 1px solid var(--border-soft);
-    border-left: 3px solid var(--yellow);
-    border-radius: 12px;
-    padding: 22px 28px;
-    margin-bottom: 36px;
-    font-family: 'IBM Plex Sans', sans-serif;
+  /* ★ Lock-this-in foundational callout */
+  .lock-in {
+    margin: 32px 0;
+    padding: 24px 28px;
+    background: var(--green-faint);
+    border: 1px solid var(--green-border);
+    border-left: 4px solid var(--green);
+    border-radius: 10px;
   }
-  /* Two-terms primer block — sets up maker/taker vocab before the curriculum */
-  .primer {
-    background: var(--panel-deep);
-    border: 1px solid var(--border-soft);
-    border-left: 3px solid var(--purple);
-    border-radius: 12px;
-    padding: 22px 28px;
-    margin-bottom: 36px;
-    font-family: 'IBM Plex Sans', sans-serif;
-  }
-  .primer h3 {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 12px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--purple);
-    font-weight: 800;
-    margin-bottom: 14px;
-  }
-  .primer p { font-size: 15px; color: var(--text); line-height: 1.65; margin-bottom: 12px; }
-  .primer p:last-child { margin-bottom: 0; }
-  .primer p strong { color: var(--text); font-weight: 600; }
-  .primer .terms { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 14px 0 16px; }
-  .primer .term { background: var(--panel-inset); border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px; }
-  .primer .term .term-name { font-family: 'Orbitron', sans-serif; font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--purple); font-weight: 800; margin-bottom: 8px; }
-  .primer .term .term-body { font-size: 14px; line-height: 1.55; color: var(--text); }
-  .primer .term .term-body strong { color: var(--purple); font-weight: 600; }
-  @media (max-width: 600px) {
-    .primer .terms { grid-template-columns: 1fr; }
-  }
-  .what-you-learn h3 {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 12px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--yellow);
-    font-weight: 800;
-    margin-bottom: 14px;
-  }
-  .what-you-learn ul {
-    list-style: none;
-    padding-left: 0;
-    font-size: 15px;
-    line-height: 1.6;
-    color: var(--text);
-  }
-  .what-you-learn ul li {
-    padding-left: 22px;
-    position: relative;
-    margin-bottom: 8px;
-  }
-  .what-you-learn ul li::before {
-    content: '▸';
-    position: absolute;
-    left: 0;
-    color: var(--yellow);
+  .lock-in::before {
+    content: '★ Lock this in';
+    display: block;
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    font-size: 11px;
     font-weight: 700;
+    letter-spacing: .26em;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 14px;
   }
-  .what-you-learn ul li strong { color: var(--text); font-weight: 600; }
+  .lock-in p {
+    margin: 0;
+    font-size: 17px;
+    line-height: 1.55;
+    color: var(--text);
+    font-weight: 500;
+  }
+  .lock-in p + p { margin-top: 12px; }
+  .lock-in strong { color: var(--text); font-weight: 700; }
+  .lock-in em { color: var(--green); font-style: italic; font-weight: 500; }
 
-  /* Footer CTA */
-  .cta-card {
-    background: linear-gradient(135deg, rgba(245,181,69,0.10), rgba(188,140,255,0.04));
-    border: 1px solid var(--yellow);
-    border-radius: 16px;
-    padding: 36px 30px;
-    margin-top: 48px;
+  /* ★ End-of-section Main Takeaways summary */
+  .main-takeaways {
+    margin: 44px 0 0;
+    padding: 24px 28px;
+    background: var(--cyan-faint);
+    border: 1px solid var(--cyan-border);
+    border-left: 4px solid var(--cyan);
+    border-radius: 10px;
+  }
+  .main-takeaways::before {
+    content: '★ Main Takeaways';
+    display: block;
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .26em;
+    text-transform: uppercase;
+    color: var(--cyan);
+    margin-bottom: 14px;
+  }
+  .main-takeaways ul { list-style: none; padding: 0; margin: 0; }
+  .main-takeaways li {
+    position: relative;
+    padding-left: 22px;
+    margin-bottom: 10px;
+    font-size: 14.5px;
+    line-height: 1.55;
+    color: rgba(240,238,232,0.92);
+  }
+  .main-takeaways li:last-child { margin-bottom: 0; }
+  .main-takeaways li::before {
+    content: '';
+    position: absolute;
+    left: 2px; top: 0.55em;
+    width: 7px; height: 7px;
+    background: var(--cyan);
+    transform: rotate(45deg);
+  }
+  .main-takeaways strong { color: var(--text); font-weight: 600; }
+  .main-takeaways em { color: var(--cyan); font-style: italic; }
+
+  /* Bridge between hero and first section */
+  .section-bridge {
+    margin: 48px auto 0;
     text-align: center;
-    box-shadow: 0 0 40px rgba(245,181,69,0.08), 0 20px 60px rgba(0, 0, 0, 0.3);
+    font-size: 19px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--cyan);
+    font-weight: 600;
   }
-  .cta-eyebrow { font-family: 'Orbitron', sans-serif; font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--yellow); font-weight: 700; margin-bottom: 10px; }
-  .cta-title { font-family: 'Rajdhani', sans-serif; font-size: 26px; font-weight: 700; color: var(--text); margin-bottom: 10px; letter-spacing: 0.3px; }
-  .cta-blurb { font-family: 'IBM Plex Sans', sans-serif; font-size: 15px; color: var(--muted); line-height: 1.6; max-width: 520px; margin: 0 auto 20px; }
-  .cta-blurb strong { color: var(--text); }
-  .cta-code { display: inline-block; margin-bottom: 16px; font-family: 'JetBrains Mono', monospace; font-size: 14px; color: var(--text); background: rgba(245,181,69,0.12); border: 1px dashed var(--yellow); border-radius: 6px; padding: 8px 16px; letter-spacing: 0.5px; }
-  .cta-code strong { color: var(--yellow); font-weight: 700; letter-spacing: 2px; }
-  .cta-btn { display: inline-flex; align-items: center; gap: 10px; font-family: 'Orbitron', sans-serif; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; font-weight: 800; text-decoration: none; padding: 14px 26px; border-radius: 10px; background: var(--yellow); color: #181208; box-shadow: 0 0 22px rgba(245,181,69,0.25); transition: all 0.15s; }
-  .cta-btn:hover { background: #f7c465; transform: translateY(-1px); box-shadow: 0 0 32px rgba(245,181,69,0.4); }
 
+  /* ───────── PLAYBOOK SECTIONS (h2 majors) ───────── */
+  .pb-section {
+    margin-top: 60px;
+    padding-top: 28px;
+    border-top: 1px solid var(--border);
+  }
+  .pb-section h2 {
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-size: clamp(24px, 3.4vw, 32px);
+    line-height: 1.15;
+    letter-spacing: -.02em;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 8px;
+    padding-bottom: 4px;
+  }
+  .pb-section .pb-eyebrow {
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 12px;
+  }
+  .pb-section .pb-eyebrow::before {
+    content: 'Section ';
+  }
+  .pb-section h3 {
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-size: clamp(18px, 2.1vw, 22px);
+    font-weight: 700;
+    letter-spacing: -.01em;
+    color: var(--text);
+    margin-top: 32px;
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border-2);
+  }
+  .pb-section h4 {
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--cyan);
+    margin-top: 26px;
+    margin-bottom: 10px;
+    letter-spacing: -.005em;
+  }
+  .pb-body { font-size: 15.5px; line-height: 1.75; color: rgba(240,238,232,0.92); }
+  .pb-body p { margin-bottom: 15px; }
+  .pb-body p:last-child { margin-bottom: 0; }
+  .pb-body strong { color: var(--text); font-weight: 600; }
+  .pb-body em { color: var(--cyan); font-style: normal; font-weight: 500; }
+  .pb-body ul { list-style: none; margin: 12px 0 16px; padding-left: 2px; }
+  .pb-body li { position: relative; padding-left: 22px; margin-bottom: 10px; }
+  .pb-body li::before {
+    content: '';
+    position: absolute;
+    left: 2px; top: 0.6em;
+    width: 6px; height: 6px;
+    background: var(--cyan);
+    transform: rotate(45deg);
+  }
+  .pb-body a { color: var(--cyan); }
+  .pb-body a:hover { color: var(--green); }
+
+  /* ───────── WARN BLOCK ───────── */
+  .warn-block {
+    background: var(--surface-2);
+    border: 1px solid var(--border-2);
+    border-left: 3px solid var(--red);
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin: 18px 0;
+    font-size: 14.5px;
+    line-height: 1.65;
+    color: rgba(240,238,232,0.86);
+  }
+  .warn-block strong { color: var(--red); font-weight: 700; }
+
+  /* ───────── PULL QUOTE ───────── */
+  .pull-quote {
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-size: clamp(16px, 2vw, 19px);
+    font-weight: 500;
+    font-style: italic;
+    color: var(--text);
+    line-height: 1.5;
+    border-left: 3px solid var(--cyan);
+    padding: 6px 0 6px 22px;
+    margin: 24px 0;
+  }
+
+  /* ───────── EXAMPLE / WALKTHROUGH BLOCK ───────── */
+  .walk-block {
+    background: var(--surface-2);
+    border: 1px solid var(--border-2);
+    border-radius: 10px;
+    padding: 18px 22px;
+    margin: 18px 0;
+  }
+  .walk-block .label {
+    color: var(--dim);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 10px; font-weight: 600;
+    letter-spacing: .2em; text-transform: uppercase;
+    display: block; margin-bottom: 12px;
+  }
+  .walk-block .row {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    padding: 6px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 14.5px;
+    line-height: 1.55;
+  }
+  .walk-block .row:last-child { border-bottom: none; }
+  .walk-block .src {
+    flex: 0 0 38%;
+    color: rgba(240,238,232,0.72);
+    font-weight: 500;
+  }
+  .walk-block .body {
+    flex: 1;
+    color: rgba(240,238,232,0.92);
+  }
+  .walk-block .body strong { color: var(--text); font-weight: 600; }
+  .walk-block .body em { color: var(--cyan); font-style: normal; font-weight: 500; }
+  .walk-block .accent { color: var(--cyan); font-weight: 600; }
+
+  /* ───────── TIP BLOCK ───────── */
+  .tip-block {
+    background: var(--green-dim);
+    border: 1px solid var(--green-border);
+    border-left: 3px solid var(--green);
+    border-radius: 10px;
+    padding: 14px 20px;
+    margin: 18px 0;
+    font-size: 14.5px;
+    line-height: 1.65;
+    color: rgba(240,238,232,0.92);
+  }
+  .tip-block strong { color: var(--green); font-weight: 700; }
+
+  /* ───────── IMAGE BLOCK ───────── */
+  .real-example-img {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    margin: 18px 0 6px;
+    border: 1px solid var(--border-2);
+  }
+
+  /* ───────── STUB PLACEHOLDERS ───────── */
+  .stub {
+    background: var(--surface-2);
+    border: 1px dashed var(--border-2);
+    border-radius: 10px;
+    padding: 18px 22px;
+    margin: 14px 0;
+    font-size: 13.5px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+  .stub strong { color: var(--yellow); font-weight: 700; }
+
+  /* ───────── CTA CARD ───────── */
+  .cta-card {
+    background: linear-gradient(135deg, var(--green-dim), transparent);
+    border: 1px solid var(--green-border);
+    border-radius: 14px;
+    padding: 36px 30px;
+    margin: 60px 0 24px;
+    text-align: center;
+  }
+  .cta-eyebrow {
+    font-size: 10px; font-weight: 700;
+    letter-spacing: .26em; text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 10px;
+  }
+  .cta-title {
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-size: 28px; font-weight: 700;
+    letter-spacing: -.02em;
+    color: var(--text);
+    margin-bottom: 10px;
+  }
+  .cta-blurb {
+    font-size: 14.5px; color: rgba(240,238,232,0.78);
+    line-height: 1.6; max-width: 520px;
+    margin: 0 auto 18px;
+  }
+  .cta-code {
+    display: inline-block;
+    background: var(--surface-3);
+    border: 1px solid var(--border-2);
+    border-radius: 8px;
+    padding: 9px 14px;
+    margin-bottom: 16px;
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-size: 13.5px;
+    color: rgba(240,238,232,0.8);
+    letter-spacing: .04em;
+  }
+  .cta-code strong { color: var(--green); font-weight: 700; letter-spacing: .12em; }
+  .cta-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 12px; font-weight: 700;
+    letter-spacing: .14em; text-transform: uppercase;
+    text-decoration: none;
+    padding: 14px 28px;
+    border-radius: 8px;
+    background: var(--green);
+    color: #06220f;
+    transition: all .16s;
+  }
+  .cta-btn:hover { background: var(--cyan); color: #06222a; transform: translateY(-1px); }
+
+  /* ───────── FOOTER ───────── */
   .footer {
     text-align: center;
-    margin-top: 50px;
+    margin-top: 60px;
     padding: 28px 20px 0;
     color: var(--dim);
     font-size: 11px;
-    letter-spacing: 1px;
+    letter-spacing: .04em;
     line-height: 1.7;
-    border-top: 1px solid var(--border-soft);
+    border-top: 1px solid var(--border);
   }
-  .footer .disclaimer { max-width: 720px; margin: 0 auto 14px; color: var(--dim); font-family: 'Rajdhani', sans-serif; font-size: 13px; letter-spacing: 0.3px; }
-  .footer a { color: var(--muted); text-decoration: none; }
-  .footer a:hover { color: var(--yellow); }
+  .footer .disclaimer { max-width: 680px; margin: 0 auto 12px; }
+  .footer a { color: var(--muted); }
+  .footer a:hover { color: var(--cyan); }
 
-  @media (max-width: 600px) {
-    .topnav-inner { padding: 12px 16px; }
-    .nav-brand { font-size: 11px; letter-spacing: 2px; }
-    .wrap { padding: 24px 16px 60px; }
-    .playbook-title { font-size: 28px; letter-spacing: 2px; }
-    .playbook-sub { font-size: 17px; }
-    .step-card { padding: 18px 18px; gap: 14px; }
-    .step-num { width: 50px; height: 50px; }
-    .step-num .digit { font-size: 22px; }
-    .step-title { font-size: 16px; letter-spacing: 1.2px; }
-    .what-you-learn { padding: 18px 20px; }
-    .cta-card { padding: 28px 22px; }
+  /* ═══ SIDEBAR ═══ */
+  .pps-sidebar {
+    position: fixed; top: 0; left: 0; bottom: 0;
+    width: 240px; background: var(--surface);
+    border-right: 1px solid var(--border-2); z-index: 50;
+    transform: translateX(-100%);
+    transition: transform .3s cubic-bezier(.4,0,.2,1);
+    overflow-y: auto;
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
   }
-  /* ═══ SIDEBAR NAVIGATION (prototype) ═══ */
-  .pps-sidebar { position: fixed; top: 0; left: 0; bottom: 0; width: 240px; background: linear-gradient(180deg, #0c1120 0%, #080d18 100%); border-right: 1px solid var(--border); z-index: 50; transform: translateX(-100%); transition: transform .3s cubic-bezier(.4,0,.2,1); overflow-y: auto; font-family: 'IBM Plex Sans', system-ui, sans-serif; }
   body.pps-sidebar-open .pps-sidebar { transform: translateX(0); }
   body.pps-sidebar-open { padding-left: 240px; transition: padding-left .3s cubic-bezier(.4,0,.2,1); }
   @media (max-width: 900px) {
     body.pps-sidebar-open { padding-left: 0; }
     .pps-sidebar { box-shadow: 4px 0 30px rgba(0,0,0,.7); width: 260px; }
   }
-  .pps-sidebar-toggle { position: fixed; top: 14px; left: 18px; z-index: 51; background: rgba(15, 21, 36, 0.92); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid var(--border); color: var(--text); width: 38px; height: 38px; border-radius: 9px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all .2s ease; }
-  .pps-sidebar-toggle:hover { background: var(--panel-inset); border-color: var(--green); color: var(--green); }
+  .pps-sidebar-toggle {
+    position: fixed; top: 14px; left: 18px; z-index: 51;
+    background: var(--surface);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--border-2);
+    color: var(--text);
+    width: 38px; height: 38px;
+    border-radius: 6px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all .18s ease;
+  }
+  .pps-sidebar-toggle:hover { background: var(--surface-2); border-color: var(--cyan-border); color: var(--cyan); }
   body.pps-sidebar-open .pps-sidebar-toggle { left: 256px; top: 14px; }
   @media (max-width: 900px) { body.pps-sidebar-open .pps-sidebar-toggle { left: 276px; } }
   .pps-sidebar-inner { padding: 22px 14px 30px; }
-  .pps-sidebar-brand { display: flex; align-items: center; justify-content: center; gap: 8px; color: var(--blue); text-decoration: none; font-family: 'Orbitron', sans-serif; font-weight: 800; font-size: 11px; letter-spacing: 1.6px; padding: 4px 0 16px; border-bottom: 1px solid var(--border-soft); margin-bottom: 14px; text-transform: uppercase; }
-  .pps-sidebar-brand svg { width: 18px; height: 14px; flex-shrink: 0; color: var(--green); filter: drop-shadow(0 0 6px rgba(74, 222, 128, 0.55)); }
-  .pps-sidebar-brand span { white-space: nowrap; }
-  .pps-sidebar-brand:hover { color: #5fa1ff; }
+  .pps-sidebar-brand {
+    display: flex; align-items: center; justify-content: center;
+    gap: 6px; color: var(--text); text-decoration: none;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 900; font-size: 13px;
+    letter-spacing: -.02em;
+    padding: 4px 0 16px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 14px;
+  }
+  .pps-sidebar-brand .accent { color: var(--green); }
+  .pps-sidebar-brand small { font-size: 8px; font-weight: 400; letter-spacing: .4em; text-transform: uppercase; color: var(--dim); margin-left: 6px; }
   .pps-sidebar-nav { display: flex; flex-direction: column; gap: 1px; }
-  .pps-nav-group-label { font-size: 9.5px; text-transform: uppercase; letter-spacing: 1.8px; color: var(--dim); padding: 14px 8px 6px; margin-top: 2px; font-weight: 600; }
-  .pps-nav-link { display: flex; align-items: center; gap: 10px; color: #b8c0d0; text-decoration: none; padding: 8px 10px; border-radius: 7px; font-size: 13px; border-left: 2px solid transparent; transition: all .15s ease; }
-  .pps-nav-link:hover { background: var(--panel-inset); color: #fff; }
-  .pps-nav-link.active { background: rgba(74, 222, 128, 0.09); color: var(--green); border-left-color: var(--green); }
-  .pps-nav-num { font-family: 'JetBrains Mono', monospace; font-size: 10.5px; color: var(--dim); font-weight: 700; min-width: 18px; }
-  .pps-nav-link.path-blue .pps-nav-num { color: var(--blue); }
-  .pps-nav-link.path-green .pps-nav-num { color: var(--green); }
-  .pps-nav-link.path-gold .pps-nav-num { color: var(--yellow); }
-  .pps-nav-group { margin: 1px 0; }
-  .pps-nav-group summary { list-style: none; cursor: pointer; padding: 8px 10px; font-size: 13px; color: #b8c0d0; border-radius: 7px; display: flex; align-items: center; justify-content: space-between; transition: all .15s ease; user-select: none; }
-  .pps-nav-group summary::-webkit-details-marker { display: none; }
-  .pps-nav-group summary::after { content: '▾'; font-size: 9px; color: var(--dim); transition: transform .2s ease; }
-  .pps-nav-group[open] summary::after { transform: rotate(180deg); }
-  .pps-nav-group summary:hover { background: var(--panel-inset); color: #fff; }
-  .pps-nav-group .pps-nav-link { padding: 6px 10px 6px 22px; font-size: 12px; color: #8b94a8; }
-  .pps-nav-group .pps-nav-link:hover { color: #fff; }
-  .pps-path-group > summary { font-weight: 600; }
-  .pps-path-group .pps-path-label { display: inline-flex; align-items: center; gap: 10px; }
-  .pps-path-group.path-blue > summary .pps-nav-num { color: var(--blue); }
-  .pps-path-group.path-green > summary .pps-nav-num { color: var(--green); }
-  .pps-path-group.path-gold > summary .pps-nav-num { color: var(--yellow); }
-  .pps-path-group.path-blue[open] > summary { color: var(--blue); }
-  .pps-path-group.path-green[open] > summary { color: var(--green); }
-  .pps-path-group.path-gold[open] > summary { color: var(--yellow); }
-  .pps-nav-playbook { margin-top: 16px; padding: 10px 12px; background: linear-gradient(135deg, rgba(188,140,255,.10), rgba(74,222,128,.05)); border: 1px solid rgba(188,140,255,.25); border-left-width: 2px; color: var(--purple); font-weight: 600; border-radius: 7px; }
-  .pps-nav-playbook:hover { background: linear-gradient(135deg, rgba(188,140,255,.2), rgba(74,222,128,.1)); color: #fff; }
-  .pps-sidebar::-webkit-scrollbar { width: 6px; }
-  .pps-sidebar::-webkit-scrollbar-track { background: transparent; }
-  .pps-sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+  .pps-nav-group-label {
+    font-size: 9px; text-transform: uppercase; letter-spacing: .22em;
+    color: var(--dim); padding: 14px 8px 6px;
+    margin-top: 2px; font-weight: 600;
+  }
+  .pps-nav-link {
+    display: flex; align-items: center; gap: 10px;
+    color: var(--muted); text-decoration: none;
+    padding: 7px 10px; border-radius: 4px;
+    font-size: 12px; font-weight: 400;
+    border-left: 2px solid transparent;
+    transition: all .15s ease;
+  }
+  .pps-nav-link:hover { background: var(--surface-2); color: var(--text); }
+  .pps-nav-link.active { background: var(--green-faint); color: var(--green); border-left-color: var(--green); font-weight: 500; }
 
-
-  /* PPS-MOBILE-TOPNAV-CLEARANCE */
   @media (max-width: 640px) {
-    .topnav-inner { padding-left: 60px !important; padding-right: 12px !important; gap: 10px !important; }
-    .nav-brand { font-size: 10px !important; letter-spacing: 1.5px !important; gap: 6px !important; flex-shrink: 1; min-width: 0; }
-    .nav-brand-chart { display: none !important; }
-    .nav-back { font-size: 11px !important; white-space: nowrap; }
+    .card { padding-top: 60px; }
   }
 </style>
 </head>
@@ -401,250 +609,387 @@
 <aside class="pps-sidebar" id="ppsSidebar">
   <div class="pps-sidebar-inner">
     <a class="pps-sidebar-brand" href="/index.html">
-      <svg viewBox="0 0 28 22" xmlns="http://www.w3.org/2000/svg" fill="none">
-        <polyline points="2,18 8,12 12,15 18,7 26,3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-      <span>Profit Path Sports</span>
-      <svg viewBox="0 0 28 22" xmlns="http://www.w3.org/2000/svg" fill="none">
-        <polyline points="2,18 8,12 12,15 18,7 26,3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
+      <span class="pps-sidebar-wordmark">PROFIT<span class="accent">PATH</span></span>
+      <small>Sports</small>
     </a>
     <nav class="pps-sidebar-nav">
       <a class="pps-nav-link" href="/index.html">Home</a>
-      <a class="pps-nav-link" href="/free-money-guide.html" style="color: var(--green); font-weight: 600;">★ Free Money Guide</a>
-      <a class="pps-nav-link" href="/glossary.html">Glossary</a>
-      <div class="pps-nav-group-label">Paths</div>
-      <details class="pps-nav-group pps-path-group path-blue">
-        <summary data-anchor="paths"><span class="pps-path-label"><span class="pps-nav-num">01</span> Begin</span></summary>
-        <a class="pps-nav-link" href="/lane-new.html">Path Overview</a>
-        <a class="pps-nav-link" href="/learn-odds.html">Odds Formats</a>
-        <a class="pps-nav-link" href="/learn-implied.html">Implied Probability</a>
-        <a class="pps-nav-link" href="/learn-vig.html">The Vig</a>
-        <a class="pps-nav-link" href="/learn-ev.html">+EV</a>
-        <a class="pps-nav-link" href="/learn-clv.html">CLV</a>
-        <a class="pps-nav-link" href="/learn-kelly.html">Kelly Criterion</a>
-        <a class="pps-nav-link" href="/learn-parlays.html">Parlays</a>
-        <a class="pps-nav-link" href="/learn-props.html">Prop Bets</a>
-      </details>
-      <details class="pps-nav-group pps-path-group path-green">
-        <summary data-anchor="paths"><span class="pps-path-label"><span class="pps-nav-num">02</span> Convert</span></summary>
-        <a class="pps-nav-link" href="/lane-bonus.html">Path Overview</a>
-        <a class="pps-nav-link" href="/learn-bonus.html">Bonus Conversion</a>
-        <a class="pps-nav-link" href="/learn-bonus-types.html">Bonus Types</a>
-        <a class="pps-nav-link" href="/learn-bonus-traps.html">Bonus Traps</a>
-        <a class="pps-nav-link" href="/learn-bonus-walkthrough.html">Walkthrough</a>
-        <a class="pps-nav-link" href="/learn-finding-bonus-bets.html">Finding Bonus Bets</a>
-        <a class="pps-nav-link" href="/learn-bonus-step-by-step.html">Step-by-Step</a>
-        <a class="pps-nav-link" href="/learn-prop-void-rules.html">Prop Void Rules</a>
-        <a class="pps-nav-link" href="/learn-finding-bets.html">Finding +EV Bets</a>
-      </details>
-      <details class="pps-nav-group pps-path-group path-gold">
-        <summary data-anchor="paths"><span class="pps-path-label"><span class="pps-nav-num">03</span> Maintain</span></summary>
-        <a class="pps-nav-link" href="/lane-maintain.html">Path Overview</a>
-        <a class="pps-nav-link" href="/learn-prob-gap-vs-ev.html">Prob Gap vs EV</a>
-        <a class="pps-nav-link" href="/learn-arbitrage.html">Arbitrage</a>
-        <a class="pps-nav-link" href="/learn-middles.html">Middles</a>
-        <a class="pps-nav-link" href="/learn-betting-vs-trading.html">Betting vs Trading</a>
-        <a class="pps-nav-link" href="/learn-alt-ladder.html">Alt Ladder</a>
-        <a class="pps-nav-link" href="/learn-alt-lines.html">Alt Lines</a>
-        <a class="pps-nav-link" href="/learn-cross-market-ev.html">Cross-Market EV</a>
-        <a class="pps-nav-link" href="/learn-exchange-liquidity.html">Exchange Liquidity</a>
-        <a class="pps-nav-link" href="/learn-futures.html">Futures</a>
-        <a class="pps-nav-link" href="/learn-finding-bets.html">Finding +EV Bets</a>
-        <a class="pps-nav-link" href="/learn-manual-scan.html">Manual Scan</a>
-        <a class="pps-nav-link" href="/learn-top-down-bottom-up.html">Top-Down / Bottom-Up</a>
-        <a class="pps-nav-link" href="/learn-wide-markets.html">Wide Markets</a>
-      </details>
-      <details class="pps-nav-group">
-        <summary data-anchor="tools">Calculators</summary>
-        <a class="pps-nav-link" href="/bet-x-ray.html">Bet X-Ray</a>
-        <a class="pps-nav-link" href="/ev-calculator.html">EV Calculator</a>
-        <a class="pps-nav-link" href="/devig_calculator.html">Devig</a>
-        <a class="pps-nav-link" href="/kelly-calculator.html">Kelly Sizer</a>
-        <a class="pps-nav-link" href="/arb-calculator.html">Arbitrage</a>
-        <a class="pps-nav-link" href="/hedge-calculator.html">Hedge</a>
-        <a class="pps-nav-link" href="/middle-calculator.html">Middle</a>
-        <a class="pps-nav-link" href="/dfs-slip-checker.html">DFS Slip Checker</a>
-        <a class="pps-nav-link" href="/parlay-calculator.html">Parlay</a>
-        <a class="pps-nav-link" href="/edge-finder.html">Edge Finder</a>
-        <a class="pps-nav-link" href="/long-run-simulator.html">Long-Run Sim</a>
-        <a class="pps-nav-link" href="/bet-tracker.html">Bet Tracker</a>
-        <a class="pps-nav-link" href="/consensus-calculator.html">Consensus</a>
-        <a class="pps-nav-link" href="/bonus-converter.html">Bonus Converter</a>
-        <a class="pps-nav-link" href="/odds_calculator.html">Odds Converter</a>
-        <a class="pps-nav-link" href="/sharp-snapshot.html">Sharp Snapshot</a>
-        <a class="pps-nav-link" href="/roulette.html">Virtual Roulette</a>
-      </details>
-      <details class="pps-nav-group">
-        <summary>Sportsbooks</summary>
-        <a class="pps-nav-link" href="/book-draftkings.html">DraftKings</a>
-        <a class="pps-nav-link" href="/book-fanduel.html">FanDuel</a>
-        <a class="pps-nav-link" href="/book-hardrock.html">Hard Rock</a>
-        <a class="pps-nav-link" href="/book-betmgm.html">BetMGM</a>
-        <a class="pps-nav-link" href="/book-prophetx.html">ProphetX</a>
-      </details>
-      <details class="pps-nav-group">
-        <summary data-anchor="guides">Deep Dives</summary>
-        <a class="pps-nav-link" href="/learn-cross-market-ev.html">Cross-Market EV</a>
-        <a class="pps-nav-link" href="/learn-parlays.html">Parlays &amp; SGPs</a>
-        <a class="pps-nav-link" href="/learn-alt-lines.html">Same Bet, Two Prices</a>
-        <a class="pps-nav-link" href="/learn-alt-ladder.html">Shopping the Alt Ladder</a>
-        <a class="pps-nav-link" href="/learn-top-down-bottom-up.html">Top-Down vs Bottom-Up</a>
-        <a class="pps-nav-link" href="/learn-prob-gap-vs-ev.html">Probability Gap vs EV</a>
-        <a class="pps-nav-link" href="/learn-betting-vs-trading.html">EV Betting vs Trading</a>
-        <a class="pps-nav-link" href="/learn-arbitrage.html">Arbitrage Betting</a>
-        <a class="pps-nav-link" href="/learn-middles.html">Middles</a>
-        <a class="pps-nav-link" href="/learn-futures.html">Futures Betting</a>
-      </details>
+
+      <div class="pps-nav-group-label">Calculators</div>
+      <a class="pps-nav-link" href="/sharp-snapshot.html">Sharp Snapshot</a>
+      <a class="pps-nav-link" href="/bet-x-ray.html">Bet X-Ray</a>
+      <a class="pps-nav-link" href="/hedge-calculator.html">Hedge</a>
+      <a class="pps-nav-link" href="/devig_calculator.html">Devig</a>
+      <a class="pps-nav-link" href="/odds_calculator.html">Odds Converter</a>
     </nav>
   </div>
 </aside>
 <!-- ═══ END SIDEBAR ═══ -->
 
-<nav class="topnav">
-  <div class="topnav-inner">
-    <a class="nav-brand" href="/index.html">
-      <span class="nav-brand-chart" aria-hidden="true">
-        <svg viewBox="0 0 28 22" xmlns="http://www.w3.org/2000/svg" fill="none">
-          <polyline points="2,18 8,12 12,15 18,7 26,3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </span>
-      Profit Path Sports
-      <span class="nav-brand-chart" aria-hidden="true">
-        <svg viewBox="0 0 28 22" xmlns="http://www.w3.org/2000/svg" fill="none">
-          <polyline points="2,18 8,12 12,15 18,7 26,3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </span>
-    </a>
-    <a class="nav-back" href="/index.html">← Home</a>
-  </div>
-</nav>
+<div class="card">
 
-<div class="wrap">
-
-  <div class="playbook-hero">
-    <div class="playbook-badge">⚡ Email-Requested · Free</div>
-    <h1 class="playbook-title">The Sharp Exchange Playbook</h1>
-    <p class="playbook-sub">The most underexplored edge in modern sports betting. Read this curriculum top to bottom and you'll find +EV bets the average bettor doesn't even know exist.</p>
-    <p class="playbook-intro">
-      Exchange-based betting (ProphetX, Novig) is where trading firms, syndicates, and serious bettors set prices. The order books on those platforms <strong>tell you what the sharp money is doing in real time</strong> — if you know how to read them. This is the playbook for that skill. Five short lessons plus one dedicated calculator. Work through them in order, then start scanning. Nothing else on the internet covers this for free.
-    </p>
-    <p class="playbook-intro" style="margin-top: 14px; font-size: 14px; color: var(--muted);">
-      <strong style="color: var(--text);">And the premise isn't a guess.</strong> In <em>The Bookie</em> (2024), a 40-year Las Vegas head bookmaker confirms that the sharpest market-making books — not Vegas — set the true line, and Vegas follows them. This playbook teaches you to read what those books are saying, in real time, on the order book.
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- HERO + INTRO                                     -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <div class="header">
+    <div class="header-meta">
+      <a href="/index.html" class="back-link">← Back to Home</a>
+      <span class="header-eyebrow">★ Email-Required · Free</span>
+    </div>
+    <div class="title-row">
+      <h1>The Sharp Exchange Playbook</h1>
+    </div>
+    <p class="lesson-sub">
+      <span>The sharps don't bet at FanDuel.</span>
+      <span class="accent">Welcome to the most underexplored edge in sports betting — top to bottom, from zero.</span>
     </p>
   </div>
 
-  <div class="what-you-learn">
-    <h3>What you'll have when you're done</h3>
-    <ul>
-      <li>The <strong>translation rule</strong> — how to read every offered price as the inverse of the sharp's actual position</li>
-      <li>The <strong>BEST-vs-PX heuristic</strong> for spotting cross-market EV bets in seconds</li>
-      <li>How to identify <strong>outsized liquidity</strong> on thin markets and read it as concentrated sharp conviction</li>
-      <li>The <strong>conviction overflow</strong> signal — exchange depth exceeding book limits = leading indicator of line movement</li>
-      <li>The <strong>maker tactic</strong> — when to post your own price instead of taking the existing best</li>
-      <li>A working calculator (Sharp Snapshot) that automates all of the above on any market</li>
-    </ul>
+  <div class="pb-body">
+    <div class="what-you-get">
+      <h4>What you'll have when you're done</h4>
+      <ul>
+        <li><strong>What a betting exchange actually is</strong> — and why both casual bettors and the sharps end up there.</li>
+        <li><strong>The skill to read what the smart money is doing</strong> — in real time, right on the screen.</li>
+        <li><strong>A 5-second way to find an edge</strong> — without paying for a scanner service.</li>
+        <li><strong>The signals most bettors don't even know exist</strong> — and how to bet alongside the smart money before the line catches up.</li>
+        <li><strong>The "maker" play</strong> — how to set your own price like a sportsbook would.</li>
+        <li><strong>A free calculator</strong> — <a href="/sharp-snapshot.html">Sharp Snapshot</a> — that does the heavy lifting on any game.</li>
+      </ul>
+      <p class="authority-note">
+        <strong>Why trust this:</strong> a 40-year Las Vegas head bookmaker confirmed in <em>The Bookie</em> (2024) that the sharpest market-making books set the true line, and the retail books like FanDuel just follow. This playbook teaches you to read the source.
+      </p>
+    </div>
   </div>
 
-  <div class="primer">
-    <h3>Two terms first — maker vs. taker</h3>
-    <p>You'll see these everywhere on exchanges and they're the foundation of everything that follows. Brief definitions before the curriculum starts:</p>
-    <div class="terms">
-      <div class="term">
-        <div class="term-name">Taker</div>
-        <div class="term-body">You <strong>accept an existing offer</strong> on the order book. Instant fill at the posted price. You're acting like a normal bettor — same role as a market order in stock trading.</div>
+  <p class="section-bridge">↓ Let's start at the beginning ↓</p>
+
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- 01 · WHAT A BETTING EXCHANGE IS                  -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <section class="pb-section" id="what-is-an-exchange">
+    <div class="pb-eyebrow">01</div>
+    <h2>What a betting exchange is — and why it matters</h2>
+
+    <div class="pb-body">
+      <p><strong>An exchange is the only place a winning bettor can actually keep winning.</strong> Here's how it works.</p>
+
+      <p>A betting exchange — like <a href="/book-prophetx.html">ProphetX</a> or Novig — is a peer-to-peer market. Instead of betting against a sportsbook, you're betting against another user. The platform just matches the two sides and takes a small commission. Nobody is the "house."</p>
+
+      <div class="lock-in">
+        <p>Every bet you see listed on an exchange has been <em>created</em> by one or more other users. <strong>It doesn't exist until somebody writes it.</strong></p>
       </div>
-      <div class="term">
-        <div class="term-name">Maker</div>
-        <div class="term-body">You <strong>post your own offer</strong> at the price you want. Sits on the order book until another user takes it (or you cancel). You're acting like the sportsbook — same role as a limit order in stock trading.</div>
+
+      <p>When you click "bet the Lakers at +130," you're not buying a bet from the platform — you're saying yes to a wager somebody (or a stack of somebodies) already posted at that price. The bigger the dollar amount sitting there, the more people stacked up making that same offer. That's what makes exchanges fundamentally different from a sportsbook — and it's what makes the offers worth reading.</p>
+
+      <p>That single difference makes exchanges valuable for two very different kinds of bettor.</p>
+
+      <h4>For regular bettors: cheaper bets</h4>
+      <p>Exchanges almost always have <strong>lower <a href="/learn-vig.html">vig</a></strong> than traditional sportsbooks. There's no house position to protect and no marketing budget baked into the price — the market just has to find a clearing price between two users. So the exchange line is usually a few percent closer to the true odds than what FanDuel or DraftKings is offering. Even if you never learn to read the offers, just placing your everyday bets at an exchange tends to save you money per ticket — same wagers, smaller cut.</p>
+
+      <h4>For sharp bettors: no limits, no flagging</h4>
+      <p>For winning bettors, the bigger draw is what exchanges <em>don't</em> do. They don't cut your limits when you win, and they don't flag your account for being profitable. At a traditional sportsbook, the better you do, the smaller they let you bet — until eventually you're capped at $5 a game or closed entirely. On an exchange, the platform doesn't care whether you win or lose; they make money on commission either way. So sharp bettors can size up properly without their accounts dying.</p>
+
+      <h4>For anyone: the book is the signal</h4>
+      <p>That second part — sharps can actually bet at full size — is what makes the offers valuable to <em>everyone</em>, including bettors who never trade on the exchange themselves. The sharpest money in the US market gravitates to exchanges precisely because nobody can stop it from getting down. So the offers sitting on the book aren't anonymous noise — they're the closest thing to <strong>seeing the sharp market in real time</strong>, denominated in dollars. The rest of this playbook teaches you how to read it.</p>
+
+      <p class="pull-quote">A traditional sportsbook line is a guess about what the market thinks. The offers on an exchange are what the market <em>actually</em> thinks, denominated in dollars.</p>
+
+      <div class="tip-block">
+        <strong>Quick jargon note before we go further.</strong> You'll see two terms a lot: a <strong style="color: var(--text);">maker</strong> is someone who <em>posts</em> a price (offers a bet to other users), and a <strong style="color: var(--text);">taker</strong> is someone who <em>accepts</em> a posted price. We'll lean on these only when the signal logic needs them. If you remember nothing else: <strong style="color: var(--text);">the depth on your screen was put there by makers — mostly sharps.</strong> That's the signal.
+      </div>
+
+      <div class="main-takeaways">
+        <ul>
+          <li>A betting exchange is <strong>peer-to-peer</strong> — you're betting against other users, not against a sportsbook.</li>
+          <li><strong>Lower vig</strong> means even casual bettors save money per ticket vs. FanDuel or DraftKings.</li>
+          <li><strong>No flagging, no limit cuts</strong> — winning bettors can actually scale up instead of getting capped out.</li>
+          <li>The offers on the screen <em>are</em> the sharp market in real time. <strong>Learning to read them is the rest of this playbook.</strong></li>
+        </ul>
       </div>
     </div>
-    <p><strong>Which to use, when:</strong> hedging always takes — you need an immediate fill at a locked-in price. Finding edge often makes — you wait for the taker to come to you at the price <em>you</em> want. The curriculum below builds both intuitions: Steps 1-3 teach you to read the book so you can take intelligently; Step 5 teaches you the maker tactic for wide markets where you can capture spread by posting your own offer just under the existing best.</p>
-  </div>
+  </section>
 
-  <div class="section-divider">The Curriculum · 5 steps</div>
 
-  <!-- Step 1: ProphetX foundation -->
-  <a class="step-card book" href="/book-prophetx.html">
-    <div class="step-num"><span class="label">Step</span><span class="digit">01</span></div>
-    <div class="step-body">
-      <div class="step-tag">Foundation · ProphetX</div>
-      <div class="step-title">What an Exchange Actually Is</div>
-      <div class="step-desc">Before any tactics: what makes peer-to-peer exchanges fundamentally different from DraftKings or FanDuel. The sportsbook-as-counterparty mental model, why you can act as the sportsbook when you post your own price, and how to use ProphetX as the hedge anchor for the bonus-conversion workflow at the recreational books.</div>
-      <div class="step-cta">Start here →</div>
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- 02 · READING THE PROPHETX SCREEN                 -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <section class="pb-section" id="reading-the-screen">
+    <div class="pb-eyebrow">02</div>
+    <h2>Reading the ProphetX screen</h2>
+
+    <div class="pb-body">
+      <h3>Two things you might see — only one matters here</h3>
+      <p>One quick distinction before the signals. Now that you know every bet on an exchange has to be <em>created</em> by someone before anyone can take it, two different things can show up on the screen.</p>
+
+      <ul>
+        <li><strong>Bets still waiting to be taken.</strong> Someone posted "I'll lay the Jays at −115 for $5,000" and nobody has taken them up on it yet, so the offer is sitting there in line. <em>This is the main exchange screen</em> — the price ladder you see on ProphetX, Novig, or in Pick the Odds. (Traders sometimes call this the <strong>order book</strong> — same thing.)</li>
+        <li><strong>Bets that already happened.</strong> Two users met at a price and the bet went through. This is just history — usually shown on a separate "trade history" or "volume" tab. (You'll hear this called <em>matched volume</em>.)</li>
+      </ul>
+
+      <p><strong>The rest of this playbook is about the first one — bets still waiting.</strong> Those tell you what sharps are willing to do <em>right now</em>, with their money posted and waiting for someone to take it. Completed bets are old news; sharp money may have already moved on. When you're deciding whether to make a bet, you want live opinion — not last hour's history.</p>
+
+      <p class="pull-quote">The mental model: the offers stack up at each price — a wall of bets waiting for somebody to take them. Each offer is somebody waiting for you to hit it. The shape of that wall — where it's thick, where it's thin, where it suddenly collapses — is the signal.</p>
+
+      <h3>A real one — let's break down a ProphetX bet</h3>
+      <p>Here's what the screen looks like when you tap a market on ProphetX. Colorado Rockies at LA Dodgers, moneyline:</p>
+
+      <img src="/images/prophetx-col-lad-moneyline.png"
+           alt="ProphetX moneyline offers for COL vs LAD. Best back-COL price highlighted in green at +345 with $118 of depth; best bet-LAD price highlighted in blue at -360 with $2,260 of depth. Other rows on the COL side: +335 with $1,871 and +330 with $344. Other rows on the LAD side: -365 with $156 and -370 with $2,584. Last Match +335 on the COL side, -335 on the LAD side. Total implied probability across both best prices reads 100.73%. Total matched volume traded on this market: $271,237.48."
+           class="real-example-img">
+
+      <p>It's a lot of numbers on one screen — but each one is telling you something specific. Walking through them one at a time:</p>
+
+      <div class="walk-block">
+        <span class="label">The two highlighted tiles — the current best prices</span>
+        <div class="row"><span class="src">COL <span class="accent">+345</span> · green tile</span><span class="body">The current best price to bet the Rockies. The <strong>$118</strong> below it is how much of that bet is actually available right now — written by other users (mostly sharps).</span></div>
+        <div class="row"><span class="src">LAD <span class="accent">−360</span> · blue tile</span><span class="body">The current best price to bet the Dodgers. <strong>$2,260</strong> of that bet is available.</span></div>
+      </div>
+
+      <div class="walk-block">
+        <span class="label">The other rows — worse prices, more depth</span>
+        <div class="row"><span class="src">+335 · $1,871</span><span class="body">A <em>worse</em> price for betting COL (smaller payout). It's sitting behind the +345 best price <em>in line</em>: if the $118 at +345 gets fully taken, the next person who wants COL hits this row.</span></div>
+        <div class="row"><span class="src">+330 · $344</span><span class="body">Even further back in line. Worse price still, smaller depth.</span></div>
+        <div class="row"><span class="src">−365 · $156</span><span class="body">A worse price for betting LAD (you'd have to risk more for the same $100 payout). Thin depth — only a $156 maker behind the best price.</span></div>
+        <div class="row"><span class="src">−370 · $2,584</span><span class="body">Worse still — but with the biggest wall on the entire screen. Sharps stacked a lot of offers here as a deeper backstop.</span></div>
+      </div>
+
+      <div class="walk-block">
+        <span class="label">The smaller numbers at the bottom</span>
+        <div class="row"><span class="src">Last Match +335 / −335</span><span class="body">The most recent completed bet went off at this number — the market's <em>actual</em> consensus price right now.</span></div>
+        <div class="row"><span class="src">100.73%</span><span class="body">Add the two best implied probabilities — bet COL at +345 is 22.47%, bet LAD at −360 is 78.26% — and you get 100.73%. <strong>That 0.73% above 100% is the entire <a href="/learn-vig.html">vig</a>.</strong> A traditional sportsbook on this same game would be 104–110%. Exchanges are <em>that</em> much closer to a fair price.</span></div>
+        <div class="row"><span class="src">Traded $271,237.48</span><span class="body">Total dollars that have <em>already</em> changed hands on this market — completed bets, not waiting offers. A big number means a mature, deep market, which means the signals on the book are more reliable.</span></div>
+      </div>
+
+      <div class="tip-block">
+        <strong>Don't worry if some of this doesn't click yet.</strong> Every section below is teaching you how to read one piece of what you just saw — the inversion that turns the displayed prices into the sharps' real position, why heavy depth on one side means they want the other, why one row deep in the book matters more than another. Come back to this screenshot at the end and it'll read instantly.
+      </div>
     </div>
-  </a>
+  </section>
 
-  <div class="step-connector"></div>
 
-  <!-- Step 2: Reading exchange liquidity -->
-  <a class="step-card lesson" href="/learn-exchange-liquidity.html">
-    <div class="step-num"><span class="label">Step</span><span class="digit">02</span></div>
-    <div class="step-body">
-      <div class="step-tag">Lesson · Reading the Book</div>
-      <div class="step-title">Reading Liquidity as a Sharp Signal</div>
-      <div class="step-desc">The single most important conceptual move in the playbook: the <strong>translation rule</strong> (every cell of liquidity is the inverse of where sharps are positioned). Plus eight specific signals — imbalance, outsized depth on thin markets, spread tightness, disappearing liquidity, walls, time-of-day patterns — with worked examples on real screenshots.</div>
-      <div class="step-cta">Open lesson →</div>
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- 03 · THE TRANSLATION RULE  ← TO BE FILLED NEXT TURN -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <section class="pb-section" id="translation-rule">
+    <div class="pb-eyebrow">03</div>
+    <h2>The translation rule — flip the side, flip the sign</h2>
+
+    <div class="pb-body">
+      <p>Most people see a price on an exchange and read it the way they'd read a sportsbook: <em>"the line is X, here's what I'd pay."</em> On an exchange, that reading is <strong>backwards.</strong> Flip it, and every other signal in this playbook starts making sense.</p>
+
+      <div class="warn-block">
+        <strong>The rule, in one sentence:</strong> every offered price on an exchange is a bet the sharps are <em>trying to trick you into taking</em>. To post it, they had to lock themselves into the opposite side, at the opposite sign of the same magnitude.
+      </div>
+
+      <p>Every displayed price gets two operations, run together:</p>
+      <ul>
+        <li><strong>Flip the side</strong> — if the display says back <em>Eagles</em>, the sharp is on the <em>49ers</em>.</li>
+        <li><strong>Flip the sign of the price</strong> — if the display says <strong>−115</strong>, the sharp got <strong>+115</strong>. Same magnitude, opposite sign. <em>Not +100. Not +110. Exactly +115.</em></li>
+      </ul>
+
+      <div class="walk-block">
+        <span class="label">Flip the side, flip the sign — worked</span>
+        <div class="row"><span class="src">Display</span><span class="body">Jays <span class="accent">−115</span> · $5,000 available</span></div>
+        <div class="row"><span class="src">Sharp's position</span><span class="body">Rays <span class="accent">+115</span> · $5,000 of conviction</span></div>
+        <div class="row"><span class="src">Display</span><span class="body">Pistons <span class="accent">−110</span> · $5,800 available</span></div>
+        <div class="row"><span class="src">Sharp's position</span><span class="body">Cavs <span class="accent">+110</span> · $5,800 of conviction</span></div>
+        <div class="row"><span class="src">Display</span><span class="body">Eagles <span class="accent">+125</span> · $1,200 available</span></div>
+        <div class="row"><span class="src">Sharp's position</span><span class="body">49ers <span class="accent">−125</span> · $1,200 of conviction</span></div>
+      </div>
+
+      <h3>Why the rule works</h3>
+      <p>When a sharp posts $5,800 of depth offering Pistons at −110, they didn't post it because they like the Pistons. They posted it <em>because they want it filled</em> — they think Cavs are the better side, and they need a bettor to take the Pistons bait so they can collect on Cavs. <strong>The deeper the offer, the harder the sharps are trying to get someone to take that side.</strong></p>
+
+      <p>So when you see <em>"Pistons −110 · $5,800 available,"</em> translate it instantly: <em>"a sharp is sitting on Cavs +110 with $5,800 of conviction, hoping I take the Pistons bait."</em> Now compare to what FanDuel or BetMGM is offering you for Cavs. <strong>That gap is where the cross-market edge lives.</strong></p>
+
+      <p class="pull-quote">The displayed price is what the sharps are <em>daring you to take</em>. Their real bet is the mirror image — and that's the number that matters.</p>
+
+      <div class="tip-block">
+        <strong>Now go back to the ProphetX screenshot above.</strong> The $2,260 of depth offered to bet LAD at −360 means a sharp is sitting on <strong style="color: var(--text);">COL at +360 with $2,260 of conviction</strong>. The $118 of depth offered to bet COL at +345 means a sharp is sitting on LAD at −345 with only $118 of conviction. Same screen you couldn't read five minutes ago — now you can.
+      </div>
     </div>
-  </a>
+  </section>
 
-  <div class="step-connector"></div>
 
-  <!-- Step 3: Manual sharp scan -->
-  <a class="step-card lesson" href="/learn-manual-scan.html">
-    <div class="step-num"><span class="label">Step</span><span class="digit">03</span></div>
-    <div class="step-body">
-      <div class="step-tag">Workflow · Scan</div>
-      <div class="step-title">The Manual Sharp Scan</div>
-      <div class="step-desc">No paid scanner required. Open Pick the Odds, compare two columns (BEST vs ProphetX), spot the gap, take the bet. The five-second heuristic plus the deeper liquidity-calibration skill underneath — including <strong>when the signal is strongest (real ProphetX depth) and when it's noisier (thin $50–$200 markets where the read isn't yet trustworthy)</strong>. Two real walkthroughs (Pistons / Blue Jays) showing the workflow start to finish.</div>
-      <div class="step-cta">Open lesson →</div>
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- 04 · SIGNALS (slimmed)                           -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <section class="pb-section" id="signals">
+    <div class="pb-eyebrow">04</div>
+    <h2>What the book is telling you — the core signals</h2>
+
+    <div class="pb-body">
+      <p>Once the translation rule clicks, the offers stop being a wall of numbers and starts being a sentence. Six readings carry almost all the signal — listed roughly in order of how often you'll use them. Each one is just the translation rule applied with a different shape of evidence.</p>
+
+      <h3>Signal 1 — Heavy depth on side A means sharps want side B</h3>
+      <p>The single most useful read on an exchange, and the one most newcomers get backwards. The bigger the block of money offered on a side, the more makers (sharps) are willing to <em>take the opposite side</em> at that price. <strong>The bet to make is the side without the heavy maker depth</strong> — find it priced softly at a traditional sportsbook and you're alongside the smart money.</p>
+
+      <div class="walk-block">
+        <span class="label">Pitcher Ks · Strikeouts Over 6.5</span>
+        <div class="row"><span class="src">Bet Over <span class="accent">−110</span></span><span class="body"><strong>$5,800 available</strong> — a big maker stack</span></div>
+        <div class="row"><span class="src">Bet Over <span class="accent">−108</span></span><span class="body">$1,400 available</span></div>
+        <div class="row"><span class="src">Bet Over <span class="accent">−105</span></span><span class="body">$380 available (thin)</span></div>
+        <div class="row"><span class="src">Read</span><span class="body">Sharps stacked $5,800 of capacity <em>laying Over</em> — they think Under is more likely than 52.4% (the implied prob of −110). If a soft book has <strong>Under 6.5 at +100 or +105</strong>, that's the +EV bet.</span></div>
+      </div>
+
+      <p><strong>Caveat:</strong> very thin books distort this. Side A $80 vs. side B $40 isn't a signal — it's two recreational bettors. You need real depth on at least one side for the read to mean anything.</p>
+
+      <h3>Signal 2 — Outsized depth on a thin market</h3>
+      <p>The same $4,000 of available liquidity means very different things on different markets. On a Sunday-night NFL moneyline it's noise — that market trades millions, and $4k is small relative to the players involved. On a Tuesday-night NHL backup-goalie save prop, it's loud. Sharp books cap niche markets at $500–$1,000 even for proven sharps; when an exchange shows multiple thousands of maker depth on a market like that, you're looking at <strong>sharp money that hit its limit at the sharp books and came to the exchange to deploy more size</strong>. Conviction behind that depth is much higher than the same dollars on a mainstream game.</p>
+
+      <p><strong>Two ways to read it — same signal:</strong></p>
+      <ul>
+        <li><strong>The Pinnacle-limit ratio.</strong> Compare exchange depth to the typical sharp-book cap on the market type. 3× = meaningful. 5×+ = rare and worth paying close attention to.</li>
+        <li><strong>The peer-set scan.</strong> Faster, no lookup required. Pull up the full board for a category (assist props, pitcher Ks, alt-spread ladders). Note the baseline depth most lines share. Any line where one side runs 3–5×+ that baseline is an asymmetric outlier — concentrated sharp conviction that doesn't apply to the rest of the category.</li>
+      </ul>
+
+      <div class="walk-block">
+        <span class="label">Peer-set scan — tonight's NBA assist props</span>
+        <div class="row"><span class="src">Player A · O 5.5</span><span class="body">$240 / $310 depth</span></div>
+        <div class="row"><span class="src">Player B · O 6.5</span><span class="body">$180 / $200 depth</span></div>
+        <div class="row"><span class="src">Player C · O 7.5</span><span class="body"><span class="accent">$1,400</span> / $220 depth — outlier</span></div>
+        <div class="row"><span class="src">Player D · O 4.5</span><span class="body">$210 / $260 depth</span></div>
+        <div class="row"><span class="src">Read</span><span class="body">Peer baseline: ~$200–$300 per side. <strong>Player C breaks the pattern by ~5×.</strong> The $1,400 is offered to <em>bet the Over</em> — so the sharp is on Under with $1,400 of conviction. Look for Under 7.5 at a soft book.</span></div>
+      </div>
+
+      <p>When both reads are available — outsized vs. Pinnacle <em>and</em> outsized vs. peers — you can size up confidently. Either one alone is meaningfully strong.</p>
+
+      <h3>Signal 3 — Imbalance: which side has more dollars available</h3>
+      <p>Sum the total available liquidity on each side of the market, across all visible price levels. The side with substantially more money <em>available to back</em> is the side sharps are laying — meaning sharps want the <em>other</em> side. Imbalance is direction, but inverted.</p>
+
+      <div class="walk-block">
+        <span class="label">Lakers vs. Warriors moneyline</span>
+        <div class="row"><span class="src">Available to bet Lakers</span><span class="body"><strong>$11,400</strong> stacked across all visible prices</span></div>
+        <div class="row"><span class="src">Available to bet Warriors</span><span class="body">$2,800 stacked across all visible prices</span></div>
+        <div class="row"><span class="src">Read</span><span class="body"><strong>4-to-1 imbalance on the Lakers side.</strong> Makers are heavily laying Lakers — they want bettors to take Lakers because they're confident <span class="accent">Warriors</span> is the better side. If the traditional-book consensus has Lakers as a slight favorite, the exchange is whispering Warriors are sharper than the consensus implies. <strong>The bet to look for is Warriors at a soft book.</strong></span></div>
+      </div>
+
+      <p>Why it works: exchanges have no incentive to balance both sides — there's no house position to protect. A book is imbalanced only when one side has many makers willing to lay it. Read it as a directional clue, not a guarantee — a snapshot can fill in over the next hour as more participants arrive.</p>
+
+      <h3>Signal 4 — Spread tightness: how settled the market is</h3>
+      <p>The gap between the best offer on side A and the best offer on side B tells you how confident the market is in fair price.</p>
+
+      <div class="walk-block">
+        <span class="label">Spread → market confidence</span>
+        <div class="row"><span class="src"><span class="accent">2–5 cents</span></span><span class="body">Mature market, lots of participants, agreed-upon fair. <strong>Treat the midpoint as fair</strong> and shop traditional books against it.</span></div>
+        <div class="row"><span class="src"><span class="accent">5–10 cents</span></span><span class="body">Normal exchange spread. Midpoint is approximately fair — go gently.</span></div>
+        <div class="row"><span class="src"><span class="accent">10–20 cents</span></span><span class="body">Thin market or recent news; participants disagree. Don't trust either side as fair — wait, or shop traditional books for the soft side.</span></div>
+        <div class="row"><span class="src"><span class="accent">20¢+ or "no bid"</span></span><span class="body">Brand new market, suspended, or nobody cares about it. <strong>Avoid.</strong> The price could be anywhere from fair to garbage.</span></div>
+      </div>
+
+      <p><strong>The gold standard is a tight spread <em>with</em> deep books</strong> — 3-cent spreads with $5,000+ on each side means the sharps have fully priced the market. Take the midpoint as fair and shop traditional books against it. That's when the exchange is screaming the answer loudest.</p>
+
+      <h3>Signal 5 — Walls and what they sit on</h3>
+      <p>Sometimes one specific price level holds a disproportionately large offer — much bigger than anything else in the book. Traders call these <strong>walls</strong>. A wall is the translation rule writ large: it's sharps stacking conviction on the <em>opposite</em> side, and they're confident enough in the price level that they're willing to do it deep.</p>
+
+      <div class="tip-block">
+        <strong>Look back at the ProphetX COL/LAD screenshot above.</strong> The biggest single block on the whole page is <strong style="color: var(--text);">$2,584 offered to bet LAD at −370</strong>. That's the wall. Translate it: a sharp is sitting on <strong style="color: var(--text);">COL at +370 with $2,584 of conviction</strong> at that level. They're not only confident COL is the sharper side — they're confident enough to put a wall of capacity behind it at one specific deep-stack price. That price <em>is</em> their pivot.
+      </div>
+
+      <p>Walls create three tactical options:</p>
+      <ul>
+        <li><strong>Bet the opposite side at a soft book.</strong> Whatever side the wall is laying, find it at a traditional book before they catch up.</li>
+        <li><strong>Post your own offer in front of the wall.</strong> Want to be on the same side as the wall? Post a slightly better price than the wall. If a recreational bettor comes through, you get matched on the sharp side.</li>
+        <li><strong>Don't chase the wall side.</strong> Taking the side the wall is offering means you're betting <em>against</em> thousands of dollars of sharp conviction. Possible to be right, but you're on the recreational side by definition.</li>
+      </ul>
+
+      <h3>Signal 6 — Disappearing liquidity = something just happened</h3>
+      <p>One of the most actionable patterns: a book that was deep five minutes ago is suddenly thin or empty on one side. Makers who were willing to lay that side <em>don't want to anymore</em>. Something shifted their model.</p>
+
+      <div class="walk-block">
+        <span class="label">A book pulled</span>
+        <div class="row"><span class="src">10:42 AM</span><span class="body">Pitcher Ks O/U 6.5 — <strong>$4,200 available to bet Over at −110</strong> (makers laying Over)</span></div>
+        <div class="row"><span class="src">10:43 AM</span><span class="body">Same market — <strong style="color: var(--yellow);">$0 available to bet Over.</strong> Makers pulled their lay offers.</span></div>
+        <div class="row"><span class="src">Read</span><span class="body">Sharps who were happy to lay Over at −110 a minute ago suddenly aren't. <strong>They now think Over is more likely than the price implies</strong> — they don't want to be short Over anymore. If you can find Over at the old generous price (or close to it) at a soft book, that's the bet.</span></div>
+      </div>
+
+      <p>Common causes for sudden liquidity flight:</p>
+      <ul>
+        <li><strong>Lineup change posted</strong> — the pitcher got scratched; a star is out; the offense looks more strikeout-friendly</li>
+        <li><strong>Weather report</strong> — wind, rain, or snow update changes the model</li>
+        <li><strong>Late-breaking injury news</strong> — official report drops; the market hasn't caught up yet</li>
+        <li><strong>Steam from a syndicate</strong> — a group of sharps just hit the market hard on one side, scaring off the makers offering it</li>
+      </ul>
+
+      <p class="pull-quote">When liquidity disappears on a side, the side that <em>was</em> being offered is the one that just became sharper.</p>
+
+      <div class="tip-block">
+        <strong>The signals don't have to agree on their own — they have to agree as a stack.</strong> When two or three of the six point the same direction (heavy depth + imbalance + outsized depth, all on the same side), conviction multiplies. When they conflict (imbalance points one way but liquidity just disappeared on the other side), wait — the market is mid-revision and your edge is unstable. Real plays come from <em>stacked</em> signals, not single reads.
+      </div>
     </div>
-  </a>
+  </section>
 
-  <div class="step-connector"></div>
 
-  <!-- Step 4: Sharp Snapshot calculator -->
-  <a class="step-card calc" href="/sharp-snapshot.html">
-    <div class="step-num"><span class="label">Step</span><span class="digit">04</span></div>
-    <div class="step-body">
-      <div class="step-tag">Tool · Sharp Snapshot</div>
-      <div class="step-title">The Calculator That Automates It</div>
-      <div class="step-desc">Type the four sharp-source row from Pick the Odds — Pinnacle limits, Circa limits, ProphetX depth, Novig depth. The calculator outputs the translated sharp positions, the <strong>book limit asymmetry</strong> read (which side each book is protecting itself from), the conviction-overflow signal, the consensus fair price, and your soft-book target in one screen. The manual workflow operationalized.</div>
-      <div class="step-cta">Open the calculator →</div>
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- 05 · THE MANUAL SCAN                             -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <section class="pb-section" id="manual-scan">
+    <div class="pb-eyebrow">05</div>
+    <h2>The manual scan — find the bet in 5 seconds</h2>
+    <div class="stub">
+      <strong>STUB.</strong> From <code>learn-manual-scan</code>: the BEST-vs-PX heuristic · liquidity-baseline calibration (which is the same skill as Signal #2's peer-set comparison — cross-reference it back, don't re-teach) · the Pistons @ Cavaliers walkthrough · the scan workflow (5 steps) · pros/cons vs paid scanners (OddsJam, Outlier, AVO — we already framed these as the threat tier in the May recon) · when the manual scan works best · pitfalls (thin markets, stale data, single-rec mimicking sharp depth). Tightened — drop the redundant "why this works" opening since 01 already covered it.
     </div>
-  </a>
+  </section>
 
-  <div class="step-connector"></div>
 
-  <!-- Step 5: Wide markets / maker tactic -->
-  <a class="step-card lesson" href="/learn-wide-markets.html">
-    <div class="step-num"><span class="label">Step</span><span class="digit">05</span></div>
-    <div class="step-body">
-      <div class="step-tag">Advanced · Maker Tactic</div>
-      <div class="step-title">Beating Sharps in Wide Markets</div>
-      <div class="step-desc">The graduate-level move: on wide markets, you don't take the existing best price — you post your own offer just under the sharp's and act as the sportsbook yourself. When to do it, how aggressive to undercut, and how to read the wide-market signal across two real examples (Jake Burger HR + Brandon Nimmo Hits).</div>
-      <div class="step-cta">Open lesson →</div>
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- 06 · SHARP SNAPSHOT BRIDGE                       -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <section class="pb-section" id="sharp-snapshot">
+    <div class="pb-eyebrow">06</div>
+    <h2>The calculator that automates it — Sharp Snapshot</h2>
+    <div class="stub">
+      <strong>STUB.</strong> Short bridge (~300–500 words): pitch Sharp Snapshot as the manual workflow operationalized · 4-input row (Pinnacle limits + Circa limits + ProphetX depth + Novig depth) · 5 outputs: Sharp Translation, Book Limit Asymmetry (the one we just shipped), Conviction Check, Consensus Fair, Soft-Book Target · explicit CTA out to <code>/sharp-snapshot.html</code>. Don't re-teach the math here — they've got everything they need from 03–05; this section just hands them the keys.
     </div>
-  </a>
+  </section>
 
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- 07 · WIDE MARKETS / MAKER TACTIC                 -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <section class="pb-section" id="maker-tactic">
+    <div class="pb-eyebrow">07</div>
+    <h2>The maker tactic — beat sharps in wide markets</h2>
+    <div class="stub">
+      <strong>STUB.</strong> From <code>learn-wide-markets</code>: what "wide" means (spread > X cents = wide) · Jake Burger HR worked example · Brandon Nimmo Hits worked example · how to identify a wide market · how aggressive to undercut · the play end-to-end · when to post vs when to take · risks and management. This is the graduate-level section — keep the two worked examples in full because they're the proof, but cut the "how this fits with the rest" close (that’s now 08).
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- 08 · COMMON MISTAKES + PUTTING IT TOGETHER       -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <section class="pb-section" id="closing">
+    <div class="pb-eyebrow">08</div>
+    <h2>Common mistakes — and putting it together</h2>
+    <div class="stub">
+      <strong>STUB.</strong> Consolidate the three "common mistakes" / "how it fits" closes from the source lessons into one tight close: 4–6 pitfalls (reading matched volume as live signal, chasing thin markets, ignoring the translation rule, sizing too aggressive on weak signals, etc.) · the whole-playbook recap as a flow (read the screen → translate → check the signals → decide take vs make → use Sharp Snapshot to confirm) · a single "you now have the toolkit" sentence to land on before the CTA.
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- 09 · CTA                                        -->
+  <!-- ═══════════════════════════════════════════════ -->
   <div class="cta-card">
     <div class="cta-eyebrow">Ready to deploy this</div>
-    <div class="cta-title">Open a ProphetX account.</div>
-    <p class="cta-blurb">Nothing in this playbook works without an account on a sharp exchange. ProphetX is the most accessible US-licensed option. <strong>Use the referral code below at signup</strong> for the current bonus, plus it helps keep this content free.</p>
+    <div class="cta-title">Open a ProphetX account</div>
+    <p class="cta-blurb">Nothing in this playbook works without an account on a sharp exchange. ProphetX is the most accessible US-licensed option. <strong>Use the referral code below at signup</strong> for the current bonus — and it helps keep this content free.</p>
     <div class="cta-code">Referral code: <strong>QEO8QG</strong></div>
-    <div>
-      <a href="https://www.prophetx.co" target="_blank" rel="nofollow noopener sponsored" class="cta-btn">Open ProphetX ↗</a>
-    </div>
+    <a href="https://www.prophetx.co" target="_blank" rel="nofollow noopener sponsored" class="cta-btn">Open ProphetX ↗</a>
   </div>
 
   <div class="footer">
     <div class="disclaimer">
-      Profit Path Sports is an educational resource. Exchange-betting strategies described here rely on assumptions about sharp pricing that may differ in practice; markets vary, and past behavior is not a guarantee of future returns. Sports betting carries financial risk. Bet responsibly. If gambling is a problem for you, call <strong>1-800-GAMBLER</strong>. Must be 21+ where legal.
+      PROFITPATH Sports is an educational resource. Exchange-betting strategies described here rely on assumptions about sharp pricing that may differ in practice; markets vary, and past behavior is not a guarantee of future returns. Sports betting carries financial risk. Bet responsibly. If gambling is a problem for you, call <strong>1-800-GAMBLER</strong>. Must be 21+ where legal.
     </div>
-    <div>© 2026 Profit Path Sports · <a href="/index.html">Home</a> · <a href="/book-prophetx.html">ProphetX</a> · <a href="/sharp-snapshot.html">Sharp Snapshot</a> &middot; <a href="/privacy.html">Privacy</a> &middot; <a href="/disclaimer.html">Disclaimer</a> &middot; <a href="/affiliate-disclosure.html">Affiliate</a></div>
+    <div>© 2026 PROFITPATH Sports · <a href="/index.html">Home</a> · <a href="/book-prophetx.html">ProphetX</a> · <a href="/sharp-snapshot.html">Sharp Snapshot</a> &middot; <a href="/privacy.html">Privacy</a> &middot; <a href="/disclaimer.html">Disclaimer</a> &middot; <a href="/affiliate-disclosure.html">Affiliate</a></div>
   </div>
 
 </div>
+
 <script>
   /* Sidebar behavior */
   (function() {
@@ -666,39 +1011,11 @@
       body.classList.toggle('pps-sidebar-open');
     });
 
-    document.querySelectorAll('.pps-sidebar summary[data-anchor]').forEach(function(s) {
-      s.addEventListener('click', function() {
-        if (!isHome) return;
-        var anchor = s.getAttribute('data-anchor');
-        var target = document.getElementById(anchor);
-        if (target) {
-          setTimeout(function() {
-            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          }, 60);
-        }
-      });
-    });
-
-    // Only auto-open the sidebar on desktop-class viewports. On mobile/tablet
-    // (< 900px) it stays closed until the user taps the hamburger so it
-    // doesn't cover the content on first paint.
     var isDesktop = window.matchMedia('(min-width: 901px)').matches;
-
-    if (isDesktop) {
-      if (isHome) {
-        var autoOpened = false;
-        window.addEventListener('scroll', function() {
-          if (!autoOpened && window.scrollY > 600) {
-            body.classList.add('pps-sidebar-open');
-            autoOpened = true;
-          }
-        }, { passive: true });
-      } else {
-        body.classList.add('pps-sidebar-open');
-      }
+    if (isDesktop && !isHome) {
+      body.classList.add('pps-sidebar-open');
     }
 
-    // Mobile: tap outside the open sidebar to dismiss it
     document.addEventListener('click', function(e) {
       if (window.innerWidth >= 901) return;
       if (!body.classList.contains('pps-sidebar-open')) return;
@@ -709,7 +1026,6 @@
     });
   })();
 </script>
-
 
 </body>
 </html>
