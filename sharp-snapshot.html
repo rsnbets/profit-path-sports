@@ -57,73 +57,79 @@
     min-height: 100vh;
     padding: 24px;
   }
+  /* v2 layout: no outer card wrapper — content flows on page bg */
   .card {
     width: 100%;
-    max-width: 1000px;
+    max-width: 880px;
     margin: 0 auto;
-    background: var(--panel);
-    border: 1px solid var(--border);
-    border-radius: 18px;
-    overflow: hidden;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    padding: 32px 24px 80px;
   }
   .header {
     text-align: center;
-    padding: 32px 20px 26px;
-    border-bottom: 1px solid var(--border);
-    background: linear-gradient(180deg, #0d1220 0%, #0b0f1d 100%);
+    margin-bottom: 36px;
     position: relative;
   }
-  .header::after {
-    content: '';
+  /* meta row for back link + help pill */
+  .header .back-link {
     position: absolute;
-    bottom: -1px; left: 10%; right: 10%;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--purple), transparent);
-    opacity: 0.6;
+    top: 4px;
+    left: 0;
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    font-size: 11px; font-weight: 500;
+    letter-spacing: .18em; text-transform: uppercase;
+    color: var(--dim);
+    text-decoration: none;
+    transition: color .15s;
   }
+  .header .back-link:hover { color: var(--cyan); }
+  .header .help-pill {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: transparent;
+    color: var(--cyan);
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    font-size: 10px; font-weight: 600;
+    letter-spacing: .14em; text-transform: uppercase;
+    padding: 7px 14px;
+    border: 1px solid var(--cyan-border, rgba(0,212,255,0.28));
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all .18s;
+  }
+  .header .help-pill:hover {
+    background: rgba(0,212,255,0.10);
+    color: var(--green);
+    border-color: rgba(77,255,120,0.32);
+  }
+  /* Big gradient title — v2 pattern */
   .header h1 {
     font-family: 'Space Grotesk', system-ui, sans-serif;
-    font-size: 22px;
-    font-weight: 800;
-    color: var(--purple);
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    display: inline-flex;
-    align-items: center;
-    gap: 14px;
-  }
-  .bolt { font-size: 20px; filter: drop-shadow(0 0 8px rgba(188,140,255,0.6)); }
-  .tagline {
-    margin-top: 10px;
-    color: var(--muted);
-    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
-    font-size: 13px;
-    letter-spacing: 0.2px;
-  }
-  .back-link, .help-pill {
-    position: absolute;
-    top: 20px;
-    font-family: 'Space Grotesk', system-ui, sans-serif;
-    font-size: 10px;
-    letter-spacing: 2px;
-    text-decoration: none;
-    text-transform: uppercase;
-    transition: color 0.15s;
-  }
-  .back-link { left: 20px; color: var(--dim); }
-  .back-link:hover { color: var(--purple); }
-  .help-pill {
-    right: 20px;
-    color: var(--purple);
-    border: 1px solid var(--purple);
-    border-radius: 999px;
-    padding: 7px 14px;
-    background: rgba(188,140,255,0.08);
-    cursor: pointer;
+    font-size: clamp(38px, 5.4vw, 56px);
     font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -.025em;
+    color: transparent;
+    background: linear-gradient(95deg, var(--green) 0%, var(--cyan) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-transform: none;
+    padding: 40px 20px 8px;
+    margin: 0;
+    display: block;
   }
-  .help-pill:hover { background: rgba(188,140,255,0.18); }
+  .bolt { display: none; }
+  .tagline {
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    font-size: clamp(15px, 1.6vw, 17px);
+    font-weight: 300;
+    line-height: 1.55;
+    color: rgba(240, 238, 232, 0.78);
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 0 12px;
+  }
 
   .body { padding: 28px; }
 
