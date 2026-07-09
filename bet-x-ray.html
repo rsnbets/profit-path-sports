@@ -930,6 +930,7 @@
             <select id="modelProbFormat">
               <option value="pct" selected>Percent (e.g. 55)</option>
               <option value="dec">Decimal (e.g. 0.55)</option>
+              <option value="american">American odds (e.g. −110)</option>
             </select>
           </div>
         </div>
@@ -1316,6 +1317,17 @@
       let p = parseNumeric(raw);
       if (p === null) return { fairA: null, fairB: null, vig: null, side: 'A' };
       if (fmt === 'pct') p = p / 100;
+      if (fmt === 'american') {
+        // American odds → implied probability. Valid range: |a| >= 100.
+        // Values between -100 and +100 (exclusive) aren't real American odds.
+        if (p >= 100) {
+          p = 100 / (p + 100);
+        } else if (p <= -100) {
+          p = -p / (-p + 100);
+        } else {
+          return { fairA: null, fairB: null, vig: null, side: 'A' };
+        }
+      }
       if (p <= 0 || p >= 1) return { fairA: null, fairB: null, vig: null, side: 'A' };
       return { fairA: p, fairB: 1 - p, vig: 0, side: 'A' };
     }
