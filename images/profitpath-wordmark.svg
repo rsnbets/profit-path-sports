@@ -23,6 +23,6 @@
     font-weight="500"
     font-size="42"
     letter-spacing="14"
-    fill="rgba(240,238,232,0.42)"
+    fill="#FF8C00"
     text-rendering="geometricPrecision">SPORTS</text>
 </svg>
