@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 220" preserveAspectRatio="xMidYMid meet" role="img" aria-label="PROFITPATH Sports">
+  <!-- TEST VARIANT: bigger + orange SPORTS -->
+  <text
+    x="500" y="135"
+    text-anchor="middle"
+    font-family="'Plus Jakarta Sans', system-ui, -apple-system, sans-serif"
+    font-weight="800"
+    font-size="150"
+    letter-spacing="-5"
+    font-optical-sizing="none"
+    text-rendering="geometricPrecision">
+    <tspan fill="#F0EEE8">PROFIT</tspan><tspan fill="#4DFF78">PATH</tspan>
+  </text>
+  <text
+    x="500" y="200"
+    text-anchor="middle"
+    font-family="'Plus Jakarta Sans', system-ui, -apple-system, sans-serif"
+    font-weight="600"
+    font-size="56"
+    letter-spacing="16"
+    fill="#FF8C00"
+    text-rendering="geometricPrecision">SPORTS</text>
+</svg>

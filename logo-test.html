@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Logo Test — PROFITPATH Sports</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #090909;
+    color: #F0EEE8;
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    font-weight: 300;
+    padding: 40px 24px 80px;
+    min-height: 100vh;
+    line-height: 1.55;
+  }
+  .wrap { max-width: 1000px; margin: 0 auto; }
+
+  h1 {
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: #F0EEE8;
+  }
+  .sub {
+    color: rgba(255,255,255,0.62);
+    font-size: 15px;
+    margin-bottom: 48px;
+    max-width: 640px;
+  }
+
+  .row {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 40px;
+    align-items: center;
+    margin-bottom: 24px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .row:last-child { border-bottom: none; }
+  .row .label {
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.62);
+  }
+  .row .label small {
+    display: block;
+    margin-top: 4px;
+    letter-spacing: .12em;
+    color: rgba(255,255,255,0.35);
+    font-weight: 500;
+    text-transform: none;
+  }
+  .row .logo { display: flex; align-items: center; }
+  .row .logo img { display: block; }
+
+  section {
+    margin-bottom: 64px;
+    padding: 32px;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 14px;
+  }
+  section h2 {
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  section .section-sub {
+    color: rgba(255,255,255,0.55);
+    font-size: 14px;
+    margin-bottom: 28px;
+  }
+
+  .side-by-side {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    align-items: center;
+    padding: 32px 0;
+  }
+  .side-by-side .col {
+    text-align: center;
+  }
+  .side-by-side img { max-width: 100%; height: auto; }
+  .side-by-side .col-label {
+    margin-top: 20px;
+    font-size: 12px;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Logo test — bigger orange SPORTS</h1>
+  <p class="sub">Left column = current live logo. Right column = test variant (SPORTS bigger + orange). Rendered at three sizes so you can see how they read in each context.</p>
+
+  <section>
+    <h2>Side by side</h2>
+    <div class="section-sub">Both logos shown at 400px width — easiest to compare typography.</div>
+    <div class="side-by-side">
+      <div class="col">
+        <img src="/images/profitpath-wordmark.svg" alt="Current logo" width="400">
+        <div class="col-label">Current — dim white SPORTS</div>
+      </div>
+      <div class="col">
+        <img src="/images/profitpath-wordmark-test.svg" alt="Test logo" width="400">
+        <div class="col-label">Test — orange SPORTS +33% size</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Test variant at every scale</h2>
+    <div class="section-sub">How the test variant reads at sidebar (220px), medium (400px), and hero (640px) widths.</div>
+
+    <div class="row">
+      <div class="label">Sidebar <small>220px wide</small></div>
+      <div class="logo"><img src="/images/profitpath-wordmark-test.svg" alt="" width="220"></div>
+    </div>
+    <div class="row">
+      <div class="label">Medium <small>400px wide</small></div>
+      <div class="logo"><img src="/images/profitpath-wordmark-test.svg" alt="" width="400"></div>
+    </div>
+    <div class="row">
+      <div class="label">Hero <small>640px wide</small></div>
+      <div class="logo"><img src="/images/profitpath-wordmark-test.svg" alt="" width="640"></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Current live version at every scale</h2>
+    <div class="section-sub">Same three widths, current dim-white SPORTS for comparison.</div>
+
+    <div class="row">
+      <div class="label">Sidebar <small>220px wide</small></div>
+      <div class="logo"><img src="/images/profitpath-wordmark.svg" alt="" width="220"></div>
+    </div>
+    <div class="row">
+      <div class="label">Medium <small>400px wide</small></div>
+      <div class="logo"><img src="/images/profitpath-wordmark.svg" alt="" width="400"></div>
+    </div>
+    <div class="row">
+      <div class="label">Hero <small>640px wide</small></div>
+      <div class="logo"><img src="/images/profitpath-wordmark.svg" alt="" width="640"></div>
+    </div>
+  </section>
+</div>
+</body>
+</html>
