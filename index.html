@@ -2721,8 +2721,11 @@
     letter-spacing: -.02em;
     text-transform: none;
     padding-bottom: 0.06em;
-    /* Brand gradient — white -> green hold -> warm tail (matches Follow The Path) */
-    display: inline-block;
+    /* Brand gradient — white -> green hold -> warm tail (matches Follow The Path).
+       display:table = shrink-wraps to text width (gradient hugs the words)
+       but stays block-level so it never shares a line with the eyebrow. */
+    display: table;
+    margin-left: auto; margin-right: auto;
     background: linear-gradient(95deg, #F0EEE8 0%, #F0EEE8 12%, var(--green) 55%, var(--green) 88%, #FF8C00 130%);
     -webkit-background-clip: text;
     background-clip: text;
