@@ -2572,7 +2572,9 @@
     letter-spacing: -.02em;
     margin-bottom: 14px;
     padding-bottom: 0.06em;
-    background: linear-gradient(95deg, var(--green) 0%, var(--cyan) 100%);
+    /* Brand gradient — white -> green hold -> warm tail (matches Follow The Path) */
+    display: inline-block;
+    background: linear-gradient(95deg, #F0EEE8 0%, #F0EEE8 12%, var(--green) 55%, var(--green) 88%, #FF8C00 130%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -2595,7 +2597,8 @@
     max-width: 720px;
     margin: 0 auto;
   }
-  @media (max-width: 880px) { .v2-originals-grid { grid-template-columns: 1fr; } }
+  .v2-originals-grid.trio { grid-template-columns: repeat(3, 1fr); }
+  @media (max-width: 880px) { .v2-originals-grid, .v2-originals-grid.trio { grid-template-columns: 1fr; } }
 
   .v2-original {
     background: var(--surface);
@@ -3029,18 +3032,32 @@
   <!-- ═══ PPS ORIGINAL — Bet X-Ray (built in-house, nothing else like it) ═══ -->
   <section class="v2-originals">
     <div class="v2-originals-head">
-      <div class="v2-originals-eyebrow">★ PPS Original · Built In-House</div>
-      <h2 class="v2-originals-title">A tool that doesn't exist anywhere else.</h2>
-      <p class="v2-originals-sub">We built it from scratch because nothing like it existed publicly. <strong>No paywall, no signup — it's here because it should be.</strong></p>
+      <div class="v2-originals-eyebrow">★ PPS Exclusives · Built In-House</div>
+      <h2 class="v2-originals-title">Tools you won't find anywhere else.</h2>
+      <p class="v2-originals-sub">Built from scratch because nothing like them existed publicly. <strong>No paywall, no signup — they're here because they should be.</strong></p>
     </div>
 
-    <div class="v2-originals-grid single">
+    <div class="v2-originals-grid trio">
       <a class="v2-original" href="/bet-x-ray.html">
-        <div class="v2-original-tag">Original 01 · Flagship Tool</div>
+        <div class="v2-original-tag">Exclusive 01 · Flagship Tool</div>
         <div class="v2-original-name">Bet <span class="accent">X-Ray</span></div>
         <div class="v2-original-tagline">Type in a bet. See if it's worth taking.</div>
-        <p class="v2-original-desc">See through any sports bet in one shot. <strong>What's the bet actually worth? Should you take it? How much should you bet?</strong> The tool answers all three at once — and tells you how confident you can be in the answer.</p>
+        <p class="v2-original-desc">See through any sports bet in one shot. <strong>What's it worth? Should you take it? How much should you bet?</strong> All three answers at once — with a confidence read on each.</p>
         <span class="v2-original-cta">Launch Bet X-Ray →</span>
+      </a>
+      <a class="v2-original" href="/sharp-snapshot.html">
+        <div class="v2-original-tag">Exclusive 02 · Exchange Reader</div>
+        <div class="v2-original-name">Sharp <span class="accent">Snapshot</span></div>
+        <div class="v2-original-tagline">Watch the smart money in real time.</div>
+        <p class="v2-original-desc">Turns exchange offers and sharp-book limits into <strong>the sharps' actual position, the consensus fair price, and your soft-book target</strong> — one screen.</p>
+        <span class="v2-original-cta">Launch Sharp Snapshot →</span>
+      </a>
+      <a class="v2-original" href="/dfs-slip-checker.html">
+        <div class="v2-original-tag">Exclusive 03 · Pick'em Math</div>
+        <div class="v2-original-name">DFS <span class="accent">Slip Checker</span></div>
+        <div class="v2-original-tagline">Know if your slip clears the bar.</div>
+        <p class="v2-original-desc">Underdog, PrizePicks, DK Pick6 — every platform sets a break-even bar. <strong>See whether your picks actually clear it</strong> before you pay the entry.</p>
+        <span class="v2-original-cta">Launch Slip Checker →</span>
       </a>
     </div>
   </section>
