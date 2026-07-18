@@ -379,7 +379,8 @@
       <div class="example-block">
         <span class="label">Probability gap</span>
         <div class="row"><span class="src">Definition</span><span class="body">Your true probability minus the market's implied probability.</span></div>
-        <div class="row"><span class="src">Formula</span><span class="body"><span class="accent">Gap = P_true − P_implied</span></span></div>
+        <div class="row"><span class="src">The math</span><span class="body"><span class="accent">your real win chance − the win chance baked into the price</span></span></div>
+        <div class="row"><span class="src">Example</span><span class="body">You say 55%, the price says 50% → <span class="accent">a +5-point gap</span></span></div>
         <div class="row"><span class="src">Units</span><span class="body">Probability points (e.g., +5%, −2%).</span></div>
         <div class="row"><span class="src">What it ignores</span><span class="body">The price. Treats a +5% gap on −300 the same as +5% on +400.</span></div>
       </div>
@@ -387,7 +388,8 @@
       <div class="example-block purple">
         <span class="label">Expected Value (EV%)</span>
         <div class="row"><span class="src">Definition</span><span class="body">Expected return per dollar staked, accounting for both the probability and the payout.</span></div>
-        <div class="row"><span class="src">Formula</span><span class="body"><span class="pur">EV% = P_true × (decimal_odds − 1) − (1 − P_true)</span></span></div>
+        <div class="row"><span class="src">The math</span><span class="body"><span class="pur">(your win chance × what a win pays) − (your lose chance × what you risked)</span></span></div>
+        <div class="row"><span class="src">Example</span><span class="body">At +100: (55% × $1) − (45% × $1) = <span class="pur">10¢ of profit per $1 bet, on average</span></span></div>
         <div class="row"><span class="src">Units</span><span class="body">% return on stake (e.g., +6.5% means $6.50 expected profit per $100 risked).</span></div>
         <div class="row"><span class="src">What it captures</span><span class="body">The price. A +5% gap at +400 is worth far more EV than the same gap at −300.</span></div>
       </div>
@@ -402,13 +404,13 @@
 
       <div class="example-block">
         <span class="label">The one-line proof</span>
-        <div class="row"><span class="src">EV, simplified</span><span class="body"><span class="accent">EV% = Gap ÷ P_implied</span></span></div>
-        <div class="row"><span class="src">In words</span><span class="body">EV is <em>literally the probability gap</em>, divided by the implied probability of the price you're taking.</span></div>
+        <div class="row"><span class="src">EV, simplified</span><span class="body"><span class="accent">EV = your gap ÷ the win chance baked into the price</span></span></div>
+        <div class="row"><span class="src">Example</span><span class="body">+5-point gap ÷ 50% price = <span class="accent">+10% EV</span> — same two numbers from above, one division</span></div>
         <hr>
-        <div class="conclusion">The gap is the numerator. A fraction can't be positive with a negative numerator. <strong>If the gap is negative, EV is negative. If the gap is positive, EV is positive. Every time, at every price.</strong></div>
+        <div class="conclusion">EV is <em>literally just the gap divided by a positive number</em>. Dividing can stretch or shrink it — it can never flip its sign. <strong>Negative gap → negative EV. Positive gap → positive EV. Every time, at every price.</strong></div>
       </div>
 
-      <p>So probability gap and EV aren't two metrics that happen to agree — <strong>they're the same edge expressed in two units.</strong> Gap is your edge in probability points. EV is that same edge converted into return-on-stake. And the ÷ P_implied is exactly why the same gap explodes at long odds: dividing by 20% (a +400 dog) instead of 75% (a −300 favorite) makes the identical numerator worth almost four times as much.</p>
+      <p>So probability gap and EV aren't two metrics that happen to agree — <strong>they're the same edge expressed in two units.</strong> Gap is your edge in probability points. EV is that same edge converted into return-on-stake. And that division is exactly why the same gap explodes at long odds: dividing by 20% (a +400 dog) instead of 75% (a −300 favorite) makes the identical edge worth almost four times as much.</p>
 
       <div class="tip-block">
         <strong>Sanity-check rule:</strong> if any tool, tout, or spreadsheet ever shows you +EV on a bet with a negative probability gap (or the reverse), the two numbers were measured against <em>different baselines</em>. Something's mismeasured — and the section below covers the three ways it happens.
@@ -476,7 +478,7 @@
       <ul>
         <li><strong>Use probability gap when you're checking your own model accuracy.</strong> Did I project Player X correctly? The clean answer is in probability units — did I beat the market by 4 points or did I miss by 2? That's a gap question.</li>
         <li><strong>Use EV when you're deciding whether to bet, and how much.</strong> Bet sizing, comparing opportunities, ranking your daily card, calculating expected return on a bankroll — all EV. Always EV.</li>
-        <li><strong>Use Kelly stake sizing on top of EV, not on gap alone.</strong> Full <a href="/learn-kelly.html">Kelly</a> = (bp − q) / b, where b is decimal-odds-minus-one, p is true probability, q is 1 − p. The decimal-odds factor is what makes the dog get sized bigger than the favorite at the same gap.</li>
+        <li><strong>Use Kelly stake sizing on top of EV, not on gap alone.</strong> <a href="/learn-kelly.html">Kelly</a> blends the same two ingredients — your win chance and the payout — into a stake size. Because the payout is baked in, the dog gets sized differently than the favorite even at the identical gap. Gap-only sizing can't do that.</li>
       </ul>
 
       <div class="tip-block">
@@ -494,7 +496,7 @@
         <li><strong>Overweighting heavy favorites.</strong> A −400 favorite with a +3% gap is barely +3% EV. Sizing it like a +200 dog with the same gap is leaking money on every favorite.</li>
         <li><strong>Confusing EV% with hit rate.</strong> A +25% EV bet still loses 75% of the time at +400. The EV is the long-run average, not a per-game prediction. Variance still wins quarters, EV wins seasons.</li>
         <li><strong>Comparing two bets by gap.</strong> "Both have a 4% gap, I'll bet whichever I like more." No — bet whichever has more EV, every time. The gap is a diagnostic, not a decision metric.</li>
-        <li><strong>Trusting monster longshot EV at face value.</strong> The same ÷ P_implied that inflates dog EV also inflates your <em>estimation errors</em>. A 2-point mistake at −300 barely moves EV; at +1900 it's the difference between +40% and break-even. Real-world tests of naive odds-comparison at long prices have shown steady losses — books hide extra margin exactly where EV looks juiciest. Big dog EV deserves a bigger skepticism discount, not a bigger bet.</li>
+        <li><strong>Trusting monster longshot EV at face value.</strong> The same division that inflates dog EV also inflates your <em>estimation errors</em>. A 2-point mistake at −300 barely moves EV; at +1900 it's the difference between +40% and break-even. Real-world tests of naive odds-comparison at long prices have shown steady losses — books hide extra margin exactly where EV looks juiciest. Big dog EV deserves a bigger skepticism discount, not a bigger bet.</li>
       </ul>
 
       <p class="pull-quote">If a metric isn't priced in dollars, it's not telling you what the bet is worth. Probability gap is a diagnostic. EV is the answer.</p>
