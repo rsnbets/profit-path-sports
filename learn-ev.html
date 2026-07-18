@@ -638,6 +638,33 @@
   </section>
 
   <section class="lesson-section">
+    <h3>The friend with the +110 coin flip</h3>
+    <div class="lesson-body">
+      <div class="callout">
+        <div class="callout-label">The daily coin-flip deal</div>
+        <p>A friend offers you this: once a day, every day, you flip a fair coin for $10. Heads you win — and because your friend is generous, they pay you at <strong>+110</strong>. Tails, you lose your $10.</p>
+        <p><strong>Do you take it?</strong> Every single day, forever. It's a 50/50 flip where you win $11 but only lose $10 — a guaranteed +5% edge, every flip:</p>
+        <div class="math-block">
+          <span class="label">EV of the friend's flip, per $10</span>
+          Heads (50%): &nbsp;+$11 &#215; 0.50 &nbsp;=&nbsp; <span class="pos">+$5.50</span><br>
+          Tails &nbsp;(50%): &nbsp;−$10 &#215; 0.50 &nbsp;=&nbsp; <span class="neg">−$5.00</span><br>
+          ────────────────────────────<br>
+          EV per flip &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp; <span class="pos">+$0.50</span>
+        </div>
+        <p><strong>Now here's what actually happens when you play it.</strong> Some week, you lose four flips in a row — that's a 1-in-16 shot, so flipping daily it'll likely happen every month or so. You're down $40 on a "sure thing" and it <em>feels</em> like the deal is broken. It isn't. The coin doesn't remember, and the +$0.50 edge is exactly what it was on day one.</p>
+        <ul>
+          <li>After <strong>100 flips</strong>: you expect to be up ~$50 — but there's still roughly a <strong>1-in-3 chance you're down</strong>. That's how loud luck is at small samples.</li>
+          <li>After <strong>1,000 flips</strong>: expected profit ~$500, and the chance you're still down has shrunk to about <strong>1 in 15</strong>.</li>
+          <li>Keep going and the probability of being behind keeps collapsing toward zero. <strong>The edge is quiet, but it never stops pushing.</strong></li>
+        </ul>
+        <p style="margin-bottom: 0;">You'd never cancel the deal because Tuesday through Friday went badly. <strong>That's the whole discipline of +EV betting in one sentence.</strong></p>
+      </div>
+      <p>Sports betting is the same game with one difference: <strong>nobody tells you the coin is fair.</strong> The book's price <em>claims</em> a probability; your job is to figure out the real one (that's what <a href="/learn-vig.html">devigging</a> is for) and only take the flips where the payout beats it. Find the +110-coin-flip deals hiding on the odds board, take every one, and let the sample size do the rest.</p>
+      <p>Two practical notes that fall straight out of this: size your bets so a 4-loss streak can't knock you out of the game (that's <a href="/learn-kelly.html">Kelly sizing</a>), and judge yourself on whether you kept finding good flips — not on what the coin did this week.</p>
+    </div>
+  </section>
+
+  <section class="lesson-section">
     <h3>Why it matters more than you think</h3>
     <div class="lesson-body">
       <p>Most bettors confuse <em>"I won that bet"</em> with <em>"that was a good bet."</em> They're not the same thing. You can lose a +EV bet — and you will, constantly. You can win a −EV bet and feel like a genius. The result of any single bet tells you almost nothing about whether it was the right bet to make.</p>
