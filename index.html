@@ -2721,7 +2721,9 @@
     letter-spacing: -.02em;
     text-transform: none;
     padding-bottom: 0.06em;
-    background: linear-gradient(95deg, var(--green) 0%, var(--cyan) 100%);
+    /* Brand gradient — white -> green hold -> warm tail (matches Follow The Path) */
+    display: inline-block;
+    background: linear-gradient(95deg, #F0EEE8 0%, #F0EEE8 12%, var(--green) 55%, var(--green) 88%, #FF8C00 130%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -2769,18 +2771,17 @@
   .toolbox-sub strong { color: var(--text); font-weight: 600; }
   .tools-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 12px;
     margin-top: 24px;
   }
-  @media (max-width: 880px) { .tools-grid { grid-template-columns: repeat(2, 1fr); } }
   @media (max-width: 540px) { .tools-grid { grid-template-columns: 1fr; } }
 
   .tool-card {
     background: var(--surface);
     border: 1px solid var(--border-2);
     border-radius: 12px;
-    padding: 24px 22px;
+    padding: 18px 16px;
     text-decoration: none;
     color: var(--text);
     transition: all .22s cubic-bezier(0.16, 1, 0.3, 1);
@@ -2794,18 +2795,18 @@
     transform: translateY(-2px);
   }
   .tool-card .icon {
-    font-size: 22px;
+    font-size: 18px;
     line-height: 1;
-    margin-bottom: 14px;
+    margin-bottom: 10px;
     filter: grayscale(0.3);
     opacity: 0.7;
   }
   .tool-name {
     font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 15px; font-weight: 700;
+    font-size: 14px; font-weight: 700;
     color: var(--text);
     letter-spacing: -.003em;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
     text-transform: none;
     background: none;
     -webkit-background-clip: unset; background-clip: unset;
@@ -2813,10 +2814,10 @@
   }
   .tool-desc {
     font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 12.5px; font-weight: 300;
-    line-height: 1.65;
+    font-size: 12px; font-weight: 300;
+    line-height: 1.55;
     color: var(--muted);
-    margin-bottom: 16px;
+    margin-bottom: 12px;
     flex: 1;
   }
   .tool-cta {
@@ -3067,32 +3068,12 @@
     <div class="section-head">
       <div class="section-eyebrow">★ Built to make books <span class="accent">pay you.</span> ★</div>
       <div class="section-title">The toolbox</div>
-      <div class="toolbox-tagline">
-        <span class="tt-gut">Bet with your gut, fall in a rut.</span>
-        <span class="tt-path">Bet with the math, follow the path.</span>
-      </div>
       <div class="toolbox-sub">
-        <span>Every calculator a winning bettor actually uses — all free.</span>
-        <span class="accent">Grouped by the job: find a bet, size it, protect it, track it.</span>
-        <span><strong>Bet X-Ray</strong> sits up top; the rest are the supporting cast.</span>
+        <span>The everyday calculators — <strong>price a bet, size it, protect it.</strong> All free, no signup.</span>
       </div>
     </div>
 
     <div class="tools-grid">
-
-      <a class="tool-card" href="sharp-snapshot.html">
-        <div class="icon">📡</div>
-        <div class="tool-name">Sharp Snapshot</div>
-        <div class="tool-desc">Watch what the smart money is doing on betting exchanges — in real time. Spot the edge before the line moves.</div>
-        <div class="tool-cta">Launch →</div>
-      </a>
-
-      <a class="tool-card" href="bet-x-ray.html">
-        <div class="icon">🔬</div>
-        <div class="tool-name">Bet X-Ray</div>
-        <div class="tool-desc">Type in any bet. See if it's worth taking, how much to bet, and how confident you can be — all in one shot.</div>
-        <div class="tool-cta">Launch →</div>
-      </a>
 
       <a class="tool-card" href="hedge-calculator.html">
         <div class="icon">🛡️</div>
