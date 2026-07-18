@@ -299,6 +299,28 @@
   </section>
 
   <section class="lesson-section">
+    <h3>Same sign, always — they're one number in two units</h3>
+    <div class="lesson-body">
+      <p>Here's a question worth asking before we go further: can a bet have a <em>negative</em> probability gap but still be +EV? Or a positive gap but negative EV?</p>
+      <p><strong>No. It's mathematically impossible</strong> — and seeing why is the fastest way to really understand both metrics. Simplify the EV formula and you get:</p>
+
+      <div class="example-block">
+        <span class="label">The one-line proof</span>
+        <div class="row"><span class="src">EV, simplified</span><span class="body"><span class="accent">EV% = Gap ÷ P_implied</span></span></div>
+        <div class="row"><span class="src">In words</span><span class="body">EV is <em>literally the probability gap</em>, divided by the implied probability of the price you're taking.</span></div>
+        <hr>
+        <div class="conclusion">The gap is the numerator. A fraction can't be positive with a negative numerator. <strong>If the gap is negative, EV is negative. If the gap is positive, EV is positive. Every time, at every price.</strong></div>
+      </div>
+
+      <p>So probability gap and EV aren't two metrics that happen to agree — <strong>they're the same edge expressed in two units.</strong> Gap is your edge in probability points. EV is that same edge converted into return-on-stake. And the ÷ P_implied is exactly why the same gap explodes at long odds: dividing by 20% (a +400 dog) instead of 75% (a −300 favorite) makes the identical numerator worth almost four times as much.</p>
+
+      <div class="tip-block">
+        <strong>Sanity-check rule:</strong> if any tool, tout, or spreadsheet ever shows you +EV on a bet with a negative probability gap (or the reverse), the two numbers were measured against <em>different baselines</em>. Something's mismeasured — and the section below covers the three ways it happens.
+      </div>
+    </div>
+  </section>
+
+  <section class="lesson-section">
     <h3>Why they diverge — the payout multiplier</h3>
     <div class="lesson-body">
       <p>EV multiplies your probability edge by the payout. The bigger the payout per win, the bigger your edge converts into actual return.</p>
@@ -376,9 +398,43 @@
         <li><strong>Overweighting heavy favorites.</strong> A −400 favorite with a +3% gap is barely +3% EV. Sizing it like a +200 dog with the same gap is leaking money on every favorite.</li>
         <li><strong>Confusing EV% with hit rate.</strong> A +25% EV bet still loses 75% of the time at +400. The EV is the long-run average, not a per-game prediction. Variance still wins quarters, EV wins seasons.</li>
         <li><strong>Comparing two bets by gap.</strong> "Both have a 4% gap, I'll bet whichever I like more." No — bet whichever has more EV, every time. The gap is a diagnostic, not a decision metric.</li>
+        <li><strong>Trusting monster longshot EV at face value.</strong> The same ÷ P_implied that inflates dog EV also inflates your <em>estimation errors</em>. A 2-point mistake at −300 barely moves EV; at +1900 it's the difference between +40% and break-even. Real-world tests of naive odds-comparison at long prices have shown steady losses — books hide extra margin exactly where EV looks juiciest. Big dog EV deserves a bigger skepticism discount, not a bigger bet.</li>
       </ul>
 
       <p class="pull-quote">If a metric isn't priced in dollars, it's not telling you what the bet is worth. Probability gap is a diagnostic. EV is the answer.</p>
+    </div>
+  </section>
+
+  <section class="lesson-section">
+    <h3>"But I saw +EV with a negative gap" — the three illusions</h3>
+    <div class="lesson-body">
+      <p>We just proved the signs can never split. And yet people swear they've seen it — a screenshot showing +EV on a bet their model hates, or a positive gap that somehow prices out negative. Every single sighting is one of these three, and each one teaches you something real.</p>
+
+      <div class="example-block">
+        <span class="label">Illusion 1 — Baseline mismatch</span>
+        <div class="row"><span class="src">What happened</span><span class="body">The gap was measured against the <em>devigged sharp fair</em>, but the EV was computed at <em>your book's actual price</em>. Two different implied probabilities — so the signs can point different ways.</span></div>
+        <div class="row"><span class="src">Example</span><span class="body">Sharp fair says 55%. Your model says 56% → gap <span class="accent">+1%</span> vs. fair. But your book is charging −140 (58.3% implied) → EV at that price is <span class="neg">negative</span>.</span></div>
+        <hr>
+        <div class="conclusion"><strong>The edge existed at the fair price — your book's price ate it.</strong> Not a math contradiction; two different baselines. This is the entire reason line shopping matters: same opinion, and the bet is +EV at one book and −EV at another.</div>
+      </div>
+
+      <div class="example-block">
+        <span class="label">Illusion 2 — Devig method mismatch</span>
+        <div class="row"><span class="src">What happened</span><span class="body">Fair probability isn't one number — it depends on <em>how</em> you strip the vig. Proportional, additive, and power devigs give slightly different fairs, and a borderline bet can be +EV under one and −EV under another.</span></div>
+        <div class="row"><span class="src">Where it bites</span><span class="body">A tool reports "gap" using one method and "EV%" using another — or a screenshot from one scanner disagrees with your own math.</span></div>
+        <hr>
+        <div class="conclusion"><strong>Know what your tool is measuring.</strong> The <a href="/devig_calculator.html">Devig Calculator</a> shows all three methods side by side — on thin margins, check whether the edge survives every method before you trust it.</div>
+      </div>
+
+      <div class="example-block purple">
+        <span class="label">Illusion 3 — Subsidized payouts (promos, boosts, bonus bets)</span>
+        <div class="row"><span class="src">What happened</span><span class="body">The payout got changed, so the price paying you isn't the market price anymore. A bonus bet is +EV in dollars with <em>zero</em> probability edge — you're not risking your own cash. An odds boost can turn a market-fair bet +EV because the boosted price implies a lower probability than the market's.</span></div>
+        <div class="row"><span class="src">Example</span><span class="body">Book boosts +100 → +130 on a fair coin flip. Your prob (50%) is below nothing — but measured against the <em>boosted</em> price (43.5% implied), the gap is <span class="accent">+6.5%</span> and the EV is <span class="pos">positive</span>.</span></div>
+        <hr>
+        <div class="conclusion"><strong>Measured against the price that actually pays you, the signs match again.</strong> This is the whole engine behind <a href="/free-money-guide.html">bonus conversion</a>: manufacturing +EV from the payout side, without ever needing a probability edge.</div>
+      </div>
+
+      <p class="pull-quote">Measured against the price that actually pays you, the signs always match. If they don't, you're looking at two different baselines — find out which two.</p>
     </div>
   </section>
 
