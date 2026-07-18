@@ -2433,10 +2433,12 @@
     text-transform: none;
     padding-bottom: 0.06em;
     /* Gradient D — white -> green -> orange, echoes the logo.
-       inline-block shrinks the gradient box to the text width so the
-       orange tail actually lands on the last word instead of empty space. */
+       inline-block shrinks the gradient box to the text width; stops are
+       remapped (orange stop past 100%) to reproduce the approved mock,
+       where the text sampled only the middle of a wider gradient —
+       full-saturation orange never quite arrives, keeping the tail soft. */
     display: inline-block;
-    background: linear-gradient(95deg, #F0EEE8 0%, #F0EEE8 30%, var(--green) 60%, #FF8C00 100%);
+    background: linear-gradient(95deg, #F0EEE8 0%, #F0EEE8 12%, var(--green) 69%, #FF8C00 146%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
