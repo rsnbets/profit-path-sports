@@ -112,6 +112,11 @@ Caveat found in stress test: gradients stretch to text width, so short titles ("
 
 Open question if adopted: does cyan stay the everyday UI accent (links/labels/borders) with white/green/orange reserved for the branding layer, or does orange replace cyan sitewide (much bigger sweep)?
 
+### Homepage path-fork section name (parked 2026-07-11)
+Considered renaming "Follow The Path" → "The Profit Path Playbook." Blocked on: **"Playbook" is reserved for The Sharp Exchange Playbook** (the planned email-gated deliverable) — using it for the free homepage section dilutes the email-capture hook. Also "Profit Path" two-word spelling clashes with the one-word PROFITPATH wordmark.
+- Options: keep "Follow The Path" (fine as-is) · "The Path" as heavier proper noun · take "Playbook" here and rename the exchange product first
+- If the exchange product ever gets renamed, this reopens.
+
 *(drop new ones below)*
 
 ---
