@@ -143,3 +143,58 @@ body.pps-sidebar-open .pps-sidebar-toggle { left: 258px !important; }
   color: var(--pps-sb-green) !important;
   border-left-color: var(--pps-sb-green) !important;
 }
+
+/* ───── Collapsible groups (native <details>) ───── */
+.pps-nav-group {
+  margin: 1px 0 !important;
+  border: none !important;
+  background: transparent !important;
+}
+.pps-nav-group summary {
+  list-style: none !important;
+  cursor: pointer !important;
+  user-select: none !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 10px !important;
+  padding: 9px 10px !important;
+  border-radius: 7px !important;
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif !important;
+  font-size: 13.5px !important;
+  font-weight: 600 !important;
+  color: rgba(240, 238, 232, 0.82) !important;
+  transition: background .15s ease, color .15s ease !important;
+}
+.pps-nav-group summary::-webkit-details-marker { display: none !important; }
+.pps-nav-group summary::marker { content: '' !important; }
+.pps-nav-group summary:hover {
+  background: var(--pps-sb-link-hover-bg) !important;
+  color: #fff !important;
+}
+.pps-nav-group summary::after {
+  content: '▾' !important;
+  font-size: 10px !important;
+  color: var(--pps-sb-dim) !important;
+  transform: rotate(-90deg) !important;
+  transition: transform .2s ease !important;
+}
+.pps-nav-group[open] > summary::after { transform: rotate(0deg) !important; }
+.pps-nav-group .pps-nav-link {
+  padding-left: 24px !important;
+  font-size: 13px !important;
+}
+.pps-nav-num {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif !important;
+  font-size: 10.5px !important;
+  font-weight: 700 !important;
+  min-width: 18px !important;
+  color: var(--pps-sb-dim) !important;
+}
+.pps-nav-group.path-01 summary .pps-nav-num { color: var(--pps-sb-cyan) !important; }
+.pps-nav-group.path-02 summary .pps-nav-num { color: var(--pps-sb-green) !important; }
+.pps-nav-group.path-03 summary .pps-nav-num { color: #F5B545 !important; }
+.pps-nav-featured {
+  color: var(--pps-sb-green) !important;
+  font-weight: 600 !important;
+}
