@@ -156,7 +156,7 @@ body.pps-sidebar-open .pps-sidebar-toggle { left: 258px !important; }
   user-select: none !important;
   display: flex !important;
   align-items: center !important;
-  justify-content: space-between !important;
+  justify-content: flex-start !important;
   gap: 10px !important;
   padding: 9px 10px !important;
   border-radius: 7px !important;
@@ -166,6 +166,7 @@ body.pps-sidebar-open .pps-sidebar-toggle { left: 258px !important; }
   color: rgba(240, 238, 232, 0.82) !important;
   transition: background .15s ease, color .15s ease !important;
 }
+.pps-nav-group summary::after { margin-left: auto !important; }
 .pps-nav-group summary::-webkit-details-marker { display: none !important; }
 .pps-nav-group summary::marker { content: '' !important; }
 .pps-nav-group summary:hover {
