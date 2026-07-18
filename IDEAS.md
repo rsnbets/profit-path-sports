@@ -100,7 +100,19 @@ The pattern: a familiar phrase that does 90% of the conceptual work for the read
 
 ## Other parked ideas
 
-*(empty — drop new ones here as they come up)*
+### Tri-color page-title gradient (parked 2026-07-11)
+Retheme calc/lesson page titles to match the new logo (white PROFIT + green PATH + orange SPORTS). Current titles use green→cyan. Explored in chat; user liked **variant D** (mostly-white with green+orange tail) but wants to sit on it.
+
+- **D (frontrunner):** `linear-gradient(95deg, #F0EEE8 0%, #F0EEE8 30%, #4DFF78 60%, #FF8C00 100%)`
+- D2 (more orange tail): `linear-gradient(95deg, #F0EEE8 0%, #F0EEE8 25%, #4DFF78 50%, #FF8C00 82%, #FF8C00 100%)`
+- B (cleanest full tri-gradient): `linear-gradient(95deg, #4DFF78 0%, #F0EEE8 50%, #FF8C00 100%)` — white in the middle avoids the muddy green→orange transition
+- Logo two-tone alternative: first word white, second word green, orange eyebrow (mirrors PROFIT/PATH/SPORTS roles)
+
+Caveat found in stress test: gradients stretch to text width, so short titles ("Hedge") compress all three colors into one word while long titles spread them. Two-tone word split avoids this.
+
+Open question if adopted: does cyan stay the everyday UI accent (links/labels/borders) with white/green/orange reserved for the branding layer, or does orange replace cyan sitewide (much bigger sweep)?
+
+*(drop new ones below)*
 
 ---
 
