@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🎯 Bonus Bet Conversion Finder</title>
+  <meta name="description" content="Bonus bet conversion finder — enter your bonus amount and sportsbook, get live MLB bets ranked by conversion rate with the exact hedge at another book. Free, no signup.">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="🎯 Bonus Bet Conversion Finder">
+  <meta property="og:description" content="Live ranked list of bonus-bet conversion plays — bet + hedge + locked profit, from real odds.">
+  <meta property="og:image" content="https://profitpathsports.com/images/og-default.png?v=2">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:url" content="https://profitpathsports.com/bonus-finder.html">
+  <meta property="og:site_name" content="Profit Path Sports">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="🎯 Bonus Bet Conversion Finder">
+  <meta name="twitter:description" content="Live ranked list of bonus-bet conversion plays — bet + hedge + locked profit, from real odds.">
+  <meta name="twitter:image" content="https://profitpathsports.com/images/og-default.png?v=2">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Orbitron:wght@700;800&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg:#0D1117;--surface:#161B22;--inset:#1C2430;--border:#30363D;
+    --blue:#58A6FF;--gold:#D29922;--green:#3FB950;--red:#F85149;--purple:#BC8CFF;
+    --text:#E6EDF3;--muted:#8B949E;
+  }
+  body { background:var(--bg);color:var(--text);font-family:'Rajdhani',sans-serif;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:2rem 1rem; }
+  .card { background:var(--surface);border:1px solid var(--border);border-radius:16px;width:100%;max-width:980px;overflow:hidden; }
+  .header { background:var(--bg);padding:1.75rem 2rem 1.5rem;border-bottom:1px solid var(--border);text-align:center;position:relative; }
+  .header::after { content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent); }
+  .title { font-size:2rem;font-weight:700;letter-spacing:0.08em;color:var(--gold);text-transform:uppercase; }
+  .title-sub { font-family:'IBM Plex Sans',sans-serif;font-size:14px;color:var(--muted);line-height:1.6;max-width:720px;margin:12px auto 0;padding:0 14px;text-align:center; }
+  .title-sub strong { color:var(--text);font-weight:600; }
+  .status-bar { padding:0.65rem 1.75rem;font-size:0.78rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;text-align:center;background:var(--inset);border-bottom:1px solid var(--border);color:var(--muted); }
+  .status-bar.ok { color:var(--green); }
+  .status-bar.err { color:var(--red); }
+  .section { padding:1.3rem 1.75rem;border-bottom:1px solid var(--border); }
+  .section:last-child { border-bottom:none; }
+  .section-label { font-size:0.68rem;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin-bottom:0.9rem; }
+  .inputs-grid { display:grid;grid-template-columns:1fr 1.4fr 1.4fr 1fr;gap:1rem; }
+  @media (max-width:720px){ .inputs-grid { grid-template-columns:1fr 1fr; } }
+  .input-label { font-size:0.7rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);margin-bottom:0.3rem; }
+  .odds-input, .sel {
+    width:100%;background:var(--inset);border:none;border-bottom:2px solid var(--border);
+    font-family:'IBM Plex Mono',monospace;font-size:1.15rem;font-weight:600;color:var(--text);
+    padding:0.5rem 0.6rem;border-radius:6px 6px 0 0;outline:none;text-align:center;transition:border-color 0.2s;
+  }
+  .sel { appearance:none;-webkit-appearance:none;cursor:pointer;font-size:1rem;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6'><path d='M0 0l5 6 5-6z' fill='%238B949E'/></svg>");
+    background-repeat:no-repeat;background-position:right 10px center; }
+  #bonusAmt { color:var(--gold);border-bottom-color:var(--gold); }
+  #bonusBook { color:var(--blue);border-bottom-color:var(--blue); }
+  #hedgeScope { color:var(--purple);border-bottom-color:var(--purple); }
+  .sub { margin-top:0.3rem;font-family:'IBM Plex Mono',monospace;font-size:0.72rem;color:var(--muted);text-align:center; }
+  .opts-row { display:flex;gap:1.4rem;align-items:center;margin-top:1rem;flex-wrap:wrap;justify-content:center; }
+  .chk { display:flex;align-items:center;gap:0.45rem;font-size:0.8rem;color:var(--muted);cursor:pointer;letter-spacing:0.05em;text-transform:uppercase;font-weight:600; }
+  .chk input { accent-color:var(--gold); }
+  /* summary strip */
+  .sum-grid { display:grid;grid-template-columns:repeat(4,1fr);gap:0.6rem; }
+  @media (max-width:720px){ .sum-grid { grid-template-columns:repeat(2,1fr); } }
+  .rc { background:var(--inset);border:1px solid var(--border);border-radius:8px;padding:0.65rem 0.6rem;text-align:center; }
+  .rc-lbl { font-size:0.62rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);margin-bottom:0.3rem; }
+  .rc-val { font-family:'IBM Plex Mono',monospace;font-size:1.15rem;font-weight:600; }
+  /* results table */
+  .tbl-wrap { overflow-x:auto; }
+  table { width:100%;border-collapse:collapse;font-size:0.88rem;min-width:820px; }
+  th { font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);text-align:left;padding:0.5rem 0.6rem;border-bottom:1px solid var(--border);white-space:nowrap; }
+  th.r, td.r { text-align:right; }
+  td { padding:0.55rem 0.6rem;border-bottom:1px solid var(--border);vertical-align:middle;white-space:nowrap; }
+  tr.row { cursor:pointer;transition:background 0.12s; }
+  tr.row:hover { background:var(--inset); }
+  .mono { font-family:'IBM Plex Mono',monospace;font-weight:600; }
+  .conv { color:var(--green); }
+  .conv.hot { color:var(--gold); }
+  .badge { display:inline-block;font-size:0.6rem;font-weight:700;letter-spacing:0.08em;padding:0.1rem 0.4rem;border-radius:4px;text-transform:uppercase;margin-left:0.4rem;vertical-align:1px; }
+  .badge.stale { background:rgba(210,153,34,.15);color:var(--gold);border:1px solid rgba(210,153,34,.4); }
+  .badge.live { background:rgba(248,81,73,.15);color:var(--red);border:1px solid rgba(248,81,73,.4); }
+  .side-over { color:var(--green);font-weight:700; }
+  .side-under { color:var(--red);font-weight:700; }
+  .bet-main { font-weight:600; }
+  .bet-sub { font-size:0.72rem;color:var(--muted);font-family:'IBM Plex Mono',monospace; }
+  .game-cell { font-size:0.8rem; }
+  .game-time { font-size:0.7rem;color:var(--muted);font-family:'IBM Plex Mono',monospace; }
+  /* expanded detail */
+  tr.detail td { background:var(--bg);padding:0.9rem 1rem;white-space:normal; }
+  .detail-grid { display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.75rem; }
+  @media (max-width:720px){ .detail-grid { grid-template-columns:1fr; } }
+  .oc { background:var(--inset);border:1px solid var(--border);border-radius:8px;padding:0.7rem 0.85rem; }
+  .oc-title { font-size:0.65rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:0.5rem; }
+  .oc-row { display:flex;justify-content:space-between;font-size:0.85rem;padding:0.22rem 0;color:var(--muted);border-bottom:1px solid var(--border); }
+  .oc-row:last-child { border-bottom:none;padding-top:0.4rem; }
+  .oc-row span:last-child { font-family:'IBM Plex Mono',monospace;font-weight:600;color:var(--text); }
+  .oc-row.profit span:last-child { color:var(--green); }
+  .alt-hedges { font-size:0.78rem;color:var(--muted);margin-top:0.6rem;font-family:'IBM Plex Mono',monospace; }
+  .detail-links { margin-top:0.7rem;font-size:0.8rem; }
+  .detail-links a { color:var(--blue);text-decoration:none; }
+  .detail-links a:hover { text-decoration:underline; }
+  .empty-note { padding:1.5rem;text-align:center;color:var(--muted);font-size:0.9rem; }
+  /* how-to */
+  .how-to-jump { display:block;text-align:center;width:fit-content;margin:14px auto 0;font-family:'Orbitron',sans-serif;font-size:10px;letter-spacing:2px;color:var(--muted);text-decoration:none;text-transform:uppercase;padding:10px 18px;border:1px solid var(--border);border-radius:8px;background:var(--inset);transition:all 0.15s; }
+  .how-to-jump:hover { color:var(--gold);border-color:var(--gold);transform:translateY(-1px); }
+  .how-to-use { max-width:720px;margin:24px auto 60px;padding:28px 32px;background:var(--surface);border:1px solid var(--border);border-radius:16px;scroll-margin-top:20px; }
+  .how-to-eyebrow { font-family:'Orbitron',sans-serif;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:8px; }
+  .how-to-use h3 { font-family:'Orbitron',sans-serif;font-size:17px;font-weight:800;letter-spacing:1.5px;color:var(--text);margin:0 0 16px;text-transform:uppercase; }
+  .how-to-steps { margin:0 0 18px;padding-left:22px;font-family:system-ui,-apple-system,sans-serif;font-size:15px;line-height:1.65;color:var(--text); }
+  .how-to-steps li { margin-bottom:8px; }
+  .how-to-steps strong { color:var(--gold);font-weight:600; }
+  .how-to-note { font-family:system-ui,-apple-system,sans-serif;font-size:14px;line-height:1.55;color:var(--muted);background:var(--bg);border-left:3px solid var(--gold);border-radius:0 8px 8px 0;padding:14px 18px;margin-bottom:12px; }
+  .how-to-note em { color:var(--gold);font-style:normal;font-weight:600; }
+  .how-to-note strong { color:var(--text);font-weight:600; }
+
+/* PPS-MOBILE-HEADER-CLEARANCE */
+    @media (max-width: 640px) {
+      .header { padding-top: 60px; padding-left: 56px; padding-right: 14px; }
+    }
+</style>
+<link rel="stylesheet" href="/styles/sidebar.css">
+</head>
+<body>
+
+<!-- ═══ SIDEBAR NAVIGATION ═══ -->
+<button class="pps-sidebar-toggle" aria-label="Toggle navigation" id="ppsSidebarToggle">
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M2 4h12M2 8h12M2 12h12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+  </svg>
+</button>
+<aside class="pps-sidebar" id="ppsSidebar">
+  <div class="pps-sidebar-inner">
+    <a class="pps-sidebar-brand" href="/index.html" aria-label="PROFITPATH Sports — Home">
+      <img src="/images/profitpath-wordmark.svg" alt="PROFITPATH Sports" class="pps-sidebar-logo">
+    </a>
+    <nav class="pps-sidebar-nav">
+      <a class="pps-nav-link" href="/index.html">Home</a>
+      <a class="pps-nav-link" href="/glossary.html">Glossary</a>
+
+      <div class="pps-nav-group-label">Calculators</div>
+      <details class="pps-nav-group" id="ppsGroupCalcs">
+        <summary>Core tools</summary>
+        <a class="pps-nav-link" href="/bet-x-ray.html">Bet X-Ray</a>
+        <a class="pps-nav-link" href="/sharp-snapshot.html">Sharp Snapshot</a>
+        <a class="pps-nav-link" href="/hedge-calculator.html">Hedge</a>
+        <a class="pps-nav-link" href="/arb-calculator.html">Arbitrage</a>
+        <a class="pps-nav-link" href="/middle-calculator.html">Middle</a>
+        <a class="pps-nav-link" href="/devig_calculator.html">Devig</a>
+        <a class="pps-nav-link" href="/odds_calculator.html">Odds Converter</a>
+      </details>
+      <details class="pps-nav-group">
+        <summary>More tools</summary>
+        <a class="pps-nav-link" href="/ev-calculator.html">EV Calculator</a>
+        <a class="pps-nav-link" href="/kelly-calculator.html">Kelly Sizer</a>
+        <a class="pps-nav-link" href="/consensus-calculator.html">Consensus Devig</a>
+        <a class="pps-nav-link" href="/edge-finder.html">Edge Finder</a>
+        <a class="pps-nav-link" href="/parlay-calculator.html">Parlay</a>
+        <a class="pps-nav-link" href="/dfs-slip-checker.html">DFS Slip Checker</a>
+        <a class="pps-nav-link" href="/bonus-converter.html">Bonus Converter</a>
+        <a class="pps-nav-link" href="/bonus-finder.html">Bonus Finder</a>
+        <a class="pps-nav-link" href="/bet-tracker.html">Bet Tracker</a>
+        <a class="pps-nav-link" href="/long-run-simulator.html">Long-Run Sim</a>
+        <a class="pps-nav-link" href="/roulette.html">Virtual Roulette</a>
+      </details>
+
+      <div class="pps-nav-group-label">Paths</div>
+      <details class="pps-nav-group path-01">
+        <summary><span class="pps-nav-num">01</span> Begin</summary>
+        <a class="pps-nav-link" href="/lane-new.html">Path Overview</a>
+        <a class="pps-nav-link" href="/learn-odds.html">Odds Formats</a>
+        <a class="pps-nav-link" href="/learn-implied.html">Implied Probability</a>
+        <a class="pps-nav-link" href="/learn-vig.html">The Vig</a>
+        <a class="pps-nav-link" href="/learn-ev.html">+EV</a>
+        <a class="pps-nav-link" href="/learn-clv.html">CLV</a>
+        <a class="pps-nav-link" href="/learn-kelly.html">Kelly Criterion</a>
+        <a class="pps-nav-link" href="/learn-parlays.html">Parlays</a>
+        <a class="pps-nav-link" href="/learn-props.html">Prop Bets</a>
+      </details>
+      <details class="pps-nav-group path-02">
+        <summary><span class="pps-nav-num">02</span> Convert</summary>
+        <a class="pps-nav-link" href="/lane-bonus.html">Path Overview</a>
+        <a class="pps-nav-link" href="/learn-bonus.html">Bonus Conversion</a>
+        <a class="pps-nav-link" href="/learn-bonus-types.html">Bonus Types</a>
+        <a class="pps-nav-link" href="/learn-bonus-traps.html">Bonus Traps</a>
+        <a class="pps-nav-link" href="/learn-bonus-walkthrough.html">Walkthrough</a>
+        <a class="pps-nav-link" href="/learn-finding-bonus-bets.html">Finding Bonus Bets</a>
+        <a class="pps-nav-link" href="/learn-bonus-step-by-step.html">Step-by-Step</a>
+        <a class="pps-nav-link" href="/learn-prop-void-rules.html">Prop Void Rules</a>
+        <a class="pps-nav-link" href="/learn-finding-bets.html">Finding +EV Bets</a>
+      </details>
+      <details class="pps-nav-group path-03">
+        <summary><span class="pps-nav-num">03</span> Maintain</summary>
+        <a class="pps-nav-link" href="/lane-maintain.html">Path Overview</a>
+        <a class="pps-nav-link" href="/learn-prob-gap-vs-ev.html">Prob Gap vs EV</a>
+        <a class="pps-nav-link" href="/learn-arbitrage.html">Arbitrage</a>
+        <a class="pps-nav-link" href="/learn-middles.html">Middles</a>
+        <a class="pps-nav-link" href="/learn-betting-vs-trading.html">Betting vs Trading</a>
+        <a class="pps-nav-link" href="/learn-alt-ladder.html">Alt Ladder</a>
+        <a class="pps-nav-link" href="/learn-alt-lines.html">Alt Lines</a>
+        <a class="pps-nav-link" href="/learn-cross-market-ev.html">Cross-Market EV</a>
+        <a class="pps-nav-link" href="/learn-exchange-liquidity.html">Exchange Liquidity</a>
+        <a class="pps-nav-link" href="/learn-futures.html">Futures</a>
+        <a class="pps-nav-link" href="/learn-manual-scan.html">Manual Scan</a>
+        <a class="pps-nav-link" href="/learn-top-down-bottom-up.html">Top-Down / Bottom-Up</a>
+        <a class="pps-nav-link" href="/learn-wide-markets.html">Wide Markets</a>
+      </details>
+
+      <div class="pps-nav-group-label">More</div>
+      <details class="pps-nav-group">
+        <summary>Sportsbooks</summary>
+        <a class="pps-nav-link" href="/book-draftkings.html">DraftKings</a>
+        <a class="pps-nav-link" href="/book-fanduel.html">FanDuel</a>
+        <a class="pps-nav-link" href="/book-hardrock.html">Hard Rock</a>
+        <a class="pps-nav-link" href="/book-betmgm.html">BetMGM</a>
+        <a class="pps-nav-link" href="/book-prophetx.html">ProphetX</a>
+      </details>
+    </nav>
+  </div>
+</aside>
+<script>
+(function() {
+  var path = window.location.pathname.replace(/\/$/, '') || '/index.html';
+  var isHome = (path === '/index.html' || path === '' || path === '/');
+  document.querySelectorAll('.pps-sidebar .pps-nav-link').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href === path || (isHome && href === '/index.html')) {
+      link.classList.add('active');
+      var group = link.closest('details.pps-nav-group');
+      if (group) group.setAttribute('open', '');
+    }
+  });
+  var calcs = document.getElementById('ppsGroupCalcs');
+  if (calcs && !document.querySelector('.pps-sidebar details[open]')) calcs.setAttribute('open', '');
+})();
+</script>
+<!-- ═══ END SIDEBAR ═══ -->
+
+<div class="card">
+  <div class="header">
+    <div class="title">🎯 Bonus Conversion Finder</div>
+    <p class="title-sub">Type your bonus amount and which book it's sitting at. The finder scans <strong>live MLB odds across every book we track</strong> and ranks real bets you can place tonight — bonus bet on one side, cash hedge on the other side at a different book — by how much <strong>guaranteed cash</strong> they lock in.</p>
+    <a href="#how-to-use" class="how-to-jump">How to use this ↓</a>
+  </div>
+  <div class="status-bar" id="statusBar">Loading live odds…</div>
+
+  <div class="section">
+    <div class="section-label">▸ Your Bonus</div>
+    <div class="inputs-grid">
+      <div>
+        <div class="input-label">Bonus Amount ($)</div>
+        <input class="odds-input" id="bonusAmt" type="number" value="50" min="1" />
+        <div class="sub">Free bet size</div>
+      </div>
+      <div>
+        <div class="input-label">Bonus Book</div>
+        <select class="sel" id="bonusBook"></select>
+        <div class="sub">Where the credit lives</div>
+      </div>
+      <div>
+        <div class="input-label">Hedge Books</div>
+        <select class="sel" id="hedgeScope">
+          <option value="usx" selected>US books + exchanges</option>
+          <option value="us">US books only</option>
+          <option value="all">All books (incl. offshore)</option>
+        </select>
+        <div class="sub">Where you hedge with cash</div>
+      </div>
+      <div>
+        <div class="input-label">Min Bonus Odds</div>
+        <select class="sel" id="minOdds">
+          <option value="1">Any</option>
+          <option value="100">+100</option>
+          <option value="150" selected>+150</option>
+          <option value="200">+200</option>
+          <option value="300">+300</option>
+        </select>
+        <div class="sub">Longshot floor</div>
+      </div>
+    </div>
+    <div class="opts-row">
+      <label class="chk"><input type="checkbox" id="inclStarted"> Include started games</label>
+      <label class="chk"><input type="checkbox" id="hrOnly"> Home runs only</label>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">▸ Scan Summary</div>
+    <div class="sum-grid">
+      <div class="rc"><div class="rc-lbl">Best Conversion</div><div class="rc-val" id="sBest" style="color:var(--green)">—</div></div>
+      <div class="rc"><div class="rc-lbl">Best Locked Profit</div><div class="rc-val" id="sProfit" style="color:var(--gold)">—</div></div>
+      <div class="rc"><div class="rc-lbl">Plays Found</div><div class="rc-val" id="sCount">—</div></div>
+      <div class="rc"><div class="rc-lbl">Odds Age</div><div class="rc-val" id="sAge" style="color:var(--blue)">—</div></div>
+    </div>
+  </div>
+
+  <div class="section" style="padding:0;">
+    <div class="tbl-wrap">
+      <table id="resultsTable" style="display:none;">
+        <thead>
+          <tr>
+            <th>#</th><th>Game</th><th>Bonus Bet (at your book)</th><th>Hedge (cash)</th>
+            <th class="r">Hedge $</th><th class="r">Locked Profit</th><th class="r">Conv %</th>
+          </tr>
+        </thead>
+        <tbody id="resultsBody"></tbody>
+      </table>
+    </div>
+    <div class="empty-note" id="emptyNote">Waiting for odds…</div>
+  </div>
+</div>
+
+<section class="how-to-use" id="how-to-use">
+  <div class="how-to-eyebrow">Profit Path · Tool Guide</div>
+  <h3>How to use the Conversion Finder</h3>
+  <ol class="how-to-steps">
+    <li><strong>Enter your bonus amount</strong> and pick the book where the bonus credit is sitting.</li>
+    <li>The finder scans the same live MLB odds that power our other tools and lists bets where <strong>your book has one side and a different book has the other side</strong>.</li>
+    <li>Each row shows the full recipe: place the <strong>bonus bet</strong> on the listed side at your book, then place the <strong>cash hedge</strong> for the exact dollar amount shown at the hedge book. Either way the bet settles, you keep the locked profit.</li>
+    <li>Rows are ranked by <strong>conversion rate</strong> — locked profit as a % of the bonus. 65–80% is an excellent conversion; anything above that usually means a line moved, so re-check the odds at both books before betting.</li>
+    <li>Click any row to see the payout math for both outcomes plus backup hedge books.</li>
+  </ol>
+  <div class="how-to-note"><em>Why longshots?</em> A bonus bet doesn't return your stake — only winnings. The plus-money side wastes less of the bonus on stake, so <strong>higher bonus-side odds convert more of the credit into cash</strong>. That's why the list defaults to +150 and up.</div>
+  <div class="how-to-note"><strong>Before you bet:</strong> odds move fast — always confirm both prices in the apps. These are player props, so check <a href="/learn-prop-void-rules.html" style="color:var(--gold)">void rules</a>: if the player is scratched, most books void both sides, but rules differ. Want to run your own numbers? Use the <a href="/bonus-converter.html" style="color:var(--gold)">Bonus Bet Converter</a>.</div>
+</section>
+
+<script>
+// ── odds helpers ─────────────────────────────────────────────
+function amerToNum(o){ if(o==null) return null; const n=parseFloat(String(o).replace('+','')); return isFinite(n)&&Math.abs(n)>=100?n:null; }
+function toDec(o){ const n=amerToNum(o); if(!n) return null; return n>0 ? 1+n/100 : 1+100/Math.abs(n); }
+function fmtAmer(o){ const n=amerToNum(o); return n>0?('+'+Math.round(n)):String(Math.round(n)); }
+function fmtMoney(x){ return '$'+x.toFixed(2); }
+function fmtPct(x){ return (x*100).toFixed(1)+'%'; }
+
+const BOOK_NAMES={draftkings:'DraftKings',fanduel:'FanDuel',betmgm:'BetMGM',caesars:'Caesars',
+  espnbet:'ESPN BET',betrivers:'BetRivers',hardrockbet:'Hard Rock',bovada:'Bovada',mybookie:'Mybookie',
+  ballybet:'Bally Bet',fliff:'Fliff',betus:'BetUS',betanysports:'BetAnySports',fanatics:'Fanatics',
+  pointsbet:'PointsBet',sugarhouse:'SugarHouse',thescorebet:'theScore',betonline:'Betonline',
+  novig:'Novig',prophetexchange:'ProphetX',lowvig:'LowVig',bookmakereu:'BookmakerEU',
+  circa:'Circa',betfairexchange:'Betfair',matchbook:'Matchbook'};
+function bookName(k){ return BOOK_NAMES[k]||k; }
+
+// books where a bonus credit realistically lives, in dropdown order
+const BONUS_BOOK_ORDER=['draftkings','fanduel','betmgm','caesars','espnbet','hardrockbet','betrivers','ballybet','fanatics','fliff'];
+const OFFSHORE=new Set(['bovada','mybookie','betonline','lowvig','betanysports','betus','bookmakereu']);
+const EXCHANGES=new Set(['novig','prophetexchange','betfairexchange','matchbook']);
+const ALWAYS_EXCLUDE=new Set(['bookmakereu']);   // measured bad data on this feed
+
+const MARKET_NAMES={batting_totalBases:'Total Bases',batting_hits:'Hits','batting_hits+runs+rbi':'H+R+RBI',
+  batting_singles:'Singles',points:'Runs Scored',batting_homeRuns:'Home Runs',batting_basesOnBalls:'Walks',
+  batting_doubles:'Doubles',batting_RBI:'RBI',batting_stolenBases:'Stolen Bases',batting_strikeouts:'Batter Ks',
+  pitching_outs:'Pitcher Outs',pitching_strikeouts:'Pitcher Ks',pitching_hits:'Hits Allowed',
+  pitching_earnedRuns:'Earned Runs',pitching_basesOnBalls:'Walks Allowed',batting_triples:'Triples'};
+function marketName(m){ return MARKET_NAMES[m]||m.replace(/^(batting|pitching)_/,''); }
+
+// ── data load: committed pointer -> immutable blob (same chain the EV dashboard uses) ──
+const POINTER_URL='https://prop-zone.vercel.app/blob_url.txt';
+const FALLBACK_URL='https://prop-zone.vercel.app/master.json';   // committed spare tire, may lag the blob
+let PROPS=[];        // merged: one entry per (event, market, player, line) with combined books
+let GENERATED_AT=null;
+
+async function fetchMaster(){
+  try{
+    const p=await fetch(POINTER_URL+'?_='+Date.now(),{cache:'no-store'});
+    if(!p.ok) throw new Error('pointer '+p.status);
+    const url=(await p.text()).trim();
+    const r=await fetch(url,{cache:'no-store'});
+    if(!r.ok) throw new Error('blob '+r.status);
+    return r.json();
+  }catch(e){
+    // pointer can briefly reference a cleaned-up blob mid-publish — fall back to the committed copy
+    const r=await fetch(FALLBACK_URL+'?_='+Date.now(),{cache:'no-store'});
+    if(!r.ok) throw e;
+    USED_FALLBACK=true;
+    return r.json();
+  }
+}
+let USED_FALLBACK=false;
+
+async function loadData(){
+  const status=document.getElementById('statusBar');
+  try{
+    const data=await fetchMaster();
+    GENERATED_AT=new Date(data.generatedAt);
+    const merged=new Map();
+    for(const x of data.props||[]){
+      const key=x.eventID+'|'+x.market+'|'+x.player.id+'|'+x.line;
+      let m=merged.get(key);
+      if(!m){ m={eventID:x.eventID,startsAt:x.startsAt,game:x.game,player:x.player,market:x.market,
+               line:x.line,books:{}}; merged.set(key,m); }
+      for(const[b,arr]of Object.entries(x.books||{})){
+        if(!m.books[b]) m.books[b]=[null,null];
+        if(arr[0]!=null) m.books[b][0]=arr[0];
+        if(arr[1]!=null) m.books[b][1]=arr[1];
+      }
+    }
+    PROPS=[...merged.values()];
+    status.textContent=(USED_FALLBACK?'Backup odds feed — ':'Live odds loaded — ')+data.gameCount+' games, '+PROPS.length+' markets'+(USED_FALLBACK?' (may lag — watch Odds Age)':'');
+    status.className='status-bar ok';
+    populateBooks();
+    scan();
+  }catch(e){
+    status.textContent='Could not load live odds ('+e.message+') — try a refresh';
+    status.className='status-bar err';
+    document.getElementById('emptyNote').textContent='Odds feed unavailable right now. Refresh the page to retry.';
+  }
+}
+
+function populateBooks(){
+  const inData=new Set();
+  for(const p of PROPS) for(const b of Object.keys(p.books)) inData.add(b);
+  const sel=document.getElementById('bonusBook');
+  const ordered=[...BONUS_BOOK_ORDER.filter(b=>inData.has(b)),
+                 ...[...inData].filter(b=>!BONUS_BOOK_ORDER.includes(b)&&!ALWAYS_EXCLUDE.has(b)).sort()];
+  sel.innerHTML=ordered.map(b=>'<option value="'+b+'">'+bookName(b)+'</option>').join('');
+}
+
+// ── the scan ─────────────────────────────────────────────────
+function hedgeAllowed(book,scope){
+  if(ALWAYS_EXCLUDE.has(book)) return false;
+  if(scope==='all') return true;
+  if(OFFSHORE.has(book)) return false;
+  if(scope==='us'&&EXCHANGES.has(book)) return false;
+  return true;
+}
+
+function scan(){
+  if(!PROPS.length) return;
+  const B=parseFloat(document.getElementById('bonusAmt').value)||0;
+  const myBook=document.getElementById('bonusBook').value;
+  const scope=document.getElementById('hedgeScope').value;
+  const minAmer=parseFloat(document.getElementById('minOdds').value);
+  const inclStarted=document.getElementById('inclStarted').checked;
+  const hrOnly=document.getElementById('hrOnly').checked;
+  const now=Date.now();
+
+  const rows=[];
+  for(const p of PROPS){
+    const started=new Date(p.startsAt).getTime()<=now;
+    if(started&&!inclStarted) continue;
+    if(hrOnly&&p.market!=='batting_homeRuns') continue;
+    const mine=p.books[myBook];
+    if(!mine) continue;
+    for(const si of [0,1]){                       // 0 = over, 1 = under (bonus side)
+      const dB=toDec(mine[si]);
+      if(!dB) continue;
+      const amerB=amerToNum(mine[si]);
+      if(amerB<minAmer||(minAmer>1&&amerB<0)) continue;
+      if(dB>31) continue;                          // junk longshot guard (+3000 cap)
+      // best opposite side at any other allowed book
+      const hedges=[];
+      for(const[b,arr]of Object.entries(p.books)){
+        if(b===myBook||!hedgeAllowed(b,scope)) continue;
+        const dH=toDec(arr[1-si]);
+        if(dH&&dH>=1.05) hedges.push({book:b,odds:arr[1-si],dec:dH});
+      }
+      if(!hedges.length) continue;
+      hedges.sort((a,b)=>b.dec-a.dec);
+      const best=hedges[0];
+      const win=B*(dB-1);                          // bonus payout (stake not returned)
+      const h=win/best.dec;                        // cash hedge stake
+      const profit=win-h;                          // = h*(dH-1), locked either way
+      const conv=profit/B;
+      if(conv<=0) continue;
+      rows.push({p,si,started,bonusOdds:mine[si],dB,best,alts:hedges.slice(1,4),
+                 win,hedge:h,profit,conv,nHedge:hedges.length});
+    }
+  }
+  rows.sort((a,b)=>b.conv-a.conv);
+  render(rows.slice(0,60),B,myBook);
+}
+
+function render(rows,B,myBook){
+  const tbl=document.getElementById('resultsTable');
+  const body=document.getElementById('resultsBody');
+  const empty=document.getElementById('emptyNote');
+  document.getElementById('sCount').textContent=rows.length?(rows.length>=60?'60+':rows.length):'0';
+  document.getElementById('sBest').textContent=rows.length?fmtPct(rows[0].conv):'—';
+  document.getElementById('sProfit').textContent=rows.length?fmtMoney(rows[0].profit):'—';
+  if(GENERATED_AT){
+    const min=Math.max(0,Math.round((Date.now()-GENERATED_AT.getTime())/60000));
+    const el=document.getElementById('sAge');
+    el.textContent=min<60?min+'m':Math.round(min/6)/10+'h';
+    el.style.color=min>90?'var(--red)':min>45?'var(--gold)':'var(--blue)';
+  }
+  if(!rows.length){
+    tbl.style.display='none';
+    empty.style.display='block';
+    empty.textContent='No conversion plays match these filters. Lower the Min Bonus Odds, widen Hedge Books, or check back when tonight\'s slate is posted.';
+    return;
+  }
+  tbl.style.display='table';
+  empty.style.display='none';
+  body.innerHTML=rows.map((r,i)=>{
+    const sideTxt=r.si===0?'<span class="side-over">OVER</span>':'<span class="side-under">UNDER</span>';
+    const t=new Date(r.p.startsAt);
+    const time=t.toLocaleTimeString([],{hour:'numeric',minute:'2-digit'});
+    const staleFlag=r.conv>0.85?'<span class="badge stale">verify</span>':'';
+    const liveFlag=r.started?'<span class="badge live">started</span>':'';
+    return '<tr class="row" data-i="'+i+'">'
+      +'<td class="mono">'+(i+1)+'</td>'
+      +'<td class="game-cell">'+r.p.game+'<div class="game-time">'+time+liveFlag+'</div></td>'
+      +'<td><div class="bet-main">'+r.p.player.name+' '+sideTxt+' '+r.p.line+' '+marketName(r.p.market)+'</div>'
+      +'<div class="bet-sub">'+bookName(myBook)+' '+fmtAmer(r.bonusOdds)+'</div></td>'
+      +'<td><div class="bet-main">'+bookName(r.best.book)+'</div><div class="bet-sub">'+(r.si===0?'Under':'Over')+' '+fmtAmer(r.best.odds)+'</div></td>'
+      +'<td class="r mono" style="color:var(--purple)">'+fmtMoney(r.hedge)+'</td>'
+      +'<td class="r mono" style="color:var(--gold)">'+fmtMoney(r.profit)+'</td>'
+      +'<td class="r mono"><span class="conv'+(r.conv>0.85?' hot':'')+'">'+fmtPct(r.conv)+'</span>'+staleFlag+'</td>'
+      +'</tr>';
+  }).join('');
+  // row expansion
+  window._rows=rows; window._B=B; window._myBook=myBook;
+  body.querySelectorAll('tr.row').forEach(tr=>tr.addEventListener('click',()=>toggleDetail(tr)));
+}
+
+function toggleDetail(tr){
+  const next=tr.nextElementSibling;
+  if(next&&next.classList.contains('detail')){ next.remove(); return; }
+  document.querySelectorAll('tr.detail').forEach(d=>d.remove());
+  const r=window._rows[+tr.dataset.i], B=window._B;
+  const sideTxt=r.si===0?'Over':'Under', oppTxt=r.si===0?'Under':'Over';
+  const alts=r.alts.length
+    ?'Backup hedges: '+r.alts.map(a=>bookName(a.book)+' '+fmtAmer(a.odds)).join(' · ')
+    :'No backup hedge books at this line.';
+  const d=document.createElement('tr');
+  d.className='detail';
+  d.innerHTML='<td colspan="7">'
+    +'<div class="detail-grid">'
+    +'<div class="oc"><div class="oc-title">The Recipe</div>'
+      +'<div class="oc-row"><span>Bonus bet ('+bookName(window._myBook)+')</span><span>'+sideTxt+' '+fmtAmer(r.bonusOdds)+' × '+fmtMoney(B)+'</span></div>'
+      +'<div class="oc-row"><span>Cash hedge ('+bookName(r.best.book)+')</span><span>'+oppTxt+' '+fmtAmer(r.best.odds)+' × '+fmtMoney(r.hedge)+'</span></div>'
+      +'<div class="oc-row profit"><span>Conversion</span><span>'+fmtPct(r.conv)+'</span></div></div>'
+    +'<div class="oc"><div class="oc-title">If bonus bet wins</div>'
+      +'<div class="oc-row"><span>Bonus pays</span><span>'+fmtMoney(r.win)+'</span></div>'
+      +'<div class="oc-row"><span>Hedge loses</span><span>-'+fmtMoney(r.hedge)+'</span></div>'
+      +'<div class="oc-row profit"><span>Net</span><span>+'+fmtMoney(r.win-r.hedge)+'</span></div></div>'
+    +'<div class="oc"><div class="oc-title">If hedge wins</div>'
+      +'<div class="oc-row"><span>Hedge pays</span><span>'+fmtMoney(r.hedge*(r.best.dec-1))+'</span></div>'
+      +'<div class="oc-row"><span>Bonus (free) loses</span><span>$0.00</span></div>'
+      +'<div class="oc-row profit"><span>Net</span><span>+'+fmtMoney(r.hedge*(r.best.dec-1))+'</span></div></div>'
+    +'</div>'
+    +'<div class="alt-hedges">'+alts+'</div>'
+    +'<div class="detail-links">Double-check both prices in the apps before betting → <a href="/bonus-converter.html">open the manual converter</a></div>'
+    +'</td>';
+  tr.after(d);
+}
+
+// re-scan on any control change
+['bonusAmt','bonusBook','hedgeScope','minOdds','inclStarted','hrOnly'].forEach(id=>{
+  document.getElementById(id).addEventListener('input',scan);
+  document.getElementById(id).addEventListener('change',scan);
+});
+loadData();
+</script>
+</body>
+</html>
