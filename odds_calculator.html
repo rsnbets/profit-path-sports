@@ -143,7 +143,8 @@
     font-weight: 700;
     margin: 0;
     padding-bottom: 0.08em;
-    background: linear-gradient(95deg, var(--green) 0%, var(--cyan) 100%);
+    /* Brand gradient — white -> green hold -> warm tail */
+    background: linear-gradient(95deg, #F0EEE8 0%, #F0EEE8 12%, var(--green) 55%, var(--green) 88%, #FF8C00 130%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -600,6 +601,81 @@
   @media (max-width: 640px) {
     .card { padding-top: 60px; }
   }
+  /* ── Education pills (collapsed accordions under the card) ── */
+  .edu-pills {
+    max-width: 640px;
+    margin: 16px auto 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .edu-pill {
+    border: 1px dashed rgba(0, 212, 255, 0.30);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .edu-pill summary {
+    list-style: none;
+    cursor: pointer;
+    user-select: none;
+    padding: 10px 16px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: rgba(240, 238, 232, 0.62);
+    transition: color .15s;
+  }
+  .edu-pill summary::-webkit-details-marker { display: none; }
+  .edu-pill summary::before { content: '▸ '; color: var(--cyan); }
+  .edu-pill[open] summary::before { content: '▾ '; }
+  .edu-pill summary:hover { color: var(--text); }
+  .edu-pill .edu-body {
+    padding: 4px 18px 16px;
+    font-size: 14px;
+    line-height: 1.65;
+    color: rgba(240, 238, 232, 0.78);
+  }
+  .edu-pill .edu-body strong { color: var(--text); font-weight: 600; }
+  .edu-pill .edu-body em { color: var(--cyan); font-style: normal; font-weight: 500; }
+  .edu-pill .edu-body ul { margin: 8px 0 4px; padding-left: 20px; }
+  .edu-pill .edu-body li { margin-bottom: 6px; }
+  .edu-pill .edu-body a { color: var(--cyan); }
+  .edu-pill .edu-body a:hover { color: var(--green); }
+
+  /* ── Next steps (bottom row) ── */
+  .next-steps {
+    max-width: 640px;
+    margin: 36px auto 0;
+  }
+  .next-steps-label {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .26em;
+    text-transform: uppercase;
+    color: var(--dim);
+    text-align: center;
+    margin-bottom: 12px;
+  }
+  .next-steps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 10px;
+  }
+  .next-step {
+    display: block;
+    background: var(--surface);
+    border: 1px solid var(--border-2);
+    border-radius: 12px;
+    padding: 14px 16px;
+    text-decoration: none;
+    transition: border-color .18s, transform .18s;
+  }
+  .next-step:hover { border-color: var(--green-border); transform: translateY(-1px); }
+  .next-step .ns-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13.5px; font-weight: 600; color: var(--text); }
+  .next-step .ns-tool { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 11.5px; color: var(--muted); margin-top: 3px; }
+  .next-step.lesson { border-color: rgba(0, 212, 255, 0.22); }
+  .next-step.lesson .ns-title { color: var(--cyan); }
 </style>
 <link rel="stylesheet" href="/styles/sidebar.css">
 </head>
@@ -723,56 +799,36 @@
   <div class="header">
     <div class="header-meta">
       <a href="/index.html" class="back-link">← Back</a>
-      <span class="header-eyebrow">Free Tool · Odds Converter</span>
-      <button class="help-pill" onclick="document.getElementById('howto').open = !document.getElementById('howto').open; document.getElementById('howto').scrollIntoView({behavior:'smooth', block:'nearest'});">How to use ↓</button>
+      <span class="header-eyebrow">★ Free · No Signup ★</span>
     </div>
     <div class="title-row">
       <h1>Odds Converter</h1>
     </div>
     <p class="tagline">
-      <span>Every price is a probability in disguise.</span>
-      <span class="mono">American · Decimal · Fractional · Implied % — converted live, any direction.</span>
-      <span>Type into any field. The other three follow instantly.</span>
+      <span>Type in any box — the rest fill in instantly.</span>
     </p>
-  </div>
-
-  <div class="plain-intro">
-    <span class="plain-intro-label">In plain English</span>
-    <p>The same bet gets written four different ways — <strong>−150</strong>, <strong>1.67</strong>, <strong>2/3</strong>, <strong>60%</strong> all mean the same thing. Type a price in any one format and this tool shows you the other three, plus the <strong>real win chance</strong> behind it.</p>
   </div>
 
   <div class="body">
 
     <div class="step" id="step1">
-      <div class="step-head">
-        <span class="step-num">Convert</span>
-        <span class="step-title">Convert any price</span>
-        <span class="step-sub">Edit any one format — the rest update instantly.</span>
-      </div>
 
       <div class="convert-grid">
         <div class="convert-cell">
-          <label for="oddsAmerican"><a class="gloss" href="/learn-odds.html">American<span class="gloss-pop"><b>American odds</b> — the +/− format US books use. <b>−150</b> means risk $150 to win $100; <b>+150</b> means risk $100 to win $150.<span class="gloss-link">Read the odds-formats lesson →</span></span></a> <span>US sportsbooks</span></label>
+          <label for="oddsAmerican">American <span>US sportsbooks</span></label>
           <input type="text" id="oddsAmerican" inputmode="text" spellcheck="false" autocomplete="off" value="+100">
         </div>
         <div class="convert-cell">
-          <label for="oddsImplied"><a class="gloss" href="/learn-implied.html">Implied %<span class="gloss-pop"><b>Implied probability</b> — the win chance baked into a price. It's the break-even rate the bet needs — but it still has the book's fee in it.<span class="gloss-link">Read the implied-probability lesson →</span></span></a> <span>break-even win rate</span></label>
+          <label for="oddsImplied">Implied % <span>break-even win rate</span></label>
           <input type="text" id="oddsImplied" inputmode="decimal" spellcheck="false" autocomplete="off" value="50.00%">
         </div>
         <div class="convert-cell">
-          <label for="oddsDecimal"><a class="gloss" href="/learn-odds.html">Decimal<span class="gloss-pop"><b>Decimal odds</b> — one number showing your total return per $1 staked. <b>2.00</b> means a $1 bet pays back $2.00, your stake included.<span class="gloss-link">Read the odds-formats lesson →</span></span></a> <span>Europe · exchanges</span></label>
+          <label for="oddsDecimal">Decimal <span>Europe · exchanges</span></label>
           <input type="text" id="oddsDecimal" inputmode="decimal" spellcheck="false" autocomplete="off" value="2.00">
         </div>
         <div class="convert-cell">
-          <label for="oddsFractional"><a class="gloss" href="/learn-odds.html">Fractional<span class="gloss-pop"><b>Fractional odds</b> — the traditional UK format. <b>2/3</b> means a $3 bet wins $2 profit; <b>5/1</b> means a $1 bet wins $5.<span class="gloss-link">Read the odds-formats lesson →</span></span></a> <span>traditional UK</span></label>
+          <label for="oddsFractional">Fractional <span>traditional UK</span></label>
           <input type="text" id="oddsFractional" inputmode="text" spellcheck="false" autocomplete="off" value="1/1">
-        </div>
-      </div>
-
-      <div class="key-note">
-        <div class="key-note-head">★ Key Point — Don't Skip This</div>
-        <div class="key-note-body">
-          That implied % is <strong>not</strong> the real chance of the bet winning. Every sportsbook quietly adds a fee to its odds — it's called the <strong>vig</strong> — and that fee makes the percentage look a little higher than the truth. So treat implied % as a <strong>starting point, not the final answer</strong>. New to this? Our quick lesson <a href="/learn-vig.html">The Vig</a> explains it in plain English — then you can strip the fee out and see the real number with <a href="/bet-x-ray.html">Bet X-Ray</a> or the <a href="/devig_calculator.html">Devig Calculator</a>.
         </div>
       </div>
 
@@ -808,27 +864,47 @@
       </div>
     </div>
 
-    <!-- HOW TO -->
-    <details class="how-to" id="howto">
-      <summary>How to use this</summary>
-      <div class="how-to-body">
-        <p><strong>What it does.</strong> Converts a betting price between the four formats sportsbooks and bettors use — American, decimal, fractional, and implied probability — live, in any direction. Edit any field and the other three recalculate instantly.</p>
+    <!-- Education — collapsed, opt-in -->
+    <div class="edu-pills">
+      <details class="edu-pill">
+        <summary>What do −110 and +110 actually mean?</summary>
+        <div class="edu-body">
+          <p>The same bet gets written four ways — <strong>−150</strong>, <strong>1.67</strong>, <strong>2/3</strong>, and <strong>60%</strong> all describe one price:</p>
+          <ul>
+            <li><em>American</em> — the +/− number US books show. <strong>+150</strong>: a $100 bet profits $150. <strong>−150</strong>: risk $150 to profit $100.</li>
+            <li><em>Decimal</em> — total return per $1 staked, stake included. <strong>2.50</strong> returns $2.50 per $1.</li>
+            <li><em>Fractional</em> — profit-to-stake. <strong>3/2</strong> wins $3 for every $2 risked.</li>
+            <li><em>Implied %</em> — the win rate the price asks you to beat. The most useful of the four: devig, EV, and CLV all run on it.</li>
+          </ul>
+          <p>Want it to fully click? <a href="/learn-odds.html">Reading the Odds (5 min) →</a></p>
+        </div>
+      </details>
+      <details class="edu-pill">
+        <summary>Why the implied % isn't the real win chance</summary>
+        <div class="edu-body">
+          <p>Every sportsbook quietly adds a fee to its odds — the <strong>vig</strong> — which makes the implied percentage read a little higher than the truth. Treat it as a <strong>starting point, not the final answer</strong>. The lesson <a href="/learn-vig.html">The Vig</a> explains it in plain English; the <a href="/devig_calculator.html">Devig Calculator</a> strips the fee out and shows the real number.</p>
+        </div>
+      </details>
+    </div>
 
-        <p><strong>The four formats.</strong></p>
-        <ul>
-          <li><em>American</em> — the +/− number US books show. <strong>+150</strong> means a $100 bet profits $150. <strong>−150</strong> means you risk $150 to profit $100.</li>
-          <li><em>Decimal</em> — total return per $1 staked, stake included. <strong>2.50</strong> returns $2.50 for every $1. Standard in Europe and on betting exchanges.</li>
-          <li><em>Fractional</em> — profit-to-stake ratio. <strong>3/2</strong> means win $3 profit for every $2 risked. The traditional UK format.</li>
-          <li><em>Implied probability</em> — the win rate the price is asking you to beat. The most useful number of the four: it's what devig, EV, and CLV all run on.</li>
-        </ul>
-
-        <p><strong>How to use it.</strong> Type into whichever field you have a number for — the other three follow. Or tap a <em>Quick Reference</em> tile to load a common line and see all four formats at once.</p>
-
-        <p><strong>Why implied probability matters.</strong> Once you read <em>−110</em> as <strong>"52.38% break-even"</strong> instead of just a number, every line on a sportsbook reads differently. Converting price into probability is the single move behind every other tool on this site — it's worth running until it's automatic.</p>
-
-        <p><strong>Note.</strong> Decimal and fractional formats here describe the raw price only — they don't strip the bookmaker's vig. To find the <em>fair</em> probability behind a two-sided market, run it through the <a href="/devig_calculator.html">Devig Calculator</a> or <a href="/bet-x-ray.html">Bet X-Ray</a>.</p>
+    <!-- Next steps -->
+    <div class="next-steps">
+      <div class="next-steps-label">Next Steps</div>
+      <div class="next-steps-grid">
+        <a class="next-step" href="/devig_calculator.html">
+          <div class="ns-title">Strip the vig →</div>
+          <div class="ns-tool">Devig Calculator</div>
+        </a>
+        <a class="next-step" href="/bet-x-ray.html">
+          <div class="ns-title">Is the bet worth taking? →</div>
+          <div class="ns-tool">Bet X-Ray</div>
+        </a>
+        <a class="next-step lesson" href="/learn-odds.html">
+          <div class="ns-title">▸ New to odds?</div>
+          <div class="ns-tool">Reading the Odds — 5 min</div>
+        </a>
       </div>
-    </details>
+    </div>
 
   </div>
 </div>
