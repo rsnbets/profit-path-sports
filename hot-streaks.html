@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🔥 Hot Streak Scanner 🔥</title>
+  <meta name="description" content="Live MLB hot-streak scanner — pick a prop (hits, total bases, RBI, runs, pitcher Ks) and see the longest active streaks in baseball with tonight's odds and the market's fair price next to each name. Free, no signup.">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="🔥 Hot Streak Scanner 🔥">
+  <meta property="og:description" content="The longest active MLB prop streaks — hits, bases, RBI, Ks — with live odds and the fair price beside every name.">
+  <meta property="og:image" content="https://profitpathsports.com/images/og-default.png?v=2">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:url" content="https://profitpathsports.com/hot-streaks.html">
+  <meta property="og:site_name" content="Profit Path Sports">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="🔥 Hot Streak Scanner 🔥">
+  <meta name="twitter:description" content="The longest active MLB prop streaks — with live odds and the fair price beside every name.">
+  <meta name="twitter:image" content="https://profitpathsports.com/images/og-default.png?v=2">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Orbitron:wght@700;800&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg:#0D1117;--surface:#161B22;--inset:#1C2430;--border:#30363D;
+    --blue:#58A6FF;--gold:#D29922;--green:#3FB950;--red:#F85149;--purple:#BC8CFF;
+    --text:#E6EDF3;--muted:#8B949E;
+  }
+  body { background:var(--bg);color:var(--text);font-family:'Rajdhani',sans-serif;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:2rem 1rem; }
+  .card { background:var(--surface);border:1px solid var(--border);border-radius:16px;width:100%;max-width:1040px;overflow:hidden; }
+  .header { background:var(--bg);padding:1.75rem 2rem 1.5rem;border-bottom:1px solid var(--border);text-align:center;position:relative; }
+  .header::after { content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent); }
+  .title { font-size:2rem;font-weight:700;letter-spacing:0.08em;color:var(--gold);text-transform:uppercase; }
+  .title-sub { font-family:'IBM Plex Sans',sans-serif;font-size:14px;color:var(--muted);line-height:1.6;max-width:720px;margin:12px auto 0;padding:0 14px;text-align:center; }
+  .title-sub strong { color:var(--text);font-weight:600; }
+  .status-bar { padding:0.65rem 1.75rem;font-size:0.78rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;text-align:center;background:var(--inset);border-bottom:1px solid var(--border);color:var(--muted); }
+  .status-bar.ok { color:var(--green); }
+  .status-bar.err { color:var(--red); }
+  .section { padding:1.3rem 1.75rem;border-bottom:1px solid var(--border); }
+  .section:last-child { border-bottom:none; }
+  .section-label { font-size:0.68rem;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin-bottom:0.7rem; }
+  /* prop chips */
+  .chip-row { display:flex;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.6rem; }
+  .chip-row:last-child { margin-bottom:0; }
+  .chip-group-lbl { flex-basis:100%;font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin:0.2rem 0 -0.1rem; }
+  .chip { background:var(--inset);border:1px solid var(--border);color:var(--muted);border-radius:999px;
+    padding:0.38rem 0.9rem;font-family:'Rajdhani',sans-serif;font-size:0.9rem;font-weight:600;
+    letter-spacing:0.05em;text-transform:uppercase;cursor:pointer;transition:all 0.13s; }
+  .chip:hover { border-color:var(--gold);color:var(--text); }
+  .chip.active { background:rgba(210,153,34,.14);border-color:var(--gold);color:var(--gold); }
+  .opts-row { display:flex;gap:1.4rem;align-items:center;margin-top:1rem;flex-wrap:wrap; }
+  .seg-wrap { display:flex;align-items:center;gap:0.6rem; }
+  .seg-lbl { font-size:0.7rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);font-weight:600; }
+  .seg { display:inline-flex;border:1px solid var(--border);border-radius:8px;overflow:hidden; }
+  .seg button { background:var(--inset);border:none;color:var(--muted);padding:0.42rem 0.85rem;
+    font-family:'Rajdhani',sans-serif;font-size:0.85rem;font-weight:600;letter-spacing:0.05em;
+    text-transform:uppercase;cursor:pointer;transition:all 0.13s;border-right:1px solid var(--border); }
+  .seg button:last-child { border-right:none; }
+  .seg button:hover { color:var(--text); }
+  .seg button.active { background:rgba(88,166,255,.14);color:var(--blue); }
+  .win-rec { font-family:'IBM Plex Mono',monospace;font-weight:600; }
+  .win-rec.ranked { color:var(--blue); }
+  .dot.out { opacity:0.25; }
+  .chk { display:flex;align-items:center;gap:0.45rem;font-size:0.8rem;color:var(--muted);cursor:pointer;letter-spacing:0.05em;text-transform:uppercase;font-weight:600; }
+  .chk input { accent-color:var(--gold); }
+  /* table */
+  .tbl-wrap { overflow-x:auto; }
+  table { width:100%;border-collapse:collapse;font-size:0.88rem;min-width:900px; }
+  th { font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);text-align:left;padding:0.5rem 0.6rem;border-bottom:1px solid var(--border);white-space:nowrap; }
+  th.r, td.r { text-align:right; }
+  th.c, td.c { text-align:center; }
+  td { padding:0.55rem 0.6rem;border-bottom:1px solid var(--border);vertical-align:middle;white-space:nowrap; }
+  tr.row { cursor:pointer;transition:background 0.12s; }
+  tr.row:hover { background:var(--inset); }
+  tr.row.dim td { opacity:0.45; }
+  .mono { font-family:'IBM Plex Mono',monospace;font-weight:600; }
+  .p-name { font-weight:600;font-size:0.95rem; }
+  .p-team { font-size:0.72rem;color:var(--muted);font-family:'IBM Plex Mono',monospace; }
+  .streak-num { font-family:'IBM Plex Mono',monospace;font-size:1.25rem;font-weight:600;color:var(--gold); }
+  .streak-since { font-size:0.68rem;color:var(--muted);font-family:'IBM Plex Mono',monospace; }
+  .dots { display:inline-flex;gap:3px;align-items:center; }
+  .dot { width:9px;height:9px;border-radius:50%;background:var(--border); }
+  .dot.hit { background:var(--green); }
+  .dot.miss { background:rgba(248,81,73,.55); }
+  .odds-best { font-family:'IBM Plex Mono',monospace;font-weight:600;color:var(--text); }
+  .odds-book { font-size:0.68rem;color:var(--muted);font-family:'IBM Plex Mono',monospace; }
+  .odds-line-note { color:var(--purple); }
+  .fair { font-family:'IBM Plex Mono',monospace;font-weight:600;color:var(--blue); }
+  .no-odds { color:var(--muted);font-size:0.78rem; }
+  .game-cell { font-size:0.8rem; }
+  .game-time { font-size:0.7rem;color:var(--muted);font-family:'IBM Plex Mono',monospace; }
+  .empty-note { padding:1.5rem;text-align:center;color:var(--muted);font-size:0.9rem; }
+  /* expanded detail */
+  tr.detail td { background:var(--bg);padding:0.9rem 1rem;white-space:normal; }
+  .book-grid { display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:0.5rem; }
+  .bk { background:var(--inset);border:1px solid var(--border);border-radius:8px;padding:0.5rem 0.7rem;display:flex;justify-content:space-between;align-items:center; }
+  .bk.best { border-color:var(--gold); }
+  .bk-name { font-size:0.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.05em;font-weight:600; }
+  .bk-odds { font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:0.9rem; }
+  .detail-links { margin-top:0.8rem;font-size:0.8rem;color:var(--muted); }
+  .detail-links a { color:var(--blue);text-decoration:none; }
+  .detail-links a:hover { text-decoration:underline; }
+  /* how-to */
+  .how-to-jump { display:block;text-align:center;width:fit-content;margin:14px auto 0;font-family:'Orbitron',sans-serif;font-size:10px;letter-spacing:2px;color:var(--muted);text-decoration:none;text-transform:uppercase;padding:10px 18px;border:1px solid var(--border);border-radius:8px;background:var(--inset);transition:all 0.15s; }
+  .how-to-jump:hover { color:var(--gold);border-color:var(--gold);transform:translateY(-1px); }
+  .how-to-use { max-width:720px;margin:24px auto 60px;padding:28px 32px;background:var(--surface);border:1px solid var(--border);border-radius:16px;scroll-margin-top:20px; }
+  .how-to-eyebrow { font-family:'Orbitron',sans-serif;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:8px; }
+  .how-to-use h3 { font-family:'Orbitron',sans-serif;font-size:17px;font-weight:800;letter-spacing:1.5px;color:var(--text);margin:0 0 16px;text-transform:uppercase; }
+  .how-to-steps { margin:0 0 18px;padding-left:22px;font-family:system-ui,-apple-system,sans-serif;font-size:15px;line-height:1.65;color:var(--text); }
+  .how-to-steps li { margin-bottom:8px; }
+  .how-to-steps strong { color:var(--gold);font-weight:600; }
+  .how-to-note { font-family:system-ui,-apple-system,sans-serif;font-size:14px;line-height:1.55;color:var(--muted);background:var(--bg);border-left:3px solid var(--gold);border-radius:0 8px 8px 0;padding:14px 18px;margin-bottom:12px; }
+  .how-to-note em { color:var(--gold);font-style:normal;font-weight:600; }
+  .how-to-note strong { color:var(--text);font-weight:600; }
+  .lock-in { font-family:system-ui,-apple-system,sans-serif;font-size:14px;line-height:1.55;color:var(--text);background:rgba(63,185,80,.08);border-left:3px solid var(--green);border-radius:0 8px 8px 0;padding:14px 18px;margin-bottom:12px; }
+  .lock-in .lock-lbl { display:block;font-family:'Orbitron',sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--green);font-weight:700;margin-bottom:6px; }
+
+/* PPS-MOBILE-HEADER-CLEARANCE */
+    @media (max-width: 640px) {
+      .header { padding-top: 60px; padding-left: 56px; padding-right: 14px; }
+    }
+</style>
+<link rel="stylesheet" href="/styles/sidebar.css">
+</head>
+<body>
+
+<!-- ═══ SIDEBAR NAVIGATION ═══ -->
+<button class="pps-sidebar-toggle" aria-label="Toggle navigation" id="ppsSidebarToggle">
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M2 4h12M2 8h12M2 12h12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+  </svg>
+</button>
+<aside class="pps-sidebar" id="ppsSidebar">
+  <div class="pps-sidebar-inner">
+    <a class="pps-sidebar-brand" href="/index.html" aria-label="PROFITPATH Sports — Home">
+      <img src="/images/profitpath-wordmark.svg" alt="PROFITPATH Sports" class="pps-sidebar-logo">
+    </a>
+    <nav class="pps-sidebar-nav">
+      <a class="pps-nav-link" href="/index.html">Home</a>
+      <a class="pps-nav-link" href="/glossary.html">Glossary</a>
+
+      <div class="pps-nav-group-label">Calculators</div>
+      <details class="pps-nav-group" id="ppsGroupCalcs">
+        <summary>Core tools</summary>
+        <a class="pps-nav-link" href="/bet-x-ray.html">Bet X-Ray</a>
+        <a class="pps-nav-link" href="/sharp-snapshot.html">Sharp Snapshot</a>
+        <a class="pps-nav-link" href="/hedge-calculator.html">Hedge</a>
+        <a class="pps-nav-link" href="/arb-calculator.html">Arbitrage</a>
+        <a class="pps-nav-link" href="/middle-calculator.html">Middle</a>
+        <a class="pps-nav-link" href="/devig_calculator.html">Devig</a>
+        <a class="pps-nav-link" href="/odds_calculator.html">Odds Converter</a>
+      </details>
+      <details class="pps-nav-group">
+        <summary>More tools</summary>
+        <a class="pps-nav-link" href="/ev-calculator.html">EV Calculator</a>
+        <a class="pps-nav-link" href="/kelly-calculator.html">Kelly Sizer</a>
+        <a class="pps-nav-link" href="/consensus-calculator.html">Consensus Devig</a>
+        <a class="pps-nav-link" href="/edge-finder.html">Edge Finder</a>
+        <a class="pps-nav-link" href="/parlay-calculator.html">Parlay</a>
+        <a class="pps-nav-link" href="/dfs-slip-checker.html">DFS Slip Checker</a>
+        <a class="pps-nav-link" href="/bonus-converter.html">Bonus Converter</a>
+        <a class="pps-nav-link" href="/bonus-finder.html">Bonus Finder</a>
+        <a class="pps-nav-link" href="/hot-streaks.html">Hot Streaks</a>
+        <a class="pps-nav-link" href="/bet-tracker.html">Bet Tracker</a>
+        <a class="pps-nav-link" href="/long-run-simulator.html">Long-Run Sim</a>
+        <a class="pps-nav-link" href="/roulette.html">Virtual Roulette</a>
+      </details>
+
+      <div class="pps-nav-group-label">Paths</div>
+      <details class="pps-nav-group path-01">
+        <summary><span class="pps-nav-num">01</span> Begin</summary>
+        <a class="pps-nav-link" href="/lane-new.html">Path Overview</a>
+        <a class="pps-nav-link" href="/learn-odds.html">Odds Formats</a>
+        <a class="pps-nav-link" href="/learn-implied.html">Implied Probability</a>
+        <a class="pps-nav-link" href="/learn-vig.html">The Vig</a>
+        <a class="pps-nav-link" href="/learn-ev.html">+EV</a>
+        <a class="pps-nav-link" href="/learn-clv.html">CLV</a>
+        <a class="pps-nav-link" href="/learn-kelly.html">Kelly Criterion</a>
+        <a class="pps-nav-link" href="/learn-parlays.html">Parlays</a>
+        <a class="pps-nav-link" href="/learn-props.html">Prop Bets</a>
+      </details>
+      <details class="pps-nav-group path-02">
+        <summary><span class="pps-nav-num">02</span> Convert</summary>
+        <a class="pps-nav-link" href="/lane-bonus.html">Path Overview</a>
+        <a class="pps-nav-link" href="/learn-bonus.html">Bonus Conversion</a>
+        <a class="pps-nav-link" href="/learn-bonus-types.html">Bonus Types</a>
+        <a class="pps-nav-link" href="/learn-bonus-traps.html">Bonus Traps</a>
+        <a class="pps-nav-link" href="/learn-bonus-walkthrough.html">Walkthrough</a>
+        <a class="pps-nav-link" href="/learn-finding-bonus-bets.html">Finding Bonus Bets</a>
+        <a class="pps-nav-link" href="/learn-bonus-step-by-step.html">Step-by-Step</a>
+        <a class="pps-nav-link" href="/learn-prop-void-rules.html">Prop Void Rules</a>
+        <a class="pps-nav-link" href="/learn-finding-bets.html">Finding +EV Bets</a>
+      </details>
+      <details class="pps-nav-group path-03">
+        <summary><span class="pps-nav-num">03</span> Maintain</summary>
+        <a class="pps-nav-link" href="/lane-maintain.html">Path Overview</a>
+        <a class="pps-nav-link" href="/learn-prob-gap-vs-ev.html">Prob Gap vs EV</a>
+        <a class="pps-nav-link" href="/learn-arbitrage.html">Arbitrage</a>
+        <a class="pps-nav-link" href="/learn-middles.html">Middles</a>
+        <a class="pps-nav-link" href="/learn-betting-vs-trading.html">Betting vs Trading</a>
+        <a class="pps-nav-link" href="/learn-alt-ladder.html">Alt Ladder</a>
+        <a class="pps-nav-link" href="/learn-alt-lines.html">Alt Lines</a>
+        <a class="pps-nav-link" href="/learn-cross-market-ev.html">Cross-Market EV</a>
+        <a class="pps-nav-link" href="/learn-exchange-liquidity.html">Exchange Liquidity</a>
+        <a class="pps-nav-link" href="/learn-futures.html">Futures</a>
+        <a class="pps-nav-link" href="/learn-manual-scan.html">Manual Scan</a>
+        <a class="pps-nav-link" href="/learn-top-down-bottom-up.html">Top-Down / Bottom-Up</a>
+        <a class="pps-nav-link" href="/learn-wide-markets.html">Wide Markets</a>
+      </details>
+
+      <div class="pps-nav-group-label">More</div>
+      <details class="pps-nav-group">
+        <summary>Sportsbooks</summary>
+        <a class="pps-nav-link" href="/book-draftkings.html">DraftKings</a>
+        <a class="pps-nav-link" href="/book-fanduel.html">FanDuel</a>
+        <a class="pps-nav-link" href="/book-hardrock.html">Hard Rock</a>
+        <a class="pps-nav-link" href="/book-betmgm.html">BetMGM</a>
+        <a class="pps-nav-link" href="/book-prophetx.html">ProphetX</a>
+      </details>
+    </nav>
+  </div>
+</aside>
+<script>
+(function() {
+  var path = window.location.pathname.replace(/\/$/, '') || '/index.html';
+  var isHome = (path === '/index.html' || path === '' || path === '/');
+  document.querySelectorAll('.pps-sidebar .pps-nav-link').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href === path || (isHome && href === '/index.html')) {
+      link.classList.add('active');
+      var group = link.closest('details.pps-nav-group');
+      if (group) group.setAttribute('open', '');
+    }
+  });
+  var calcs = document.getElementById('ppsGroupCalcs');
+  if (calcs && !document.querySelector('.pps-sidebar details[open]')) calcs.setAttribute('open', '');
+})();
+</script>
+<!-- ═══ END SIDEBAR ═══ -->
+
+<div class="card">
+  <div class="header">
+    <div class="title">🔥 Hot Streak Scanner 🔥</div>
+    <p class="title-sub">Pick a prop. See the <strong>longest active streaks in baseball</strong> for that exact bet — how long the run is, the season hit rate behind it, and <strong>tonight's live odds</strong> with the market's fair price beside every name. Refreshed every morning after the last game goes final.</p>
+    <a href="#how-to-use" class="how-to-jump">How to use this ↓</a>
+  </div>
+  <div class="status-bar" id="statusBar">Loading streak data…</div>
+
+  <div class="section">
+    <div class="section-label">Choose your prop</div>
+    <div class="chip-row" id="chipsBatter"><span class="chip-group-lbl">Hitters</span></div>
+    <div class="chip-row" id="chipsPitcher"><span class="chip-group-lbl">Pitchers · streaks count starts only</span></div>
+    <div class="opts-row">
+      <div class="seg-wrap"><span class="seg-lbl">Rank by</span>
+        <div class="seg" id="viewSeg">
+          <button data-view="streak" class="active">Active Streak</button>
+          <button data-view="5">Last 5</button>
+          <button data-view="10">Last 10</button>
+          <button data-view="15">Last 15</button>
+        </div>
+      </div>
+      <label class="chk"><input type="checkbox" id="todayOnly"> Only players with odds tonight</label>
+    </div>
+  </div>
+
+  <div class="section" style="padding:0;">
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr>
+          <th class="c">#</th><th>Player</th><th class="c">Active Streak</th><th>Last 15 Games</th>
+          <th class="r" id="winHead">L10</th>
+          <th class="r">Season</th><th>Tonight</th><th class="r">Best Over</th><th class="r">Fair Odds</th>
+        </tr></thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </div>
+    <div class="empty-note" id="emptyNote" style="display:none;"></div>
+  </div>
+</div>
+
+<div class="how-to-use" id="how-to-use">
+  <div class="how-to-eyebrow">Profit Path Sports</div>
+  <h3>How to use the streak scanner</h3>
+  <ol class="how-to-steps">
+    <li><strong>Pick the prop</strong> you're interested in — Over 0.5 hits, Over 1.5 total bases, pitcher Ks, whatever you'd actually bet.</li>
+    <li><strong>Read the streak</strong> — that's how many straight games (or starts) the player has cashed that exact bet. The dots show the last 15: green cashed, red missed.</li>
+    <li><strong>Switch the ranking</strong> if you want recency over perfection — <strong>Last 5 / 10 / 15</strong> ranks by most cashes in that window, which catches the guy who's 9-of-10 but missed once and lost his "streak."</li>
+    <li><strong>Check the season rate</strong> next to it. A 9-game run from a guy who clears the bar 70% of the season is a very different animal than a 9-game run from a 45% guy.</li>
+    <li><strong>Look at the price.</strong> Best Over is the top live price across every book we track. Fair Odds is the vig-free market consensus — what the bet is "really worth" tonight.</li>
+    <li><strong>Tap a row</strong> to see the Over price at every book, so you can shop the number before you bet.</li>
+  </ol>
+  <div class="how-to-note">
+    <em>Straight talk:</em> a streak is <strong>not</strong> an edge. Books see the same run you do, and the odds already price it in — sometimes with a "hot player tax" on top. Decades of research on the hot hand say the next game looks a lot more like the <strong>season rate</strong> than the streak.
+  </div>
+  <div class="lock-in">
+    <span class="lock-lbl">🔒 Lock this in</span>
+    The streak finds the player — the <strong>price</strong> makes the bet. Use this page as a discovery tool, then compare Best Over against Fair Odds. If the best price beats fair, you're getting a good number. If it's well below fair, you're paying the hot-player tax — pass, no matter how pretty the dots look.
+  </div>
+  <div class="detail-links" style="margin-top:0;">
+    Go deeper → <a href="/learn-props.html">how prop markets work</a> · <a href="/learn-prob-gap-vs-ev.html">probability gap vs EV</a> · <a href="/learn-vig.html">what the vig hides</a>
+  </div>
+</div>
+
+<script>
+// ── config (mirrors bonus-finder) ────────────────────────────
+const BOOK_ORDER=['draftkings','fanduel','betmgm','caesars','espnbet','hardrockbet','betrivers','ballybet','fanatics','fliff'];
+const ALWAYS_EXCLUDE=new Set(['bookmakereu']);   // measured bad data on this feed
+const BOOK_NAMES={draftkings:'DraftKings',fanduel:'FanDuel',betmgm:'BetMGM',caesars:'Caesars',espnbet:'ESPN Bet',
+  hardrockbet:'Hard Rock',betrivers:'BetRivers',ballybet:'Bally Bet',fanatics:'Fanatics',fliff:'Fliff',
+  novig:'Novig',prophetexchange:'ProphetX',bovada:'Bovada',mybookie:'MyBookie',betonline:'BetOnline',
+  lowvig:'LowVig',betanysports:'BetAnySports',betus:'BetUS',betfairexchange:'Betfair',matchbook:'Matchbook'};
+function bookName(b){ return BOOK_NAMES[b]||b; }
+
+// ── odds helpers ─────────────────────────────────────────────
+function amerToNum(a){ if(a==null)return NaN; return parseFloat(String(a).replace('+','')); }
+function toDec(a){ const n=amerToNum(a); if(isNaN(n)||n===0)return null; return n>0?1+n/100:1+100/(-n); }
+function probToAmer(p){ if(!p||p<=0||p>=1)return '—';
+  return p>=0.5?('-'+Math.round(100*p/(1-p))):('+'+Math.round(100*(1-p)/p)); }
+
+function normName(s){
+  return s.normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase()
+    .replace(/\b(jr|sr|ii|iii|iv)\b\.?/g,'').replace(/[^a-z ]/g,'').replace(/\s+/g,' ').trim();
+}
+
+// ── data load ────────────────────────────────────────────────
+const POINTER_URL='https://prop-zone.vercel.app/blob_url.txt';
+const FALLBACK_URL='https://prop-zone.vercel.app/master.json';   // committed spare tire, may lag the blob
+let STREAKS=null;          // data/streaks.json payload
+let ODDS_INDEX=new Map();  // market|normName -> [{line, game, startsAt, books, fairOver}]
+let ODDS_OK=false, USED_FALLBACK=false, GAME_COUNT=0;
+let ACTIVE=0;              // index into STREAKS.markets
+
+async function fetchMaster(){
+  try{
+    const p=await fetch(POINTER_URL+'?_='+Date.now(),{cache:'no-store'});
+    if(!p.ok) throw new Error('pointer '+p.status);
+    const url=(await p.text()).trim();
+    const r=await fetch(url,{cache:'no-store'});
+    if(!r.ok) throw new Error('blob '+r.status);
+    return r.json();
+  }catch(e){
+    // pointer can briefly reference a cleaned-up blob mid-publish — fall back to the committed copy
+    const r=await fetch(FALLBACK_URL+'?_='+Date.now(),{cache:'no-store'});
+    if(!r.ok) throw e;
+    USED_FALLBACK=true;
+    return r.json();
+  }
+}
+
+function buildOddsIndex(data){
+  GAME_COUNT=data.gameCount||0;
+  const merged=new Map();
+  for(const x of data.props||[]){
+    const nn=normName(x.player.name);
+    const key=x.market+'|'+nn+'|'+x.line;
+    let m=merged.get(key);
+    if(!m){ m={market:x.market,nn,line:x.line,game:x.game,startsAt:x.startsAt,books:{},fairOver:null}; merged.set(key,m); }
+    for(const[b,arr]of Object.entries(x.books||{})){
+      if(!m.books[b]) m.books[b]=[null,null];
+      if(arr[0]!=null) m.books[b][0]=arr[0];
+      if(arr[1]!=null) m.books[b][1]=arr[1];
+    }
+    if(x.fairDevig!=null){
+      if(x.side==='over') m.fairOver=x.fairDevig;
+      else if(m.fairOver==null) m.fairOver=1-x.fairDevig;
+    }
+  }
+  ODDS_INDEX=new Map();
+  for(const m of merged.values()){
+    const k=m.market+'|'+m.nn;
+    if(!ODDS_INDEX.has(k)) ODDS_INDEX.set(k,[]);
+    ODDS_INDEX.get(k).push(m);
+  }
+}
+
+function findProp(market,name,line){
+  const arr=ODDS_INDEX.get(market+'|'+normName(name));
+  if(!arr||!arr.length) return null;
+  let exact=arr.find(p=>p.line===line);
+  if(exact) return exact;
+  // no exact line (books hang alt mains on hot players) — take the closest
+  return [...arr].sort((a,b)=>Math.abs(a.line-line)-Math.abs(b.line-line))[0];
+}
+
+function bestOver(prop){
+  let best=null;
+  for(const[b,arr]of Object.entries(prop.books)){
+    if(ALWAYS_EXCLUDE.has(b)) continue;
+    const d=toDec(arr[0]);
+    if(d&&(!best||d>best.dec)) best={book:b,odds:arr[0],dec:d};
+  }
+  return best;
+}
+
+// ── render ───────────────────────────────────────────────────
+function fmtSince(d){
+  if(!d) return '';
+  const dt=new Date(d+'T12:00:00');
+  return 'since '+dt.toLocaleDateString(undefined,{month:'short',day:'numeric'});
+}
+function fmtTime(iso){
+  return new Date(iso).toLocaleTimeString(undefined,{hour:'numeric',minute:'2-digit'});
+}
+
+function renderChips(){
+  const b=document.getElementById('chipsBatter'), p=document.getElementById('chipsPitcher');
+  STREAKS.markets.forEach((m,i)=>{
+    const el=document.createElement('button');
+    el.className='chip'+(i===ACTIVE?' active':'');
+    el.textContent=m.label;
+    el.onclick=()=>{ ACTIVE=i; document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
+      el.classList.add('active'); render(); };
+    (m.group==='batter'?b:p).appendChild(el);
+  });
+}
+
+let VIEW='streak';   // 'streak' | '5' | '10' | '15'
+
+function rankedPlayers(m){
+  const list=[...m.players];
+  if(VIEW==='streak'){
+    return list.filter(p=>p.streak>=2).sort((a,b)=>b.streak-a.streak||b.rate-a.rate);
+  }
+  const w=VIEW;
+  return list.filter(p=>p['l'+w]>=2)
+    .sort((a,b)=>b['l'+w]-a['l'+w]
+      ||(b['l'+w]/Math.max(b['l'+w+'n'],1))-(a['l'+w]/Math.max(a['l'+w+'n'],1))
+      ||b.rate-a.rate);
+}
+
+function render(){
+  const m=STREAKS.markets[ACTIVE];
+  const todayOnly=document.getElementById('todayOnly').checked;
+  const tbody=document.getElementById('tbody');
+  const empty=document.getElementById('emptyNote');
+  const winW=VIEW==='streak'?'10':VIEW;
+  document.getElementById('winHead').textContent='L'+winW;
+  tbody.innerHTML='';
+  let rank=0, shown=0;
+  for(const pl of rankedPlayers(m).slice(0,40)){
+    rank++;
+    const prop=ODDS_OK?findProp(m.market,pl.name,m.line):null;
+    if(todayOnly&&!prop) continue;
+    shown++;
+    const tr=document.createElement('tr');
+    tr.className='row'+(prop?'':' dim');
+    const outN=VIEW==='streak'?0:Math.max(pl.seq.length-parseInt(VIEW),0);
+    const dots=pl.seq.map((v,i)=>'<span class="dot '+(v?'hit':'miss')+(i<outN?' out':'')+'"'+(i===pl.seq.length-1?' style="outline:1px solid var(--muted);outline-offset:1px;"':'')+'></span>').join('');
+    const fire=pl.streak>=8?' 🔥':'';
+    const winHits=pl['l'+winW], winN=Math.max(pl['l'+winW+'n'],1);
+    const winCell='<span class="win-rec'+(VIEW!=='streak'?' ranked':'')+'">'+winHits+'/'+pl['l'+winW+'n']+'</span><br><span class="odds-book">'+Math.round(100*winHits/winN)+'%</span>';
+    let oddsCell='<span class="no-odds">'+(ODDS_OK?'not in tonight\'s slate':'odds unavailable')+'</span>';
+    let fairCell='<span class="no-odds">—</span>';
+    let gameCell='<span class="no-odds">—</span>';
+    if(prop){
+      const best=bestOver(prop);
+      const lineNote=prop.line!==m.line?' <span class="odds-line-note">O'+prop.line+'</span>':'';
+      if(best) oddsCell='<span class="odds-best">'+best.odds+'</span>'+lineNote+'<br><span class="odds-book">'+bookName(best.book)+'</span>';
+      if(prop.fairOver!=null) fairCell='<span class="fair">'+probToAmer(prop.fairOver)+'</span><br><span class="odds-book">'+Math.round(prop.fairOver*100)+'%</span>';
+      gameCell='<div class="game-cell">'+prop.game+'</div><div class="game-time">'+fmtTime(prop.startsAt)+'</div>';
+    }
+    tr.innerHTML='<td class="c mono" style="color:var(--muted);">'+rank+'</td>'
+      +'<td><div class="p-name">'+pl.name+'</div><div class="p-team">'+pl.team+'</div></td>'
+      +'<td class="c"><span class="streak-num">'+pl.streak+fire+'</span><br><span class="streak-since">'+fmtSince(pl.since)+'</span></td>'
+      +'<td><span class="dots">'+dots+'</span></td>'
+      +'<td class="r">'+winCell+'</td>'
+      +'<td class="r"><span class="mono">'+Math.round(pl.rate*100)+'%</span><br><span class="odds-book">'+pl.games+' '+(m.group==='pitcher'?'starts':'games')+'</span></td>'
+      +'<td>'+gameCell+'</td>'
+      +'<td class="r">'+oddsCell+'</td>'
+      +'<td class="r">'+fairCell+'</td>';
+    if(prop) tr.onclick=()=>toggleDetail(tr,prop,m);
+    tbody.appendChild(tr);
+  }
+  empty.style.display=shown?'none':'block';
+  empty.textContent=todayOnly
+    ?'No one hot on '+m.label+' has odds posted tonight. Uncheck the filter to see the full leaderboard.'
+    :'No one hot on this prop right now.';
+}
+
+function toggleDetail(tr,prop,m){
+  const next=tr.nextElementSibling;
+  if(next&&next.classList.contains('detail')){ next.remove(); return; }
+  document.querySelectorAll('tr.detail').forEach(d=>d.remove());
+  const best=bestOver(prop);
+  const books=Object.entries(prop.books)
+    .filter(([b])=>!ALWAYS_EXCLUDE.has(b))
+    .sort((a,b)=>{
+      const ia=BOOK_ORDER.indexOf(a[0]), ib=BOOK_ORDER.indexOf(b[0]);
+      return (ia<0?99:ia)-(ib<0?99:ib);
+    });
+  const cells=books.map(([b,arr])=>{
+    const isBest=best&&b===best.book;
+    return '<div class="bk'+(isBest?' best':'')+'"><span class="bk-name">'+bookName(b)+'</span>'
+      +'<span class="bk-odds">'+(arr[0]??'—')+'</span></div>';
+  }).join('');
+  const d=document.createElement('tr');
+  d.className='detail';
+  d.innerHTML='<td colspan="9"><div style="font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:0.55rem;">Over '+prop.line+' — every book tonight</div>'
+    +'<div class="book-grid">'+cells+'</div>'
+    +'<div class="detail-links">Prices move — confirm in the app before betting. Want the vig-free math? → <a href="/devig_calculator.html">devig calculator</a></div></td>';
+  tr.after(d);
+}
+
+// ── boot ─────────────────────────────────────────────────────
+async function boot(){
+  const status=document.getElementById('statusBar');
+  try{
+    const r=await fetch('/data/streaks.json?_='+Date.now(),{cache:'no-store'});
+    if(!r.ok) throw new Error('streaks '+r.status);
+    STREAKS=await r.json();
+  }catch(e){
+    status.textContent='Could not load streak data ('+e.message+') — try a refresh';
+    status.className='status-bar err';
+    return;
+  }
+  renderChips();
+  render();   // paint streaks immediately; odds fill in when the slate lands
+  const streakDate=new Date(STREAKS.generatedAt).toLocaleDateString(undefined,{month:'short',day:'numeric'});
+  status.textContent='Streaks through '+streakDate+' · loading live odds…';
+  try{
+    const data=await fetchMaster();
+    buildOddsIndex(data);
+    ODDS_OK=true;
+    status.textContent='Streaks through '+streakDate+' · '+(USED_FALLBACK?'backup odds feed':'live odds')+' — '+GAME_COUNT+' games tonight';
+    status.className='status-bar ok';
+  }catch(e){
+    status.textContent='Streaks through '+streakDate+' · odds feed unavailable ('+e.message+')';
+    status.className='status-bar err';
+  }
+  render();
+}
+
+document.getElementById('todayOnly').addEventListener('change',render);
+document.querySelectorAll('#viewSeg button').forEach(b=>b.addEventListener('click',()=>{
+  VIEW=b.dataset.view;
+  document.querySelectorAll('#viewSeg button').forEach(x=>x.classList.toggle('active',x===b));
+  render();
+}));
+boot();
+</script>
+</body>
+</html>
