@@ -142,7 +142,8 @@
     font-weight: 700;
     margin: 0;
     padding-bottom: 0.08em;
-    background: linear-gradient(95deg, var(--green) 0%, var(--cyan) 100%);
+    /* Brand gradient — white -> green hold -> warm tail */
+    background: linear-gradient(95deg, #F0EEE8 0%, #F0EEE8 12%, var(--green) 55%, var(--green) 88%, #FF8C00 130%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -672,6 +673,82 @@
   @media (max-width: 640px) {
     .card { padding-top: 60px; }
   }
+  /* ── Calc-template: education pills + next steps ── */
+  .edu-pills {
+    width: 100%;
+    max-width: 640px;
+    margin: 22px auto 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .edu-pill {
+    border: 1px dashed rgba(0, 212, 255, 0.30);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .edu-pill summary {
+    list-style: none;
+    cursor: pointer;
+    user-select: none;
+    padding: 10px 16px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: rgba(240, 238, 232, 0.62);
+    transition: color .15s;
+  }
+  .edu-pill summary::-webkit-details-marker { display: none; }
+  .edu-pill summary::before { content: '▸ '; color: var(--cyan); }
+  .edu-pill[open] summary::before { content: '▾ '; }
+  .edu-pill summary:hover { color: var(--text); }
+  .edu-pill .edu-body {
+    padding: 4px 18px 16px;
+    font-size: 14px;
+    line-height: 1.65;
+    color: rgba(240, 238, 232, 0.78);
+  }
+  .edu-pill .edu-body strong { color: var(--text); font-weight: 600; }
+  .edu-pill .edu-body em { color: var(--cyan); font-style: normal; font-weight: 500; }
+  .edu-pill .edu-body ul { margin: 8px 0 4px; padding-left: 20px; }
+  .edu-pill .edu-body li { margin-bottom: 6px; }
+  .edu-pill .edu-body a { color: var(--cyan); }
+  .edu-pill .edu-body a:hover { color: var(--green); }
+
+  .next-steps {
+    width: 100%;
+    max-width: 640px;
+    margin: 36px auto 0;
+  }
+  .next-steps-label {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .26em;
+    text-transform: uppercase;
+    color: var(--dim);
+    text-align: center;
+    margin-bottom: 12px;
+  }
+  .next-steps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 10px;
+  }
+  .next-step {
+    display: block;
+    background: var(--surface);
+    border: 1px solid var(--border-2);
+    border-radius: 12px;
+    padding: 14px 16px;
+    text-decoration: none;
+    transition: border-color .18s, transform .18s;
+  }
+  .next-step:hover { border-color: var(--green-border); transform: translateY(-1px); }
+  .next-step .ns-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13.5px; font-weight: 600; color: var(--text); }
+  .next-step .ns-tool { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 11.5px; color: var(--muted); margin-top: 3px; }
+  .next-step.lesson { border-color: rgba(0, 212, 255, 0.22); }
+  .next-step.lesson .ns-title { color: var(--cyan); }
 </style>
 <link rel="stylesheet" href="/styles/sidebar.css">
 </head>
@@ -795,32 +872,19 @@
   <div class="header">
     <div class="header-meta">
       <a href="/index.html" class="back-link">← Back</a>
-      <span class="header-eyebrow">Free Tool · Devig Calculator</span>
-      <button class="help-pill" onclick="document.getElementById('howto').open = !document.getElementById('howto').open; document.getElementById('howto').scrollIntoView({behavior:'smooth', block:'nearest'});">How to use ↓</button>
+      <span class="header-eyebrow">★ Free · No Signup ★</span>
     </div>
     <div class="title-row">
       <h1>Devig Calculator</h1>
     </div>
     <p class="tagline">
-      <span>The price you see has the bookmaker's cut baked in.</span>
-      <span class="mono">Strip the vig out → the book's true probability for each side.</span>
-      <span>Paste both sides of any two-way market. Pick a method. Read the fair line.</span>
+      <span>Paste both sides of any market — see the true odds underneath.</span>
     </p>
-  </div>
-
-  <div class="plain-intro">
-    <span class="plain-intro-label">In plain English</span>
-    <p>Every odds you see at a sportsbook has a <strong>hidden fee</strong> built into the price — that's how books make money. This tool strips that fee out so you can see the <strong>true odds</strong> underneath: the real chance each side has of winning.</p>
   </div>
 
   <div class="body">
 
     <div class="step" id="step1">
-      <div class="step-head">
-        <span class="step-num">Devig</span>
-        <span class="step-title">Strip the vig</span>
-        <span class="step-sub">Paste both sides of a two-way market — get the no-vig fair price for each.</span>
-      </div>
 
       <div class="sub-toolbar">
         <span class="sub-label">Method</span>
@@ -853,7 +917,7 @@
         </div>
       </div>
       <div class="input-hint">
-        Enter <b><a class="gloss" href="/learn-odds.html">American<span class="gloss-pop"><b>American odds</b> — the +/− format US books use. <b>−175</b> means risk $175 to win $100; a plus number means risk $100 to win that much.<span class="gloss-link">Read the odds-formats lesson →</span></span></a></b> (−175), <b><a class="gloss" href="/learn-odds.html">decimal<span class="gloss-pop"><b>Decimal odds</b> — one number showing your total return per $1 staked. <b>1.57</b> means a $1 bet pays back $1.57, your stake included.<span class="gloss-link">Read the odds-formats lesson →</span></span></a></b> (1.57), or <b><a class="gloss" href="/learn-implied.html">implied %<span class="gloss-pop"><b>Implied probability</b> — the win chance baked into a price, written as a percentage. It still has the book's fee in it until you devig.<span class="gloss-link">Read the implied-probability lesson →</span></span></a></b> (63.64%) — format auto-detected.
+        American (−175), decimal (1.57), or implied % (63.64%) — the format is auto-detected.
       </div>
 
       <div class="output-section">
@@ -901,41 +965,50 @@
         </div>
       </div>
 
-      <div class="key-note">
-        <div class="key-note-head">★ Key Point — Garbage In, Garbage Out</div>
-        <div class="key-note-body">
-          A no-vig price is only as sharp as the market you pulled it from. Devig a soft retail book — BetMGM, Bet365 — and the "fair" line just tells you what <strong>that book</strong> thinks, which usually isn't sharp at all. For a fair price worth trusting, devig the <strong>sharpest market you can find</strong>: Pinnacle, Circa, or a sharp consensus line. New to this? The lesson <a href="/learn-vig.html">The Vig</a> explains where the bookmaker's cut comes from in plain English.
-        </div>
-      </div>
-
     </div>
 
-    <!-- HOW TO -->
-    <details class="how-to" id="howto">
-      <summary>How to use this</summary>
-      <div class="how-to-body">
-        <p><strong>What it does.</strong> Strips the bookmaker's vig out of a two-way market so you can see the <em>true</em> probability the line implies for each side — the "no-vig fair odds." It's the first move behind finding a +EV bet.</p>
+    <!-- Education — collapsed, opt-in -->
+    <div class="edu-pills">
+      <details class="edu-pill">
+        <summary>What is devigging, in plain English?</summary>
+        <div class="edu-body">
+          <p>Every price at a sportsbook has a <strong>hidden fee</strong> built in — the <em>vig</em> — and it makes each side's implied win chance read higher than the truth. That's why both sides of a market add up to <em>more</em> than 100%. This tool strips the fee out so you can see the <strong>true odds underneath</strong>.</p>
+          <p>How to read the outputs: <strong>Fair No-Vig Price</strong> is the real odds and win chance for each side. In Market Analysis, <strong>Total Implied</strong> is the two raw prices added up (anything over 100% is the fee), <strong>Market Vig</strong> is that overround, and <strong>Hold %</strong> is what the book keeps long-run — lower hold means a sharper market.</p>
+          <p>Full story: <a href="/learn-vig.html">The Vig (5 min) →</a></p>
+        </div>
+      </details>
+      <details class="edu-pill">
+        <summary>Which book should you devig? (Garbage in, garbage out)</summary>
+        <div class="edu-body">
+          <p>A no-vig price is only as sharp as the market you pulled it from. Devig a soft retail book — BetMGM, Bet365 — and the "fair" line just tells you what <strong>that book</strong> thinks, which usually isn't sharp at all. For a fair price worth trusting, devig the <strong>sharpest market you can find</strong>: Pinnacle, Circa, or a sharp consensus line.</p>
+        </div>
+      </details>
+      <details class="edu-pill">
+        <summary>What do I do with the fair price?</summary>
+        <div class="edu-body">
+          <p>Compare it to what <em>other</em> books are offering. If a book lets you bet a side at a <strong>better price than its no-vig fair odds</strong>, that bet is +EV — you're being paid more than the true chance justifies. Want the whole pipeline — devig, EV, Kelly sizing, and a verdict — in one shot? That's <a href="/bet-x-ray.html">Bet X-Ray</a>.</p>
+        </div>
+      </details>
+    </div>
 
-        <p><strong>How to use it.</strong></p>
-        <ul>
-          <li>Find a market with both sides priced — e.g. <em>Lakers −110 / Mavericks +100</em>.</li>
-          <li>Paste each price into a field. American (−175), decimal (1.57), and implied % (63.64%) all work — the format is auto-detected and shown on the chip.</li>
-          <li>Pick a <em>method</em> — Proportional is the default and fine for most markets.</li>
-          <li>Read the <em>Fair No-Vig Price</em> — the true odds and probability once the vig is removed.</li>
-        </ul>
-
-        <p><strong>The three methods.</strong></p>
-        <ul>
-          <li><em>Proportional</em> — removes vig in proportion to price. Industry standard. Start here.</li>
-          <li><em>Additive</em> — removes an equal slice from each side; gives underdogs a touch more fair probability.</li>
-          <li><em>Power</em> — solves an exponent so both sides sum to 100%; most accurate on lopsided favorite/longshot markets.</li>
-        </ul>
-
-        <p><strong>Market Analysis.</strong> <em>Total Implied</em> is the two raw prices added together — anything over 100% is the vig. <em>Market Vig</em> is that overround; <em>Hold %</em> is the slice the book keeps long-run. Lower hold = a sharper, more efficient market.</p>
-
-        <p><strong>How to actually use the result.</strong> Compare the no-vig odds to what's offered at <em>other</em> books. If another book lets you bet a side at a better price than its no-vig fair odds, that bet is +EV. Want the whole pipeline — devig, EV, Kelly sizing, and a verdict — in one tool? Use <a href="/bet-x-ray.html">Bet X-Ray</a>.</p>
+    <!-- Next steps -->
+    <div class="next-steps">
+      <div class="next-steps-label">Next Steps</div>
+      <div class="next-steps-grid">
+        <a class="next-step" href="/bet-x-ray.html">
+          <div class="ns-title">Is the bet worth taking? →</div>
+          <div class="ns-tool">Bet X-Ray</div>
+        </a>
+        <a class="next-step" href="/odds_calculator.html">
+          <div class="ns-title">Convert a price →</div>
+          <div class="ns-tool">Odds Converter</div>
+        </a>
+        <a class="next-step lesson" href="/learn-vig.html">
+          <div class="ns-title">▸ New to the vig?</div>
+          <div class="ns-tool">The Vig — 5 min</div>
+        </a>
       </div>
-    </details>
+    </div>
 
   </div>
 </div>
