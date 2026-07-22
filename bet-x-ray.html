@@ -159,7 +159,7 @@
     margin: 0;
     padding-bottom: 0.08em;
     /* Whole title gradient — green→cyan */
-    background: linear-gradient(95deg, var(--green) 0%, var(--cyan) 100%);
+    background: linear-gradient(95deg, #F0EEE8 0%, #F0EEE8 12%, var(--green) 55%, var(--green) 88%, #FF8C00 130%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -814,6 +814,82 @@
   @media (max-width: 640px) {
     .card { padding-top: 60px; }
   }
+  /* ── Calc-template: education pills + next steps ── */
+  .edu-pills {
+    width: 100%;
+    max-width: 640px;
+    margin: 22px auto 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .edu-pill {
+    border: 1px dashed rgba(0, 212, 255, 0.30);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .edu-pill summary {
+    list-style: none;
+    cursor: pointer;
+    user-select: none;
+    padding: 10px 16px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: rgba(240, 238, 232, 0.62);
+    transition: color .15s;
+  }
+  .edu-pill summary::-webkit-details-marker { display: none; }
+  .edu-pill summary::before { content: '\25b8 '; color: var(--cyan); }
+  .edu-pill[open] summary::before { content: '\25be '; }
+  .edu-pill summary:hover { color: var(--text); }
+  .edu-pill .edu-body {
+    padding: 4px 18px 16px;
+    font-size: 14px;
+    line-height: 1.65;
+    color: rgba(240, 238, 232, 0.78);
+  }
+  .edu-pill .edu-body strong { color: var(--text); font-weight: 600; }
+  .edu-pill .edu-body em { color: var(--cyan); font-style: normal; font-weight: 500; }
+  .edu-pill .edu-body ul { margin: 8px 0 4px; padding-left: 20px; }
+  .edu-pill .edu-body li { margin-bottom: 6px; }
+  .edu-pill .edu-body a { color: var(--cyan); }
+  .edu-pill .edu-body a:hover { color: var(--green); }
+
+  .next-steps {
+    width: 100%;
+    max-width: 640px;
+    margin: 36px auto 0;
+  }
+  .next-steps-label {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .26em;
+    text-transform: uppercase;
+    color: var(--dim);
+    text-align: center;
+    margin-bottom: 12px;
+  }
+  .next-steps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 10px;
+  }
+  .next-step {
+    display: block;
+    background: var(--surface);
+    border: 1px solid var(--border-2);
+    border-radius: 12px;
+    padding: 14px 16px;
+    text-decoration: none;
+    transition: border-color .18s, transform .18s;
+  }
+  .next-step:hover { border-color: var(--green-border); transform: translateY(-1px); }
+  .next-step .ns-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13.5px; font-weight: 600; color: var(--text); }
+  .next-step .ns-tool { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 11.5px; color: var(--muted); margin-top: 3px; }
+  .next-step.lesson { border-color: rgba(0, 212, 255, 0.22); }
+  .next-step.lesson .ns-title { color: var(--cyan); }
 </style>
 <link rel="stylesheet" href="/styles/sidebar.css">
 <link rel="stylesheet" href="/styles/topbar.css">
@@ -1050,16 +1126,13 @@
   <div class="header">
     <div class="header-meta">
       <a href="/index.html" class="back-link">← Back</a>
-      <span class="header-eyebrow">Flagship Tool · Bet Analysis Pipeline</span>
-      <button class="help-pill" onclick="document.getElementById('howto').open = !document.getElementById('howto').open; document.getElementById('howto').scrollIntoView({behavior:'smooth', block:'nearest'});">How to use ↓</button>
+      <span class="header-eyebrow">★ Flagship Tool · Free · No Signup ★</span>
     </div>
     <div class="title-row">
       <h1>Bet <span class="accent-phrase">X-Ray</span></h1>
     </div>
     <p class="tagline">
-      <span>The whole bet, on one screen.</span>
-      <span class="mono">Devig the price. Calculate the edge. Size the bet. Get a verdict.</span>
-      <span>No tab-switching, no calculator-stacking, no math on the side.</span>
+      <span>Devig the price, measure the edge, size the bet, get a verdict — the whole bet on one screen.</span>
     </p>
   </div>
 
@@ -1370,43 +1443,59 @@
       </div>
     </div>
 
-    <!-- HOW TO -->
-    <details class="how-to" id="howto">
-      <summary>How to use this</summary>
-      <div class="how-to-body">
-        <p><strong>What it does.</strong> One calculator that runs the full sharp-betting pipeline: devig the market to get the fair price, compute your edge against your book's price, size with Kelly, then sanity-check the result with hit-rate, variance, sensitivity, CLV, and risk of ruin.</p>
+    <!-- Education — collapsed, opt-in -->
+    <div class="edu-pills">
+      <details class="edu-pill">
+        <summary>What is this pipeline, in plain English?</summary>
+        <div class="edu-body">
+          <p>One tool that runs the full sharp-betting pipeline: <strong>devig</strong> the market to get the fair price, compute your <strong>edge</strong> against your book's price, <strong>size</strong> the bet with Kelly, then sanity-check it with hit rates, variance, sensitivity, CLV, and risk of ruin.</p>
+          <p>Two ways in at Step 01: <strong>Sharp market</strong> — paste both sides from a sharp source (Pinnacle, Circa, or the <a href="/consensus-calculator.html">Consensus Calc</a>) and the vig is stripped for you. <strong>My own model</strong> — enter your true probability directly (%, decimal, or American odds). Never your gut — a model or a devigged market, nothing else.</p>
+        </div>
+      </details>
+      <details class="edu-pill">
+        <summary>Kelly sizing and the Reality Check, decoded</summary>
+        <div class="edu-body">
+          <p><strong>Kelly:</strong> set bankroll and fraction. Half-Kelly is the default — most pros bet quarter or half, <em>never</em> full. Expand the compare table to see all four fractions side by side.</p>
+          <p><strong>Reality Check</strong> — the most underrated step:</p>
+          <ul>
+            <li><strong>Breakeven hit rate</strong> — how often you must win at this price just to tread water.</li>
+            <li><strong>Margin of safety</strong> — how much room your projection has before the bet flips negative.</li>
+            <li><strong>Loss frequency</strong> — a +EV +400 dog still loses 75% of the time. Know it before you bet it.</li>
+            <li><strong>Sensitivity table</strong> — if a thin edge collapses when your true prob is off by 2%, the bet isn't robust.</li>
+          </ul>
+        </div>
+      </details>
+      <details class="edu-pill">
+        <summary>The bonus checks — and the caveats</summary>
+        <div class="edu-body">
+          <p><strong>CLV Preview:</strong> enter where you expect the market to close. Beating the close is the single best long-run indicator you're actually +EV. <strong>Risk of Ruin:</strong> the odds of a 50% drawdown over your horizon — full Kelly produces brutal drawdowns even when the edge is real; that's why fractional Kelly exists.</p>
+          <ul>
+            <li>Garbage in, garbage out — if the true probability is wrong, every downstream number is wrong. Devig the sharpest market available.</li>
+            <li>Risk of ruin is a normal-approximation rule of thumb; long-shot ladders run hotter.</li>
+            <li>Sensitivity uses fixed ±2% / ±5% bumps — for long shots the realistic model error is bigger.</li>
+          </ul>
+        </div>
+      </details>
+    </div>
 
-        <p><strong>Step 1 — Scan the bet.</strong> Two ways in:</p>
-        <ul>
-          <li><em>Sharp market</em>: enter both sides of a 2-way market from a sharp source (Pinnacle, Circa, or our <a href="/consensus-calculator.html">Consensus Calc</a>). The page strips the vig and outputs the fair % for both sides.</li>
-          <li><em>My own model</em>: enter your true probability directly (in % or decimal). Skip the devig.</li>
-        </ul>
-        <p>Then pick the side you're betting (only relevant in market mode), enter the price your book is offering, and optionally tag the book name. Output: fair price, probability gap, EV%, and EV per $100.</p>
-
-        <p><strong>Step 2 — Kelly Sizing.</strong> Set bankroll and Kelly fraction. Half-Kelly is the default — most pros bet quarter or half, never full. Output: recommended stake, full Kelly reference, expected profit, potential loss. Expand the compare table to see all four common fractions side by side.</p>
-
-        <p><strong>Step 3 — Reality Check.</strong> The most underrated step:</p>
-        <ul>
-          <li><em>Breakeven hit rate</em>: how often you need to win to break even at this price.</li>
-          <li><em>Margin of safety</em>: how much room your projection has before the bet flips negative.</li>
-          <li><em>Loss frequency</em>: how often this exact bet will lose. Important for variance expectations — a +EV +400 dog still loses 75% of the time.</li>
-          <li><em>Long-run profit</em>: where this edge takes you over 100 and 1000 bets.</li>
-          <li><em>Sensitivity table</em>: what your EV becomes if your true-prob estimate is off by ±2% / ±5%. If a thin edge collapses to negative under a 2% miss, the bet isn't robust.</li>
-          <li><em>Verdict</em>: plain-English sanity check — strong, solid, marginal, or skip.</li>
-        </ul>
-
-        <p><strong>Bonus — CLV preview.</strong> Enter the price you expect this market to close at. Beating the close (CLV) is the single best long-run indicator that you're actually +EV.</p>
-
-        <p><strong>Bonus — Risk of ruin.</strong> Estimates probability of a 50% bankroll drawdown over your bet horizon at the recommended stake. Full Kelly produces big drawdowns even when the edge is real — this is why fractional Kelly exists.</p>
-
-        <p><strong>Caveats.</strong></p>
-        <ul>
-          <li>Garbage in, garbage out. If your true probability is wrong, every downstream number is wrong. Devig from the sharpest market available.</li>
-          <li>Risk of ruin uses a normal-approximation rule of thumb. Real-world variance can be larger on heavy-favorite or long-shot ladders.</li>
-          <li>Sensitivity uses fixed bumps (±2%, ±5%). For very long-shot bets, the relevant model error is bigger — interpret accordingly.</li>
-        </ul>
+    <!-- Next steps -->
+    <div class="next-steps">
+      <div class="next-steps-label">Next Steps</div>
+      <div class="next-steps-grid">
+        <a class="next-step" href="/sharp-snapshot.html">
+          <div class="ns-title">Read the sharp money first →</div>
+          <div class="ns-tool">Sharp Snapshot</div>
+        </a>
+        <a class="next-step" href="/bet-tracker.html">
+          <div class="ns-title">Log the bet, track your CLV →</div>
+          <div class="ns-tool">Bet Tracker</div>
+        </a>
+        <a class="next-step lesson" href="/learn-ev.html">
+          <div class="ns-title">▸ New to expected value?</div>
+          <div class="ns-tool">+EV — 5 min</div>
+        </a>
       </div>
-    </details>
+    </div>
 
   </div>
 </div>

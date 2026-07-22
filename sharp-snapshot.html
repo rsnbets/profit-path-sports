@@ -82,25 +82,13 @@
     transition: color .15s;
   }
   .header .back-link:hover { color: var(--cyan); }
-  .header .help-pill {
-    position: absolute;
-    top: 0;
-    right: 0;
-    background: transparent;
-    color: var(--cyan);
+  .header-eyebrow {
+    display: block;
+    padding-top: 6px;
     font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
     font-size: 10px; font-weight: 600;
-    letter-spacing: .14em; text-transform: uppercase;
-    padding: 7px 14px;
-    border: 1px solid var(--cyan-border, rgba(0,212,255,0.28));
-    border-radius: 4px;
-    cursor: pointer;
-    transition: all .18s;
-  }
-  .header .help-pill:hover {
-    background: rgba(0,212,255,0.10);
-    color: var(--green);
-    border-color: rgba(77,255,120,0.32);
+    letter-spacing: .28em; text-transform: uppercase;
+    color: var(--cyan);
   }
   /* Big gradient title — v2 pattern */
   .header h1 {
@@ -110,12 +98,12 @@
     line-height: 1.1;
     letter-spacing: -.025em;
     color: transparent;
-    background: linear-gradient(95deg, var(--green) 0%, var(--cyan) 100%);
+    background: linear-gradient(95deg, #F0EEE8 0%, #F0EEE8 12%, var(--green) 55%, var(--green) 88%, #FF8C00 130%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
     text-transform: none;
-    padding: 40px 20px 8px;
+    padding: 26px 20px 8px;
     margin: 0;
     display: block;
   }
@@ -665,8 +653,83 @@
   @media (max-width: 640px) {
     .header { padding-top: 58px !important; padding-left: 16px; padding-right: 16px; }
     .back-link { display: none; }
-    .help-pill { top: 14px; right: 14px; font-size: 9px; padding: 5px 11px; letter-spacing: 1.5px; }
   }
+  /* ── Calc-template: education pills + next steps ── */
+  .edu-pills {
+    width: 100%;
+    max-width: 640px;
+    margin: 22px auto 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .edu-pill {
+    border: 1px dashed rgba(0, 212, 255, 0.30);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .edu-pill summary {
+    list-style: none;
+    cursor: pointer;
+    user-select: none;
+    padding: 10px 16px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: rgba(240, 238, 232, 0.62);
+    transition: color .15s;
+  }
+  .edu-pill summary::-webkit-details-marker { display: none; }
+  .edu-pill summary::before { content: '\25b8 '; color: var(--cyan); }
+  .edu-pill[open] summary::before { content: '\25be '; }
+  .edu-pill summary:hover { color: var(--text); }
+  .edu-pill .edu-body {
+    padding: 4px 18px 16px;
+    font-size: 14px;
+    line-height: 1.65;
+    color: rgba(240, 238, 232, 0.78);
+  }
+  .edu-pill .edu-body strong { color: var(--text); font-weight: 600; }
+  .edu-pill .edu-body em { color: var(--cyan); font-style: normal; font-weight: 500; }
+  .edu-pill .edu-body ul { margin: 8px 0 4px; padding-left: 20px; }
+  .edu-pill .edu-body li { margin-bottom: 6px; }
+  .edu-pill .edu-body a { color: var(--cyan); }
+  .edu-pill .edu-body a:hover { color: var(--green); }
+
+  .next-steps {
+    width: 100%;
+    max-width: 640px;
+    margin: 36px auto 0;
+  }
+  .next-steps-label {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .26em;
+    text-transform: uppercase;
+    color: var(--dim);
+    text-align: center;
+    margin-bottom: 12px;
+  }
+  .next-steps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 10px;
+  }
+  .next-step {
+    display: block;
+    background: var(--surface);
+    border: 1px solid var(--border-2);
+    border-radius: 12px;
+    padding: 14px 16px;
+    text-decoration: none;
+    transition: border-color .18s, transform .18s;
+  }
+  .next-step:hover { border-color: var(--green-border); transform: translateY(-1px); }
+  .next-step .ns-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13.5px; font-weight: 600; color: var(--text); }
+  .next-step .ns-tool { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 11.5px; color: var(--muted); margin-top: 3px; }
+  .next-step.lesson { border-color: rgba(0, 212, 255, 0.22); }
+  .next-step.lesson .ns-title { color: var(--cyan); }
 </style>
 <link rel="stylesheet" href="/styles/sidebar.css">
 <link rel="stylesheet" href="/styles/topbar.css">
@@ -901,8 +964,8 @@
 <div class="card">
   <div class="header">
     <a href="/index.html" class="back-link">← Back</a>
-    <button class="help-pill" onclick="document.getElementById('howto').open = !document.getElementById('howto').open; document.getElementById('howto').scrollIntoView({behavior:'smooth', block:'nearest'});">How to use this ↓</button>
-    <h1><span class="bolt">🩻</span> Sharp Snapshot</h1>
+    <span class="header-eyebrow">★ Free · No Signup ★</span>
+    <h1>Sharp Snapshot</h1>
     <div class="tagline">See the sharp's actual position, the consensus fair price, and your soft-book target — all on one screen.</div>
   </div>
 
@@ -1126,47 +1189,64 @@
       </div>
     </div>
 
-    <!-- How to use -->
-    <details class="how-to" id="howto">
-      <summary>How to use this</summary>
-      <div class="how-to-body">
-        <p><strong>What it does.</strong> You see a row on <a href="https://picktheodds.app" target="_blank" rel="noopener">Pick the Odds</a> with prices and dollar amounts across Pinnacle, Circa, ProphetX, and Novig. Type those numbers into the cards above. The tool runs the analysis we walk through manually in our guides — translation rule on the exchanges, devig on Pinnacle, consensus fair, and the target price you need to beat at a soft book.</p>
+    <!-- Education — collapsed, opt-in -->
+    <div class="edu-pills">
+      <details class="edu-pill">
+        <summary>What is this reading, in plain English?</summary>
+        <div class="edu-body">
+          <p>You see a row on <a href="https://picktheodds.app" target="_blank" rel="noopener">Pick the Odds</a> with prices and dollar amounts across Pinnacle, Circa, ProphetX, and Novig. Type those numbers into the cards above — the tool runs the full analysis: translation rule on the exchanges, devig on the books, consensus fair, and the target price to beat at a soft book.</p>
+          <p><strong>The amounts mean different things:</strong> Pinnacle and Circa are <em>book limits</em> (the max they'll book at that line); ProphetX and Novig are <em>exchange depth</em> (real user-posted money). Leave any source blank if it isn't quoted.</p>
+        </div>
+      </details>
+      <details class="edu-pill">
+        <summary>The five outputs, decoded</summary>
+        <div class="edu-body">
+          <ul>
+            <li><strong>Sharp Translation</strong> — flips exchange offers to the sharp's actual position and tallies sharp capital per side, with the imbalance ratio.</li>
+            <li><strong>Book Limit Asymmetry</strong> — the <em>lower-limit</em> side is the side the book is protecting itself from, i.e. the inferred sharp side. Books + exchanges agreeing = aligned signal; disagreeing = down-weight it.</li>
+            <li><strong>Conviction Check</strong> — when exchange depth <em>exceeds</em> book limits, sharps wanted more capacity than the books would underwrite. Strong conviction; a leading indicator of line movement.</li>
+            <li><strong>Consensus Fair</strong> — weighted no-vig fair across the sources (Pinnacle and Novig weighted heaviest).</li>
+            <li><strong>Soft-Book Target</strong> — the price to beat at a soft book to capture cross-market EV. Primary side = where the sharp money leans.</li>
+          </ul>
+        </div>
+      </details>
+      <details class="edu-pill">
+        <summary>Reading the verdict — and the caveats</summary>
+        <div class="edu-body">
+          <p><strong>Strong</strong> (5×+ imbalance) · <strong>Solid</strong> (2–5×) · <strong>Mild</strong> (1.3–2×) · <strong>Flat</strong> (under 1.3× — no signal, just take the consensus fair). "Books confirm" bumps the verdict up a level; "mixed book stance" demotes it. "Books-only lean" = no exchange depth but asymmetric limits — treat as a lean, not a conviction.</p>
+          <ul>
+            <li>Book limits are confidence indicators, not sharp positions — the tally uses only exchange depth.</li>
+            <li>On thin markets ($100–$300 depth) a single rec bettor can mimic a sharp signal. Bigger depth, better read.</li>
+            <li>The play once you have a target price: find it at a soft book — <a href="/learn-cross-market-ev.html">Cross-Market EV →</a></li>
+          </ul>
+        </div>
+      </details>
+    </div>
 
-        <p><strong>Inputs.</strong> Use American odds (e.g. <em>−110</em>, <em>+135</em>). For the dollar amounts: Pinnacle and Circa are book limits (the max they'll book at that line); ProphetX and Novig are exchange order-book depth (real user-posted money). Leave any source blank if Pick the Odds doesn't show it for that market.</p>
-
-        <p><strong>The five outputs:</strong></p>
-        <ul>
-          <li><em>Sharp Translation</em> — translates exchange depth to the sharp's actual position (flip side, flip sign). Tallies how much sharp capital sits on each side and shows the imbalance ratio.</li>
-          <li><em>Book Limit Asymmetry</em> — per-book ratio of the higher to the lower limit. <strong>The LOWER-limit side is the side the book is protecting itself from</strong> — i.e. the inferred sharp-favored side. When both books protect the same side AND it matches the exchange flow, all signals align. When books and exchanges point opposite ways, that's a mixed signal worth down-weighting.</li>
-          <li><em>Conviction Check</em> — compares exchange depth to book limits on each side. <strong>When exchange depth exceeds book limits, sharps wanted more capacity than the books would underwrite</strong> — they overflowed onto the exchange. That's a strong conviction signal and a leading indicator of line movement.</li>
-          <li><em>Consensus Fair</em> — weighted no-vig fair price across the available sources. Pinnacle and Novig get the heaviest weight since they're the deepest references.</li>
-          <li><em>Soft-Book Target</em> — the price you need to beat at a soft book to capture cross-market EV. The "primary" side is whichever the sharps want (heavier imbalance); the "secondary" side is the other one, lower-edge by default.</li>
-        </ul>
-
-        <p><strong>Reading the verdict:</strong></p>
-        <ul>
-          <li><em>Strong</em> (5×+ imbalance) — sharps clearly on one side, big confidence to act on it.</li>
-          <li><em>Solid</em> (2×-5×) — meaningful directional signal.</li>
-          <li><em>Mild</em> (1.3×-2×) — small lean, treat with caution.</li>
-          <li><em>Flat</em> (below 1.3×) — no clear sharp signal, just take the consensus fair.</li>
-          <li><em>"Books confirm" / "mixed book stance" modifiers</em> — appended when the Book Limit Asymmetry agrees with (escalates the verdict one level) or disagrees with (demotes one level) the exchange imbalance.</li>
-          <li><em>"Books-only lean"</em> — surfaced when there's no exchange depth but the sharp books are still asymmetrically protecting one side. Treat as a lean, not a conviction.</li>
-        </ul>
-
-        <p><strong>Caveats.</strong></p>
-        <ul>
-          <li>Book limits (Pinnacle, Circa) are confidence indicators, not sharp positions. The translation tally uses ONLY exchange depth.</li>
-          <li>For very thin markets ($100-$300 depth), single rec bettors can mimic sharp signals. Larger absolute depths give more confident reads.</li>
-          <li>Once you have the target price, the cross-market EV play is to find it at a soft book — see <a href="/learn-cross-market-ev.html">Cross-Market EV</a> for the full strategy.</li>
-        </ul>
+    <!-- Next steps -->
+    <div class="next-steps">
+      <div class="next-steps-label">Next Steps</div>
+      <div class="next-steps-grid">
+        <a class="next-step" href="/bet-x-ray.html">
+          <div class="ns-title">Found a price? Run the bet →</div>
+          <div class="ns-tool">Bet X-Ray</div>
+        </a>
+        <a class="next-step" href="/devig_calculator.html">
+          <div class="ns-title">Just need a fair price →</div>
+          <div class="ns-tool">Devig Calculator</div>
+        </a>
+        <a class="next-step lesson" href="/learn-cross-market-ev.html">
+          <div class="ns-title">▸ The strategy behind this tool</div>
+          <div class="ns-tool">Cross-Market EV — 8 min</div>
+        </a>
       </div>
-    </details>
+    </div>
 
   </div>
 </div>
 
 <div class="footer">
-  © 2026 Profit Path Sports · <a href="/index.html">Home</a> · <a href="/learn-exchange-liquidity.html">Reading Exchange Liquidity</a> · <a href="/learn-cross-market-ev.html">Cross-Market EV</a> · <a href="/bet-x-ray.html">Bet X-Ray</a> &middot; <a href="/privacy.html">Privacy</a> &middot; <a href="/disclaimer.html">Disclaimer</a> &middot; <a href="/affiliate-disclosure.html">Affiliate</a>
+  © 2026 PROFITPATH Sports · <a href="/index.html">Home</a> · <a href="/learn-exchange-liquidity.html">Reading Exchange Liquidity</a> · <a href="/learn-cross-market-ev.html">Cross-Market EV</a> · <a href="/bet-x-ray.html">Bet X-Ray</a> &middot; <a href="/privacy.html">Privacy</a> &middot; <a href="/disclaimer.html">Disclaimer</a> &middot; <a href="/affiliate-disclosure.html">Affiliate</a>
 </div>
 
 <script>
