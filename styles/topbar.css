@@ -180,7 +180,7 @@ body.pps-sidebar-open .pps-sidebar-toggle { display: none !important; }
 }
 
 /* Mid-size laptops: keep everything on one row without clipping the CTA */
-@media (min-width: 901px) and (max-width: 1280px) {
+@media (min-width: 901px) and (max-width: 1360px) {
   .pps-topbar-inner { gap: 14px; height: 80px; }
   .tb-brand { font-size: 20px; }
   .tb-link, .tb-item > button { font-size: 16px; padding: 10px 11px; }
