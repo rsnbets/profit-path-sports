@@ -11,6 +11,9 @@
   position: sticky;
   top: 0;
   z-index: 60;
+  /* Full-bleed: escape any centered/max-width parent so the bar spans the viewport */
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
   background: rgba(13, 13, 13, 0.92);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
@@ -18,9 +21,9 @@
   border-bottom: 1px solid rgba(255, 255, 255, 0.10);
 }
 .pps-topbar-inner {
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
-  padding: 0 22px;
+  padding: 0 26px;
   height: 92px;
   display: flex;
   align-items: center;
@@ -174,6 +177,14 @@ body.pps-sidebar-open .pps-sidebar-toggle { display: none !important; }
 @media (min-width: 901px) {
   body.pps-sidebar-open { padding-left: 0 !important; }
   body.pps-sidebar-open .pps-sidebar { transform: translateX(-100%) !important; }
+}
+
+/* Mid-size laptops: keep everything on one row without clipping the CTA */
+@media (min-width: 901px) and (max-width: 1280px) {
+  .pps-topbar-inner { gap: 14px; height: 80px; }
+  .tb-brand { font-size: 20px; }
+  .tb-link, .tb-item > button { font-size: 16px; padding: 10px 11px; }
+  .tb-cta { font-size: 15px; padding: 12px 18px; }
 }
 
 @media (max-width: 900px) {
