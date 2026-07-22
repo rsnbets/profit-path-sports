@@ -689,8 +689,11 @@
     if (e.key === 'Escape') document.querySelectorAll('.tb-item.open').forEach(function (o) { o.classList.remove('open'); });
   });
   if (bar.hasAttribute('data-below-hero')) {
+    var logo = document.querySelector('.hero-logo');
     var onScroll = function () {
-      if (bar.getBoundingClientRect().top <= 0) bar.classList.add('stuck');
+      var past = logo ? logo.getBoundingClientRect().bottom <= bar.offsetHeight
+                      : bar.getBoundingClientRect().top <= 0;
+      if (past) bar.classList.add('stuck');
       else bar.classList.remove('stuck');
     };
     window.addEventListener('scroll', onScroll, { passive: true });
