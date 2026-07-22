@@ -142,7 +142,7 @@
     font-weight: 700;
     margin: 0;
     padding-bottom: 0.08em;
-    background: linear-gradient(95deg, var(--green) 0%, var(--cyan) 100%);
+    background: linear-gradient(95deg, #F0EEE8 0%, #F0EEE8 12%, var(--green) 55%, var(--green) 88%, #FF8C00 130%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -734,6 +734,82 @@
   @media (max-width: 640px) {
     .card { padding-top: 60px; }
   }
+  /* ── Calc-template: education pills + next steps ── */
+  .edu-pills {
+    width: 100%;
+    max-width: 640px;
+    margin: 22px auto 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .edu-pill {
+    border: 1px dashed rgba(0, 212, 255, 0.30);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .edu-pill summary {
+    list-style: none;
+    cursor: pointer;
+    user-select: none;
+    padding: 10px 16px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: rgba(240, 238, 232, 0.62);
+    transition: color .15s;
+  }
+  .edu-pill summary::-webkit-details-marker { display: none; }
+  .edu-pill summary::before { content: '\25b8 '; color: var(--cyan); }
+  .edu-pill[open] summary::before { content: '\25be '; }
+  .edu-pill summary:hover { color: var(--text); }
+  .edu-pill .edu-body {
+    padding: 4px 18px 16px;
+    font-size: 14px;
+    line-height: 1.65;
+    color: rgba(240, 238, 232, 0.78);
+  }
+  .edu-pill .edu-body strong { color: var(--text); font-weight: 600; }
+  .edu-pill .edu-body em { color: var(--cyan); font-style: normal; font-weight: 500; }
+  .edu-pill .edu-body ul { margin: 8px 0 4px; padding-left: 20px; }
+  .edu-pill .edu-body li { margin-bottom: 6px; }
+  .edu-pill .edu-body a { color: var(--cyan); }
+  .edu-pill .edu-body a:hover { color: var(--green); }
+
+  .next-steps {
+    width: 100%;
+    max-width: 640px;
+    margin: 36px auto 0;
+  }
+  .next-steps-label {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .26em;
+    text-transform: uppercase;
+    color: var(--dim);
+    text-align: center;
+    margin-bottom: 12px;
+  }
+  .next-steps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 10px;
+  }
+  .next-step {
+    display: block;
+    background: var(--surface);
+    border: 1px solid var(--border-2);
+    border-radius: 12px;
+    padding: 14px 16px;
+    text-decoration: none;
+    transition: border-color .18s, transform .18s;
+  }
+  .next-step:hover { border-color: var(--green-border); transform: translateY(-1px); }
+  .next-step .ns-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13.5px; font-weight: 600; color: var(--text); }
+  .next-step .ns-tool { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 11.5px; color: var(--muted); margin-top: 3px; }
+  .next-step.lesson { border-color: rgba(0, 212, 255, 0.22); }
+  .next-step.lesson .ns-title { color: var(--cyan); }
 </style>
 <link rel="stylesheet" href="/styles/sidebar.css">
 <link rel="stylesheet" href="/styles/topbar.css">
@@ -970,22 +1046,14 @@
   <div class="header">
     <div class="header-meta">
       <a href="/index.html" class="back-link">← Back</a>
-      <span class="header-eyebrow">Free Tool · Hedge Calculator</span>
-      <button class="help-pill" onclick="document.getElementById('howto').open = !document.getElementById('howto').open; document.getElementById('howto').scrollIntoView({behavior:'smooth', block:'nearest'});">How to use ↓</button>
+      <span class="header-eyebrow">★ Free · No Signup ★</span>
     </div>
     <div class="title-row">
       <h1>Hedge Calculator</h1>
     </div>
     <p class="tagline">
-      <span>A futures ticket nears a payday — or a live bet swings your way.</span>
-      <span class="mono">Hedge the other side to lock in a result — guaranteed profit, your stake back, or a custom split.</span>
-      <span>Eyeball the hedge and you leave money on the table. This nails the stake to the cent.</span>
+      <span>Your bet's close to cashing — see exactly what to put on the other side to lock it in.</span>
     </p>
-  </div>
-
-  <div class="plain-intro">
-    <span class="plain-intro-label">In plain English</span>
-    <p>You've already placed a bet that could win big. This tool shows you exactly how much to put on the <strong>other side</strong> so you come away with money — win or lose.</p>
   </div>
 
   <p class="tool-redirect">Here to cash out a <strong>bonus bet</strong>? A bonus bet isn't a hedge — it's a separate play with its own tool. Head to the <a href="/bonus-converter.html">Bonus Converter</a> instead.</p>
@@ -993,12 +1061,6 @@
   <div class="body">
 
     <div class="step" id="step1">
-      <div class="step-head">
-        <span class="step-num">Hedge</span>
-        <span class="step-title">Set up the hedge</span>
-        <span class="step-sub">Your original bet plus the current other-side price — get the hedge that locks your result.</span>
-      </div>
-
       <div class="sub-toolbar">
         <span class="sub-label">Strategy</span>
         <div class="pill-group" id="modeGroup">
@@ -1032,7 +1094,7 @@
         </div>
       </div>
       <div class="input-hint">
-        Odds accept <b><a class="gloss" href="/learn-odds.html">American<span class="gloss-pop"><b>American odds</b> — the +/− format US books use. <b>−150</b> means risk $150 to win $100; <b>+150</b> means risk $100 to win $150.<span class="gloss-link">Read the odds-formats lesson →</span></span></a></b> (+250) or <b><a class="gloss" href="/learn-odds.html">decimal<span class="gloss-pop"><b>Decimal odds</b> — one number showing your total return per $1 staked. <b>3.50</b> means a $1 bet pays back $3.50, your stake included.<span class="gloss-link">Read the odds-formats lesson →</span></span></a></b> (3.50). The hedge odds are the price on the <b>opposite outcome</b> at any book.
+        American (+250) or decimal (3.50) — auto-detected. The hedge odds are the price on the <b>opposite outcome</b> at any book.
       </div>
 
       <div class="output-section">
@@ -1053,7 +1115,7 @@
             <div class="out-sub" id="profitSub">guaranteed either way</div>
           </div>
           <div class="out-box">
-            <div class="out-label"><span class="gloss" tabindex="0">ROI<span class="gloss-pop"><b>ROI</b> — return on investment. Your profit as a percentage of everything you put at risk. $20 profit on $100 risked = <b>20% ROI</b>.</span></span></div>
+            <div class="out-label">ROI</div>
             <div class="out-value empty" id="roi">—</div>
             <div class="out-sub">on total wagered</div>
           </div>
@@ -1083,55 +1145,61 @@
         </div>
       </div>
 
-      <div class="callout">
-        <div class="callout-label">What a hedge actually is</div>
-        <p>Back before the season you put $100 on a team to win the title. They made it — the final is tomorrow. Win, and you collect <strong>$1,000</strong>. Lose, and you get <strong>nothing</strong>.</p>
-        <p>You don't have to just sit there and hope. You can place a second bet now — this time on the <strong>other team</strong> — so you walk away with money <em>no matter who wins</em>.</p>
-        <p>That second bet is the hedge. Here's the trade:</p>
-        <ul>
-          <li><strong>No hedge</strong> — your team wins, you get the full $1,000. They lose, you get $0.</li>
-          <li><strong>Hedge</strong> — you give up part of that $1,000, but in exchange you collect a guaranteed payout either way. Never the biggest win, never the empty-handed loss.</li>
-        </ul>
-        <p>That's all a hedge is: <strong>a bet on the other side that turns "win big or win nothing" into "win something for sure."</strong> This calculator tells you exactly how much to put on that second bet.</p>
-      </div>
-
-      <div class="key-note">
-        <div class="key-note-head">★ Key Point — Don't Hedge Just Because You're Nervous</div>
-        <div class="key-note-body">
-          A hedge always costs you a little — that's the price of making it a sure thing. So only do it when it's actually worth it:
-          <div class="kn-list">
-            <div class="kn-item"><span class="kn-tag hedge">Hedge</span><span><strong>The bet got too big.</strong> A futures ticket or DFS slip that's grown into more money than you can afford to lose. Lock in a guaranteed result and stop sweating it.</span></div>
-            <div class="kn-item"><span class="kn-tag ride">Let it ride</span><span><strong>You still think you'll win.</strong> You're just nervous. Hedging here only hands back money you'd probably have kept.</span></div>
-          </div>
-          Simple rule: hedge to protect money you can't afford to lose — not to calm your nerves. <a href="/learn-betting-vs-trading.html">More on this &#8594;</a>
-        </div>
-      </div>
 
     </div>
 
-    <!-- HOW TO -->
-    <details class="how-to" id="howto">
-      <summary>How to use this</summary>
-      <div class="how-to-body">
-        <p><strong>What it does.</strong> A hedge opportunity usually shows up in one of three spots: a <a href="/learn-futures.html">futures ticket</a> close to cashing (your preseason long shot made the final), a <em>live, in-play bet</em> where the odds have swung your way mid-game, or a <em>DFS pick&rsquo;em slip</em> down to its last leg — where you can bet that final player's prop the other way at a sportsbook. In any of those you've got a bet working, and a hedge is a bet on the <em>opposite</em> outcome that locks in a result instead of leaving it to chance. This calculator sizes that hedge.</p>
 
-        <p><strong>How to use it.</strong></p>
-        <ul>
-          <li>Enter your <em>original bet</em> — the stake and odds you already have working.</li>
-          <li>Enter the <em>hedge odds</em> — the price on the opposite outcome at any book right now.</li>
-          <li>Pick a strategy, then read the <em>hedge stake</em> and the <em>net result</em> for both outcomes side by side.</li>
-        </ul>
 
-        <p><strong>The three strategies.</strong></p>
-        <ul>
-          <li><em>Equal Profit</em> — bet the hedge so you net the exact same amount whichever side wins. The most predictable lock.</li>
-          <li><em>Win Back Stake</em> — size the hedge to recover your original stake. If your original still wins you keep a free-roll profit; if it loses you break even.</li>
-          <li><em>Custom Amount</em> — set your own hedge size, for partial hedges, live betting, or keeping some skin in the game.</li>
-        </ul>
+    <!-- Education — collapsed, opt-in -->
+    <div class="edu-pills">
+      <details class="edu-pill">
+        <summary>What is a hedge, in plain English?</summary>
+        <div class="edu-body">
+          <p>You've already placed a bet that could win big — a <a href="/learn-futures.html">futures ticket</a> one game from cashing, a live bet that swung your way, or a DFS slip down to its last leg. A hedge is a second bet on the <strong>other side</strong>, sized so you walk away with money <em>no matter who wins</em>.</p>
+          <p>The trade: <strong>no hedge</strong> means the full payout or nothing. <strong>Hedge</strong> means you give up part of the max win in exchange for a guaranteed result — never the biggest win, never the empty-handed loss. This calculator sizes that second bet to the cent.</p>
+        </div>
+      </details>
+      <details class="edu-pill">
+        <summary>Should you hedge — or let it ride?</summary>
+        <div class="edu-body">
+          <p>A hedge always costs a little — that's the price of certainty. So only pay it when it's worth it:</p>
+          <ul>
+            <li><strong>Hedge</strong> when the ticket has grown into more money than you can afford to lose. Lock in a guaranteed result and stop sweating it.</li>
+            <li><strong>Let it ride</strong> when you're just nervous but the position is still good. Hedging there only hands back money you'd probably have kept.</li>
+          </ul>
+          <p>Simple rule: hedge to protect money you can't afford to lose — not to calm your nerves. <a href="/learn-betting-vs-trading.html">More on thinking in positions →</a></p>
+        </div>
+      </details>
+      <details class="edu-pill">
+        <summary>The three strategies — which one do I pick?</summary>
+        <div class="edu-body">
+          <ul>
+            <li><strong>Equal Profit</strong> — the same net result whichever side wins. The most predictable lock; start here.</li>
+            <li><strong>Win Back Stake</strong> — the hedge recovers your original stake. Original wins: you keep a free-roll profit. Original loses: you break even.</li>
+            <li><strong>Custom Amount</strong> — you set the hedge size. For partial hedges, live spots, or keeping some skin in the game.</li>
+          </ul>
+        </div>
+      </details>
+    </div>
 
-        <p><strong>The honest part.</strong> Hedging isn't free — see the Key Point above. It converts an uncertain outcome into a certain (usually smaller) one. Use it to lock in over-exposed positions; think twice before hedging away a genuine edge.</p>
+    <!-- Next steps -->
+    <div class="next-steps">
+      <div class="next-steps-label">Next Steps</div>
+      <div class="next-steps-grid">
+        <a class="next-step" href="/middle-calculator.html">
+          <div class="ns-title">Win BOTH sides instead? →</div>
+          <div class="ns-tool">Middle Calculator</div>
+        </a>
+        <a class="next-step" href="/arb-calculator.html">
+          <div class="ns-title">Lock profit from mispriced lines →</div>
+          <div class="ns-tool">Arbitrage Calculator</div>
+        </a>
+        <a class="next-step lesson" href="/learn-betting-vs-trading.html">
+          <div class="ns-title">▸ Think in positions, not picks</div>
+          <div class="ns-tool">Betting vs Trading — 5 min</div>
+        </a>
       </div>
-    </details>
+    </div>
 
   </div>
 </div>

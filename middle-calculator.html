@@ -142,7 +142,7 @@
     font-weight: 700;
     margin: 0;
     padding-bottom: 0.08em;
-    background: linear-gradient(95deg, var(--green) 0%, var(--cyan) 100%);
+    background: linear-gradient(95deg, #F0EEE8 0%, #F0EEE8 12%, var(--green) 55%, var(--green) 88%, #FF8C00 130%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -708,6 +708,82 @@
   @media (max-width: 640px) {
     .card { padding-top: 60px; }
   }
+  /* ── Calc-template: education pills + next steps ── */
+  .edu-pills {
+    width: 100%;
+    max-width: 640px;
+    margin: 22px auto 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .edu-pill {
+    border: 1px dashed rgba(0, 212, 255, 0.30);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .edu-pill summary {
+    list-style: none;
+    cursor: pointer;
+    user-select: none;
+    padding: 10px 16px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: rgba(240, 238, 232, 0.62);
+    transition: color .15s;
+  }
+  .edu-pill summary::-webkit-details-marker { display: none; }
+  .edu-pill summary::before { content: '\25b8 '; color: var(--cyan); }
+  .edu-pill[open] summary::before { content: '\25be '; }
+  .edu-pill summary:hover { color: var(--text); }
+  .edu-pill .edu-body {
+    padding: 4px 18px 16px;
+    font-size: 14px;
+    line-height: 1.65;
+    color: rgba(240, 238, 232, 0.78);
+  }
+  .edu-pill .edu-body strong { color: var(--text); font-weight: 600; }
+  .edu-pill .edu-body em { color: var(--cyan); font-style: normal; font-weight: 500; }
+  .edu-pill .edu-body ul { margin: 8px 0 4px; padding-left: 20px; }
+  .edu-pill .edu-body li { margin-bottom: 6px; }
+  .edu-pill .edu-body a { color: var(--cyan); }
+  .edu-pill .edu-body a:hover { color: var(--green); }
+
+  .next-steps {
+    width: 100%;
+    max-width: 640px;
+    margin: 36px auto 0;
+  }
+  .next-steps-label {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .26em;
+    text-transform: uppercase;
+    color: var(--dim);
+    text-align: center;
+    margin-bottom: 12px;
+  }
+  .next-steps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 10px;
+  }
+  .next-step {
+    display: block;
+    background: var(--surface);
+    border: 1px solid var(--border-2);
+    border-radius: 12px;
+    padding: 14px 16px;
+    text-decoration: none;
+    transition: border-color .18s, transform .18s;
+  }
+  .next-step:hover { border-color: var(--green-border); transform: translateY(-1px); }
+  .next-step .ns-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13.5px; font-weight: 600; color: var(--text); }
+  .next-step .ns-tool { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 11.5px; color: var(--muted); margin-top: 3px; }
+  .next-step.lesson { border-color: rgba(0, 212, 255, 0.22); }
+  .next-step.lesson .ns-title { color: var(--cyan); }
 </style>
 <link rel="stylesheet" href="/styles/sidebar.css">
 <link rel="stylesheet" href="/styles/topbar.css">
@@ -944,39 +1020,20 @@
   <div class="header">
     <div class="header-meta">
       <a href="/index.html" class="back-link">← Back</a>
-      <span class="header-eyebrow">Free Tool · Middle Calculator</span>
-      <button class="help-pill" onclick="document.getElementById('howto').open = !document.getElementById('howto').open; document.getElementById('howto').scrollIntoView({behavior:'smooth', block:'nearest'});">How to use ↓</button>
+      <span class="header-eyebrow">★ Free · No Signup ★</span>
     </div>
     <div class="title-row">
       <h1>Middle Calculator</h1>
     </div>
     <p class="tagline">
-      <span>Two books, two different numbers — and a gap in between.</span>
-      <span class="mono">Bet over at one and under at the other; if the result lands in the gap, both tickets cash.</span>
-      <span>It looks free. It usually isn't — this shows the real worst case, best case, and break-even.</span>
+      <span>Bet both sides of a gap — if the result lands between the numbers, both tickets cash.</span>
     </p>
-  </div>
-
-  <div class="plain-intro">
-    <span class="plain-intro-label">In plain English</span>
-    <p>Two sportsbooks posted <strong>different numbers</strong> for the same game. You bet both sides — and if the final result lands in the gap between them, <strong>both bets win</strong>. This tool shows you whether that gap is actually worth chasing.</p>
   </div>
 
   <div class="body">
 
     <div class="step" id="step1">
-      <div class="step-head">
-        <span class="step-num">Middle</span>
-        <span class="step-title">Size the middle</span>
-        <span class="step-sub">Bet both sides at different numbers — see your worst case, your best case, and whether it's actually worth it.</span>
-      </div>
-
-      <div class="callout">
-        <div class="callout-label">What's a middle?</div>
-        Two books disagree on the number for the same market. You bet the over at one and the under at the other, far enough apart that the result can land <em style="color:var(--cyan);font-style:normal;font-weight:600;">between</em> them — the "middle." If it does, <strong>both tickets cash</strong>. If it misses, you only lose the juice on the losing side. Example: Over <span class="hl">47.5</span> at one book, Under <span class="hl">50.5</span> at another — a final total of <span class="hl">48, 49, or 50</span> wins both.
-      </div>
-
-      <div class="sub-toolbar" style="margin-top:22px;">
+      <div class="sub-toolbar">
         <span class="sub-label">Side B sizing</span>
         <div class="pill-group" id="sizeGroup">
           <button class="pill active" data-size="auto">Auto — equal worst case</button>
@@ -1012,7 +1069,7 @@
         </div>
       </div>
       <div class="input-hint">
-        Odds accept <b><a class="gloss" href="/learn-odds.html">American<span class="gloss-pop"><b>American odds</b> — the +/− format US books use. <b>−110</b> means risk $110 to win $100; a plus number means risk $100 to win that much.<span class="gloss-link">Read the odds-formats lesson →</span></span></a></b> (−110) or <b><a class="gloss" href="/learn-odds.html">decimal<span class="gloss-pop"><b>Decimal odds</b> — one number showing your total return per $1 staked. <b>1.91</b> means a $1 bet pays back $1.91, your stake included.<span class="gloss-link">Read the odds-formats lesson →</span></span></a></b> (1.91). <b>Auto</b> sizes Side B so the loss is equal whichever side misses the middle — the textbook approach.
+        American (−110) or decimal (1.91) — auto-detected. <b>Auto</b> sizes Side B so the loss is equal whichever side misses the middle.
       </div>
 
       <div class="status-banner neutral" id="statusBanner">Enter both sides to size the middle.</div>
@@ -1091,7 +1148,7 @@
         </div>
         <div class="outputs-grid cols-3" style="margin-top:16px;">
           <div class="out-box">
-            <div class="out-label"><a class="gloss" href="/learn-ev.html">Expected Value<span class="gloss-pop"><b>Expected Value (EV)</b> — what this bet is worth on average if you made it over and over. Positive = it makes money long-term; negative = it loses.<span class="gloss-link">Read the +EV lesson →</span></span></a> ($)</div>
+            <div class="out-label">Expected Value ($)</div>
             <div class="out-value empty" id="evDollar">—</div>
             <div class="out-sub">per bet, average</div>
           </div>
@@ -1108,35 +1165,54 @@
         </div>
       </div>
 
-      <div class="key-note">
-        <div class="key-note-head">★ Key Point — Most Middles Are −EV</div>
-        <div class="key-note-body">
-          A middle <em style="color:var(--green);font-style:normal;font-weight:600;">feels</em> free — you only drop a little juice when it misses. But it misses <strong>most of the time</strong>, and that juice adds up. The bet is only +EV if the gap lands often enough to clear the <strong>break-even hit rate</strong> above. Realistic numbers are low: even a real 3-point NFL total middle around the closing line only lands maybe 6–9% of the time, and clustered or narrow middles are far thinner. So the honest test is simple — if your real <strong>middle-hit probability</strong> beats break-even, bet it; if it doesn't, or you can't estimate it, you're gambling, not middling. <a href="/learn-middles.html">The middles deep dive &#8594;</a>
-        </div>
-      </div>
 
     </div>
 
-    <!-- HOW TO -->
-    <details class="how-to" id="howto">
-      <summary>How to use this</summary>
-      <div class="how-to-body">
-        <p><strong>What a middle is.</strong> Two sportsbooks post different numbers for the same market. You take the <em>over</em> at the book with the lower number and the <em>under</em> at the book with the higher number. If the final result lands <em>between</em> the two numbers, both bets win — you've "middled" it. If it lands outside, only one wins and you lose the juice on the other.</p>
 
-        <p><strong>How to use it.</strong></p>
-        <ul>
-          <li>Enter <em>Side A</em> — your stake and the odds at the first book (e.g. Over 47.5 at −110).</li>
-          <li>Enter <em>Side B</em> — the odds on the other side at the second book. Leave sizing on <em>Auto</em> and the calculator sets the Side B stake so your loss is equal whichever way the middle misses.</li>
-          <li>Read <em>The Numbers</em> — worst case (the gap misses), best case (it hits, both cash), and the risk-to-reward ratio.</li>
-        </ul>
 
-        <p><strong>The test that matters — break-even.</strong> Add a <em>middle-hit probability</em> and the calculator returns expected value and the <em>break-even hit rate</em> — how often the gap must land for the bet to be +EV. If your honest estimate of the hit rate doesn't beat break-even, the middle is −EV, however fun the upside looks.</p>
+    <!-- Education — collapsed, opt-in -->
+    <div class="edu-pills">
+      <details class="edu-pill">
+        <summary>What is a middle, in plain English?</summary>
+        <div class="edu-body">
+          <p>Two books disagree on the number for the same market. You bet the <strong>over at the lower number</strong> and the <strong>under at the higher number</strong> — far enough apart that the result can land <em>between</em> them. If it does, <strong>both tickets cash</strong>. If it misses, you only lose the juice on the losing side.</p>
+          <p>Example: Over <strong>47.5</strong> at one book, Under <strong>50.5</strong> at another — a final total of 48, 49, or 50 wins both. Full story: <a href="/learn-middles.html">the middles deep dive →</a></p>
+        </div>
+      </details>
+      <details class="edu-pill">
+        <summary>The catch — most middles are −EV</summary>
+        <div class="edu-body">
+          <p>A middle <em>feels</em> free — you only drop a little juice when it misses. But it misses <strong>most of the time</strong>, and that juice adds up. The bet is only +EV if the gap lands often enough to clear the <strong>break-even hit rate</strong> the calculator shows.</p>
+          <p>Realistic numbers are low: even a real 3-point NFL total middle around the closing line only lands maybe <strong>6–9%</strong> of the time, and clustered or narrow middles are far thinner. If your honest hit-rate estimate doesn't beat break-even — or you can't estimate it — you're gambling, not middling.</p>
+        </div>
+      </details>
+      <details class="edu-pill">
+        <summary>Where does the middle-hit probability come from?</summary>
+        <div class="edu-body">
+          <p><strong>Don't guess.</strong> Back the number out of a sharp book's price on that exact result range — never your gut. Wide gaps created by a <em>real line move</em> are where genuine middles live; the same gap width on clustered distributions (spreads, low-scoring sports, quarter totals) is far thinner.</p>
+          <p>One more thing: betting both sides of markets is a pattern books profile for — see the <a href="/arb-calculator.html">Arbitrage Calculator</a>'s note on staying under the radar.</p>
+        </div>
+      </details>
+    </div>
 
-        <p><strong>Realistic middle probabilities.</strong> Don't guess — pull the number from a sharp book's price on the exact result range. As rough anchors: a genuine 3-point NFL <em>total</em> middle around the closing line lands roughly <em>6–9%</em> of the time, but the same gap width on a clustered distribution (spreads, low-scoring sports, quarter totals) can be far thinner — width is structural, probability is empirical. Wide gaps from a real line move are where genuine middles live. The <a href="/learn-middles.html">middles deep dive</a> breaks down which sports have smooth vs. clustered score distributions.</p>
-
-        <p><strong>One more thing.</strong> Like arbing, betting both sides of markets is a pattern books profile for — see the <a href="/arb-calculator.html">Arbitrage Calculator</a>'s note on staying under the radar. And for the live-middle technique and when a middle is genuinely +EV, read the <a href="/learn-middles.html">middles deep dive</a>.</p>
+    <!-- Next steps -->
+    <div class="next-steps">
+      <div class="next-steps-label">Next Steps</div>
+      <div class="next-steps-grid">
+        <a class="next-step" href="/arb-calculator.html">
+          <div class="ns-title">Gap guarantees profit instead? →</div>
+          <div class="ns-tool">Arbitrage Calculator</div>
+        </a>
+        <a class="next-step" href="/hedge-calculator.html">
+          <div class="ns-title">Lock in a bet that's winning →</div>
+          <div class="ns-tool">Hedge Calculator</div>
+        </a>
+        <a class="next-step lesson" href="/learn-middles.html">
+          <div class="ns-title">▸ New to middles?</div>
+          <div class="ns-tool">Middles Deep Dive — 7 min</div>
+        </a>
       </div>
-    </details>
+    </div>
 
   </div>
 </div>

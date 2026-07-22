@@ -142,7 +142,7 @@
     font-weight: 700;
     margin: 0;
     padding-bottom: 0.08em;
-    background: linear-gradient(95deg, var(--green) 0%, var(--cyan) 100%);
+    background: linear-gradient(95deg, #F0EEE8 0%, #F0EEE8 12%, var(--green) 55%, var(--green) 88%, #FF8C00 130%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -634,6 +634,82 @@
   @media (max-width: 640px) {
     .card { padding-top: 60px; }
   }
+  /* ── Calc-template: education pills + next steps ── */
+  .edu-pills {
+    width: 100%;
+    max-width: 640px;
+    margin: 22px auto 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .edu-pill {
+    border: 1px dashed rgba(0, 212, 255, 0.30);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .edu-pill summary {
+    list-style: none;
+    cursor: pointer;
+    user-select: none;
+    padding: 10px 16px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: rgba(240, 238, 232, 0.62);
+    transition: color .15s;
+  }
+  .edu-pill summary::-webkit-details-marker { display: none; }
+  .edu-pill summary::before { content: '\25b8 '; color: var(--cyan); }
+  .edu-pill[open] summary::before { content: '\25be '; }
+  .edu-pill summary:hover { color: var(--text); }
+  .edu-pill .edu-body {
+    padding: 4px 18px 16px;
+    font-size: 14px;
+    line-height: 1.65;
+    color: rgba(240, 238, 232, 0.78);
+  }
+  .edu-pill .edu-body strong { color: var(--text); font-weight: 600; }
+  .edu-pill .edu-body em { color: var(--cyan); font-style: normal; font-weight: 500; }
+  .edu-pill .edu-body ul { margin: 8px 0 4px; padding-left: 20px; }
+  .edu-pill .edu-body li { margin-bottom: 6px; }
+  .edu-pill .edu-body a { color: var(--cyan); }
+  .edu-pill .edu-body a:hover { color: var(--green); }
+
+  .next-steps {
+    width: 100%;
+    max-width: 640px;
+    margin: 36px auto 0;
+  }
+  .next-steps-label {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .26em;
+    text-transform: uppercase;
+    color: var(--dim);
+    text-align: center;
+    margin-bottom: 12px;
+  }
+  .next-steps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 10px;
+  }
+  .next-step {
+    display: block;
+    background: var(--surface);
+    border: 1px solid var(--border-2);
+    border-radius: 12px;
+    padding: 14px 16px;
+    text-decoration: none;
+    transition: border-color .18s, transform .18s;
+  }
+  .next-step:hover { border-color: var(--green-border); transform: translateY(-1px); }
+  .next-step .ns-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13.5px; font-weight: 600; color: var(--text); }
+  .next-step .ns-tool { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 11.5px; color: var(--muted); margin-top: 3px; }
+  .next-step.lesson { border-color: rgba(0, 212, 255, 0.22); }
+  .next-step.lesson .ns-title { color: var(--cyan); }
 </style>
 <link rel="stylesheet" href="/styles/sidebar.css">
 <link rel="stylesheet" href="/styles/topbar.css">
@@ -870,33 +946,19 @@
   <div class="header">
     <div class="header-meta">
       <a href="/index.html" class="back-link">← Back</a>
-      <span class="header-eyebrow">Free Tool · Arbitrage Calculator</span>
-      <button class="help-pill" onclick="document.getElementById('howto').open = !document.getElementById('howto').open; document.getElementById('howto').scrollIntoView({behavior:'smooth', block:'nearest'});">How to use ↓</button>
+      <span class="header-eyebrow">★ Free · No Signup ★</span>
     </div>
     <div class="title-row">
       <h1>Arbitrage Calculator</h1>
     </div>
     <p class="tagline">
-      <span>Two books, opposite sides, prices that don't add up to 100%.</span>
-      <span class="mono">Bet both → a profit that's locked in no matter who wins.</span>
-      <span>This nails the stake split. You handle the speed.</span>
+      <span>Two books disagree hard enough — bet both sides and profit no matter who wins.</span>
     </p>
-  </div>
-
-  <div class="plain-intro">
-    <span class="plain-intro-label">In plain English</span>
-    <p>Two sportsbooks priced the <strong>same game</strong> so far apart that you can bet <strong>both sides</strong> and come out ahead no matter who wins. This tool splits your money between the two bets so the profit is locked in.</p>
   </div>
 
   <div class="body">
 
     <div class="step" id="step1">
-      <div class="step-head">
-        <span class="step-num">Arbitrage</span>
-        <span class="step-title">Find the arb</span>
-        <span class="step-sub">Two books, opposite sides of one market — get the split that locks profit either way.</span>
-      </div>
-
       <div class="inputs-grid">
         <div class="input-cell">
           <label for="book1Odds">Book 1 odds</label>
@@ -915,7 +977,7 @@
         </div>
       </div>
       <div class="input-hint">
-        Odds accept <b><a class="gloss" href="/learn-odds.html">American<span class="gloss-pop"><b>American odds</b> — the +/− format US books use. <b>−650</b> means risk $650 to win $100; a plus number means risk $100 to win that much.<span class="gloss-link">Read the odds-formats lesson →</span></span></a></b> (−650) or <b><a class="gloss" href="/learn-odds.html">decimal<span class="gloss-pop"><b>Decimal odds</b> — one number showing your total return per $1 staked. <b>1.15</b> means a $1 bet pays back $1.15, your stake included.<span class="gloss-link">Read the odds-formats lesson →</span></span></a></b> (1.15). An arb exists when the two <a class="gloss" href="/learn-implied.html">implied probabilities<span class="gloss-pop"><b>Implied probability</b> — the win chance baked into a price. Flip the odds into a percentage; an arb appears when both sides' percentages add up to under 100%.<span class="gloss-link">Read the implied-probability lesson →</span></span></a> sum to <b>under 100%</b>.
+        American (−650) or decimal (1.15) — auto-detected. An arb exists when the two implied percentages add up to <b>under 100%</b>.
       </div>
 
       <div class="status-banner neutral" id="statusBanner">Enter odds for both sides to check for an arb.</div>
@@ -972,12 +1034,6 @@
         </div>
       </div>
 
-      <div class="key-note">
-        <div class="key-note-head">★ Key Point — Arbing Gets You Limited</div>
-        <div class="key-note-body">
-          An arb is real, guaranteed money — but it's also the <strong>fastest way to get your account limited</strong>. Books profile hard for it: betting both sides of a market, odd stake sizes, action only when there's an edge. They see the pattern and cut your max bet to pocket change. So <strong>vary your stakes, skip the thinnest arbs, and don't hammer the same book</strong> — a limited account can't make +EV bets later, either. And the arb has to be <strong>live when both bets land</strong>: if one line moves before you click the second, the lock is gone. New here? The <a href="/learn-arbitrage.html">Arbitrage</a> deep dive covers it.
-        </div>
-      </div>
 
     </div>
 
@@ -1031,27 +1087,51 @@
       </div>
     </div>
 
-    <!-- HOW TO -->
-    <details class="how-to" id="howto">
-      <summary>How to use this</summary>
-      <div class="how-to-body">
-        <p><strong>What it does.</strong> When two sportsbooks price opposite sides of the same market so that the two implied probabilities add up to <em>less than 100%</em>, betting both sides locks a guaranteed profit no matter who wins. This calculator does the stake math so the profit lands equal either way.</p>
 
-        <p><strong>How to use it.</strong></p>
-        <ul>
-          <li>Enter the odds for <em>each side</em> — from <em>different</em> sportsbooks (American or decimal).</li>
-          <li>Enter your <em>total stake</em> across the two bets.</li>
-          <li>If the status bar says an arb exists, read the <em>Optimal Split</em> — or the <em>Rounded</em> version for whole-dollar stakes that are faster to place.</li>
-          <li>Place both sides quickly, before either line moves.</li>
-        </ul>
 
-        <p><strong>Already placed one side?</strong> Use the second panel — pick which book you've already bet, enter your stake, and it returns the exact counter-stake to lock the arb (with a rounded option).</p>
+    <!-- Education — collapsed, opt-in -->
+    <div class="edu-pills">
+      <details class="edu-pill">
+        <summary>What is arbitrage, in plain English?</summary>
+        <div class="edu-body">
+          <p>Two sportsbooks priced the <strong>same game</strong> so far apart that the two sides' implied win chances add up to <em>less than 100%</em>. Bet both sides — one at each book — and you profit <strong>no matter who wins</strong>. This tool splits your stake so the profit lands equal either way.</p>
+          <p>Speed matters: the arb has to be <strong>live when both bets land</strong>. If one line moves before you click the second, the lock is gone. Full story: <a href="/learn-arbitrage.html">Arbitrage (5 min) →</a></p>
+        </div>
+      </details>
+      <details class="edu-pill">
+        <summary>The catch — arbing gets you limited</summary>
+        <div class="edu-body">
+          <p>An arb is real, guaranteed money — but it's also the <strong>fastest way to get your account limited</strong>. Books profile hard for it: both sides of a market, odd stake sizes, action only when there's an edge. They spot the pattern and cut your max bet to pocket change.</p>
+          <p>So <strong>vary your stakes, skip the thinnest arbs, and don't hammer the same book</strong> — a limited account can't make +EV bets later, either.</p>
+        </div>
+      </details>
+      <details class="edu-pill">
+        <summary>Why show rounded stakes?</summary>
+        <div class="edu-body">
+          <p>Most arb calculators hand you stakes like <em>$34.27 / $65.73</em> — fine on paper, awkward at the betslip and a flashing "I'm an arber" signal to the book. The <strong>Rounded</strong> row gives whole-dollar stakes that place faster and look like normal bets, at the cost of a few cents of guaranteed profit.</p>
+          <p>Already got one side down? Use the <strong>second panel</strong> — enter your existing stake and it returns the exact counter-bet to lock the other side.</p>
+        </div>
+      </details>
+    </div>
 
-        <p><strong>Why rounded stakes matter.</strong> Most arb calculators hand you stakes like $34.27 / $65.73 — fine on paper, awkward at the betslip. We show both the exact optimal split and a clean whole-dollar version, so you can place real bets fast without rounding by hand.</p>
-
-        <p><strong>The real catch.</strong> Finding arbs is the easy part. The hard parts: getting both bets down before a line moves, and <em>not getting limited</em>. Arbing is one of the most heavily-profiled patterns in betting — see the Key Point above, and the <a href="/learn-arbitrage.html">Arbitrage</a> deep dive, before you make it a habit.</p>
+    <!-- Next steps -->
+    <div class="next-steps">
+      <div class="next-steps-label">Next Steps</div>
+      <div class="next-steps-grid">
+        <a class="next-step" href="/middle-calculator.html">
+          <div class="ns-title">Same setup, shot at BOTH sides →</div>
+          <div class="ns-tool">Middle Calculator</div>
+        </a>
+        <a class="next-step" href="/hedge-calculator.html">
+          <div class="ns-title">Lock a bet you already hold →</div>
+          <div class="ns-tool">Hedge Calculator</div>
+        </a>
+        <a class="next-step lesson" href="/learn-arbitrage.html">
+          <div class="ns-title">▸ New to arbing?</div>
+          <div class="ns-tool">Arbitrage — 5 min</div>
+        </a>
       </div>
-    </details>
+    </div>
 
   </div>
 </div>
