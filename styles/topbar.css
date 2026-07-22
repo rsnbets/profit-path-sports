@@ -1,0 +1,183 @@
+/* ═══════════════════════════════════════════════════════════════
+   PROFITPATH Sports — Shared Top Bar
+   Single source of truth for the sitewide top navigation.
+   Sticky: sits in-flow (below the hero on the homepage, at the top
+   of subpages) and pins to the viewport top once scrolled past.
+   On mobile it collapses to brand + burger; the burger opens the
+   existing sidebar as a drawer.
+   ═══════════════════════════════════════════════════════════════ */
+
+.pps-topbar {
+  position: sticky;
+  top: 0;
+  z-index: 60;
+  background: rgba(9, 9, 9, 0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+.pps-topbar-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 22px;
+  height: 54px;
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+
+/* Brand — mini wordmark. Hidden below-hero until the bar sticks. */
+.tb-brand {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-weight: 800;
+  font-size: 16px;
+  letter-spacing: -.02em;
+  text-decoration: none;
+  white-space: nowrap;
+  line-height: 1;
+}
+.tb-brand .p1 { color: #F0EEE8; }
+.tb-brand .p2 { color: #4DFF78; }
+.pps-topbar[data-below-hero] .tb-brand {
+  opacity: 0;
+  transform: translateY(4px);
+  pointer-events: none;
+  transition: opacity .25s ease, transform .25s ease;
+}
+.pps-topbar[data-below-hero].stuck .tb-brand {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+@media (prefers-reduced-motion: reduce) {
+  .pps-topbar[data-below-hero] .tb-brand { transition: none; }
+}
+
+/* Links + dropdowns */
+.tb-links {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.tb-item { position: relative; }
+.tb-link, .tb-item > button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 13.5px;
+  font-weight: 500;
+  color: rgba(240, 238, 232, 0.75);
+  text-decoration: none;
+  padding: 8px 10px;
+  border-radius: 7px;
+  transition: color .15s, background .15s;
+}
+.tb-link:hover, .tb-item > button:hover {
+  color: #F0EEE8;
+  background: rgba(255, 255, 255, 0.04);
+}
+.tb-item > button .car {
+  font-size: 8px;
+  color: rgba(255, 255, 255, 0.3);
+  transition: transform .18s;
+}
+.tb-item.open > button { color: #00D4FF; }
+.tb-item.open > button .car { transform: rotate(180deg); color: #00D4FF; }
+
+.tb-menu {
+  display: none;
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  min-width: 220px;
+  background: #0D0D0D;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 12px;
+  padding: 10px;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.6);
+}
+.tb-item.open .tb-menu { display: block; }
+.tb-menu.cols2 { min-width: 430px; column-count: 2; column-gap: 6px; }
+@media (max-width: 980px) { .tb-menu.cols2 { min-width: 220px; column-count: 1; } }
+.tb-menu-label {
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.32);
+  padding: 6px 10px 4px;
+  break-inside: avoid;
+}
+.tb-menu a {
+  display: block;
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 13px;
+  color: rgba(240, 238, 232, 0.8);
+  text-decoration: none;
+  padding: 7px 10px;
+  border-radius: 7px;
+  break-inside: avoid;
+}
+.tb-menu a:hover { background: rgba(255, 255, 255, 0.05); color: #fff; }
+.tb-menu a .num {
+  font-size: 10.5px;
+  font-weight: 700;
+  color: #00D4FF;
+  margin-right: 8px;
+}
+.tb-menu hr {
+  border: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  margin: 8px 6px;
+}
+
+/* CTA */
+.tb-cta {
+  margin-left: auto;
+  background: #4DFF78;
+  color: #090909;
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 12.5px;
+  font-weight: 700;
+  padding: 8px 16px;
+  border-radius: 8px;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: filter .15s, transform .15s;
+}
+.tb-cta:hover { filter: brightness(1.08); transform: translateY(-1px); }
+
+/* Burger — mobile only; opens the sidebar drawer */
+.tb-burger {
+  display: none;
+  background: none;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  color: #F0EEE8;
+  width: 36px;
+  height: 36px;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+}
+
+/* The bar supersedes the old floating hamburger everywhere */
+.pps-sidebar-toggle { display: none !important; }
+body.pps-sidebar-open .pps-sidebar-toggle { display: none !important; }
+/* Desktop: bar carries the nav; don't shift the page for the drawer */
+@media (min-width: 901px) {
+  body.pps-sidebar-open { padding-left: 0 !important; }
+  body.pps-sidebar-open .pps-sidebar { transform: translateX(-100%) !important; }
+}
+
+@media (max-width: 900px) {
+  .tb-links { display: none; }
+  .tb-burger { display: inline-flex; }
+  .pps-topbar[data-below-hero] .tb-brand { opacity: 1; transform: none; pointer-events: auto; }
+  .tb-cta { font-size: 11.5px; padding: 7px 12px; }
+}

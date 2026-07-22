@@ -212,6 +212,7 @@
     }
 </style>
 <link rel="stylesheet" href="/styles/sidebar.css">
+<link rel="stylesheet" href="/styles/topbar.css">
 </head>
 <body>
 
@@ -223,22 +224,41 @@
 </button>
 <aside class="pps-sidebar" id="ppsSidebar">
   <div class="pps-sidebar-inner">
-    <a class="pps-sidebar-brand" href="/index.html">
-      <svg viewBox="0 0 28 22" xmlns="http://www.w3.org/2000/svg" fill="none">
-        <polyline points="2,18 8,12 12,15 18,7 26,3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-      <span>Profit Path Sports</span>
-      <svg viewBox="0 0 28 22" xmlns="http://www.w3.org/2000/svg" fill="none">
-        <polyline points="2,18 8,12 12,15 18,7 26,3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
+    <a class="pps-sidebar-brand" href="/index.html" aria-label="PROFITPATH Sports — Home">
+      <img src="/images/profitpath-wordmark.svg" alt="PROFITPATH Sports" class="pps-sidebar-logo">
     </a>
     <nav class="pps-sidebar-nav">
       <a class="pps-nav-link" href="/index.html">Home</a>
-      <a class="pps-nav-link" href="/free-money-guide.html" style="color: var(--green); font-weight: 600;">★ Free Money Guide</a>
       <a class="pps-nav-link" href="/glossary.html">Glossary</a>
+
+      <div class="pps-nav-group-label">Calculators</div>
+      <details class="pps-nav-group" id="ppsGroupCalcs">
+        <summary>Core tools</summary>
+        <a class="pps-nav-link" href="/bet-x-ray.html">Bet X-Ray</a>
+        <a class="pps-nav-link" href="/sharp-snapshot.html">Sharp Snapshot</a>
+        <a class="pps-nav-link" href="/hedge-calculator.html">Hedge</a>
+        <a class="pps-nav-link" href="/arb-calculator.html">Arbitrage</a>
+        <a class="pps-nav-link" href="/middle-calculator.html">Middle</a>
+        <a class="pps-nav-link" href="/devig_calculator.html">Devig</a>
+        <a class="pps-nav-link" href="/odds_calculator.html">Odds Converter</a>
+      </details>
+      <details class="pps-nav-group">
+        <summary>More tools</summary>
+        <a class="pps-nav-link" href="/ev-calculator.html">EV Calculator</a>
+        <a class="pps-nav-link" href="/kelly-calculator.html">Kelly Sizer</a>
+        <a class="pps-nav-link" href="/consensus-calculator.html">Consensus Devig</a>
+        <a class="pps-nav-link" href="/edge-finder.html">Edge Finder</a>
+        <a class="pps-nav-link" href="/parlay-calculator.html">Parlay</a>
+        <a class="pps-nav-link" href="/dfs-slip-checker.html">DFS Slip Checker</a>
+        <a class="pps-nav-link" href="/bonus-converter.html">Bonus Converter</a>
+        <a class="pps-nav-link" href="/bet-tracker.html">Bet Tracker</a>
+        <a class="pps-nav-link" href="/long-run-simulator.html">Long-Run Sim</a>
+        <a class="pps-nav-link" href="/roulette.html">Virtual Roulette</a>
+      </details>
+
       <div class="pps-nav-group-label">Paths</div>
-      <details class="pps-nav-group pps-path-group path-blue">
-        <summary data-anchor="paths"><span class="pps-path-label"><span class="pps-nav-num">01</span> Begin</span></summary>
+      <details class="pps-nav-group path-01">
+        <summary><span class="pps-nav-num">01</span> Begin</summary>
         <a class="pps-nav-link" href="/lane-new.html">Path Overview</a>
         <a class="pps-nav-link" href="/learn-odds.html">Odds Formats</a>
         <a class="pps-nav-link" href="/learn-implied.html">Implied Probability</a>
@@ -249,8 +269,8 @@
         <a class="pps-nav-link" href="/learn-parlays.html">Parlays</a>
         <a class="pps-nav-link" href="/learn-props.html">Prop Bets</a>
       </details>
-      <details class="pps-nav-group pps-path-group path-green">
-        <summary data-anchor="paths"><span class="pps-path-label"><span class="pps-nav-num">02</span> Convert</span></summary>
+      <details class="pps-nav-group path-02">
+        <summary><span class="pps-nav-num">02</span> Convert</summary>
         <a class="pps-nav-link" href="/lane-bonus.html">Path Overview</a>
         <a class="pps-nav-link" href="/learn-bonus.html">Bonus Conversion</a>
         <a class="pps-nav-link" href="/learn-bonus-types.html">Bonus Types</a>
@@ -261,8 +281,8 @@
         <a class="pps-nav-link" href="/learn-prop-void-rules.html">Prop Void Rules</a>
         <a class="pps-nav-link" href="/learn-finding-bets.html">Finding +EV Bets</a>
       </details>
-      <details class="pps-nav-group pps-path-group path-gold">
-        <summary data-anchor="paths"><span class="pps-path-label"><span class="pps-nav-num">03</span> Maintain</span></summary>
+      <details class="pps-nav-group path-03">
+        <summary><span class="pps-nav-num">03</span> Maintain</summary>
         <a class="pps-nav-link" href="/lane-maintain.html">Path Overview</a>
         <a class="pps-nav-link" href="/learn-prob-gap-vs-ev.html">Prob Gap vs EV</a>
         <a class="pps-nav-link" href="/learn-arbitrage.html">Arbitrage</a>
@@ -273,31 +293,12 @@
         <a class="pps-nav-link" href="/learn-cross-market-ev.html">Cross-Market EV</a>
         <a class="pps-nav-link" href="/learn-exchange-liquidity.html">Exchange Liquidity</a>
         <a class="pps-nav-link" href="/learn-futures.html">Futures</a>
-        <a class="pps-nav-link" href="/learn-finding-bets.html">Finding +EV Bets</a>
         <a class="pps-nav-link" href="/learn-manual-scan.html">Manual Scan</a>
         <a class="pps-nav-link" href="/learn-top-down-bottom-up.html">Top-Down / Bottom-Up</a>
         <a class="pps-nav-link" href="/learn-wide-markets.html">Wide Markets</a>
       </details>
-      <details class="pps-nav-group">
-        <summary data-anchor="tools">Calculators</summary>
-        <a class="pps-nav-link" href="/bet-x-ray.html">Bet X-Ray</a>
-        <a class="pps-nav-link" href="/ev-calculator.html">EV Calculator</a>
-        <a class="pps-nav-link" href="/devig_calculator.html">Devig</a>
-        <a class="pps-nav-link" href="/kelly-calculator.html">Kelly Sizer</a>
-        <a class="pps-nav-link" href="/arb-calculator.html">Arbitrage</a>
-        <a class="pps-nav-link" href="/hedge-calculator.html">Hedge</a>
-        <a class="pps-nav-link" href="/middle-calculator.html">Middle</a>
-        <a class="pps-nav-link" href="/dfs-slip-checker.html">DFS Slip Checker</a>
-        <a class="pps-nav-link" href="/parlay-calculator.html">Parlay</a>
-        <a class="pps-nav-link" href="/edge-finder.html">Edge Finder</a>
-        <a class="pps-nav-link" href="/long-run-simulator.html">Long-Run Sim</a>
-        <a class="pps-nav-link" href="/bet-tracker.html">Bet Tracker</a>
-        <a class="pps-nav-link" href="/consensus-calculator.html">Consensus</a>
-        <a class="pps-nav-link" href="/bonus-converter.html">Bonus Converter</a>
-        <a class="pps-nav-link" href="/odds_calculator.html">Odds Converter</a>
-        <a class="pps-nav-link" href="/sharp-snapshot.html">Sharp Snapshot</a>
-        <a class="pps-nav-link" href="/roulette.html">Virtual Roulette</a>
-      </details>
+
+      <div class="pps-nav-group-label">More</div>
       <details class="pps-nav-group">
         <summary>Sportsbooks</summary>
         <a class="pps-nav-link" href="/book-draftkings.html">DraftKings</a>
@@ -306,22 +307,112 @@
         <a class="pps-nav-link" href="/book-betmgm.html">BetMGM</a>
         <a class="pps-nav-link" href="/book-prophetx.html">ProphetX</a>
       </details>
-      <details class="pps-nav-group">
-        <summary data-anchor="guides">Deep Dives</summary>
-        <a class="pps-nav-link" href="/learn-cross-market-ev.html">Cross-Market EV</a>
-        <a class="pps-nav-link" href="/learn-parlays.html">Parlays &amp; SGPs</a>
-        <a class="pps-nav-link" href="/learn-alt-lines.html">Same Bet, Two Prices</a>
-        <a class="pps-nav-link" href="/learn-alt-ladder.html">Shopping the Alt Ladder</a>
-        <a class="pps-nav-link" href="/learn-top-down-bottom-up.html">Top-Down vs Bottom-Up</a>
-        <a class="pps-nav-link" href="/learn-prob-gap-vs-ev.html">Probability Gap vs EV</a>
-        <a class="pps-nav-link" href="/learn-betting-vs-trading.html">EV Betting vs Trading</a>
-        <a class="pps-nav-link" href="/learn-arbitrage.html">Arbitrage Betting</a>
-        <a class="pps-nav-link" href="/learn-middles.html">Middles</a>
-        <a class="pps-nav-link" href="/learn-futures.html">Futures Betting</a>
-      </details>
     </nav>
   </div>
 </aside>
+<script>
+(function() {
+  var path = window.location.pathname.replace(/\/$/, '') || '/index.html';
+  var isHome = (path === '/index.html' || path === '' || path === '/');
+  document.querySelectorAll('.pps-sidebar .pps-nav-link').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href === path || (isHome && href === '/index.html')) {
+      link.classList.add('active');
+      var group = link.closest('details.pps-nav-group');
+      if (group) group.setAttribute('open', '');
+    }
+  });
+  var calcs = document.getElementById('ppsGroupCalcs');
+  if (calcs && !document.querySelector('.pps-sidebar details[open]')) calcs.setAttribute('open', '');
+})();
+</script>
+<!-- ═══ END SIDEBAR ═══ -->
+<!-- ═══ TOPBAR NAVIGATION ═══ -->
+<nav class="pps-topbar" id="ppsTopbar">
+  <div class="pps-topbar-inner">
+    <button class="tb-burger" aria-label="Open menu" onclick="document.body.classList.toggle('pps-sidebar-open')">
+      <svg width="15" height="15" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 4h12M2 8h12M2 12h12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+    </button>
+    <a class="tb-brand" href="/index.html"><span class="p1">PROFIT</span><span class="p2">PATH</span></a>
+    <div class="tb-links">
+      <div class="tb-item">
+        <button type="button" aria-haspopup="true">The Path <span class="car">▼</span></button>
+        <div class="tb-menu">
+          <a href="/index.html#paths">Follow The Path — overview</a>
+          <hr>
+          <a href="/lane-new.html"><span class="num">01</span>Begin — the basics</a>
+          <a href="/lane-bonus.html"><span class="num">02</span>Convert — free money</a>
+          <a href="/lane-maintain.html"><span class="num">03</span>Maintain — the long game</a>
+        </div>
+      </div>
+      <div class="tb-item">
+        <button type="button" aria-haspopup="true">Calculators <span class="car">▼</span></button>
+        <div class="tb-menu cols2">
+          <div class="tb-menu-label">Core tools</div>
+          <a href="/bet-x-ray.html">Bet X-Ray</a>
+          <a href="/sharp-snapshot.html">Sharp Snapshot</a>
+          <a href="/hedge-calculator.html">Hedge</a>
+          <a href="/arb-calculator.html">Arbitrage</a>
+          <a href="/middle-calculator.html">Middle</a>
+          <a href="/devig_calculator.html">Devig</a>
+          <a href="/odds_calculator.html">Odds Converter</a>
+          <div class="tb-menu-label">More tools</div>
+          <a href="/ev-calculator.html">EV Calculator</a>
+          <a href="/kelly-calculator.html">Kelly Sizer</a>
+          <a href="/consensus-calculator.html">Consensus Devig</a>
+          <a href="/edge-finder.html">Edge Finder</a>
+          <a href="/parlay-calculator.html">Parlay</a>
+          <a href="/dfs-slip-checker.html">DFS Slip Checker</a>
+          <a href="/bonus-converter.html">Bonus Converter</a>
+          <a href="/bet-tracker.html">Bet Tracker</a>
+          <a href="/long-run-simulator.html">Long-Run Sim</a>
+        </div>
+      </div>
+      <div class="tb-item">
+        <button type="button" aria-haspopup="true">Sportsbooks <span class="car">▼</span></button>
+        <div class="tb-menu">
+          <a href="/book-draftkings.html">DraftKings</a>
+          <a href="/book-fanduel.html">FanDuel</a>
+          <a href="/book-hardrock.html">Hard Rock</a>
+          <a href="/book-betmgm.html">BetMGM</a>
+          <a href="/book-prophetx.html">ProphetX</a>
+        </div>
+      </div>
+      <a class="tb-link" href="/glossary.html">Glossary</a>
+    </div>
+    <a class="tb-cta" href="/free-money-guide.html">Get Free Money →</a>
+  </div>
+</nav>
+<script>
+(function () {
+  var bar = document.getElementById('ppsTopbar');
+  if (!bar) return;
+  document.querySelectorAll('.tb-item > button').forEach(function (btn) {
+    btn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      var item = btn.parentElement;
+      var wasOpen = item.classList.contains('open');
+      document.querySelectorAll('.tb-item.open').forEach(function (o) { o.classList.remove('open'); });
+      if (!wasOpen) item.classList.add('open');
+    });
+  });
+  document.addEventListener('click', function () {
+    document.querySelectorAll('.tb-item.open').forEach(function (o) { o.classList.remove('open'); });
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') document.querySelectorAll('.tb-item.open').forEach(function (o) { o.classList.remove('open'); });
+  });
+  if (bar.hasAttribute('data-below-hero')) {
+    var onScroll = function () {
+      if (bar.getBoundingClientRect().top <= 0) bar.classList.add('stuck');
+      else bar.classList.remove('stuck');
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+})();
+</script>
+<!-- ═══ END TOPBAR ═══ -->
 
 <!-- HEADER -->
 <div class="bt-header">
