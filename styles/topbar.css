@@ -32,16 +32,18 @@
 
 /* Brand — mini wordmark. Hidden below-hero until the bar sticks. */
 .tb-brand {
-  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
-  font-weight: 800;
-  font-size: 24px;
-  letter-spacing: -.02em;
+  display: flex;
+  align-items: center;
   text-decoration: none;
-  white-space: nowrap;
-  line-height: 1;
+  line-height: 0;
 }
-.tb-brand .p1 { color: #F0EEE8; }
-.tb-brand .p2 { color: #4DFF78; }
+.tb-brand img {
+  height: 52px;
+  width: auto;
+  display: block;
+  user-select: none;
+  -webkit-user-drag: none;
+}
 .pps-topbar[data-below-hero] .tb-brand {
   opacity: 0;
   transform: translateY(4px);
@@ -182,13 +184,14 @@ body.pps-sidebar-open .pps-sidebar-toggle { display: none !important; }
 /* Mid-size laptops: keep everything on one row without clipping the CTA */
 @media (min-width: 901px) and (max-width: 1360px) {
   .pps-topbar-inner { gap: 14px; height: 80px; }
-  .tb-brand { font-size: 20px; }
+  .tb-brand img { height: 44px; }
   .tb-link, .tb-item > button { font-size: 16px; padding: 10px 11px; }
   .tb-cta { font-size: 15px; padding: 12px 18px; }
 }
 
 @media (max-width: 900px) {
   .tb-links { display: none; }
+  .tb-brand img { height: 40px; }
   .tb-burger { display: inline-flex; }
   .pps-topbar[data-below-hero] .tb-brand { opacity: 1; transform: none; pointer-events: auto; }
   .tb-cta { font-size: 14.5px; padding: 11px 18px; }
