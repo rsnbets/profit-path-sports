@@ -4,10 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>⚾ Starting Pitcher Board ⚾</title>
-  <meta name="description" content="Today's MLB starting pitchers with their real per-start numbers — hits, home runs, earned runs, outs, strikeouts, walks — filterable to season, last 15, last 10 or last 5 starts, with tonight's live prop lines beside each name. Free, no signup.">
+  <meta name="description" content="Today's MLB starting pitchers with their real per-start numbers — hits, home runs, earned runs, outs, strikeouts, walks — filterable to season, last 15/10/5 starts, or head-to-head vs tonight's opponent, with tonight's live prop lines beside each name. Free, no signup.">
   <meta property="og:type" content="article">
   <meta property="og:title" content="⚾ Starting Pitcher Board ⚾">
-  <meta property="og:description" content="Every starter on today's slate — hits, HR, ER, outs and Ks per start over season / L15 / L10 / L5, with tonight's lines.">
+  <meta property="og:description" content="Every starter on today's slate — hits, HR, ER, outs and Ks per start over season / L15 / L10 / L5 / vs tonight's opponent, with tonight's lines.">
   <meta property="og:image" content="https://profitpathsports.com/images/og-default.png?v=2">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
@@ -15,7 +15,7 @@
   <meta property="og:site_name" content="Profit Path Sports">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="⚾ Starting Pitcher Board ⚾">
-  <meta name="twitter:description" content="Every starter on today's slate — hits, HR, ER, outs and Ks per start over season / L15 / L10 / L5, with tonight's lines.">
+  <meta name="twitter:description" content="Every starter on today's slate — hits, HR, ER, outs and Ks per start over season / L15 / L10 / L5 / vs tonight's opponent, with tonight's lines.">
   <meta name="twitter:image" content="https://profitpathsports.com/images/og-default.png?v=2">
 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Orbitron:wght@700;800&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet">
 <style>
@@ -40,8 +40,13 @@
   .ctrl-row { display:flex;gap:1.5rem;align-items:center;flex-wrap:wrap; }
   .seg-wrap { display:flex;align-items:center;gap:0.6rem; }
   .seg-lbl { font-size:0.7rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);font-weight:600; }
-  .seg { display:inline-flex;border:1px solid var(--border);border-radius:8px;overflow:hidden; }
-  .seg button { background:var(--inset);border:none;color:var(--muted);padding:0.42rem 0.85rem;
+  .seg { display:inline-flex;flex-wrap:wrap;border:1px solid var(--border);border-radius:8px;overflow:hidden; }
+  .seg button:disabled { opacity:0.5;cursor:default; }
+  .win-note { margin-top:0.7rem;font-family:'IBM Plex Sans',sans-serif;font-size:13px;line-height:1.5;
+    color:var(--muted);background:var(--bg);border-left:3px solid var(--blue);border-radius:0 8px 8px 0;padding:9px 14px; }
+  .win-note strong { color:var(--text);font-weight:600; }
+  /* grow so a wrapped second row fills its line instead of leaving a hollow cell */
+  .seg button { flex:1 0 auto;background:var(--inset);border:none;color:var(--muted);padding:0.42rem 0.85rem;
     font-family:'Rajdhani',sans-serif;font-size:0.85rem;font-weight:600;letter-spacing:0.05em;
     text-transform:uppercase;cursor:pointer;transition:all 0.13s;border-right:1px solid var(--border); }
   .seg button:last-child { border-right:none; }
@@ -355,8 +360,8 @@
 
 <div class="card">
   <div class="header">
-    <div class="title">⚾ Starting Pitcher Board ⚾</div>
-    <p class="title-sub">Every starter on today's slate with the numbers they've actually put up — <strong>hits, home runs, earned runs, outs, strikeouts, walks per start</strong>. Flip between <strong>season, last 15, last 10 and last 5</strong> to see who's trending the wrong way, then tap a name for the start-by-start log and tonight's posted lines.</p>
+    <div class="title">⚾ Starting Pitcher&nbsp;Board&nbsp;⚾</div>
+    <p class="title-sub">Every starter on today's slate with the numbers they've actually put up — <strong>hits, home runs, earned runs, outs, strikeouts, walks per start</strong>. Flip between <strong>season, last 15, last 10 and last 5</strong> to see who's trending the wrong way, or <strong>vs tonight's opponent</strong> — this season or last — for the head-to-head history. Tap a name for the start-by-start log and tonight's posted lines.</p>
     <a href="#how-to-use" class="how-to-jump">How to use this ↓</a>
   </div>
   <div class="status-bar" id="statusBar">Loading today's starters…</div>
@@ -369,6 +374,8 @@
           <button data-win="15">L15</button>
           <button data-win="10">L10</button>
           <button data-win="5">L5</button>
+          <button data-win="vs">vs Opp</button>
+          <button data-win="vsprev" id="vsPrevBtn">vs Opp '25</button>
         </div>
       </div>
       <div class="seg-wrap"><span class="seg-lbl">Date</span>
@@ -377,6 +384,7 @@
       <label class="chk"><input type="checkbox" id="hideDone"> Hide games already started</label>
       <span class="legend"><span class="sw cold"></span>Top 20% of starters &nbsp;<span class="sw hot"></span>Bottom 20%</span>
     </div>
+    <div class="win-note" id="winNote" style="display:none;"></div>
   </div>
 
   <div class="section" style="padding:0;">
@@ -406,6 +414,7 @@
   <h3>How to use the pitcher board</h3>
   <ol class="how-to-steps">
     <li><strong>Pick your window.</strong> Season is the biggest sample and the most trustworthy baseline. L15 / L10 / L5 show you the recent form — useful for spotting a guy whose velo or command has gone sideways, but remember five starts is a <em>tiny</em> sample.</li>
+    <li><strong>vs Opp</strong> narrows every row to that starter's history against the team he's facing tonight — this season, or last season with the second button. Handy for the "he always gets lit up in Coors / never solves this lineup" question, as long as you hold it loosely (see the warning below).</li>
     <li><strong>Every number is a per-start average</strong> over that window. Outs is the raw prop stat (18 outs = 6 innings); the innings figure sits underneath it.</li>
     <li><strong>Click a column to sort.</strong> This is how you actually use the board — sort by HR to find the guys serving up souvenirs, by Outs to find who works deep, by Hits for the traffic-heavy starters.</li>
     <li><strong>Green and red are league-relative.</strong> Green means that number puts him in the best 20% of starters, red the worst 20% — recalculated for whichever window you've picked, so it always means "compared to everyone else pitching right now."</li>
@@ -418,6 +427,8 @@
   <div class="lock-in">
     <span class="lock-lbl">🔒 Lock this in</span>
     A small window flatters and lies in both directions. When L5 and Season disagree sharply, the truth is usually closer to <strong>Season</strong> — recent form is real but it's mostly noise, and the market has already seen the same five starts you have. Use L5 to generate questions, use Season to answer them.
+    <br><br>
+    That goes double for <em>vs Opp</em>. Two or three starts against one club is the smallest sample on this page, the roster he faced has already turned over, and "owns this team" is the single most over-told story in baseball betting. It's a prompt to go look at <em>why</em> — a park, a lineup full of same-handed bats — never a reason on its own. Rows with fewer than three starts aren't colour-graded here for exactly that reason.
   </div>
   <div class="det-note" style="margin-top:0;">
     Go deeper → <a href="/hot-streaks.html">hot streak scanner</a> · <a href="/learn-props.html">how prop markets work</a> · <a href="/learn-prob-gap-vs-ev.html">probability gap vs EV</a>
@@ -458,12 +469,14 @@ const POINTER_URL='https://prop-zone.vercel.app/blob_url.txt';
 const FALLBACK_URL='https://prop-zone.vercel.app/master.json';   // committed spare tire, may lag the blob
 const STATS_API='https://statsapi.mlb.com/api/v1';
 let LOGS=null;              // data/pitchers.json
+let PREV=null;              // data/pitchers_prev.json — fetched on first 'vs Opp last year'
 let F={};                   // field name -> index into a start row
 let ROWS=[];                // today's starters, joined
 let ODDS_INDEX=new Map();   // market|normName -> [merged prop]
 let ODDS_OK=false, USED_FALLBACK=false;
-let WIN=0;                  // 0 = season
+let WIN='0';                // '0' = season | '15'|'10'|'5' = last N | 'vs'|'vsprev' = head-to-head
 let SORT={key:'time',dir:1};
+const isVs=()=>WIN==='vs'||WIN==='vsprev';
 
 // ── data loads ───────────────────────────────────────────────
 async function fetchMaster(){
@@ -555,11 +568,28 @@ async function loadSlateStarters(dateStr){
 }
 
 // ── stat math ────────────────────────────────────────────────
-function windowStarts(pid){
+// `opp` is only needed by the head-to-head windows — every row carries its own
+// opponent, so the same window means a different split on every line.
+function windowStarts(pid,opp){
+  if(WIN==='vsprev'){
+    const rec=PREV&&PREV.pitchers[pid];
+    if(!rec||!opp) return [];
+    return rec.starts.filter(s=>s[F.opp]===opp);
+  }
   const rec=LOGS.pitchers[pid];
   if(!rec) return [];
-  const all=rec.starts;
-  return WIN>0?all.slice(-WIN):all;
+  if(WIN==='vs') return opp?rec.starts.filter(s=>s[F.opp]===opp):[];
+  const n=parseInt(WIN);
+  return n>0?rec.starts.slice(-n):rec.starts;
+}
+// An empty row has two very different causes and they must not read alike:
+// he faced them and it's zero starts, or there's no log for that season at all
+// (a rookie, or a reliever who never started last year).
+function emptyLabel(pid){
+  const prevYr=String(PREV?PREV.season:LOGS.season-1).slice(2);
+  if(WIN==='vsprev') return (PREV&&PREV.pitchers[pid])?'never':"no '"+prevYr;
+  if(!LOGS.pitchers[pid]) return 'no log';
+  return WIN==='vs'?'never':'0';
 }
 function avgs(starts){
   const keys=['outs','h','hr','er','k','bb','pit'];
@@ -592,7 +622,10 @@ function computeLeague(){
   LEAGUE={};
   const cols={outs:[],h:[],hr:[],er:[],k:[],bb:[]};
   for(const pid of Object.keys(LOGS.pitchers)){
-    const starts=windowStarts(pid);
+    // Head-to-head splits are 1–4 starts, so a league baseline built from them
+    // would be almost pure noise. Those views get measured against the full
+    // season instead — "outlier vs a normal start" stays a meaningful claim.
+    const starts=isVs()?LOGS.pitchers[pid].starts:windowStarts(pid);
     if(starts.length<3) continue;      // 1–2 starts is noise, not a baseline
     const a=avgs(starts);
     for(const k of Object.keys(cols)) if(a[k]!=null) cols[k].push(a[k]);
@@ -638,7 +671,7 @@ function render(){
   });
 
   computeLeague();
-  for(const r of ROWS) r.st=avgs(windowStarts(r.id));
+  for(const r of ROWS) r.st=avgs(windowStarts(r.id,r.opp));
   let shown=0;
   for(const r of sortRows(ROWS)){
     const done=r.state==='Final'||r.state==='Live';
@@ -653,11 +686,15 @@ function render(){
     const cell=(k,dec)=>{
       if(st[k]==null) return '<td class="r"><span class="thin">—</span></td>';
       const sub=k==='outs'?'<br><span class="stat-sub">'+ip(st.outs)+' ip</span>':'';
-      return '<td class="r '+flagClass(k,st[k])+'"><span class="stat">'+st[k].toFixed(dec)+'</span>'+sub+'</td>';
+      // under 3 starts the colour would shout about a coin flip — leave it plain
+      const cls=st.n>=3?flagClass(k,st[k]):'';
+      return '<td class="r '+cls+'"><span class="stat">'+st[k].toFixed(dec)+'</span>'+sub+'</td>';
     };
+    const nCell=st.n?'<span class="mono">'+st.n+'</span>'
+      :'<span class="thin">'+emptyLabel(r.id)+'</span>';
     tr.innerHTML='<td><div class="p-name">'+r.name+'</div><div class="p-team">'+r.team+'</div></td>'
       +'<td><div class="game-cell">'+(r.isHome?'vs ':'@ ')+r.opp+'</div>'+statusHtml+'</td>'
-      +'<td class="r"><span class="mono">'+(st.n||0)+'</span></td>'
+      +'<td class="r">'+nCell+'</td>'
       +cell('outs',1)+cell('h',1)+cell('hr',2)+cell('er',2)+cell('k',1)+cell('bb',1)+cell('pit',0);
     if(st.n) tr.onclick=()=>toggleDetail(tr,r);
     tbody.appendChild(tr);
@@ -674,8 +711,11 @@ function toggleDetail(tr,r){
   const next=tr.nextElementSibling;
   if(next&&next.classList.contains('detail')){ next.remove(); return; }
   document.querySelectorAll('tr.detail').forEach(d=>d.remove());
-  const starts=windowStarts(r.id);
-  const winLbl=WIN?('last '+Math.min(WIN,starts.length)+' starts'):('all '+starts.length+' starts');
+  const starts=windowStarts(r.id,r.opp);
+  const winLbl=WIN==='vs'?(starts.length+' vs '+r.opp+' this season')
+    :WIN==='vsprev'?(starts.length+' vs '+r.opp+' in '+(PREV?PREV.season:LOGS.season-1))
+    :WIN==='0'?('all '+starts.length+' starts')
+    :('last '+Math.min(parseInt(WIN),starts.length)+' starts');
 
   // tonight's posted lines + how often he's cleared them
   let propRows='';
@@ -752,6 +792,8 @@ async function boot(){
     status.className='status-bar err';
     return;
   }
+  // label the last-season button with the actual year the data covers
+  document.getElementById('vsPrevBtn').textContent="vs Opp '"+String(LOGS.season-1).slice(2);
   const dateIn=document.getElementById('dateIn');
   dateIn.value=todayStr();
   await loadDate(dateIn.value);
@@ -768,10 +810,49 @@ async function boot(){
 
 document.getElementById('hideDone').addEventListener('change',render);
 document.getElementById('dateIn').addEventListener('change',e=>loadDate(e.target.value));
-document.querySelectorAll('#winSeg button').forEach(b=>b.addEventListener('click',()=>{
-  WIN=parseInt(b.dataset.win);
+function setWinNote(msg){
+  const el=document.getElementById('winNote');
+  if(!msg){ el.style.display='none'; return; }
+  el.innerHTML=msg;
+  el.style.display='block';
+}
+function winNoteFor(){
+  if(WIN==='vs') return 'Each row now shows that starter <strong>against tonight\'s opponent only</strong>, this season. '
+    +'That\'s usually two to four starts — a tiebreaker, not evidence. Colour is still graded against a full season of work.';
+  if(WIN==='vsprev') return 'Each row now shows that starter <strong>against tonight\'s opponent in '
+    +(PREV?PREV.season:LOGS.season-1)+'</strong>. Same small-sample caveat, plus a year of roster turnover — '
+    +'the lineup he faced then may barely resemble tonight\'s.';
+  return '';
+}
+
+// The previous season is a second file, fetched the first time it's asked for,
+// so the common views never pay for data most visitors won't open.
+async function ensurePrev(btn){
+  if(PREV) return true;
+  const label=btn.textContent;
+  btn.textContent='loading…';
+  document.querySelectorAll('#winSeg button').forEach(x=>x.disabled=true);
+  try{
+    const r=await fetch('/data/pitchers_prev.json?_='+Date.now(),{cache:'no-store'});
+    if(!r.ok) throw new Error('prev '+r.status);
+    PREV=await r.json();
+    return true;
+  }catch(e){
+    setWinNote('Could not load last season\'s logs ('+e.message+') — try again in a moment.');
+    return false;
+  }finally{
+    btn.textContent=label;
+    document.querySelectorAll('#winSeg button').forEach(x=>x.disabled=false);
+  }
+}
+
+document.querySelectorAll('#winSeg button').forEach(b=>b.addEventListener('click',async()=>{
+  const want=b.dataset.win;
+  if(want==='vsprev'&&!await ensurePrev(b)) return;   // leave the old view up on failure
+  WIN=want;
   document.querySelectorAll('#winSeg button').forEach(x=>x.classList.toggle('active',x===b));
   document.querySelectorAll('tr.detail').forEach(d=>d.remove());
+  setWinNote(winNoteFor());
   render();
 }));
 document.querySelectorAll('#headRow th.sortable').forEach(th=>th.addEventListener('click',()=>{

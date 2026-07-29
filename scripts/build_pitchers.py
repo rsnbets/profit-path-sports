@@ -10,6 +10,10 @@ the expensive part (a season of game logs) is prebuilt here once a day.
 Every pitcher with >=1 start this season is included, not just today's
 probables, so a late-named or just-activated starter still resolves.
 
+Also writes data/pitchers_prev.json — the same pitchers' PREVIOUS season, used
+only by the board's "vs Team" last-season view. It ships as a separate file so
+the page pays for it on demand instead of on every load.
+
 Stdlib only — safe to run in a bare GitHub Actions python container.
 """
 import json
@@ -22,7 +26,9 @@ from datetime import datetime, timezone
 
 API = "https://statsapi.mlb.com/api/v1"
 SEASON = int(os.environ.get("PITCHERS_SEASON", "2026"))
+PREV_SEASON = SEASON - 1
 OUT_PATH = os.path.join(os.path.dirname(__file__), "..", "data", "pitchers.json")
+PREV_OUT_PATH = os.path.join(os.path.dirname(__file__), "..", "data", "pitchers_prev.json")
 
 # Per-start record layout. Kept as a bare array per start (and published in the
 # JSON as "fields") because keys-per-start would triple the file size.
@@ -52,10 +58,10 @@ def fetch_team_abbrevs():
     return {t["id"]: t.get("abbreviation", "?") for t in teams}
 
 
-def fetch_game_teams():
+def fetch_game_teams(season):
     """gamePk -> (awayTeamId, homeTeamId) for the whole regular season."""
-    sched = get_json(f"{API}/schedule?sportId=1&startDate={SEASON}-02-15"
-                     f"&endDate={SEASON}-12-01&gameType=R")
+    sched = get_json(f"{API}/schedule?sportId=1&startDate={season}-02-15"
+                     f"&endDate={season}-12-01&gameType=R")
     out = {}
     for day in sched.get("dates", []):
         for g in day.get("games", []):
@@ -79,9 +85,9 @@ def fetch_starters():
     return out
 
 
-def fetch_starts(pitcher, game_teams, abbrevs):
+def fetch_starts(pitcher, game_teams, abbrevs, season=SEASON):
     url = (f"{API}/people/{pitcher['id']}/stats?stats=gameLog"
-           f"&season={SEASON}&group=pitching")
+           f"&season={season}&group=pitching")
     try:
         data = get_json(url)
     except Exception as e:
@@ -124,38 +130,57 @@ def fetch_starts(pitcher, game_teams, abbrevs):
     }
 
 
+def collect(starters, game_teams, abbrevs, season, with_team):
+    out = {}
+    with ThreadPoolExecutor(max_workers=12) as ex:
+        futures = [ex.submit(fetch_starts, p, game_teams, abbrevs, season)
+                   for p in starters]
+        for i, f in enumerate(futures):
+            rec = f.result()
+            if rec:
+                row = {"name": rec["name"], "starts": rec["starts"]}
+                if with_team:
+                    row["team"] = rec["team"]
+                out[str(rec["id"])] = row
+            if (i + 1) % 100 == 0:
+                print(f"  {i + 1}/{len(starters)}")
+    return out
+
+
+def write(path, season, pitchers):
+    payload = {
+        "generatedAt": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+        "season": season,
+        "fields": FIELDS,
+        "pitcherCount": len(pitchers),
+        "pitchers": pitchers,
+    }
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    with open(path, "w") as f:
+        json.dump(payload, f, separators=(",", ":"))
+    total = sum(len(v["starts"]) for v in pitchers.values())
+    print(f"Wrote {path} — {len(pitchers)} pitchers, {total} starts")
+
+
 def main():
     print("Fetching team map and season schedule…")
     abbrevs = fetch_team_abbrevs()
-    game_teams = fetch_game_teams()
+    game_teams = fetch_game_teams(SEASON)
     print(f"{len(game_teams)} games mapped.")
 
     starters = fetch_starters()
     print(f"{len(starters)} pitchers with a start. Fetching game logs…")
+    write(OUT_PATH, SEASON, collect(starters, game_teams, abbrevs, SEASON, True))
 
-    out = {}
-    with ThreadPoolExecutor(max_workers=12) as ex:
-        futures = [ex.submit(fetch_starts, p, game_teams, abbrevs) for p in starters]
-        for i, f in enumerate(futures):
-            rec = f.result()
-            if rec:
-                out[str(rec["id"])] = {"name": rec["name"], "team": rec["team"],
-                                       "starts": rec["starts"]}
-            if (i + 1) % 100 == 0:
-                print(f"  {i + 1}/{len(starters)}")
-
-    payload = {
-        "generatedAt": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
-        "season": SEASON,
-        "fields": FIELDS,
-        "pitcherCount": len(out),
-        "pitchers": out,
-    }
-    os.makedirs(os.path.dirname(OUT_PATH), exist_ok=True)
-    with open(OUT_PATH, "w") as f:
-        json.dump(payload, f, separators=(",", ":"))
-    total = sum(len(v["starts"]) for v in out.values())
-    print(f"Wrote {OUT_PATH} — {len(out)} pitchers, {total} starts")
+    # Previous season, for the board's "vs Team, last year" view. Opponents are
+    # resolved through THIS season's abbreviation map on purpose: team ids are
+    # stable across seasons but abbreviations are not (Oakland went OAK -> ATH),
+    # and the board joins on the abbreviation it gets from today's schedule.
+    print(f"Fetching {PREV_SEASON} schedule and game logs…")
+    prev_games = fetch_game_teams(PREV_SEASON)
+    print(f"{len(prev_games)} games mapped.")
+    write(PREV_OUT_PATH, PREV_SEASON,
+          collect(starters, prev_games, abbrevs, PREV_SEASON, False))
 
 
 if __name__ == "__main__":
