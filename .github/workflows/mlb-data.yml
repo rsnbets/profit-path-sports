@@ -1,4 +1,8 @@
-name: Build hot-streaks data
+name: Build MLB data
+
+# Both datasets come from the same free MLB Stats API and only change once the
+# day's games are final, so they share one daily job — two workflows on the same
+# cron would race each other to push to main.
 
 on:
   schedule:
@@ -17,13 +21,15 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Build streaks.json
+      - name: Build streaks.json (hot-streaks board)
         run: python scripts/build_streaks.py
+      - name: Build pitchers.json (starting-pitcher board)
+        run: python scripts/build_pitchers.py
       - name: Commit if changed
         run: |
-          git config user.name "streaks-bot"
+          git config user.name "mlb-data-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add data/streaks.json
+          git add data/streaks.json data/pitchers.json
           git diff --cached --quiet && echo "No changes" && exit 0
-          git commit -m "Daily hot-streaks data refresh"
+          git commit -m "Daily MLB data refresh"
           git push

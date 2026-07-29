@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>⚾ Starting Pitcher Board</title>
+  <meta name="description" content="Today's MLB starting pitchers with their real per-start numbers — hits, home runs, earned runs, outs, strikeouts, walks — filterable to season, last 15, last 10 or last 5 starts, with tonight's live prop lines beside each name. Free, no signup.">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="⚾ Starting Pitcher Board">
+  <meta property="og:description" content="Every starter on today's slate — hits, HR, ER, outs and Ks per start over season / L15 / L10 / L5, with tonight's lines.">
+  <meta property="og:image" content="https://profitpathsports.com/images/og-default.png?v=2">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:url" content="https://profitpathsports.com/starting-pitchers.html">
+  <meta property="og:site_name" content="Profit Path Sports">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="⚾ Starting Pitcher Board">
+  <meta name="twitter:description" content="Every starter on today's slate — hits, HR, ER, outs and Ks per start over season / L15 / L10 / L5, with tonight's lines.">
+  <meta name="twitter:image" content="https://profitpathsports.com/images/og-default.png?v=2">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Orbitron:wght@700;800&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg:#0D1117;--surface:#161B22;--inset:#1C2430;--border:#30363D;
+    --blue:#58A6FF;--gold:#D29922;--green:#3FB950;--red:#F85149;--purple:#BC8CFF;
+    --text:#E6EDF3;--muted:#8B949E;
+  }
+  body { background:var(--bg);color:var(--text);font-family:'Rajdhani',sans-serif;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:2rem 1rem; }
+  .card { background:var(--surface);border:1px solid var(--border);border-radius:16px;width:100%;max-width:1180px;overflow:hidden; }
+  .header { background:var(--bg);padding:1.75rem 2rem 1.5rem;border-bottom:1px solid var(--border);text-align:center;position:relative; }
+  .header::after { content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent); }
+  .title { font-size:2rem;font-weight:700;letter-spacing:0.08em;color:var(--gold);text-transform:uppercase; }
+  .title-sub { font-family:'IBM Plex Sans',sans-serif;font-size:14px;color:var(--muted);line-height:1.6;max-width:760px;margin:12px auto 0;padding:0 14px;text-align:center; }
+  .title-sub strong { color:var(--text);font-weight:600; }
+  .status-bar { padding:0.65rem 1.75rem;font-size:0.78rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;text-align:center;background:var(--inset);border-bottom:1px solid var(--border);color:var(--muted); }
+  .status-bar.ok { color:var(--green); }
+  .status-bar.err { color:var(--red); }
+  .section { padding:1.15rem 1.75rem;border-bottom:1px solid var(--border); }
+  .section:last-child { border-bottom:none; }
+  .ctrl-row { display:flex;gap:1.5rem;align-items:center;flex-wrap:wrap; }
+  .seg-wrap { display:flex;align-items:center;gap:0.6rem; }
+  .seg-lbl { font-size:0.7rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);font-weight:600; }
+  .seg { display:inline-flex;border:1px solid var(--border);border-radius:8px;overflow:hidden; }
+  .seg button { background:var(--inset);border:none;color:var(--muted);padding:0.42rem 0.85rem;
+    font-family:'Rajdhani',sans-serif;font-size:0.85rem;font-weight:600;letter-spacing:0.05em;
+    text-transform:uppercase;cursor:pointer;transition:all 0.13s;border-right:1px solid var(--border); }
+  .seg button:last-child { border-right:none; }
+  .seg button:hover { color:var(--text); }
+  .seg button.active { background:rgba(88,166,255,.14);color:var(--blue); }
+  .date-in { background:var(--inset);border:1px solid var(--border);border-radius:8px;color:var(--text);
+    font-family:'IBM Plex Mono',monospace;font-size:0.85rem;font-weight:600;padding:0.38rem 0.6rem;
+    outline:none;color-scheme:dark; }
+  .chk { display:flex;align-items:center;gap:0.45rem;font-size:0.8rem;color:var(--muted);cursor:pointer;letter-spacing:0.05em;text-transform:uppercase;font-weight:600; }
+  .chk input { accent-color:var(--gold); }
+  .legend { display:flex;align-items:center;gap:0.3rem;font-size:0.7rem;color:var(--muted);letter-spacing:0.04em;text-transform:uppercase;font-weight:600;margin-left:auto; }
+  .sw { display:inline-block;width:9px;height:9px;border-radius:2px; }
+  .sw.cold { background:var(--green); }
+  .sw.hot { background:var(--red); }
+  /* table */
+  .tbl-wrap { overflow-x:auto; }
+  table { width:100%;border-collapse:collapse;font-size:0.88rem;min-width:1000px; }
+  th { font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);text-align:left;padding:0.5rem 0.55rem;border-bottom:1px solid var(--border);white-space:nowrap; }
+  th.r, td.r { text-align:right; }
+  th.c, td.c { text-align:center; }
+  th.sortable { cursor:pointer;user-select:none;transition:color 0.12s; }
+  th.sortable:hover { color:var(--text); }
+  th.sorted { color:var(--blue); }
+  th .arrow { font-size:0.7rem; }
+  td { padding:0.5rem 0.55rem;border-bottom:1px solid var(--border);vertical-align:middle;white-space:nowrap; }
+  tr.row { cursor:pointer;transition:background 0.12s; }
+  tr.row:hover { background:var(--inset); }
+  tr.row.done td { opacity:0.5; }
+  .mono { font-family:'IBM Plex Mono',monospace;font-weight:600; }
+  .p-name { font-weight:600;font-size:0.95rem; }
+  .p-team { font-size:0.72rem;color:var(--muted);font-family:'IBM Plex Mono',monospace; }
+  .stat { font-family:'IBM Plex Mono',monospace;font-size:1.02rem;font-weight:600; }
+  .stat-sub { font-size:0.66rem;color:var(--muted);font-family:'IBM Plex Mono',monospace; }
+  td.hot .stat { color:var(--red); }
+  td.cold .stat { color:var(--green); }
+  .game-cell { font-size:0.82rem; }
+  .game-time { font-size:0.7rem;color:var(--muted);font-family:'IBM Plex Mono',monospace; }
+  .badge { display:inline-block;font-size:0.58rem;font-weight:700;letter-spacing:0.08em;padding:0.08rem 0.35rem;border-radius:4px;text-transform:uppercase; }
+  .badge.live { background:rgba(248,81,73,.15);color:var(--red);border:1px solid rgba(248,81,73,.4); }
+  .badge.final { background:rgba(139,148,158,.15);color:var(--muted);border:1px solid rgba(139,148,158,.4); }
+  .thin { color:var(--muted);font-size:0.78rem; }
+  .empty-note { padding:1.5rem;text-align:center;color:var(--muted);font-size:0.9rem;line-height:1.6; }
+  /* expanded detail */
+  tr.detail td { background:var(--bg);padding:0.9rem 1rem;white-space:normal; }
+  .det-grid { display:grid;grid-template-columns:1fr 1.25fr;gap:1rem; }
+  @media (max-width:900px){ .det-grid { grid-template-columns:1fr; } }
+  .det-box { background:var(--inset);border:1px solid var(--border);border-radius:8px;padding:0.75rem 0.85rem;overflow-x:auto; }
+  .det-title { font-size:0.64rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:0.6rem; }
+  table.mini { min-width:0;width:100%;font-size:0.8rem; }
+  table.mini th { font-size:0.58rem;padding:0.25rem 0.4rem;border-bottom:1px solid var(--border); }
+  table.mini td { padding:0.28rem 0.4rem;border-bottom:1px solid rgba(48,54,61,.5);font-family:'IBM Plex Mono',monospace; }
+  table.mini tr:last-child td { border-bottom:none; }
+  .cleared { font-family:'IBM Plex Mono',monospace;font-weight:600; }
+  .cleared.good { color:var(--green); }
+  .cleared.bad { color:var(--red); }
+  .det-note { font-size:0.78rem;color:var(--muted);margin-top:0.6rem;line-height:1.5; }
+  .det-note a { color:var(--blue);text-decoration:none; }
+  .det-note a:hover { text-decoration:underline; }
+  /* how-to */
+  .how-to-jump { display:block;text-align:center;width:fit-content;margin:14px auto 0;font-family:'Orbitron',sans-serif;font-size:10px;letter-spacing:2px;color:var(--muted);text-decoration:none;text-transform:uppercase;padding:10px 18px;border:1px solid var(--border);border-radius:8px;background:var(--inset);transition:all 0.15s; }
+  .how-to-jump:hover { color:var(--gold);border-color:var(--gold);transform:translateY(-1px); }
+  .how-to-use { max-width:720px;margin:24px auto 60px;padding:28px 32px;background:var(--surface);border:1px solid var(--border);border-radius:16px;scroll-margin-top:20px; }
+  .how-to-eyebrow { font-family:'Orbitron',sans-serif;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:8px; }
+  .how-to-use h3 { font-family:'Orbitron',sans-serif;font-size:17px;font-weight:800;letter-spacing:1.5px;color:var(--text);margin:0 0 16px;text-transform:uppercase; }
+  .how-to-steps { margin:0 0 18px;padding-left:22px;font-family:system-ui,-apple-system,sans-serif;font-size:15px;line-height:1.65;color:var(--text); }
+  .how-to-steps li { margin-bottom:8px; }
+  .how-to-steps strong { color:var(--gold);font-weight:600; }
+  .how-to-note { font-family:system-ui,-apple-system,sans-serif;font-size:14px;line-height:1.55;color:var(--muted);background:var(--bg);border-left:3px solid var(--gold);border-radius:0 8px 8px 0;padding:14px 18px;margin-bottom:12px; }
+  .how-to-note em { color:var(--gold);font-style:normal;font-weight:600; }
+  .how-to-note strong { color:var(--text);font-weight:600; }
+  .lock-in { font-family:system-ui,-apple-system,sans-serif;font-size:14px;line-height:1.55;color:var(--text);background:rgba(63,185,80,.08);border-left:3px solid var(--green);border-radius:0 8px 8px 0;padding:14px 18px;margin-bottom:12px; }
+  .lock-in .lock-lbl { display:block;font-family:'Orbitron',sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--green);font-weight:700;margin-bottom:6px; }
+
+/* PPS-MOBILE-HEADER-CLEARANCE */
+    @media (max-width: 640px) {
+      .header { padding-top: 60px; padding-left: 56px; padding-right: 14px; }
+    }
+</style>
+<link rel="stylesheet" href="/styles/sidebar.css">
+</head>
+<body>
+
+<!-- ═══ SIDEBAR NAVIGATION ═══ -->
+<button class="pps-sidebar-toggle" aria-label="Toggle navigation" id="ppsSidebarToggle">
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M2 4h12M2 8h12M2 12h12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+  </svg>
+</button>
+<aside class="pps-sidebar" id="ppsSidebar">
+  <div class="pps-sidebar-inner">
+    <a class="pps-sidebar-brand" href="/index.html" aria-label="PROFITPATH Sports — Home">
+      <img src="/images/profitpath-wordmark.svg" alt="PROFITPATH Sports" class="pps-sidebar-logo">
+    </a>
+    <nav class="pps-sidebar-nav">
+      <a class="pps-nav-link" href="/index.html">Home</a>
+      <a class="pps-nav-link" href="/glossary.html">Glossary</a>
+
+      <div class="pps-nav-group-label">Calculators</div>
+      <details class="pps-nav-group" id="ppsGroupCalcs">
+        <summary>Core tools</summary>
+        <a class="pps-nav-link" href="/bet-x-ray.html">Bet X-Ray</a>
+        <a class="pps-nav-link" href="/sharp-snapshot.html">Sharp Snapshot</a>
+        <a class="pps-nav-link" href="/hedge-calculator.html">Hedge</a>
+        <a class="pps-nav-link" href="/arb-calculator.html">Arbitrage</a>
+        <a class="pps-nav-link" href="/middle-calculator.html">Middle</a>
+        <a class="pps-nav-link" href="/devig_calculator.html">Devig</a>
+        <a class="pps-nav-link" href="/odds_calculator.html">Odds Converter</a>
+      </details>
+      <details class="pps-nav-group">
+        <summary>More tools</summary>
+        <a class="pps-nav-link" href="/ev-calculator.html">EV Calculator</a>
+        <a class="pps-nav-link" href="/kelly-calculator.html">Kelly Sizer</a>
+        <a class="pps-nav-link" href="/consensus-calculator.html">Consensus Devig</a>
+        <a class="pps-nav-link" href="/edge-finder.html">Edge Finder</a>
+        <a class="pps-nav-link" href="/parlay-calculator.html">Parlay</a>
+        <a class="pps-nav-link" href="/dfs-slip-checker.html">DFS Slip Checker</a>
+        <a class="pps-nav-link" href="/bonus-converter.html">Bonus Converter</a>
+        <a class="pps-nav-link" href="/bonus-finder.html">Bonus Finder</a>
+        <a class="pps-nav-link" href="/hot-streaks.html">Hot Streaks</a>
+        <a class="pps-nav-link" href="/starting-pitchers.html">Starting Pitchers</a>
+        <a class="pps-nav-link" href="/bet-tracker.html">Bet Tracker</a>
+        <a class="pps-nav-link" href="/long-run-simulator.html">Long-Run Sim</a>
+        <a class="pps-nav-link" href="/roulette.html">Virtual Roulette</a>
+      </details>
+
+      <div class="pps-nav-group-label">Paths</div>
+      <details class="pps-nav-group path-01">
+        <summary><span class="pps-nav-num">01</span> Begin</summary>
+        <a class="pps-nav-link" href="/lane-new.html">Path Overview</a>
+        <a class="pps-nav-link" href="/learn-odds.html">Odds Formats</a>
+        <a class="pps-nav-link" href="/learn-implied.html">Implied Probability</a>
+        <a class="pps-nav-link" href="/learn-vig.html">The Vig</a>
+        <a class="pps-nav-link" href="/learn-ev.html">+EV</a>
+        <a class="pps-nav-link" href="/learn-clv.html">CLV</a>
+        <a class="pps-nav-link" href="/learn-kelly.html">Kelly Criterion</a>
+        <a class="pps-nav-link" href="/learn-parlays.html">Parlays</a>
+        <a class="pps-nav-link" href="/learn-props.html">Prop Bets</a>
+      </details>
+      <details class="pps-nav-group path-02">
+        <summary><span class="pps-nav-num">02</span> Convert</summary>
+        <a class="pps-nav-link" href="/lane-bonus.html">Path Overview</a>
+        <a class="pps-nav-link" href="/learn-bonus.html">Bonus Conversion</a>
+        <a class="pps-nav-link" href="/learn-bonus-types.html">Bonus Types</a>
+        <a class="pps-nav-link" href="/learn-bonus-traps.html">Bonus Traps</a>
+        <a class="pps-nav-link" href="/learn-bonus-walkthrough.html">Walkthrough</a>
+        <a class="pps-nav-link" href="/learn-finding-bonus-bets.html">Finding Bonus Bets</a>
+        <a class="pps-nav-link" href="/learn-bonus-step-by-step.html">Step-by-Step</a>
+        <a class="pps-nav-link" href="/learn-prop-void-rules.html">Prop Void Rules</a>
+        <a class="pps-nav-link" href="/learn-finding-bets.html">Finding +EV Bets</a>
+      </details>
+      <details class="pps-nav-group path-03">
+        <summary><span class="pps-nav-num">03</span> Maintain</summary>
+        <a class="pps-nav-link" href="/lane-maintain.html">Path Overview</a>
+        <a class="pps-nav-link" href="/learn-prob-gap-vs-ev.html">Prob Gap vs EV</a>
+        <a class="pps-nav-link" href="/learn-arbitrage.html">Arbitrage</a>
+        <a class="pps-nav-link" href="/learn-middles.html">Middles</a>
+        <a class="pps-nav-link" href="/learn-betting-vs-trading.html">Betting vs Trading</a>
+        <a class="pps-nav-link" href="/learn-alt-ladder.html">Alt Ladder</a>
+        <a class="pps-nav-link" href="/learn-alt-lines.html">Alt Lines</a>
+        <a class="pps-nav-link" href="/learn-cross-market-ev.html">Cross-Market EV</a>
+        <a class="pps-nav-link" href="/learn-exchange-liquidity.html">Exchange Liquidity</a>
+        <a class="pps-nav-link" href="/learn-futures.html">Futures</a>
+        <a class="pps-nav-link" href="/learn-manual-scan.html">Manual Scan</a>
+        <a class="pps-nav-link" href="/learn-top-down-bottom-up.html">Top-Down / Bottom-Up</a>
+        <a class="pps-nav-link" href="/learn-wide-markets.html">Wide Markets</a>
+      </details>
+
+      <div class="pps-nav-group-label">More</div>
+      <details class="pps-nav-group">
+        <summary>Sportsbooks</summary>
+        <a class="pps-nav-link" href="/book-draftkings.html">DraftKings</a>
+        <a class="pps-nav-link" href="/book-fanduel.html">FanDuel</a>
+        <a class="pps-nav-link" href="/book-hardrock.html">Hard Rock</a>
+        <a class="pps-nav-link" href="/book-betmgm.html">BetMGM</a>
+        <a class="pps-nav-link" href="/book-prophetx.html">ProphetX</a>
+      </details>
+    </nav>
+  </div>
+</aside>
+<script>
+(function() {
+  var path = window.location.pathname.replace(/\/$/, '') || '/index.html';
+  var isHome = (path === '/index.html' || path === '' || path === '/');
+  document.querySelectorAll('.pps-sidebar .pps-nav-link').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href === path || (isHome && href === '/index.html')) {
+      link.classList.add('active');
+      var group = link.closest('details.pps-nav-group');
+      if (group) group.setAttribute('open', '');
+    }
+  });
+  var calcs = document.getElementById('ppsGroupCalcs');
+  if (calcs && !document.querySelector('.pps-sidebar details[open]')) calcs.setAttribute('open', '');
+})();
+</script>
+<!-- ═══ END SIDEBAR ═══ -->
+
+<div class="card">
+  <div class="header">
+    <div class="title">⚾ Starting Pitcher Board</div>
+    <p class="title-sub">Every starter on today's slate with the numbers they've actually put up — <strong>hits, home runs, earned runs, outs, strikeouts, walks per start</strong>. Flip between <strong>season, last 15, last 10 and last 5</strong> to see who's trending the wrong way, then tap a name for the start-by-start log and tonight's posted lines.</p>
+    <a href="#how-to-use" class="how-to-jump">How to use this ↓</a>
+  </div>
+  <div class="status-bar" id="statusBar">Loading today's starters…</div>
+
+  <div class="section">
+    <div class="ctrl-row">
+      <div class="seg-wrap"><span class="seg-lbl">Window</span>
+        <div class="seg" id="winSeg">
+          <button data-win="0" class="active">Season</button>
+          <button data-win="15">L15</button>
+          <button data-win="10">L10</button>
+          <button data-win="5">L5</button>
+        </div>
+      </div>
+      <div class="seg-wrap"><span class="seg-lbl">Date</span>
+        <input type="date" class="date-in" id="dateIn">
+      </div>
+      <label class="chk"><input type="checkbox" id="hideDone"> Hide games already started</label>
+      <span class="legend"><span class="sw cold"></span>Top 20% of starters &nbsp;<span class="sw hot"></span>Bottom 20%</span>
+    </div>
+  </div>
+
+  <div class="section" style="padding:0;">
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr id="headRow">
+          <th class="sortable" data-sort="name">Pitcher</th>
+          <th class="sortable" data-sort="time">Matchup</th>
+          <th class="r sortable" data-sort="n">Starts</th>
+          <th class="r sortable" data-sort="outs">Outs</th>
+          <th class="r sortable" data-sort="h">Hits</th>
+          <th class="r sortable" data-sort="hr">HR</th>
+          <th class="r sortable" data-sort="er">ER</th>
+          <th class="r sortable" data-sort="k">Ks</th>
+          <th class="r sortable" data-sort="bb">BB</th>
+          <th class="r sortable" data-sort="pit">Pitches</th>
+        </tr></thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </div>
+    <div class="empty-note" id="emptyNote" style="display:none;"></div>
+  </div>
+</div>
+
+<div class="how-to-use" id="how-to-use">
+  <div class="how-to-eyebrow">Profit Path Sports</div>
+  <h3>How to use the pitcher board</h3>
+  <ol class="how-to-steps">
+    <li><strong>Pick your window.</strong> Season is the biggest sample and the most trustworthy baseline. L15 / L10 / L5 show you the recent form — useful for spotting a guy whose velo or command has gone sideways, but remember five starts is a <em>tiny</em> sample.</li>
+    <li><strong>Every number is a per-start average</strong> over that window. Outs is the raw prop stat (18 outs = 6 innings); the innings figure sits underneath it.</li>
+    <li><strong>Click a column to sort.</strong> This is how you actually use the board — sort by HR to find the guys serving up souvenirs, by Outs to find who works deep, by Hits for the traffic-heavy starters.</li>
+    <li><strong>Green and red are league-relative.</strong> Green means that number puts him in the best 20% of starters, red the worst 20% — recalculated for whichever window you've picked, so it always means "compared to everyone else pitching right now."</li>
+    <li><strong>Tap a pitcher</strong> for the start-by-start log plus every prop line posted on him tonight — including how often he's cleared that <em>exact</em> line in the window you picked.</li>
+    <li><strong>Compare that hit rate to the price.</strong> Fair Odds is the vig-free market consensus. If he's gone over in 8 of 10 but the market has him at a coin flip, that's a question worth asking — and often a question the market has already answered with the matchup.</li>
+  </ol>
+  <div class="how-to-note">
+    <em>Two things this board does not know:</em> <strong>who he's facing</strong> and <strong>where.</strong> A 5.1-inning average built against the best lineups in baseball means something very different than one built on a soft schedule. Averages are the starting point of the question, not the answer.
+  </div>
+  <div class="lock-in">
+    <span class="lock-lbl">🔒 Lock this in</span>
+    A small window flatters and lies in both directions. When L5 and Season disagree sharply, the truth is usually closer to <strong>Season</strong> — recent form is real but it's mostly noise, and the market has already seen the same five starts you have. Use L5 to generate questions, use Season to answer them.
+  </div>
+  <div class="det-note" style="margin-top:0;">
+    Go deeper → <a href="/hot-streaks.html">hot streak scanner</a> · <a href="/learn-props.html">how prop markets work</a> · <a href="/learn-prob-gap-vs-ev.html">probability gap vs EV</a>
+  </div>
+</div>
+
+<script>
+// ── config ───────────────────────────────────────────────────
+const BOOK_ORDER=['draftkings','fanduel','betmgm','caesars','espnbet','hardrockbet','betrivers','ballybet','fanatics','fliff'];
+const ALWAYS_EXCLUDE=new Set(['bookmakereu']);   // measured bad data on this feed
+const BOOK_NAMES={draftkings:'DraftKings',fanduel:'FanDuel',betmgm:'BetMGM',caesars:'Caesars',espnbet:'ESPN Bet',
+  hardrockbet:'Hard Rock',betrivers:'BetRivers',ballybet:'Bally Bet',fanatics:'Fanatics',fliff:'Fliff',
+  novig:'Novig',prophetexchange:'ProphetX',bovada:'Bovada',mybookie:'MyBookie',betonline:'BetOnline',
+  lowvig:'LowVig',betanysports:'BetAnySports',betus:'BetUS',betfairexchange:'Betfair',matchbook:'Matchbook'};
+function bookName(b){ return BOOK_NAMES[b]||b; }
+
+// slate market -> our per-start field + display name
+const PROP_MARKETS=[
+  {market:'pitching_outs',        field:'outs',label:'Outs Recorded'},
+  {market:'pitching_strikeouts',  field:'k',   label:'Strikeouts'},
+  {market:'pitching_hits',        field:'h',   label:'Hits Allowed'},
+  {market:'pitching_earnedRuns',  field:'er',  label:'Earned Runs'},
+  {market:'pitching_basesOnBalls',field:'bb',  label:'Walks Allowed'},
+];
+
+// ── odds helpers ─────────────────────────────────────────────
+function amerToNum(a){ if(a==null)return NaN; return parseFloat(String(a).replace('+','')); }
+function toDec(a){ const n=amerToNum(a); if(isNaN(n)||n===0)return null; return n>0?1+n/100:1+100/(-n); }
+function probToAmer(p){ if(!p||p<=0||p>=1)return '—';
+  return p>=0.5?('-'+Math.round(100*p/(1-p))):('+'+Math.round(100*(1-p)/p)); }
+function normName(s){
+  return s.normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase()
+    .replace(/\b(jr|sr|ii|iii|iv)\b\.?/g,'').replace(/[^a-z ]/g,'').replace(/\s+/g,' ').trim();
+}
+
+// ── state ────────────────────────────────────────────────────
+const POINTER_URL='https://prop-zone.vercel.app/blob_url.txt';
+const FALLBACK_URL='https://prop-zone.vercel.app/master.json';   // committed spare tire, may lag the blob
+const STATS_API='https://statsapi.mlb.com/api/v1';
+let LOGS=null;              // data/pitchers.json
+let F={};                   // field name -> index into a start row
+let ROWS=[];                // today's starters, joined
+let ODDS_INDEX=new Map();   // market|normName -> [merged prop]
+let ODDS_OK=false, USED_FALLBACK=false;
+let WIN=0;                  // 0 = season
+let SORT={key:'time',dir:1};
+
+// ── data loads ───────────────────────────────────────────────
+async function fetchMaster(){
+  try{
+    const p=await fetch(POINTER_URL+'?_='+Date.now(),{cache:'no-store'});
+    if(!p.ok) throw new Error('pointer '+p.status);
+    const url=(await p.text()).trim();
+    const r=await fetch(url,{cache:'no-store'});
+    if(!r.ok) throw new Error('blob '+r.status);
+    return r.json();
+  }catch(e){
+    // pointer can briefly reference a cleaned-up blob mid-publish — fall back to the committed copy
+    const r=await fetch(FALLBACK_URL+'?_='+Date.now(),{cache:'no-store'});
+    if(!r.ok) throw e;
+    USED_FALLBACK=true;
+    return r.json();
+  }
+}
+
+function buildOddsIndex(data){
+  const merged=new Map();
+  for(const x of data.props||[]){
+    if(!x.market.startsWith('pitching_')) continue;
+    const nn=normName(x.player.name);
+    const key=x.market+'|'+nn+'|'+x.line;
+    let m=merged.get(key);
+    if(!m){ m={market:x.market,nn,line:x.line,books:{},fairOver:null}; merged.set(key,m); }
+    for(const[b,arr]of Object.entries(x.books||{})){
+      if(!m.books[b]) m.books[b]=[null,null];
+      if(arr[0]!=null) m.books[b][0]=arr[0];
+      if(arr[1]!=null) m.books[b][1]=arr[1];
+    }
+    if(x.fairDevig!=null){
+      if(x.side==='over') m.fairOver=x.fairDevig;
+      else if(m.fairOver==null) m.fairOver=1-x.fairDevig;
+    }
+  }
+  ODDS_INDEX=new Map();
+  for(const m of merged.values()){
+    const k=m.market+'|'+m.nn;
+    if(!ODDS_INDEX.has(k)) ODDS_INDEX.set(k,[]);
+    ODDS_INDEX.get(k).push(m);
+  }
+}
+
+// the "main" line for a market is whichever line the most books agree on
+function mainLine(market,name){
+  const arr=ODDS_INDEX.get(market+'|'+normName(name));
+  if(!arr||!arr.length) return null;
+  return [...arr].sort((a,b)=>Object.keys(b.books).length-Object.keys(a.books).length)[0];
+}
+function bestOver(prop){
+  let best=null;
+  for(const[b,arr]of Object.entries(prop.books)){
+    if(ALWAYS_EXCLUDE.has(b)) continue;
+    const d=toDec(arr[0]);
+    if(d&&(!best||d>best.dec)) best={book:b,odds:arr[0],dec:d};
+  }
+  return best;
+}
+
+async function loadSlateStarters(dateStr){
+  const url=STATS_API+'/schedule?sportId=1&date='+dateStr+'&hydrate=probablePitcher,team';
+  const r=await fetch(url,{cache:'no-store'});
+  if(!r.ok) throw new Error('schedule '+r.status);
+  const data=await r.json();
+  const out=[];
+  for(const day of data.dates||[]){
+    for(const g of day.games||[]){
+      const state=g.status?.abstractGameState||'';
+      const away=g.teams.away.team.abbreviation||g.teams.away.team.name;
+      const home=g.teams.home.team.abbreviation||g.teams.home.team.name;
+      for(const side of ['away','home']){
+        const pp=g.teams[side].probablePitcher;
+        if(!pp) continue;
+        out.push({
+          id:String(pp.id), name:pp.fullName,
+          team:side==='away'?away:home,
+          opp:side==='away'?home:away,
+          isHome:side==='home',
+          matchup:away+' @ '+home,
+          startsAt:g.gameDate, state,
+          detailed:g.status?.detailedState||''
+        });
+      }
+    }
+  }
+  return out;
+}
+
+// ── stat math ────────────────────────────────────────────────
+function windowStarts(pid){
+  const rec=LOGS.pitchers[pid];
+  if(!rec) return [];
+  const all=rec.starts;
+  return WIN>0?all.slice(-WIN):all;
+}
+function avgs(starts){
+  const keys=['outs','h','hr','er','k','bb','pit'];
+  const out={n:starts.length};
+  for(const k of keys){
+    out[k]=starts.length?starts.reduce((s,r)=>s+r[F[k]],0)/starts.length:null;
+  }
+  return out;
+}
+// how often this pitcher went OVER a line in the window
+function clearedRate(starts,field,line){
+  if(!starts.length) return null;
+  const hits=starts.filter(r=>r[F[field]]>line).length;
+  return {hits,n:starts.length,pct:hits/starts.length};
+}
+
+// ── render ───────────────────────────────────────────────────
+function fmtTime(iso){ return new Date(iso).toLocaleTimeString(undefined,{hour:'numeric',minute:'2-digit'}); }
+function ip(outs){ return (outs/3).toFixed(2); }
+// a single start reads in baseball notation — 16 outs is 5.1 IP, not 5.33
+function ipGame(outs){ return Math.floor(outs/3)+'.'+(outs%3); }
+
+// Colour is relative to the league, not to fixed numbers — 5 hits a start means
+// something different in a dead-ball year than a juiced one, and a fixed
+// threshold ends up painting every row the same colour. Recomputed per window
+// off every starter in the file, so red/green always means "outlier tonight".
+const BIG_IS_GOOD=new Set(['outs','k']);
+let LEAGUE={};
+function computeLeague(){
+  LEAGUE={};
+  const cols={outs:[],h:[],hr:[],er:[],k:[],bb:[]};
+  for(const pid of Object.keys(LOGS.pitchers)){
+    const starts=windowStarts(pid);
+    if(starts.length<3) continue;      // 1–2 starts is noise, not a baseline
+    const a=avgs(starts);
+    for(const k of Object.keys(cols)) if(a[k]!=null) cols[k].push(a[k]);
+  }
+  for(const[k,arr]of Object.entries(cols)){
+    if(arr.length<20) continue;
+    arr.sort((x,y)=>x-y);
+    LEAGUE[k]={p20:arr[Math.floor(arr.length*0.2)],p80:arr[Math.floor(arr.length*0.8)]};
+  }
+}
+function flagClass(key,v){
+  const L=LEAGUE[key];
+  if(!L||v==null) return '';
+  const good=BIG_IS_GOOD.has(key);
+  if(v>=L.p80) return good?'cold':'hot';
+  if(v<=L.p20) return good?'hot':'cold';
+  return '';
+}
+
+function sortRows(rows){
+  const k=SORT.key, d=SORT.dir;
+  return [...rows].sort((a,b)=>{
+    if(k==='name') return d*a.name.localeCompare(b.name);
+    if(k==='time') return d*(new Date(a.startsAt)-new Date(b.startsAt))||a.name.localeCompare(b.name);
+    const av=a.st[k], bv=b.st[k];
+    if(av==null&&bv==null) return 0;
+    if(av==null) return 1;      // pitchers with no log always sink
+    if(bv==null) return -1;
+    return d*(av-bv)||a.name.localeCompare(b.name);
+  });
+}
+
+function render(){
+  const tbody=document.getElementById('tbody');
+  const empty=document.getElementById('emptyNote');
+  const hideDone=document.getElementById('hideDone').checked;
+  tbody.innerHTML='';
+  document.querySelectorAll('#headRow th').forEach(th=>{
+    const on=th.dataset.sort===SORT.key;
+    th.classList.toggle('sorted',on);
+    const base=th.textContent.replace(/ [▲▼]$/,'');
+    th.textContent=on?base+' '+(SORT.dir<0?'▼':'▲'):base;
+  });
+
+  computeLeague();
+  for(const r of ROWS) r.st=avgs(windowStarts(r.id));
+  let shown=0;
+  for(const r of sortRows(ROWS)){
+    const done=r.state==='Final'||r.state==='Live';
+    if(hideDone&&done) continue;
+    shown++;
+    const tr=document.createElement('tr');
+    tr.className='row'+(done?' done':'');
+    const st=r.st;
+    let statusHtml='<span class="game-time">'+fmtTime(r.startsAt)+'</span>';
+    if(r.state==='Final') statusHtml='<span class="badge final">Final</span>';
+    else if(r.state==='Live') statusHtml='<span class="badge live">Live</span>';
+    const cell=(k,dec)=>{
+      if(st[k]==null) return '<td class="r"><span class="thin">—</span></td>';
+      const sub=k==='outs'?'<br><span class="stat-sub">'+ip(st.outs)+' ip</span>':'';
+      return '<td class="r '+flagClass(k,st[k])+'"><span class="stat">'+st[k].toFixed(dec)+'</span>'+sub+'</td>';
+    };
+    tr.innerHTML='<td><div class="p-name">'+r.name+'</div><div class="p-team">'+r.team+'</div></td>'
+      +'<td><div class="game-cell">'+(r.isHome?'vs ':'@ ')+r.opp+'</div>'+statusHtml+'</td>'
+      +'<td class="r"><span class="mono">'+(st.n||0)+'</span></td>'
+      +cell('outs',1)+cell('h',1)+cell('hr',2)+cell('er',2)+cell('k',1)+cell('bb',1)+cell('pit',0);
+    if(st.n) tr.onclick=()=>toggleDetail(tr,r);
+    tbody.appendChild(tr);
+  }
+  empty.style.display=shown?'none':'block';
+  if(!ROWS.length){
+    empty.innerHTML='No probable pitchers posted for this date yet.<br>Starters are usually named the night before — try tomorrow, or check back in the morning.';
+  }else{
+    empty.textContent='Every game on this date has already started. Uncheck the filter to see them anyway.';
+  }
+}
+
+function toggleDetail(tr,r){
+  const next=tr.nextElementSibling;
+  if(next&&next.classList.contains('detail')){ next.remove(); return; }
+  document.querySelectorAll('tr.detail').forEach(d=>d.remove());
+  const starts=windowStarts(r.id);
+  const winLbl=WIN?('last '+Math.min(WIN,starts.length)+' starts'):('all '+starts.length+' starts');
+
+  // tonight's posted lines + how often he's cleared them
+  let propRows='';
+  if(ODDS_OK){
+    for(const pm of PROP_MARKETS){
+      const prop=mainLine(pm.market,r.name);
+      if(!prop) continue;
+      const best=bestOver(prop);
+      const cl=clearedRate(starts,pm.field,prop.line);
+      const clCls=cl?(cl.pct>=0.6?'good':(cl.pct<=0.4?'bad':'')):'';
+      propRows+='<tr><td>'+pm.label+'</td>'
+        +'<td class="mono">O'+prop.line+'</td>'
+        +'<td class="cleared '+clCls+'">'+(cl?cl.hits+'/'+cl.n+' ('+Math.round(cl.pct*100)+'%)':'—')+'</td>'
+        +'<td>'+(best?best.odds+' <span class="stat-sub">'+bookName(best.book)+'</span>':'—')+'</td>'
+        +'<td style="color:var(--blue);">'+(prop.fairOver!=null?probToAmer(prop.fairOver):'—')+'</td></tr>';
+    }
+  }
+  const propBox='<div class="det-box"><div class="det-title">Tonight\'s lines · cleared in '+winLbl+'</div>'
+    +(propRows?'<table class="mini"><thead><tr><th>Market</th><th>Line</th><th>Over Hit</th><th>Best Over</th><th>Fair</th></tr></thead><tbody>'+propRows+'</tbody></table>'
+      :'<div class="thin">'+(ODDS_OK?'No pitcher props posted for him yet.':'Odds feed unavailable.')+'</div>')
+    +'<div class="det-note">Home runs allowed has no prop market — the stat is here for context, not for betting.</div></div>';
+
+  // start-by-start log, newest first
+  const logRows=[...starts].reverse().map(s=>'<tr>'
+    +'<td>'+s[F.date].slice(5)+'</td>'
+    +'<td>'+(s[F.home]?'vs ':'@ ')+s[F.opp]+'</td>'
+    +'<td>'+ipGame(s[F.outs])+'</td><td>'+s[F.h]+'</td><td>'+s[F.hr]+'</td><td>'+s[F.er]+'</td>'
+    +'<td>'+s[F.k]+'</td><td>'+s[F.bb]+'</td><td>'+s[F.pit]+'</td></tr>').join('');
+  const logBox='<div class="det-box"><div class="det-title">Start-by-start · '+winLbl+'</div>'
+    +'<table class="mini"><thead><tr><th>Date</th><th>Opp</th><th>IP</th><th>H</th><th>HR</th><th>ER</th><th>K</th><th>BB</th><th>Pit</th></tr></thead>'
+    +'<tbody>'+logRows+'</tbody></table></div>';
+
+  const d=document.createElement('tr');
+  d.className='detail';
+  d.innerHTML='<td colspan="10"><div class="det-grid">'+propBox+logBox+'</div>'
+    +'<div class="det-note">Prices move — confirm in the app before betting. Want the vig-free math? → <a href="/devig_calculator.html">devig calculator</a></div></td>';
+  tr.after(d);
+}
+
+// ── boot ─────────────────────────────────────────────────────
+function todayStr(){
+  const d=new Date();
+  return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+}
+
+async function loadDate(dateStr){
+  const status=document.getElementById('statusBar');
+  status.textContent='Loading starters for '+dateStr+'…';
+  status.className='status-bar';
+  try{
+    ROWS=await loadSlateStarters(dateStr);
+  }catch(e){
+    status.textContent='Could not load the schedule ('+e.message+') — try a refresh';
+    status.className='status-bar err';
+    ROWS=[];
+  }
+  const named=ROWS.filter(r=>LOGS.pitchers[r.id]).length;
+  status.textContent=ROWS.length
+    ?ROWS.length+' starters · '+named+' with '+LOGS.season+' logs'+(ODDS_OK?' · '+(USED_FALLBACK?'backup odds feed':'live odds'):'')
+    :'No probable pitchers posted for '+dateStr+' yet';
+  status.className='status-bar'+(ROWS.length?' ok':'');
+  render();
+}
+
+async function boot(){
+  const status=document.getElementById('statusBar');
+  try{
+    const r=await fetch('/data/pitchers.json?_='+Date.now(),{cache:'no-store'});
+    if(!r.ok) throw new Error('pitchers '+r.status);
+    LOGS=await r.json();
+    LOGS.fields.forEach((f,i)=>F[f]=i);
+  }catch(e){
+    status.textContent='Could not load pitcher logs ('+e.message+') — try a refresh';
+    status.className='status-bar err';
+    return;
+  }
+  const dateIn=document.getElementById('dateIn');
+  dateIn.value=todayStr();
+  await loadDate(dateIn.value);
+  // odds are a bonus — the board is useful without them, so load them after
+  try{
+    buildOddsIndex(await fetchMaster());
+    ODDS_OK=true;
+    const status2=document.getElementById('statusBar');
+    if(ROWS.length) status2.textContent=ROWS.length+' starters · '+ROWS.filter(r=>LOGS.pitchers[r.id]).length
+      +' with '+LOGS.season+' logs · '+(USED_FALLBACK?'backup odds feed':'live odds');
+  }catch(e){ /* board still works; detail panes will say the feed is down */ }
+  render();
+}
+
+document.getElementById('hideDone').addEventListener('change',render);
+document.getElementById('dateIn').addEventListener('change',e=>loadDate(e.target.value));
+document.querySelectorAll('#winSeg button').forEach(b=>b.addEventListener('click',()=>{
+  WIN=parseInt(b.dataset.win);
+  document.querySelectorAll('#winSeg button').forEach(x=>x.classList.toggle('active',x===b));
+  document.querySelectorAll('tr.detail').forEach(d=>d.remove());
+  render();
+}));
+document.querySelectorAll('#headRow th.sortable').forEach(th=>th.addEventListener('click',()=>{
+  const k=th.dataset.sort;
+  // numbers are most interesting biggest-first; names and times read better ascending
+  if(SORT.key===k) SORT.dir*=-1;
+  else SORT={key:k,dir:(k==='name'||k==='time')?1:-1};
+  document.querySelectorAll('tr.detail').forEach(d=>d.remove());
+  render();
+}));
+boot();
+</script>
+</body>
+</html>
