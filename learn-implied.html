@@ -861,7 +861,7 @@
     <div class="challenge-head">
       <div class="challenge-eyebrow">★ The Challenge ★</div>
       <div class="challenge-title">Prove it — read prices like a winner</div>
-      <div class="challenge-sub">Five quick reps with fresh numbers every time. Using the <a href="/odds_calculator.html" target="_blank">Odds Converter</a> is allowed — that's the whole point of having it.</div>
+      <div class="challenge-sub">Four quick reps with fresh numbers every time. Using the <a href="/odds_calculator.html" target="_blank">Odds Converter</a> is allowed — that's the whole point of having it.</div>
     </div>
 
     <div class="cq">
@@ -889,16 +889,6 @@
         <button type="button" class="cq-opt" data-v="b" id="q4b">+150</button>
       </div>
       <div class="cq-fb" id="q4fb"></div>
-    </div>
-
-    <div class="cq">
-      <div class="cq-q"><span class="n">5.</span>The Super Bowl coin toss is priced <b>−115 / −115</b> — that implies 53.49% + 53.49% = <b>106.98%</b> on a 50/50 flip. What's going on?</div>
-      <div class="cq-opts" id="q5opts">
-        <button type="button" class="cq-opt" data-v="vig">The book hid something inside both prices — on purpose</button>
-        <button type="button" class="cq-opt" data-v="round">It's a rounding error in the odds format</button>
-        <button type="button" class="cq-opt" data-v="misprice">The book thinks heads really is more likely than tails</button>
-      </div>
-      <div class="cq-fb" id="q5fb"></div>
     </div>
 
     <div class="challenge-actions">
@@ -1005,7 +995,7 @@
       function amFmt(am) { return am < 0 ? '\u2212' + (-am) : '+' + am; }
       document.getElementById('q4a').textContent = amFmt(S.p1);
       document.getElementById('q4b').textContent = amFmt(S.p2);
-      ['q1', 'q2', 'q3', 'q4', 'q5'].forEach(function (q) {
+      ['q1', 'q2', 'q3', 'q4'].forEach(function (q) {
         var inp = document.getElementById(q + 'in');
         if (inp) inp.value = '';
         var fb = document.getElementById(q + 'fb');
@@ -1016,7 +1006,7 @@
       document.getElementById('cqResult').className = 'challenge-result';
     }
 
-    ['q4opts', 'q5opts'].forEach(function (id) {
+    ['q4opts'].forEach(function (id) {
       document.getElementById(id).addEventListener('click', function (e) {
         var btn = e.target.closest('.cq-opt');
         if (!btn) return;
@@ -1045,17 +1035,15 @@
       var q4rightBtn = document.getElementById(S.q4right === 'a' ? 'q4a' : 'q4b').textContent;
       score += mark('q4', !!q4sel && q4sel.dataset.v === S.q4right,
         q4rightBtn + ' (' + fmt(Math.max(S.q4i1, S.q4i2)) + '% vs ' + fmt(Math.min(S.q4i1, S.q4i2)) + '%)');
-      var q5sel = document.querySelector('#q5opts .cq-opt.sel');
-      score += mark('q5', !!q5sel && q5sel.dataset.v === 'vig', '\u201cthe book hid something inside both prices\u201d \u2014 what it is (and how to strip it out) is Lesson 03');
 
       var res = document.getElementById('cqResult');
-      if (score >= 4) {
+      if (score >= 3) {
         res.className = 'challenge-result pass';
-        res.innerHTML = '<span class="big">\u2713 ' + score + '/5 \u2014 Lesson 02 cleared</span>You can turn any price into a probability \u2014 the exact skill every step after this builds on. On to <a href="/learn-vig.html" style="color:var(--green);font-weight:700;">Lesson 03 \u00b7 The Vig \u2192</a>';
+        res.innerHTML = '<span class="big">\u2713 ' + score + '/4 \u2014 Lesson 02 cleared</span>You can turn any price into a probability \u2014 the exact skill every step after this builds on. On to <a href="/learn-vig.html" style="color:var(--green);font-weight:700;">Lesson 03 \u00b7 The Vig \u2192</a>';
         try { localStorage.setItem('pps-challenge-implied', 'passed'); } catch (e) {}
       } else {
         res.className = 'challenge-result fail';
-        res.innerHTML = '<span class="big">' + score + '/5 \u2014 close</span>Check the red answers, hit \u201cNew numbers\u201d and run it back \u2014 or reread <a href="#" onclick="window.scrollTo({top:0,behavior:\u0027smooth\u0027});return false;" style="color:var(--cyan);">the math section</a> first. The reps are the point.';
+        res.innerHTML = '<span class="big">' + score + '/4 \u2014 close</span>Check the red answers, hit \u201cNew numbers\u201d and run it back \u2014 or reread <a href="#" onclick="window.scrollTo({top:0,behavior:\u0027smooth\u0027});return false;" style="color:var(--cyan);">the math section</a> first. The reps are the point.';
       }
       res.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     });
