@@ -508,6 +508,16 @@
     letter-spacing: -.01em;
     color: #090909;
   }
+
+  /* optional-math collapse */
+  .math-optional { border: 1px dashed rgba(0,212,255,0.30); border-radius: 12px; margin-top: 18px; overflow: hidden; }
+  .math-optional summary { list-style: none; cursor: pointer; user-select: none; padding: 12px 16px; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13px; font-weight: 500; color: rgba(240,238,232,0.62); }
+  .math-optional summary::-webkit-details-marker { display: none; }
+  .math-optional summary::before { content: '\25b8 '; color: var(--cyan); }
+  .math-optional[open] summary::before { content: '\25be '; }
+  .math-optional summary:hover { color: var(--text); }
+  .math-optional-body { padding: 4px 16px 14px; }
+  .math-optional-body p { font-size: 13.5px; color: var(--muted); margin-top: 10px; }
 </style>
 <link rel="stylesheet" href="/styles/sidebar.css">
 <link rel="stylesheet" href="/styles/topbar.css">
@@ -768,9 +778,13 @@
   <section class="lesson-section">
     <h3>The math behind it</h3>
     <div class="lesson-body">
-      <p>Two formulas — one for each sign. They feel fiddly the first few times, then become muscle memory.</p>
+      <p><strong>First things first: you never have to do this math.</strong> The <a href="/odds_calculator.html">Odds Converter</a> turns any price into its implied probability instantly. Winning bettors ran these formulas by hand for years — you just need to know what the number <em>means</em>.</p>
+      <p>The only part worth keeping in your head: <strong>bigger favorite &rarr; higher implied probability; bigger underdog &rarr; lower.</strong> &minus;110 is just above a coin flip (52.38%), &minus;300 is a big favorite (75%), +400 is a big long shot (20%). The percentage is the book's stated guess at how often that side wins.</p>
 
-      <div class="math-block">
+      <details class="math-optional">
+        <summary>Want the actual formulas? Optional &mdash; the calc does this for you</summary>
+        <div class="math-optional-body">
+          <div class="math-block">
         <span class="label">Minus odds → implied probability</span>
         prob = |odds| &#247; ( |odds| + 100 )<br><br>
         <span class="neg">−110</span> &nbsp;→&nbsp; 110 &#247; 210 &nbsp;=&nbsp; <span class="pos">52.38%</span><br>
@@ -778,7 +792,7 @@
         <span class="neg">−300</span> &nbsp;→&nbsp; 300 &#247; 400 &nbsp;=&nbsp; <span class="pos">75.00%</span> &nbsp;<span class="dim">(big favorite)</span>
       </div>
 
-      <div class="math-block">
+          <div class="math-block">
         <span class="label">Plus odds → implied probability</span>
         prob = 100 &#247; ( odds + 100 )<br><br>
         <span class="pos">+110</span> &nbsp;→&nbsp; 100 &#247; 210 &nbsp;=&nbsp; <span class="pos">47.62%</span><br>
@@ -786,7 +800,9 @@
         <span class="pos">+400</span> &nbsp;→&nbsp; 100 &#247; 500 &nbsp;=&nbsp; <span class="pos">20.00%</span> &nbsp;<span class="dim">(big underdog)</span>
       </div>
 
-      <p>Bigger favorite, higher implied probability. Bigger underdog, lower. The percentage is just the book's stated guess at how often that side wins. (Decimal odds make it even simpler — implied probability is just <em>1 ÷ decimal odds</em>.)</p>
+          <p>(Decimal odds are even simpler &mdash; implied probability is just <em>1 &divide; decimal odds</em>.)</p>
+        </div>
+      </details>
     </div>
   </section>
 
