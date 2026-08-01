@@ -807,7 +807,7 @@
   </section>
 
   <section class="lesson-section">
-    <h3>The 104.76% problem</h3>
+    <h3>Something doesn’t add up</h3>
     <div class="lesson-body">
       <p>We just said the implied percentage is the <strong>book's guess</strong> at the real probability. And guesses differ — that's why the same game shows slightly different odds depending on which book you're looking at (more on that later).</p>
       <p>So let's test the books with the one probability nobody has to guess: <strong>a coin flip.</strong> Heads or tails, everyone agrees — you win <strong>50%</strong> of the time, no exceptions. Which means we know exactly what <em>fair</em> odds on a flip should look like:</p>
@@ -825,18 +825,18 @@
       </div>
 
       <p>Both sides at +100, implying 50% each, summing to a clean 100%. That's what "fair" looks like in math.</p>
-      <p>But that's not what a sportsbook posts on a coin-flip-style market. It posts <strong>−110 / −110</strong>. Run those through the formula and watch what happens:</p>
+      <p><strong>Now guess what — sportsbooks really do take bets on coin flips.</strong> Every February you can bet the Super Bowl coin toss: heads or tails, an actual coin. And here's what the line looks like:</p>
 
       <div class="math-block">
-        <span class="label">A "coin flip" line at the sportsbook</span>
-        <span class="neg">−110</span> &nbsp;→&nbsp; <span class="pos">52.38%</span><br>
-        <span class="neg">−110</span> &nbsp;→&nbsp; <span class="pos">52.38%</span><br>
+        <span class="label">The Super Bowl coin toss, at a real sportsbook</span>
+        Heads &nbsp;<span class="neg">−115</span> &nbsp;→&nbsp; 115 &#247; 215 &nbsp;=&nbsp; <span class="pos">53.49%</span><br>
+        Tails &nbsp;<span class="neg">−115</span> &nbsp;→&nbsp; 115 &#247; 215 &nbsp;=&nbsp; <span class="pos">53.49%</span><br>
         ──────────────────────<br>
-        Total implied probability &nbsp;=&nbsp; <span class="vig">104.76%</span>
+        Total implied probability &nbsp;=&nbsp; <span class="vig">106.98%</span>
       </div>
 
-      <p>The book's prices add up to <strong>more than 100%.</strong> That's impossible — no event can have more than a 100% total chance of happening. Both sides of a coin flip can't each be 52.38% likely to win.</p>
-      <p>So where did the extra <strong>4.76%</strong> come from? It's not a math error. It's the sportsbook's fee — and it's the entire next lesson, <a href="/learn-vig.html">The Vig</a>.</p>
+      <p>If you understand what you just learned in this lesson, you should be smelling something fishy. The book is saying heads is <strong>53.49%</strong> likely <em>and</em> tails is <strong>53.49%</strong> likely — that's <strong>107% of a coin</strong>. A real flip is 50/50. No event can total more than 100%.</p>
+      <p>That extra <strong>~7%</strong> is not a math error, and the book didn't forget how coins work. <strong>Something is hidden inside those prices — on purpose.</strong> Finding it, measuring it, and stripping it out is the entire next lesson.</p>
     </div>
   </section>
 
@@ -850,7 +850,7 @@
       <div class="key-note">
         <div class="key-note-head">★ Key Point — Implied % Is Not the True %</div>
         <div class="key-note-body">
-          The implied probability of a <strong>single price</strong> is always a little too high — because the book's fee is baked inside it. −110 implies 52.38%, but the true chance on a real coin flip is 50%. That 2.38% gap per side <em>is</em> the fee. So treat a single side's implied probability as a <strong>rough screen, never a fact</strong>. To get the real number you have to strip the fee off <em>both</em> sides of the market — that's called devigging, and it's covered in <a href="/learn-vig.html">The Vig</a> and built into the <a href="/devig_calculator.html">Devig Calculator</a>.
+          A single price's implied probability always runs <strong>a little too high</strong> — you just watched it happen: −115 implies 53.49%, but a real coin flip is 50%. So treat implied probability as a <strong>rough screen, never a fact</strong>. Why it runs high — and how winning bettors clean the number up — is the next lesson, <a href="/learn-vig.html">The Vig</a>.
         </div>
       </div>
     </div>
@@ -883,20 +883,20 @@
     </div>
 
     <div class="cq">
-      <div class="cq-q"><span class="n">4.</span><span id="q4text">Your model makes Team A <b>55%</b> to win. The book's price implies <b>52.4%</b>. What's the play?</span></div>
+      <div class="cq-q"><span class="n">4.</span>Which price implies the <b>higher</b> win chance?</div>
       <div class="cq-opts" id="q4opts">
-        <button type="button" class="cq-opt" data-v="bet">Bet it — the price implies less than the model says</button>
-        <button type="button" class="cq-opt" data-v="pass">Pass — the price already implies more than the model says</button>
+        <button type="button" class="cq-opt" data-v="a" id="q4a">−180</button>
+        <button type="button" class="cq-opt" data-v="b" id="q4b">+150</button>
       </div>
       <div class="cq-fb" id="q4fb"></div>
     </div>
 
     <div class="cq">
-      <div class="cq-q"><span class="n">5.</span>−110 on both sides implies 52.38% + 52.38% = <b>104.76%</b>. Why do the two sides add up to more than 100%?</div>
+      <div class="cq-q"><span class="n">5.</span>The Super Bowl coin toss is priced <b>−115 / −115</b> — that implies 53.49% + 53.49% = <b>106.98%</b> on a 50/50 flip. What's going on?</div>
       <div class="cq-opts" id="q5opts">
-        <button type="button" class="cq-opt" data-v="vig">The book's fee (the vig) is baked into both prices</button>
-        <button type="button" class="cq-opt" data-v="round">Rounding error in the odds format</button>
-        <button type="button" class="cq-opt" data-v="misprice">One of the sides must be mispriced</button>
+        <button type="button" class="cq-opt" data-v="vig">The book hid something inside both prices — on purpose</button>
+        <button type="button" class="cq-opt" data-v="round">It's a rounding error in the odds format</button>
+        <button type="button" class="cq-opt" data-v="misprice">The book thinks heads really is more likely than tails</button>
       </div>
       <div class="cq-fb" id="q5fb"></div>
     </div>
@@ -992,14 +992,19 @@
       S.a1 = (-S.negAm) / ((-S.negAm) + 100) * 100;
       S.a2 = 100 / (S.posAm + 100) * 100;
       S.a3 = 100 / S.dec * 100;
-      S.model = rint(45, 60);
-      var gap = rint(1, 4);
-      S.bet = Math.random() < 0.5;
-      S.shown = S.bet ? S.model - gap : S.model + gap;
+      var pool = [-250, -200, -180, -150, -130, -110, 105, 120, 150, 180, 220, 300];
+      var i1 = rint(0, pool.length - 1), i2 = i1;
+      function impl(am) { return am < 0 ? (-am) / ((-am) + 100) * 100 : 100 / (am + 100) * 100; }
+      while (i2 === i1 || Math.abs(impl(pool[i2]) - impl(pool[i1])) < 4) { i2 = rint(0, pool.length - 1); }
+      S.p1 = pool[i1]; S.p2 = pool[i2];
+      S.q4right = impl(S.p1) > impl(S.p2) ? 'a' : 'b';
+      S.q4i1 = impl(S.p1); S.q4i2 = impl(S.p2);
       document.getElementById('q1odds').textContent = '\u2212' + (-S.negAm);
       document.getElementById('q2odds').textContent = '+' + S.posAm;
       document.getElementById('q3odds').textContent = S.dec.toFixed(2);
-      document.getElementById('q4text').innerHTML = 'Your model makes Team A <b>' + S.model + '%</b> to win. The book\u2019s price implies <b>' + S.shown + '%</b>. What\u2019s the play?';
+      function amFmt(am) { return am < 0 ? '\u2212' + (-am) : '+' + am; }
+      document.getElementById('q4a').textContent = amFmt(S.p1);
+      document.getElementById('q4b').textContent = amFmt(S.p2);
       ['q1', 'q2', 'q3', 'q4', 'q5'].forEach(function (q) {
         var inp = document.getElementById(q + 'in');
         if (inp) inp.value = '';
@@ -1037,11 +1042,11 @@
       score += mark('q2', Math.abs(num('q2in') - S.a2) <= 0.5, fmt(S.a2) + '%');
       score += mark('q3', Math.abs(num('q3in') - S.a3) <= 0.5, fmt(S.a3) + '%');
       var q4sel = document.querySelector('#q4opts .cq-opt.sel');
-      var q4right = S.bet ? 'bet' : 'pass';
-      score += mark('q4', !!q4sel && q4sel.dataset.v === q4right,
-        q4right === 'bet' ? '\u201cBet it\u201d \u2014 the price implies less than your model\u2019s number' : '\u201cPass\u201d \u2014 the price already implies more than your model\u2019s number');
+      var q4rightBtn = document.getElementById(S.q4right === 'a' ? 'q4a' : 'q4b').textContent;
+      score += mark('q4', !!q4sel && q4sel.dataset.v === S.q4right,
+        q4rightBtn + ' (' + fmt(Math.max(S.q4i1, S.q4i2)) + '% vs ' + fmt(Math.min(S.q4i1, S.q4i2)) + '%)');
       var q5sel = document.querySelector('#q5opts .cq-opt.sel');
-      score += mark('q5', !!q5sel && q5sel.dataset.v === 'vig', 'the vig \u2014 the book\u2019s fee is baked into both prices');
+      score += mark('q5', !!q5sel && q5sel.dataset.v === 'vig', '\u201cthe book hid something inside both prices\u201d \u2014 what it is (and how to strip it out) is Lesson 03');
 
       var res = document.getElementById('cqResult');
       if (score >= 4) {
