@@ -117,6 +117,18 @@ Considered renaming "Follow The Path" → "The Profit Path Playbook." Blocked on
 - Options: keep "Follow The Path" (fine as-is) · "The Path" as heavier proper noun · take "Playbook" here and rename the exchange product first
 - If the exchange product ever gets renamed, this reopens.
 
+### The core sell: "sharp math, automated" (2026-07-21 — user framing, use somewhere at some point)
+The pitch that reframes the scary part as the solved part: **this is the math sharps (winners) understand and used to run manually — we built the calculators. All you need is the concept; the calc does the work. The easy path to betting like a winner.**
+- ★ "Sharps ran this math by hand for years. You just need to get the concept — the calculator does the rest."
+- "Every winning bettor runs the same numbers. They needed spreadsheets. You need six short lessons and free calculators."
+- "The hard part of sharp betting was always the math. We did the hard part."
+- Eyebrow form: `★ The Sharp Math, Automated ★`
+- Quiz/checkpoint tie-in (if Path checkpoints happen): "Prove you think like a sharp — the calcs handle the arithmetic."
+- Natural homes: Path intro on homepage, Path 01 landing (lane-new), maybe the About/premise line in the free-money exit ramp.
+
+### Path checkpoints / quizzes (2026-07-21 — user still deciding)
+Interactive quiz at end of each Path (one per path beats per-lesson; questions = run-the-play scenarios that require using the calcs, e.g. "Pinnacle −175/+135, your book +150 the dog — which side has value and what's the EV/$100?"). Randomized numbers per attempt, localStorage badge + homepage path-card ✓, no gating. Detailed spec discussed in session 2026-07-21; pilot = Path 01 checkpoint when green-lit.
+
 *(drop new ones below)*
 
 ---
