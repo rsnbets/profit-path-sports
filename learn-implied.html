@@ -981,7 +981,7 @@
       S.dec = decs[rint(0, decs.length - 1)];
       S.a1 = (-S.negAm) / ((-S.negAm) + 100) * 100;
       S.a2 = 100 / (S.posAm + 100) * 100;
-      S.a3 = 100 / S.dec * 100;
+      S.a3 = 100 / S.dec;
       var pool = [-250, -200, -180, -150, -130, -110, 105, 120, 150, 180, 220, 300];
       var i1 = rint(0, pool.length - 1), i2 = i1;
       function impl(am) { return am < 0 ? (-am) / ((-am) + 100) * 100 : 100 / (am + 100) * 100; }
@@ -1034,7 +1034,7 @@
       var q4sel = document.querySelector('#q4opts .cq-opt.sel');
       var q4rightBtn = document.getElementById(S.q4right === 'a' ? 'q4a' : 'q4b').textContent;
       score += mark('q4', !!q4sel && q4sel.dataset.v === S.q4right,
-        q4rightBtn + ' (' + fmt(Math.max(S.q4i1, S.q4i2)) + '% vs ' + fmt(Math.min(S.q4i1, S.q4i2)) + '%)');
+        q4rightBtn + ' (' + fmt(Math.max(S.q4i1, S.q4i2)) + '% > ' + fmt(Math.min(S.q4i1, S.q4i2)) + '%)');
 
       var res = document.getElementById('cqResult');
       if (score >= 3) {
