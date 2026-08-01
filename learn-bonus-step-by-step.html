@@ -197,6 +197,35 @@
     .nav-brand-chart { display: none !important; }
     .nav-back { font-size: 11px !important; white-space: nowrap; }
   }
+
+  /* ── Continue-the-Path CTA (primary next step, above the tool card) ── */
+  .next-lesson-cta {
+    display: block;
+    margin: 40px 0 18px;
+    background: var(--green);
+    border-radius: 14px;
+    padding: 22px 26px;
+    text-decoration: none;
+    text-align: center;
+    transition: filter .15s, transform .15s;
+    box-shadow: 0 10px 34px rgba(77,255,120,0.18);
+  }
+  .next-lesson-cta:hover { filter: brightness(1.07); transform: translateY(-2px); }
+  .next-lesson-cta .nl-eyebrow {
+    display: block;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 10px; font-weight: 700;
+    letter-spacing: .28em; text-transform: uppercase;
+    color: rgba(9,9,9,0.65);
+    margin-bottom: 6px;
+  }
+  .next-lesson-cta .nl-title {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: clamp(17px, 2.2vw, 21px);
+    font-weight: 800;
+    letter-spacing: -.01em;
+    color: #090909;
+  }
 </style>
 <link rel="stylesheet" href="/styles/sidebar.css">
 <link rel="stylesheet" href="/styles/topbar.css">
@@ -670,6 +699,11 @@
       <p>That cash is the seed capital for everything that comes after — Path 03's +EV bankroll, DFS allocation if you go there, etc. The bonus round is where your real money comes from. <strong>The rest is variance.</strong></p>
     </div>
   </section>
+
+    <a class="next-lesson-cta" href="/learn-bonus-walkthrough.html">
+    <span class="nl-eyebrow">Next on the Path</span>
+    <span class="nl-title">Continue → Building Your Bankroll</span>
+  </a>
 
   <div class="cta-card">
     <div class="cta-eyebrow">Run the math right now</div>

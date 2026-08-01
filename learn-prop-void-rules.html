@@ -197,6 +197,35 @@
     .nav-brand-chart { display: none !important; }
     .nav-back { font-size: 11px !important; white-space: nowrap; }
   }
+
+  /* ── Continue-the-Path CTA (primary next step, above the tool card) ── */
+  .next-lesson-cta {
+    display: block;
+    margin: 40px 0 18px;
+    background: var(--green);
+    border-radius: 14px;
+    padding: 22px 26px;
+    text-decoration: none;
+    text-align: center;
+    transition: filter .15s, transform .15s;
+    box-shadow: 0 10px 34px rgba(77,255,120,0.18);
+  }
+  .next-lesson-cta:hover { filter: brightness(1.07); transform: translateY(-2px); }
+  .next-lesson-cta .nl-eyebrow {
+    display: block;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 10px; font-weight: 700;
+    letter-spacing: .28em; text-transform: uppercase;
+    color: rgba(9,9,9,0.65);
+    margin-bottom: 6px;
+  }
+  .next-lesson-cta .nl-title {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: clamp(17px, 2.2vw, 21px);
+    font-weight: 800;
+    letter-spacing: -.01em;
+    color: #090909;
+  }
 </style>
 <link rel="stylesheet" href="/styles/sidebar.css">
 <link rel="stylesheet" href="/styles/topbar.css">
@@ -668,6 +697,11 @@
       <p>Do those three things, and the void-rule risk shrinks to a footnote. The conversions compound, the bonus pool empties out, the cash hits your account. <strong>The math is your friend; the lineups are your timing tool.</strong></p>
     </div>
   </section>
+
+    <a class="next-lesson-cta" href="/learn-bonus-traps.html">
+    <span class="nl-eyebrow">Next on the Path</span>
+    <span class="nl-title">Continue → Other Bonus-Hunting Pitfalls</span>
+  </a>
 
   <div class="cta-card">
     <div class="cta-eyebrow">Back to the conversion playbook</div>
