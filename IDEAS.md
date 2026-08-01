@@ -119,11 +119,11 @@ Considered renaming "Follow The Path" → "The Profit Path Playbook." Blocked on
 
 ### The core sell: "sharp math, automated" (2026-07-21 — user framing, use somewhere at some point)
 The pitch that reframes the scary part as the solved part: **this is the math sharps (winners) understand and used to run manually — we built the calculators. All you need is the concept; the calc does the work. The easy path to betting like a winner.**
-- ★ "Sharps ran this math by hand for years. You just need to get the concept — the calculator does the rest."
+- ★ "Winning bettors ran this math by hand for years. You just need to get the concept — the calculator does the rest."
 - "Every winning bettor runs the same numbers. They needed spreadsheets. You need six short lessons and free calculators."
 - "The hard part of sharp betting was always the math. We did the hard part."
 - Eyebrow form: `★ The Sharp Math, Automated ★`
-- Quiz/checkpoint tie-in (if Path checkpoints happen): "Prove you think like a sharp — the calcs handle the arithmetic."
+- Quiz/checkpoint tie-in (if Path checkpoints happen): "Prove you think like a winning bettor — the calcs handle the arithmetic."
 - Natural homes: Path intro on homepage, Path 01 landing (lane-new), maybe the About/premise line in the free-money exit ramp.
 
 ### Path checkpoints / quizzes (2026-07-21 — user still deciding)

@@ -968,7 +968,7 @@
     <a href="/index.html" class="back-link">← Back</a>
     <span class="header-eyebrow">★ Free · No Signup ★</span>
     <h1>Sharp Snapshot</h1>
-    <div class="tagline">See the sharp's actual position, the consensus fair price, and your soft-book target — all on one screen.</div>
+    <div class="tagline">See the winning bettor's actual position, the consensus fair price, and your soft-book target — all on one screen.</div>
   </div>
 
   <div class="body">
@@ -1187,7 +1187,7 @@
 
       <div class="verdict flat" id="verdictBanner">
         <div class="verdict-title">Awaiting inputs</div>
-        <div class="verdict-body" id="verdictBody">Type in exchange depths above to see the sharp's direction and target price.</div>
+        <div class="verdict-body" id="verdictBody">Type in exchange depths above to see the winning bettor's direction and target price.</div>
       </div>
     </div>
 
@@ -1204,9 +1204,9 @@
         <summary>The five outputs, decoded</summary>
         <div class="edu-body">
           <ul>
-            <li><strong>Sharp Translation</strong> — flips exchange offers to the sharp's actual position and tallies sharp capital per side, with the imbalance ratio.</li>
+            <li><strong>Sharp Translation</strong> — flips exchange offers to the winning bettor's actual position and tallies sharp capital per side, with the imbalance ratio.</li>
             <li><strong>Book Limit Asymmetry</strong> — the <em>lower-limit</em> side is the side the book is protecting itself from, i.e. the inferred sharp side. Books + exchanges agreeing = aligned signal; disagreeing = down-weight it.</li>
-            <li><strong>Conviction Check</strong> — when exchange depth <em>exceeds</em> book limits, sharps wanted more capacity than the books would underwrite. Strong conviction; a leading indicator of line movement.</li>
+            <li><strong>Conviction Check</strong> — when exchange depth <em>exceeds</em> book limits, winning bettors wanted more capacity than the books would underwrite. Strong conviction; a leading indicator of line movement.</li>
             <li><strong>Consensus Fair</strong> — weighted no-vig fair across the sources (Pinnacle and Novig weighted heaviest).</li>
             <li><strong>Soft-Book Target</strong> — the price to beat at a soft book to capture cross-market EV. Primary side = where the sharp money leans.</li>
           </ul>
@@ -1430,7 +1430,7 @@
       imbalanceRatio = sumA > sumB ? sumA / sumB : sumB / sumA;
       heavySide = sumA > sumB ? 'A' : 'B';
       imbVal.textContent = imbalanceRatio.toFixed(1) + '×';
-      imbTxt.textContent = `toward ${heavySide === 'A' ? sideAName : sideBName} · sharps want ${heavySide === 'A' ? sideAName : sideBName}`;
+      imbTxt.textContent = `toward ${heavySide === 'A' ? sideAName : sideBName} · winning bettors want ${heavySide === 'A' ? sideAName : sideBName}`;
     } else if (sumA > 0 || sumB > 0) {
       heavySide = sumA > 0 ? 'A' : 'B';
       imbalanceRatio = Infinity;
@@ -1537,7 +1537,7 @@
 
     // ─── Output 03: Conviction Check (exchange depth vs book limits) ───
     // Both book limits and exchange depth represent capacity to LAY each side.
-    // When exchange depth exceeds book limits, sharps are deploying more capital on the
+    // When exchange depth exceeds book limits, winning bettors are deploying more capital on the
     // exchange than the books themselves are willing to underwrite — a strong conviction
     // signal that line movement is likely.
     document.getElementById('convANameLabel').textContent = sideAName;
@@ -1608,14 +1608,14 @@
       } else if (rA >= 1) {
         convOverflow = 'A';
         convStatus.classList.add('overflow');
-        convStatusText.innerHTML = `Exchange depth laying <strong>${sideAName}</strong> exceeds the books' capacity by <strong>${rA.toFixed(2)}×</strong>. Sharps want ${sideBName} with high conviction — line movement likely.`;
+        convStatusText.innerHTML = `Exchange depth laying <strong>${sideAName}</strong> exceeds the books' capacity by <strong>${rA.toFixed(2)}×</strong>. Winning Bettors want ${sideBName} with high conviction — line movement likely.`;
       } else if (rB >= 1) {
         convOverflow = 'B';
         convStatus.classList.add('overflow');
-        convStatusText.innerHTML = `Exchange depth laying <strong>${sideBName}</strong> exceeds the books' capacity by <strong>${rB.toFixed(2)}×</strong>. Sharps want ${sideAName} with high conviction — line movement likely.`;
+        convStatusText.innerHTML = `Exchange depth laying <strong>${sideBName}</strong> exceeds the books' capacity by <strong>${rB.toFixed(2)}×</strong>. Winning Bettors want ${sideAName} with high conviction — line movement likely.`;
       } else {
         convStatus.classList.remove('overflow');
-        convStatusText.innerHTML = `Exchange depth is below book limits on both sides — sharps haven't overflowed the books. Normal conviction.`;
+        convStatusText.innerHTML = `Exchange depth is below book limits on both sides — winning bettors haven't overflowed the books. Normal conviction.`;
       }
     } else if (rA !== null || rB !== null) {
       convStatus.classList.remove('overflow');
@@ -1663,7 +1663,7 @@
     }
 
     // ─── Output 03: Soft-Book Target ───
-    // We want the MARGINAL sharp entry — the least-generous price the sharps still accepted.
+    // We want the MARGINAL sharp entry — the least-generous price the winning bettors still accepted.
     // That's the price you need to beat at a soft book to be strictly +EV vs at least one sharp.
     // (Beating the BEST sharp price is too conservative — you'd miss most cross-market opportunities.)
     function marginalEntry(entries) {
@@ -1708,7 +1708,7 @@
       targetBDet.textContent = '— or better at a soft book';
     }
 
-    // Highlight the side sharps prefer as "primary"
+    // Highlight the side winning bettors prefer as "primary"
     if (heavySide === 'A') {
       targetCardA.classList.add('primary'); targetCardA.classList.remove('secondary');
       targetCardB.classList.remove('primary'); targetCardB.classList.add('secondary');
@@ -1735,10 +1735,10 @@
                          : null;
       if (imbalanceRatio === Infinity || imbalanceRatio >= 5) {
         vClass = 'strong'; vTitle = 'Strong sharp signal';
-        vBody = `Sharps are heavily on <strong>${heavySideName}</strong>. Cheapest sharp entry: ${sharpPriceStr}. Find <strong>${heavySideName}</strong> at <strong>${targetPriceStr}</strong> or better at a soft book — that's the cross-market EV bet.`;
+        vBody = `Winning Bettors are heavily on <strong>${heavySideName}</strong>. Cheapest sharp entry: ${sharpPriceStr}. Find <strong>${heavySideName}</strong> at <strong>${targetPriceStr}</strong> or better at a soft book — that's the cross-market EV bet.`;
       } else if (imbalanceRatio >= 2) {
         vClass = 'solid'; vTitle = 'Solid sharp signal';
-        vBody = `Sharps want <strong>${heavySideName}</strong>. Cheapest sharp entry: ${sharpPriceStr}. Target: <strong>${targetPriceStr}</strong> or better at a soft book.`;
+        vBody = `Winning Bettors want <strong>${heavySideName}</strong>. Cheapest sharp entry: ${sharpPriceStr}. Target: <strong>${targetPriceStr}</strong> or better at a soft book.`;
       } else if (imbalanceRatio >= 1.3) {
         vClass = 'mild'; vTitle = 'Mild lean';
         vBody = `Slight lean toward <strong>${heavySideName}</strong>. Cheapest sharp entry: ${sharpPriceStr}. Target ${targetPriceStr} or better, but the signal is weak — size accordingly.`;
@@ -1749,13 +1749,13 @@
 
       // If conviction overflow aligns with the imbalance signal, escalate the verdict.
       // convOverflow = 'A' means exchange depth offered for backing A exceeds book limits on A,
-      // which translates to sharps laying A → wanting B. So convOverflow='A' aligns with
+      // which translates to winning bettors laying A → wanting B. So convOverflow='A' aligns with
       // heavySide='B' (and vice versa). They confirm each other when they're on OPPOSITE labels.
       if (convOverflow && (convOverflow !== heavySide || imbalanceRatio === Infinity)) {
         const overflowDisplaySide = convOverflow === 'A' ? sideAName : sideBName;
         vClass = 'strong';
         vTitle = vTitle === 'Strong sharp signal' ? 'Strong sharp signal · conviction overflow' : vTitle + ' · conviction overflow';
-        vBody += ` <strong style="color: var(--yellow);">Plus: exchange depth available to back ${overflowDisplaySide} exceeds book limits — sharps wanted more lay-${overflowDisplaySide} capacity than the books would allow. High conviction; line movement likely.</strong>`;
+        vBody += ` <strong style="color: var(--yellow);">Plus: exchange depth available to back ${overflowDisplaySide} exceeds book limits — winning bettors wanted more lay-${overflowDisplaySide} capacity than the books would allow. High conviction; line movement likely.</strong>`;
       }
 
       // Book limit asymmetry as a confidence modifier.
