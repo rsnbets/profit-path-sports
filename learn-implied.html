@@ -447,6 +447,38 @@
   @media (max-width: 640px) {
     .card { padding-top: 60px; }
   }
+
+  /* ── Lesson Challenge ── */
+  .challenge { margin: 44px 0 40px; border: 1px solid rgba(77,255,120,0.22); border-radius: 14px; background: var(--surface); overflow: hidden; }
+  .challenge-head { padding: 20px 24px 14px; text-align: center; }
+  .challenge-eyebrow { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: .28em; text-transform: uppercase; color: var(--green); }
+  .challenge-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 24px; font-weight: 800; letter-spacing: -.02em; color: var(--text); margin-top: 8px; }
+  .challenge-sub { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13.5px; color: var(--muted); font-weight: 300; margin-top: 6px; }
+  .challenge-sub a { color: var(--cyan); }
+  .cq { padding: 16px 24px; border-top: 1px solid var(--border); }
+  .cq-q { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14.5px; color: var(--text); line-height: 1.6; margin-bottom: 12px; }
+  .cq-q .n { color: var(--cyan); font-weight: 700; margin-right: 6px; }
+  .cq-q b { color: var(--green); font-weight: 700; font-family: 'Space Grotesk', system-ui, sans-serif; }
+  .cq input[type="text"] { background: #161616; border: 1px solid rgba(255,255,255,0.18); border-bottom: 2px solid rgba(0,212,255,0.32); border-radius: 8px; color: var(--text); padding: 12px 14px; font-family: 'Space Grotesk', system-ui, sans-serif; font-size: 18px; font-weight: 500; width: 140px; text-align: center; }
+  .cq input[type="text"]:focus { outline: none; border-color: var(--cyan); }
+  .cq-opts { display: flex; gap: 8px; flex-wrap: wrap; }
+  .cq-opt { background: var(--surface-2); border: 1px solid var(--border-2); border-radius: 8px; color: var(--text); font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13.5px; font-weight: 500; padding: 10px 16px; cursor: pointer; transition: border-color .15s, background .15s; }
+  .cq-opt:hover { border-color: rgba(0,212,255,0.4); }
+  .cq-opt.sel { border-color: var(--cyan); background: rgba(0,212,255,0.10); color: var(--cyan); }
+  .cq-fb { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 12.5px; margin-top: 9px; min-height: 16px; }
+  .cq-fb.ok { color: var(--green); }
+  .cq-fb.no { color: #FF6B6B; }
+  .challenge-actions { padding: 18px 24px 22px; border-top: 1px solid var(--border); display: flex; gap: 10px; flex-wrap: wrap; align-items: center; justify-content: center; }
+  .cq-grade { background: var(--green); color: #090909; border: none; border-radius: 10px; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14.5px; font-weight: 800; padding: 13px 26px; cursor: pointer; transition: filter .15s, transform .15s; }
+  .cq-grade:hover { filter: brightness(1.08); transform: translateY(-1px); }
+  .cq-reroll { background: transparent; color: var(--cyan); border: 1px solid rgba(0,212,255,0.3); border-radius: 10px; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13px; font-weight: 600; padding: 12px 20px; cursor: pointer; }
+  .cq-reroll:hover { border-color: var(--cyan); }
+  .challenge-result { display: none; margin: 0 24px 22px; padding: 16px 20px; border-radius: 10px; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14.5px; line-height: 1.6; text-align: center; }
+  .challenge-result.pass { display: block; background: rgba(77,255,120,0.08); border: 1px solid rgba(77,255,120,0.35); color: var(--text); }
+  .challenge-result.fail { display: block; background: rgba(255,140,0,0.07); border: 1px solid rgba(255,140,0,0.3); color: var(--text); }
+  .challenge-result .big { font-weight: 800; font-size: 17px; display: block; margin-bottom: 4px; }
+  .challenge-result.pass .big { color: var(--green); }
+  .challenge-result.fail .big { color: #FF8C00; }
 </style>
 <link rel="stylesheet" href="/styles/sidebar.css">
 <link rel="stylesheet" href="/styles/topbar.css">
@@ -778,6 +810,58 @@
     </div>
   </section>
 
+  <!-- ═══ LESSON CHALLENGE ═══ -->
+  <div class="challenge" id="challenge">
+    <div class="challenge-head">
+      <div class="challenge-eyebrow">★ The Challenge ★</div>
+      <div class="challenge-title">Prove it — read prices like a winner</div>
+      <div class="challenge-sub">Five quick reps with fresh numbers every time. Using the <a href="/odds_calculator.html" target="_blank">Odds Converter</a> is allowed — that's the whole point of having it.</div>
+    </div>
+
+    <div class="cq">
+      <div class="cq-q"><span class="n">1.</span>A favorite is priced at <b id="q1odds">−135</b>. What win probability does that price imply? (%)</div>
+      <input type="text" id="q1in" inputmode="decimal" placeholder="%">
+      <div class="cq-fb" id="q1fb"></div>
+    </div>
+
+    <div class="cq">
+      <div class="cq-q"><span class="n">2.</span>An underdog is priced at <b id="q2odds">+160</b>. Implied win probability? (%)</div>
+      <input type="text" id="q2in" inputmode="decimal" placeholder="%">
+      <div class="cq-fb" id="q2fb"></div>
+    </div>
+
+    <div class="cq">
+      <div class="cq-q"><span class="n">3.</span>An exchange shows decimal odds of <b id="q3odds">2.50</b>. Implied win probability? (%)</div>
+      <input type="text" id="q3in" inputmode="decimal" placeholder="%">
+      <div class="cq-fb" id="q3fb"></div>
+    </div>
+
+    <div class="cq">
+      <div class="cq-q"><span class="n">4.</span><span id="q4text">Your model makes Team A <b>55%</b> to win. The book's price implies <b>52.4%</b>. What's the play?</span></div>
+      <div class="cq-opts" id="q4opts">
+        <button type="button" class="cq-opt" data-v="bet">Bet it — the price implies less than the model says</button>
+        <button type="button" class="cq-opt" data-v="pass">Pass — the price already implies more than the model says</button>
+      </div>
+      <div class="cq-fb" id="q4fb"></div>
+    </div>
+
+    <div class="cq">
+      <div class="cq-q"><span class="n">5.</span>−110 on both sides implies 52.38% + 52.38% = <b>104.76%</b>. Why do the two sides add up to more than 100%?</div>
+      <div class="cq-opts" id="q5opts">
+        <button type="button" class="cq-opt" data-v="vig">The book's fee (the vig) is baked into both prices</button>
+        <button type="button" class="cq-opt" data-v="round">Rounding error in the odds format</button>
+        <button type="button" class="cq-opt" data-v="misprice">One of the sides must be mispriced</button>
+      </div>
+      <div class="cq-fb" id="q5fb"></div>
+    </div>
+
+    <div class="challenge-actions">
+      <button type="button" class="cq-grade" id="cqGrade">Grade my answers</button>
+      <button type="button" class="cq-reroll" id="cqReroll">New numbers ↻</button>
+    </div>
+    <div class="challenge-result" id="cqResult"></div>
+  </div>
+
   <div class="cta-card">
     <div class="cta-eyebrow">Convert any line</div>
     <div class="cta-title">Turn odds into a percentage</div>
@@ -842,5 +926,87 @@
   })();
 </script>
 
+<script>
+  /* ── Lesson 02 Challenge ── */
+  (function () {
+    var S = {};
+    function rint(a, b) { return a + Math.floor(Math.random() * (b - a + 1)); }
+    function fmt(n) { return n.toFixed(2).replace(/\.00$/, ''); }
+
+    function roll() {
+      S.negAm = -(105 + 5 * rint(1, 29));                       // −110 … −250
+      S.posAm = 105 + 5 * rint(1, 39);                          // +110 … +300
+      var decs = [1.5, 1.8, 2.0, 2.2, 2.5, 2.75, 3.0, 3.2, 3.5, 4.0];
+      S.dec = decs[rint(0, decs.length - 1)];
+      S.a1 = (-S.negAm) / ((-S.negAm) + 100) * 100;
+      S.a2 = 100 / (S.posAm + 100) * 100;
+      S.a3 = 100 / S.dec * 100;
+      S.model = rint(45, 60);
+      var gap = rint(1, 4);
+      S.bet = Math.random() < 0.5;
+      S.shown = S.bet ? S.model - gap : S.model + gap;
+      document.getElementById('q1odds').textContent = '\u2212' + (-S.negAm);
+      document.getElementById('q2odds').textContent = '+' + S.posAm;
+      document.getElementById('q3odds').textContent = S.dec.toFixed(2);
+      document.getElementById('q4text').innerHTML = 'Your model makes Team A <b>' + S.model + '%</b> to win. The book\u2019s price implies <b>' + S.shown + '%</b>. What\u2019s the play?';
+      ['q1', 'q2', 'q3', 'q4', 'q5'].forEach(function (q) {
+        var inp = document.getElementById(q + 'in');
+        if (inp) inp.value = '';
+        var fb = document.getElementById(q + 'fb');
+        fb.textContent = ''; fb.className = 'cq-fb';
+        var opts = document.getElementById(q + 'opts');
+        if (opts) opts.querySelectorAll('.cq-opt').forEach(function (o) { o.classList.remove('sel'); });
+      });
+      document.getElementById('cqResult').className = 'challenge-result';
+    }
+
+    ['q4opts', 'q5opts'].forEach(function (id) {
+      document.getElementById(id).addEventListener('click', function (e) {
+        var btn = e.target.closest('.cq-opt');
+        if (!btn) return;
+        this.querySelectorAll('.cq-opt').forEach(function (o) { o.classList.remove('sel'); });
+        btn.classList.add('sel');
+      });
+    });
+
+    function num(id) {
+      var v = document.getElementById(id).value.replace('%', '').replace(',', '.').trim();
+      return v === '' ? NaN : parseFloat(v);
+    }
+    function mark(q, ok, right) {
+      var fb = document.getElementById(q + 'fb');
+      fb.className = 'cq-fb ' + (ok ? 'ok' : 'no');
+      fb.textContent = ok ? '\u2713 Correct' : '\u2717 Not quite \u2014 the answer is ' + right;
+      return ok ? 1 : 0;
+    }
+
+    document.getElementById('cqGrade').addEventListener('click', function () {
+      var score = 0;
+      score += mark('q1', Math.abs(num('q1in') - S.a1) <= 0.5, fmt(S.a1) + '%');
+      score += mark('q2', Math.abs(num('q2in') - S.a2) <= 0.5, fmt(S.a2) + '%');
+      score += mark('q3', Math.abs(num('q3in') - S.a3) <= 0.5, fmt(S.a3) + '%');
+      var q4sel = document.querySelector('#q4opts .cq-opt.sel');
+      var q4right = S.bet ? 'bet' : 'pass';
+      score += mark('q4', !!q4sel && q4sel.dataset.v === q4right,
+        q4right === 'bet' ? '\u201cBet it\u201d \u2014 the price implies less than your model\u2019s number' : '\u201cPass\u201d \u2014 the price already implies more than your model\u2019s number');
+      var q5sel = document.querySelector('#q5opts .cq-opt.sel');
+      score += mark('q5', !!q5sel && q5sel.dataset.v === 'vig', 'the vig \u2014 the book\u2019s fee is baked into both prices');
+
+      var res = document.getElementById('cqResult');
+      if (score >= 4) {
+        res.className = 'challenge-result pass';
+        res.innerHTML = '<span class="big">\u2713 ' + score + '/5 \u2014 Lesson 02 cleared</span>You can turn any price into a probability \u2014 the exact skill every step after this builds on. On to <a href="/learn-vig.html" style="color:var(--green);font-weight:700;">Lesson 03 \u00b7 The Vig \u2192</a>';
+        try { localStorage.setItem('pps-challenge-implied', 'passed'); } catch (e) {}
+      } else {
+        res.className = 'challenge-result fail';
+        res.innerHTML = '<span class="big">' + score + '/5 \u2014 close</span>Check the red answers, hit \u201cNew numbers\u201d and run it back \u2014 or reread <a href="#" onclick="window.scrollTo({top:0,behavior:\u0027smooth\u0027});return false;" style="color:var(--cyan);">the math section</a> first. The reps are the point.';
+      }
+      res.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    });
+
+    document.getElementById('cqReroll').addEventListener('click', roll);
+    roll();
+  })();
+</script>
 </body>
 </html>
