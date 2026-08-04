@@ -139,6 +139,11 @@
   table.mini th { font-size:9.5px;padding:0.3rem 0.4rem;border-bottom:1px solid var(--border); }
   table.mini td { padding:0.32rem 0.4rem;border-bottom:1px solid var(--border);font-family:'DM Mono',monospace;font-weight:400; }
   table.mini tr:last-child td { border-bottom:none; }
+  /* alt lines sit under their market's main row as a ladder */
+  table.mini tr.alt-line td { border-top:none;color:var(--muted); }
+  .main-tag { font-family:'Plus Jakarta Sans',sans-serif;font-size:8.5px;font-weight:700;letter-spacing:0.1em;
+    text-transform:uppercase;color:var(--cyan);background:var(--cyan-faint);border:1px solid var(--cyan-border);
+    border-radius:3px;padding:0.05rem 0.25rem;margin-left:0.25rem;vertical-align:1px; }
   .cleared { font-family:'DM Mono',monospace;font-weight:500; }
   .cleared.good { color:var(--green); }
   .cleared.bad { color:var(--red); }
@@ -462,7 +467,7 @@
     <li><strong>Every number is a per-start average</strong> over that window. Outs is the raw prop stat (18 outs = 6 innings); the innings figure sits underneath it.</li>
     <li><strong>Click a column to sort.</strong> This is how you actually use the board — sort by HR to find the guys serving up souvenirs, by Outs to find who works deep, by Hits for the traffic-heavy starters.</li>
     <li><strong>Green and red are league-relative.</strong> Green means that number puts him in the best 20% of starters, red the worst 20% — recalculated for whichever window you've picked, so it always means "compared to everyone else pitching right now."</li>
-    <li><strong>Tap a pitcher</strong> for the start-by-start log plus every prop line posted on him tonight — including how often he's cleared that <em>exact</em> line in the window you picked.</li>
+    <li><strong>Tap a pitcher</strong> for the start-by-start log plus every prop line posted on him tonight — including how often he's cleared that <em>exact</em> line in the window you picked. When a book hangs more than one number on the same market, each is listed with its own clear rate, so you can see what the extra half-strikeout actually costs you.</li>
     <li><strong>Compare that hit rate to the price.</strong> Fair Odds is the vig-free market consensus. If he's gone over in 8 of 10 but the market has him at a coin flip, that's a question worth asking — and often a question the market has already answered with the matchup.</li>
   </ol>
   <div class="how-to-note">
@@ -571,6 +576,13 @@ function mainLine(market,name){
   const arr=ODDS_INDEX.get(market+'|'+normName(name));
   if(!arr||!arr.length) return null;
   return [...arr].sort((a,b)=>Object.keys(b.books).length-Object.keys(a.books).length)[0];
+}
+// every line posted for this pitcher+market tonight, ascending, main flagged
+function allLines(market,name){
+  const arr=ODDS_INDEX.get(market+'|'+normName(name));
+  if(!arr||!arr.length) return [];
+  const main=mainLine(market,name);
+  return [...arr].sort((a,b)=>a.line-b.line).map(p=>({...p,isMain:p===main}));
 }
 function bestOver(prop){
   let best=null;
@@ -761,20 +773,24 @@ function toggleDetail(tr,r){
     :WIN==='0'?('all '+starts.length+' starts')
     :('last '+Math.min(parseInt(WIN),starts.length)+' starts');
 
-  // tonight's posted lines + how often he's cleared them
+  // Every posted line, not just the most-booked one — when a book hangs both
+  // Ks 5.5 and 6.5, the clear rate at each is the whole decision.
   let propRows='';
   if(ODDS_OK){
     for(const pm of PROP_MARKETS){
-      const prop=mainLine(pm.market,r.name);
-      if(!prop) continue;
-      const best=bestOver(prop);
-      const cl=clearedRate(starts,pm.field,prop.line);
-      const clCls=cl?(cl.pct>=0.6?'good':(cl.pct<=0.4?'bad':'')):'';
-      propRows+='<tr><td>'+pm.label+'</td>'
-        +'<td class="mono">O'+prop.line+'</td>'
-        +'<td class="cleared '+clCls+'">'+(cl?cl.hits+'/'+cl.n+' ('+Math.round(cl.pct*100)+'%)':'—')+'</td>'
-        +'<td>'+(best?best.odds+' <span class="stat-sub">'+bookName(best.book)+'</span>':'—')+'</td>'
-        +'<td style="color:var(--blue);">'+(prop.fairOver!=null?probToAmer(prop.fairOver):'—')+'</td></tr>';
+      const lines=allLines(pm.market,r.name);
+      lines.forEach((prop,i)=>{
+        const best=bestOver(prop);
+        const cl=clearedRate(starts,pm.field,prop.line);
+        const clCls=cl?(cl.pct>=0.6?'good':(cl.pct<=0.4?'bad':'')):'';
+        // repeat the market name only once per group, so alt lines read as a ladder
+        propRows+='<tr'+(i?' class="alt-line"':'')+'><td>'+(i?'':pm.label)+'</td>'
+          +'<td class="mono">O'+prop.line
+          +(lines.length>1&&prop.isMain?' <span class="main-tag">main</span>':'')+'</td>'
+          +'<td class="cleared '+clCls+'">'+(cl?cl.hits+'/'+cl.n+' ('+Math.round(cl.pct*100)+'%)':'—')+'</td>'
+          +'<td>'+(best?best.odds+' <span class="stat-sub">'+bookName(best.book)+'</span>':'—')+'</td>'
+          +'<td style="color:var(--cyan);">'+(prop.fairOver!=null?probToAmer(prop.fairOver):'—')+'</td></tr>';
+      });
     }
   }
   const propBox='<div class="det-box"><div class="det-title">Tonight\'s lines · cleared in '+winLbl+'</div>'
