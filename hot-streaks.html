@@ -116,6 +116,23 @@
   .odds-best { font-family:'DM Mono',monospace;font-weight:500;color:var(--text); }
   .odds-book { font-size:10px;color:var(--dim);font-family:'DM Mono',monospace; }
   .odds-line-note { color:var(--cyan); }
+  .alt-hint { color:var(--cyan); }
+  /* alt-line ladder inside an expanded row */
+  .det-title { font-size:10px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--cyan);margin-bottom:0.6rem; }
+  .det-warn { font-size:12.5px;font-weight:300;line-height:1.6;color:var(--muted);background:var(--inset);
+    border-left:2px solid var(--red);border-radius:0 8px 8px 0;padding:11px 15px;margin-bottom:0.9rem; }
+  .ln-wrap { display:flex;flex-wrap:wrap;gap:0.5rem; }
+  .ln { display:flex;flex-direction:column;align-items:flex-start;gap:2px;cursor:pointer;
+    background:var(--inset);border:1px solid var(--border);border-radius:10px;padding:0.6rem 0.85rem;
+    min-width:118px;transition:all .18s var(--ease);font-family:'Plus Jakarta Sans',sans-serif;text-align:left; }
+  .ln:hover { border-color:var(--border-2);background:var(--raised); }
+  .ln.sel { border-color:var(--green-border);background:var(--green-faint); }
+  .ln-line { font-family:'DM Mono',monospace;font-size:14px;font-weight:500;color:var(--text); }
+  .ln.sel .ln-line { color:var(--green); }
+  .ln-tag { font-size:8.5px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--green);
+    background:var(--green-faint);border:1px solid var(--green-border);border-radius:3px;padding:0.05rem 0.3rem; }
+  .ln-odds { font-family:'DM Mono',monospace;font-size:12.5px;font-weight:500;color:var(--text);margin-top:2px; }
+  .ln-fair { font-family:'DM Mono',monospace;font-size:10px;color:var(--dim); }
   .fair { font-family:'DM Mono',monospace;font-weight:500;color:var(--cyan); }
   .no-odds { color:var(--dim);font-size:12px;font-weight:400; }
   .game-cell { font-size:12.5px;font-weight:400;color:var(--text); }
@@ -410,7 +427,7 @@
           <button data-view="15">Last 15</button>
         </div>
       </div>
-      <label class="chk"><input type="checkbox" id="todayOnly"> Only players with odds tonight</label>
+      <label class="chk"><input type="checkbox" id="todayOnly"> Only players priced for this bet</label>
     </div>
   </div>
 
@@ -438,7 +455,8 @@
     <li><strong>Switch the ranking</strong> if you want recency over perfection — <strong>Last 5 / 10 / 15</strong> ranks by most cashes in that window, which catches the guy who's 9-of-10 but missed once and lost his "streak."</li>
     <li><strong>Check the season rate</strong> next to it. A 9-game run from a guy who clears the bar 70% of the season is a very different animal than a 9-game run from a 45% guy.</li>
     <li><strong>Look at the price.</strong> Best Over is the top live price across every book we track. Fair Odds is the vig-free market consensus — what the bet is "really worth" tonight.</li>
-    <li><strong>Tap a row</strong> to see the Over price at every book, so you can shop the number before you bet.</li>
+    <li><strong>Tap a row</strong> to see every line the books have posted for him tonight — tap any of them to compare the Over price across all books and shop the number before you bet.</li>
+    <li><strong>"No O0.5 line" means exactly that.</strong> Some players only get an alt line hung (a 2+ hits price with no 1+ price). This board won't quote you that number next to a 1+ streak, because it's a different bet — open the row and the alt lines are there, clearly labelled.</li>
   </ol>
   <div class="how-to-note">
     <em>Straight talk:</em> a streak is <strong>not</strong> an edge. Books see the same run you do, and the odds already price it in — sometimes with a "hot player tax" on top. Decades of research on the hot hand say the next game looks a lot more like the <strong>season rate</strong> than the streak.
@@ -524,13 +542,15 @@ function buildOddsIndex(data){
   }
 }
 
-function findProp(market,name,line){
+// Every line posted for this player+market tonight, ascending.
+function allLines(market,name){
   const arr=ODDS_INDEX.get(market+'|'+normName(name));
-  if(!arr||!arr.length) return null;
-  let exact=arr.find(p=>p.line===line);
-  if(exact) return exact;
-  // no exact line (books hang alt mains on hot players) — take the closest
-  return [...arr].sort((a,b)=>Math.abs(a.line-line)-Math.abs(b.line-line))[0];
+  return arr?[...arr].sort((a,b)=>a.line-b.line):[];
+}
+// EXACT line only. A streak of "1+ hits" is a bet on O0.5 — quoting the O1.5
+// price next to it would be pricing a different bet (2+ hits) entirely.
+function findProp(market,name,line){
+  return allLines(market,name).find(p=>p.line===line)||null;
 }
 
 function bestOver(prop){
@@ -590,7 +610,9 @@ function render(){
   let rank=0, shown=0;
   for(const pl of rankedPlayers(m).slice(0,40)){
     rank++;
-    const prop=ODDS_OK?findProp(m.market,pl.name,m.line):null;
+    const lines=ODDS_OK?allLines(m.market,pl.name):[];
+    const prop=lines.find(p=>p.line===m.line)||null;
+    const anyProp=prop||lines[0]||null;      // for the game/time cell
     if(todayOnly&&!prop) continue;
     shown++;
     const tr=document.createElement('tr');
@@ -600,16 +622,21 @@ function render(){
     const fire=pl.streak>=8?' 🔥':'';
     const winHits=pl['l'+winW], winN=Math.max(pl['l'+winW+'n'],1);
     const winCell='<span class="win-rec'+(VIEW!=='streak'?' ranked':'')+'">'+winHits+'/'+pl['l'+winW+'n']+'</span><br><span class="odds-book">'+Math.round(100*winHits/winN)+'%</span>';
+    // Only the exact line gets quoted here. When a book hangs just an alt line
+    // (Freeman with an O1.5 hits price but no O0.5), say so rather than pricing
+    // a bet the streak isn't about — the alt ladder is one tap away.
     let oddsCell='<span class="no-odds">'+(ODDS_OK?'not in tonight\'s slate':'odds unavailable')+'</span>';
+    if(ODDS_OK&&!prop&&lines.length)
+      oddsCell='<span class="no-odds">no O'+m.line+' line</span><br>'
+        +'<span class="odds-book alt-hint">'+lines.length+' alt line'+(lines.length>1?'s':'')+' →</span>';
     let fairCell='<span class="no-odds">—</span>';
     let gameCell='<span class="no-odds">—</span>';
     if(prop){
       const best=bestOver(prop);
-      const lineNote=prop.line!==m.line?' <span class="odds-line-note">O'+prop.line+'</span>':'';
-      if(best) oddsCell='<span class="odds-best">'+best.odds+'</span>'+lineNote+'<br><span class="odds-book">'+bookName(best.book)+'</span>';
+      if(best) oddsCell='<span class="odds-best">'+best.odds+'</span><br><span class="odds-book">'+bookName(best.book)+'</span>';
       if(prop.fairOver!=null) fairCell='<span class="fair">'+probToAmer(prop.fairOver)+'</span><br><span class="odds-book">'+Math.round(prop.fairOver*100)+'%</span>';
-      gameCell='<div class="game-cell">'+prop.game+'</div><div class="game-time">'+fmtTime(prop.startsAt)+'</div>';
     }
+    if(anyProp) gameCell='<div class="game-cell">'+anyProp.game+'</div><div class="game-time">'+fmtTime(anyProp.startsAt)+'</div>';
     tr.innerHTML='<td class="c mono" style="color:var(--muted);">'+rank+'</td>'
       +'<td><div class="p-name">'+pl.name+'</div><div class="p-team">'+pl.team+'</div></td>'
       +'<td class="c"><span class="streak-num">'+pl.streak+fire+'</span><br><span class="streak-since">'+fmtSince(pl.since)+'</span></td>'
@@ -619,36 +646,67 @@ function render(){
       +'<td>'+gameCell+'</td>'
       +'<td class="r">'+oddsCell+'</td>'
       +'<td class="r">'+fairCell+'</td>';
-    if(prop) tr.onclick=()=>toggleDetail(tr,prop,m);
+    // expandable whenever ANY line is posted, so alt lines stay reachable
+    if(lines.length) tr.onclick=()=>toggleDetail(tr,m,lines,prop);
     tbody.appendChild(tr);
   }
   empty.style.display=shown?'none':'block';
   empty.textContent=todayOnly
-    ?'No one hot on '+m.label+' has odds posted tonight. Uncheck the filter to see the full leaderboard.'
+    ?'No one hot on '+m.label+' has that exact line posted tonight. Uncheck the filter to see the full leaderboard — some of them have alt lines up.'
     :'No one hot on this prop right now.';
 }
 
-function toggleDetail(tr,prop,m){
+function toggleDetail(tr,m,lines,exact){
   const next=tr.nextElementSibling;
   if(next&&next.classList.contains('detail')){ next.remove(); return; }
   document.querySelectorAll('tr.detail').forEach(d=>d.remove());
-  const best=bestOver(prop);
-  const books=Object.entries(prop.books)
-    .filter(([b])=>!ALWAYS_EXCLUDE.has(b))
-    .sort((a,b)=>{
-      const ia=BOOK_ORDER.indexOf(a[0]), ib=BOOK_ORDER.indexOf(b[0]);
-      return (ia<0?99:ia)-(ib<0?99:ib);
-    });
-  const cells=books.map(([b,arr])=>{
-    const isBest=best&&b===best.book;
-    return '<div class="bk'+(isBest?' best':'')+'"><span class="bk-name">'+bookName(b)+'</span>'
-      +'<span class="bk-odds">'+(arr[0]??'—')+'</span></div>';
-  }).join('');
+
   const d=document.createElement('tr');
   d.className='detail';
-  d.innerHTML='<td colspan="9"><div style="font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:0.55rem;">Over '+prop.line+' — every book tonight</div>'
-    +'<div class="book-grid">'+cells+'</div>'
-    +'<div class="detail-links">Prices move — confirm in the app before betting. Want the vig-free math? → <a href="/devig_calculator.html">devig calculator</a></div></td>';
+  const td=document.createElement('td');
+  td.colSpan=9;
+  d.appendChild(td);
+  let sel=(exact||lines[0]).line;
+
+  const paint=()=>{
+    const cur=lines.find(p=>p.line===sel)||lines[0];
+    const best=bestOver(cur);
+    // the ladder — every line this player has posted tonight
+    const ladder=lines.map(p=>{
+      const b=bestOver(p);
+      return '<button type="button" class="ln'+(p.line===sel?' sel':'')+'" data-line="'+p.line+'">'
+        +'<span class="ln-line">O'+p.line+'</span>'
+        +(p.line===m.line?'<span class="ln-tag">this streak</span>':'')
+        +'<span class="ln-odds">'+(b?b.odds:'—')+'</span>'
+        +'<span class="ln-fair">fair '+(p.fairOver!=null?probToAmer(p.fairOver):'—')+'</span>'
+        +'</button>';
+    }).join('');
+    const books=Object.entries(cur.books)
+      .filter(([b])=>!ALWAYS_EXCLUDE.has(b))
+      .sort((a,b)=>{
+        const ia=BOOK_ORDER.indexOf(a[0]), ib=BOOK_ORDER.indexOf(b[0]);
+        return (ia<0?99:ia)-(ib<0?99:ib);
+      });
+    const cells=books.map(([b,arr])=>{
+      const isBest=best&&b===best.book;
+      return '<div class="bk'+(isBest?' best':'')+'"><span class="bk-name">'+bookName(b)+'</span>'
+        +'<span class="bk-odds">'+(arr[0]??'—')+'</span></div>';
+    }).join('');
+    const warn=exact?'':'<div class="det-warn">No O'+m.line+' line is posted for him tonight, so this board can\'t price the '
+      +m.label.toLowerCase()+' streak itself. The lines below are different bets — read them as such.</div>';
+    td.innerHTML=warn
+      +'<div class="det-title">Lines posted tonight — tap to compare books</div>'
+      +'<div class="ln-wrap">'+ladder+'</div>'
+      +'<div class="det-title" style="margin-top:0.9rem;">Over '+cur.line+' — every book</div>'
+      +'<div class="book-grid">'+cells+'</div>'
+      +'<div class="detail-links">Prices move — confirm in the app before betting. Want the vig-free math? → <a href="/devig_calculator.html">devig calculator</a></div>';
+    td.querySelectorAll('.ln').forEach(btn=>btn.addEventListener('click',e=>{
+      e.stopPropagation();
+      sel=parseFloat(btn.dataset.line);
+      paint();
+    }));
+  };
+  paint();
   tr.after(d);
 }
 
