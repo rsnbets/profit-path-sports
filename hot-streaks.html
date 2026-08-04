@@ -17,102 +17,138 @@
   <meta name="twitter:title" content="🔥 Hot Streak Scanner 🔥">
   <meta name="twitter:description" content="The longest active MLB prop streaks — with live odds and the fair price beside every name.">
   <meta name="twitter:image" content="https://profitpathsports.com/images/og-default.png?v=2">
-<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Orbitron:wght@700;800&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
-    --bg:#0D1117;--surface:#161B22;--inset:#1C2430;--border:#30363D;
-    --blue:#58A6FF;--gold:#D29922;--green:#3FB950;--red:#F85149;--purple:#BC8CFF;
-    --text:#E6EDF3;--muted:#8B949E;
+    /* PROFITPATH v2 tokens — /brand-brief-v2.html */
+    --bg:#090909;--panel:#0D0D0D;--surface:#0D0D0D;--inset:#141414;--raised:#1C1C1C;
+    --border:rgba(255,255,255,0.05);--border-2:rgba(255,255,255,0.08);
+    --text:#F0EEE8;--muted:rgba(255,255,255,0.42);--dim:rgba(255,255,255,0.25);
+    --green:#4DFF78;--green-faint:rgba(77,255,120,0.06);--green-border:rgba(77,255,120,0.22);
+    --cyan:#00D4FF;--cyan-faint:rgba(0,212,255,0.07);--cyan-border:rgba(0,212,255,0.22);
+    --red:#FF3D3D;
+    /* legacy aliases — older rules on this page still name these */
+    --blue:#00D4FF;--gold:#4DFF78;--purple:#00D4FF;
+    --ease:cubic-bezier(0.16, 1, 0.3, 1);
   }
-  body { background:var(--bg);color:var(--text);font-family:'Rajdhani',sans-serif;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:2rem 1rem; }
-  .card { background:var(--surface);border:1px solid var(--border);border-radius:16px;width:100%;max-width:1040px;overflow:hidden; }
-  .header { background:var(--bg);padding:1.75rem 2rem 1.5rem;border-bottom:1px solid var(--border);text-align:center;position:relative; }
-  .header::after { content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent); }
-  .title { font-size:2rem;font-weight:700;letter-spacing:0.08em;color:var(--gold);text-transform:uppercase; }
-  .title-sub { font-family:'IBM Plex Sans',sans-serif;font-size:14px;color:var(--muted);line-height:1.6;max-width:720px;margin:12px auto 0;padding:0 14px;text-align:center; }
+  body {
+    background:var(--bg);color:var(--text);
+    font-family:'Plus Jakarta Sans',system-ui,-apple-system,sans-serif;font-weight:300;
+    line-height:1.55;min-height:100vh;display:flex;flex-direction:column;align-items:center;
+    padding:2rem 1rem 3.5rem;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+  }
+  /* the same fine grain the homepage carries — keeps the black from going flat */
+  body::after {
+    content:'';position:fixed;inset:0;pointer-events:none;z-index:999;opacity:0.025;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .card {
+    background:var(--panel);border:1px solid var(--border);border-radius:18px;
+    width:100%;max-width:1040px;overflow:hidden;
+    box-shadow:0 20px 60px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.02) inset;
+  }
+  .header { background:var(--bg);padding:2.5rem 2rem 2rem;border-bottom:1px solid var(--border);text-align:center;position:relative; }
+  .header::after { content:'';position:absolute;bottom:-1px;left:10%;right:10%;height:1px;
+    background:linear-gradient(90deg,transparent,var(--cyan),transparent);opacity:0.6; }
+  /* same eyebrow the homepage hero uses, one step tighter */
+  .hero-eyebrow { font-size:11px;font-weight:500;letter-spacing:.35em;text-transform:uppercase;color:var(--green);margin-bottom:18px; }
+  @media (max-width:640px){ .hero-eyebrow { font-size:10px;letter-spacing:.28em;margin-bottom:14px; } }
+  .title {
+    font-family:'DM Serif Display',serif;font-style:italic;font-weight:400;
+    font-size:clamp(28px,4.2vw,44px);line-height:1.08;letter-spacing:-.01em;
+    color:var(--text);text-transform:none;
+  }
+  .title-sub { font-size:clamp(14px,1.6vw,15.5px);font-weight:300;line-height:1.65;color:var(--muted);max-width:700px;margin:16px auto 0;padding:0 14px;text-align:center; }
   .title-sub strong { color:var(--text);font-weight:600; }
-  .status-bar { padding:0.65rem 1.75rem;font-size:0.78rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;text-align:center;background:var(--inset);border-bottom:1px solid var(--border);color:var(--muted); }
-  .status-bar.ok { color:var(--green); }
+  .status-bar { padding:0.7rem 1.75rem;font-size:10.5px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;text-align:center;background:var(--inset);border-bottom:1px solid var(--border);color:var(--dim); }
+  .status-bar.ok { color:var(--cyan); }
   .status-bar.err { color:var(--red); }
   .section { padding:1.3rem 1.75rem;border-bottom:1px solid var(--border); }
   .section:last-child { border-bottom:none; }
-  .section-label { font-size:0.68rem;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin-bottom:0.7rem; }
+  .section-label { font-size:10px;font-weight:600;letter-spacing:0.22em;text-transform:uppercase;color:var(--dim);margin-bottom:0.85rem; }
   /* prop chips */
   .chip-row { display:flex;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.6rem; }
   .chip-row:last-child { margin-bottom:0; }
-  .chip-group-lbl { flex-basis:100%;font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin:0.2rem 0 -0.1rem; }
+  .chip-group-lbl { flex-basis:100%;font-size:9.5px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--dim);margin:0.3rem 0 0; }
   .chip { background:var(--inset);border:1px solid var(--border);color:var(--muted);border-radius:999px;
-    padding:0.38rem 0.9rem;font-family:'Rajdhani',sans-serif;font-size:0.9rem;font-weight:600;
-    letter-spacing:0.05em;text-transform:uppercase;cursor:pointer;transition:all 0.13s; }
-  .chip:hover { border-color:var(--gold);color:var(--text); }
-  .chip.active { background:rgba(210,153,34,.14);border-color:var(--gold);color:var(--gold); }
-  .opts-row { display:flex;gap:1.4rem;align-items:center;margin-top:1rem;flex-wrap:wrap; }
+    padding:0.45rem 0.95rem;font-family:'Plus Jakarta Sans',sans-serif;font-size:11.5px;font-weight:600;
+    letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;transition:all .18s var(--ease); }
+  .chip:hover { border-color:var(--border-2);background:var(--raised);color:var(--text); }
+  .chip.active { background:var(--green-faint);border-color:var(--green-border);color:var(--green); }
+  .opts-row { display:flex;gap:1.4rem;align-items:center;margin-top:1.1rem;flex-wrap:wrap; }
   .seg-wrap { display:flex;align-items:center;gap:0.6rem; }
-  .seg-lbl { font-size:0.7rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);font-weight:600; }
-  .seg { display:inline-flex;border:1px solid var(--border);border-radius:8px;overflow:hidden; }
-  .seg button { background:var(--inset);border:none;color:var(--muted);padding:0.42rem 0.85rem;
-    font-family:'Rajdhani',sans-serif;font-size:0.85rem;font-weight:600;letter-spacing:0.05em;
-    text-transform:uppercase;cursor:pointer;transition:all 0.13s;border-right:1px solid var(--border); }
+  .seg-lbl { font-size:10px;font-weight:600;letter-spacing:0.22em;text-transform:uppercase;color:var(--dim); }
+  .seg { display:inline-flex;flex-wrap:wrap;border:1px solid var(--border);border-radius:8px;overflow:hidden;background:var(--inset); }
+  .seg button { flex:1 0 auto;background:transparent;border:none;color:var(--muted);padding:0.5rem 0.9rem;
+    font-family:'Plus Jakarta Sans',sans-serif;font-size:11.5px;font-weight:600;letter-spacing:0.06em;
+    text-transform:uppercase;cursor:pointer;transition:all .18s var(--ease);border-right:1px solid var(--border); }
   .seg button:last-child { border-right:none; }
-  .seg button:hover { color:var(--text); }
-  .seg button.active { background:rgba(88,166,255,.14);color:var(--blue); }
-  .win-rec { font-family:'IBM Plex Mono',monospace;font-weight:600; }
-  .win-rec.ranked { color:var(--blue); }
-  .dot.out { opacity:0.25; }
-  .chk { display:flex;align-items:center;gap:0.45rem;font-size:0.8rem;color:var(--muted);cursor:pointer;letter-spacing:0.05em;text-transform:uppercase;font-weight:600; }
-  .chk input { accent-color:var(--gold); }
+  .seg button:hover { color:var(--text);background:var(--raised); }
+  .seg button.active { background:var(--green-faint);color:var(--green);box-shadow:inset 0 -2px 0 var(--green); }
+  .win-rec { font-family:'DM Mono',monospace;font-weight:500; }
+  .win-rec.ranked { color:var(--cyan); }
+  .dot.out { opacity:0.22; }
+  .chk { display:flex;align-items:center;gap:0.5rem;font-size:10.5px;color:var(--muted);cursor:pointer;letter-spacing:0.12em;text-transform:uppercase;font-weight:600; }
+  .chk input { accent-color:var(--green); }
   /* table */
   .tbl-wrap { overflow-x:auto; }
   table { width:100%;border-collapse:collapse;font-size:0.88rem;min-width:900px; }
-  th { font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);text-align:left;padding:0.5rem 0.6rem;border-bottom:1px solid var(--border);white-space:nowrap; }
+  th { font-size:10px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:var(--dim);text-align:left;padding:0.65rem 0.6rem;border-bottom:1px solid var(--border);white-space:nowrap; }
   th.r, td.r { text-align:right; }
   th.c, td.c { text-align:center; }
-  td { padding:0.55rem 0.6rem;border-bottom:1px solid var(--border);vertical-align:middle;white-space:nowrap; }
-  tr.row { cursor:pointer;transition:background 0.12s; }
+  td { padding:0.6rem 0.6rem;border-bottom:1px solid var(--border);vertical-align:middle;white-space:nowrap; }
+  tr.row { cursor:pointer;transition:background .18s var(--ease); }
   tr.row:hover { background:var(--inset); }
-  tr.row.dim td { opacity:0.45; }
-  .mono { font-family:'IBM Plex Mono',monospace;font-weight:600; }
-  .p-name { font-weight:600;font-size:0.95rem; }
-  .p-team { font-size:0.72rem;color:var(--muted);font-family:'IBM Plex Mono',monospace; }
-  .streak-num { font-family:'IBM Plex Mono',monospace;font-size:1.25rem;font-weight:600;color:var(--gold); }
-  .streak-since { font-size:0.68rem;color:var(--muted);font-family:'IBM Plex Mono',monospace; }
+  tr.row.dim td { opacity:0.4; }
+  /* DM Mono is reserved for computed outputs — every number below is one */
+  .mono { font-family:'DM Mono',monospace;font-weight:500; }
+  .p-name { font-weight:600;font-size:14.5px;color:var(--text);letter-spacing:-0.005em; }
+  .p-team { font-size:10.5px;color:var(--dim);font-family:'DM Mono',monospace;letter-spacing:0.04em; }
+  .streak-num { font-family:'DM Mono',monospace;font-size:19px;font-weight:500;color:var(--green); }
+  .streak-since { font-size:10px;color:var(--dim);font-family:'DM Mono',monospace; }
   .dots { display:inline-flex;gap:3px;align-items:center; }
-  .dot { width:9px;height:9px;border-radius:50%;background:var(--border); }
+  .dot { width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,0.08); }
   .dot.hit { background:var(--green); }
-  .dot.miss { background:rgba(248,81,73,.55); }
-  .odds-best { font-family:'IBM Plex Mono',monospace;font-weight:600;color:var(--text); }
-  .odds-book { font-size:0.68rem;color:var(--muted);font-family:'IBM Plex Mono',monospace; }
-  .odds-line-note { color:var(--purple); }
-  .fair { font-family:'IBM Plex Mono',monospace;font-weight:600;color:var(--blue); }
-  .no-odds { color:var(--muted);font-size:0.78rem; }
-  .game-cell { font-size:0.8rem; }
-  .game-time { font-size:0.7rem;color:var(--muted);font-family:'IBM Plex Mono',monospace; }
-  .empty-note { padding:1.5rem;text-align:center;color:var(--muted);font-size:0.9rem; }
+  .dot.miss { background:rgba(255,61,61,.5); }
+  .odds-best { font-family:'DM Mono',monospace;font-weight:500;color:var(--text); }
+  .odds-book { font-size:10px;color:var(--dim);font-family:'DM Mono',monospace; }
+  .odds-line-note { color:var(--cyan); }
+  .fair { font-family:'DM Mono',monospace;font-weight:500;color:var(--cyan); }
+  .no-odds { color:var(--dim);font-size:12px;font-weight:400; }
+  .game-cell { font-size:12.5px;font-weight:400;color:var(--text); }
+  .game-time { font-size:10.5px;color:var(--dim);font-family:'DM Mono',monospace; }
+  .empty-note { padding:2rem 1.5rem;text-align:center;color:var(--muted);font-size:14px;font-weight:300;line-height:1.7; }
   /* expanded detail */
-  tr.detail td { background:var(--bg);padding:0.9rem 1rem;white-space:normal; }
+  tr.detail td { background:var(--bg);padding:1rem;white-space:normal; }
   .book-grid { display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:0.5rem; }
-  .bk { background:var(--inset);border:1px solid var(--border);border-radius:8px;padding:0.5rem 0.7rem;display:flex;justify-content:space-between;align-items:center; }
-  .bk.best { border-color:var(--gold); }
-  .bk-name { font-size:0.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.05em;font-weight:600; }
-  .bk-odds { font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:0.9rem; }
-  .detail-links { margin-top:0.8rem;font-size:0.8rem;color:var(--muted); }
-  .detail-links a { color:var(--blue);text-decoration:none; }
+  .bk { background:var(--inset);border:1px solid var(--border);border-radius:8px;padding:0.55rem 0.75rem;display:flex;justify-content:space-between;align-items:center; }
+  .bk.best { border-color:var(--green-border);background:var(--green-faint); }
+  .bk-name { font-size:10px;color:var(--dim);text-transform:uppercase;letter-spacing:0.12em;font-weight:600; }
+  .bk-odds { font-family:'DM Mono',monospace;font-weight:500;font-size:13px; }
+  .bk.best .bk-odds { color:var(--green); }
+  .detail-links { margin-top:0.85rem;font-size:12.5px;color:var(--muted);font-weight:300; }
+  .detail-links a { color:var(--cyan);text-decoration:none; }
   .detail-links a:hover { text-decoration:underline; }
   /* how-to */
-  .how-to-jump { display:block;text-align:center;width:fit-content;margin:14px auto 0;font-family:'Orbitron',sans-serif;font-size:10px;letter-spacing:2px;color:var(--muted);text-decoration:none;text-transform:uppercase;padding:10px 18px;border:1px solid var(--border);border-radius:8px;background:var(--inset);transition:all 0.15s; }
-  .how-to-jump:hover { color:var(--gold);border-color:var(--gold);transform:translateY(-1px); }
-  .how-to-use { max-width:720px;margin:24px auto 60px;padding:28px 32px;background:var(--surface);border:1px solid var(--border);border-radius:16px;scroll-margin-top:20px; }
-  .how-to-eyebrow { font-family:'Orbitron',sans-serif;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:8px; }
-  .how-to-use h3 { font-family:'Orbitron',sans-serif;font-size:17px;font-weight:800;letter-spacing:1.5px;color:var(--text);margin:0 0 16px;text-transform:uppercase; }
-  .how-to-steps { margin:0 0 18px;padding-left:22px;font-family:system-ui,-apple-system,sans-serif;font-size:15px;line-height:1.65;color:var(--text); }
-  .how-to-steps li { margin-bottom:8px; }
-  .how-to-steps strong { color:var(--gold);font-weight:600; }
-  .how-to-note { font-family:system-ui,-apple-system,sans-serif;font-size:14px;line-height:1.55;color:var(--muted);background:var(--bg);border-left:3px solid var(--gold);border-radius:0 8px 8px 0;padding:14px 18px;margin-bottom:12px; }
-  .how-to-note em { color:var(--gold);font-style:normal;font-weight:600; }
+  .how-to-jump { display:block;text-align:center;width:fit-content;margin:18px auto 0;font-size:10px;font-weight:600;letter-spacing:0.2em;color:var(--muted);text-decoration:none;text-transform:uppercase;padding:11px 20px;border:1px solid var(--border-2);border-radius:8px;background:var(--inset);transition:all .18s var(--ease); }
+  .how-to-jump:hover { color:var(--green);border-color:var(--green-border);transform:translateY(-1px); }
+  .how-to-use { max-width:720px;margin:28px auto 60px;padding:32px 34px;background:var(--panel);border:1px solid var(--border);border-radius:18px;scroll-margin-top:20px; }
+  .how-to-eyebrow { font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:var(--cyan);font-weight:600;margin-bottom:10px; }
+  .how-to-use h3 { font-family:'DM Serif Display',serif;font-style:italic;font-size:26px;font-weight:400;letter-spacing:-.01em;color:var(--text);margin:0 0 18px;text-transform:none;line-height:1.15; }
+  .how-to-steps { margin:0 0 20px;padding-left:20px;font-size:14.5px;font-weight:300;line-height:1.7;color:var(--muted); }
+  .how-to-steps li { margin-bottom:9px;padding-left:4px; }
+  .how-to-steps li::marker { color:var(--cyan); }
+  .how-to-steps strong { color:var(--text);font-weight:600; }
+  .how-to-steps em { color:var(--text);font-style:italic; }
+  .how-to-note { font-size:13.5px;font-weight:300;line-height:1.6;color:var(--muted);background:var(--inset);border-left:2px solid var(--cyan);border-radius:0 8px 8px 0;padding:15px 18px;margin-bottom:12px; }
+  .how-to-note em { color:var(--cyan);font-style:normal;font-weight:600; }
   .how-to-note strong { color:var(--text);font-weight:600; }
-  .lock-in { font-family:system-ui,-apple-system,sans-serif;font-size:14px;line-height:1.55;color:var(--text);background:rgba(63,185,80,.08);border-left:3px solid var(--green);border-radius:0 8px 8px 0;padding:14px 18px;margin-bottom:12px; }
-  .lock-in .lock-lbl { display:block;font-family:'Orbitron',sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--green);font-weight:700;margin-bottom:6px; }
+  .lock-in { font-size:13.5px;font-weight:300;line-height:1.6;color:var(--muted);background:var(--green-faint);border-left:2px solid var(--green);border-radius:0 8px 8px 0;padding:15px 18px;margin-bottom:12px; }
+  .lock-in strong { color:var(--text);font-weight:600; }
+  .lock-in .lock-lbl { display:block;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--green);font-weight:700;margin-bottom:7px; }
 
 /* PPS-MOBILE-HEADER-CLEARANCE */
     @media (max-width: 640px) {
@@ -354,7 +390,8 @@
 
 <div class="card">
   <div class="header">
-    <div class="title">🔥 Hot Streak Scanner 🔥</div>
+    <div class="hero-eyebrow">MLB · Active Streaks · Live Odds</div>
+    <div class="title">🔥 Hot Streak&nbsp;Scanner&nbsp;🔥</div>
     <p class="title-sub">Pick a prop. See the <strong>longest active streaks in baseball</strong> for that exact bet — how long the run is, the season hit rate behind it, and <strong>tonight's live odds</strong> with the market's fair price beside every name. Refreshed every morning after the last game goes final.</p>
     <a href="#how-to-use" class="how-to-jump">How to use this ↓</a>
   </div>
