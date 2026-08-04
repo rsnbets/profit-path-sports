@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Account | PROFITPATH Sports</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #090909; --surface: #0D0D0D; --surface-2: #141414;
+    --green: #4DFF78; --cyan: #00D4FF; --text: #F0EEE8;
+    --muted: rgba(240,238,232,0.62); --dim: rgba(240,238,232,0.38);
+    --border: rgba(255,255,255,0.07); --border-2: rgba(255,255,255,0.12);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg); color: var(--text);
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-weight: 300;
+    min-height: 100vh; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; padding: 24px;
+  }
+  .brand { margin-bottom: 28px; }
+  .brand img { width: 240px; display: block; }
+  .card {
+    width: 100%; max-width: 420px;
+    background: var(--surface); border: 1px solid var(--border-2);
+    border-radius: 16px; padding: 30px 28px; text-align: center;
+  }
+  h1 { font-size: 22px; font-weight: 800; letter-spacing: -.02em; margin-bottom: 6px; }
+  .sub { font-size: 13.5px; color: var(--muted); line-height: 1.6; margin-bottom: 22px; }
+  input[type="email"] {
+    width: 100%; background: #161616; border: 1px solid var(--border-2);
+    border-bottom: 2px solid rgba(0,212,255,0.32); border-radius: 8px;
+    color: var(--text); padding: 13px 16px; font-size: 15px;
+    font-family: inherit; margin-bottom: 12px;
+  }
+  input[type="email"]:focus { outline: none; border-color: var(--cyan); }
+  .btn {
+    display: block; width: 100%; border: none; cursor: pointer;
+    background: var(--green); color: #090909; border-radius: 10px;
+    font-family: inherit; font-size: 15px; font-weight: 800;
+    padding: 14px; transition: filter .15s;
+  }
+  .btn:hover { filter: brightness(1.08); }
+  .btn.ghost { background: transparent; color: var(--cyan); border: 1px solid rgba(0,212,255,0.3); font-weight: 600; margin-top: 10px; }
+  .status { font-size: 13px; margin-top: 14px; min-height: 18px; color: var(--muted); }
+  .status.ok { color: var(--green); }
+  .status.err { color: #FF6B6B; }
+  .tier { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; padding: 6px 14px; border-radius: 999px; margin-bottom: 16px; }
+  .tier.free { color: var(--muted); border: 1px solid var(--border-2); }
+  .tier.pro { color: #090909; background: var(--green); }
+  .back { margin-top: 22px; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; }
+  .back a { color: var(--dim); text-decoration: none; }
+  .back a:hover { color: var(--cyan); }
+  .hidden { display: none; }
+</style>
+</head>
+<body>
+
+<a class="brand" href="/index.html"><img src="/images/profitpath-wordmark.svg" alt="PROFITPATH Sports"></a>
+
+<!-- Not configured yet -->
+<div class="card" id="offCard">
+  <h1>Accounts are coming soon</h1>
+  <p class="sub">Sign-in and the Pro odds tier aren't switched on yet. Everything currently on the site stays free.</p>
+</div>
+
+<!-- Signed out -->
+<div class="card hidden" id="signinCard">
+  <h1>Sign in</h1>
+  <p class="sub">No password — we email you a one-tap sign-in link.</p>
+  <input type="email" id="email" placeholder="you@example.com" autocomplete="email">
+  <button class="btn" id="sendLink">Email me a sign-in link</button>
+  <div class="status" id="signinStatus"></div>
+</div>
+
+<!-- Signed in -->
+<div class="card hidden" id="accountCard">
+  <div class="tier free" id="tierBadge">Free</div>
+  <h1 id="accEmail"></h1>
+  <p class="sub" id="accBlurb">You're on the free tier — every calculator, lesson, and stat board is yours.</p>
+  <button class="btn hidden" id="upgradeBtn">Unlock the odds feed — go Pro →</button>
+  <button class="btn ghost hidden" id="portalBtn">Manage subscription</button>
+  <button class="btn ghost" id="signoutBtn">Sign out</button>
+  <div class="status" id="accStatus"></div>
+</div>
+
+<div class="back"><a href="/index.html">← Back to PROFITPATH</a></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="/js/pps-auth.js"></script>
+<script>
+(async function () {
+  var off = document.getElementById('offCard');
+  var signin = document.getElementById('signinCard');
+  var account = document.getElementById('accountCard');
+
+  if (!window.PPSAuth || !PPSAuth.enabled()) return;   // stays on "coming soon"
+  off.classList.add('hidden');
+
+  var s = await PPSAuth.session();
+  if (!s) {
+    signin.classList.remove('hidden');
+    document.getElementById('sendLink').addEventListener('click', async function () {
+      var st = document.getElementById('signinStatus');
+      var email = document.getElementById('email').value.trim();
+      if (!email || email.indexOf('@') < 0) { st.className = 'status err'; st.textContent = 'Enter a valid email.'; return; }
+      st.className = 'status'; st.textContent = 'Sending…';
+      try {
+        await PPSAuth.signIn(email);
+        st.className = 'status ok'; st.textContent = 'Link sent — check your inbox.';
+      } catch (e) {
+        st.className = 'status err'; st.textContent = 'Could not send the link. Try again.';
+      }
+    });
+    return;
+  }
+
+  account.classList.remove('hidden');
+  document.getElementById('accEmail').textContent = s.user.email;
+  var pro = await PPSAuth.isPro();
+  var badge = document.getElementById('tierBadge');
+  if (pro) {
+    badge.className = 'tier pro'; badge.textContent = 'Pro';
+    document.getElementById('accBlurb').textContent = 'Pro is live — the odds feed is unlocked in the Tools.';
+    document.getElementById('portalBtn').classList.remove('hidden');
+  } else {
+    document.getElementById('upgradeBtn').classList.remove('hidden');
+  }
+
+  document.getElementById('upgradeBtn').addEventListener('click', async function () {
+    var st = document.getElementById('accStatus');
+    st.textContent = 'Opening checkout…';
+    var r = await fetch('/api/stripe-checkout', { method: 'POST', headers: { Authorization: 'Bearer ' + s.access_token } });
+    var j = r.ok ? await r.json() : null;
+    if (j && j.url) window.location.href = j.url;
+    else { st.className = 'status err'; st.textContent = 'Checkout unavailable right now.'; }
+  });
+  document.getElementById('portalBtn').addEventListener('click', async function () {
+    var r = await fetch('/api/stripe-portal', { method: 'POST', headers: { Authorization: 'Bearer ' + s.access_token } });
+    var j = r.ok ? await r.json() : null;
+    if (j && j.url) window.location.href = j.url;
+  });
+  document.getElementById('signoutBtn').addEventListener('click', async function () {
+    await PPSAuth.signOut();
+    window.location.reload();
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,8 @@
+{
+  "name": "profit-path-sports",
+  "private": true,
+  "description": "PROFITPATH Sports — static site + serverless API for the Pro odds tier",
+  "dependencies": {
+    "stripe": "^16.0.0"
+  }
+}
