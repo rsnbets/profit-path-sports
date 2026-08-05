@@ -104,6 +104,10 @@
   .badge-inactive { font-size:9px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--red);background:rgba(255,61,61,.1);border:1px solid rgba(255,61,61,.3);border-radius:3px;padding:0.1rem 0.35rem; }
   .badge-live { font-size:9px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--red);background:rgba(255,61,61,.12);border:1px solid rgba(255,61,61,.3);border-radius:3px;padding:0.1rem 0.35rem; }
   .starting-badge { font-size:9px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--green);background:var(--green-faint);border:1px solid var(--green-border);border-radius:3px;padding:0.1rem 0.35rem; }
+  .lu-badge { font-size:9px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;border-radius:3px;padding:0.1rem 0.35rem;white-space:nowrap; }
+  .lu-badge.conf { color:var(--green);background:var(--green-faint);border:1px solid var(--green-border); }
+  .lu-badge.proj { color:var(--cyan);background:var(--cyan-faint);border:1px solid var(--cyan-border); }
+  .lu-badge.out { color:var(--red);background:rgba(255,61,61,.1);border:1px solid rgba(255,61,61,.3); }
 
   /* ── chips ── */
   .chip-row { display:flex;flex-wrap:wrap;gap:0.5rem; }
@@ -621,6 +625,7 @@ let BF={},PF={};         // field -> index legends
 let SHARD=null;          // current player shard
 let ODDS_INDEX=new Map();let ODDS_OK=false,USED_FALLBACK=false;
 let SCHED=null;          // team abbrev -> tonight's game info
+let ROTO=null;           // data/lineups.json — RotoWire projected snapshot
 let PROP=null;           // current prop def
 let GROUP='bat';         // 'bat' | 'pit'
 let LINE=0.5;            // selected threshold
@@ -688,7 +693,7 @@ function todayStr(){
   return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
 }
 async function loadSchedule(){
-  const r=await fetch(STATS_API+'/schedule?sportId=1&date='+todayStr()+'&hydrate=probablePitcher,team',{cache:'no-store'});
+  const r=await fetch(STATS_API+'/schedule?sportId=1&date='+todayStr()+'&hydrate=probablePitcher,team,lineups',{cache:'no-store'});
   if(!r.ok) throw new Error('schedule '+r.status);
   const data=await r.json();
   SCHED={};
@@ -702,6 +707,8 @@ async function loadSchedule(){
           state:g.status?.abstractGameState||'',
           oppProbable:g.teams[side==='away'?'home':'away'].probablePitcher||null,
           ownProbable:g.teams[side].probablePitcher||null,
+          // official card, in batting order, once MLB posts it
+          ownLineup:(g.lineups&&g.lineups[side+'Players'])||null,
         };
       }
     }
@@ -782,6 +789,26 @@ async function loadPlayer(id){
   selectProp((GROUP==='bat'?BAT_PROPS:PIT_PROPS)[0]);
 }
 
+const ORD=['','1st','2nd','3rd','4th','5th','6th','7th','8th','9th'];
+// Confirmed beats projected: MLB's official card (with player ids) wins the
+// moment it posts; RotoWire's snapshot carries the earlier "projected" state.
+function lineupBadge(g){
+  if(GROUP!=='bat') return '';
+  if(g.ownLineup&&g.ownLineup.length>=9){
+    const i=g.ownLineup.findIndex(p=>p.id===SHARD.id);
+    return i>=0
+      ?' · <span class="lu-badge conf">Batting '+ORD[i+1]+' · Confirmed</span>'
+      :' · <span class="lu-badge out">Not in tonight\'s lineup</span>';
+  }
+  const t=ROTO&&ROTO.teams&&ROTO.teams[SHARD.team];
+  if(!t) return '';
+  const me=normName(SHARD.name);
+  const hit=t.players.find(([o,n])=>normName(n)===me);
+  const tag=t.confirmed?'Confirmed':'Projected';
+  return hit
+    ?' · <span class="lu-badge '+(t.confirmed?'conf':'proj')+'">Batting '+ORD[hit[0]]+' · '+tag+'</span>'
+    :' · <span class="lu-badge out">Not in '+tag.toLowerCase()+' lineup</span>';
+}
 function renderTonight(){
   const el=document.getElementById('pTonight');
   const g=SCHED&&SCHED[SHARD.team];
@@ -791,6 +818,7 @@ function renderTonight(){
   if(g.state==='Final') s+=' · Final';
   if(GROUP==='bat'&&g.oppProbable) s+=' · opposing starter: <strong>'+esc(g.oppProbable.fullName)+'</strong>';
   if(GROUP==='pit'&&g.ownProbable&&g.ownProbable.id===SHARD.id) s+=' · <span class="starting-badge">probable starter</span>';
+  s+=lineupBadge(g);
   el.innerHTML=s;
   renderBvP(g);
 }
@@ -1090,6 +1118,10 @@ async function boot(){
   wireSearch('searchIn2','searchDrop2');
   // schedule + odds load in parallel; neither blocks first paint
   const schedP=loadSchedule().catch(()=>{SCHED=null;});
+  // projected lineups are a bonus — never block on them, repaint when they land
+  fetch('/data/lineups.json?_='+Date.now(),{cache:'no-store'})
+    .then(r=>r.ok?r.json():null).then(d=>{ ROTO=d; if(SHARD) renderTonight(); })
+    .catch(()=>{});
   const oddsP=fetchMaster().then(d=>{buildOddsIndex(d);ODDS_OK=true;}).catch(()=>{});
   const id=new URLSearchParams(location.search).get('id');
   if(id){

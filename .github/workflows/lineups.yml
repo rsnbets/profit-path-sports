@@ -1,0 +1,35 @@
+name: Snapshot projected lineups
+
+# Lineups are intraday data — separate cadence from the nightly stats build.
+# RotoWire posts projected lineups through the ET morning; refreshing into the
+# evening catches late confirmations for the projected->confirmed flag, though
+# the player page also checks MLB's API live for confirmed cards.
+on:
+  schedule:
+    - cron: '0 13,15,17,19,21,23 * * *'   # 9a/11a/1p/3p/5p/7p ET
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install requests beautifulsoup4
+      - name: Snapshot lineups
+        run: python scripts/build_lineups.py
+      - name: Commit if changed
+        run: |
+          git config user.name "lineups-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/lineups.json
+          git diff --cached --quiet && echo "No changes" && exit 0
+          git commit -m "Lineups snapshot"
+          # the nightly data bot may have pushed since checkout
+          git pull --rebase origin main
+          git push
