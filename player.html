@@ -1025,7 +1025,7 @@ function renderLanding(){
 }
 
 // ── stepper + routing + boot ─────────────────────────────────
-document.getElementById('stepDn').addEventListener('click',()=>{ if(LINE>0.5){ LINE=Math.round((LINE-1)*2)/2+0.5-0.0; LINE=Math.max(0.5,LINE); render(); }});
+document.getElementById('stepDn').addEventListener('click',()=>{ if(LINE>0.5){ LINE=Math.max(0.5,LINE-1); render(); }});
 document.getElementById('stepUp').addEventListener('click',()=>{ LINE=LINE+1; render(); });
 
 window.addEventListener('popstate',()=>{
