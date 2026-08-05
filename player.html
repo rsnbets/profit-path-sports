@@ -142,7 +142,12 @@
 
   /* ── clear-rate windows ── */
   .win-grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(108px,1fr));gap:0.5rem; }
-  .win-cell { background:var(--inset);border:1px solid var(--border);border-radius:10px;padding:0.65rem 0.5rem;text-align:center; }
+  .win-cell { background:var(--inset);border:1px solid var(--border);border-radius:10px;padding:0.65rem 0.5rem;text-align:center;
+    cursor:pointer;font-family:inherit;transition:all .18s var(--ease); }
+  .win-cell:hover { border-color:var(--border-2);background:var(--raised); }
+  .win-cell.sel { border-color:var(--green-border);background:var(--green-faint); }
+  .win-cell.sel .win-lbl { color:var(--green); }
+  .win-hint { color:var(--dim);letter-spacing:0.08em;font-size:9px; }
   .win-cell.tiny { opacity:0.75; }
   .win-lbl { font-size:9.5px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--dim);margin-bottom:4px;white-space:nowrap; }
   .win-val { font-family:'DM Mono',monospace;font-size:20px;font-weight:500;color:var(--text); }
@@ -620,6 +625,8 @@ let PROP=null;           // current prop def
 let GROUP='bat';         // 'bat' | 'pit'
 let LINE=0.5;            // selected threshold
 let SIDE=0;              // 0 = Over, 1 = Under
+let WINSEL='l20';        // which window drives the chart
+let WINDOWS_MAP={};      // key -> {label, rows} for the current player/prop
 let LINES=[];            // posted lines for current market
 
 // ── data loads ───────────────────────────────────────────────
@@ -880,36 +887,48 @@ function renderClearRates(){
   const opp=sched?sched.opp:null;
   const L=kind==='bat'?BF:PF;
   const windows=[
-    ['Season',g],
-    ['L15',g.slice(-15)],['L10',g.slice(-10)],['L5',g.slice(-5)],
+    ['season','Season',g],
+    ['l20','L20',g.slice(-20)],
+    ['l15','L15',g.slice(-15)],['l10','L10',g.slice(-10)],['l5','L5',g.slice(-5)],
   ];
   if(opp){
-    windows.push(['vs '+opp,g.filter(r=>r[L.opp]===opp)]);
-    windows.push(['vs '+opp+' \''+String(IDX.prevSeason).slice(2),
+    windows.push(['vsopp','vs '+opp,g.filter(r=>r[L.opp]===opp)]);
+    windows.push(['vsoppprev','vs '+opp+' \''+String(IDX.prevSeason).slice(2),
       gamesFor(kind,'prev').filter(r=>r[L.opp]===opp)]);
   }
-  windows.push([String(IDX.prevSeason),gamesFor(kind,'prev')]);
-  document.getElementById('clearLabel').textContent=SIDE
-    ?'How often he stays UNDER '+LINE+' '+PROP.label.toLowerCase()
-    :'How often he clears O'+LINE+' '+PROP.label.toLowerCase();
-  document.getElementById('winGrid').innerHTML=windows.map(([lbl,rows])=>{
+  windows.push(['prev',String(IDX.prevSeason),gamesFor(kind,'prev')]);
+  WINDOWS_MAP={};
+  for(const[k,lbl,rows]of windows) WINDOWS_MAP[k]={label:lbl,rows};
+  if(!WINDOWS_MAP[WINSEL]) WINSEL='l20';   // vs-opp can vanish on an off day
+  document.getElementById('clearLabel').innerHTML=(SIDE
+    ?'How often he stays UNDER '+LINE+' '+esc(PROP.label.toLowerCase())
+    :'How often he clears O'+LINE+' '+esc(PROP.label.toLowerCase()))
+    +' <span class="win-hint">· tap a window to chart it</span>';
+  document.getElementById('winGrid').innerHTML=windows.map(([key,lbl,rows])=>{
     const cr=clearRate(rows,kind);
     const cls=!cr?'':cr.pct>=0.6?'good':cr.pct<=0.4?'bad':'';
     const tiny=cr&&cr.n<5?' tiny':'';
-    return '<div class="win-cell'+tiny+'"><div class="win-lbl">'+esc(lbl)+'</div>'
+    return '<button type="button" class="win-cell'+tiny+(key===WINSEL?' sel':'')+'" data-key="'+key+'">'
+      +'<div class="win-lbl">'+esc(lbl)+'</div>'
       +'<div class="win-val '+cls+'">'+(cr?Math.round(cr.pct*100)+'%':'—')+'</div>'
-      +'<div class="win-sub">'+(cr?cr.hits+'/'+cr.n+' '+unit:'no '+unit)+'</div></div>';
+      +'<div class="win-sub">'+(cr?cr.hits+'/'+cr.n+' '+unit:'no '+unit)+'</div></button>';
   }).join('');
+  document.querySelectorAll('#winGrid .win-cell').forEach(b=>b.addEventListener('click',()=>{
+    WINSEL=b.dataset.key;
+    renderClearRates();
+    renderChart();
+  }));
 }
 
 function renderChart(){
   const kind=GROUP;
-  const rows=gamesFor(kind,'g').slice(-20);
+  const win=WINDOWS_MAP[WINSEL]||{label:'L20',rows:gamesFor(kind,'g').slice(-20)};
+  const rows=win.rows;
   const svg=document.getElementById('chart');
   const legend=document.getElementById('chartLegend');
   document.getElementById('chartLabel').textContent=
-    PROP.label+' — last '+rows.length+' '+(kind==='pit'?'starts':'games');
-  if(!rows.length){ svg.innerHTML=''; legend.textContent='No games this season.'; return; }
+    PROP.label+' — '+win.label+' ('+rows.length+' '+(kind==='pit'?'starts':'games')+')';
+  if(!rows.length){ svg.innerHTML=''; legend.textContent='No '+(kind==='pit'?'starts':'games')+' in this window.'; return; }
   const L=kind==='bat'?BF:PF;
   const vals=rows.map(r=>valOf(r,kind,PROP.field));
   const maxV=Math.max(...vals,LINE+0.5,1);
@@ -922,7 +941,7 @@ function renderChart(){
     const top=y(v),h=Math.max(H-8-top,2);
     out+='<rect x="'+x.toFixed(1)+'" y="'+(v>0?top:H-10).toFixed(1)+'" width="'+w.toFixed(1)+'" height="'+(v>0?h:2).toFixed(1)
       +'" rx="2" class="bar '+(ok?'ok':'no')+'"><title>'+r[L.date]+' '+(r[L.home]?'vs ':'@ ')+r[L.opp]+' — '+v+'</title></rect>';
-    if(v>0) out+='<text x="'+(x+w/2).toFixed(1)+'" y="'+(top-4).toFixed(1)+'" class="bar-v">'+v+'</text>';
+    if(v>0&&rows.length<=30) out+='<text x="'+(x+w/2).toFixed(1)+'" y="'+(top-4).toFixed(1)+'" class="bar-v">'+v+'</text>';
   });
   out+='<line x1="0" x2="'+W+'" y1="'+y(LINE).toFixed(1)+'" y2="'+y(LINE).toFixed(1)+'" class="thresh"/>';
   svg.setAttribute('viewBox','0 0 '+W+' '+H);
