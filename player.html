@@ -125,6 +125,10 @@
   .chip-sub { font-family:'DM Mono',monospace;font-size:9.5px;color:var(--dim);text-transform:none; }
   .landing-boards .section-label { text-align:center; }
   .landing-boards .chip-row { justify-content:center; }
+  /* landing chips are primary navigation, not filters — read brighter */
+  .landing-boards .chip { color:var(--text);background:var(--raised);border-color:var(--border-2);
+    font-size:12.5px;padding:0.6rem 1.2rem; }
+  .landing-boards .chip:hover { color:var(--green);border-color:var(--green-border);background:var(--green-faint);transform:translateY(-1px); }
 
   /* ── line ladder + stepper ── */
   .lines-head { display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap; }
