@@ -106,6 +106,8 @@
   /* DM Mono is reserved for computed outputs — every number below is one */
   .mono { font-family:'DM Mono',monospace;font-weight:500; }
   .p-name { font-weight:600;font-size:14.5px;color:var(--text);letter-spacing:-0.005em; }
+  .p-link { color:inherit;text-decoration:none;border-bottom:1px dotted rgba(255,255,255,0.25); }
+  .p-link:hover { color:var(--green);border-bottom-color:var(--green); }
   .p-team { font-size:10.5px;color:var(--dim);font-family:'DM Mono',monospace;letter-spacing:0.04em; }
   .streak-num { font-family:'DM Mono',monospace;font-size:19px;font-weight:500;color:var(--green); }
   .streak-since { font-size:10px;color:var(--dim);font-family:'DM Mono',monospace; }
@@ -355,6 +357,7 @@
           <a href="/bonus-finder.html">Bonus Bet Finder</a>
           <a href="/hot-streaks.html">Hot Streak Scanner</a>
           <a href="/starting-pitchers.html">Starting Pitcher Board</a>
+          <a href="/player.html">Player Prop Finder</a>
         </div>
       </div>
       <div class="tb-item">
@@ -638,7 +641,7 @@ function render(){
     }
     if(anyProp) gameCell='<div class="game-cell">'+anyProp.game+'</div><div class="game-time">'+fmtTime(anyProp.startsAt)+'</div>';
     tr.innerHTML='<td class="c mono" style="color:var(--muted);">'+rank+'</td>'
-      +'<td><div class="p-name">'+pl.name+'</div><div class="p-team">'+pl.team+'</div></td>'
+      +'<td><div class="p-name"><a class="p-link" href="/player.html?id='+pl.mlbId+'" onclick="event.stopPropagation()">'+pl.name+'</a></div><div class="p-team">'+pl.team+'</div></td>'
       +'<td class="c"><span class="streak-num">'+pl.streak+fire+'</span><br><span class="streak-since">'+fmtSince(pl.since)+'</span></td>'
       +'<td><span class="dots">'+dots+'</span></td>'
       +'<td class="r">'+winCell+'</td>'
