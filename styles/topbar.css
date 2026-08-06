@@ -196,3 +196,7 @@ body.pps-sidebar-open .pps-sidebar-toggle { display: none !important; }
   .pps-topbar[data-below-hero] .tb-brand { opacity: 1; transform: none; pointer-events: auto; }
   .tb-cta { font-size: 14.5px; padding: 11px 18px; }
 }
+
+/* ── Docile mode: hides anything marked data-docile-hidden, outranking
+   the sidebar's !important display guards. Remove with the markers. ── */
+[data-docile-hidden][data-docile-hidden][data-docile-hidden] { display: none !important; }
