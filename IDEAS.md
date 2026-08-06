@@ -129,6 +129,20 @@ The pitch that reframes the scary part as the solved part: **this is the math sh
 ### Path checkpoints / quizzes (2026-07-21 — user still deciding)
 Interactive quiz at end of each Path (one per path beats per-lesson; questions = run-the-play scenarios that require using the calcs, e.g. "Pinnacle −175/+135, your book +150 the dog — which side has value and what's the EV/$100?"). Randomized numbers per attempt, localStorage badge + homepage path-card ✓, no gating. Detailed spec discussed in session 2026-07-21; pilot = Path 01 checkpoint when green-lit.
 
+### Social: "Picks don't matter. Numbers do." (2026-08-05 — user headline, ready to post)
+The capper math as a social hook. Short version:
+
+> **Picks don't matter. Numbers do.**
+> A capper and his subscriber made the same 1,000 bets. Both hit 53%.
+> He bet them at −105: **+36.5 units.**
+> His subscribers got −115 after the line moved: **−10.5 units.**
+> Same picks. Ten cents of price. He wins, you lose — before you even paid him.
+> The pick was never the edge. The number is.
+
+Thread/caption tail: "Learn to get the best number → [link to Get the Best Number lesson when live]".
+- Works as X post, IG carousel (6 beats), YouTube short script.
+- This is also the Pro-tier doctrine line: "picks are free everywhere — winners are made by the number."
+
 *(drop new ones below)*
 
 ---
