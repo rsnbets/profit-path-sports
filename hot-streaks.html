@@ -120,6 +120,17 @@
   .odds-book { font-size:10px;color:var(--dim);font-family:'DM Mono',monospace; }
   .odds-line-note { color:var(--cyan); }
   .alt-hint { color:var(--cyan); }
+  /* Pro odds lock */
+  .odds-lock { display:flex;align-items:center;gap:0.8rem;flex-wrap:wrap;background:var(--inset);
+    border:1px solid var(--green-border);border-radius:10px;padding:0.85rem 1.1rem;margin:0.4rem 0; }
+  .odds-lock-icon { font-size:16px; }
+  .odds-lock-msg { font-size:13px;font-weight:300;line-height:1.55;color:var(--muted);flex:1;min-width:220px; }
+  .odds-lock-msg strong { color:var(--green);font-weight:600; }
+  .odds-lock-cta { white-space:nowrap;font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;
+    color:#0A1A0A;background:var(--green);border-radius:6px;padding:0.55rem 1rem;text-decoration:none; }
+  .lock-cell { font-size:11px;font-weight:600;letter-spacing:0.06em;color:var(--green);text-decoration:none;white-space:nowrap; }
+  .lock-cell:hover { text-decoration:underline; }
+
   /* alt-line ladder inside an expanded row */
   .det-title { font-size:10px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--cyan);margin-bottom:0.6rem; }
   .det-warn { font-size:12.5px;font-weight:300;line-height:1.6;color:var(--muted);background:var(--inset);
@@ -432,6 +443,7 @@
       </div>
       <label class="chk"><input type="checkbox" id="todayOnly"> Only players priced for this bet</label>
     </div>
+    <div id="oddsLockSlot"></div>
   </div>
 
   <div class="section" style="padding:0;">
@@ -473,6 +485,8 @@
   </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="/js/pps-auth.js"></script>
 <script>
 // ── config (mirrors bonus-finder) ────────────────────────────
 const BOOK_ORDER=['draftkings','fanduel','betmgm','caesars','espnbet','hardrockbet','betrivers','ballybet','fanatics','fliff'];
@@ -495,29 +509,11 @@ function normName(s){
 }
 
 // ── data load ────────────────────────────────────────────────
-const POINTER_URL='https://prop-zone.vercel.app/blob_url.txt';
-const FALLBACK_URL='https://prop-zone.vercel.app/master.json';   // committed spare tire, may lag the blob
 let STREAKS=null;          // data/streaks.json payload
 let ODDS_INDEX=new Map();  // market|normName -> [{line, game, startsAt, books, fairOver}]
 let ODDS_OK=false, USED_FALLBACK=false, GAME_COUNT=0;
+let ODDS_LOCKED=null;      // 'signedout' | 'free' | 'error' when the Pro gate is on
 let ACTIVE=0;              // index into STREAKS.markets
-
-async function fetchMaster(){
-  try{
-    const p=await fetch(POINTER_URL+'?_='+Date.now(),{cache:'no-store'});
-    if(!p.ok) throw new Error('pointer '+p.status);
-    const url=(await p.text()).trim();
-    const r=await fetch(url,{cache:'no-store'});
-    if(!r.ok) throw new Error('blob '+r.status);
-    return r.json();
-  }catch(e){
-    // pointer can briefly reference a cleaned-up blob mid-publish — fall back to the committed copy
-    const r=await fetch(FALLBACK_URL+'?_='+Date.now(),{cache:'no-store'});
-    if(!r.ok) throw e;
-    USED_FALLBACK=true;
-    return r.json();
-  }
-}
 
 function buildOddsIndex(data){
   GAME_COUNT=data.gameCount||0;
@@ -628,7 +624,8 @@ function render(){
     // Only the exact line gets quoted here. When a book hangs just an alt line
     // (Freeman with an O1.5 hits price but no O0.5), say so rather than pricing
     // a bet the streak isn't about — the alt ladder is one tap away.
-    let oddsCell='<span class="no-odds">'+(ODDS_OK?'not in tonight\'s slate':'odds unavailable')+'</span>';
+    let oddsCell=ODDS_LOCKED?'<a class="lock-cell" href="/account.html">🔒 Pro</a>'
+      :'<span class="no-odds">'+(ODDS_OK?'not in tonight\'s slate':'odds unavailable')+'</span>';
     if(ODDS_OK&&!prop&&lines.length)
       oddsCell='<span class="no-odds">no O'+m.line+' line</span><br>'
         +'<span class="odds-book alt-hint">'+lines.length+' alt line'+(lines.length>1?'s':'')+' →</span>';
@@ -730,11 +727,20 @@ async function boot(){
   const streakDate=new Date(STREAKS.generatedAt).toLocaleDateString(undefined,{month:'short',day:'numeric'});
   status.textContent='Streaks through '+streakDate+' · loading live odds…';
   try{
-    const data=await fetchMaster();
-    buildOddsIndex(data);
-    ODDS_OK=true;
-    status.textContent='Streaks through '+streakDate+' · '+(USED_FALLBACK?'backup odds feed':'live odds')+' — '+GAME_COUNT+' games tonight';
-    status.className='status-bar ok';
+    const g=await PPSAuth.odds();
+    if(g.locked){
+      ODDS_LOCKED=g.locked;
+      status.textContent='Streaks through '+streakDate+' · every stat free · lines are Pro 🔒';
+      status.className='status-bar ok';
+      document.getElementById('oddsLockSlot').innerHTML=PPSAuth.lockHTML(g.locked);
+      document.getElementById('todayOnly').closest('label').style.display='none';
+    }else{
+      buildOddsIndex(g.slate);
+      USED_FALLBACK=g.fallback;
+      ODDS_OK=true;
+      status.textContent='Streaks through '+streakDate+' · '+(USED_FALLBACK?'backup odds feed':'live odds')+' — '+GAME_COUNT+' games tonight';
+      status.className='status-bar ok';
+    }
   }catch(e){
     status.textContent='Streaks through '+streakDate+' · odds feed unavailable ('+e.message+')';
     status.className='status-bar err';

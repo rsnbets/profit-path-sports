@@ -15,6 +15,7 @@ create table public.profiles (
   email text,
   is_pro boolean not null default false,
   stripe_customer_id text,
+  paypal_subscription_id text,
   updated_at timestamptz default now()
 );
 
@@ -41,7 +42,23 @@ create trigger on_auth_user_created
    paste them into the two constants at the top of `js/pps-auth.js` (safe to commit).
 5. Same page: copy the **service_role key** (SECRET — never commit) for step 3 below.
 
-## 2. Stripe (payments)
+## 2a. PayPal (payments — primary)
+
+1. developer.paypal.com → Apps & Credentials → **Live** → Create App
+   (name: `PPS Pro`). Copy **Client ID** and **Secret**.
+2. Create the product + plan (once, via the dashboard: PayPal → Pay & Get Paid
+   → Subscriptions → Create plan): name **PPS Pro**, **$10.00 USD monthly**.
+   Copy the **plan id** (`P-…`).
+3. Back in the developer app page → Webhooks → Add webhook:
+   `https://www.profitpathsports.com/api/paypal-webhook`
+   Events: `BILLING.SUBSCRIPTION.ACTIVATED`, `BILLING.SUBSCRIPTION.CANCELLED`,
+   `BILLING.SUBSCRIPTION.SUSPENDED`, `BILLING.SUBSCRIPTION.EXPIRED`.
+   Copy the **Webhook ID**.
+4. Sandbox first: the same steps under **Sandbox** creds, with
+   `PAYPAL_API=https://api-m.sandbox.paypal.com` set in Vercel; remove that
+   var (or set the live host) when going live.
+
+## 2b. Stripe (payments — optional fallback)
 
 1. stripe.com → activate account.
 2. Products → Add product: name **PPS Pro**, recurring price (monthly).
@@ -65,6 +82,11 @@ create trigger on_auth_user_created
 | `STRIPE_SECRET_KEY` | sk from 2.3 |
 | `STRIPE_PRICE_ID` | price id from 2.2 |
 | `STRIPE_WEBHOOK_SECRET` | whsec from 2.4 |
+| `PAYPAL_CLIENT_ID` | from 2a.1 |
+| `PAYPAL_CLIENT_SECRET` | from 2a.1 |
+| `PAYPAL_PLAN_ID` | `P-…` from 2a.2 |
+| `PAYPAL_WEBHOOK_ID` | from 2a.3 |
+| `PAYPAL_API` | sandbox host while testing; unset for live |
 | `SITE_URL` | `https://www.profitpathsports.com` |
 
 3. Redeploy.
@@ -72,11 +94,14 @@ create trigger on_auth_user_created
 ## 4. Test before flipping any tool
 
 1. /account.html → sign in with a magic link (your own email).
-2. Upgrade → Stripe test-mode checkout (use test keys first: `4242 4242 4242 4242`).
-3. Confirm the badge flips to **Pro** (webhook worked).
+2. Upgrade → PayPal sandbox checkout (sandbox buyer account), or Stripe
+   test-mode (`4242 4242 4242 4242`) if going the Stripe route.
+3. Confirm the badge flips to **Pro** (webhook worked). For PayPal also
+   confirm cancel from /account.html flips it back.
 4. `curl /api/slate` with and without the token — 200 with, 401/402 without.
-5. Only then wire the odds gating into hot-streaks + starting-pitchers
-   (that change is a separate, reviewable step).
+5. The three tools (hot-streaks, starting-pitchers, player) already run
+   their odds through PPSAuth.odds() — the gate turns on by itself the
+   moment js/pps-auth.js gets the Supabase config. No further page edits.
 
 ## Notes
 

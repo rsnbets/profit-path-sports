@@ -144,6 +144,16 @@
   table.mini tr:last-child td { border-bottom:none; }
   /* alt lines sit under their market's main row as a ladder */
   table.mini tr.alt-line td { border-top:none;color:var(--muted); }
+  /* Pro odds lock */
+  .odds-lock { display:flex;align-items:center;gap:0.8rem;flex-wrap:wrap;background:var(--inset);
+    border:1px solid var(--green-border);border-radius:10px;padding:0.85rem 1.1rem;margin:0.4rem 0; }
+  .odds-lock-icon { font-size:16px; }
+  .odds-lock-msg { font-size:13px;font-weight:300;line-height:1.55;color:var(--muted);flex:1;min-width:220px; }
+  .odds-lock-msg strong { color:var(--green);font-weight:600; }
+  .odds-lock-cta { white-space:nowrap;font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;
+    color:#0A1A0A;background:var(--green);border-radius:6px;padding:0.55rem 1rem;text-decoration:none; }
+  .lock-cell { font-size:11px;font-weight:600;letter-spacing:0.06em;color:var(--green);text-decoration:none;white-space:nowrap; }
+  .lock-cell:hover { text-decoration:underline; }
   .main-tag { font-family:'Plus Jakarta Sans',sans-serif;font-size:8.5px;font-weight:700;letter-spacing:0.1em;
     text-transform:uppercase;color:var(--cyan);background:var(--cyan-faint);border:1px solid var(--cyan-border);
     border-radius:3px;padding:0.05rem 0.25rem;margin-left:0.25rem;vertical-align:1px; }
@@ -487,6 +497,8 @@
   </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="/js/pps-auth.js"></script>
 <script>
 // ── config ───────────────────────────────────────────────────
 const BOOK_ORDER=['draftkings','fanduel','betmgm','caesars','espnbet','hardrockbet','betrivers','ballybet','fanatics','fliff'];
@@ -517,8 +529,6 @@ function normName(s){
 }
 
 // ── state ────────────────────────────────────────────────────
-const POINTER_URL='https://prop-zone.vercel.app/blob_url.txt';
-const FALLBACK_URL='https://prop-zone.vercel.app/master.json';   // committed spare tire, may lag the blob
 const STATS_API='https://statsapi.mlb.com/api/v1';
 let LOGS=null;              // data/pitchers.json
 let PREV=null;              // data/pitchers_prev.json — fetched on first 'vs Opp last year'
@@ -526,28 +536,12 @@ let F={};                   // field name -> index into a start row
 let ROWS=[];                // today's starters, joined
 let ODDS_INDEX=new Map();   // market|normName -> [merged prop]
 let ODDS_OK=false, USED_FALLBACK=false;
+let ODDS_LOCKED=null;      // 'signedout' | 'free' | 'error' when the Pro gate is on
 let WIN='0';                // '0' = season | '15'|'10'|'5' = last N | 'vs'|'vsprev' = head-to-head
 let SORT={key:'time',dir:1};
 const isVs=()=>WIN==='vs'||WIN==='vsprev';
 
 // ── data loads ───────────────────────────────────────────────
-async function fetchMaster(){
-  try{
-    const p=await fetch(POINTER_URL+'?_='+Date.now(),{cache:'no-store'});
-    if(!p.ok) throw new Error('pointer '+p.status);
-    const url=(await p.text()).trim();
-    const r=await fetch(url,{cache:'no-store'});
-    if(!r.ok) throw new Error('blob '+r.status);
-    return r.json();
-  }catch(e){
-    // pointer can briefly reference a cleaned-up blob mid-publish — fall back to the committed copy
-    const r=await fetch(FALLBACK_URL+'?_='+Date.now(),{cache:'no-store'});
-    if(!r.ok) throw e;
-    USED_FALLBACK=true;
-    return r.json();
-  }
-}
-
 function buildOddsIndex(data){
   const merged=new Map();
   for(const x of data.props||[]){
@@ -796,7 +790,9 @@ function toggleDetail(tr,r){
       });
     }
   }
-  const propBox='<div class="det-box"><div class="det-title">Tonight\'s lines · cleared in '+winLbl+'</div>'
+  const propBox=ODDS_LOCKED
+    ?'<div class="det-box"><div class="det-title">Tonight\'s lines</div>'+PPSAuth.lockHTML(ODDS_LOCKED)+'</div>'
+    :'<div class="det-box"><div class="det-title">Tonight\'s lines · cleared in '+winLbl+'</div>'
     +(propRows?'<table class="mini"><thead><tr><th>Market</th><th>Line</th><th>Over Hit</th><th>Best Over</th><th>Fair</th></tr></thead><tbody>'+propRows+'</tbody></table>'
       :'<div class="thin">'+(ODDS_OK?'No pitcher props posted for him yet.':'Odds feed unavailable.')+'</div>')
     +'<div class="det-note">Home runs allowed has no prop market — the stat is here for context, not for betting.</div></div>';
@@ -862,7 +858,10 @@ async function boot(){
   await loadDate(dateIn.value);
   // odds are a bonus — the board is useful without them, so load them after
   try{
-    buildOddsIndex(await fetchMaster());
+    const g=await PPSAuth.odds();
+    if(g.locked){ ODDS_LOCKED=g.locked; throw new Error('locked'); }
+    buildOddsIndex(g.slate);
+    USED_FALLBACK=g.fallback;
     ODDS_OK=true;
     const status2=document.getElementById('statusBar');
     if(ROWS.length) status2.textContent=ROWS.length+' starters · '+ROWS.filter(r=>LOGS.pitchers[r.id]).length

@@ -155,6 +155,16 @@
   .ln.sel .ln-line { color:var(--green); }
   .ln-odds { font-family:'DM Mono',monospace;font-size:11px;font-weight:500;color:var(--text);margin-top:2px; }
   .ln-fair { font-family:'DM Mono',monospace;font-size:10px;color:var(--cyan); }
+  /* Pro odds lock */
+  .odds-lock { display:flex;align-items:center;gap:0.8rem;flex-wrap:wrap;background:var(--inset);
+    border:1px solid var(--green-border);border-radius:10px;padding:0.85rem 1.1rem;margin:0.4rem 0; }
+  .odds-lock-icon { font-size:16px; }
+  .odds-lock-msg { font-size:13px;font-weight:300;line-height:1.55;color:var(--muted);flex:1;min-width:220px; }
+  .odds-lock-msg strong { color:var(--green);font-weight:600; }
+  .odds-lock-cta { white-space:nowrap;font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;
+    color:#0A1A0A;background:var(--green);border-radius:6px;padding:0.55rem 1rem;text-decoration:none; }
+  .lock-cell { font-size:11px;font-weight:600;letter-spacing:0.06em;color:var(--green);text-decoration:none;white-space:nowrap; }
+  .lock-cell:hover { text-decoration:underline; }
   .ln-note { font-size:13px;font-weight:300;line-height:1.6;color:var(--muted);background:var(--inset);border-left:2px solid var(--cyan);border-radius:0 8px 8px 0;padding:10px 14px; }
 
   /* ── clear-rate windows ── */
@@ -587,6 +597,8 @@
   </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="/js/pps-auth.js"></script>
 <script>
 // ── config (mirrors the boards) ──────────────────────────────
 const BOOK_ORDER=['draftkings','fanduel','betmgm','caesars','espnbet','hardrockbet','betrivers','ballybet','fanatics','fliff'];
@@ -629,12 +641,11 @@ const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',
 
 // ── state ────────────────────────────────────────────────────
 const STATS_API='https://statsapi.mlb.com/api/v1';
-const POINTER_URL='https://prop-zone.vercel.app/blob_url.txt';
-const FALLBACK_URL='https://prop-zone.vercel.app/master.json';
 let IDX=null;            // players.json
 let BF={},PF={};         // field -> index legends
 let SHARD=null;          // current player shard
 let ODDS_INDEX=new Map();let ODDS_OK=false,USED_FALLBACK=false;
+let ODDS_LOCKED=null;    // 'signedout' | 'free' | 'error' when the Pro gate is on
 let SCHED=null;          // team abbrev -> tonight's game info
 let ROTO=null;           // data/lineups.json — RotoWire projected snapshot
 let PROP=null;           // current prop def
@@ -646,21 +657,6 @@ let WINDOWS_MAP={};      // key -> {label, rows} for the current player/prop
 let LINES=[];            // posted lines for current market
 
 // ── data loads ───────────────────────────────────────────────
-async function fetchMaster(){
-  try{
-    const p=await fetch(POINTER_URL+'?_='+Date.now(),{cache:'no-store'});
-    if(!p.ok) throw new Error('pointer '+p.status);
-    const url=(await p.text()).trim();
-    const r=await fetch(url,{cache:'no-store'});
-    if(!r.ok) throw new Error('blob '+r.status);
-    return r.json();
-  }catch(e){
-    const r=await fetch(FALLBACK_URL+'?_='+Date.now(),{cache:'no-store'});
-    if(!r.ok) throw e;
-    USED_FALLBACK=true;
-    return r.json();
-  }
-}
 function buildOddsIndex(data){
   const merged=new Map();
   for(const x of data.props||[]){
@@ -795,7 +791,7 @@ async function loadPlayer(id){
   renderTonight();
   renderPropChips();
   const dataDate=new Date(IDX.generatedAt).toLocaleDateString(undefined,{month:'short',day:'numeric'});
-  status.textContent='Stats through '+dataDate+' · '+(ODDS_OK?(USED_FALLBACK?'backup odds feed':'live odds'):'loading live odds…');
+  status.textContent='Stats through '+dataDate+' · '+(ODDS_LOCKED?'every stat free · lines are Pro 🔒':(ODDS_OK?(USED_FALLBACK?'backup odds feed':'live odds'):'loading live odds…'));
   status.className='status-bar ok';
   selectProp((GROUP==='bat'?BAT_PROPS:PIT_PROPS)[0]);
 }
@@ -891,6 +887,11 @@ function renderLadder(){
   const wrap=document.getElementById('lnWrap'),note=document.getElementById('lnNote');
   document.getElementById('stepVal').textContent=(SIDE?'U':'O')+LINE;
   document.getElementById('linesLabel').textContent='Tonight\'s '+PROP.label.toLowerCase()+' lines';
+  if(ODDS_LOCKED){
+    wrap.innerHTML=PPSAuth.lockHTML(ODDS_LOCKED);
+    note.style.display='none';
+    return;
+  }
   if(!LINES.length){
     wrap.innerHTML='';
     note.style.display='block';
@@ -1124,7 +1125,10 @@ async function boot(){
   fetch('/data/lineups.json?_='+Date.now(),{cache:'no-store'})
     .then(r=>r.ok?r.json():null).then(d=>{ ROTO=d; if(SHARD) renderTonight(); })
     .catch(()=>{});
-  const oddsP=fetchMaster().then(d=>{buildOddsIndex(d);ODDS_OK=true;}).catch(()=>{});
+  const oddsP=PPSAuth.odds().then(g=>{
+    if(g.locked){ ODDS_LOCKED=g.locked; }
+    else{ buildOddsIndex(g.slate); USED_FALLBACK=g.fallback; ODDS_OK=true; }
+  }).catch(()=>{ ODDS_LOCKED='error'; });
   const id=new URLSearchParams(location.search).get('id');
   if(id){
     await Promise.allSettled([schedP,oddsP]);

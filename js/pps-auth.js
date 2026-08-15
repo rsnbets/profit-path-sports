@@ -59,16 +59,71 @@
     return !!(r && r.data && r.data.is_pro);
   }
 
-  /* Fetch the gated odds slate. Returns parsed JSON, or null when the
-     caller should fall back to a stats-only view (signed out / free tier). */
-  async function fetchProSlate() {
+  /* Own profile row (RLS-guarded): { is_pro, paypal_subscription_id } or null. */
+  async function profile() {
+    var c = getClient();
+    if (!c) return null;
     var s = await session();
     if (!s) return null;
+    var r = await c.from('profiles')
+      .select('is_pro,paypal_subscription_id').eq('id', s.user.id).single();
+    return (r && r.data) || null;
+  }
+
+  /* The public slate chain (pointer -> blob -> committed fallback) — the
+     pre-Pro behaviour, and still the whole story while auth is switched off. */
+  var POINTER_URL = 'https://prop-zone.vercel.app/blob_url.txt';
+  var FALLBACK_URL = 'https://prop-zone.vercel.app/master.json';
+  async function publicSlate() {
+    try {
+      var p = await fetch(POINTER_URL + '?_=' + Date.now(), { cache: 'no-store' });
+      if (!p.ok) throw new Error('pointer ' + p.status);
+      var url = (await p.text()).trim();
+      var r = await fetch(url, { cache: 'no-store' });
+      if (!r.ok) throw new Error('blob ' + r.status);
+      return { slate: await r.json(), fallback: false };
+    } catch (e) {
+      var r2 = await fetch(FALLBACK_URL + '?_=' + Date.now(), { cache: 'no-store' });
+      if (!r2.ok) throw e;
+      return { slate: await r2.json(), fallback: true };
+    }
+  }
+
+  /* THE odds loader for every tool. Resolves to:
+       { slate, fallback, locked: null }         -> render odds as always
+       { slate: null, locked: 'signedout' }      -> lock UI, ask to sign in
+       { slate: null, locked: 'free' }           -> lock UI, pitch Pro
+       { slate: null, locked: 'error' }          -> odds feed hiccup
+     With auth switched off this is exactly the old public fetch, so the
+     tools behave identically until the day the keys go in. */
+  async function odds() {
+    if (!enabled()) {
+      var pub = await publicSlate();
+      return { slate: pub.slate, fallback: pub.fallback, locked: null };
+    }
+    var s = await session();
+    if (!s) return { slate: null, fallback: false, locked: 'signedout' };
     var res = await fetch('/api/slate', {
       headers: { Authorization: 'Bearer ' + s.access_token }
     });
-    if (!res.ok) return null;
-    return res.json();
+    if (res.status === 402) return { slate: null, fallback: false, locked: 'free' };
+    if (!res.ok) return { slate: null, fallback: false, locked: 'error' };
+    return { slate: await res.json(), fallback: false, locked: null };
+  }
+
+  /* Standard lock card markup — one string so all three tools say the
+     same thing. Pages style .odds-lock with their own CSS. */
+  function lockHTML(reason) {
+    var msg = reason === 'signedout'
+      ? 'Live lines & vig-free fair prices are part of <strong>PPS Pro</strong> — $10/mo. Every stat on this page stays free.'
+      : reason === 'free'
+        ? 'Your account is on the free tier. <strong>PPS Pro</strong> ($10/mo) unlocks live lines & fair prices in every tool.'
+        : 'The odds feed hit a snag — refresh in a minute. All stats still live.';
+    var cta = reason === 'error' ? ''
+      : '<a class="odds-lock-cta" href="/account.html">' +
+        (reason === 'signedout' ? 'Sign in / Go Pro →' : 'Go Pro →') + '</a>';
+    return '<div class="odds-lock"><span class="odds-lock-icon">🔒</span>' +
+      '<span class="odds-lock-msg">' + msg + '</span>' + cta + '</div>';
   }
 
   window.PPSAuth = {
@@ -78,6 +133,9 @@
     signIn: signIn,
     signOut: signOut,
     isPro: isPro,
-    fetchProSlate: fetchProSlate
+    profile: profile,
+    publicSlate: publicSlate,
+    odds: odds,
+    lockHTML: lockHTML
   };
 })();

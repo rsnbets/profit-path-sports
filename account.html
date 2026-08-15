@@ -82,7 +82,7 @@
   <div class="tier free" id="tierBadge">Free</div>
   <h1 id="accEmail"></h1>
   <p class="sub" id="accBlurb">You're on the free tier — every calculator, lesson, and stat board is yours.</p>
-  <button class="btn hidden" id="upgradeBtn">Unlock the odds feed — go Pro →</button>
+  <button class="btn hidden" id="upgradeBtn">Go Pro — $10/mo →</button>
   <button class="btn ghost hidden" id="portalBtn">Manage subscription</button>
   <button class="btn ghost" id="signoutBtn">Sign out</button>
   <div class="status" id="accStatus"></div>
@@ -121,27 +121,51 @@
 
   account.classList.remove('hidden');
   document.getElementById('accEmail').textContent = s.user.email;
-  var pro = await PPSAuth.isPro();
+  var prof = (await PPSAuth.profile()) || {};
+  var pro = !!prof.is_pro;
   var badge = document.getElementById('tierBadge');
   if (pro) {
     badge.className = 'tier pro'; badge.textContent = 'Pro';
-    document.getElementById('accBlurb').textContent = 'Pro is live — the odds feed is unlocked in the Tools.';
+    document.getElementById('accBlurb').textContent = 'Pro is live — lines & fair prices are unlocked in every tool.';
     document.getElementById('portalBtn').classList.remove('hidden');
+    if (prof.paypal_subscription_id) {
+      document.getElementById('portalBtn').textContent = 'Cancel subscription (PayPal)';
+    }
   } else {
     document.getElementById('upgradeBtn').classList.remove('hidden');
   }
 
+  function bearer() { return { Authorization: 'Bearer ' + s.access_token }; }
+
+  // PayPal first, Stripe as the fallback — whichever has keys answers;
+  // an unconfigured processor replies 503 and we move on.
   document.getElementById('upgradeBtn').addEventListener('click', async function () {
     var st = document.getElementById('accStatus');
-    st.textContent = 'Opening checkout…';
-    var r = await fetch('/api/stripe-checkout', { method: 'POST', headers: { Authorization: 'Bearer ' + s.access_token } });
-    var j = r.ok ? await r.json() : null;
-    if (j && j.url) window.location.href = j.url;
-    else { st.className = 'status err'; st.textContent = 'Checkout unavailable right now.'; }
+    st.className = 'status'; st.textContent = 'Opening checkout…';
+    for (var i = 0; i < 2; i++) {
+      var ep = ['/api/paypal-checkout', '/api/stripe-checkout'][i];
+      try {
+        var r = await fetch(ep, { method: 'POST', headers: bearer() });
+        if (r.status === 503) continue;
+        var j = r.ok ? await r.json() : null;
+        if (j && j.url) { window.location.href = j.url; return; }
+      } catch (e) { /* try the next processor */ }
+    }
+    st.className = 'status err'; st.textContent = 'Checkout unavailable right now.';
   });
+
   document.getElementById('portalBtn').addEventListener('click', async function () {
-    var r = await fetch('/api/stripe-portal', { method: 'POST', headers: { Authorization: 'Bearer ' + s.access_token } });
-    var j = r.ok ? await r.json() : null;
+    var st = document.getElementById('accStatus');
+    if (prof.paypal_subscription_id) {
+      if (!confirm('Cancel your PPS Pro subscription? Access ends when PayPal processes the cancellation.')) return;
+      st.className = 'status'; st.textContent = 'Cancelling…';
+      var r = await fetch('/api/paypal-cancel', { method: 'POST', headers: bearer() });
+      if (r.ok) { st.className = 'status ok'; st.textContent = 'Cancelled — your tier updates within a minute.'; }
+      else { st.className = 'status err'; st.textContent = 'Could not cancel — email us and we\'ll sort it.'; }
+      return;
+    }
+    var r2 = await fetch('/api/stripe-portal', { method: 'POST', headers: bearer() });
+    var j = r2.ok ? await r2.json() : null;
     if (j && j.url) window.location.href = j.url;
   });
   document.getElementById('signoutBtn').addEventListener('click', async function () {
