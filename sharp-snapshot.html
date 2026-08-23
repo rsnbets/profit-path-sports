@@ -1123,7 +1123,7 @@
     <div class="output-block asymmetry">
       <div class="output-block-head">
         <span class="output-block-num">Output 02</span>
-        <span class="output-block-title">Book Limit Asymmetry</span>
+        <span class="output-block-title">Book Stance</span>
       </div>
 
       <div class="asymmetry-grid">
@@ -1232,8 +1232,8 @@
         <div class="edu-body">
           <ul>
             <li><strong>Sharp Translation</strong> — flips exchange offers to the sharp's actual position and tallies sharp capital per side, with the imbalance ratio.</li>
-            <li><strong>Book Limit Asymmetry</strong> — the <em>lower-limit</em> side is the side the book is protecting itself from, i.e. the inferred sharp side. Books + exchanges agreeing = aligned signal; disagreeing = down-weight it.</li>
-            <li><strong>Conviction Check</strong> — when exchange depth <em>exceeds</em> book limits, sharps wanted more capacity than the books would underwrite. Strong conviction; a leading indicator of line movement.</li>
+            <li><strong>Book Stance</strong> — two dialects, one question: which side is the book afraid of? The <em>lower-limit</em> side is the side it's protecting (Circa's language); when limits are balanced — Pinnacle's usual posture — the read falls back to <em>price lean</em>: whose probability the book prices above consensus. Books + exchanges agreeing = aligned signal; disagreeing = down-weight it.</li>
+            <li><strong>Conviction Check</strong> — when exchange depth <em>exceeds</em> book limits, sharps wanted more capacity than the books would underwrite. Strong conviction; a leading indicator of line movement. The headline compares <em>total</em> exchange money to <em>total</em> book capacity for the market-level version of the same read.</li>
             <li><strong>Consensus Fair</strong> — weighted no-vig fair across the sources (Pinnacle and Novig weighted heaviest).</li>
             <li><strong>Soft-Book Target</strong> — the price to beat at a soft book to capture cross-market EV. Primary side = where the sharp money leans.</li>
           </ul>
@@ -1429,6 +1429,41 @@
       }
     });
 
+    // ─── Consensus fair math (feeds Book Stance price-lean + Output 04) ───
+    let weightedSumA = 0, weightedSumB = 0, totalWeight = 0, nFairSources = 0;
+    SRC_LIST.forEach(src => {
+      const [fA, fB] = fairs[src];
+      if (fA !== null && fB !== null) {
+        const w = weightOf(src);
+        weightedSumA += fA * w;
+        weightedSumB += fB * w;
+        totalWeight += w;
+        nFairSources++;
+      }
+    });
+    let consensusA = null, consensusB = null;
+    if (totalWeight > 0) {
+      consensusA = weightedSumA / totalWeight;
+      consensusB = weightedSumB / totalWeight;
+      const _s = consensusA + consensusB;
+      consensusA = consensusA / _s;
+      consensusB = consensusB / _s;
+    }
+
+    // A book's own devigged fair vs the consensus: when its probability on a
+    // side runs >=1.5pp above the market's, the book is shading that side's
+    // price - the price-language version of a lopsided limit. Needs >=2
+    // priced sources or the book would just be compared to itself.
+    function priceLeanOf(src) {
+      if (consensusA === null || nFairSources < 2) return null;
+      const fA = fairs[src] ? fairs[src][0] : null;
+      if (fA === null) return null;
+      const diff = fA - consensusA;
+      if (Math.abs(diff) < 0.015) return null;
+      return { side: diff > 0 ? 'A' : 'B', bookP: diff > 0 ? fA : 1 - fA,
+               consP: diff > 0 ? consensusA : consensusB };
+    }
+
     // ─── Output 01: Sharp Translation tally (exchanges only) ───
     let sharpAAmts = []; // {amt, price}
     let sharpBAmts = [];
@@ -1541,7 +1576,20 @@
       return { protectedSide, ratio };
     }
 
-    const asymResults = BOOK_LIST.map(src => ({ src, name: displayName(src), res: readBookAsymmetry(src) }));
+    const asymResults = BOOK_LIST.map(src => ({ src, name: displayName(src), res: readBookAsymmetry(src), lean: priceLeanOf(src) }));
+
+    // Price-lean fallback per card: when a book's limits say nothing (the
+    // Pinnacle case — symmetric limits, stance lives in the price), let the
+    // card speak the price dialect instead of "no signal".
+    asymResults.forEach(r => {
+      const noLimitSignal = r.res === null || r.res.ratio < 1.5;
+      if (!noLimitSignal || !r.lean) return;
+      const cardEl = asymGrid.querySelector(`[data-asym="${r.src}"]`);
+      const leanName = r.lean.side === 'A' ? sideAName : sideBName;
+      cardEl.querySelector('.a-detail').textContent =
+        `${r.res === null ? 'No limits entered' : 'Limits balanced'} — but its pricing leans ${leanName}: ` +
+        `${(r.lean.bookP * 100).toFixed(1)}% vs ${(r.lean.consP * 100).toFixed(1)}% consensus.`;
+    });
 
     // Cross-book + cross-signal agreement, generalized to any number of books
     const asymStatus = document.getElementById('asymStatus');
@@ -1553,9 +1601,20 @@
     const protectedSides = [...new Set(meaningfulOnes.map(r => r.res.protectedSide))];
     let bookProtectedSide = null;
     let bookMeaningful = false;
+    let stanceFromPrice = false;
+    let leaners = [];
     if (meaningfulOnes.length > 0 && protectedSides.length === 1) {
       bookProtectedSide = protectedSides[0];
       bookMeaningful = true;
+    } else if (meaningfulOnes.length === 0) {
+      // Limits silent everywhere — fall back to the price dialect
+      leaners = asymResults.filter(r => r.lean);
+      const leanSides = [...new Set(leaners.map(r => r.lean.side))];
+      if (leaners.length > 0 && leanSides.length === 1) {
+        bookProtectedSide = leanSides[0];
+        bookMeaningful = true;
+        stanceFromPrice = true;
+      }
     }
 
     if (withData.length === 0) {
@@ -1566,20 +1625,23 @@
       asymStatus.classList.add('conflict');
     } else if (bookMeaningful) {
       const protName = bookProtectedSide === 'A' ? sideAName : sideBName;
-      const preface = meaningfulOnes.length > 1
-        ? (meaningfulOnes.length === withData.length ? 'All books are' : 'Multiple books are')
-        : `${esc(meaningfulOnes[0].name)} is`;
+      const preface = stanceFromPrice
+        ? (leaners.length > 1 ? "The books' pricing is" : `${esc(leaners[0].name)}'s pricing is`)
+        : meaningfulOnes.length > 1
+          ? (meaningfulOnes.length === withData.length ? 'All books are' : 'Multiple books are')
+          : `${esc(meaningfulOnes[0].name)} is`;
+      const verb = stanceFromPrice ? 'shaded toward' : 'protecting';
       if (heavySide !== null) {
         if (heavySide === bookProtectedSide) {
-          asymStatusText.innerHTML = `${preface} protecting <strong>${protName}</strong> — and the exchange flow agrees. <strong>All signals align on ${protName}.</strong>`;
+          asymStatusText.innerHTML = `${preface} ${verb} <strong>${protName}</strong> — and the exchange flow agrees. <strong>All signals align on ${protName}.</strong>`;
           asymStatus.classList.add('confirm');
         } else {
           const exchName = heavySide === 'A' ? sideAName : sideBName;
-          asymStatusText.innerHTML = `${preface} protecting <strong>${protName}</strong>, but exchange flow leans toward <strong>${exchName}</strong>. <strong>Mixed signal</strong> — down-weight the conviction.`;
+          asymStatusText.innerHTML = `${preface} ${verb} <strong>${protName}</strong>, but exchange flow leans toward <strong>${exchName}</strong>. <strong>Mixed signal</strong> — down-weight the conviction.`;
           asymStatus.classList.add('conflict');
         }
       } else {
-        asymStatusText.innerHTML = `${preface} protecting <strong>${protName}</strong> — book stance points to ${protName} as the inferred sharp-favored side (no exchange flow to cross-check).`;
+        asymStatusText.innerHTML = `${preface} ${verb} <strong>${protName}</strong> — book stance points to ${protName} as the inferred sharp-favored side (no exchange flow to cross-check).`;
         asymStatus.classList.add('confirm');
       }
     } else {
@@ -1647,6 +1709,18 @@
     const rA = renderConv(exchLayA, bookLayA, convAEl, convADet, convACard);
     const rB = renderConv(exchLayB, bookLayB, convBEl, convBDet, convBCard);
 
+    // Market-level headline: total sharp money on exchanges vs total book appetite
+    const exchTotal = exchLayA + exchLayB;
+    const bookTotal = bookLayA + bookLayB;
+    let totalsLine = '';
+    if (exchTotal > 0 && bookTotal > 0) {
+      const tr = exchTotal / bookTotal;
+      totalsLine = `<strong>${fmtDollar(exchTotal)}</strong> posted on exchanges vs <strong>${fmtDollar(bookTotal)}</strong> of book capacity (${tr >= 100 ? tr.toFixed(0) : tr.toFixed(2)}×)`
+        + (tr >= 1 ? ' — the sharp market out-sizes the books here. ' : '. ');
+    } else if (exchTotal > 0) {
+      totalsLine = `<strong>${fmtDollar(exchTotal)}</strong> posted on exchanges · no book capacity entered. `;
+    }
+
     // Status text - which side (if any) has the overflow?
     let convOverflow = null;
     if (rA !== null && rB !== null) {
@@ -1675,31 +1749,15 @@
       convStatus.classList.remove('overflow');
       convStatusText.innerHTML = '— · enter book limits and exchange depth to compare';
     }
+    if (totalsLine) convStatusText.innerHTML = totalsLine + convStatusText.innerHTML;
 
-    // ─── Output 03: Consensus Fair (weighted devig) ───
-    let weightedSumA = 0, weightedSumB = 0, totalWeight = 0;
-    SRC_LIST.forEach(src => {
-      const [fA, fB] = fairs[src];
-      if (fA !== null && fB !== null) {
-        const w = weightOf(src);
-        weightedSumA += fA * w;
-        weightedSumB += fB * w;
-        totalWeight += w;
-      }
-    });
+    // ─── Output 04: Consensus Fair (computed above, rendered here) ───
     const fairAEl = document.getElementById('fairA');
     const fairBEl = document.getElementById('fairB');
     const fairADet = document.getElementById('fairADetail');
     const fairBDet = document.getElementById('fairBDetail');
 
-    let consensusA = null, consensusB = null;
     if (totalWeight > 0) {
-      consensusA = weightedSumA / totalWeight;
-      consensusB = weightedSumB / totalWeight;
-      // Renormalize
-      const s = consensusA + consensusB;
-      consensusA = consensusA / s;
-      consensusB = consensusB / s;
       fairAEl.textContent = fmtAmerican(impliedToAmerican(consensusA));
       fairAEl.classList.remove('empty');
       fairBEl.textContent = fmtAmerican(impliedToAmerican(consensusB));
