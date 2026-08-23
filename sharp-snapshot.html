@@ -163,9 +163,28 @@
   .sources-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 14px;
+    gap: 18px;
     margin-bottom: 22px;
+    align-items: start;
   }
+  .source-col { display: flex; flex-direction: column; gap: 14px; }
+  .source-col-title {
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-size: 12px; font-weight: 700;
+    letter-spacing: .24em; text-transform: uppercase;
+    color: var(--text);
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border-soft);
+  }
+  .source-col-title .col-sub {
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    font-size: 10px; font-weight: 400; font-style: italic;
+    letter-spacing: 0; text-transform: none;
+    margin-left: 8px;
+  }
+  .source-col.books .source-col-title .col-sub { color: var(--blue); }
+  .source-col.exchanges .source-col-title .col-sub { color: var(--purple); }
+  .source-col .add-source-btn { width: 100%; }
   .source-card {
     background: var(--panel-deep);
     border: 1px solid var(--border-soft);
@@ -595,6 +614,7 @@
 
   @media (max-width: 820px) {
     .sources-grid { grid-template-columns: 1fr; }
+    .source-col { gap: 12px; }
   }
   @media (max-width: 600px) {
     .body { padding: 20px 14px; }
@@ -1009,9 +1029,9 @@
 
     <!-- Source input cards -->
     <div class="sources-grid">
-
-      <!-- PINNACLE -->
-      <div class="source-card book" data-source="pinnacle">
+      <div class="source-col books" id="colBooks">
+        <div class="source-col-title">Sharp Books<span class="col-sub">post limits</span></div>
+        <div class="source-card book" data-source="pinnacle">
         <div class="source-head">
           <span class="source-name">Pinnacle</span>
           <span class="source-tag">book limit</span>
@@ -1028,9 +1048,7 @@
         </div>
         <div class="source-derived empty" data-derived="pinnacle">No-vig fair: —</div>
       </div>
-
-      <!-- CIRCA -->
-      <div class="source-card book" data-source="circa">
+        <div class="source-card book" data-source="circa">
         <div class="source-head">
           <span class="source-name">Circa</span>
           <span class="source-tag">book limit</span>
@@ -1047,9 +1065,11 @@
         </div>
         <div class="source-derived empty" data-derived="circa">No-vig fair: —</div>
       </div>
-
-      <!-- PROPHETX -->
-      <div class="source-card exchange" data-source="prophetx">
+        <button type="button" class="add-source-btn" id="addBookBtn">+ Add sharp book</button>
+      </div>
+      <div class="source-col exchanges" id="colExch">
+        <div class="source-col-title">Exchanges<span class="col-sub">post depth</span></div>
+        <div class="source-card exchange" data-source="prophetx">
         <div class="source-head">
           <span class="source-name">ProphetX</span>
           <span class="source-tag">exchange depth</span>
@@ -1066,9 +1086,7 @@
         </div>
         <div class="source-derived empty" data-derived="prophetx">Translated sharp positions: —</div>
       </div>
-
-      <!-- NOVIG -->
-      <div class="source-card exchange" data-source="novig">
+        <div class="source-card exchange" data-source="novig">
         <div class="source-head">
           <span class="source-name">Novig</span>
           <span class="source-tag">exchange depth</span>
@@ -1085,10 +1103,8 @@
         </div>
         <div class="source-derived empty" data-derived="novig">Translated sharp positions: —</div>
       </div>
-
-    <div class="add-source-row">
-      <button type="button" class="add-source-btn" id="addBookBtn">+ Add sharp book</button>
-      <button type="button" class="add-source-btn" id="addExchBtn">+ Add exchange / prediction market</button>
+        <button type="button" class="add-source-btn" id="addExchBtn">+ Add exchange / prediction market</button>
+      </div>
     </div>
 
     </div>
@@ -1930,7 +1946,8 @@
       </div>
       <div class="source-derived empty" data-derived="${src}">${isBook ? 'Enter both sides to see no-vig fair' : 'Enter both sides + depth to see translation'}</div>`;
     div.querySelector('.source-remove').addEventListener('click', () => { div.remove(); recompute(); });
-    document.querySelector('.sources-grid').appendChild(div);
+    const col = document.getElementById(isBook ? 'colBooks' : 'colExch');
+    col.insertBefore(div, col.querySelector('.add-source-btn'));
     div.querySelector('.source-name-input').focus();
     recompute();
   }
