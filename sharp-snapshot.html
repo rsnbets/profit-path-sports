@@ -483,6 +483,14 @@
   }
   .imbalance-row .lbl { color: var(--dim); font-family: 'Space Grotesk', system-ui, sans-serif; font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; margin-right: 8px; }
   .imbalance-row .val { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-size: 20px; font-weight: 700; color: var(--purple); }
+  #riskRow .val { color: var(--text); font-size: 17px; }
+  .arb-note {
+    margin-top: 10px; padding: 10px 14px;
+    border: 1px dashed rgba(245,181,69,0.4); border-radius: 8px;
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    font-size: 12.5px; line-height: 1.55; color: var(--muted);
+  }
+  .arb-note strong { color: var(--yellow); }
 
   .consensus-grid {
     display: grid;
@@ -1133,6 +1141,13 @@
         <span class="lbl">Imbalance</span><span class="val" id="imbalanceVal">—</span>
         <span style="color: var(--muted); margin-left: 8px;" id="imbalanceText">— · waiting for exchange inputs</span>
       </div>
+
+      <div class="imbalance-row" id="riskRow" style="display:none;">
+        <span class="lbl">Risk-adjusted</span><span class="val" id="riskVal">—</span>
+        <span style="color: var(--muted); margin-left: 8px;" id="riskText"></span>
+      </div>
+
+      <div class="arb-note" id="arbNote" style="display:none;"></div>
     </div>
 
     <!-- OUTPUT 2: BOOK LIMIT ASYMMETRY -->
@@ -1247,7 +1262,7 @@
         <summary>The five outputs, decoded</summary>
         <div class="edu-body">
           <ul>
-            <li><strong>Sharp Translation</strong> — flips exchange offers to the sharp's actual position and tallies sharp capital per side, with the imbalance ratio.</li>
+            <li><strong>Sharp Translation</strong> — flips exchange offers to the sharp's actual position and tallies sharp capital per side, with the imbalance ratio. The <em>risk-adjusted</em> line recounts it by capital actually at risk (depth numbers are win-amounts — laying favorites costs more per dollar of depth). If venues point opposite ways the read is flagged and the verdict softens; opposite-side entries at prices summing under 100% get an <em>arb-compatible</em> warning — that flow may be an arber's two legs, not conviction.</li>
             <li><strong>Book Stance</strong> — two dialects, one question: which side is the book afraid of? The <em>lower-limit</em> side is the side it's protecting (Circa's language); when limits are balanced — Pinnacle's usual posture — the read falls back to <em>price lean</em>: whose probability the book prices above consensus. Books + exchanges agreeing = aligned signal; disagreeing = down-weight it.</li>
             <li><strong>Conviction Check</strong> — when exchange depth <em>exceeds</em> book limits, sharps wanted more capacity than the books would underwrite. Strong conviction; a leading indicator of line movement. The headline compares <em>total</em> exchange money to <em>total</em> book capacity for the market-level version of the same read.</li>
             <li><strong>Consensus Fair</strong> — weighted no-vig fair across the sources (Pinnacle and Novig weighted heaviest).</li>
@@ -1537,6 +1552,55 @@
     } else {
       imbVal.textContent = '—';
       imbTxt.textContent = '— · waiting for exchange inputs';
+    }
+
+    // ── Risk-adjusted tally: count the sharps' capital actually at risk,
+    // not the win-amounts the depth numbers represent. Backing at +P risks
+    // amt·100/P; at −P risks amt·|P|/100. Lopsided prices make the two
+    // tallies diverge — the dollar tally overstates the favorite-laying side.
+    function riskOf(x) { return x.price > 0 ? x.amt * 100 / x.price : x.amt * Math.abs(x.price) / 100; }
+    const riskA = sharpAAmts.reduce((acc, x) => acc + riskOf(x), 0);
+    const riskB = sharpBAmts.reduce((acc, x) => acc + riskOf(x), 0);
+    const riskRow = document.getElementById('riskRow');
+    let riskRatio = null, riskHeavy = null;
+    if (riskA > 0 && riskB > 0) {
+      riskRatio = riskA > riskB ? riskA / riskB : riskB / riskA;
+      riskHeavy = riskA > riskB ? 'A' : 'B';
+      riskRow.style.display = '';
+      document.getElementById('riskVal').textContent = riskRatio.toFixed(1) + '×';
+      document.getElementById('riskText').textContent =
+        `toward ${riskHeavy === 'A' ? sideAName : sideBName} · ${fmtDollar(Math.round(riskA))} vs ${fmtDollar(Math.round(riskB))} actually at risk`;
+    } else {
+      riskRow.style.display = 'none';
+    }
+
+    // ── Per-venue net lean: does each exchange, on its own, point the same
+    // way? Pooling hides genuine venue disagreement.
+    const venueLeans = [];
+    EXCH_LIST.forEach(src => {
+      const a = sharpAAmts.filter(x => x.src === src).reduce((s, x) => s + x.amt, 0);
+      const b = sharpBAmts.filter(x => x.src === src).reduce((s, x) => s + x.amt, 0);
+      if (a > 0 || b > 0) venueLeans.push({ src, name: displayName(src), side: a > b ? 'A' : (b > a ? 'B' : null) });
+    });
+    const leanSidesSeen = [...new Set(venueLeans.filter(v => v.side).map(v => v.side))];
+    const venuesDisagree = leanSidesSeen.length > 1;
+    if (venuesDisagree && imbalanceRatio !== null && isFinite(imbalanceRatio)) {
+      const parts = venueLeans.filter(v => v.side).map(v => `${v.name}: ${v.side === 'A' ? sideAName : sideBName}`);
+      imbTxt.textContent += ` — but venues disagree (${parts.join(' · ')}); treat the net as softer`;
+    }
+
+    // ── Arb-compatibility: money on BOTH sides whose marginal prices sum to
+    // under 100% implied can be one arber's two legs, not two opinions.
+    const arbNote = document.getElementById('arbNote');
+    arbNote.style.display = 'none';
+    if (sharpAAmts.length && sharpBAmts.length) {
+      const mA = sharpAAmts.reduce((w, x) => x.price < w.price ? x : w);
+      const mB = sharpBAmts.reduce((w, x) => x.price < w.price ? x : w);
+      const sumImp = americanToImplied(mA.price) + americanToImplied(mB.price);
+      if (sumImp < 1) {
+        arbNote.style.display = '';
+        arbNote.innerHTML = `<strong>⚠ Arb-compatible flow:</strong> the opposite-side entries (${fmtAmerican(mA.price)} / ${fmtAmerican(mB.price)} = ${(sumImp * 100).toFixed(1)}% implied) could be one arber's two legs across venues — some of this money may be spread-harvesting, not directional conviction.`;
+      }
     }
 
     // ─── Output 02: Book Limit Asymmetry (per-book confidence read) ───
@@ -1878,6 +1942,18 @@
       } else {
         vClass = 'flat'; vTitle = 'Balanced book';
         vBody = 'Sharp money is roughly balanced — no clear directional signal from exchange depth. Use the consensus fair price as your reference and shop soft books normally.';
+      }
+
+      // Venue disagreement softens the base read one tier — a net ratio built
+      // from exchanges pointing opposite ways is weaker than the same ratio
+      // with venues in agreement.
+      if (venuesDisagree && vClass !== 'flat') {
+        const demote = { strong: ['solid', 'Solid sharp signal'], solid: ['mild', 'Mild lean'], mild: ['flat', 'Balanced book'] };
+        const d = demote[vClass];
+        if (d) {
+          vClass = d[0]; vTitle = d[1] + ' · venues split';
+          vBody += ` <strong style="color: var(--yellow);">Heads up: the exchanges point opposite ways — the net imbalance overstates the agreement. Demoted one level.</strong>`;
+        }
       }
 
       // If conviction overflow aligns with the imbalance signal, escalate the verdict.
