@@ -1661,7 +1661,15 @@
         asymStatus.classList.add('confirm');
       }
     } else {
-      asymStatusText.innerHTML = 'Limits roughly balanced across books — no asymmetry signal.';
+      // Sub-threshold limit leans (1.15–1.5×): acknowledge the whisper so the
+      // card and the stance line never look like they disagree.
+      const hints = asymResults.filter(r => r.res && r.res.protectedSide && r.res.ratio >= 1.15 && r.res.ratio < 1.5);
+      if (hints.length) {
+        const parts = hints.map(r => `${esc(r.name)} hints <strong>${r.res.protectedSide === 'A' ? sideAName : sideBName}</strong> (${r.res.ratio.toFixed(2)}×)`);
+        asymStatusText.innerHTML = `No strong book signal — ${parts.join(', ')}, but below signal strength. A whisper, not a stance.`;
+      } else {
+        asymStatusText.innerHTML = 'Limits roughly balanced across books — no asymmetry signal.';
+      }
     }
 
     // ─── Output 03: Conviction Check (exchange depth vs book limits) ───
