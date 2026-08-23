@@ -778,6 +778,15 @@
   }
   .source-name-input:focus { outline: none; border-bottom-color: var(--cyan); }
   .source-name-input::placeholder { color: rgba(255,255,255,0.3); letter-spacing: 1px; font-weight: 500; text-transform: none; }
+  .tally-toggle {
+    display: inline-flex; align-items: center; gap: 4px;
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    font-size: 9px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--muted); cursor: pointer; user-select: none;
+  }
+  .tally-toggle input { accent-color: var(--purple); cursor: pointer; margin: 0; }
+  .source-card.tally-off { opacity: 0.75; }
+  .source-card.tally-off .source-derived { border-style: dashed; }
   .source-remove {
     background: none; border: none; cursor: pointer;
     color: rgba(255,255,255,0.35); font-size: 16px; line-height: 1; padding: 0 2px;
@@ -1081,6 +1090,7 @@
         <div class="source-head">
           <span class="source-name">ProphetX</span>
           <span class="source-tag">exchange depth</span>
+          <label class="tally-toggle" title="Count this venue's depth in the money tally"><input type="checkbox" checked data-tally>tally</label>
         </div>
         <div class="source-row">
           <span class="side-label" data-side="A">Side A</span>
@@ -1098,6 +1108,7 @@
         <div class="source-head">
           <span class="source-name">Novig</span>
           <span class="source-tag">exchange depth</span>
+          <label class="tally-toggle" title="Count this venue's depth in the money tally"><input type="checkbox" checked data-tally>tally</label>
         </div>
         <div class="source-row">
           <span class="side-label" data-side="A">Side A</span>
@@ -1383,6 +1394,10 @@
     if (v) return v;
     return card && card.classList.contains('book') ? 'Custom book' : 'Custom exchange';
   }
+  function inTally(src) {
+    const c = document.querySelector(`.source-card[data-source="${src}"] [data-tally]`);
+    return !c || c.checked;
+  }
   function esc(s) { return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
 
   function readSource(name) {
@@ -1425,6 +1440,8 @@
     // Per-source: compute implied + devig fairs, and render per-card derived
     const fairs = {}; // {source: [fairA, fairB]}
     SRC_LIST.forEach(src => {
+      const cardNode = document.querySelector(`.source-card[data-source="${src}"]`);
+      if (cardNode) cardNode.classList.toggle('tally-off', !inTally(src));
       const d = data[src];
       const pA = d.aOdds !== null ? americanToImplied(d.aOdds) : null;
       const pB = d.bOdds !== null ? americanToImplied(d.bOdds) : null;
@@ -1450,6 +1467,7 @@
           if (sharpOnA) html += `<span class="accent">${fmtDollar(sharpOnA.amt)} on ${sideAName} at ${fmtAmerican(sharpOnA.price)}</span>`;
           if (sharpOnA && sharpOnB) html += `<span class="lbl"> · </span>`;
           if (sharpOnB) html += `<span class="accent">${fmtDollar(sharpOnB.amt)} on ${sideBName} at ${fmtAmerican(sharpOnB.price)}</span>`;
+          if (!inTally(src)) html += ` <span class="lbl">· fair only — excluded from money tally</span>`;
           derived.innerHTML = html;
         } else {
           derived.innerHTML = `<span class="lbl">Fair:</span><span class="val">${fmtAmerican(fairAmerA)} / ${fmtAmerican(fairAmerB)}</span> <span class="lbl">vig:</span><span class="val">${vigPct}%</span>`;
@@ -1499,6 +1517,7 @@
     let sharpAAmts = []; // {amt, price}
     let sharpBAmts = [];
     EXCH_LIST.forEach(src => {
+      if (!inTally(src)) return;   // fair-only venue: devig counts, depth doesn't
       const d = data[src];
       // Exchange A-side depth → sharp on Side B at -aOdds
       if (d.aAmt !== null && d.aOdds !== null) sharpBAmts.push({ amt: d.aAmt, price: flipSign(d.aOdds), src });
@@ -1752,6 +1771,7 @@
     });
     let exchLayA = 0, exchLayB = 0;
     EXCH_LIST.forEach(src => {
+      if (!inTally(src)) return;
       const d = data[src];
       if (d.aAmt !== null) exchLayA += d.aAmt;
       if (d.bAmt !== null) exchLayB += d.bAmt;
@@ -1930,61 +1950,59 @@
       const sharpPriceStr = heavySide === 'A' && cheapestA ? fmtAmerican(cheapestA.price)
                          : heavySide === 'B' && cheapestB ? fmtAmerican(cheapestB.price)
                          : null;
+      // Verdict tiers compose numerically: base tier from the imbalance,
+      // then each modifier shifts it ±1 (clamped). The title and banner style
+      // are derived ONCE from the final tier, so they can never disagree.
+      const TIERS = [['flat', 'Balanced book'], ['mild', 'Mild lean'], ['solid', 'Solid sharp signal'], ['strong', 'Strong sharp signal']];
+      let tier;
       if (imbalanceRatio === Infinity || imbalanceRatio >= 5) {
-        vClass = 'strong'; vTitle = 'Strong sharp signal';
+        tier = 3;
         vBody = `Sharps are heavily on <strong>${heavySideName}</strong>. Cheapest sharp entry: ${sharpPriceStr}. Find <strong>${heavySideName}</strong> at <strong>${targetPriceStr}</strong> or better at a soft book — that's the cross-market EV bet.`;
       } else if (imbalanceRatio >= 2) {
-        vClass = 'solid'; vTitle = 'Solid sharp signal';
+        tier = 2;
         vBody = `Sharps want <strong>${heavySideName}</strong>. Cheapest sharp entry: ${sharpPriceStr}. Target: <strong>${targetPriceStr}</strong> or better at a soft book.`;
       } else if (imbalanceRatio >= 1.3) {
-        vClass = 'mild'; vTitle = 'Mild lean';
+        tier = 1;
         vBody = `Slight lean toward <strong>${heavySideName}</strong>. Cheapest sharp entry: ${sharpPriceStr}. Target ${targetPriceStr} or better, but the signal is weak — size accordingly.`;
       } else {
-        vClass = 'flat'; vTitle = 'Balanced book';
+        tier = 0;
         vBody = 'Sharp money is roughly balanced — no clear directional signal from exchange depth. Use the consensus fair price as your reference and shop soft books normally.';
       }
+      const mods = [];
 
-      // Venue disagreement softens the base read one tier — a net ratio built
-      // from exchanges pointing opposite ways is weaker than the same ratio
-      // with venues in agreement.
-      if (venuesDisagree && vClass !== 'flat') {
-        const demote = { strong: ['solid', 'Solid sharp signal'], solid: ['mild', 'Mild lean'], mild: ['flat', 'Balanced book'] };
-        const d = demote[vClass];
-        if (d) {
-          vClass = d[0]; vTitle = d[1] + ' · venues split';
-          vBody += ` <strong style="color: var(--yellow);">Heads up: the exchanges point opposite ways — the net imbalance overstates the agreement. Demoted one level.</strong>`;
-        }
+      // Venue disagreement: a net ratio built from exchanges pointing
+      // opposite ways is weaker than the same ratio in agreement. −1 tier.
+      if (venuesDisagree && tier > 0) {
+        tier--;
+        mods.push('venues split');
+        vBody += ` <strong style="color: var(--yellow);">Heads up: the exchanges point opposite ways — the net imbalance overstates the agreement.</strong>`;
       }
 
-      // If conviction overflow aligns with the imbalance signal, escalate the verdict.
-      // convOverflow = 'A' means exchange depth offered for backing A exceeds book limits on A,
-      // which translates to sharps laying A → wanting B. So convOverflow='A' aligns with
-      // heavySide='B' (and vice versa). They confirm each other when they're on OPPOSITE labels.
+      // Conviction overflow aligned with the flow: sharps overflowed the
+      // books' capacity on the side they're laying. +1 tier.
       if (convOverflow && (convOverflow !== heavySide || imbalanceRatio === Infinity)) {
         const overflowDisplaySide = convOverflow === 'A' ? sideAName : sideBName;
-        vClass = 'strong';
-        vTitle = vTitle === 'Strong sharp signal' ? 'Strong sharp signal · conviction overflow' : vTitle + ' · conviction overflow';
+        tier = Math.min(3, tier + 1);
+        mods.push('conviction overflow');
         vBody += ` <strong style="color: var(--yellow);">Plus: exchange depth available to back ${overflowDisplaySide} exceeds book limits — sharps wanted more lay-${overflowDisplaySide} capacity than the books would allow. High conviction; line movement likely.</strong>`;
       }
 
-      // Book limit asymmetry as a confidence modifier.
-      // Books protect the side they're afraid of → that's the inferred sharp-favored side.
-      // If the books' protected side matches heavySide, all signals align → escalate.
-      // If it disagrees, mixed signal → demote one level and flag.
+      // Book stance: confirms → +1, conflicts → −1.
       if (bookMeaningful) {
         if (bookProtectedSide === heavySide) {
-          if (vClass === 'mild') { vClass = 'solid'; vTitle = 'Solid sharp signal · books confirm'; }
-          else if (vClass === 'solid') { vClass = 'strong'; vTitle = 'Strong sharp signal · books confirm'; }
-          else if (vClass === 'strong' && !/books confirm/.test(vTitle)) { vTitle += ' · books confirm'; }
+          tier = Math.min(3, tier + 1);
+          mods.push('books confirm');
           vBody += ` <strong style="color: var(--cyan);">Books are protecting ${heavySideName} too — the limit asymmetry confirms the exchange flow.</strong>`;
         } else {
           const bookName = bookProtectedSide === 'A' ? sideAName : sideBName;
-          if (vClass === 'strong') { vClass = 'solid'; vTitle = 'Solid sharp signal · mixed book stance'; }
-          else if (vClass === 'solid') { vClass = 'mild'; vTitle = 'Mild lean · mixed book stance'; }
-          else if (vClass === 'mild') { vTitle = 'Mild lean · mixed book stance'; }
+          tier = Math.max(0, tier - 1);
+          mods.push('mixed book stance');
           vBody += ` <strong style="color: var(--red);">But the sharp books are protecting ${bookName}, not ${heavySideName} — mixed signal, down-weight the conviction.</strong>`;
         }
       }
+
+      vClass = TIERS[tier][0];
+      vTitle = TIERS[tier][1] + (mods.length ? ' · ' + mods.join(' · ') : '');
     } else if (bookMeaningful) {
       // No exchange flow, but books are leaning one way — emit a books-only lean.
       const protName = bookProtectedSide === 'A' ? sideAName : sideBName;
@@ -2016,6 +2034,7 @@
       <div class="source-head">
         <input type="text" class="source-name-input" placeholder="${isBook ? 'Book name (e.g. BetOnline)' : 'e.g. Kalshi, Polymarket'}" aria-label="Source name">
         <span class="source-tag">${isBook ? 'book limit' : 'exchange depth'}</span>
+        ${isBook ? '' : '<label class="tally-toggle" title="Count this venue\'s depth in the money tally"><input type="checkbox" checked data-tally>tally</label>'}
         <button type="button" class="source-remove" title="Remove this source">×</button>
       </div>
       <div class="source-row">
