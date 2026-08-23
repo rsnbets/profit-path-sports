@@ -732,6 +732,29 @@
   .next-step .ns-tool { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 11.5px; color: var(--muted); margin-top: 3px; }
   .next-step.lesson { border-color: rgba(0, 212, 255, 0.22); }
   .next-step.lesson .ns-title { color: var(--cyan); }
+  /* ── Custom sources: add/remove + editable names ── */
+  .add-source-row { display: flex; gap: 10px; flex-wrap: wrap; margin: 2px 0 18px; }
+  .add-source-btn {
+    background: transparent; cursor: pointer;
+    border: 1px dashed rgba(0,212,255,0.35); border-radius: 10px;
+    color: var(--cyan); font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    font-size: 12.5px; font-weight: 600; padding: 10px 16px;
+    transition: border-color .15s, background .15s;
+  }
+  .add-source-btn:hover { border-color: var(--cyan); background: rgba(0,212,255,0.06); }
+  .source-name-input {
+    background: transparent; border: none; border-bottom: 1px dashed rgba(255,255,255,0.25);
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-size: 13px; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--text); font-weight: 800; width: 55%; padding: 0 0 2px;
+  }
+  .source-name-input:focus { outline: none; border-bottom-color: var(--cyan); }
+  .source-name-input::placeholder { color: rgba(255,255,255,0.3); letter-spacing: 1px; font-weight: 500; text-transform: none; }
+  .source-remove {
+    background: none; border: none; cursor: pointer;
+    color: rgba(255,255,255,0.35); font-size: 16px; line-height: 1; padding: 0 2px;
+  }
+  .source-remove:hover { color: #FF6B6B; }
 </style>
 <link rel="stylesheet" href="/styles/sidebar.css">
 <link rel="stylesheet" href="/styles/topbar.css">
@@ -1063,6 +1086,11 @@
         <div class="source-derived empty" data-derived="novig">Translated sharp positions: —</div>
       </div>
 
+    <div class="add-source-row">
+      <button type="button" class="add-source-btn" id="addBookBtn">+ Add sharp book</button>
+      <button type="button" class="add-source-btn" id="addExchBtn">+ Add exchange / prediction market</button>
+    </div>
+
     </div>
 
     <!-- OUTPUT 1: SHARP TRANSLATION -->
@@ -1195,7 +1223,7 @@
       <details class="edu-pill">
         <summary>What is this reading, in plain English?</summary>
         <div class="edu-body">
-          <p>You see a row on <a href="https://picktheodds.app" target="_blank" rel="noopener">Pick the Odds</a> with prices and dollar amounts across Pinnacle, Circa, ProphetX, and Novig. Type those numbers into the cards above — the tool runs the full analysis: translation rule on the exchanges, devig on the books, consensus fair, and the target price to beat at a soft book.</p>
+          <p>You see a row on <a href="https://picktheodds.app" target="_blank" rel="noopener">Pick the Odds</a> with prices and dollar amounts across Pinnacle, Circa, ProphetX, and Novig. Type those numbers into the cards above — the tool runs the full analysis: translation rule on the exchanges, devig on the books, consensus fair, and the target price to beat at a soft book. Market quoted somewhere else too? <strong>+ Add</strong> more sources — another sharp book, or prediction markets like Kalshi and Polymarket — and they join every calculation.</p>
           <p><strong>The amounts mean different things:</strong> Pinnacle and Circa are <em>book limits</em> (the max they'll book at that line); ProphetX and Novig are <em>exchange depth</em> (real user-posted money). Leave any source blank if it isn't quoted.</p>
         </div>
       </details>
@@ -1301,11 +1329,30 @@
   // ────────────────────────────────────────────────────────────
   // State + Render
   // ────────────────────────────────────────────────────────────
-  const SOURCES = ['pinnacle', 'circa', 'prophetx', 'novig'];
-  const EXCHANGES = ['prophetx', 'novig'];
-  const BOOKS = ['pinnacle', 'circa'];
-  // Weights for consensus devig
+  // Sources are discovered from the DOM so "+ Add" cards join every
+  // calculation automatically. data-source is the unique key; the card's
+  // book/exchange class decides which math applies to it.
+  const FIXED_NAMES = { pinnacle: 'Pinnacle', circa: 'Circa', prophetx: 'ProphetX', novig: 'Novig' };
+  function srcCards() { return Array.from(document.querySelectorAll('.source-card')); }
+  function SOURCES() { return srcCards().map(c => c.dataset.source); }
+  function EXCHANGES() { return srcCards().filter(c => c.classList.contains('exchange')).map(c => c.dataset.source); }
+  function BOOKS() { return srcCards().filter(c => c.classList.contains('book')).map(c => c.dataset.source); }
+  // Weights for consensus devig; custom sources inherit their category's weight
   const WEIGHTS = { pinnacle: 5, circa: 5, prophetx: 3, novig: 3 };
+  function weightOf(src) {
+    if (WEIGHTS[src] !== undefined) return WEIGHTS[src];
+    const card = document.querySelector(`.source-card[data-source="${src}"]`);
+    return card && card.classList.contains('book') ? 5 : 3;
+  }
+  function displayName(src) {
+    if (FIXED_NAMES[src]) return FIXED_NAMES[src];
+    const card = document.querySelector(`.source-card[data-source="${src}"]`);
+    const inp = card && card.querySelector('.source-name-input');
+    const v = inp ? inp.value.trim() : '';
+    if (v) return v;
+    return card && card.classList.contains('book') ? 'Custom book' : 'Custom exchange';
+  }
+  function esc(s) { return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
 
   function readSource(name) {
     const card = document.querySelector(`.source-card[data-source="${name}"]`);
@@ -1339,13 +1386,14 @@
     document.getElementById('targetANameLabel').textContent = sideAName;
     document.getElementById('targetBNameLabel').textContent = sideBName;
 
-    // Read all sources
+    // Read all sources (fixed + any custom cards)
+    const SRC_LIST = SOURCES(), EXCH_LIST = EXCHANGES(), BOOK_LIST = BOOKS();
     const data = {};
-    SOURCES.forEach(src => { data[src] = readSource(src); });
+    SRC_LIST.forEach(src => { data[src] = readSource(src); });
 
     // Per-source: compute implied + devig fairs, and render per-card derived
     const fairs = {}; // {source: [fairA, fairB]}
-    SOURCES.forEach(src => {
+    SRC_LIST.forEach(src => {
       const d = data[src];
       const pA = d.aOdds !== null ? americanToImplied(d.aOdds) : null;
       const pB = d.bOdds !== null ? americanToImplied(d.bOdds) : null;
@@ -1353,7 +1401,7 @@
       fairs[src] = [fA, fB];
 
       const derived = document.querySelector(`[data-derived="${src}"]`);
-      const isExchange = EXCHANGES.includes(src);
+      const isExchange = EXCH_LIST.includes(src);
 
       if (fA !== null && fB !== null) {
         derived.classList.remove('empty');
@@ -1384,7 +1432,7 @@
     // ─── Output 01: Sharp Translation tally (exchanges only) ───
     let sharpAAmts = []; // {amt, price}
     let sharpBAmts = [];
-    EXCHANGES.forEach(src => {
+    EXCH_LIST.forEach(src => {
       const d = data[src];
       // Exchange A-side depth → sharp on Side B at -aOdds
       if (d.aAmt !== null && d.aOdds !== null) sharpBAmts.push({ amt: d.aAmt, price: flipSign(d.aOdds), src });
@@ -1444,20 +1492,28 @@
     // For each sharp book with both sides' limits filled, compute ratio and
     // identify the LOWER-limit side as the "protected" side — the side the
     // book is protecting itself from. That's the inferred sharp-favored side.
-    function readBookAsymmetry(srcKey, ratioElId, detailElId, limitsElId, cardElId) {
+    // The grid is rebuilt from the current book list each pass so custom
+    // books get their own asymmetry card automatically.
+    const asymGrid = document.querySelector('.asymmetry-grid');
+    asymGrid.innerHTML = BOOK_LIST.map(src => `
+      <div class="asymmetry-card" data-asym="${src}">
+        <div class="a-label">${esc(displayName(src))}</div>
+        <div class="a-limits">—</div>
+        <div class="a-ratio empty">—</div>
+        <div class="a-detail">— enter both sides to read stance</div>
+      </div>`).join('');
+
+    function readBookAsymmetry(srcKey) {
       const d = data[srcKey];
-      const ratioEl = document.getElementById(ratioElId);
-      const detailEl = document.getElementById(detailElId);
-      const limitsEl = document.getElementById(limitsElId);
-      const cardEl = document.getElementById(cardElId);
+      const cardEl = asymGrid.querySelector(`[data-asym="${srcKey}"]`);
+      const ratioEl = cardEl.querySelector('.a-ratio');
+      const detailEl = cardEl.querySelector('.a-detail');
+      const limitsEl = cardEl.querySelector('.a-limits');
       const aAmt = d.aAmt, bAmt = d.bAmt;
       if (aAmt === null || bAmt === null || aAmt <= 0 || bAmt <= 0) {
-        ratioEl.textContent = '—'; ratioEl.classList.add('empty'); ratioEl.classList.remove('flag');
-        cardEl.classList.remove('protected-flag');
         if (aAmt !== null && aAmt > 0) limitsEl.innerHTML = `${fmtDollar(aAmt)} / —`;
         else if (bAmt !== null && bAmt > 0) limitsEl.innerHTML = `— / ${fmtDollar(bAmt)}`;
         else limitsEl.innerHTML = '—';
-        detailEl.textContent = '— enter both sides to read stance';
         return null;
       }
       const ratio = Math.max(aAmt, bAmt) / Math.min(aAmt, bAmt);
@@ -1485,38 +1541,34 @@
       return { protectedSide, ratio };
     }
 
-    const asymPinn  = readBookAsymmetry('pinnacle', 'asymPinnRatio', 'asymPinnDetail', 'asymPinnLimits', 'asymPinnacle');
-    const asymCirca = readBookAsymmetry('circa',    'asymCircaRatio','asymCircaDetail','asymCircaLimits','asymCirca');
+    const asymResults = BOOK_LIST.map(src => ({ src, name: displayName(src), res: readBookAsymmetry(src) }));
 
-    // Cross-book + cross-signal agreement
+    // Cross-book + cross-signal agreement, generalized to any number of books
     const asymStatus = document.getElementById('asymStatus');
     const asymStatusText = document.getElementById('asymStatusText');
     asymStatus.classList.remove('confirm', 'conflict');
 
-    const meaningful = (x) => x && x.ratio >= 1.5;
+    const withData = asymResults.filter(r => r.res !== null);
+    const meaningfulOnes = asymResults.filter(r => r.res && r.res.ratio >= 1.5);
+    const protectedSides = [...new Set(meaningfulOnes.map(r => r.res.protectedSide))];
     let bookProtectedSide = null;
     let bookMeaningful = false;
-    if (meaningful(asymPinn) && meaningful(asymCirca)) {
-      if (asymPinn.protectedSide === asymCirca.protectedSide) {
-        bookProtectedSide = asymPinn.protectedSide;
-        bookMeaningful = true;
-      }
-    } else if (meaningful(asymPinn)) {
-      bookProtectedSide = asymPinn.protectedSide; bookMeaningful = true;
-    } else if (meaningful(asymCirca)) {
-      bookProtectedSide = asymCirca.protectedSide; bookMeaningful = true;
+    if (meaningfulOnes.length > 0 && protectedSides.length === 1) {
+      bookProtectedSide = protectedSides[0];
+      bookMeaningful = true;
     }
 
-    if (asymPinn === null && asymCirca === null) {
+    if (withData.length === 0) {
       asymStatusText.innerHTML = '— · enter book limits on both sides to read book stance';
-    } else if (meaningful(asymPinn) && meaningful(asymCirca) && asymPinn.protectedSide !== asymCirca.protectedSide) {
-      const pName = asymPinn.protectedSide === 'A' ? sideAName : sideBName;
-      const cName = asymCirca.protectedSide === 'A' ? sideAName : sideBName;
-      asymStatusText.innerHTML = `Books <strong>disagree</strong> — Pinnacle protects <strong>${pName}</strong>, Circa protects <strong>${cName}</strong>. No clean book signal — fall back to exchange flow + consensus fair.`;
+    } else if (meaningfulOnes.length >= 2 && protectedSides.length > 1) {
+      const parts = meaningfulOnes.map(r => `${esc(r.name)} protects <strong>${r.res.protectedSide === 'A' ? sideAName : sideBName}</strong>`);
+      asymStatusText.innerHTML = `Books <strong>disagree</strong> — ${parts.join(', ')}. No clean book signal — fall back to exchange flow + consensus fair.`;
       asymStatus.classList.add('conflict');
     } else if (bookMeaningful) {
       const protName = bookProtectedSide === 'A' ? sideAName : sideBName;
-      const preface = (meaningful(asymPinn) && meaningful(asymCirca)) ? 'Both books are' : (meaningful(asymPinn) ? 'Pinnacle is' : 'Circa is');
+      const preface = meaningfulOnes.length > 1
+        ? (meaningfulOnes.length === withData.length ? 'All books are' : 'Multiple books are')
+        : `${esc(meaningfulOnes[0].name)} is`;
       if (heavySide !== null) {
         if (heavySide === bookProtectedSide) {
           asymStatusText.innerHTML = `${preface} protecting <strong>${protName}</strong> — and the exchange flow agrees. <strong>All signals align on ${protName}.</strong>`;
@@ -1543,13 +1595,13 @@
     document.getElementById('convBNameLabel').textContent = sideBName;
 
     let bookLayA = 0, bookLayB = 0;
-    BOOKS.forEach(src => {
+    BOOK_LIST.forEach(src => {
       const d = data[src];
       if (d.aAmt !== null) bookLayA += d.aAmt;
       if (d.bAmt !== null) bookLayB += d.bAmt;
     });
     let exchLayA = 0, exchLayB = 0;
-    EXCHANGES.forEach(src => {
+    EXCH_LIST.forEach(src => {
       const d = data[src];
       if (d.aAmt !== null) exchLayA += d.aAmt;
       if (d.bAmt !== null) exchLayB += d.bAmt;
@@ -1626,10 +1678,10 @@
 
     // ─── Output 03: Consensus Fair (weighted devig) ───
     let weightedSumA = 0, weightedSumB = 0, totalWeight = 0;
-    SOURCES.forEach(src => {
+    SRC_LIST.forEach(src => {
       const [fA, fB] = fairs[src];
       if (fA !== null && fB !== null) {
-        const w = WEIGHTS[src];
+        const w = weightOf(src);
         weightedSumA += fA * w;
         weightedSumB += fB * w;
         totalWeight += w;
@@ -1652,8 +1704,8 @@
       fairAEl.classList.remove('empty');
       fairBEl.textContent = fmtAmerican(impliedToAmerican(consensusB));
       fairBEl.classList.remove('empty');
-      fairADet.textContent = `${(consensusA * 100).toFixed(2)}% · weighted across ${SOURCES.filter(s => fairs[s][0] !== null).length} sharp sources`;
-      fairBDet.textContent = `${(consensusB * 100).toFixed(2)}% · weighted across ${SOURCES.filter(s => fairs[s][0] !== null).length} sharp sources`;
+      fairADet.textContent = `${(consensusA * 100).toFixed(2)}% · weighted across ${SRC_LIST.filter(s => fairs[s][0] !== null).length} sharp sources`;
+      fairBDet.textContent = `${(consensusB * 100).toFixed(2)}% · weighted across ${SRC_LIST.filter(s => fairs[s][0] !== null).length} sharp sources`;
     } else {
       fairAEl.textContent = '—'; fairAEl.classList.add('empty');
       fairBEl.textContent = '—'; fairBEl.classList.add('empty');
@@ -1788,10 +1840,44 @@
     verdictBody.innerHTML = vBody;
   }
 
-  // Wire up all inputs to live-recompute
-  document.querySelectorAll('input').forEach(inp => {
-    inp.addEventListener('input', recompute);
+  // Live-recompute on any input, including cards added later (delegated)
+  document.addEventListener('input', e => {
+    if (e.target && e.target.tagName === 'INPUT') recompute();
   });
+
+  // ── "+ Add" custom source cards ──
+  let customSeq = 0;
+  function addSourceCard(kind) {
+    customSeq++;
+    const src = 'custom' + customSeq;
+    const isBook = kind === 'book';
+    const div = document.createElement('div');
+    div.className = 'source-card ' + kind;
+    div.dataset.source = src;
+    div.innerHTML = `
+      <div class="source-head">
+        <input type="text" class="source-name-input" placeholder="${isBook ? 'Book name (e.g. BetOnline)' : 'e.g. Kalshi, Polymarket'}" aria-label="Source name">
+        <span class="source-tag">${isBook ? 'book limit' : 'exchange depth'}</span>
+        <button type="button" class="source-remove" title="Remove this source">×</button>
+      </div>
+      <div class="source-row">
+        <span class="side-label" data-side="A">Side A</span>
+        <input type="text" inputmode="numeric" class="odds-input" data-field="aOdds" placeholder="−110">
+        <div class="with-prefix"><input type="text" inputmode="numeric" class="amt-input" data-field="aAmt" placeholder="${isBook ? 'limit' : 'depth'}"></div>
+      </div>
+      <div class="source-row">
+        <span class="side-label" data-side="B">Side B</span>
+        <input type="text" inputmode="numeric" class="odds-input" data-field="bOdds" placeholder="−110">
+        <div class="with-prefix"><input type="text" inputmode="numeric" class="amt-input" data-field="bAmt" placeholder="${isBook ? 'limit' : 'depth'}"></div>
+      </div>
+      <div class="source-derived empty" data-derived="${src}">${isBook ? 'Enter both sides to see no-vig fair' : 'Enter both sides + depth to see translation'}</div>`;
+    div.querySelector('.source-remove').addEventListener('click', () => { div.remove(); recompute(); });
+    document.querySelector('.sources-grid').appendChild(div);
+    div.querySelector('.source-name-input').focus();
+    recompute();
+  }
+  document.getElementById('addBookBtn').addEventListener('click', () => addSourceCard('book'));
+  document.getElementById('addExchBtn').addEventListener('click', () => addSourceCard('exchange'));
 
   // Initial
   recompute();
