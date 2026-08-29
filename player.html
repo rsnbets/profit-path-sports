@@ -943,7 +943,7 @@ function renderClearRates(){
   document.getElementById('clearLabel').innerHTML=(SIDE
     ?'How often he stays UNDER '+LINE+' '+esc(PROP.label.toLowerCase())
     :'How often he clears O'+LINE+' '+esc(PROP.label.toLowerCase()))
-    +' <span class="win-hint">· tap a window to chart it</span>';
+    +' <span class="win-hint">· tap a window to chart it'+(kind==='pit'?' · starts only — relief cameos excluded':'')+'</span>';
   document.getElementById('winGrid').innerHTML=windows.map(([key,lbl,rows])=>{
     const cr=clearRate(rows,kind);
     const cls=!cr?'':cr.pct>=0.6?'good':cr.pct<=0.4?'bad':'';
