@@ -754,6 +754,17 @@ document.querySelectorAll('#viewSeg button').forEach(b=>b.addEventListener('clic
   document.querySelectorAll('#viewSeg button').forEach(x=>x.classList.toggle('active',x===b));
   render();
 }));
+
+// A tab left open for days keeps showing the world as of load time — stale
+// stats AND a stale matchup, which for a betting tool is a correctness bug.
+// On refocus after an hour away, reload for a fresh snapshot (the URL and
+// controls carry the view; an active tab is never interrupted).
+(function(){
+  var loadedAt=Date.now();
+  document.addEventListener('visibilitychange',function(){
+    if(document.visibilityState==='visible'&&Date.now()-loadedAt>60*60*1000) location.reload();
+  });
+})();
 boot();
 </script>
 </body>

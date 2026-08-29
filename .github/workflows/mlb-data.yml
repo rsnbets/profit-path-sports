@@ -7,7 +7,7 @@ name: Build MLB data
 on:
   schedule:
     # 09:00 UTC = 5am ET — after every West Coast game is final, before the site's morning traffic
-    - cron: '0 9 * * *'
+    - cron: '0 9,12 * * *'
   workflow_dispatch:
 
 permissions:
@@ -34,4 +34,6 @@ jobs:
           git add data/
           git diff --cached --quiet && echo "No changes" && exit 0
           git commit -m "Daily MLB data refresh"
+          # a delayed cron can land inside the lineups bot's window
+          git pull --rebase origin main
           git push

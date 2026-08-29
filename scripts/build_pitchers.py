@@ -42,7 +42,7 @@ def main():
         if p:
             prev[str(pid)] = {"name": sh["name"], "starts": p}
 
-    now = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    now = index["generatedAt"]   # derived data is exactly as fresh as its source
     for path, season, pitchers in (
             (os.path.join(ROOT, "pitchers.json"), index["season"], cur),
             (os.path.join(ROOT, "pitchers_prev.json"), index["prevSeason"], prev)):

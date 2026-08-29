@@ -293,8 +293,18 @@ def main():
             os.remove(os.path.join(SHARD_DIR, fn))
             pruned += 1
 
+    generated_at = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    if changed == 0 and pruned == 0:
+        # Nothing moved (retry run, or an off day) — keep the previous
+        # timestamp so the whole snapshot stays byte-identical and the
+        # workflow's commit step no-ops.
+        try:
+            with open(INDEX_PATH) as f:
+                generated_at = json.load(f)["generatedAt"]
+        except Exception:
+            pass
     index = {
-        "generatedAt": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+        "generatedAt": generated_at,
         "season": SEASON, "prevSeason": PREV,
         "batFields": BAT_FIELDS, "pitFields": PIT_FIELDS,
         "batSplit": BAT_SPLIT, "pitSplit": PIT_SPLIT, "splitCodes": SPLIT_CODES,

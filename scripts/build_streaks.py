@@ -127,7 +127,7 @@ def main():
               f"{players[0]['streak'] if players else 0}")
 
     out = {
-        "generatedAt": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+        "generatedAt": index["generatedAt"],   # derived data is exactly as fresh as its source
         "season": index["season"],
         "playerCount": len(shards),
         "markets": markets,
