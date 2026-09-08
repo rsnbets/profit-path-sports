@@ -1,4 +1,4 @@
-name: Build MLB data
+name: Build MLB + NFL data
 
 # Both datasets come from the same free MLB Stats API and only change once the
 # day's games are final, so they share one daily job — two workflows on the same
@@ -27,6 +27,10 @@ jobs:
         run: python scripts/build_streaks.py
       - name: Derive pitchers.json (starting-pitcher board)
         run: python scripts/build_pitchers.py
+      - name: Build NFL player database (nflverse pull)
+        run: python scripts/build_nfl_playerdb.py
+      - name: Derive NFL streaks
+        run: python scripts/build_nfl_streaks.py
       - name: Commit if changed
         run: |
           git config user.name "mlb-data-bot"
