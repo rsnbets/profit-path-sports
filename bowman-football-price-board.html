@@ -86,6 +86,36 @@ td.names{color:var(--muted);font-size:12.5px;max-width:270px;font-family:var(--d
 .footer a{color:var(--muted);text-decoration:none}
 .footer a:hover{color:var(--cyan)}
 @media (max-width:560px){.avg{margin-left:0;width:100%;text-align:left}}
+
+/* ── combo builder ── */
+.sum{background:var(--surface);border:1px solid var(--green-border);border-radius:12px;padding:16px 18px;display:grid;gap:12px}
+.sum.empty{border-color:var(--border-2)}
+.sum-top{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.sum-title{font:700 15px var(--display);letter-spacing:-.01em}
+.sum-title b{color:var(--green)}
+.sum-clear{margin-left:auto;font:600 10.5px var(--data);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);background:transparent;border:1px solid var(--border-2);border-radius:6px;padding:5px 11px;cursor:pointer;transition:all .15s}
+.sum-clear:hover{color:var(--red);border-color:var(--red-border)}
+.sum-grid{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(118px,1fr))}
+.stat{display:grid;gap:3px}
+.stat .k{font:600 9.5px var(--data);letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
+.stat .v{font:600 19px var(--data);font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.stat .v.g{color:var(--green)} .stat .v.c{color:var(--cyan)}
+.stat .sub{font:400 11px var(--data);color:var(--muted)}
+.sum-names{font:400 12px var(--data);color:var(--muted);line-height:1.5}
+.sum-names b{color:var(--text);font-weight:600}
+.sum-hint{font:400 12.5px var(--data);color:var(--dim);line-height:1.5}
+td.pick,th.pick{width:34px;padding-left:14px;padding-right:0}
+input[type=checkbox]{appearance:none;width:15px;height:15px;border:1px solid var(--border-2);border-radius:4px;background:var(--surface-2);cursor:pointer;display:grid;place-content:center;margin:0}
+input[type=checkbox]:checked{background:var(--green-dim);border-color:var(--green-border)}
+input[type=checkbox]:checked::after{content:'';width:8px;height:8px;background:var(--green);clip-path:polygon(14% 44%,0 60%,39% 100%,100% 18%,84% 2%,39% 67%)}
+input[type=checkbox]:focus-visible{outline:2px solid var(--cyan);outline-offset:1px}
+tr.grouprow td{background:var(--surface-2);border-bottom:1px solid var(--border-2);padding-top:11px;padding-bottom:11px}
+tr.grouprow:hover td{background:var(--surface-3)}
+tr.grouprow .gname{font:700 12px var(--display);letter-spacing:.02em}
+tr.grouprow .gmeta{font:500 11px var(--data);color:var(--dim)}
+tr.sel td{background:rgba(77,255,120,0.05)}
+tr.sel:hover td{background:rgba(77,255,120,0.08)}
+td.team{font-weight:600}
 </style>
 <link rel="stylesheet" href="/styles/sidebar.css">
 <link rel="stylesheet" href="/styles/topbar.css">
@@ -324,7 +354,7 @@ td.names{color:var(--muted);font-size:12.5px;max-width:270px;font-family:var(--d
 
   <div>
     <h1>2026 Bowman Football <span>Price Board</span></h1>
-    <p class="tagline">What each spot is worth in a 37-spot break — all 32 NFL teams plus SEC, Big Ten, Big 12, ACC and All Others. Built from the official checklist. Type the breaker's total and every target rescales. Buy at or under the green number.</p>
+    <p class="tagline">What each spot is worth, built from the official checklist. The standard break is 37 spots — all 32 NFL teams plus SEC, Big Ten, Big 12, ACC and All Others — but every school is priced on its own, so you can tick any set of them and price a custom bundle as one spot. Type the breaker's total and every target rescales. Buy at or under the green number.</p>
   </div>
 
   <div class="controls">
@@ -335,10 +365,20 @@ td.names{color:var(--muted);font-size:12.5px;max-width:270px;font-family:var(--d
     <div class="avg"><span>Random spot fair <b id="rnd">$81</b></span><span>Buy below <b class="lo" id="rndlow">$65</b></span></div>
   </div>
 
+  <div class="sum empty" id="sum">
+    <div class="sum-top">
+      <div class="sum-title" id="sumTitle">Tick any spots to build a combo</div>
+      <button class="sum-clear" id="sumClear" type="button">Clear</button>
+    </div>
+    <div class="sum-grid" id="sumGrid"></div>
+    <div class="sum-names" id="sumNames"></div>
+  </div>
+
   <div class="tablewrap">
     <table id="board">
       <thead><tr>
-        <th>Spot</th><th>Tier</th><th class="num">Base</th><th class="num">Inserts</th><th class="num">Autos</th><th class="num">Share</th><th class="num">Fair</th><th class="num">Buy below</th><th>Who drives it</th><th>Read</th>
+        <th class="pick"></th><th>Spot</th><th class="num">Base</th><th class="num">Inserts</th><th class="num">Autos</th>
+        <th class="num">Cards</th><th class="num">Share</th><th class="num">Fair</th><th class="num">Buy below</th><th>Who drives it</th>
       </tr></thead>
       <tbody id="rows"></tbody>
     </table>
@@ -347,7 +387,7 @@ td.names{color:var(--muted);font-size:12.5px;max-width:270px;font-family:var(--d
   <div class="notes">
     <div class="note"><h3>Conference spots are the big ones</h3><p>Half this product is college prospects with no NFL team, so breaks sell them as conference spots. SEC, Big Ten, Big 12 and ACC take about 43% of the break between them — a single SEC spot is worth roughly five NFL team spots and eighteen Packers spots.</p></div>
     <div class="note"><h3>Autos carry it</h3><p>926 of the 2,139 cards in the checklist are autographs, and they are spread far more evenly than the base sets. That flattens the NFL spots: the gap from the best NFL team to the worst is about 3×, where a baseball board runs 25×. Most NFL spots are closer in value than they look.</p></div>
-    <div class="note"><h3>Set the breaker total</h3><p>Add up every spot the breaker is selling and type that number in — the whole board rescales to it. The $3,000 default is a placeholder, not a market price. For auctioned randoms, ignore it and bid against share: a conference spot at NFL-team money is the clearest value in this product.</p></div>
+    <div class="note"><h3>Custom bundles</h3><p>Breakers often split the college side into their own groups rather than clean conferences. Tick the schools in a group — or a whole conference with its header box — and the panel prices that bundle as one spot: share, fair price, card and player counts, and how often a card in the product belongs to you. Your selection is remembered on this device.</p></div><div class="note"><h3>Set the breaker total</h3><p>Add up every spot the breaker is selling and type that number in — the whole board rescales to it. The $3,000 default is a placeholder, not a market price. For auctioned randoms, bid against share: a conference spot at NFL-team money is the clearest value in this product.</p></div>
   </div>
 
   <p class="foot">Shares are card counts from the official Topps checklist, weighted base 1 / insert 3 / auto 25. Raw and weighted shares agree within 0.4 points, so the ranking is not sensitive to those weights. Unlike the Cosmic Chrome board, these are not adjusted for prospect hype. Conference mapping uses 2026 membership — Oregon and Washington are Big Ten, Cal and Stanford are ACC, and the rebuilt Pac-12 sits in All Others along with Notre Dame. Odds reflect the Hobby configuration.</p>
@@ -358,60 +398,99 @@ td.names{color:var(--muted);font-size:12.5px;max-width:270px;font-family:var(--d
 </div>
 
 <script>
-const teams=[
- ["SEC", 1, 98, 66, 120, 13.09, "LaNorris Sellers, Kamario Taylor, Kewan Lacy", "hot", "Biggest spot in the break — 120 autos, more than any two NFL spots."],
- ["Big Ten", 1, 106, 45, 111, 11.98, "Jayden Maiava, Josh Hoover, Demond Williams Jr.", "hot", "Within a point of the SEC. 111 autos."],
- ["Big 12", 1, 78, 39, 91, 9.81, "Bear Bachmeier, Drew Mestemaker, Chase Jenkins", "", "91 autos. Arizona, ASU, Utah and Colorado land here now."],
- ["ACC", 1, 70, 26, 76, 8.13, "Jaron-Keawe Sagapolutele, Darian Mensah, T.J. Moore", "", "Cheapest of the four power spots. Cal, Stanford and SMU are ACC now."],
- ["All Others", 2, 50, 13, 55, 5.81, "CJ Carr, Nick Minicucci, Lunch Winfield", "", "Notre Dame is 34 of these 118 cards — effectively a ND spot."],
- ["Jets", 2, 14, 14, 23, 2.51, "Cade Klubnik, Kenyon Sadiq, David Bailey", "hot", "23 autos, most of any NFL spot."],
- ["49ers", 2, 15, 11, 22, 2.37, "De'Zhaun Stribling, Christian McCaffrey, Brock Purdy", "", "22 autos across 48 cards."],
- ["Steelers", 2, 18, 11, 21, 2.29, "Drew Allar, Germie Bernard, Aaron Rodgers", "", "21 autos across 50 cards."],
- ["Browns", 2, 18, 8, 19, 2.05, "KC Concepcion, Denzel Boston, Taylen Green", "", "19 autos across 45 cards."],
- ["Titans", 3, 14, 12, 18, 1.99, "Carnell Tate, Cam Ward, Nick Singleton", "", "18 autos across 44 cards."],
- ["Giants", 3, 14, 11, 18, 1.97, "Jaxson Dart, Arvell Reese, Malik Nabers", "", "18 autos across 43 cards."],
- ["Broncos", 3, 16, 3, 18, 1.89, "Jonah Coleman, Bo Nix, RJ Harvey", "", "18 autos across 37 cards."],
- ["Eagles", 3, 12, 8, 17, 1.83, "Makai Lemon, DeVonta Smith, Cole Payton", "", "17 autos across 37 cards."],
- ["Ravens", 3, 14, 6, 17, 1.81, "Ja'Kobi Lane, Derrick Henry, Lamar Jackson", "", "17 autos across 37 cards."],
- ["Rams", 3, 12, 11, 16, 1.77, "Ty Simpson, Puka Nacua, Max Klare", "", "16 autos across 39 cards."],
- ["Chiefs", 3, 16, 17, 15, 1.76, "Garrett Nussmeier, Patrick Mahomes II, Mansoor Delane", "", "15 autos across 48 cards."],
- ["Cowboys", 3, 14, 7, 16, 1.73, "Caleb Downs, Dak Prescott, George Pickens", "", "16 autos across 37 cards."],
- ["Cardinals", 3, 10, 14, 15, 1.7, "Jeremiyah Love, Carson Beck, Trey McBride", "", "15 autos across 39 cards."],
- ["Dolphins", 3, 11, 3, 16, 1.67, "Chris Bell, De'Von Achane, Caleb Douglas", "sleeper", "16 of 30 cards are autos — thin base, top-heavy."],
- ["Colts", 3, 14, 1, 16, 1.66, "Tyler Warren, Deion Burks, Seth McGowan", "", "16 autos across 31 cards."],
- ["Bills", 3, 12, 9, 15, 1.64, "Josh Allen, Skyler Bell, Keon Coleman", "", "15 autos across 36 cards."],
- ["Panthers", 3, 10, 4, 15, 1.58, "Bryce Young, Chris Brazzell II, Tetairoa McMillan", "", "15 autos across 29 cards."],
- ["Jaguars", 3, 14, 2, 15, 1.57, "Brian Thomas Jr., Trevor Lawrence, Cam Little", "", "15 autos across 31 cards."],
- ["Raiders", 3, 12, 10, 14, 1.56, "Fernando Mendoza, Ashton Jeanty, Brock Bowers", "", "14 autos across 36 cards."],
- ["Bears", 3, 12, 4, 14, 1.49, "Caleb Williams, Rome Odunze, Luther Burden III", "", "14 autos across 30 cards."],
- ["Commanders", 3, 10, 4, 14, 1.48, "Sonny Styles, Jayden Daniels, Antonio Williams", "", "14 autos across 28 cards."],
- ["Bengals", 3, 14, 5, 13, 1.41, "Joe Burrow, Chase Brown, Colbie Young", "", "13 autos across 32 cards."],
- ["Seahawks", 3, 8, 7, 13, 1.41, "Jadarian Price, Jaxon Smith-Njigba, Sam Darnold", "", "13 autos across 28 cards."],
- ["Falcons", 4, 16, 5, 12, 1.31, "Zachariah Branch, Drake London, Tua Tagovailoa", "", "12 autos across 33 cards."],
- ["Patriots", 4, 12, 5, 12, 1.3, "Drake Maye, TreVeyon Henderson, Behren Morton", "", "12 autos across 29 cards."],
- ["Lions", 4, 10, 3, 12, 1.27, "Jahmyr Gibbs, Jared Goff, Blake Miller", "avoid", "Just 25 cards in the whole product."],
- ["Vikings", 4, 9, 5, 11, 1.19, "Justin Jefferson, Demond Claiborne, Jake Golday", "avoid", "Just 25 cards in the whole product."],
- ["Saints", 4, 9, 9, 10, 1.14, "Jordyn Tyson, Tyler Shough, Bryce Lance", "", "10 autos across 28 cards."],
- ["Texans", 4, 10, 0, 11, 1.13, "CJ Stroud, Marlin Klein, Kayden McDonald", "avoid", "Just 21 cards in the whole product."],
- ["Buccaneers", 4, 10, 7, 10, 1.12, "Rueben Bain Jr., Ted Hurst, Emeka Egbuka", "", "10 autos across 27 cards."],
- ["Chargers", 4, 10, 4, 9, 0.98, "Brenen Thompson, Justin Herbert, Ladd McConkey", "avoid", "Just 23 cards in the whole product."],
- ["Packers", 4, 10, 2, 6, 0.66, "Dani Dennis-Sutton, Micah Parsons, Kyle McCord", "avoid", "Only 6 autos, fewest in the product."]
-];
-const sum=teams.reduce((a,t)=>a+t[5],0);
+const DATA={"rows":[["Jets","NFL",14,14,23,631,11,"Cade Klubnik, Kenyon Sadiq, David Bailey"],["49ers","NFL",15,11,22,598,15,"De'Zhaun Stribling, Christian McCaffrey, Brock Purdy"],["Steelers","NFL",18,11,21,576,14,"Drew Allar, Germie Bernard, Aaron Rodgers"],["Browns","NFL",18,8,19,517,11,"KC Concepcion, Denzel Boston, Taylen Green"],["Titans","NFL",14,12,18,500,12,"Carnell Tate, Cam Ward, Nick Singleton"],["Giants","NFL",14,11,18,497,9,"Jaxson Dart, Arvell Reese, Malik Nabers"],["Broncos","NFL",16,3,18,475,10,"Jonah Coleman, Bo Nix, RJ Harvey"],["Eagles","NFL",12,8,17,461,11,"Makai Lemon, DeVonta Smith, Cole Payton"],["Ravens","NFL",14,6,17,457,12,"Ja'Kobi Lane, Derrick Henry, Lamar Jackson"],["Rams","NFL",12,11,16,445,8,"Ty Simpson, Puka Nacua, Max Klare"],["Chiefs","NFL",16,17,15,442,12,"Garrett Nussmeier, Patrick Mahomes II, Mansoor Delane"],["Cowboys","NFL",14,7,16,435,11,"Caleb Downs, Dak Prescott, George Pickens"],["Cardinals","NFL",10,14,15,427,10,"Jeremiyah Love, Carson Beck, Trey McBride"],["Dolphins","NFL",11,3,16,420,11,"Chris Bell, De'Von Achane, Caleb Douglas"],["Colts","NFL",14,1,16,417,14,"Tyler Warren, Deion Burks, Seth McGowan"],["Bills","NFL",12,9,15,414,9,"Josh Allen, Skyler Bell, Keon Coleman"],["Panthers","NFL",10,4,15,397,12,"Bryce Young, Chris Brazzell II, Tetairoa McMillan"],["Jaguars","NFL",14,2,15,395,10,"Brian Thomas Jr., Trevor Lawrence, Cam Little"],["Raiders","NFL",12,10,14,392,7,"Fernando Mendoza, Ashton Jeanty, Brock Bowers"],["Bears","NFL",12,4,14,374,7,"Caleb Williams, Rome Odunze, Luther Burden III"],["Commanders","NFL",10,4,14,372,6,"Sonny Styles, Jayden Daniels, Antonio Williams"],["Bengals","NFL",14,5,13,354,10,"Joe Burrow, Chase Brown, Colbie Young"],["Seahawks","NFL",8,7,13,354,9,"Jadarian Price, Jaxon Smith-Njigba, Sam Darnold"],["Falcons","NFL",16,5,12,331,11,"Zachariah Branch, Drake London, Tua Tagovailoa"],["Patriots","NFL",12,5,12,327,8,"Drake Maye, TreVeyon Henderson, Behren Morton"],["Lions","NFL",10,3,12,319,10,"Jahmyr Gibbs, Jared Goff, Blake Miller"],["Vikings","NFL",9,5,11,299,8,"Justin Jefferson, Demond Claiborne, Jake Golday"],["Saints","NFL",9,9,10,286,7,"Jordyn Tyson, Tyler Shough, Bryce Lance"],["Texans","NFL",10,0,11,285,9,"CJ Stroud, Marlin Klein, Kayden McDonald"],["Buccaneers","NFL",10,7,10,281,11,"Rueben Bain Jr., Ted Hurst, Emeka Egbuka"],["Chargers","NFL",10,4,9,247,8,"Brenen Thompson, Justin Herbert, Ladd McConkey"],["Packers","NFL",10,2,6,166,10,"Dani Dennis-Sutton, Micah Parsons, Kyle McCord"],["Texas","SEC",14,9,16,441,9,"Cam Coleman, Emmett Mosley V, Arch Manning"],["Georgia","SEC",10,0,13,335,7,"Lawson Luckie, Chauncey Bowens, London Humphreys"],["Oklahoma","SEC",6,5,11,296,4,"Parker Livingstone, Tory Blaylock, Jayden Jackson"],["Texas A&M","SEC",10,5,10,275,5,"Marcel Reed, Jerome Myles, Jamarion Morrow"],["Alabama","SEC",10,0,10,260,6,"Lotzeir Brooks, Daniel Hill Jr., Yhonzae Pierre"],["LSU","SEC",6,1,10,259,5,"Jackson Harris, Caden Durham, Tre Brown III"],["Arkansas","SEC",8,1,9,236,5,"Sutton Smith, CJ Brown, KJ Jackson"],["Mississippi State","SEC",4,9,8,231,2,"Kamario Taylor, Fluff Bothwell"],["Auburn","SEC",8,0,7,183,4,"Jeremiah Cobb, Eric Winters, Bryson Washington"],["Florida","SEC",4,4,6,166,4,"Aaron Philo, TJ Abrams, Emmitt Smith"],["South Carolina","SEC",4,9,5,156,3,"LaNorris Sellers, Vicari Swain, Matt Fuller"],["Missouri","SEC",6,0,6,156,3,"Caleb Goodie, Jamal Roberts, Brett Norfleet"],["Ole Miss","SEC",2,8,3,101,1,"Kewan Lacy"],["Kentucky","SEC",2,8,3,101,1,"Kenny Minchey"],["Tennessee","SEC",2,1,2,55,3,"Braylon Staley, Ethan Davis, Javin Gordon"],["Vanderbilt","SEC",2,6,1,45,1,"Jared Curtis"],["Indiana","Big Ten",8,9,12,335,5,"Josh Hoover, Nick Marsh, Turbo Richard"],["Illinois","Big Ten",12,0,11,287,6,"Jayshon Platt, Alex Perry, Collin Dixon"],["USC","Big Ten",8,9,10,285,4,"Jayden Maiava, Waymond Jordan, Terrell Anderson"],["Washington","Big Ten",8,9,8,235,4,"Demond Williams Jr., Dezmen Roebuck, Jayden Limar"],["Maryland","Big Ten",8,0,9,233,5,"Zahir Mathis, Sidney Stewart, DeJuan Williams"],["Rutgers","Big Ten",8,2,8,214,4,"Dylan Lonergan, KJ Duff, Antwan Raymond"],["Michigan","Big Ten",6,7,7,202,5,"Bryce Underwood, John Henry Daley, Bryson Kuzdzal"],["Oregon","Big Ten",8,0,7,183,5,"Teitum Tuioti, Jeremiah McClellan, Aaron Flowers"],["Michigan State","Big Ten",6,0,7,181,4,"Alessio Milivojevic, KK Smith, Marvis Parrish"],["Nebraska","Big Ten",6,4,6,168,3,"Anthony Colandrea, Kwazi Gilmer, Daniel Kaelin"],["UCLA","Big Ten",6,0,6,156,3,"Wayne Knight, Mikey Matthews, Dylan Lee"],["Purdue","Big Ten",4,0,4,104,2,"Fame Ijeboi, Ryan Browne"],["Northwestern","Big Ten",4,0,4,104,3,"Caleb Komolafe, Griffin Wilde, Joseph Himon II"],["Wisconsin","Big Ten",2,1,3,80,1,"Colton Joseph"],["Penn State","Big Ten",4,0,3,79,2,"Benjamin Brahmer, Brett Eskildsen"],["Ohio State","Big Ten",4,4,2,66,2,"Bo Jackson, Isaiah West"],["Iowa","Big Ten",2,0,2,52,1,"DJ Vonnahme"],["Minnesota","Big Ten",2,0,2,52,1,"Jalen Smith"],["Texas Tech","Big 12",10,0,11,285,5,"Cameron Dickey, Donte Lee Jr., Terrance Carter Jr."],["Oklahoma State","Big 12",6,10,9,261,5,"Drew Mestemaker, Caleb Hawkins, Wyatt Young"],["BYU","Big 12",4,9,9,256,3,"Bear Bachmeier, Tiger Bachmeier, Steve Young"],["Kansas","Big 12",8,5,8,223,4,"Chase Jenkins, Nik McMillan, Jalen Dupree"],["Kansas State","Big 12",6,0,7,181,4,"Joe Jackson, Jaron Tibbs, Rodney Fields Jr."],["Arizona State","Big 12",4,4,6,166,3,"Cutter Boley, Omarion Miller, Raiden Vines-Bright"],["Baylor","Big 12",6,0,6,156,3,"Caden Knighten, Michael Turner, Gavin Freeman"],["Utah","Big 12",6,0,6,156,3,"Kyri Shoels, Byrd Ficklin, Braden Pegan"],["Houston","Big 12",6,0,6,156,3,"Re'Shaun Sanford, Amare Thomas, Makhi Hughes"],["UCF","Big 12",4,0,5,129,3,"Alonza Barnett III, Duane Thomas Jr., Dylan Wade"],["Cincinnati","Big 12",4,6,4,122,2,"JC French IV, Cole Tabb"],["TCU","Big 12",4,4,4,116,2,"Jaden Craig, Adam Schobel"],["West Virginia","Big 12",4,1,4,107,2,"Cam Cook, Scotty Fox Jr."],["Colorado","Big 12",2,0,3,77,2,"Danny Scudero, Joseph Williams"],["Iowa State","Big 12",2,0,2,52,1,"Jaylen Raynor"],["Arizona","Big 12",2,0,1,27,1,"Tre Spivey"],["Miami","ACC",12,10,13,367,7,"Darian Mensah, CharMar Brown, Cooper Barkate"],["California","ACC",8,9,11,310,4,"Jaron-Keawe Sagapolutele, Mason Mini, Chase Hendricks"],["Pittsburgh","ACC",6,1,8,209,4,"Mason Heintschel, Ja'Kyrian Turner, Cataurus Hicks"],["Clemson","ACC",4,3,5,138,2,"T.J. Moore, Sammy Brown"],["SMU","ACC",6,0,5,131,3,"Yannick Smith, Kendrick Raphael, Yamir Knight"],["Stanford","ACC",2,2,4,108,2,"Micah Ford, Caden High"],["Boston College","ACC",4,0,4,104,2,"Kaelan Chudzinski, Evan Dickens"],["Florida State","ACC",4,0,4,104,2,"Micahi Danzy, Mandrell Desir"],["Wake Forest","ACC",2,0,4,102,3,"Gio Lopez, Carlos Hernandez, Ty Clark III"],["Georgia Tech","ACC",2,1,3,80,2,"Malachi Hosley, Joe Anoa'I"],["NC State","ACC",4,0,3,79,2,"Victor Snow, Jayden Scott"],["Virginia Tech","ACC",4,0,3,79,2,"Que'Sean Brown, Bill Davis"],["North Carolina","ACC",4,0,3,79,2,"Demon June, Jordan Shipp"],["Louisville","ACC",4,0,2,54,3,"Keyjuan Brown, Lawayne McCoy, Tre Richardson"],["Duke","ACC",2,0,2,52,1,"Jeremiah Hasley"],["Virginia","ACC",2,0,1,27,1,"Jekail Middlebrook"],["Syracuse","ACC",0,0,1,25,1,"Amari Odom"],["Notre Dame","All Others",10,10,14,390,6,"CJ Carr, Leonard Moore, Aneyas Williams"],["Boise State","All Others",6,0,6,156,3,"Sire Gaines, Dylan Riley, Juelz Goff"],["UConn","All Others",4,0,3,79,2,"Jake Merklinger, Cyncir Bowers"],["Delaware","All Others",2,1,2,55,1,"Nick Minicucci"],["Louisiana","All Others",2,1,2,55,1,"Lunch Winfield"],["Charlotte","All Others",2,0,2,52,1,"Jaden Barnes"],["Akron","All Others",2,0,2,52,1,"Jordan Gant"],["Florida Atlantic","All Others",2,0,2,52,1,"Kaden Shields-Dutton"],["Fresno State","All Others",2,0,2,52,1,"Bryson Donelson"],["Southern Miss","All Others",2,0,2,52,1,"Ethan Hampton"],["Marshall","All Others",2,0,2,52,1,"Carlos Del Rio-Wilson"],["San Diego State","All Others",2,0,2,52,2,"Lucky Sutton, Jordan Napier"],["Texas State","All Others",2,0,2,52,1,"Brad Jackson"],["Tulsa","All Others",2,0,2,52,1,"Baylor Hayes"],["UNLV","All Others",2,0,2,52,1,"Jai'Den Thomas"],["Washington State","All Others",2,0,2,52,1,"Kirby Vorhees"],["Western Kentucky","All Others",2,0,2,52,1,"Rodney Tisdale Jr."],["Western Michigan","All Others",2,0,2,52,1,"Broc Lowry"],["New Mexico","All Others",0,0,1,25,1,"Jack Layne"],["Wyoming","All Others",0,0,1,25,1,"Samuel Harris"],["Jackson State","All Others",0,1,0,3,1,"Walter Payton"]],"totalWeight":25185,"totalCards":2139};
+
+const GROUPS=['NFL','SEC','Big Ten','Big 12','ACC','All Others'];
 const $=id=>document.getElementById(id);
 const money=n=>'$'+Math.round(n).toLocaleString();
-function render(){
-  const total=+$('total').value||0, disc=+$('disc').value;
-  $('rows').innerHTML=teams.map(t=>{
-    const share=t[5]/sum, fair=total*share, low=fair*disc;
-    const flag=t[7]?`<span class="flag ${t[7]}">${t[7]}</span>`:'';
-    return `<tr><td class="team">${t[0]}</td><td><span class="tier t${t[1]}">TIER ${t[1]}</span></td>
-      <td class="num">${t[2]}</td><td class="num">${t[3]}</td><td class="num">${t[4]}</td>
-      <td class="num">${(share*100).toFixed(1)}%</td><td class="num fair">${money(fair)}</td><td class="num buy">${money(low)}</td>
-      <td class="names">${t[6]}</td><td class="names">${flag}${t[8]}</td></tr>`;
-  }).join('');
-  const rnd=total/teams.length; $('rnd').textContent=money(rnd); $('rndlow').textContent=money(rnd*disc);
+const sel=new Set();
+const idx=DATA.rows.map((r,i)=>i);
+const byGroup=g=>idx.filter(i=>DATA.rows[i][1]===g);
+
+try{ (JSON.parse(localStorage.getItem('bwsel')||'[]')).forEach(i=>{ if(DATA.rows[i]) sel.add(i); }); }catch(e){}
+const save=()=>{ try{ localStorage.setItem('bwsel', JSON.stringify([...sel])); }catch(e){} };
+
+function totals(list){
+  let b=0,i2=0,a=0,w=0,p=0;
+  list.forEach(i=>{const r=DATA.rows[i]; b+=r[2]; i2+=r[3]; a+=r[4]; w+=r[5]; p+=r[6];});
+  return {base:b,ins:i2,autos:a,w,players:p,cards:b+i2+a,share:w/DATA.totalWeight};
 }
+function priceOf(w){ const total=+$('total').value||0; return total*(w/DATA.totalWeight); }
+
+function renderRows(){
+  const disc=+$('disc').value;
+  let html='';
+  GROUPS.forEach(g=>{
+    const members=byGroup(g); if(!members.length) return;
+    const t=totals(members);
+    const allOn=members.every(i=>sel.has(i));
+    html+=`<tr class="grouprow" data-group="${g}">
+      <td class="pick"><input type="checkbox" data-group="${g}" ${allOn?'checked':''} aria-label="Select all ${g}"></td>
+      <td colspan="4"><span class="gname">${g==='NFL'?'NFL teams':g}</span> <span class="gmeta">· ${members.length} spots · ${t.cards} cards</span></td>
+      <td class="num gmeta">${t.cards}</td>
+      <td class="num gmeta">${(t.share*100).toFixed(1)}%</td>
+      <td class="num fair">${money(priceOf(t.w))}</td>
+      <td class="num buy">${money(priceOf(t.w)*disc)}</td>
+      <td></td></tr>`;
+    members.forEach(i=>{
+      const r=DATA.rows[i], share=r[5]/DATA.totalWeight, fair=priceOf(r[5]);
+      html+=`<tr class="${sel.has(i)?'sel':''}" data-i="${i}">
+        <td class="pick"><input type="checkbox" data-i="${i}" ${sel.has(i)?'checked':''} aria-label="${r[0]}"></td>
+        <td class="team">${r[0]}</td>
+        <td class="num">${r[2]}</td><td class="num">${r[3]}</td><td class="num">${r[4]}</td>
+        <td class="num">${r[2]+r[3]+r[4]}</td>
+        <td class="num">${(share*100).toFixed(1)}%</td>
+        <td class="num fair">${money(fair)}</td><td class="num buy">${money(fair*disc)}</td>
+        <td class="names">${r[7]}</td></tr>`;
+    });
+  });
+  $('rows').innerHTML=html;
+}
+
+function renderSum(){
+  const disc=+$('disc').value, list=[...sel], t=totals(list), box=$('sum');
+  if(!list.length){
+    box.classList.add('empty');
+    $('sumTitle').textContent='Tick any spots to build a combo';
+    $('sumGrid').innerHTML='';
+    $('sumNames').innerHTML='<span class="sum-hint">Breakers often bundle schools into custom groups. Tick the teams in a group &mdash; or a whole conference with its header box &mdash; to price that bundle as one spot.</span>';
+    return;
+  }
+  box.classList.remove('empty');
+  const fair=priceOf(t.w);
+  const names=list.map(i=>DATA.rows[i][0]);
+  const label=names.length<=4?names.join(' + '):`${names.slice(0,3).join(' + ')} + ${names.length-3} more`;
+  $('sumTitle').innerHTML=`<b>${list.length}</b> spot${list.length>1?'s':''}: ${label}`;
+  const oneIn=t.cards?(DATA.totalCards/t.cards):0;
+  $('sumGrid').innerHTML=`
+    <div class="stat"><span class="k">Share</span><span class="v c">${(t.share*100).toFixed(1)}%</span><span class="sub">of the break</span></div>
+    <div class="stat"><span class="k">Fair</span><span class="v">${money(fair)}</span><span class="sub">at this total</span></div>
+    <div class="stat"><span class="k">Buy below</span><span class="v g">${money(fair*disc)}</span><span class="sub">${Math.round((1-disc)*100)}% under</span></div>
+    <div class="stat"><span class="k">Cards</span><span class="v">${t.cards}</span><span class="sub">${t.base} base · ${t.ins} ins · ${t.autos} auto</span></div>
+    <div class="stat"><span class="k">Players</span><span class="v">${t.players}</span><span class="sub">named subjects</span></div>
+    <div class="stat"><span class="k">Hit odds</span><span class="v">1 in ${oneIn.toFixed(1)}</span><span class="sub">cards is yours</span></div>`;
+  const top=list.flatMap(i=>DATA.rows[i][7].split(', ')).filter(Boolean).slice(0,6);
+  $('sumNames').innerHTML=top.length?`<b>Who drives it:</b> ${top.join(', ')}`:'';
+}
+
+const STD_SPOTS=37;
+function render(){
+  renderRows(); renderSum();
+  const rnd=(+$('total').value||0)/STD_SPOTS;
+  $('rnd').textContent=money(rnd); $('rndlow').textContent=money(rnd*(+$('disc').value));
+}
+
+$('rows').addEventListener('change',e=>{
+  const cb=e.target; if(cb.type!=='checkbox') return;
+  if(cb.dataset.group){
+    const members=byGroup(cb.dataset.group);
+    members.forEach(i=>cb.checked?sel.add(i):sel.delete(i));
+  } else {
+    const i=+cb.dataset.i; cb.checked?sel.add(i):sel.delete(i);
+  }
+  save(); render();
+});
+$('sumClear').addEventListener('click',()=>{ sel.clear(); save(); render(); });
 $('total').addEventListener('input',render);
 $('disc').addEventListener('change',render);
 render();
