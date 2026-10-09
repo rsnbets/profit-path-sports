@@ -1,7 +1,18 @@
 {
-  "_comment": "Products to collect sales for. 'q' is the full-text search sent to the API; keep it tight — the daily quota counts rows RETURNED, not matched. 'board' links a product to the price board that consumes it (null = collecting only, no board yet).",
+  "_comment": "Products to collect sales for. 'q' is the full-text search sent to the API; the quota counts rows RETURNED, not matched, so a product costs its whole sales volume. 'board' links a product to the price board that consumes it — null means we are only banking data, because the API lookback window will not serve these sales again later. Queries are verified against returned titles before being added: 'football' alone matches SOCCER in this index, and narrow variants like 'bowman chrome football' just re-return Bowman Football rows we already hold.",
   "products": [
-    { "slug": "bowman-football-2026", "q": "2026 bowman football",     "board": "bowman-football-price-board" },
-    { "slug": "cosmic-chrome-2026",   "q": "2026 topps cosmic chrome", "board": "cosmic-chrome-price-board" }
+    { "slug": "bowman-football-2026",        "q": "2026 bowman football",           "board": "bowman-football-price-board", "_per_day": 130 },
+    { "slug": "bowman-baseball-2026",        "q": "2026 bowman baseball",           "board": null, "_per_day": 33 },
+    { "slug": "topps-flagship-football-2026","q": "2026 topps flagship football",   "board": null, "_per_day": 30 },
+    { "slug": "topps-chrome-baseball-2026",  "q": "2026 topps chrome baseball",     "board": null, "_per_day": 23 },
+    { "slug": "topps-series-2-2026",         "q": "2026 topps series 2",            "board": null, "_per_day": 18 },
+    { "slug": "topps-series-1-2026",         "q": "2026 topps series 1",            "board": null, "_per_day": 17 },
+    { "slug": "topps-chrome-update-2026",    "q": "2026 topps chrome update",       "board": null, "_per_day": 10 },
+    { "slug": "topps-update-2026",           "q": "2026 topps update",              "board": null, "_per_day": 10 },
+    { "slug": "cosmic-chrome-2026",          "q": "2026 topps cosmic chrome",       "board": "cosmic-chrome-price-board", "_per_day": 9 },
+    { "slug": "topps-heritage-2026",         "q": "2026 topps heritage",            "board": null, "_per_day": 6 },
+    { "slug": "topps-finest-baseball-2026",  "q": "2026 topps finest baseball",     "board": null, "_per_day": 4 },
+    { "slug": "topps-basketball-2026",       "q": "2026 topps basketball",          "board": null, "_per_day": 4 },
+    { "slug": "bowman-draft-2026",           "q": "2026 bowman draft",              "board": null, "_per_day": 3 }
   ]
 }
