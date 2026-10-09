@@ -1,0 +1,7 @@
+{
+  "_comment": "Products to collect sales for. 'q' is the full-text search sent to the API; keep it tight — the daily quota counts rows RETURNED, not matched. 'board' links a product to the price board that consumes it (null = collecting only, no board yet).",
+  "products": [
+    { "slug": "bowman-football-2026", "q": "2026 bowman football",     "board": "bowman-football-price-board" },
+    { "slug": "cosmic-chrome-2026",   "q": "2026 topps cosmic chrome", "board": "cosmic-chrome-price-board" }
+  ]
+}
