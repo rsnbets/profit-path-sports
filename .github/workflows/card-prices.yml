@@ -44,4 +44,7 @@ jobs:
           git add data/card-sales data/card-prices
           git diff --cached --quiet && echo "No new sales" && exit 0
           git commit -m "Card sales refresh"
+          # a delayed cron can land inside another bot's push window, and a
+          # failed push here costs a day of sales that cannot be re-fetched
+          git pull --rebase origin main
           git push
