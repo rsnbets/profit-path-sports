@@ -277,7 +277,8 @@
   .mb-row { display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-bottom:4px; } .mb-row a { color:var(--green); }
   .mb-panel label { font-size:12.5px;display:flex;gap:8px;align-items:center;cursor:pointer; }
 
-  .bar-v.in { fill:#0b0d10;font-weight:700; }
+  .bar-v.in { fill:#0b0d10;font-weight:800;font-size:16px;letter-spacing:-.01em; }
+  .bar-v.zero { fill:var(--muted);font-weight:700;font-size:14px; }
   .bar-opp { font-size:11px;font-weight:600;fill:var(--text);text-anchor:middle;font-family:'DM Mono',monospace; }
   .bar-wk { font-size:10px;fill:var(--muted);text-anchor:middle;font-family:'DM Mono',monospace; }
   .bar-hit { fill:transparent;cursor:pointer; } .bar-hit:hover + .bar, .bar.sel { stroke:var(--text);stroke-width:2; }
@@ -984,13 +985,13 @@ function renderChart(){
   rows.forEach((r,i)=>{
     const v=vals[i],ok=cashes(v);
     const x=i*bw+pad/2,w=bw-pad,cx=(x+w/2).toFixed(1);
-    const top=y(v),h=Math.max(H-8-top,2);
+    const top0=y(v),top=v>0?Math.min(top0,H-8-26):top0,h=Math.max(H-8-top,2);   // every bar at least 26 tall so the number fits inside
     const gi=firstIdx+i, season=gi<prevN?IDX.prevSeason:IDX.season;
     out+='<text x="'+cx+'" y="12" class="bar-opp">'+(r[F.home]?'vs ':'@ ')+esc(r[F.opp])+'</text>'
       +'<text x="'+cx+'" y="26" class="bar-wk">wk '+r[F.week]+(season!==IDX.season?' \u00b7 '+String(season).slice(2):'')+'</text>'
       +'<rect x="'+x.toFixed(1)+'" y="'+(v>0?top:H-10).toFixed(1)+'" width="'+w.toFixed(1)+'" height="'+(v>0?h:2).toFixed(1)
       +'" rx="2" class="bar '+(ok?'ok':'no')+(GAMESEL===gi?' sel':'')+'" data-gi="'+gi+'"><title>wk'+r[F.week]+' '+(r[F.home]?'vs ':'@ ')+r[F.opp]+' \u2014 '+v+' \u00b7 tap for the full line</title></rect>'
-      +(rows.length<=24?'<text x="'+cx+'" y="'+((v>0&&h>22)?top+15:(v>0?top-4:H-14)).toFixed(1)+'" class="bar-v'+((v>0&&h>22)?' in':'')+'">'+v+'</text>':'')
+      +(rows.length<=24?(v>0?'<text x="'+cx+'" y="'+Math.min(top+20,H-12).toFixed(1)+'" class="bar-v in">'+v+'</text>':'<text x="'+cx+'" y="'+(H-16)+'" class="bar-v zero">0</text>'):'')
       +'<rect x="'+x.toFixed(1)+'" y="'+TOP+'" width="'+w.toFixed(1)+'" height="'+(H-TOP)+'" class="bar-hit" data-gi="'+gi+'"/>';
   });
   out+='<line x1="0" x2="'+W+'" y1="'+y(LINE).toFixed(1)+'" y2="'+y(LINE).toFixed(1)+'" class="thresh"/>';
