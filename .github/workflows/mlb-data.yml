@@ -31,6 +31,8 @@ jobs:
         run: python scripts/build_nfl_playerdb.py
       - name: Derive NFL streaks
         run: python scripts/build_nfl_streaks.py
+      - name: Grade tracked NFL props (Prop Shop honesty loop)
+        run: python scripts/build_nfl_prop_results.py || echo "prop grading skipped"
       - name: Commit if changed
         run: |
           git config user.name "mlb-data-bot"

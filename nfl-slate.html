@@ -537,6 +537,11 @@
     <div class="tbl-wrap"><table class="mini slate" id="slateTbl"></table></div>
     <div class="det-note" id="slateNote"></div>
   </div>
+  <div class="section" id="gradedSec" style="display:none">
+    <div class="section-label">Graded — every prop we tracked, against the close</div>
+    <div class="tbl-wrap"><table class="mini slate" id="gradedTbl"></table></div>
+    <div class="det-note" id="gradedNote"></div>
+  </div>
   <div class="section" style="text-align:center;">
     <div class="det-note">Player pages → <a href="/nfl-player.html">NFL Prop Finder</a> · sides &amp; totals → <a href="https://pps-gridiron.vercel.app" target="_blank" rel="noopener">Gridiron Board ↗</a></div>
   </div>
@@ -578,7 +583,7 @@ function devigPower(pa,pb){ if(!pa||!pb)return null; let lo=0,hi=10; for(let i=0
 function median(a){ if(!a.length)return null; const s=[...a].sort((x,y)=>x-y),m=s.length>>1; return s.length%2?s[m]:(s[m-1]+s[m])/2; }
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 function normName(s){ return s.normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase().replace(/\b(jr|sr|ii|iii|iv)\b\.?/g,'').replace(/[^a-z ]/g,'').replace(/\s+/g,' ').trim(); }
-function mainLine(lad){ let best=null,bs=-1; for(const [k,bk] of Object.entries(lad)){ const s=Object.values(bk).reduce((a,[o,u])=>a+(o?1:0)+(u?1:0),0); if(s>bs){bs=s;best=k;} } return best==null?null:parseFloat(best); }
+function mainLine(lad,market){ if(market==='touchdowns'&&lad['0.5']) return 0.5; let best=null,bs=-1; for(const [k,bk] of Object.entries(lad)){ const s=Object.values(bk).reduce((a,[o,u])=>a+(o?1:0)+(u?1:0),0); if(s>bs){bs=s;best=k;} } return best==null?null:parseFloat(best); }
 function priceAt(lad,line){ const bk=lad[String(line)]||null; if(!bk) return null; let bo=null,bu=null; const fo=[];
   for(const [b,[o,u]] of Object.entries(bk)){ if(o&&(!bo||toDec(o)>toDec(bo[1]))) bo=[b,o]; if(u&&(!bu||toDec(u)>toDec(bu[1]))) bu=[b,u]; if(o&&u){ const f=devigPower(toProb(o),toProb(u)); if(f) fo.push(f[0]); } }
   return {bestOver:bo,bestUnder:bu,fairOver:median(fo),nTwo:fo.length,n:Object.keys(bk).length}; }
@@ -601,12 +606,25 @@ async function boot(){
   const od=new Date(ODDS.generatedAt).toLocaleString(undefined,{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'});
   const sd=new Date(IDX.generatedAt).toLocaleDateString(undefined,{month:'short',day:'numeric'});
   st.className='status-bar ok'; st.textContent='Lines as of '+od+' · stats through '+sd+(INJ?' · injury report week '+INJ.week:'');
-  renderGameChips();
+  renderGameChips(); renderGraded();
   document.querySelectorAll('#sideSeg button').forEach(b=>b.addEventListener('click',()=>{ SIDE=+b.dataset.side; document.querySelectorAll('#sideSeg button').forEach(x=>x.classList.toggle('active',x===b)); renderTable(); }));
   const want=new URLSearchParams(location.search).get('g');
   const games=ODDS.games; const now=Date.now();
   let g=games.find(x=>x.eventID===want||(x.away+'-'+x.home)===want)||games.find(x=>new Date(x.startsAt).getTime()>now-4*3600e3)||games[0];
   if(g) selectGame(g);
+}
+async function renderGraded(){
+  let R=null; try{ R=await getJSON('/data/nfl/prop_results.json?_='+Math.floor(Date.now()/3600000)); }catch(e){ return; }
+  const weeks=Object.keys(R.summary||{}).sort((a,b)=>b-a); if(!weeks.length) return;
+  const sec=document.getElementById('gradedSec'); sec.style.display='block';
+  let html='<thead><tr><th>Week</th><th>Read at the open (L10 vs the line)</th><th class="r">Props</th><th class="r">Over hit at close</th><th class="r">Line moved up</th><th class="r">Line moved down</th></tr></thead><tbody>';
+  for(const w of weeks){ const S=R.summary[w]; const order=['hot >=70%','50-70%','30-50%','cold <30%'];
+    html+='<tr><td class="mono">'+w+'</td><td class="thin">all props · '+S.games+' game'+(S.games===1?'':'s')+'</td><td class="r mono">'+S.props+'</td><td class="r mono">'+(Object.values(S.byMarket).reduce((a,m)=>a+m.n*m.overHit/100,0)/Math.max(1,S.props)*100).toFixed(0)+'%</td><td class="r thin">—</td><td class="r thin">—</td></tr>';
+    for(const b of order){ const v=S.read[b]; if(!v||!v.n) continue; const c=b.startsWith('hot')?'good':b.startsWith('cold')?'bad':'';
+      html+='<tr><td></td><td class="'+c+'">'+esc(b)+'</td><td class="r mono">'+v.n+'</td><td class="r mono '+c+'">'+v.overHit+'%</td><td class="r mono">'+v.lineUp+'</td><td class="r mono">'+v.lineDown+'</td></tr>'; }
+  }
+  html+='</tbody>'; document.getElementById('gradedTbl').innerHTML=html;
+  document.getElementById('gradedNote').textContent='Every prop the feed saw before kickoff, graded against its closing line from nflverse box scores — no picks logged by anyone. "Read" = the player\'s L10 over-rate against the OPENING line, using only games before that week. If hot reads don\'t clear the close more often than cold ones, the read has no edge. '+R.events_tracked+' events tracked so far · graded '+new Date(R.generatedAt).toLocaleDateString(undefined,{month:'short',day:'numeric'})+'.';
 }
 function gameTime(g){ const d=new Date(g.startsAt); return d.toLocaleDateString(undefined,{weekday:'short'})+' '+d.toLocaleTimeString(undefined,{hour:'numeric',minute:'2-digit'}); }
 function renderGameChips(){
@@ -643,7 +661,7 @@ function renderTable(){
   document.getElementById('mktLabel').textContent=lbl+' — '+g.away+' @ '+g.home;
   const rows=[];
   for(const m of mkts) for(const p of ps){ const lad=p.ladders[m]; if(!lad) continue;
-    const line=mainLine(lad); if(line==null) continue; const pr=priceAt(lad,line); const key=KEY[m];
+    const line=mainLine(lad,m); if(line==null) continue; const pr=priceAt(lad,line); const key=KEY[m];
     const sh=p.idx?SHARDS[p.idx[0]]:null; const all=sh?sh.prev.concat(sh.g):[]; const cur=sh?sh.g:[];
     const opp=p.team===g.home?g.away:g.home; const pos=p.idx?p.idx[3]:null;
     const mu=MU&&pos&&MU.ranks[opp]&&MU.ranks[opp][POSB[pos]]&&MU.ranks[opp][POSB[pos]][key];

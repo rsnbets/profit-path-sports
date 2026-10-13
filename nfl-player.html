@@ -665,7 +665,8 @@ function findLadders(){
   return ks.length===1?ODDS.players[ks[0]]:(ks.length?ODDS.players[ks[0]]:null);
 }
 function ladderFor(key){ const m=MKT[key]; return (LAD&&m&&LAD[m])||null; }
-function mainLine(lad){ // the consensus line: most books quoting it (two-sided counts double)
+function mainLine(lad,market){ // the consensus line: most books quoting it (two-sided counts double); anytime TD = 0.5
+  if(market==='touchdowns'&&lad['0.5']) return 0.5;
   let best=null,bs=-1;
   for(const [k,bk] of Object.entries(lad)){ const s=Object.values(bk).reduce((a,[o,u])=>a+(o?1:0)+(u?1:0),0); if(s>bs||(s===bs&&Math.abs(parseFloat(k)-parseFloat(best))<0)){bs=s;best=k;} }
   return best==null?null:parseFloat(best);
@@ -792,7 +793,7 @@ function renderPropChips(){
 }
 function selectProp(def){
   PROP={key:def[0],label:def[1]}; LINE=def[2]; STEP=def[3];
-  const lad=ladderFor(def[0]); const ml=lad?mainLine(lad):null; if(ml!=null) LINE=ml;
+  const lad=ladderFor(def[0]); const ml=lad?mainLine(lad,MKT[def[0]]):null; if(ml!=null) LINE=ml;
   document.querySelectorAll('#propChips .chip').forEach(c=>
     c.classList.toggle('active',c.dataset.key===def[0]));
   render();
@@ -823,7 +824,7 @@ function renderLines(){
     return; }
   note.style.display='none';
   const keys=Object.keys(lad).map(parseFloat).sort((a,b)=>a-b);
-  const ml=mainLine(lad);
+  const ml=mainLine(lad,MKT[PROP.key]);
   const strip=keys.map(k=>{ const p=priceAt(lad,k); const b=SIDE?p.bestUnder:p.bestOver; if(!b) return '';
     return '<button type="button" class="ln'+(k===LINE?' sel':'')+(k===ml?' main':'')+'" data-l="'+k+'" title="'+esc(bookName(b[0]))+' · '+p.n+' book'+(p.n===1?'':'s')+'">'
       +'<div class="ln-l">'+(SIDE?'U':'O')+k+'</div><div class="ln-odds">'+fmtOdds(b[1])+'</div></button>'; }).join('');
