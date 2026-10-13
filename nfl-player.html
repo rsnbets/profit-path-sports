@@ -258,13 +258,18 @@
   .pg-v.good { color:var(--green); } .pg-v.bad { color:#e06c6c; }
   .pg-b { font-size:11px;font-weight:400;color:var(--muted);font-family:inherit; }
 
-  .mu-line { font-size:13px;color:var(--muted);padding:4px 0 8px; }
-  .mu-line strong { color:var(--text);font-family:'DM Mono',monospace; }
-  .mu-k { font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-right:4px; }
-  .mu-rank { font-family:'DM Mono',monospace;font-weight:600; } .mu-of { font-weight:400;color:var(--muted); }
-  .mu-rank.soft { color:var(--green); } .mu-rank.tough { color:#e06c6c; } .mu-rank.mid { color:#e6c35a; }
+  .mu-line { display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px;padding:2px 0 10px; }
+  .mu-card { position:relative;background:var(--inset);border:1px solid var(--border);border-left:4px solid var(--muted);border-radius:10px;padding:10px 14px 10px 14px; }
+  .mu-card.soft { border-left-color:var(--green); } .mu-card.tough { border-left-color:#e06c6c; } .mu-card.mid { border-left-color:#e6c35a; }
+  .mu-k { font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:8px;flex-wrap:wrap; }
+  .mu-tag { font-size:9.5px;font-weight:700;letter-spacing:.08em;padding:1px 7px;border-radius:999px;border:1px solid currentColor;text-transform:uppercase; }
+  .mu-card.soft .mu-tag { color:var(--green); } .mu-card.tough .mu-tag { color:#e06c6c; } .mu-card.mid .mu-tag { color:#e6c35a; }
+  .mu-big { font-family:'DM Mono',monospace;font-size:30px;font-weight:700;line-height:1.1;margin:4px 0 2px;color:var(--text); }
+  .mu-card.soft .mu-big { color:var(--green); } .mu-card.tough .mu-big { color:#e06c6c; } .mu-card.mid .mu-big { color:#e6c35a; }
+  .mu-of { font-size:14px;font-weight:500;color:var(--muted); }
+  .mu-sub { font-size:12.5px;color:var(--muted); } .mu-sub strong { color:var(--text);font-family:'DM Mono',monospace; }
   .mu-lg { font-size:11px; }
-  .mu-tier { margin-top:3px;font-size:12.5px;color:var(--muted); } .mu-tier strong { color:var(--text);font-family:inherit; }
+  .mu-foot { grid-column:1 / -1;font-size:10.5px;color:var(--muted);opacity:.8; }
   .inj-badge { font-size:11px;font-weight:700;letter-spacing:.04em;padding:1px 7px;border-radius:999px;border:1px solid currentColor; }
   .inj-badge.Out { color:#e06c6c; } .inj-badge.Doubtful { color:#f0945a; } .inj-badge.Questionable { color:#e6c35a; } .inj-badge.DNP,.inj-badge.Limited { color:#e6c35a; }
   .inj-pr { font-weight:400;opacity:.8; } .inj-ok { font-size:11px;color:var(--green);opacity:.85; }
@@ -888,13 +893,21 @@ function renderMatchup(){
   const [pg,rank,lg]=m, n=Object.keys(MU.ranks).length, soft=n-rank+1;
   const ord=k=>k+(k===1?'st':k===2?'nd':k===3?'rd':'th');
   const cls=rank>=23?'soft':rank<=10?'tough':'mid';
-  const word=cls==='soft'?(soft===1?'softest':ord(soft)+'-softest'):cls==='tough'?(rank===1?'stingiest':ord(rank)+'-stingiest'):'middle of the pack';
-  el.style.display='block';
-  el.innerHTML='<span class="mu-k">Matchup</span> '+esc(g.opp)+' allows <strong>'+pg+'</strong> '+esc(MU_LABEL[PROP.key]||PROP.key)+'/g to '+esc(POS_LABEL[SHARD.pos]||SHARD.pos)
-    +' · <span class="mu-rank '+cls+'">'+ord(rank)+'<span class="mu-of"> of '+n+'</span> · '+word+'</span> <span class="mu-lg">(league avg '+lg+' · '+MU.games[g.opp]+' games)</span>';
+  const word=cls==='soft'?(soft===1?'softest in the league':ord(soft)+'-softest'):cls==='tough'?(rank===1?'stingiest in the league':ord(rank)+'-stingiest'):'middle of the pack';
+  const verdict=cls==='soft'?'Soft spot':cls==='tough'?'Tough spot':'Neutral';
+  let tier='';
   const tw=tierWindow();
   if(tw){ const cr=clearRate(tw.rows); const avg=tw.rows.length?(tw.rows.reduce((s,r)=>s+valOf(r,PROP.key),0)/tw.rows.length):null;
-    el.innerHTML+='<div class="mu-tier">vs <strong>'+esc(tw.tier)+'</strong> defenses like '+esc(g.opp)+': '+(cr?cr.hits+'/'+cr.n+' '+(SIDE?'under':'over')+' '+LINE+(avg!=null?' · avg '+avg.toFixed(1):''):'no games')+(cr&&cr.n<3?' <span class="mu-lg">(tiny sample)</span>':'')+' <span class="mu-lg">· 2025 games use last season\'s final ranks</span></div>'; }
+    const hc=!cr?'':cr.p>=0.6?'soft':cr.p<=0.4?'tough':'mid';
+    tier='<div class="mu-card '+hc+'"><div class="mu-k">vs defenses like '+esc(g.opp)+' <span class="mu-tag">'+esc(tw.tier)+'</span></div>'
+      +'<div class="mu-big">'+(cr?cr.hits+'<span class="mu-of">/'+cr.n+'</span>':'—')+'</div>'
+      +'<div class="mu-sub">'+(cr?(SIDE?'stayed under ':'cleared ')+(SIDE?'U':'O')+LINE+(avg!=null?' · avg <strong>'+avg.toFixed(1)+'</strong>':'')+(cr.n<3?' · tiny sample':''):'no games vs this tier')+'</div></div>'; }
+  el.style.display='grid';
+  el.innerHTML='<div class="mu-card '+cls+'"><div class="mu-k">Matchup · '+esc(g.opp)+' vs '+esc(POS_LABEL[SHARD.pos]||SHARD.pos)+' <span class="mu-tag">'+esc(verdict)+'</span></div>'
+    +'<div class="mu-big">'+ord(rank)+'<span class="mu-of"> of '+n+'</span></div>'
+    +'<div class="mu-sub">'+esc(word)+' · allows <strong>'+pg+'</strong> '+esc(MU_LABEL[PROP.key]||PROP.key)+'/g <span class="mu-lg">(lg avg '+lg+' · '+MU.games[g.opp]+' games)</span></div></div>'
+    +tier
+    +'<div class="mu-foot">Rank 1 = allows the least this season. "Like '+esc(g.opp)+'" = defenses in the same tier (top-8 / mid / bottom-8); 2025 games use last season\'s final ranks.</div>';
 }
 function render(){ renderClearRates(); renderChart(); renderSplits(); renderLines(); renderMatchup(); renderGameDetail();
   document.getElementById('stepVal').textContent=(SIDE?'U':'O')+LINE; }
