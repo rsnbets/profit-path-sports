@@ -276,6 +276,19 @@
   .mb-panel[hidden] { display:none; }
   .mb-row { display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-bottom:4px; } .mb-row a { color:var(--green); }
   .mb-panel label { font-size:12.5px;display:flex;gap:8px;align-items:center;cursor:pointer; }
+
+  .bar-v.in { fill:#0b0d10;font-weight:700; }
+  .bar-opp { font-size:11px;font-weight:600;fill:var(--text);text-anchor:middle;font-family:'DM Mono',monospace; }
+  .bar-wk { font-size:10px;fill:var(--muted);text-anchor:middle;font-family:'DM Mono',monospace; }
+  .bar-hit { fill:transparent;cursor:pointer; } .bar-hit:hover + .bar, .bar.sel { stroke:var(--text);stroke-width:2; }
+  .bar.sel { filter:brightness(1.25); }
+  .gd { margin-top:10px;background:var(--inset);border:1px solid var(--border);border-radius:10px;padding:10px 12px; }
+  .gd-head { display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:8px; }
+  .gd-title { font-weight:700;font-size:13px; } .gd-res { font-family:'DM Mono',monospace;font-size:12px; } .gd-res.ok { color:var(--green); } .gd-res.no { color:#e06c6c; }
+  .gd-close { margin-left:auto;color:var(--muted);text-decoration:none;font-size:16px;line-height:1; }
+  .gd-grid { display:grid;grid-template-columns:repeat(auto-fill,minmax(84px,1fr));gap:6px; }
+  .gd-cell { background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:6px 8px; } .gd-cell.hi { border-color:var(--green-border); }
+  .gd-k { font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted); } .gd-v { font-family:'DM Mono',monospace;font-size:15px;font-weight:600; }
 </style>
 <link rel="stylesheet" href="/styles/sidebar.css">
 <link rel="stylesheet" href="/styles/topbar.css">
@@ -594,6 +607,7 @@
     <div class="section-label" id="chartLabel">Game by game</div>
     <div class="chart-wrap"><svg id="chart" preserveAspectRatio="none"></svg></div>
     <div class="chart-legend" id="chartLegend"></div>
+    <div class="gd" id="gameDetail" style="display:none"></div>
   </div>
 
   <div class="section">
@@ -719,7 +733,28 @@ const DEFPOS=new Set(["DE","DT","NT","DL","EDGE","LB","OLB","ILB","MLB","CB","S"
 const propsFor=pos=>PROPS[pos]||(DEFPOS.has(pos)?PROPS.DEF:PROPS.WR);
 PROPS.TE=PROPS.WR; PROPS.FB=PROPS.RB;
 
-let IDX=null,F={},SHARD=null,PROP=null,LINE=0.5,STEP=1,SIDE=0,WINSEL='l10',WINDOWS_MAP={};
+let IDX=null,F={},SHARD=null,PROP=null,LINE=0.5,STEP=1,SIDE=0,WINSEL='l10',WINDOWS_MAP={},GAMESEL=null;
+// full stat line for a tapped bar, by position
+const LINE_FIELDS={
+  QB:[['cmp','Comp'],['att','Att'],['pyd','Pass yds'],['ptd','Pass TD'],['int','INT'],['lcmp','Long comp'],['car','Carries'],['ryd','Rush yds'],['rtd','Rush TD'],['lrush','Long rush']],
+  RB:[['car','Carries'],['ryd','Rush yds'],['rtd','Rush TD'],['lrush','Long rush'],['tgt','Targets'],['rec','Rec'],['recyd','Rec yds'],['rectd','Rec TD'],['lrec','Long rec']],
+  WR:[['tgt','Targets'],['rec','Rec'],['recyd','Rec yds'],['rectd','Rec TD'],['lrec','Long rec'],['car','Carries'],['ryd','Rush yds'],['rtd','Rush TD']],
+  K:[['fgm','FG made'],['fga','FG att'],['xpm','XP made'],['kpts','Kick pts']],
+  DEF:[['solo','Solo'],['ast','Assists'],['tkl','Tackles+Ast'],['sk','Sacks'],['dint','INT']]};
+LINE_FIELDS.TE=LINE_FIELDS.WR; LINE_FIELDS.FB=LINE_FIELDS.RB;
+function renderGameDetail(){
+  const el=document.getElementById('gameDetail'); if(!el) return;
+  if(GAMESEL==null){ el.style.display='none'; el.innerHTML=''; return; }
+  const all=combined(), r=all[GAMESEL]; if(!r){ el.style.display='none'; return; }
+  const season=GAMESEL<SHARD.prev.length?IDX.prevSeason:IDX.season;
+  const fields=LINE_FIELDS[SHARD.pos]||(DEFPOS.has(SHARD.pos)?LINE_FIELDS.DEF:LINE_FIELDS.WR);
+  const v=valOf(r,PROP.key), ok=cashes(v);
+  el.style.display='block';
+  el.innerHTML='<div class="gd-head"><span class="gd-title">Week '+r[F.week]+' \u00b7 '+(r[F.home]?'vs ':'@ ')+esc(r[F.opp])+' \u00b7 '+season+'</span>'
+    +'<span class="gd-res '+(ok?'ok':'no')+'">'+esc(PROP.label)+' '+v+' \u00b7 '+(ok?(SIDE?'stayed under ':'cleared ')+LINE:'missed '+(SIDE?'U':'O')+LINE)+'</span><a href="#" class="gd-close" data-close>\u00d7</a></div>'
+    +'<div class="gd-grid">'+fields.map(([k,l])=>'<div class="gd-cell'+(k===PROP.key||(PROP.key==='rr'&&(k==='ryd'||k==='recyd'))||(PROP.key==='anytd'&&(k==='rtd'||k==='rectd'))?' hi':'')+'"><div class="gd-k">'+l+'</div><div class="gd-v">'+(valOf(r,k)??0)+'</div></div>').join('')+'</div>';
+  el.querySelector('[data-close]').addEventListener('click',e=>{ e.preventDefault(); GAMESEL=null; renderChart(); renderGameDetail(); });
+}
 
 function normName(s){
   return s.normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase()
@@ -828,7 +863,7 @@ function renderPropChips(){
   }
 }
 function selectProp(def){
-  PROP={key:def[0],label:def[1]}; LINE=def[2]; STEP=def[3];
+  PROP={key:def[0],label:def[1]}; LINE=def[2]; STEP=def[3]; GAMESEL=null;
   const lad=ladderFor(def[0]); const ml=lad?mainLine(lad,MKT[def[0]]):null; if(ml!=null) LINE=ml;
   document.querySelectorAll('#propChips .chip').forEach(c=>
     c.classList.toggle('active',c.dataset.key===def[0]));
@@ -860,7 +895,7 @@ function renderMatchup(){
   if(tw){ const cr=clearRate(tw.rows); const avg=tw.rows.length?(tw.rows.reduce((s,r)=>s+valOf(r,PROP.key),0)/tw.rows.length):null;
     el.innerHTML+='<div class="mu-tier">vs <strong>'+esc(tw.tier)+'</strong> defenses like '+esc(g.opp)+': '+(cr?cr.hits+'/'+cr.n+' '+(SIDE?'under':'over')+' '+LINE+(avg!=null?' · avg '+avg.toFixed(1):''):'no games')+(cr&&cr.n<3?' <span class="mu-lg">(tiny sample)</span>':'')+' <span class="mu-lg">· 2025 games use last season\'s final ranks</span></div>'; }
 }
-function render(){ renderClearRates(); renderChart(); renderSplits(); renderLines(); renderMatchup();
+function render(){ renderClearRates(); renderChart(); renderSplits(); renderLines(); renderMatchup(); renderGameDetail();
   document.getElementById('stepVal').textContent=(SIDE?'U':'O')+LINE; }
 function renderLines(){
   const box=document.getElementById('linesBox'),note=document.getElementById('lnNote');
@@ -942,23 +977,29 @@ function renderChart(){
   if(!rows.length){ svg.innerHTML=''; legend.textContent='No games in this window.'; return; }
   const vals=rows.map(r=>valOf(r,PROP.key));
   const maxV=Math.max(...vals,LINE+STEP,1);
-  const W=1000,H=220,pad=6,bw=W/rows.length;
-  const y=v=>H-8-(v/maxV)*(H-30);
+  const W=1000,H=250,TOP=34,pad=6,bw=W/rows.length;      // TOP = label band: opponent + week above each bar
+  const y=v=>H-8-(v/maxV)*(H-TOP-14);
+  const prevN=SHARD.prev.length, firstIdx=combined().indexOf(rows[0]);
   let out='';
   rows.forEach((r,i)=>{
     const v=vals[i],ok=cashes(v);
-    const x=i*bw+pad/2,w=bw-pad;
+    const x=i*bw+pad/2,w=bw-pad,cx=(x+w/2).toFixed(1);
     const top=y(v),h=Math.max(H-8-top,2);
-    out+='<rect x="'+x.toFixed(1)+'" y="'+(v>0?top:H-10).toFixed(1)+'" width="'+w.toFixed(1)+'" height="'+(v>0?h:2).toFixed(1)
-      +'" rx="2" class="bar '+(ok?'ok':'no')+'"><title>wk'+r[F.week]+' '+(r[F.home]?'vs ':'@ ')+r[F.opp]+' — '+v+'</title></rect>';
-    if(v>0&&rows.length<=24) out+='<text x="'+(x+w/2).toFixed(1)+'" y="'+(top-4).toFixed(1)+'" class="bar-v">'+v+'</text>';
+    const gi=firstIdx+i, season=gi<prevN?IDX.prevSeason:IDX.season;
+    out+='<text x="'+cx+'" y="12" class="bar-opp">'+(r[F.home]?'vs ':'@ ')+esc(r[F.opp])+'</text>'
+      +'<text x="'+cx+'" y="26" class="bar-wk">wk '+r[F.week]+(season!==IDX.season?' \u00b7 '+String(season).slice(2):'')+'</text>'
+      +'<rect x="'+x.toFixed(1)+'" y="'+(v>0?top:H-10).toFixed(1)+'" width="'+w.toFixed(1)+'" height="'+(v>0?h:2).toFixed(1)
+      +'" rx="2" class="bar '+(ok?'ok':'no')+(GAMESEL===gi?' sel':'')+'" data-gi="'+gi+'"><title>wk'+r[F.week]+' '+(r[F.home]?'vs ':'@ ')+r[F.opp]+' \u2014 '+v+' \u00b7 tap for the full line</title></rect>'
+      +(rows.length<=24?'<text x="'+cx+'" y="'+((v>0&&h>22)?top+15:(v>0?top-4:H-14)).toFixed(1)+'" class="bar-v'+((v>0&&h>22)?' in':'')+'">'+v+'</text>':'')
+      +'<rect x="'+x.toFixed(1)+'" y="'+TOP+'" width="'+w.toFixed(1)+'" height="'+(H-TOP)+'" class="bar-hit" data-gi="'+gi+'"/>';
   });
   out+='<line x1="0" x2="'+W+'" y1="'+y(LINE).toFixed(1)+'" y2="'+y(LINE).toFixed(1)+'" class="thresh"/>';
   svg.setAttribute('viewBox','0 0 '+W+' '+H);
   svg.innerHTML=out;
+  svg.querySelectorAll('.bar-hit').forEach(el=>el.addEventListener('click',()=>{ const gi=+el.dataset.gi; GAMESEL=GAMESEL===gi?null:gi; renderChart(); renderGameDetail(); }));
   legend.innerHTML='<span>wk'+rows[0][F.week]+' → wk'+rows[rows.length-1][F.week]+'</span>'
     +'<span class="thresh-lbl">···· '+(SIDE?'U':'O')+LINE+'</span>'
-    +'<span><span class="sw ok"></span>'+(SIDE?'stayed under':'cleared')+'</span><span><span class="sw no"></span>missed</span>';
+    +'<span><span class="sw ok"></span>'+(SIDE?'stayed under':'cleared')+'</span><span><span class="sw no"></span>missed</span><span class="thin">\u00b7 tap a bar for the full line</span>';
 }
 
 function renderSplits(){
