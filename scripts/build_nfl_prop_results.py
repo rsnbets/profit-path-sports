@@ -25,7 +25,10 @@ SEASON = int(os.environ.get("NFLDB_SEASON", "2026"))
 KEY = {"passing_yards": "pyd", "passing_touchdowns": "ptd", "passing_completions": "cmp", "passing_attempts": "att",
        "passing_interceptions": "int", "rushing_yards": "ryd", "rushing_attempts": "car", "receiving_yards": "recyd",
        "receiving_receptions": "rec", "touchdowns": "anytd", "rushing+receiving_yards": "rr", "passing+rushing_yards": "pr",
-       "fieldGoals_made": "fgm", "kicking_totalPoints": "kpts", "extraPoints_kicksMade": "xpm"}
+       "fieldGoals_made": "fgm", "kicking_totalPoints": "kpts", "extraPoints_kicksMade": "xpm",
+       "receiving_longestReception": "lrec", "rushing_longestRush": "lrush", "passing_longestCompletion": "lcmp",
+       "defense_combinedTackles": "tkl", "defense_soloTackles": "solo", "defense_assistedTackles": "ast",
+       "defense_sacks": "sk", "defense_interceptions": "dint"}
 BUCKETS = [(0, .3, "cold <30%"), (.3, .5, "30-50%"), (.5, .7, "50-70%"), (.7, 1.01, "hot >=70%")]
 
 

@@ -267,6 +267,14 @@
   .inj-badge { font-size:11px;font-weight:700;letter-spacing:.04em;padding:1px 7px;border-radius:999px;border:1px solid currentColor; }
   .inj-badge.Out { color:#e06c6c; } .inj-badge.Doubtful { color:#f0945a; } .inj-badge.Questionable { color:#e6c35a; } .inj-badge.DNP,.inj-badge.Limited { color:#e6c35a; }
   .inj-pr { font-weight:400;opacity:.8; } .inj-ok { font-size:11px;color:var(--green);opacity:.85; }
+
+  .mb-wrap { position:relative; }
+  .mb-btn { font:inherit;font-size:11px;font-weight:600;letter-spacing:.04em;padding:6px 10px;border:1px solid var(--border);border-radius:8px;background:var(--inset);color:var(--text);cursor:pointer; }
+  .mb-btn:hover { border-color:var(--green-border); }
+  .mb-panel { position:absolute;right:0;top:calc(100% + 6px);z-index:30;min-width:220px;max-height:320px;overflow:auto;background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:10px 12px;box-shadow:0 10px 30px rgba(0,0,0,.5);display:flex;flex-direction:column;gap:5px; }
+  .mb-panel[hidden] { display:none; }
+  .mb-row { display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-bottom:4px; } .mb-row a { color:var(--green); }
+  .mb-panel label { font-size:12.5px;display:flex;gap:8px;align-items:center;cursor:pointer; }
 </style>
 <link rel="stylesheet" href="/styles/sidebar.css">
 <link rel="stylesheet" href="/styles/topbar.css">
@@ -510,7 +518,7 @@
   <div class="header">
     <div class="hero-eyebrow">NFL · Every Skill Player · Every Prop</div>
     <div class="title">🏈 NFL Prop&nbsp;Finder&nbsp;🏈</div>
-    <p class="title-sub">Type any NFL skill player. Get <strong>every prop that matters on him</strong> — how often he clears any line over the <strong>season, last 10/5/3</strong> and <strong>against this week's opponent</strong>, his game-by-game chart, and home/away splits. Live lines, alt ladders and vig-free fair prices from every book sit right next to the history.</p>
+    <p class="title-sub">Type any NFL player. Get <strong>every prop that matters on him</strong> — how often he clears any line over the <strong>season, last 10/5/3</strong> and <strong>against this week's opponent</strong>, his game-by-game chart, and home/away splits. Live lines, alt ladders and vig-free fair prices from every book sit right next to the history.</p>
   </div>
   <div class="section">
     <div class="search-wrap big">
@@ -558,6 +566,7 @@
     <div class="lines-head">
       <div class="section-label" id="linesLabel">Pick your line</div>
       <div class="lines-head-right">
+      <div class="mb-wrap" id="mybooksWrap"><button type="button" class="mb-btn">My books: all ▾</button><div class="mb-panel" hidden></div></div>
       <div class="side-seg" id="sideSeg" title="Which side of the bet to analyze">
         <button type="button" data-side="0" class="active">Over</button>
         <button type="button" data-side="1">Under</button>
@@ -626,10 +635,11 @@ const PROPS={
 const MKT={pyd:'passing_yards',ptd:'passing_touchdowns',cmp:'passing_completions',att:'passing_attempts',
   int:'passing_interceptions',ryd:'rushing_yards',car:'rushing_attempts',rec:'receiving_receptions',
   recyd:'receiving_yards',anytd:'touchdowns',rr:'rushing+receiving_yards',pr:'passing+rushing_yards',
-  fgm:'fieldGoals_made',xpm:'extraPoints_kicksMade',kpts:'kicking_totalPoints'};
+  fgm:'fieldGoals_made',xpm:'extraPoints_kicksMade',kpts:'kicking_totalPoints',lcmp:'passing_longestCompletion',lrush:'rushing_longestRush',lrec:'receiving_longestReception',
+  tkl:'defense_combinedTackles',solo:'defense_soloTackles',ast:'defense_assistedTackles',sk:'defense_sacks',dint:'defense_interceptions'};
 let MU=null,INJ=null;   // matchups.json, injuries.json
 const MU_LABEL={pyd:'pass yds',ptd:'pass TDs',int:'INTs',cmp:'completions',att:'attempts',ryd:'rush yds',car:'carries',rtd:'rush TDs',
-  rec:'receptions',recyd:'rec yds',rectd:'rec TDs',tgt:'targets',rr:'rush+rec yds',pr:'pass+rush yds',anytd:'TDs',fgm:'FGs made',fga:'FG att',xpm:'XPs',kpts:'kicking pts'};
+  rec:'receptions',recyd:'rec yds',rectd:'rec TDs',tgt:'targets',rr:'rush+rec yds',pr:'pass+rush yds',anytd:'TDs',fgm:'FGs made',fga:'FG att',xpm:'XPs',kpts:'kicking pts',lcmp:'longest completion',lrush:'longest rush',lrec:'longest reception'};
 const POS_LABEL={QB:'QBs',RB:'RBs',FB:'RBs',WR:'WRs',TE:'TEs',K:'kickers'};
 async function loadSide(){
   if(MU===null){ try{ const r=await fetch('/data/nfl/matchups.json?_='+Math.floor(Date.now()/3600000),{cache:'no-store'}); MU=r.ok?await r.json():false; }catch(e){ MU=false; } }
@@ -637,6 +647,22 @@ async function loadSide(){
 }
 const ODDS_URL='https://nfl-ev-sigma.vercel.app/props.json';
 let ODDS=null,ODDS_IDX=null,LAD=null;   // feed, name index, current player's ladders
+let MYBOOKS=new Set(); try{ MYBOOKS=new Set(JSON.parse(localStorage.getItem('ppz_mybooks')||'[]')); }catch(e){}
+const bookOK=b=>!MYBOOKS.size||MYBOOKS.has(b);
+function mountMyBooks(){
+  const wrap=document.getElementById('mybooksWrap'); if(!wrap||!ODDS) return;
+  const set=new Set(); for(const mk of Object.values(ODDS.players)) for(const lad of Object.values(mk)) for(const bk of Object.values(lad)) for(const b of Object.keys(bk)) set.add(b);
+  const books=[...set].sort((a,b)=>bookName(a).localeCompare(bookName(b)));
+  const btn=wrap.querySelector('.mb-btn'), panel=wrap.querySelector('.mb-panel');
+  const label=()=>btn.textContent=(MYBOOKS.size?'My books: '+MYBOOKS.size:'My books: all')+' ▾';
+  panel.innerHTML='<div class="mb-row"><span>Pick the books you have</span><a href="#" data-clear>clear</a></div>'+books.map(b=>'<label><input type="checkbox" value="'+b+'"'+(MYBOOKS.has(b)?' checked':'')+'> '+esc(bookName(b))+'</label>').join('');
+  const save=()=>{ try{ localStorage.setItem('ppz_mybooks',JSON.stringify([...MYBOOKS])); }catch(e){} label(); if(typeof render==='function'&&SHARD) render(); if(typeof renderTable==='function'&&GAME) renderTable(); };
+  panel.querySelectorAll('input').forEach(cb=>cb.addEventListener('change',()=>{ cb.checked?MYBOOKS.add(cb.value):MYBOOKS.delete(cb.value); save(); }));
+  panel.querySelector('[data-clear]').addEventListener('click',e=>{ e.preventDefault(); MYBOOKS.clear(); panel.querySelectorAll('input').forEach(cb=>cb.checked=false); save(); });
+  btn.addEventListener('click',e=>{ e.stopPropagation(); panel.hidden=!panel.hidden; });
+  document.addEventListener('click',e=>{ if(!wrap.contains(e.target)) panel.hidden=true; });
+  label();
+}
 const BOOK_NAMES={draftkings:'DraftKings',fanduel:'FanDuel',betmgm:'BetMGM',caesars:'Caesars',espnbet:'ESPN BET',betrivers:'BetRivers',
   hardrockbet:'Hard Rock',bovada:'Bovada',mybookie:'MyBookie',ballybet:'Bally',fliff:'Fliff',betus:'BetUS',betanysports:'BetAnySports',
   fanatics:'Fanatics',pointsbet:'PointsBet',sugarhouse:'SugarHouse',thescorebet:'theScore',betonline:'BetOnline',pinnacle:'Pinnacle',
@@ -677,13 +703,19 @@ function priceAt(lad,line){ // -> {bestOver:[book,odds], bestUnder, fairOver, nT
   const bk=lad[String(line)]||lad[line.toFixed(1)]||null; if(!bk) return null;
   let bo=null,bu=null; const fo=[];
   for(const [b,[o,u]] of Object.entries(bk)){
-    if(o&&(!bo||toDec(o)>toDec(bo[1]))) bo=[b,o];
-    if(u&&(!bu||toDec(u)>toDec(bu[1]))) bu=[b,u];
-    if(o&&u){ const f=devigPower(toProb(o),toProb(u)); if(f) fo.push(f[0]); }
+    if(bookOK(b)&&o&&(!bo||toDec(o)>toDec(bo[1]))) bo=[b,o];
+    if(bookOK(b)&&u&&(!bu||toDec(u)>toDec(bu[1]))) bu=[b,u];
+    if(o&&u){ const f=devigPower(toProb(o),toProb(u)); if(f) fo.push(f[0]); }   // fair uses every book
   }
   return {bestOver:bo,bestUnder:bu,fairOver:median(fo),nTwo:fo.length,n:Object.keys(bk).length};
 }
 PROPS.K=[["fgm","FG Made",1.5,1],["kpts","Kicking Pts",7.5,1],["xpm","XP Made",2.5,1],["fga","FG Att",2.5,1]];
+PROPS.QB.splice(6,0,["lcmp","Longest Comp",39.5,5]);
+PROPS.RB.splice(6,0,["lrush","Longest Rush",14.5,2],["lrec","Longest Rec",12.5,2]);
+PROPS.WR.splice(2,0,["lrec","Longest Rec",19.5,2]);
+PROPS.DEF=[["tkl","Tackles + Ast",6.5,1],["solo","Solo Tackles",4.5,1],["ast","Assists",2.5,1],["sk","Sacks",0.5,0.5],["dint","INTs",0.5,1]];
+const DEFPOS=new Set(["DE","DT","NT","DL","EDGE","LB","OLB","ILB","MLB","CB","S","SAF","FS","SS","DB"]);
+const propsFor=pos=>PROPS[pos]||(DEFPOS.has(pos)?PROPS.DEF:PROPS.WR);
 PROPS.TE=PROPS.WR; PROPS.FB=PROPS.RB;
 
 let IDX=null,F={},SHARD=null,PROP=null,LINE=0.5,STEP=1,SIDE=0,WINSEL='l10',WINDOWS_MAP={};
@@ -724,7 +756,7 @@ function wireSearch(inputId,dropId){
     drop.innerHTML=items.map((p,i)=>'<div class="s-item" data-i="'+i+'">'
       +'<span class="s-name">'+esc(p[1])+'</span>'
       +'<span class="s-meta">'+esc(p[2])+' · '+esc(p[3])+(p[4]?'':' · not active')+'</span></div>').join('')
-      ||'<div class="s-empty">No match — we cover QBs, RBs, WRs, TEs and kickers with a game logged.</div>';
+      ||'<div class="s-empty">No match — we cover QBs, RBs, WRs, TEs, kickers and defenders with a game logged.</div>';
     drop.style.display='block';
     drop.querySelectorAll('.s-item').forEach(el=>el.addEventListener('mousedown',e=>{
       e.preventDefault(); go(items[+el.dataset.i][0]);
@@ -768,6 +800,7 @@ async function loadPlayer(id){
     :'<span class="thin">No upcoming game on the schedule.</span>';
   const d=new Date(IDX.generatedAt).toLocaleDateString(undefined,{month:'short',day:'numeric'});
   await Promise.all([loadOdds(),loadSide()]);
+  if(!document.getElementById('mybooksWrap').dataset.on){ mountMyBooks(); document.getElementById('mybooksWrap').dataset.on='1'; }
   LAD=findLadders();
   const inj=INJ&&INJ.players&&INJ.players[SHARD.id];
   if(inj&&(inj[0]||inj[1])){ const st=inj[0]||inj[1]; document.getElementById('pMeta').innerHTML+=' · <span class="inj-badge '+esc(st.replace(/\s/g,''))+'" title="Week '+INJ.week+' official report">'+esc(st)+(inj[2]?' · '+esc(inj[2]):'')+(inj[0]&&inj[1]?' <span class="inj-pr">('+esc(inj[1])+')</span>':'')+'</span>'; }
@@ -776,12 +809,12 @@ async function loadPlayer(id){
   status.textContent='Stats through '+d+' · '+(LAD?'lines live as of '+od+' · '+Object.keys(LAD).length+' markets posted on him':(ODDS?'no lines posted on him yet (lines as of '+od+')':'lines feed unavailable right now'));
   status.className='status-bar ok';
   renderPropChips();
-  const defs=PROPS[SHARD.pos]||PROPS.WR;
+  const defs=propsFor(SHARD.pos);
   selectProp(defs[0]);
 }
 
 function renderPropChips(){
-  const defs=PROPS[SHARD.pos]||PROPS.WR;
+  const defs=propsFor(SHARD.pos);
   const wrap=document.getElementById('propChips');
   wrap.innerHTML='';
   for(const d of defs){
@@ -804,7 +837,7 @@ function selectProp(def){
 function combined(){ return SHARD.prev.concat(SHARD.g); }
 function renderMatchup(){
   const el=document.getElementById('matchupLine'); if(!el) return;
-  const g=IDX.teams[SHARD.team]; const b={QB:'QB',RB:'RB',FB:'RB',WR:'WR',TE:'TE',K:'K'}[SHARD.pos];
+  const g=IDX.teams[SHARD.team]; const b={QB:'QB',RB:'RB',FB:'RB',WR:'WR',TE:'TE',K:'K'}[SHARD.pos];   // defenders: no matchup line (the stat comes from the opponent's offense)
   const m=g&&MU&&MU.ranks&&MU.ranks[g.opp]&&MU.ranks[g.opp][b]&&MU.ranks[g.opp][b][PROP.key];
   if(!m){ el.style.display='none'; return; }
   const [pg,rank,lg]=m, n=Object.keys(MU.ranks).length, soft=n-rank+1;

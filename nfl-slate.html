@@ -267,6 +267,14 @@
   .inj-badge { font-size:11px;font-weight:700;letter-spacing:.04em;padding:1px 7px;border-radius:999px;border:1px solid currentColor; }
   .inj-badge.Out { color:#e06c6c; } .inj-badge.Doubtful { color:#f0945a; } .inj-badge.Questionable { color:#e6c35a; } .inj-badge.DNP,.inj-badge.Limited { color:#e6c35a; }
   .inj-pr { font-weight:400;opacity:.8; } .inj-ok { font-size:11px;color:var(--green);opacity:.85; }
+
+  .mb-wrap { position:relative; }
+  .mb-btn { font:inherit;font-size:11px;font-weight:600;letter-spacing:.04em;padding:6px 10px;border:1px solid var(--border);border-radius:8px;background:var(--inset);color:var(--text);cursor:pointer; }
+  .mb-btn:hover { border-color:var(--green-border); }
+  .mb-panel { position:absolute;right:0;top:calc(100% + 6px);z-index:30;min-width:220px;max-height:320px;overflow:auto;background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:10px 12px;box-shadow:0 10px 30px rgba(0,0,0,.5);display:flex;flex-direction:column;gap:5px; }
+  .mb-panel[hidden] { display:none; }
+  .mb-row { display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-bottom:4px; } .mb-row a { color:var(--green); }
+  .mb-panel label { font-size:12.5px;display:flex;gap:8px;align-items:center;cursor:pointer; }
 </style>
 <link rel="stylesheet" href="/styles/sidebar.css">
 <link rel="stylesheet" href="/styles/topbar.css">
@@ -527,6 +535,7 @@
     <div class="lines-head">
       <div class="section-label" id="mktLabel">Market</div>
       <div class="lines-head-right">
+        <div class="mb-wrap" id="mybooksWrap"><button type="button" class="mb-btn">My books: all ▾</button><div class="mb-panel" hidden></div></div>
         <div class="side-seg" id="sideSeg" title="Which side to grade the history against">
           <button type="button" data-side="0" class="active">Over</button>
           <button type="button" data-side="1">Under</button>
@@ -567,13 +576,20 @@ const ODDS_URL='https://nfl-ev-sigma.vercel.app/props.json';
 // market tabs: [label, [sgo markets]]; market -> player-db key (history) ; markets with no history are not shown
 const TABS=[['Passing',['passing_yards','passing_touchdowns','passing_completions','passing_attempts','passing_interceptions']],
   ['Rushing',['rushing_yards','rushing_attempts']],['Receiving',['receiving_yards','receiving_receptions']],
-  ['Combos',['rushing+receiving_yards','passing+rushing_yards']],['Touchdowns',['touchdowns']],['Kicking',['fieldGoals_made','kicking_totalPoints','extraPoints_kicksMade']]];
+  ['Combos',['rushing+receiving_yards','passing+rushing_yards']],['Touchdowns',['touchdowns']],
+  ['Longest',['receiving_longestReception','rushing_longestRush','passing_longestCompletion']],
+  ['Defense',['defense_combinedTackles','defense_soloTackles','defense_assistedTackles','defense_sacks','defense_interceptions']],
+  ['Kicking',['fieldGoals_made','kicking_totalPoints','extraPoints_kicksMade']]];
 const KEY={passing_yards:'pyd',passing_touchdowns:'ptd',passing_completions:'cmp',passing_attempts:'att',passing_interceptions:'int',
   rushing_yards:'ryd',rushing_attempts:'car',receiving_yards:'recyd',receiving_receptions:'rec',touchdowns:'anytd',
-  'rushing+receiving_yards':'rr','passing+rushing_yards':'pr',fieldGoals_made:'fgm',kicking_totalPoints:'kpts',extraPoints_kicksMade:'xpm'};
+  'rushing+receiving_yards':'rr','passing+rushing_yards':'pr',fieldGoals_made:'fgm',kicking_totalPoints:'kpts',extraPoints_kicksMade:'xpm',
+  receiving_longestReception:'lrec',rushing_longestRush:'lrush',passing_longestCompletion:'lcmp',
+  defense_combinedTackles:'tkl',defense_soloTackles:'solo',defense_assistedTackles:'ast',defense_sacks:'sk',defense_interceptions:'dint'};
 const MLABEL={passing_yards:'Pass Yds',passing_touchdowns:'Pass TDs',passing_completions:'Completions',passing_attempts:'Pass Att',passing_interceptions:'INTs',
   rushing_yards:'Rush Yds',rushing_attempts:'Carries',receiving_yards:'Rec Yds',receiving_receptions:'Receptions',touchdowns:'Anytime TD',
-  'rushing+receiving_yards':'Rush+Rec','passing+rushing_yards':'Pass+Rush',fieldGoals_made:'FG Made',kicking_totalPoints:'Kick Pts',extraPoints_kicksMade:'XP Made'};
+  'rushing+receiving_yards':'Rush+Rec','passing+rushing_yards':'Pass+Rush',fieldGoals_made:'FG Made',kicking_totalPoints:'Kick Pts',extraPoints_kicksMade:'XP Made',
+  receiving_longestReception:'Longest Rec',rushing_longestRush:'Longest Rush',passing_longestCompletion:'Longest Comp',
+  defense_combinedTackles:'Tackles+Ast',defense_soloTackles:'Solo Tkl',defense_assistedTackles:'Assists',defense_sacks:'Sacks',defense_interceptions:'INTs'};
 const BOOK_NAMES={draftkings:'DraftKings',fanduel:'FanDuel',betmgm:'BetMGM',caesars:'Caesars',espnbet:'ESPN BET',betrivers:'BetRivers',hardrockbet:'Hard Rock',bovada:'Bovada',mybookie:'MyBookie',ballybet:'Bally',fliff:'Fliff',betus:'BetUS',betanysports:'BetAnySports',fanatics:'Fanatics',pointsbet:'PointsBet',sugarhouse:'SugarHouse',thescorebet:'theScore',betonline:'BetOnline',pinnacle:'Pinnacle',novig:'Novig',prophetexchange:'ProphetX',lowvig:'LowVig',bookmakereu:'BookmakerEU',circa:'Circa',betfairexchange:'Betfair',matchbook:'Matchbook'};
 const bookName=b=>BOOK_NAMES[b]||b;
 const amerNum=o=>{if(o==null)return null;const n=parseFloat(String(o).replace('+',''));return isNaN(n)?null:n;};
@@ -587,13 +603,29 @@ const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',
 function normName(s){ return s.normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase().replace(/\b(jr|sr|ii|iii|iv)\b\.?/g,'').replace(/[^a-z ]/g,'').replace(/\s+/g,' ').trim(); }
 function mainLine(lad,market){ if(market==='touchdowns'&&lad['0.5']) return 0.5; let best=null,bs=-1; for(const [k,bk] of Object.entries(lad)){ const s=Object.values(bk).reduce((a,[o,u])=>a+(o?1:0)+(u?1:0),0); if(s>bs){bs=s;best=k;} } return best==null?null:parseFloat(best); }
 function priceAt(lad,line){ const bk=lad[String(line)]||null; if(!bk) return null; let bo=null,bu=null; const fo=[];
-  for(const [b,[o,u]] of Object.entries(bk)){ if(o&&(!bo||toDec(o)>toDec(bo[1]))) bo=[b,o]; if(u&&(!bu||toDec(u)>toDec(bu[1]))) bu=[b,u]; if(o&&u){ const f=devigPower(toProb(o),toProb(u)); if(f) fo.push(f[0]); } }
+  for(const [b,[o,u]] of Object.entries(bk)){ if(bookOK(b)&&o&&(!bo||toDec(o)>toDec(bo[1]))) bo=[b,o]; if(bookOK(b)&&u&&(!bu||toDec(u)>toDec(bu[1]))) bu=[b,u]; if(o&&u){ const f=devigPower(toProb(o),toProb(u)); if(f) fo.push(f[0]); } }
   return {bestOver:bo,bestUnder:bu,fairOver:median(fo),nTwo:fo.length,n:Object.keys(bk).length}; }
 function valOf(r,key){ if(key==='anytd')return r[F.rtd]+r[F.rectd]; if(key==='rr')return r[F.ryd]+r[F.recyd]; if(key==='pr')return r[F.pyd]+r[F.ryd]; if(key==='kpts')return 3*(r[F.fgm]||0)+(r[F.xpm]||0); return r[F[key]]||0; }
-const POSB={QB:'QB',RB:'RB',FB:'RB',WR:'WR',TE:'TE',K:'K'};
+const POSB={QB:'QB',RB:'RB',FB:'RB',WR:'WR',TE:'TE',K:'K'};   // defenders have no matchup bucket
 const ord=k=>k+(k===1?'st':k===2?'nd':k===3?'rd':'th');
 
 let ODDS=null,IDX=null,F={},MU=null,INJ=null,GAME=null,TAB=0,SIDE=0,SHARDS={},NAMEIDX={};
+let MYBOOKS=new Set(); try{ MYBOOKS=new Set(JSON.parse(localStorage.getItem('ppz_mybooks')||'[]')); }catch(e){}
+const bookOK=b=>!MYBOOKS.size||MYBOOKS.has(b);
+function mountMyBooks(){
+  const wrap=document.getElementById('mybooksWrap'); if(!wrap||!ODDS) return;
+  const set=new Set(); for(const mk of Object.values(ODDS.players)) for(const lad of Object.values(mk)) for(const bk of Object.values(lad)) for(const b of Object.keys(bk)) set.add(b);
+  const books=[...set].sort((a,b)=>bookName(a).localeCompare(bookName(b)));
+  const btn=wrap.querySelector('.mb-btn'), panel=wrap.querySelector('.mb-panel');
+  const label=()=>btn.textContent=(MYBOOKS.size?'My books: '+MYBOOKS.size:'My books: all')+' ▾';
+  panel.innerHTML='<div class="mb-row"><span>Pick the books you have</span><a href="#" data-clear>clear</a></div>'+books.map(b=>'<label><input type="checkbox" value="'+b+'"'+(MYBOOKS.has(b)?' checked':'')+'> '+esc(bookName(b))+'</label>').join('');
+  const save=()=>{ try{ localStorage.setItem('ppz_mybooks',JSON.stringify([...MYBOOKS])); }catch(e){} label(); if(GAME) renderTable(); };
+  panel.querySelectorAll('input').forEach(cb=>cb.addEventListener('change',()=>{ cb.checked?MYBOOKS.add(cb.value):MYBOOKS.delete(cb.value); save(); }));
+  panel.querySelector('[data-clear]').addEventListener('click',e=>{ e.preventDefault(); MYBOOKS.clear(); panel.querySelectorAll('input').forEach(cb=>cb.checked=false); save(); });
+  btn.addEventListener('click',e=>{ e.stopPropagation(); panel.hidden=!panel.hidden; });
+  document.addEventListener('click',e=>{ if(!wrap.contains(e.target)) panel.hidden=true; });
+  label();
+}
 
 async function getJSON(u){ const r=await fetch(u,{cache:'no-store'}); if(!r.ok) throw new Error(u+' '+r.status); return r.json(); }
 async function boot(){
@@ -608,7 +640,7 @@ async function boot(){
   const od=new Date(ODDS.generatedAt).toLocaleString(undefined,{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'});
   const sd=new Date(IDX.generatedAt).toLocaleDateString(undefined,{month:'short',day:'numeric'});
   st.className='status-bar ok'; st.textContent='Lines as of '+od+' · stats through '+sd+(INJ?' · injury report week '+INJ.week:'');
-  renderGameChips(); renderGraded();
+  renderGameChips(); renderGraded(); mountMyBooks();
   document.querySelectorAll('#sideSeg button').forEach(b=>b.addEventListener('click',()=>{ SIDE=+b.dataset.side; document.querySelectorAll('#sideSeg button').forEach(x=>x.classList.toggle('active',x===b)); renderTable(); }));
   const want=new URLSearchParams(location.search).get('g');
   const games=ODDS.games; const now=Date.now();

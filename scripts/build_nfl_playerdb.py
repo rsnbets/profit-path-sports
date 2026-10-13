@@ -33,24 +33,30 @@ SHARD_DIR = os.path.join(ROOT, "players")
 INDEX_PATH = os.path.join(ROOT, "players.json")
 
 REL = "https://github.com/nflverse/nflverse-data/releases/download"
-POSITIONS = {"QB", "RB", "FB", "WR", "TE", "K"}
+DEF_POS = {"DE", "DT", "NT", "DL", "EDGE", "LB", "OLB", "ILB", "MLB", "CB", "S", "SAF", "FS", "SS", "DB"}
+POSITIONS = {"QB", "RB", "FB", "WR", "TE", "K"} | DEF_POS
 
 # One row per week, published once in the index.
 FIELDS = ["week", "opp", "home", "cmp", "att", "pyd", "ptd", "int",
-          "car", "ryd", "rtd", "rec", "tgt", "recyd", "rectd", "fgm", "fga", "xpm"]
+          "car", "ryd", "rtd", "rec", "tgt", "recyd", "rectd", "fgm", "fga", "xpm",
+          "solo", "ast", "sk", "dint", "tkl", "lrec", "lrush", "lcmp"]
 STAT_COLS = ["completions", "attempts", "passing_yards", "passing_tds",
              "passing_interceptions", "carries", "rushing_yards", "rushing_tds",
              "receptions", "targets", "receiving_yards", "receiving_tds",
-             "fg_made", "fg_att", "pat_made"]
+             "fg_made", "fg_att", "pat_made",
+             "def_tackles_solo", "def_tackle_assists", "def_sacks", "def_interceptions"]
+# derived per row: tkl = solo + ast (the books' "combined tackles"); lrec/lrush/lcmp from play-by-play (max yards on one play)
+DERIVED = ["tkl", "lrec", "lrush", "lcmp"]
+MAX_FIELDS = {"lrec", "lrush", "lcmp"}       # matchups aggregate these per game by MAX, not sum
 MATCHUP_PATH = os.path.join(ROOT, "matchups.json")
 INJ_PATH = os.path.join(ROOT, "injuries.json")
 # what a defense "allows" per position bucket; values are FIELDS keys or sums of them
-BUCKET = {"QB": "QB", "RB": "RB", "FB": "RB", "WR": "WR", "TE": "TE", "K": "K"}
+BUCKET = {"QB": "QB", "RB": "RB", "FB": "RB", "WR": "WR", "TE": "TE", "K": "K", **{p: "DEF" for p in DEF_POS}}
 ALLOW = {
-    "QB": {"pyd": ["pyd"], "ptd": ["ptd"], "int": ["int"], "cmp": ["cmp"], "att": ["att"], "ryd": ["ryd"], "pr": ["pyd", "ryd"], "anytd": ["rtd", "rectd"]},
-    "RB": {"car": ["car"], "ryd": ["ryd"], "rtd": ["rtd"], "rec": ["rec"], "recyd": ["recyd"], "tgt": ["tgt"], "rr": ["ryd", "recyd"], "anytd": ["rtd", "rectd"]},
-    "WR": {"rec": ["rec"], "recyd": ["recyd"], "rectd": ["rectd"], "tgt": ["tgt"], "ryd": ["ryd"], "rr": ["ryd", "recyd"], "anytd": ["rtd", "rectd"]},
-    "TE": {"rec": ["rec"], "recyd": ["recyd"], "rectd": ["rectd"], "tgt": ["tgt"], "rr": ["ryd", "recyd"], "anytd": ["rtd", "rectd"]},
+    "QB": {"pyd": ["pyd"], "ptd": ["ptd"], "int": ["int"], "cmp": ["cmp"], "att": ["att"], "ryd": ["ryd"], "pr": ["pyd", "ryd"], "anytd": ["rtd", "rectd"], "lcmp": ["lcmp"]},
+    "RB": {"car": ["car"], "ryd": ["ryd"], "rtd": ["rtd"], "rec": ["rec"], "recyd": ["recyd"], "tgt": ["tgt"], "rr": ["ryd", "recyd"], "anytd": ["rtd", "rectd"], "lrush": ["lrush"], "lrec": ["lrec"]},
+    "WR": {"rec": ["rec"], "recyd": ["recyd"], "rectd": ["rectd"], "tgt": ["tgt"], "ryd": ["ryd"], "rr": ["ryd", "recyd"], "anytd": ["rtd", "rectd"], "lrec": ["lrec"]},
+    "TE": {"rec": ["rec"], "recyd": ["recyd"], "rectd": ["rectd"], "tgt": ["tgt"], "rr": ["ryd", "recyd"], "anytd": ["rtd", "rectd"], "lrec": ["lrec"]},
     "K":  {"fgm": ["fgm"], "fga": ["fga"], "xpm": ["xpm"], "kpts": ["fgm", "fgm", "fgm", "xpm"]},
 }
 # a stat where allowing MORE is worse for the defense (rank 1 = allows least). int is the exception.
@@ -72,24 +78,58 @@ def fetch_csv(url, required=True):
 
 def _n(v):
     try:
-        return int(float(v))
+        f = float(v)
     except (TypeError, ValueError):
         return 0
+    return int(f) if f == int(f) else round(f, 1)
 
 
-def week_rows(rows):
+def week_rows(rows, longest=None):
     """player_id -> [FIELDS rows], week-ordered. game_id is AWAY_HOME, so a
-    player is home when his team is the last segment."""
+    player is home when his team is the last segment. longest: {(game_id, player_id): {lrec, lrush, lcmp}}."""
     out = {}
+    longest = longest or {}
     for r in rows:
         if r.get("position") not in POSITIONS:
             continue
-        home = 1 if r.get("game_id", "").endswith("_" + r.get("team", "?")) else 0
-        out.setdefault(r["player_id"], []).append(
-            [_n(r.get("week")), r.get("opponent_team", "?"), home] +
-            [_n(r.get(c)) for c in STAT_COLS])
+        gid = r.get("game_id", "")
+        home = 1 if gid.endswith("_" + r.get("team", "?")) else 0
+        row = [_n(r.get("week")), r.get("opponent_team", "?"), home] + [_n(r.get(c)) for c in STAT_COLS]
+        fi = {f: i for i, f in enumerate(FIELDS)}
+        lg = longest.get((gid, r["player_id"]), {})
+        row += [row[fi["solo"]] + row[fi["ast"]], lg.get("lrec", 0), lg.get("lrush", 0), lg.get("lcmp", 0)]
+        out.setdefault(r["player_id"], []).append(row)
     for rows_ in out.values():
         rows_.sort(key=lambda x: x[0])
+    return out
+
+
+def longest_plays(season):
+    """play-by-play -> {(game_id, player_id): {lrec, lrush, lcmp}}: the longest single reception /
+    rush / completion in each game. Streams the gz; ~1 min per season."""
+    import gzip
+    url = f"{REL}/pbp/play_by_play_{season}.csv.gz"
+    out = {}
+    try:
+        req = urllib.request.Request(url, headers={"User-Agent": "pps-nfldb/1.0"})
+        with urllib.request.urlopen(req, timeout=300) as r:
+            with gzip.open(r, "rt", newline="") as f:
+                for p in csv.DictReader(f):
+                    if p.get("season_type") != "REG":
+                        continue
+                    gid = p.get("game_id", "")
+                    if p.get("complete_pass") == "1":
+                        y = _n(p.get("receiving_yards") or p.get("yards_gained"))
+                        rid, qid = p.get("receiver_player_id"), p.get("passer_player_id")
+                        if rid:
+                            d = out.setdefault((gid, rid), {}); d["lrec"] = max(d.get("lrec", 0), y)
+                        if qid:
+                            d = out.setdefault((gid, qid), {}); d["lcmp"] = max(d.get("lcmp", 0), y)
+                    if p.get("rush_attempt") == "1" and p.get("rusher_player_id"):
+                        y = _n(p.get("rushing_yards") or p.get("yards_gained"))
+                        d = out.setdefault((gid, p["rusher_player_id"]), {}); d["lrush"] = max(d.get("lrush", 0), y)
+    except Exception as e:
+        print(f"  (longest plays unavailable for {season}: {e})")
     return out
 
 
@@ -110,7 +150,7 @@ def next_games(sched):
     return out
 
 
-def build_matchups(rows):
+def build_matchups(rows, longest):
     """rows: raw nflverse player-week rows (current season). -> matchups.json body."""
     fi = {f: i for i, f in enumerate(FIELDS)}
     per_game = {}   # (defense, bucket, game_id) -> {field: sum}
@@ -119,9 +159,14 @@ def build_matchups(rows):
         if pos not in POSITIONS or r.get("season_type", "REG") != "REG":
             continue
         b = BUCKET[pos]; d = r.get("opponent_team", "?"); gid = r.get("game_id", "")
+        if b == "DEF":
+            continue
         acc = per_game.setdefault((d, b, gid), {})
         for f, c in zip(FIELDS[3:], STAT_COLS):
             acc[f] = acc.get(f, 0) + _n(r.get(c))
+        lg = longest.get((gid, r["player_id"]), {})
+        for f in MAX_FIELDS:
+            acc[f] = max(acc.get(f, 0), lg.get(f, 0))
     # every defense's game count = distinct game_ids it appears in (any bucket)
     games = {}
     for (d, b, gid) in per_game:
@@ -180,7 +225,9 @@ def main():
         print("ABORT: nflverse download looks broken — not writing.", file=sys.stderr)
         sys.exit(1)
 
-    cur_rows, prev_rows = week_rows(cur), week_rows(prev)
+    print("  play-by-play for longest plays…")
+    LONGEST_CUR = longest_plays(SEASON)
+    cur_rows, prev_rows = week_rows(cur, LONGEST_CUR), week_rows(prev, longest_plays(PREV))
     meta = {p["gsis_id"]: p for p in players if p.get("gsis_id")}
 
     shards = []
@@ -188,6 +235,8 @@ def main():
         m = meta.get(pid, {})
         pos = m.get("position") or "?"
         if pos not in POSITIONS:
+            continue
+        if pos in DEF_POS and not (cur_rows.get(pid) or prev_rows.get(pid)):
             continue
         shards.append({
             "id": pid,
@@ -244,7 +293,7 @@ def main():
     with open(INDEX_PATH, "w") as f:
         json.dump({"generatedAt": generated_at, **index_body}, f, separators=(",", ":"))
 
-    mu = build_matchups(cur)
+    mu = build_matchups(cur, LONGEST_CUR)
     with open(MATCHUP_PATH, "w") as f:
         json.dump({"generatedAt": generated_at, **mu}, f, separators=(",", ":"))
     inj = build_injuries()
