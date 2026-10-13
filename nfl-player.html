@@ -258,7 +258,7 @@
   .pg-v.good { color:var(--green); } .pg-v.bad { color:#e06c6c; }
   .pg-b { font-size:11px;font-weight:400;color:var(--muted);font-family:inherit; }
 
-  .mu-line { display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px;padding:2px 0 10px; }
+  .mu-line { display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px;padding:2px 0 10px; }
   .mu-card { position:relative;background:var(--inset);border:1px solid var(--border);border-left:4px solid var(--muted);border-radius:10px;padding:10px 14px 10px 14px; }
   .mu-card.soft { border-left-color:var(--green); } .mu-card.tough { border-left-color:#e06c6c; } .mu-card.mid { border-left-color:#e6c35a; }
   .mu-k { font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:8px;flex-wrap:wrap; }
@@ -267,6 +267,9 @@
   .mu-big { font-family:'DM Mono',monospace;font-size:30px;font-weight:700;line-height:1.1;margin:4px 0 2px;color:var(--text); }
   .mu-card.soft .mu-big { color:var(--green); } .mu-card.tough .mu-big { color:#e06c6c; } .mu-card.mid .mu-big { color:#e6c35a; }
   .mu-of { font-size:14px;font-weight:500;color:var(--muted); }
+  .mu-odds { font-size:18px;font-weight:700;color:var(--text);margin-left:6px; }
+  .mu-card.off { border-left-color:var(--border); } .mu-card.off .mu-big { color:var(--muted); }
+  .ev-pos { color:var(--green) !important; } .ev-neg { color:#e06c6c !important; }
   .mu-sub { font-size:12.5px;color:var(--muted); } .mu-sub strong { color:var(--text);font-family:'DM Mono',monospace; }
   .mu-lg { font-size:11px; }
   .mu-foot { grid-column:1 / -1;font-size:10.5px;color:var(--muted);opacity:.8; }
@@ -885,29 +888,39 @@ function tierWindow(){ // this week's opponent tier for the selected prop + the 
   const rows=SHARD.prev.filter(r=>tierOf(r[F.opp],b,PROP.key,IDX.prevSeason)===t).concat(SHARD.g.filter(r=>tierOf(r[F.opp],b,PROP.key,IDX.season)===t));
   return {tier:t,rows,opp:g.opp};
 }
+function lineCard(){
+  const lad=ladderFor(PROP.key); const p=lad?priceAt(lad,LINE):null; const sideTxt=(SIDE?'U':'O')+LINE;
+  if(!lad) return '<div class="mu-card off"><div class="mu-k">Line · '+esc(PROP.label)+'</div><div class="mu-big">'+sideTxt+'</div><div class="mu-sub">no line posted yet · stepper only</div></div>';
+  const mine=p?(SIDE?p.bestUnder:p.bestOver):null; const fair=p&&p.fairOver!=null?(SIDE?1-p.fairOver:p.fairOver):null;
+  const ev=(fair!=null&&mine)?fair*toDec(mine[1])-1:null; const ml=mainLine(lad,MKT[PROP.key]);
+  const cls=ev==null?'off':ev>0?'soft':ev<-0.04?'tough':'mid';
+  return '<div class="mu-card '+cls+'"><div class="mu-k">Line · '+esc(PROP.label)+(ml!=null&&ml!==LINE?' <span class="mu-tag">alt · main '+(SIDE?'U':'O')+ml+'</span>':' <span class="mu-tag">main line</span>')+'</div>'
+    +'<div class="mu-big">'+sideTxt+(mine?' <span class="mu-odds">'+fmtOdds(mine[1])+'</span>':'')+'</div>'
+    +'<div class="mu-sub">'+(mine?'best at <strong>'+esc(bookName(mine[0]))+'</strong>':'no book quotes this side')+(fair!=null?' · fair <strong>'+fromProb(fair)+'</strong>':'')+(ev!=null?' · EV <strong class="'+(ev>0?'ev-pos':'ev-neg')+'">'+(ev>0?'+':'')+(100*ev).toFixed(1)+'%</strong>':'')+'</div></div>';
+}
 function renderMatchup(){
   const el=document.getElementById('matchupLine'); if(!el) return;
-  const g=IDX.teams[SHARD.team]; const b={QB:'QB',RB:'RB',FB:'RB',WR:'WR',TE:'TE',K:'K'}[SHARD.pos];   // defenders: no matchup line (the stat comes from the opponent's offense)
+  const g=IDX.teams[SHARD.team]; const b={QB:'QB',RB:'RB',FB:'RB',WR:'WR',TE:'TE',K:'K'}[SHARD.pos];   // defenders: no matchup card (the stat comes from the opponent's offense)
   const m=g&&MU&&MU.ranks&&MU.ranks[g.opp]&&MU.ranks[g.opp][b]&&MU.ranks[g.opp][b][PROP.key];
-  if(!m){ el.style.display='none'; return; }
-  const [pg,rank,lg]=m, n=Object.keys(MU.ranks).length, soft=n-rank+1;
-  const ord=k=>k+(k===1?'st':k===2?'nd':k===3?'rd':'th');
-  const cls=rank>=23?'soft':rank<=10?'tough':'mid';
-  const word=cls==='soft'?(soft===1?'softest in the league':ord(soft)+'-softest'):cls==='tough'?(rank===1?'stingiest in the league':ord(rank)+'-stingiest'):'middle of the pack';
-  const verdict=cls==='soft'?'Soft spot':cls==='tough'?'Tough spot':'Neutral';
-  let tier='';
-  const tw=tierWindow();
-  if(tw){ const cr=clearRate(tw.rows); const avg=tw.rows.length?(tw.rows.reduce((s,r)=>s+valOf(r,PROP.key),0)/tw.rows.length):null;
-    const hc=!cr?'':cr.p>=0.6?'soft':cr.p<=0.4?'tough':'mid';
-    tier='<div class="mu-card '+hc+'"><div class="mu-k">vs defenses like '+esc(g.opp)+' <span class="mu-tag">'+esc(tw.tier)+'</span></div>'
-      +'<div class="mu-big">'+(cr?cr.hits+'<span class="mu-of">/'+cr.n+'</span>':'—')+'</div>'
-      +'<div class="mu-sub">'+(cr?(SIDE?'stayed under ':'cleared ')+(SIDE?'U':'O')+LINE+(avg!=null?' · avg <strong>'+avg.toFixed(1)+'</strong>':'')+(cr.n<3?' · tiny sample':''):'no games vs this tier')+'</div></div>'; }
-  el.style.display='grid';
-  el.innerHTML='<div class="mu-card '+cls+'"><div class="mu-k">Matchup · '+esc(g.opp)+' vs '+esc(POS_LABEL[SHARD.pos]||SHARD.pos)+' <span class="mu-tag">'+esc(verdict)+'</span></div>'
-    +'<div class="mu-big">'+ord(rank)+'<span class="mu-of"> of '+n+'</span></div>'
-    +'<div class="mu-sub">'+esc(word)+' · allows <strong>'+pg+'</strong> '+esc(MU_LABEL[PROP.key]||PROP.key)+'/g <span class="mu-lg">(lg avg '+lg+' · '+MU.games[g.opp]+' games)</span></div></div>'
-    +tier
-    +'<div class="mu-foot">Rank 1 = allows the least this season. "Like '+esc(g.opp)+'" = defenses in the same tier (top-8 / mid / bottom-8); 2025 games use last season\'s final ranks.</div>';
+  let cards=lineCard(), foot='';
+  if(m){
+    const [pg,rank,lg]=m, n=Object.keys(MU.ranks).length, soft=n-rank+1;
+    const ord=k=>k+(k===1?'st':k===2?'nd':k===3?'rd':'th');
+    const cls=rank>=23?'soft':rank<=10?'tough':'mid';
+    const word=cls==='soft'?(soft===1?'softest in the league':ord(soft)+'-softest'):cls==='tough'?(rank===1?'stingiest in the league':ord(rank)+'-stingiest'):'middle of the pack';
+    const verdict=cls==='soft'?'Soft spot':cls==='tough'?'Tough spot':'Neutral';
+    cards+='<div class="mu-card '+cls+'"><div class="mu-k">Matchup · '+esc(g.opp)+' vs '+esc(POS_LABEL[SHARD.pos]||SHARD.pos)+' <span class="mu-tag">'+esc(verdict)+'</span></div>'
+      +'<div class="mu-big">'+ord(rank)+'<span class="mu-of"> of '+n+'</span></div>'
+      +'<div class="mu-sub">'+esc(word)+' · allows <strong>'+pg+'</strong> '+esc(MU_LABEL[PROP.key]||PROP.key)+'/g <span class="mu-lg">(lg avg '+lg+' · '+MU.games[g.opp]+' games)</span></div></div>';
+    const tw=tierWindow();
+    if(tw){ const cr=clearRate(tw.rows); const avg=tw.rows.length?(tw.rows.reduce((s,r)=>s+valOf(r,PROP.key),0)/tw.rows.length):null;
+      const hc=!cr?'':cr.p>=0.6?'soft':cr.p<=0.4?'tough':'mid';
+      cards+='<div class="mu-card '+hc+'"><div class="mu-k">vs defenses like '+esc(g.opp)+' <span class="mu-tag">'+esc(tw.tier)+'</span></div>'
+        +'<div class="mu-big">'+(cr?cr.hits+'<span class="mu-of">/'+cr.n+'</span>':'—')+'</div>'
+        +'<div class="mu-sub">'+(cr?(SIDE?'stayed under ':'cleared ')+(SIDE?'U':'O')+LINE+(avg!=null?' · avg <strong>'+avg.toFixed(1)+'</strong>':'')+(cr.n<3?' · tiny sample':''):'no games vs this tier')+'</div></div>'; }
+    foot='<div class="mu-foot">Rank 1 = allows the least this season. "Like '+esc(g.opp)+'" = defenses in the same tier (top-8 / mid / bottom-8); 2025 games use last season\'s final ranks. Fair = vig-free price from the two-sided books.</div>';
+  }
+  el.style.display='grid'; el.innerHTML=cards+foot;
 }
 function render(){ renderClearRates(); renderChart(); renderSplits(); renderLines(); renderMatchup(); renderGameDetail();
   document.getElementById('stepVal').textContent=(SIDE?'U':'O')+LINE; }
