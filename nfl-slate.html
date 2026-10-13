@@ -662,7 +662,7 @@ function renderTable(){
     const muc=r.mu?(r.mu[1]>=23?'good':r.mu[1]<=10?'bad':'mid'):'';
     const st=r.inj?(r.inj[0]||r.inj[1]):'';
     const dim=st==='Out'||st==='Doubtful'?' dim':'';
-    html+='<tr class="'+dim+'">'
+    html+='<tr class="'+dim+(link?' go':'')+'"'+(link?' data-href="'+link+'" title="Open '+esc(r.p.name)+'\'s page"':'')+'>'
       +'<td class="pl">'+(link?'<a href="'+link+'">'+esc(r.p.name)+'</a>':esc(r.p.name))+' <span class="thin">'+esc(r.p.team)+(r.pos?' · '+esc(r.pos):'')+'</span></td>'
       +'<td class="thin">'+esc(MLABEL[r.m]||r.m)+'</td>'
       +'<td class="r mono">'+side+r.line+'</td>'
@@ -675,6 +675,7 @@ function renderTable(){
   }
   html+='</tbody>';
   document.getElementById('slateTbl').innerHTML=html;
+  document.querySelectorAll('#slateTbl tr.go').forEach(tr=>tr.addEventListener('click',e=>{ if(e.target.closest('a')) return; const h=tr.dataset.href; if(e.metaKey||e.ctrlKey) window.open(h,'_blank'); else location.href=h; }));
   document.getElementById('slateNote').textContent=rows.length?rows.length+' props · sorted by L10 then L5 · '+(SIDE?'graded as unders':'graded as overs')+' against each player\'s main line · hit rates span the 2025 season boundary':'No '+lbl.toLowerCase()+' props posted on this game yet.';
 }
 (function(){ var loadedAt=Date.now(); document.addEventListener('visibilitychange',function(){ if(document.visibilityState==='visible'&&Date.now()-loadedAt>60*60*1000) location.reload(); }); })();
@@ -688,6 +689,8 @@ boot();
   table.slate .hitc.good { color:var(--green); } table.slate .hitc.bad { color:#e06c6c; } table.slate .hitc.tiny { opacity:.6; }
   table.slate .good { color:var(--green); } table.slate .bad { color:#e06c6c; } table.slate .mid { color:#e6c35a; }
   table.slate tr.dim { opacity:.45; }
+  table.slate tbody tr.go { cursor:pointer; } table.slate tbody tr.go:hover { background:var(--green-faint); }
+  table.slate tbody tr.go:hover td.pl a { color:var(--green); }
   .inj-badge { font-size:10.5px;font-weight:700;letter-spacing:.04em;padding:1px 6px;border-radius:999px;border:1px solid currentColor; }
   .inj-badge.Out { color:#e06c6c; } .inj-badge.Doubtful { color:#f0945a; } .inj-badge.Questionable,.inj-badge.DNP,.inj-badge.Limited { color:#e6c35a; }
   #gameChips .chip.active,#mktChips .chip.active { color:var(--green);border-color:var(--green-border);background:var(--green-faint); }
