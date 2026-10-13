@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex" data-docile-noindex="1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Prop Shop — Profit Path Sports</title>
+  <meta name="description" content="The Prop Shop: player-prop tools for MLB, NFL and NBA — hit rates against the live line, alt ladders, fair prices, matchup ranks, injury reports, and every prop graded against its close.">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="The Prop Shop — Profit Path Sports">
+  <meta property="og:description" content="Player-prop tools for MLB, NFL and NBA, with every prop graded against the close.">
+  <meta property="og:image" content="https://profitpathsports.com/images/og-default.png?v=3">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:url" content="https://profitpathsports.com/prop-shop.html">
+  <meta property="og:site_name" content="Profit Path Sports">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="The Prop Shop — Profit Path Sports">
+  <meta name="twitter:description" content="Player-prop tools for MLB, NFL and NBA, with every prop graded against the close.">
+  <meta name="twitter:image" content="https://profitpathsports.com/images/og-default.png?v=3">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    /* PROFITPATH v2 tokens — /brand-brief-v2.html */
+    --bg:#090909;--panel:#0D0D0D;--surface:#0D0D0D;--inset:#141414;--raised:#1C1C1C;
+    --border:rgba(255,255,255,0.05);--border-2:rgba(255,255,255,0.08);
+    --text:#F0EEE8;--muted:rgba(255,255,255,0.42);--dim:rgba(255,255,255,0.25);
+    --green:#4DFF78;--green-faint:rgba(77,255,120,0.06);--green-border:rgba(77,255,120,0.22);
+    --cyan:#00D4FF;--cyan-faint:rgba(0,212,255,0.07);--cyan-border:rgba(0,212,255,0.22);
+    --red:#FF3D3D;
+    --blue:#00D4FF;--gold:#4DFF78;--purple:#00D4FF;
+    --ease:cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  body {
+    background:var(--bg);color:var(--text);
+    font-family:'Plus Jakarta Sans',system-ui,-apple-system,sans-serif;font-weight:300;
+    line-height:1.55;min-height:100vh;display:flex;flex-direction:column;align-items:center;
+    padding:2rem 1rem 3.5rem;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+  }
+  body::after {
+    content:'';position:fixed;inset:0;pointer-events:none;z-index:999;opacity:0.025;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .card {
+    background:var(--panel);border:1px solid var(--border);border-radius:18px;
+    width:100%;max-width:1040px;overflow:visible;
+    box-shadow:0 20px 60px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.02) inset;
+  }
+  .header { background:var(--bg);padding:2.5rem 2rem 2rem;border-bottom:1px solid var(--border);text-align:center;position:relative;border-radius:18px 18px 0 0; }
+  .header::after { content:'';position:absolute;bottom:-1px;left:10%;right:10%;height:1px;
+    background:linear-gradient(90deg,transparent,var(--cyan),transparent);opacity:0.6; }
+  .hero-eyebrow { font-size:11px;font-weight:500;letter-spacing:.35em;text-transform:uppercase;color:var(--green);margin-bottom:18px; }
+  @media (max-width:640px){ .hero-eyebrow { font-size:10px;letter-spacing:.28em;margin-bottom:14px; } }
+  .title {
+    font-family:'DM Serif Display',serif;font-style:italic;font-weight:400;
+    font-size:clamp(28px,4.2vw,44px);line-height:1.08;letter-spacing:-.01em;
+    color:var(--text);text-transform:none;
+  }
+  .title-sub { font-size:clamp(14px,1.6vw,15.5px);font-weight:300;line-height:1.65;color:var(--muted);max-width:700px;margin:16px auto 0;padding:0 14px;text-align:center; }
+  .title-sub strong { color:var(--text);font-weight:600; }
+  .status-bar { padding:0.7rem 1.75rem;font-size:10.5px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;text-align:center;background:var(--inset);border-bottom:1px solid var(--border);color:var(--dim); }
+  .status-bar.ok { color:var(--cyan); }
+  .status-bar.err { color:var(--red); }
+  .section { padding:1.2rem 1.75rem;border-bottom:1px solid var(--border); }
+  .section:last-child { border-bottom:none; }
+  .section-label { font-size:10px;font-weight:600;letter-spacing:0.22em;text-transform:uppercase;color:var(--dim);margin-bottom:0.85rem; }
+
+  /* ── search ── */
+  .search-wrap { position:relative; }
+  .search-wrap.big { max-width:560px;margin:0 auto; }
+  .search-wrap.slim { max-width:340px;margin-left:auto;flex:1; }
+  .p-topline { display:flex;align-items:center;gap:1rem; }
+  .back-btn { display:inline-flex;align-items:center;gap:0.3rem;white-space:nowrap;
+    font-size:10.5px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;
+    color:var(--muted);text-decoration:none;background:var(--inset);border:1px solid var(--border);
+    border-radius:8px;padding:0.5rem 0.8rem;transition:all .18s var(--ease); }
+  .back-btn:hover { color:var(--green);border-color:var(--green-border); }
+  .search-in {
+    width:100%;background:var(--inset);border:1px solid var(--border-2);border-radius:10px;
+    color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;font-size:15px;font-weight:400;
+    padding:0.8rem 1rem;outline:none;transition:border-color .18s var(--ease);
+  }
+  .search-wrap.slim .search-in { font-size:13px;padding:0.55rem 0.85rem; }
+  .search-in:focus { border-color:var(--green-border); }
+  .search-in::placeholder { color:var(--dim); }
+  .search-drop {
+    display:none;position:absolute;top:calc(100% + 6px);left:0;right:0;z-index:60;
+    background:var(--raised);border:1px solid var(--border-2);border-radius:10px;overflow:hidden;
+    box-shadow:0 16px 40px rgba(0,0,0,0.6);
+  }
+  .s-item { display:flex;align-items:center;gap:0.7rem;padding:0.55rem 0.85rem;cursor:pointer;transition:background .12s; }
+  .s-item:hover,.s-item.hover { background:var(--inset); }
+  .s-item img { width:32px;height:32px;border-radius:50%;object-fit:cover;background:var(--inset); }
+  .s-name { font-weight:600;font-size:14px;color:var(--text); }
+  .s-meta { margin-left:auto;font-family:'DM Mono',monospace;font-size:10.5px;color:var(--dim); }
+  .s-empty { padding:0.8rem 1rem;font-size:13px;color:var(--muted); }
+
+  /* ── player header ── */
+  .p-header { background:var(--bg);padding:1.5rem 1.75rem 1.4rem;border-bottom:1px solid var(--border);position:relative;border-radius:18px 18px 0 0; }
+  .p-header::after { content:'';position:absolute;bottom:-1px;left:10%;right:10%;height:1px;
+    background:linear-gradient(90deg,transparent,var(--cyan),transparent);opacity:0.6; }
+  .p-hero { display:flex;align-items:center;gap:1.2rem;margin-top:0.9rem; }
+  .headshot { width:84px;height:84px;border-radius:50%;object-fit:cover;background:var(--inset);border:1px solid var(--border-2); }
+  .p-title { font-family:'DM Serif Display',serif;font-style:italic;font-weight:400;font-size:clamp(26px,3.6vw,38px);line-height:1.05;color:var(--text); }
+  .p-meta { font-family:'DM Mono',monospace;font-size:12px;color:var(--muted);margin-top:4px;letter-spacing:0.04em; }
+  .p-tonight { font-size:13.5px;font-weight:300;color:var(--muted);margin-top:8px; }
+  .p-tonight strong { color:var(--text);font-weight:600; }
+  .badge-inactive { font-size:9px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--red);background:rgba(255,61,61,.1);border:1px solid rgba(255,61,61,.3);border-radius:3px;padding:0.1rem 0.35rem; }
+  .badge-live { font-size:9px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--red);background:rgba(255,61,61,.12);border:1px solid rgba(255,61,61,.3);border-radius:3px;padding:0.1rem 0.35rem; }
+  .starting-badge { font-size:9px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--green);background:var(--green-faint);border:1px solid var(--green-border);border-radius:3px;padding:0.1rem 0.35rem; }
+  .lu-badge { font-size:9px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;border-radius:3px;padding:0.1rem 0.35rem;white-space:nowrap; }
+  .lu-badge.conf { color:var(--green);background:var(--green-faint);border:1px solid var(--green-border); }
+  .lu-badge.proj { color:var(--cyan);background:var(--cyan-faint);border:1px solid var(--cyan-border); }
+  .lu-badge.out { color:var(--red);background:rgba(255,61,61,.1);border:1px solid rgba(255,61,61,.3); }
+
+  /* ── chips ── */
+  .chip-row { display:flex;flex-wrap:wrap;gap:0.5rem; }
+  .chip { display:inline-flex;align-items:center;gap:0.4rem;background:var(--inset);border:1px solid var(--border);color:var(--muted);border-radius:999px;
+    padding:0.45rem 0.95rem;font-family:'Plus Jakarta Sans',sans-serif;font-size:11.5px;font-weight:600;
+    letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;transition:all .18s var(--ease);text-decoration:none; }
+  .chip:hover { border-color:var(--border-2);background:var(--raised);color:var(--text); }
+  .chip.active { background:var(--green-faint);border-color:var(--green-border);color:var(--green); }
+  .chip-sub { font-family:'DM Mono',monospace;font-size:9.5px;color:var(--dim);text-transform:none; }
+  .landing-boards .section-label { text-align:center; }
+  .landing-boards .chip-row { justify-content:center; }
+  /* landing chips are primary navigation, not filters — read brighter */
+  .landing-boards .chip { color:var(--text);background:var(--raised);border-color:var(--border-2);
+    font-size:12.5px;padding:0.6rem 1.2rem; }
+  .landing-boards .chip:hover { color:var(--green);border-color:var(--green-border);background:var(--green-faint);transform:translateY(-1px); }
+
+  /* ── line ladder + stepper ── */
+  .lines-head { display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap; }
+  .lines-head-right { display:flex;align-items:center;gap:0.6rem;flex-wrap:wrap;margin-bottom:0.85rem; }
+  .side-seg { display:inline-flex;border:1px solid var(--border);border-radius:8px;background:var(--inset);overflow:hidden; }
+  .side-seg button { background:transparent;border:none;color:var(--muted);padding:0.45rem 0.9rem;
+    font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.08em;
+    text-transform:uppercase;cursor:pointer;transition:all .18s var(--ease);border-right:1px solid var(--border); }
+  .side-seg button:last-child { border-right:none; }
+  .side-seg button:hover { color:var(--text); }
+  .side-seg button.active { background:var(--green-faint);color:var(--green);box-shadow:inset 0 -2px 0 var(--green); }
+  .stepper { display:inline-flex;align-items:center;gap:0.15rem;border:1px solid var(--border);border-radius:8px;background:var(--inset); }
+  .stepper button { background:transparent;border:none;color:var(--muted);font-size:16px;font-weight:600;width:34px;height:32px;cursor:pointer;transition:color .12s; }
+  .stepper button:hover { color:var(--green); }
+  .stepper-val { font-family:'DM Mono',monospace;font-size:13px;font-weight:500;color:var(--green);min-width:52px;text-align:center; }
+  .ln-wrap { display:flex;flex-wrap:wrap;gap:0.5rem; }
+  .ln { display:flex;flex-direction:column;align-items:flex-start;gap:2px;cursor:pointer;
+    background:var(--inset);border:1px solid var(--border);border-radius:10px;padding:0.6rem 0.85rem;
+    min-width:132px;transition:all .18s var(--ease);font-family:'Plus Jakarta Sans',sans-serif;text-align:left; }
+  .ln:hover { border-color:var(--border-2);background:var(--raised); }
+  .ln.sel { border-color:var(--green-border);background:var(--green-faint); }
+  .ln-line { font-family:'DM Mono',monospace;font-size:14px;font-weight:500;color:var(--text); }
+  .ln.sel .ln-line { color:var(--green); }
+  .ln-odds { font-family:'DM Mono',monospace;font-size:11px;font-weight:500;color:var(--text);margin-top:2px; }
+  .ln-fair { font-family:'DM Mono',monospace;font-size:10px;color:var(--cyan); }
+  /* Pro odds lock */
+  .odds-lock { display:flex;align-items:center;gap:0.8rem;flex-wrap:wrap;background:var(--inset);
+    border:1px solid var(--green-border);border-radius:10px;padding:0.85rem 1.1rem;margin:0.4rem 0; }
+  .odds-lock-icon { font-size:16px; }
+  .odds-lock-msg { font-size:13px;font-weight:300;line-height:1.55;color:var(--muted);flex:1;min-width:220px; }
+  .odds-lock-msg strong { color:var(--green);font-weight:600; }
+  .odds-lock-cta { white-space:nowrap;font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;
+    color:#0A1A0A;background:var(--green);border-radius:6px;padding:0.55rem 1rem;text-decoration:none; }
+  .lock-cell { font-size:11px;font-weight:600;letter-spacing:0.06em;color:var(--green);text-decoration:none;white-space:nowrap; }
+  .lock-cell:hover { text-decoration:underline; }
+  .ln-note { font-size:13px;font-weight:300;line-height:1.6;color:var(--muted);background:var(--inset);border-left:2px solid var(--cyan);border-radius:0 8px 8px 0;padding:10px 14px; }
+
+  /* ── clear-rate windows ── */
+  .win-grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(108px,1fr));gap:0.5rem; }
+  .win-cell { background:var(--inset);border:1px solid var(--border);border-radius:10px;padding:0.65rem 0.5rem;text-align:center;
+    cursor:pointer;font-family:inherit;transition:all .18s var(--ease); }
+  .win-cell:hover { border-color:var(--border-2);background:var(--raised); }
+  .win-cell.sel { border-color:var(--green-border);background:var(--green-faint); }
+  .win-cell.sel .win-lbl { color:var(--green); }
+  .win-hint { color:var(--dim);letter-spacing:0.08em;font-size:9px; }
+  .win-cell.tiny { opacity:0.75; }
+  .win-lbl { font-size:9.5px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--dim);margin-bottom:4px;white-space:nowrap; }
+  .win-val { font-family:'DM Mono',monospace;font-size:20px;font-weight:500;color:var(--text); }
+  .win-val.good { color:var(--green); }
+  .win-val.bad { color:var(--red); }
+  .win-sub { font-family:'DM Mono',monospace;font-size:9.5px;color:var(--dim);margin-top:2px;white-space:nowrap; }
+
+  /* ── chart ── */
+  .chart-wrap { background:var(--inset);border:1px solid var(--border);border-radius:10px;padding:0.6rem 0.6rem 0.3rem; }
+  #chart { width:100%;height:190px;display:block; }
+  .bar.ok { fill:var(--green);opacity:0.85; }
+  .bar.no { fill:rgba(255,61,61,0.5); }
+  .bar-v { fill:rgba(255,255,255,0.55);font-family:'DM Mono',monospace;font-size:11px;text-anchor:middle; }
+  .thresh { stroke:var(--cyan);stroke-width:1.5;stroke-dasharray:5 4;opacity:0.8; }
+  .chart-legend { display:flex;gap:1.2rem;align-items:center;margin-top:0.5rem;font-family:'DM Mono',monospace;font-size:10.5px;color:var(--dim);flex-wrap:wrap; }
+  .thresh-lbl { color:var(--cyan); }
+  .chart-legend .sw { display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:4px;vertical-align:-1px; }
+  .chart-legend .sw.ok { background:var(--green); }
+  .chart-legend .sw.no { background:rgba(255,61,61,0.5); }
+
+  /* ── books ── */
+  .book-grid { display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:0.5rem; }
+  .bk { background:var(--inset);border:1px solid var(--border);border-radius:8px;padding:0.55rem 0.75rem;display:flex;justify-content:space-between;align-items:center;gap:0.5rem; }
+  .bk.best { border-color:var(--green-border);background:var(--green-faint); }
+  .bk-name { font-size:10px;color:var(--dim);text-transform:uppercase;letter-spacing:0.1em;font-weight:600; }
+  .bk-odds { font-family:'DM Mono',monospace;font-weight:500;font-size:12px;white-space:nowrap; }
+  .bk.best .bk-odds { color:var(--green); }
+
+  /* ── two-col + splits + bvp ── */
+  .two-col { display:grid;grid-template-columns:1.25fr 1fr;border-bottom:1px solid var(--border); }
+  .two-col .section { border-bottom:none; }
+  .two-col .section:first-child { border-right:1px solid var(--border); }
+  @media (max-width:820px){ .two-col { grid-template-columns:1fr; } .two-col .section:first-child { border-right:none;border-bottom:1px solid var(--border); } }
+  .tbl-wrap { overflow-x:auto; }
+  table.mini { width:100%;border-collapse:collapse;font-size:12px; }
+  table.mini th { font-size:9.5px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--dim);text-align:left;padding:0.3rem 0.4rem;border-bottom:1px solid var(--border);white-space:nowrap; }
+  table.mini th.r,table.mini td.r { text-align:right; }
+  table.mini td { padding:0.34rem 0.4rem;border-bottom:1px solid var(--border);font-family:'DM Mono',monospace;font-weight:400;white-space:nowrap; }
+  table.mini tr:last-child td { border-bottom:none; }
+  .mono { font-family:'DM Mono',monospace;font-weight:500; }
+  .thin { color:var(--dim);font-size:12px;font-weight:400; }
+  .det-note { font-size:12.5px;color:var(--muted);margin-top:0.7rem;line-height:1.6;font-weight:300; }
+  .det-note a { color:var(--cyan);text-decoration:none; }
+  .det-note a:hover { text-decoration:underline; }
+  .bvp-line { font-size:14px;color:var(--text);font-weight:400; }
+  .bvp-warn { margin-top:0.6rem;font-size:12.5px;font-weight:300;line-height:1.55;color:var(--muted);background:var(--inset);border-left:2px solid var(--red);border-radius:0 8px 8px 0;padding:9px 13px; }
+
+  /* ── how-to ── */
+  .how-to-use { max-width:720px;margin:28px auto 60px;padding:32px 34px;background:var(--panel);border:1px solid var(--border);border-radius:18px;scroll-margin-top:20px;width:100%; }
+  .how-to-eyebrow { font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:var(--cyan);font-weight:600;margin-bottom:10px; }
+  .how-to-use h3 { font-family:'DM Serif Display',serif;font-style:italic;font-size:26px;font-weight:400;letter-spacing:-.01em;color:var(--text);margin:0 0 18px;text-transform:none;line-height:1.15; }
+  .how-to-steps { margin:0 0 20px;padding-left:20px;font-size:14.5px;font-weight:300;line-height:1.7;color:var(--muted); }
+  .how-to-steps li { margin-bottom:9px;padding-left:4px; }
+  .how-to-steps li::marker { color:var(--cyan); }
+  .how-to-steps strong { color:var(--text);font-weight:600; }
+  .how-to-steps em { color:var(--text);font-style:italic; }
+  .how-to-note { font-size:13.5px;font-weight:300;line-height:1.6;color:var(--muted);background:var(--inset);border-left:2px solid var(--cyan);border-radius:0 8px 8px 0;padding:15px 18px;margin-bottom:12px; }
+  .how-to-note em { color:var(--cyan);font-style:normal;font-weight:600; }
+  .how-to-note strong { color:var(--text);font-weight:600; }
+  .lock-in { font-size:13.5px;font-weight:300;line-height:1.6;color:var(--muted);background:var(--green-faint);border-left:2px solid var(--green);border-radius:0 8px 8px 0;padding:15px 18px;margin-bottom:0; }
+  .lock-in strong { color:var(--text);font-weight:600; }
+  .lock-in .lock-lbl { display:block;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--green);font-weight:700;margin-bottom:7px; }
+
+/* PPS-MOBILE-HEADER-CLEARANCE */
+    @media (max-width: 640px) {
+      .header, .p-header { padding-top: 60px; padding-left: 56px; padding-right: 14px; }
+      .p-hero { flex-direction:column;align-items:flex-start;gap:0.7rem; }
+      .search-wrap.slim { max-width:100%;margin:0; }
+    }
+
+  .ln-strip { display:flex;gap:6px;overflow-x:auto;padding:6px 0 8px;scrollbar-width:thin; }
+  .ln { flex:none;min-width:58px;padding:6px 8px;border:1px solid var(--border);border-radius:8px;background:var(--inset);cursor:pointer;text-align:center;font:inherit;color:var(--text); }
+  .ln:hover { border-color:var(--green-border); }
+  .ln.sel { border-color:var(--green);background:var(--green-faint); }
+  .ln.main .ln-l:after { content:" ·";color:var(--green); }
+  .ln-l { font-size:12px;font-weight:600; }
+  .price-grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin-top:6px; }
+  .pg { background:var(--inset);border:1px solid var(--border);border-radius:8px;padding:8px 10px; }
+  .pg-k { font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted); }
+  .pg-v { font-family:'DM Mono',monospace;font-size:15px;font-weight:600;margin-top:2px; }
+  .pg-v.good { color:var(--green); } .pg-v.bad { color:#e06c6c; }
+  .pg-b { font-size:11px;font-weight:400;color:var(--muted);font-family:inherit; }
+
+  .mu-line { font-size:13px;color:var(--muted);padding:4px 0 8px; }
+  .mu-line strong { color:var(--text);font-family:'DM Mono',monospace; }
+  .mu-k { font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-right:4px; }
+  .mu-rank { font-family:'DM Mono',monospace;font-weight:600; } .mu-of { font-weight:400;color:var(--muted); }
+  .mu-rank.soft { color:var(--green); } .mu-rank.tough { color:#e06c6c; } .mu-rank.mid { color:#e6c35a; }
+  .mu-lg { font-size:11px; }
+  .inj-badge { font-size:11px;font-weight:700;letter-spacing:.04em;padding:1px 7px;border-radius:999px;border:1px solid currentColor; }
+  .inj-badge.Out { color:#e06c6c; } .inj-badge.Doubtful { color:#f0945a; } .inj-badge.Questionable { color:#e6c35a; } .inj-badge.DNP,.inj-badge.Limited { color:#e6c35a; }
+  .inj-pr { font-weight:400;opacity:.8; } .inj-ok { font-size:11px;color:var(--green);opacity:.85; }
+</style>
+<link rel="stylesheet" href="/styles/sidebar.css">
+<link rel="stylesheet" href="/styles/topbar.css">
+</head>
+<body>
+
+<!-- ═══ SIDEBAR NAVIGATION ═══ -->
+<button class="pps-sidebar-toggle" aria-label="Toggle navigation" id="ppsSidebarToggle">
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M2 4h12M2 8h12M2 12h12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+  </svg>
+</button>
+<aside class="pps-sidebar" id="ppsSidebar">
+  <div class="pps-sidebar-inner">
+    <a class="pps-sidebar-brand" href="/index.html" aria-label="PROFITPATH Sports — Home">
+      <img src="/images/profitpath-wordmark.svg" alt="PROFITPATH Sports" class="pps-sidebar-logo">
+    </a>
+    <nav class="pps-sidebar-nav">
+      <a class="pps-nav-link" href="/index.html">Home</a>
+      <a class="pps-nav-link" href="/glossary.html">Glossary</a>
+
+      <div class="pps-nav-group-label">Calculators</div>
+      <details class="pps-nav-group" id="ppsGroupCalcs">
+        <summary>Core tools</summary>
+        <a class="pps-nav-link" href="/bet-x-ray.html">Bet X-Ray</a>
+        <a class="pps-nav-link" href="/sharp-snapshot.html">Sharp Snapshot</a>
+        <a class="pps-nav-link" href="/prop-shop.html">The Prop Shop</a>
+        <a class="pps-nav-link" href="/hedge-calculator.html">Hedge</a>
+        <a class="pps-nav-link" href="/arb-calculator.html">Arbitrage</a>
+        <a class="pps-nav-link" href="/middle-calculator.html">Middle</a>
+        <a class="pps-nav-link" href="/devig_calculator.html">Devig</a>
+        <a class="pps-nav-link" href="/odds_calculator.html">Odds Converter</a>
+      </details>
+      <details class="pps-nav-group">
+        <summary>More tools</summary>
+        <a class="pps-nav-link" href="/ev-calculator.html">EV Calculator</a>
+        <a class="pps-nav-link" href="/kelly-calculator.html">Kelly Sizer</a>
+        <a class="pps-nav-link" href="/consensus-calculator.html">Consensus Devig</a>
+        <a class="pps-nav-link" href="/edge-finder.html">Edge Finder</a>
+        <a class="pps-nav-link" href="/parlay-calculator.html">Parlay</a>
+        <a class="pps-nav-link" href="/dfs-slip-checker.html">DFS Slip Checker</a>
+        <a class="pps-nav-link" href="/bonus-converter.html">Bonus Converter</a>
+        <a class="pps-nav-link" href="/bonus-finder.html">Bonus Finder</a>
+        <a class="pps-nav-link" href="/hot-streaks.html">Hot Streaks</a>
+        <a class="pps-nav-link" href="/starting-pitchers.html">Starting Pitchers</a>
+        <a class="pps-nav-link" href="/bet-tracker.html">Bet Tracker</a>
+        <a class="pps-nav-link" href="/long-run-simulator.html">Long-Run Sim</a>
+        <a class="pps-nav-link" data-docile-hidden="1" style="display:none" href="/roulette.html">Virtual Roulette</a>
+      </details>
+
+      <div class="pps-nav-group-label">Paths</div>
+      <details class="pps-nav-group path-01">
+        <summary><span class="pps-nav-num">01</span> Begin</summary>
+        <a class="pps-nav-link" href="/lane-new.html">Path Overview</a>
+        <a class="pps-nav-link" href="/learn-odds.html">Odds Formats</a>
+        <a class="pps-nav-link" href="/learn-implied.html">Implied Probability</a>
+        <a class="pps-nav-link" href="/learn-vig.html">The Vig</a>
+        <a class="pps-nav-link" href="/learn-ev.html">+EV</a>
+        <a class="pps-nav-link" href="/learn-clv.html">CLV</a>
+        <a class="pps-nav-link" href="/learn-kelly.html">Kelly Criterion</a>
+        <a class="pps-nav-link" href="/learn-parlays.html">Parlays</a>
+        <a class="pps-nav-link" href="/learn-props.html">Prop Bets</a>
+      </details>
+      <details class="pps-nav-group path-02">
+        <summary><span class="pps-nav-num">02</span> Convert</summary>
+        <a class="pps-nav-link" href="/lane-bonus.html">Path Overview</a>
+        <a class="pps-nav-link" href="/learn-bonus.html">Bonus Conversion</a>
+        <a class="pps-nav-link" href="/learn-bonus-types.html">Bonus Types</a>
+        <a class="pps-nav-link" href="/learn-bonus-traps.html">Bonus Traps</a>
+        <a class="pps-nav-link" href="/learn-bonus-walkthrough.html">Walkthrough</a>
+        <a class="pps-nav-link" href="/learn-finding-bonus-bets.html">Finding Bonus Bets</a>
+        <a class="pps-nav-link" href="/learn-bonus-step-by-step.html">Step-by-Step</a>
+        <a class="pps-nav-link" href="/learn-prop-void-rules.html">Prop Void Rules</a>
+        <a class="pps-nav-link" href="/learn-finding-bets.html">Finding +EV Bets</a>
+      </details>
+      <details class="pps-nav-group path-03">
+        <summary><span class="pps-nav-num">03</span> Maintain</summary>
+        <a class="pps-nav-link" href="/lane-maintain.html">Path Overview</a>
+        <a class="pps-nav-link" href="/learn-prob-gap-vs-ev.html">Prob Gap vs EV</a>
+        <a class="pps-nav-link" href="/learn-arbitrage.html">Arbitrage</a>
+        <a class="pps-nav-link" href="/learn-middles.html">Middles</a>
+        <a class="pps-nav-link" href="/learn-betting-vs-trading.html">Betting vs Trading</a>
+        <a class="pps-nav-link" href="/learn-alt-ladder.html">Alt Ladder</a>
+        <a class="pps-nav-link" href="/learn-alt-lines.html">Alt Lines</a>
+        <a class="pps-nav-link" href="/learn-cross-market-ev.html">Cross-Market EV</a>
+        <a class="pps-nav-link" href="/learn-exchange-liquidity.html">Exchange Liquidity</a>
+        <a class="pps-nav-link" href="/learn-futures.html">Futures</a>
+        <a class="pps-nav-link" href="/learn-manual-scan.html">Manual Scan</a>
+        <a class="pps-nav-link" href="/learn-top-down-bottom-up.html">Top-Down / Bottom-Up</a>
+        <a class="pps-nav-link" href="/learn-wide-markets.html">Wide Markets</a>
+      </details>
+
+      <div class="pps-nav-group-label">More</div>
+      <details class="pps-nav-group" data-docile-hidden="1">
+        <summary>Sportsbooks</summary>
+        <a class="pps-nav-link" href="/book-draftkings.html">DraftKings</a>
+        <a class="pps-nav-link" href="/book-fanduel.html">FanDuel</a>
+        <a class="pps-nav-link" href="/book-hardrock.html">Hard Rock</a>
+        <a class="pps-nav-link" href="/book-betmgm.html">BetMGM</a>
+        <a class="pps-nav-link" href="/book-prophetx.html">ProphetX</a>
+      </details>
+    </nav>
+  </div>
+</aside>
+<script>
+(function() {
+  var path = window.location.pathname.replace(/\/$/, '') || '/index.html';
+  var isHome = (path === '/index.html' || path === '' || path === '/');
+  document.querySelectorAll('.pps-sidebar .pps-nav-link').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href === path || (isHome && href === '/index.html')) {
+      link.classList.add('active');
+      var group = link.closest('details.pps-nav-group');
+      if (group) group.setAttribute('open', '');
+    }
+  });
+  var calcs = document.getElementById('ppsGroupCalcs');
+  if (calcs && !document.querySelector('.pps-sidebar details[open]')) calcs.setAttribute('open', '');
+})();
+</script>
+<!-- ═══ END SIDEBAR ═══ -->
+<!-- ═══ TOPBAR NAVIGATION ═══ -->
+<nav class="pps-topbar" id="ppsTopbar">
+  <div class="pps-topbar-inner">
+    <button class="tb-burger" aria-label="Open menu" onclick="document.body.classList.toggle('pps-sidebar-open')">
+      <svg width="15" height="15" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 4h12M2 8h12M2 12h12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+    </button>
+    <a class="tb-brand" href="/index.html"><img src="/images/profitpath-wordmark.svg" alt="PROFITPATH Sports"></a>
+    <div class="tb-links">
+      <div class="tb-item">
+        <button type="button" aria-haspopup="true">The Path <span class="car">▼</span></button>
+        <div class="tb-menu">
+          <a href="/index.html#paths">Follow The Path — overview</a>
+          <hr>
+          <a href="/lane-new.html"><span class="num">01</span>Begin — the basics</a>
+          <a href="/lane-bonus.html"><span class="num">02</span>Convert — welcome offers</a>
+          <a href="/lane-maintain.html"><span class="num">03</span>Maintain — the long game</a>
+        </div>
+      </div>
+      <div class="tb-item">
+        <button type="button" aria-haspopup="true">Exclusives <span class="car">▼</span></button>
+        <div class="tb-menu">
+          <div class="tb-menu-label">Built in-house — nowhere else</div>
+          <a href="/bet-x-ray.html">Bet X-Ray</a>
+          <a href="/sharp-snapshot.html">Sharp Snapshot</a>
+          <a href="/prop-shop.html">The Prop Shop</a>
+          <a href="/dfs-slip-checker.html">DFS Slip Checker</a>
+        </div>
+      </div>
+      <div class="tb-item">
+        <button type="button" aria-haspopup="true">Calculators <span class="car">▼</span></button>
+        <div class="tb-menu cols2">
+          <div class="tb-menu-label">Everyday tools</div>
+          <a href="/hedge-calculator.html">Hedge</a>
+          <a href="/arb-calculator.html">Arbitrage</a>
+          <a href="/middle-calculator.html">Middle</a>
+          <a href="/devig_calculator.html">Devig</a>
+          <a href="/odds_calculator.html">Odds Converter</a>
+          <div class="tb-menu-label">More tools</div>
+          <a href="/ev-calculator.html">EV Calculator</a>
+          <a href="/kelly-calculator.html">Kelly Sizer</a>
+          <a href="/consensus-calculator.html">Consensus Devig</a>
+          <a href="/edge-finder.html">Edge Finder</a>
+          <a href="/parlay-calculator.html">Parlay</a>
+          <a href="/bonus-converter.html">Bonus Converter</a>
+          <a href="/bet-tracker.html">Bet Tracker</a>
+          <a href="/long-run-simulator.html">Long-Run Sim</a>
+        </div>
+      </div>
+      <div class="tb-item" data-docile-hidden="1" style="display:none">
+        <button type="button" aria-haspopup="true">Sportsbooks <span class="car">▼</span></button>
+        <div class="tb-menu">
+          <a href="/book-draftkings.html">DraftKings</a>
+          <a href="/book-fanduel.html">FanDuel</a>
+          <a href="/book-hardrock.html">Hard Rock</a>
+          <a href="/book-betmgm.html">BetMGM</a>
+          <a href="/book-prophetx.html">ProphetX</a>
+        </div>
+      </div>
+      <div class="tb-item" data-docile-hidden="1" style="display:none">
+        <button type="button" aria-haspopup="true">Tools <span class="car">▼</span></button>
+        <div class="tb-menu">
+          <div class="tb-menu-label">Live scanners</div>
+          <a href="/bonus-finder.html" data-docile-hidden="1">Bonus Bet Finder</a>
+          <a href="/hot-streaks.html" data-docile-hidden="1">Hot Streak Scanner</a>
+          <a href="/starting-pitchers.html">Starting Pitcher Board</a>
+          <a href="/player.html">Player Prop Finder</a>
+          <a href="/nfl-hot-streaks.html">NFL Streak Scanner</a>
+          <a href="/nfl-player.html">NFL Prop Finder</a>
+        </div>
+      </div>
+      <div class="tb-item">
+        <button type="button" aria-haspopup="true">Resources <span class="car">▼</span></button>
+        <div class="tb-menu">
+          <div class="tb-menu-label">Third-party — we use these</div>
+          <a href="https://picktheodds.app" target="_blank" rel="noopener">Pick the Odds ↗</a>
+          <a href="https://oddsjam.com" target="_blank" rel="noopener">OddsJam ↗</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<script>
+(function () {
+  var bar = document.getElementById('ppsTopbar');
+  if (!bar) return;
+  document.querySelectorAll('.tb-item > button').forEach(function (btn) {
+    btn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      var item = btn.parentElement;
+      var wasOpen = item.classList.contains('open');
+      document.querySelectorAll('.tb-item.open').forEach(function (o) { o.classList.remove('open'); });
+      if (!wasOpen) item.classList.add('open');
+    });
+  });
+  document.addEventListener('click', function () {
+    document.querySelectorAll('.tb-item.open').forEach(function (o) { o.classList.remove('open'); });
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') document.querySelectorAll('.tb-item.open').forEach(function (o) { o.classList.remove('open'); });
+  });
+  if (bar.hasAttribute('data-below-hero')) {
+    var logo = null;
+    var onScroll = function () {
+      if (!logo) logo = document.querySelector('.hero-logo');
+      var past = logo ? logo.getBoundingClientRect().bottom <= bar.offsetHeight
+                      : bar.getBoundingClientRect().top <= 0;
+      if (past) bar.classList.add('stuck');
+      else bar.classList.remove('stuck');
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', onScroll);
+    else onScroll();
+  }
+})();
+</script>
+<!-- ═══ END TOPBAR ═══ -->
+
+<!-- ═══ LANDING ═══ -->
+<div class="card" id="shopCard">
+  <div class="p-header">
+    <div class="p-hero">
+      <div class="p-id">
+        <div class="p-title">The Prop Shop</div>
+        <div class="p-meta">Player props, one place, three sports. Every tool shows <strong>how often a player clears the live line</strong>, the best price and the vig-free price, the matchup, and the injury report — and every prop we track is <strong>graded against its close</strong>, so you can see whether the read is worth anything.</div>
+      </div>
+    </div>
+  </div>
+  <div class="section">
+    <div class="shop-grid">
+      <div class="shop-sport">
+        <div class="shop-head"><span class="shop-ico">🏈</span><span class="shop-name">NFL</span><span class="shop-status live">Live</span></div>
+        <a class="shop-tool" href="/nfl-slate.html"><b>Prop Slate</b><span>Open a game, see every prop by market: L5 / L10 / season vs the live line, best price, fair, matchup, report.</span></a>
+        <a class="shop-tool" href="/nfl-player.html"><b>Prop Finder</b><span>Any skill player or kicker: clear rates at any line, the alt-line ladder with prices, game-by-game chart, splits.</span></a>
+        <a class="shop-tool" href="/nfl-hot-streaks.html"><b>Streak Scanner</b><span>Who has cleared a number the most games running.</span></a>
+        <a class="shop-tool" href="/nfl-slate.html#gradedSec"><b>Graded</b><span>Every tracked prop against its closing line, by week and by read.</span></a>
+        <div class="shop-note">Lines refresh four times a day on game days · stats nightly from official league data.</div>
+      </div>
+      <div class="shop-sport">
+        <div class="shop-head"><span class="shop-ico">⚾</span><span class="shop-name">MLB</span><span class="shop-status off">Offseason · upgrade coming</span></div>
+        <a class="shop-tool" href="/player.html"><b>Prop Finder</b><span>Any hitter or pitcher: clear rates at any line over the season, L10 / L5, and against the day's opponent.</span></a>
+        <a class="shop-tool" href="/hot-streaks.html"><b>Hot Streak Scanner</b><span>Daily streaks with the prop line next to them.</span></a>
+        <a class="shop-tool" href="/starting-pitchers.html"><b>Starting Pitcher Board</b><span>Per-start lines for every probable, league-relative colour.</span></a>
+        <div class="shop-note">Back for spring with the NFL treatment: live lines and alt ladders, matchup rank, lineup and injury flags, and the graded ledger.</div>
+      </div>
+      <div class="shop-sport">
+        <div class="shop-head"><span class="shop-ico">🏀</span><span class="shop-name">NBA</span><span class="shop-status build">Building</span></div>
+        <div class="shop-tool soon"><b>Prop Slate</b><span>Every prop on every game, graded the same way.</span></div>
+        <div class="shop-tool soon"><b>Prop Finder</b><span>Any player, any line, points / rebounds / assists / threes and the combos.</span></div>
+        <div class="shop-note">Built on the same odds feed and the same honesty loop. Sides and totals already live on the <a href="https://pps-hoops-board.vercel.app" target="_blank" rel="noopener">Hoops Board ↗</a>.</div>
+      </div>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-label">How the shop works</div>
+    <ol class="how-to-steps shop-steps">
+      <li><strong>History finds the spot.</strong> A hit rate against the exact line the books hang, not a round number, over the windows that matter.</li>
+      <li><strong>The price makes the bet.</strong> Best book for your side, and the fair price from the two-sided books so you can see what the vig costs.</li>
+      <li><strong>The matchup and the report sanity-check it.</strong> What the opponent allows to the position, ranked 1–32, and the official injury designation.</li>
+      <li><strong>Then we grade everything.</strong> Every prop the feed saw before kickoff is scored against its close. If hot reads don't beat cold ones, we say so.</li>
+    </ol>
+  </div>
+</div>
+<style>
+  .shop-grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px; }
+  .shop-sport { background:var(--inset);border:1px solid var(--border);border-radius:14px;padding:16px 16px 12px;display:flex;flex-direction:column;gap:8px; }
+  .shop-head { display:flex;align-items:center;gap:8px;margin-bottom:4px; }
+  .shop-ico { font-size:20px; } .shop-name { font-family:'DM Serif Display',serif;font-size:24px;font-style:italic; }
+  .shop-status { margin-left:auto;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:2px 8px;border-radius:999px;border:1px solid currentColor; }
+  .shop-status.live { color:var(--green); } .shop-status.off { color:#e6c35a; } .shop-status.build { color:var(--muted); }
+  .shop-tool { display:flex;flex-direction:column;gap:2px;padding:10px 12px;border:1px solid var(--border);border-radius:10px;background:var(--panel);color:var(--text);text-decoration:none;transition:border-color .12s; }
+  .shop-tool:hover { border-color:var(--green-border); } .shop-tool b { font-size:14px; } .shop-tool span { font-size:12px;color:var(--muted);line-height:1.4; }
+  .shop-tool.soon { opacity:.55;cursor:default; }
+  .shop-note { font-size:11.5px;color:var(--muted);line-height:1.45;margin-top:4px; }
+  .shop-steps { margin:0;padding-left:20px;color:var(--muted);font-size:13px;line-height:1.6; } .shop-steps strong { color:var(--text); }
+</style>
+</body>
+</html>
