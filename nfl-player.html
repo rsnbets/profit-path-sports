@@ -244,6 +244,19 @@
       .p-hero { flex-direction:column;align-items:flex-start;gap:0.7rem; }
       .search-wrap.slim { max-width:100%;margin:0; }
     }
+
+  .ln-strip { display:flex;gap:6px;overflow-x:auto;padding:6px 0 8px;scrollbar-width:thin; }
+  .ln { flex:none;min-width:58px;padding:6px 8px;border:1px solid var(--border);border-radius:8px;background:var(--inset);cursor:pointer;text-align:center;font:inherit;color:var(--text); }
+  .ln:hover { border-color:var(--green-border); }
+  .ln.sel { border-color:var(--green);background:var(--green-faint); }
+  .ln.main .ln-l:after { content:" ·";color:var(--green); }
+  .ln-l { font-size:12px;font-weight:600; }
+  .price-grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin-top:6px; }
+  .pg { background:var(--inset);border:1px solid var(--border);border-radius:8px;padding:8px 10px; }
+  .pg-k { font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted); }
+  .pg-v { font-family:'DM Mono',monospace;font-size:15px;font-weight:600;margin-top:2px; }
+  .pg-v.good { color:var(--green); } .pg-v.bad { color:#e06c6c; }
+  .pg-b { font-size:11px;font-weight:400;color:var(--muted);font-family:inherit; }
 </style>
 <link rel="stylesheet" href="/styles/sidebar.css">
 <link rel="stylesheet" href="/styles/topbar.css">
@@ -485,7 +498,7 @@
   <div class="header">
     <div class="hero-eyebrow">NFL · Every Skill Player · Every Prop</div>
     <div class="title">🏈 NFL Prop&nbsp;Finder&nbsp;🏈</div>
-    <p class="title-sub">Type any NFL skill player. Get <strong>every prop that matters on him</strong> — how often he clears any line over the <strong>season, last 10/5/3</strong> and <strong>against this week's opponent</strong>, his game-by-game chart, and home/away splits. Live lines &amp; fair prices join once our NFL odds feed goes live.</p>
+    <p class="title-sub">Type any NFL skill player. Get <strong>every prop that matters on him</strong> — how often he clears any line over the <strong>season, last 10/5/3</strong> and <strong>against this week's opponent</strong>, his game-by-game chart, and home/away splits. Live lines, alt ladders and vig-free fair prices from every book sit right next to the history.</p>
   </div>
   <div class="section">
     <div class="search-wrap big">
@@ -543,7 +556,9 @@
       </div>
       </div>
     </div>
-    <div class="ln-note">Live NFL lines &amp; vig-free fair prices are on the way — until then the stepper works on his full history, any threshold you want.</div>
+    <div id="linesBox"></div>
+    <div class="ln-note" id="lnNote">Live lines load with the player.</div>
+    <div class="det-note">Lines from NFL_EV (every US book + Novig/ProphetX, live quotes only). The highlighted line is the market's main number; tap any alt line to price it. Fair = power de-vig per two-sided book, median across books.</div>
   </div>
 
   <div class="section">
@@ -572,26 +587,77 @@
   <div class="how-to-eyebrow">Profit Path Sports</div>
   <h3>How to use the NFL prop finder</h3>
   <ol class="how-to-steps">
-    <li><strong>Search a player, pick a prop.</strong> The line stepper starts at a typical number for his position — nudge it to whatever the books hang on him.</li>
+    <li><strong>Search a player, pick a prop.</strong> The line snaps to the market's main number when one is posted; tap any alt line on the strip, or step to any threshold.</li>
     <li><strong>Read the clear rates.</strong> L10/L5/L3 show form; "vs" his upcoming opponent shows the head-to-head — with the sample printed on it, because two meetings is trivia, not a trend.</li>
     <li><strong>Flip Over/Under</strong> — every panel follows the side you're actually betting.</li>
     <li><strong>Mind the season boundary.</strong> Until 2026 weeks pile up, most of what you're reading is 2025 — same player, new defensive coordinators everywhere.</li>
   </ol>
   <div class="lock-in">
     <span class="lock-lbl">🔒 Lock this in</span>
-    Stats are snapshotted daily from official league data. When our NFL lines feed goes live you'll get the price next to the history — <strong>history finds the spot, the price makes the bet.</strong>
+    Stats are snapshotted daily from official league data; lines refresh four times a day on game days. <strong>History finds the spot, the price makes the bet</strong> — and the fair price tells you whether the book is charging for it.
   </div>
 </div>
 
 <script>
 const PROPS={
   QB:[["pyd","Pass Yds",249.5,10],["ptd","Pass TDs",1.5,1],["cmp","Completions",24.5,1],
-      ["att","Pass Att",34.5,1],["int","INTs",0.5,1],["ryd","Rush Yds",24.5,5],["anytd","Anytime TD",0.5,1]],
+      ["att","Pass Att",34.5,1],["int","INTs",0.5,1],["ryd","Rush Yds",24.5,5],["pr","Pass+Rush Yds",274.5,10],["anytd","Anytime TD",0.5,1]],
   RB:[["ryd","Rush Yds",49.5,5],["car","Carries",14.5,1],["anytd","Anytime TD",0.5,1],
-      ["rec","Receptions",2.5,1],["recyd","Rec Yds",19.5,5],["tgt","Targets",3.5,1]],
+      ["rec","Receptions",2.5,1],["recyd","Rec Yds",19.5,5],["rr","Rush+Rec Yds",69.5,5],["tgt","Targets",3.5,1]],
   WR:[["rec","Receptions",4.5,1],["recyd","Rec Yds",49.5,5],["tgt","Targets",6.5,1],
-      ["anytd","Anytime TD",0.5,1],["ryd","Rush Yds",9.5,5]],
+      ["anytd","Anytime TD",0.5,1],["rr","Rush+Rec Yds",54.5,5],["ryd","Rush Yds",9.5,5]],
 };
+// Prop Finder key -> SGO market in props.json (NFL_EV). tgt has no market.
+const MKT={pyd:'passing_yards',ptd:'passing_touchdowns',cmp:'passing_completions',att:'passing_attempts',
+  int:'passing_interceptions',ryd:'rushing_yards',car:'rushing_attempts',rec:'receiving_receptions',
+  recyd:'receiving_yards',anytd:'touchdowns',rr:'rushing+receiving_yards',pr:'passing+rushing_yards'};
+const ODDS_URL='https://nfl-ev-sigma.vercel.app/props.json';
+let ODDS=null,ODDS_IDX=null,LAD=null;   // feed, name index, current player's ladders
+const BOOK_NAMES={draftkings:'DraftKings',fanduel:'FanDuel',betmgm:'BetMGM',caesars:'Caesars',espnbet:'ESPN BET',betrivers:'BetRivers',
+  hardrockbet:'Hard Rock',bovada:'Bovada',mybookie:'MyBookie',ballybet:'Bally',fliff:'Fliff',betus:'BetUS',betanysports:'BetAnySports',
+  fanatics:'Fanatics',pointsbet:'PointsBet',sugarhouse:'SugarHouse',thescorebet:'theScore',betonline:'BetOnline',pinnacle:'Pinnacle',
+  novig:'Novig',prophetexchange:'ProphetX',lowvig:'LowVig',bookmakereu:'BookmakerEU',circa:'Circa',betfairexchange:'Betfair',matchbook:'Matchbook'};
+const bookName=b=>BOOK_NAMES[b]||b;
+const amerNum=o=>{if(o==null)return null;const n=parseFloat(String(o).replace('+',''));return isNaN(n)?null:n;};
+const toDec=o=>{const n=amerNum(o);if(!n)return null;return n>0?1+n/100:1+100/Math.abs(n);};
+const toProb=o=>{const n=amerNum(o);if(!n)return null;return n>0?100/(n+100):Math.abs(n)/(Math.abs(n)+100);};
+const fromProb=p=>{if(!p||p<=0||p>=1)return '—';const d=1/p;const a=d<2?-100/(d-1):(d-1)*100;return (a>0?'+':'')+Math.round(a);};
+const fmtOdds=o=>{const n=amerNum(o);return n==null?'—':(n>0?'+':'')+n;};
+function devigPower(pa,pb){ if(!pa||!pb)return null; let lo=0,hi=10; for(let i=0;i<60;i++){const k=(lo+hi)/2; if(Math.pow(pa,k)+Math.pow(pb,k)>1)lo=k;else hi=k;} const k=(lo+hi)/2; return [Math.pow(pa,k),Math.pow(pb,k)]; }
+function median(a){ if(!a.length)return null; const s=[...a].sort((x,y)=>x-y),m=s.length>>1; return s.length%2?s[m]:(s[m-1]+s[m])/2; }
+async function loadOdds(){
+  if(ODDS!==null) return;
+  try{ const r=await fetch(ODDS_URL+'?_='+Math.floor(Date.now()/300000),{cache:'no-store'}); if(!r.ok) throw new Error(r.status); ODDS=await r.json(); }
+  catch(e){ ODDS=false; return; }
+  ODDS_IDX={};
+  for(const k of Object.keys(ODDS.players)){ const [nm,tm]=k.split('|'); const n=normName(nm); (ODDS_IDX[n+'|'+tm]=ODDS_IDX[n+'|'+tm]||[]).push(k); (ODDS_IDX[n]=ODDS_IDX[n]||[]).push(k); }
+}
+function findLadders(){
+  if(!ODDS||!SHARD) return null;
+  const n=normName(SHARD.name);
+  let ks=ODDS_IDX[n+'|'+SHARD.team]||ODDS_IDX[n]||[];
+  if(!ks.length){ // first-name variants (Josh/Joshua): match on last name + team
+    const last=n.split(' ').slice(-1)[0];
+    ks=Object.keys(ODDS.players).filter(k=>k.endsWith('|'+SHARD.team)&&normName(k.split('|')[0]).split(' ').slice(-1)[0]===last);
+  }
+  return ks.length===1?ODDS.players[ks[0]]:(ks.length?ODDS.players[ks[0]]:null);
+}
+function ladderFor(key){ const m=MKT[key]; return (LAD&&m&&LAD[m])||null; }
+function mainLine(lad){ // the consensus line: most books quoting it (two-sided counts double)
+  let best=null,bs=-1;
+  for(const [k,bk] of Object.entries(lad)){ const s=Object.values(bk).reduce((a,[o,u])=>a+(o?1:0)+(u?1:0),0); if(s>bs||(s===bs&&Math.abs(parseFloat(k)-parseFloat(best))<0)){bs=s;best=k;} }
+  return best==null?null:parseFloat(best);
+}
+function priceAt(lad,line){ // -> {bestOver:[book,odds], bestUnder, fairOver, nTwo, n}
+  const bk=lad[String(line)]||lad[line.toFixed(1)]||null; if(!bk) return null;
+  let bo=null,bu=null; const fo=[];
+  for(const [b,[o,u]] of Object.entries(bk)){
+    if(o&&(!bo||toDec(o)>toDec(bo[1]))) bo=[b,o];
+    if(u&&(!bu||toDec(u)>toDec(bu[1]))) bu=[b,u];
+    if(o&&u){ const f=devigPower(toProb(o),toProb(u)); if(f) fo.push(f[0]); }
+  }
+  return {bestOver:bo,bestUnder:bu,fairOver:median(fo),nTwo:fo.length,n:Object.keys(bk).length};
+}
 PROPS.TE=PROPS.WR; PROPS.FB=PROPS.RB;
 
 let IDX=null,F={},SHARD=null,PROP=null,LINE=0.5,STEP=1,SIDE=0,WINSEL='l10',WINDOWS_MAP={};
@@ -601,7 +667,7 @@ function normName(s){
     .replace(/\b(jr|sr|ii|iii|iv)\b\.?/g,'').replace(/[^a-z ]/g,'').replace(/\s+/g,' ').trim();
 }
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-function valOf(r,key){ return key==='anytd'?r[F.rtd]+r[F.rectd]:r[F[key]]; }
+function valOf(r,key){ if(key==='anytd')return r[F.rtd]+r[F.rectd]; if(key==='rr')return r[F.ryd]+r[F.recyd]; if(key==='pr')return r[F.pyd]+r[F.ryd]; return r[F[key]]; }
 function cashes(v){ return SIDE?v<LINE:v>LINE; }
 function fmtGameDay(d,t){
   if(!d) return '';
@@ -675,7 +741,10 @@ async function loadPlayer(id){
     ?'This week: <strong>'+(g.home?'vs ':'@ ')+esc(g.opp)+'</strong> · '+fmtGameDay(g.date,g.time)+' · Week '+g.week
     :'<span class="thin">No upcoming game on the schedule.</span>';
   const d=new Date(IDX.generatedAt).toLocaleDateString(undefined,{month:'short',day:'numeric'});
-  status.textContent='Stats through '+d+' · every stat free · NFL lines coming soon';
+  await loadOdds();
+  LAD=findLadders();
+  const od=ODDS&&ODDS.generatedAt?new Date(ODDS.generatedAt).toLocaleString(undefined,{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'}):null;
+  status.textContent='Stats through '+d+' · '+(LAD?'lines live as of '+od+' · '+Object.keys(LAD).length+' markets posted on him':(ODDS?'no lines posted on him yet (lines as of '+od+')':'lines feed unavailable right now'));
   status.className='status-bar ok';
   renderPropChips();
   const defs=PROPS[SHARD.pos]||PROPS.WR;
@@ -697,14 +766,44 @@ function renderPropChips(){
 }
 function selectProp(def){
   PROP={key:def[0],label:def[1]}; LINE=def[2]; STEP=def[3];
+  const lad=ladderFor(def[0]); const ml=lad?mainLine(lad):null; if(ml!=null) LINE=ml;
   document.querySelectorAll('#propChips .chip').forEach(c=>
     c.classList.toggle('active',c.dataset.key===def[0]));
   render();
 }
 
 function combined(){ return SHARD.prev.concat(SHARD.g); }
-function render(){ renderClearRates(); renderChart(); renderSplits();
+function render(){ renderClearRates(); renderChart(); renderSplits(); renderLines();
   document.getElementById('stepVal').textContent=(SIDE?'U':'O')+LINE; }
+function renderLines(){
+  const box=document.getElementById('linesBox'),note=document.getElementById('lnNote');
+  const lad=ladderFor(PROP.key);
+  if(!lad){ box.innerHTML=''; note.style.display='block';
+    note.textContent=ODDS===false?'Lines feed unavailable right now — the stepper still works on his full history.':
+      (LAD?'No '+PROP.label.toLowerCase()+' line posted on him yet — the stepper works on his full history.':'No lines posted on him this week — the stepper works on his full history.');
+    return; }
+  note.style.display='none';
+  const keys=Object.keys(lad).map(parseFloat).sort((a,b)=>a-b);
+  const ml=mainLine(lad);
+  const strip=keys.map(k=>{ const p=priceAt(lad,k); const b=SIDE?p.bestUnder:p.bestOver; if(!b) return '';
+    return '<button type="button" class="ln'+(k===LINE?' sel':'')+(k===ml?' main':'')+'" data-l="'+k+'" title="'+esc(bookName(b[0]))+' · '+p.n+' book'+(p.n===1?'':'s')+'">'
+      +'<div class="ln-l">'+(SIDE?'U':'O')+k+'</div><div class="ln-odds">'+fmtOdds(b[1])+'</div></button>'; }).join('');
+  const p=priceAt(lad,LINE);
+  let price='';
+  if(p){
+    const mine=SIDE?p.bestUnder:p.bestOver, other=SIDE?p.bestOver:p.bestUnder;
+    const fair=p.fairOver!=null?(SIDE?1-p.fairOver:p.fairOver):null;
+    const ev=(fair!=null&&mine)?fair*toDec(mine[1])-1:null;
+    price='<div class="price-grid">'
+      +'<div class="pg"><div class="pg-k">Best '+(SIDE?'under':'over')+' '+LINE+'</div><div class="pg-v '+(mine?'good':'')+'">'+(mine?fmtOdds(mine[1])+' <span class="pg-b">'+esc(bookName(mine[0]))+'</span>':'—')+'</div></div>'
+      +'<div class="pg"><div class="pg-k">Fair (no vig)</div><div class="pg-v">'+(fair!=null?fromProb(fair)+' <span class="pg-b">'+Math.round(fair*100)+'% · '+p.nTwo+' two-sided</span>':'<span class="pg-b">needs a two-sided book</span>')+'</div></div>'
+      +'<div class="pg"><div class="pg-k">EV at best</div><div class="pg-v '+(ev!=null?(ev>0?'good':'bad'):'')+'">'+(ev!=null?((ev>0?'+':'')+(100*ev).toFixed(1)+'%'):'—')+'</div></div>'
+      +'<div class="pg"><div class="pg-k">Other side</div><div class="pg-v">'+(other?fmtOdds(other[1])+' <span class="pg-b">'+esc(bookName(other[0]))+'</span>':'—')+'</div></div>'
+      +'</div>';
+  } else price='<div class="det-note">No book quotes '+(SIDE?'U':'O')+LINE+' — tap a posted line above, or keep stepping to test his history.</div>';
+  box.innerHTML='<div class="ln-strip">'+strip+'</div>'+price;
+  box.querySelectorAll('.ln').forEach(b=>b.addEventListener('click',()=>{ LINE=parseFloat(b.dataset.l); render(); }));
+}
 
 function clearRate(rows){
   if(!rows.length) return null;
