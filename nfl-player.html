@@ -840,7 +840,11 @@ function renderLines(){
       +'<div class="pg"><div class="pg-k">Other side</div><div class="pg-v">'+(other?fmtOdds(other[1])+' <span class="pg-b">'+esc(bookName(other[0]))+'</span>':'—')+'</div></div>'
       +'</div>';
   } else price='<div class="det-note">No book quotes '+(SIDE?'U':'O')+LINE+' — tap a posted line above, or keep stepping to test his history.</div>';
-  box.innerHTML='<div class="ln-strip">'+strip+'</div>'+price;
+  const prevStrip=box.querySelector('.ln-strip'), keepScroll=prevStrip&&prevStrip.dataset.m===MKT[PROP.key]?prevStrip.scrollLeft:null;
+  box.innerHTML='<div class="ln-strip" data-m="'+MKT[PROP.key]+'">'+strip+'</div>'+price;
+  const ns=box.querySelector('.ln-strip');
+  if(keepScroll!=null) ns.scrollLeft=keepScroll;                       // same market re-rendered: stay where the user was
+  else { const sel=ns.querySelector('.ln.sel'); if(sel) ns.scrollLeft=Math.max(0,sel.offsetLeft-ns.clientWidth/2+sel.offsetWidth/2); }   // new market: center the main line
   box.querySelectorAll('.ln').forEach(b=>b.addEventListener('click',()=>{ LINE=parseFloat(b.dataset.l); render(); }));
 }
 
