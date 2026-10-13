@@ -7,8 +7,12 @@ API calls at all — the whole league is four downloads.
 
 Writes:
   data/nfl/players.json       search index + field legend + each team's next game
-  data/nfl/players/{id}.json  one shard per skill player: 2026 weeks ("g"),
+  data/nfl/players/{id}.json  one shard per skill player (+ kickers): 2026 weeks ("g"),
                               2025 weeks ("prev"), headshot, position
+  data/nfl/matchups.json      what each DEFENSE allows per game to each position
+                              (QB/RB/WR/TE/K) this season, with league rank
+                              (1 = allows the least) — the Prop Finder's matchup line
+  data/nfl/injuries.json      the latest official injury report, by gsis_id
 
 Same discipline as MLB: shards carry no timestamp (idle player = identical
 bytes = no git churn), unchanged snapshots keep their previous generatedAt,
@@ -29,14 +33,28 @@ SHARD_DIR = os.path.join(ROOT, "players")
 INDEX_PATH = os.path.join(ROOT, "players.json")
 
 REL = "https://github.com/nflverse/nflverse-data/releases/download"
-POSITIONS = {"QB", "RB", "FB", "WR", "TE"}
+POSITIONS = {"QB", "RB", "FB", "WR", "TE", "K"}
 
 # One row per week, published once in the index.
 FIELDS = ["week", "opp", "home", "cmp", "att", "pyd", "ptd", "int",
-          "car", "ryd", "rtd", "rec", "tgt", "recyd", "rectd"]
+          "car", "ryd", "rtd", "rec", "tgt", "recyd", "rectd", "fgm", "fga", "xpm"]
 STAT_COLS = ["completions", "attempts", "passing_yards", "passing_tds",
              "passing_interceptions", "carries", "rushing_yards", "rushing_tds",
-             "receptions", "targets", "receiving_yards", "receiving_tds"]
+             "receptions", "targets", "receiving_yards", "receiving_tds",
+             "fg_made", "fg_att", "pat_made"]
+MATCHUP_PATH = os.path.join(ROOT, "matchups.json")
+INJ_PATH = os.path.join(ROOT, "injuries.json")
+# what a defense "allows" per position bucket; values are FIELDS keys or sums of them
+BUCKET = {"QB": "QB", "RB": "RB", "FB": "RB", "WR": "WR", "TE": "TE", "K": "K"}
+ALLOW = {
+    "QB": {"pyd": ["pyd"], "ptd": ["ptd"], "int": ["int"], "cmp": ["cmp"], "att": ["att"], "ryd": ["ryd"], "pr": ["pyd", "ryd"], "anytd": ["rtd", "rectd"]},
+    "RB": {"car": ["car"], "ryd": ["ryd"], "rtd": ["rtd"], "rec": ["rec"], "recyd": ["recyd"], "tgt": ["tgt"], "rr": ["ryd", "recyd"], "anytd": ["rtd", "rectd"]},
+    "WR": {"rec": ["rec"], "recyd": ["recyd"], "rectd": ["rectd"], "tgt": ["tgt"], "ryd": ["ryd"], "rr": ["ryd", "recyd"], "anytd": ["rtd", "rectd"]},
+    "TE": {"rec": ["rec"], "recyd": ["recyd"], "rectd": ["rectd"], "tgt": ["tgt"], "rr": ["ryd", "recyd"], "anytd": ["rtd", "rectd"]},
+    "K":  {"fgm": ["fgm"], "fga": ["fga"], "xpm": ["xpm"], "kpts": ["fgm", "fgm", "fgm", "xpm"]},
+}
+# a stat where allowing MORE is worse for the defense (rank 1 = allows least). int is the exception.
+LOWER_IS_BETTER_FOR_DEF = {k for b in ALLOW.values() for k in b} - {"int"}
 
 
 def fetch_csv(url, required=True):
@@ -90,6 +108,63 @@ def next_games(sched):
                 out[team] = {"opp": opp, "home": home, "date": g.get("gameday", ""),
                              "time": g.get("gametime", ""), "week": _n(g.get("week"))}
     return out
+
+
+def build_matchups(rows):
+    """rows: raw nflverse player-week rows (current season). -> matchups.json body."""
+    fi = {f: i for i, f in enumerate(FIELDS)}
+    per_game = {}   # (defense, bucket, game_id) -> {field: sum}
+    for r in rows:
+        pos = r.get("position")
+        if pos not in POSITIONS or r.get("season_type", "REG") != "REG":
+            continue
+        b = BUCKET[pos]; d = r.get("opponent_team", "?"); gid = r.get("game_id", "")
+        acc = per_game.setdefault((d, b, gid), {})
+        for f, c in zip(FIELDS[3:], STAT_COLS):
+            acc[f] = acc.get(f, 0) + _n(r.get(c))
+    # every defense's game count = distinct game_ids it appears in (any bucket)
+    games = {}
+    for (d, b, gid) in per_game:
+        games.setdefault(d, set()).add(gid)
+    out = {}
+    for b, stats in ALLOW.items():
+        for stat, parts in stats.items():
+            vals = {}
+            for d, gids in games.items():
+                tot = 0.0
+                for gid in gids:
+                    acc = per_game.get((d, b, gid), {})
+                    tot += sum(acc.get(p, 0) for p in parts)
+                vals[d] = tot / len(gids) if gids else 0.0
+            if not vals:
+                continue
+            lg = sum(vals.values()) / len(vals)
+            order = sorted(vals, key=lambda d: vals[d], reverse=(stat not in LOWER_IS_BETTER_FOR_DEF))
+            # rank 1 = best defense (allows least; for int: creates most)
+            order = sorted(vals, key=lambda d: vals[d]) if stat in LOWER_IS_BETTER_FOR_DEF else sorted(vals, key=lambda d: -vals[d])
+            for i, d in enumerate(order, 1):
+                out.setdefault(d, {}).setdefault(b, {})[stat] = [round(vals[d], 1), i, round(lg, 1)]
+    return {"season": SEASON, "n": len(games), "games": {d: len(g) for d, g in games.items()}, "ranks": out}
+
+
+def build_injuries():
+    rows = fetch_csv(f"{REL}/injuries/injuries_{SEASON}.csv", required=False)
+    rows = [r for r in rows if r.get("season_type") == "REG"]
+    if not rows:
+        return None
+    week = max(_n(r.get("week")) for r in rows)
+    players = {}
+    for r in rows:
+        if _n(r.get("week")) != week or not r.get("gsis_id"):
+            continue
+        st, pr = r.get("report_status") or "", r.get("practice_status") or ""
+        if not st and not pr.startswith(("Did Not", "Limited")):
+            continue
+        pr_short = {"Did Not Participate In Practice": "DNP", "Limited Participation in Practice": "Limited",
+                    "Full Participation in Practice": "Full"}.get(pr, pr.split(" Participation")[0].strip())
+        players[r["gsis_id"]] = [st, pr_short,
+                                 r.get("report_primary_injury") or r.get("practice_primary_injury") or "", r.get("team") or ""]
+    return {"season": SEASON, "week": week, "players": players}
 
 
 def main():
@@ -168,6 +243,16 @@ def main():
         pass
     with open(INDEX_PATH, "w") as f:
         json.dump({"generatedAt": generated_at, **index_body}, f, separators=(",", ":"))
+
+    mu = build_matchups(cur)
+    with open(MATCHUP_PATH, "w") as f:
+        json.dump({"generatedAt": generated_at, **mu}, f, separators=(",", ":"))
+    inj = build_injuries()
+    if inj:
+        with open(INJ_PATH, "w") as f:
+            json.dump({"generatedAt": generated_at, **inj}, f, separators=(",", ":"))
+    print(f"matchups.json: {len(mu['ranks'])} defenses · injuries.json: "
+          f"{len(inj['players']) if inj else 0} players (week {inj['week'] if inj else '-'})")
 
     total = sum(os.path.getsize(os.path.join(SHARD_DIR, f))
                 for f in os.listdir(SHARD_DIR))

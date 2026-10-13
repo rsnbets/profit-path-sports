@@ -257,6 +257,16 @@
   .pg-v { font-family:'DM Mono',monospace;font-size:15px;font-weight:600;margin-top:2px; }
   .pg-v.good { color:var(--green); } .pg-v.bad { color:#e06c6c; }
   .pg-b { font-size:11px;font-weight:400;color:var(--muted);font-family:inherit; }
+
+  .mu-line { font-size:13px;color:var(--muted);padding:4px 0 8px; }
+  .mu-line strong { color:var(--text);font-family:'DM Mono',monospace; }
+  .mu-k { font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-right:4px; }
+  .mu-rank { font-family:'DM Mono',monospace;font-weight:600; } .mu-of { font-weight:400;color:var(--muted); }
+  .mu-rank.soft { color:var(--green); } .mu-rank.tough { color:#e06c6c; } .mu-rank.mid { color:#e6c35a; }
+  .mu-lg { font-size:11px; }
+  .inj-badge { font-size:11px;font-weight:700;letter-spacing:.04em;padding:1px 7px;border-radius:999px;border:1px solid currentColor; }
+  .inj-badge.Out { color:#e06c6c; } .inj-badge.Doubtful { color:#f0945a; } .inj-badge.Questionable { color:#e6c35a; } .inj-badge.DNP,.inj-badge.Limited { color:#e6c35a; }
+  .inj-pr { font-weight:400;opacity:.8; } .inj-ok { font-size:11px;color:var(--green);opacity:.85; }
 </style>
 <link rel="stylesheet" href="/styles/sidebar.css">
 <link rel="stylesheet" href="/styles/topbar.css">
@@ -556,6 +566,7 @@
       </div>
       </div>
     </div>
+    <div class="mu-line" id="matchupLine" style="display:none"></div>
     <div id="linesBox"></div>
     <div class="ln-note" id="lnNote">Live lines load with the player.</div>
     <div class="det-note">Lines from NFL_EV (every US book + Novig/ProphetX, live quotes only). The highlighted line is the market's main number; tap any alt line to price it. Fair = power de-vig per two-sided book, median across books.</div>
@@ -588,6 +599,7 @@
   <h3>How to use the NFL prop finder</h3>
   <ol class="how-to-steps">
     <li><strong>Search a player, pick a prop.</strong> The line snaps to the market's main number when one is posted; tap any alt line on the strip, or step to any threshold.</li>
+    <li><strong>Read the matchup and the report.</strong> The matchup line is what this week&rsquo;s opponent has allowed per game to his position, ranked against all 32 (green = soft). The badge on his name is the official injury report; questionable players are the ones JD skips.</li>
     <li><strong>Read the clear rates.</strong> L10/L5/L3 show form; "vs" his upcoming opponent shows the head-to-head — with the sample printed on it, because two meetings is trivia, not a trend.</li>
     <li><strong>Flip Over/Under</strong> — every panel follows the side you're actually betting.</li>
     <li><strong>Mind the season boundary.</strong> Until 2026 weeks pile up, most of what you're reading is 2025 — same player, new defensive coordinators everywhere.</li>
@@ -610,7 +622,16 @@ const PROPS={
 // Prop Finder key -> SGO market in props.json (NFL_EV). tgt has no market.
 const MKT={pyd:'passing_yards',ptd:'passing_touchdowns',cmp:'passing_completions',att:'passing_attempts',
   int:'passing_interceptions',ryd:'rushing_yards',car:'rushing_attempts',rec:'receiving_receptions',
-  recyd:'receiving_yards',anytd:'touchdowns',rr:'rushing+receiving_yards',pr:'passing+rushing_yards'};
+  recyd:'receiving_yards',anytd:'touchdowns',rr:'rushing+receiving_yards',pr:'passing+rushing_yards',
+  fgm:'fieldGoals_made',xpm:'extraPoints_kicksMade',kpts:'kicking_totalPoints'};
+let MU=null,INJ=null;   // matchups.json, injuries.json
+const MU_LABEL={pyd:'pass yds',ptd:'pass TDs',int:'INTs',cmp:'completions',att:'attempts',ryd:'rush yds',car:'carries',rtd:'rush TDs',
+  rec:'receptions',recyd:'rec yds',rectd:'rec TDs',tgt:'targets',rr:'rush+rec yds',pr:'pass+rush yds',anytd:'TDs',fgm:'FGs made',fga:'FG att',xpm:'XPs',kpts:'kicking pts'};
+const POS_LABEL={QB:'QBs',RB:'RBs',FB:'RBs',WR:'WRs',TE:'TEs',K:'kickers'};
+async function loadSide(){
+  if(MU===null){ try{ const r=await fetch('/data/nfl/matchups.json?_='+Math.floor(Date.now()/3600000),{cache:'no-store'}); MU=r.ok?await r.json():false; }catch(e){ MU=false; } }
+  if(INJ===null){ try{ const r=await fetch('/data/nfl/injuries.json?_='+Math.floor(Date.now()/3600000),{cache:'no-store'}); INJ=r.ok?await r.json():false; }catch(e){ INJ=false; } }
+}
 const ODDS_URL='https://nfl-ev-sigma.vercel.app/props.json';
 let ODDS=null,ODDS_IDX=null,LAD=null;   // feed, name index, current player's ladders
 const BOOK_NAMES={draftkings:'DraftKings',fanduel:'FanDuel',betmgm:'BetMGM',caesars:'Caesars',espnbet:'ESPN BET',betrivers:'BetRivers',
@@ -658,6 +679,7 @@ function priceAt(lad,line){ // -> {bestOver:[book,odds], bestUnder, fairOver, nT
   }
   return {bestOver:bo,bestUnder:bu,fairOver:median(fo),nTwo:fo.length,n:Object.keys(bk).length};
 }
+PROPS.K=[["fgm","FG Made",1.5,1],["kpts","Kicking Pts",7.5,1],["xpm","XP Made",2.5,1],["fga","FG Att",2.5,1]];
 PROPS.TE=PROPS.WR; PROPS.FB=PROPS.RB;
 
 let IDX=null,F={},SHARD=null,PROP=null,LINE=0.5,STEP=1,SIDE=0,WINSEL='l10',WINDOWS_MAP={};
@@ -667,7 +689,7 @@ function normName(s){
     .replace(/\b(jr|sr|ii|iii|iv)\b\.?/g,'').replace(/[^a-z ]/g,'').replace(/\s+/g,' ').trim();
 }
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-function valOf(r,key){ if(key==='anytd')return r[F.rtd]+r[F.rectd]; if(key==='rr')return r[F.ryd]+r[F.recyd]; if(key==='pr')return r[F.pyd]+r[F.ryd]; return r[F[key]]; }
+function valOf(r,key){ if(key==='anytd')return r[F.rtd]+r[F.rectd]; if(key==='rr')return r[F.ryd]+r[F.recyd]; if(key==='pr')return r[F.pyd]+r[F.ryd]; if(key==='kpts')return 3*(r[F.fgm]||0)+(r[F.xpm]||0); return r[F[key]]||0; }
 function cashes(v){ return SIDE?v<LINE:v>LINE; }
 function fmtGameDay(d,t){
   if(!d) return '';
@@ -698,7 +720,7 @@ function wireSearch(inputId,dropId){
     drop.innerHTML=items.map((p,i)=>'<div class="s-item" data-i="'+i+'">'
       +'<span class="s-name">'+esc(p[1])+'</span>'
       +'<span class="s-meta">'+esc(p[2])+' · '+esc(p[3])+(p[4]?'':' · not active')+'</span></div>').join('')
-      ||'<div class="s-empty">No NFL skill player matches — we cover QBs, RBs, WRs and TEs with a game logged.</div>';
+      ||'<div class="s-empty">No match — we cover QBs, RBs, WRs, TEs and kickers with a game logged.</div>';
     drop.style.display='block';
     drop.querySelectorAll('.s-item').forEach(el=>el.addEventListener('mousedown',e=>{
       e.preventDefault(); go(items[+el.dataset.i][0]);
@@ -741,8 +763,11 @@ async function loadPlayer(id){
     ?'This week: <strong>'+(g.home?'vs ':'@ ')+esc(g.opp)+'</strong> · '+fmtGameDay(g.date,g.time)+' · Week '+g.week
     :'<span class="thin">No upcoming game on the schedule.</span>';
   const d=new Date(IDX.generatedAt).toLocaleDateString(undefined,{month:'short',day:'numeric'});
-  await loadOdds();
+  await Promise.all([loadOdds(),loadSide()]);
   LAD=findLadders();
+  const inj=INJ&&INJ.players&&INJ.players[SHARD.id];
+  if(inj&&(inj[0]||inj[1])){ const st=inj[0]||inj[1]; document.getElementById('pMeta').innerHTML+=' · <span class="inj-badge '+esc(st.replace(/\s/g,''))+'" title="Week '+INJ.week+' official report">'+esc(st)+(inj[2]?' · '+esc(inj[2]):'')+(inj[0]&&inj[1]?' <span class="inj-pr">('+esc(inj[1])+')</span>':'')+'</span>'; }
+  else if(INJ&&INJ.week){ document.getElementById('pMeta').innerHTML+=' · <span class="inj-ok" title="Week '+INJ.week+' official report">not on the injury report</span>'; }
   const od=ODDS&&ODDS.generatedAt?new Date(ODDS.generatedAt).toLocaleString(undefined,{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'}):null;
   status.textContent='Stats through '+d+' · '+(LAD?'lines live as of '+od+' · '+Object.keys(LAD).length+' markets posted on him':(ODDS?'no lines posted on him yet (lines as of '+od+')':'lines feed unavailable right now'));
   status.className='status-bar ok';
@@ -773,7 +798,20 @@ function selectProp(def){
 }
 
 function combined(){ return SHARD.prev.concat(SHARD.g); }
-function render(){ renderClearRates(); renderChart(); renderSplits(); renderLines();
+function renderMatchup(){
+  const el=document.getElementById('matchupLine'); if(!el) return;
+  const g=IDX.teams[SHARD.team]; const b={QB:'QB',RB:'RB',FB:'RB',WR:'WR',TE:'TE',K:'K'}[SHARD.pos];
+  const m=g&&MU&&MU.ranks&&MU.ranks[g.opp]&&MU.ranks[g.opp][b]&&MU.ranks[g.opp][b][PROP.key];
+  if(!m){ el.style.display='none'; return; }
+  const [pg,rank,lg]=m, n=Object.keys(MU.ranks).length, soft=n-rank+1;
+  const ord=k=>k+(k===1?'st':k===2?'nd':k===3?'rd':'th');
+  const cls=rank>=23?'soft':rank<=10?'tough':'mid';
+  const word=cls==='soft'?(soft===1?'softest':ord(soft)+'-softest'):cls==='tough'?(rank===1?'stingiest':ord(rank)+'-stingiest'):'middle of the pack';
+  el.style.display='block';
+  el.innerHTML='<span class="mu-k">Matchup</span> '+esc(g.opp)+' allows <strong>'+pg+'</strong> '+esc(MU_LABEL[PROP.key]||PROP.key)+'/g to '+esc(POS_LABEL[SHARD.pos]||SHARD.pos)
+    +' · <span class="mu-rank '+cls+'">'+ord(rank)+'<span class="mu-of"> of '+n+'</span> · '+word+'</span> <span class="mu-lg">(league avg '+lg+' · '+MU.games[g.opp]+' games)</span>';
+}
+function render(){ renderClearRates(); renderChart(); renderSplits(); renderLines(); renderMatchup();
   document.getElementById('stepVal').textContent=(SIDE?'U':'O')+LINE; }
 function renderLines(){
   const box=document.getElementById('linesBox'),note=document.getElementById('lnNote');
