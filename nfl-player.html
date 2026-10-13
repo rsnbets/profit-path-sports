@@ -264,6 +264,7 @@
   .mu-rank { font-family:'DM Mono',monospace;font-weight:600; } .mu-of { font-weight:400;color:var(--muted); }
   .mu-rank.soft { color:var(--green); } .mu-rank.tough { color:#e06c6c; } .mu-rank.mid { color:#e6c35a; }
   .mu-lg { font-size:11px; }
+  .mu-tier { margin-top:3px;font-size:12.5px;color:var(--muted); } .mu-tier strong { color:var(--text);font-family:inherit; }
   .inj-badge { font-size:11px;font-weight:700;letter-spacing:.04em;padding:1px 7px;border-radius:999px;border:1px solid currentColor; }
   .inj-badge.Out { color:#e06c6c; } .inj-badge.Doubtful { color:#f0945a; } .inj-badge.Questionable { color:#e6c35a; } .inj-badge.DNP,.inj-badge.Limited { color:#e6c35a; }
   .inj-pr { font-weight:400;opacity:.8; } .inj-ok { font-size:11px;color:var(--green);opacity:.85; }
@@ -835,6 +836,14 @@ function selectProp(def){
 }
 
 function combined(){ return SHARD.prev.concat(SHARD.g); }
+// defense tier for (opp, bucket, key) in a season: 'top-8' (rank 1-8) / 'mid' / 'bottom-8' (25-32); null when unranked
+function tierOf(opp,b,key,season){ const R=(season===IDX.prevSeason?(MU&&MU.prev&&MU.prev.ranks):(MU&&MU.ranks))||null; const m=R&&R[opp]&&R[opp][b]&&R[opp][b][key]; if(!m) return null; const n=Object.keys(R).length; return m[1]<=8?'top-8':m[1]>n-8?'bottom-8':'mid'; }
+function tierWindow(){ // this week's opponent tier for the selected prop + the games vs same-tier defenses
+  const g=IDX.teams[SHARD.team]; const b={QB:'QB',RB:'RB',FB:'RB',WR:'WR',TE:'TE',K:'K'}[SHARD.pos]; if(!g||!b||!MU) return null;
+  const t=tierOf(g.opp,b,PROP.key,IDX.season); if(!t) return null;
+  const rows=SHARD.prev.filter(r=>tierOf(r[F.opp],b,PROP.key,IDX.prevSeason)===t).concat(SHARD.g.filter(r=>tierOf(r[F.opp],b,PROP.key,IDX.season)===t));
+  return {tier:t,rows,opp:g.opp};
+}
 function renderMatchup(){
   const el=document.getElementById('matchupLine'); if(!el) return;
   const g=IDX.teams[SHARD.team]; const b={QB:'QB',RB:'RB',FB:'RB',WR:'WR',TE:'TE',K:'K'}[SHARD.pos];   // defenders: no matchup line (the stat comes from the opponent's offense)
@@ -847,6 +856,9 @@ function renderMatchup(){
   el.style.display='block';
   el.innerHTML='<span class="mu-k">Matchup</span> '+esc(g.opp)+' allows <strong>'+pg+'</strong> '+esc(MU_LABEL[PROP.key]||PROP.key)+'/g to '+esc(POS_LABEL[SHARD.pos]||SHARD.pos)
     +' · <span class="mu-rank '+cls+'">'+ord(rank)+'<span class="mu-of"> of '+n+'</span> · '+word+'</span> <span class="mu-lg">(league avg '+lg+' · '+MU.games[g.opp]+' games)</span>';
+  const tw=tierWindow();
+  if(tw){ const cr=clearRate(tw.rows); const avg=tw.rows.length?(tw.rows.reduce((s,r)=>s+valOf(r,PROP.key),0)/tw.rows.length):null;
+    el.innerHTML+='<div class="mu-tier">vs <strong>'+esc(tw.tier)+'</strong> defenses like '+esc(g.opp)+': '+(cr?cr.hits+'/'+cr.n+' '+(SIDE?'under':'over')+' '+LINE+(avg!=null?' · avg '+avg.toFixed(1):''):'no games')+(cr&&cr.n<3?' <span class="mu-lg">(tiny sample)</span>':'')+' <span class="mu-lg">· 2025 games use last season\'s final ranks</span></div>'; }
 }
 function render(){ renderClearRates(); renderChart(); renderSplits(); renderLines(); renderMatchup();
   document.getElementById('stepVal').textContent=(SIDE?'U':'O')+LINE; }
@@ -897,6 +909,7 @@ function renderClearRates(){
     ['l10','L10',all.slice(-10)],['l5','L5',all.slice(-5)],['l3','L3',all.slice(-3)],
   ];
   if(opp) windows.push(['vsopp','vs '+opp,all.filter(r=>r[F.opp]===opp)]);
+  const tw=(PROP&&MU)?tierWindow():null; if(tw) windows.push(['vstier','vs '+tw.tier+' D',tw.rows]);
   windows.push(['prev',String(IDX.prevSeason),SHARD.prev]);
   WINDOWS_MAP={};
   for(const[k,lbl,rows]of windows) WINDOWS_MAP[k]={label:lbl,rows};

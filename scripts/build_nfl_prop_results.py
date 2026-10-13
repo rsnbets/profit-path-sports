@@ -59,6 +59,15 @@ def val(row, F, key):
 def main():
     idx = json.loads(read("index.json"))
     players = json.load(open(os.path.join(ROOT, "players.json")))
+    try: MU = json.load(open(os.path.join(ROOT, "matchups.json")))
+    except Exception: MU = None
+    POSB = {"QB": "QB", "RB": "RB", "FB": "RB", "WR": "WR", "TE": "TE", "K": "K"}
+    pos_of = {pid: pos for pid, _, _, pos, _ in players["players"]}
+    def tier_of(opp, b, key, prev):
+        R = (MU.get("prev", {}).get("ranks") if prev else MU.get("ranks")) if MU else None
+        m = R and R.get(opp, {}).get(b, {}).get(key)
+        if not m: return None
+        n = len(R); return "top-8" if m[1] <= 8 else ("bottom-8" if m[1] > n - 8 else "mid")
     F = {f: i for i, f in enumerate(players["fields"])}
     by_name = defaultdict(list)
     for pid, name, team, pos, _ in players["players"]:
@@ -99,13 +108,21 @@ def main():
             hist = sh["prev"] + [r for r in sh["g"] if r[F["week"]] < week]
             l10 = hist[-10:]
             read_rate = (sum(1 for r in l10 if val(r, F, key) > opn["line"]) / len(l10)) if l10 else None
+            # similar-defense read: games vs defenses in the same tier as this opponent (2025 by final rank)
+            b = POSB.get(pos_of.get(pid, ""), None); opp = e["home"] if team == e["away"] else e["away"]
+            tier = tier_of(opp, b, key, False) if b else None
+            trows = ([r for r in sh["prev"] if tier_of(r[F["opp"]], b, key, True) == tier] +
+                     [r for r in sh["g"] if r[F["week"]] < week and tier_of(r[F["opp"]], b, key, False) == tier]) if tier else []
+            tier_rate = (sum(1 for r in trows if val(r, F, key) > opn["line"]) / len(trows)) if trows else None
             rows.append({"eventID": e["eventID"], "week": week, "away": e["away"], "home": e["home"], "player": name, "team": team,
                          "id": pid, "market": market, "key": key, "open": opn["line"], "close": close["line"],
                          "fairOverClose": close.get("fairOver"), "pulls": len([r for r in recs if (r["player"], r["team"], r["market"]) == k]),
                          "result": result, "overHit": result > close["line"], "push": result == close["line"],
-                         "move": round(close["line"] - opn["line"], 1), "readL10": None if read_rate is None else round(read_rate, 2), "n10": len(l10)})
+                         "move": round(close["line"] - opn["line"], 1), "readL10": None if read_rate is None else round(read_rate, 2), "n10": len(l10),
+                         "tier": tier, "readTier": None if tier_rate is None else round(tier_rate, 2), "nTier": len(trows)})
     # summaries
-    weeks = defaultdict(lambda: {"props": 0, "games": set(), "byMarket": defaultdict(lambda: [0, 0, 0]), "read": defaultdict(lambda: [0, 0, 0, 0, 0])})
+    weeks = defaultdict(lambda: {"props": 0, "games": set(), "byMarket": defaultdict(lambda: [0, 0, 0]), "read": defaultdict(lambda: [0, 0, 0, 0, 0]),
+                                 "readTier": defaultdict(lambda: [0, 0, 0, 0, 0])})
     for r in rows:
         W = weeks[r["week"]]; W["props"] += 1; W["games"].add(r["eventID"])
         m = W["byMarket"][r["market"]]; m[0] += 1; m[1] += r["overHit"]; m[2] += r["push"]
@@ -113,11 +130,15 @@ def main():
             b = next(lbl for lo, hi, lbl in BUCKETS if lo <= r["readL10"] < hi)
             x = W["read"][b]; x[0] += 1; x[1] += r["overHit"]; x[2] += r["push"]
             x[3] += (r["move"] > 0); x[4] += (r["move"] < 0)        # line moved UP (toward the over) / down
+        if r.get("readTier") is not None and r["nTier"] >= 3:
+            b = next(lbl for lo, hi, lbl in BUCKETS if lo <= r["readTier"] < hi)
+            x = W["readTier"][b]; x[0] += 1; x[1] += r["overHit"]; x[2] += r["push"]; x[3] += (r["move"] > 0); x[4] += (r["move"] < 0)
     summary = {}
     for w, W in weeks.items():
         summary[str(w)] = {"props": W["props"], "games": len(W["games"]),
             "byMarket": {m: {"n": v[0], "overHit": round(100 * v[1] / max(1, v[0] - v[2]), 1), "push": v[2]} for m, v in W["byMarket"].items()},
-            "read": {b: {"n": v[0], "overHit": round(100 * v[1] / max(1, v[0] - v[2]), 1), "lineUp": v[3], "lineDown": v[4]} for b, v in W["read"].items()}}
+            "read": {b: {"n": v[0], "overHit": round(100 * v[1] / max(1, v[0] - v[2]), 1), "lineUp": v[3], "lineDown": v[4]} for b, v in W["read"].items()},
+            "readTier": {b: {"n": v[0], "overHit": round(100 * v[1] / max(1, v[0] - v[2]), 1), "lineUp": v[3], "lineDown": v[4]} for b, v in W["readTier"].items()}}
     out = {"generatedAt": now.strftime("%Y-%m-%dT%H:%M:%SZ"), "season": SEASON, "history": HIST, "events_tracked": len(idx["events"]),
            "rows": rows, "summary": summary}
     os.makedirs(ROOT, exist_ok=True)

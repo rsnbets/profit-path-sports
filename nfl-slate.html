@@ -655,10 +655,12 @@ async function renderGraded(){
   for(const w of weeks){ const S=R.summary[w]; const order=['hot >=70%','50-70%','30-50%','cold <30%'];
     html+='<tr><td class="mono">'+w+'</td><td class="thin">all props · '+S.games+' game'+(S.games===1?'':'s')+'</td><td class="r mono">'+S.props+'</td><td class="r mono">'+(Object.values(S.byMarket).reduce((a,m)=>a+m.n*m.overHit/100,0)/Math.max(1,S.props)*100).toFixed(0)+'%</td><td class="r thin">—</td><td class="r thin">—</td></tr>';
     for(const b of order){ const v=S.read[b]; if(!v||!v.n) continue; const c=b.startsWith('hot')?'good':b.startsWith('cold')?'bad':'';
-      html+='<tr><td></td><td class="'+c+'">'+esc(b)+'</td><td class="r mono">'+v.n+'</td><td class="r mono '+c+'">'+v.overHit+'%</td><td class="r mono">'+v.lineUp+'</td><td class="r mono">'+v.lineDown+'</td></tr>'; }
+      html+='<tr><td></td><td class="'+c+'">L10 '+esc(b)+'</td><td class="r mono">'+v.n+'</td><td class="r mono '+c+'">'+v.overHit+'%</td><td class="r mono">'+v.lineUp+'</td><td class="r mono">'+v.lineDown+'</td></tr>'; }
+    for(const b of order){ const v=S.readTier&&S.readTier[b]; if(!v||!v.n) continue; const c=b.startsWith('hot')?'good':b.startsWith('cold')?'bad':'';
+      html+='<tr><td></td><td class="'+c+'">Similar-D '+esc(b)+' <span class="thin">(≥3 games)</span></td><td class="r mono">'+v.n+'</td><td class="r mono '+c+'">'+v.overHit+'%</td><td class="r mono">'+v.lineUp+'</td><td class="r mono">'+v.lineDown+'</td></tr>'; }
   }
   html+='</tbody>'; document.getElementById('gradedTbl').innerHTML=html;
-  document.getElementById('gradedNote').textContent='Every prop the feed saw before kickoff, graded against its closing line from nflverse box scores — no picks logged by anyone. "Read" = the player\'s L10 over-rate against the OPENING line, using only games before that week. If hot reads don\'t clear the close more often than cold ones, the read has no edge. '+R.events_tracked+' events tracked so far · graded '+new Date(R.generatedAt).toLocaleDateString(undefined,{month:'short',day:'numeric'})+'.';
+  document.getElementById('gradedNote').textContent='Every prop the feed saw before kickoff, graded against its closing line from nflverse box scores — no picks logged by anyone. "Read" = the player\'s L10 over-rate against the OPENING line, using only games before that week. "Similar-D" = his over-rate vs defenses in the same tier as that game\'s opponent. If hot reads don\'t clear the close more often than cold ones, the read has no edge. '+R.events_tracked+' events tracked so far · graded '+new Date(R.generatedAt).toLocaleDateString(undefined,{month:'short',day:'numeric'})+'.';
 }
 function gameTime(g){ const d=new Date(g.startsAt); return d.toLocaleDateString(undefined,{weekday:'short'})+' '+d.toLocaleTimeString(undefined,{hour:'numeric',minute:'2-digit'}); }
 function renderGameChips(){
@@ -688,6 +690,7 @@ function renderTabs(){
     const b=document.createElement('button'); b.className='chip'+(i===TAB?' active':''); b.innerHTML=esc(lbl)+' <span class="thin">'+n+'</span>'; b.onclick=()=>{TAB=i;renderTabs();renderTable();}; w.appendChild(b); });
   if(!TABS[TAB][1].some(m=>ps.some(p=>p.ladders[m]))){ TAB=TABS.findIndex(([l,mk])=>ps.some(p=>mk.some(m=>p.ladders[m]))); if(TAB<0)TAB=0; renderTabs(); }
 }
+function tierOf(opp,b,key,season){ const R=(season===IDX.prevSeason?(MU&&MU.prev&&MU.prev.ranks):(MU&&MU.ranks))||null; const m=R&&R[opp]&&R[opp][b]&&R[opp][b][key]; if(!m) return null; const n=Object.keys(R).length; return m[1]<=8?'top-8':m[1]>n-8?'bottom-8':'mid'; }
 function hit(rows,key,line){ if(!rows.length) return null; const h=rows.filter(r=>SIDE?valOf(r,key)<line:valOf(r,key)>line).length; return {h,n:rows.length,p:h/rows.length}; }
 function cell(cr,tiny){ if(!cr) return '<td class="r thin">—</td>'; const c=cr.p>=0.7?'good':cr.p<=0.3?'bad':''; return '<td class="r hitc '+c+(cr.n<3?' tiny':'')+'" title="'+cr.h+'/'+cr.n+'">'+Math.round(cr.p*100)+'%<span class="hn">'+cr.h+'/'+cr.n+'</span></td>'; }
 function renderTable(){
@@ -700,12 +703,14 @@ function renderTable(){
     const opp=p.team===g.home?g.away:g.home; const pos=p.idx?p.idx[3]:null;
     const mu=MU&&pos&&MU.ranks[opp]&&MU.ranks[opp][POSB[pos]]&&MU.ranks[opp][POSB[pos]][key];
     const inj=INJ&&p.idx&&INJ.players[p.idx[0]];
-    rows.push({m,p,line,pr,key,pos,opp,mu,inj,l5:hit(all.slice(-5),key,line),l10:hit(all.slice(-10),key,line),sea:hit(cur,key,line),
+    const b=pos&&POSB[pos]; const tier=b?tierOf(opp,b,key,IDX.season):null;
+    const trows=tier&&sh?sh.prev.filter(r=>tierOf(r[F.opp],b,key,IDX.prevSeason)===tier).concat(sh.g.filter(r=>tierOf(r[F.opp],b,key,IDX.season)===tier)):[];
+    rows.push({m,p,line,pr,key,pos,opp,mu,inj,tier,vt:tier?hit(trows,key,line):null,l5:hit(all.slice(-5),key,line),l10:hit(all.slice(-10),key,line),sea:hit(cur,key,line),
       last:all.length?valOf(all[all.length-1],key):null,avg5:all.length?all.slice(-5).reduce((s,r)=>s+valOf(r,key),0)/Math.min(5,all.length):null,hasHist:!!sh});
   }
   rows.sort((a,b)=>(mkts.indexOf(a.m)-mkts.indexOf(b.m))||((b.l10?b.l10.p:-1)-(a.l10?a.l10.p:-1))||((b.l5?b.l5.p:-1)-(a.l5?a.l5.p:-1)));
   const side=SIDE?'U':'O';
-  let html='<thead><tr><th>Player</th><th>Prop</th><th class="r">Line</th><th class="r">Best '+(SIDE?'under':'over')+'</th><th class="r">Fair</th><th class="r">L5</th><th class="r">L10</th><th class="r">'+IDX.season+'</th><th class="r">Last</th><th class="r">Avg5</th><th class="r">Matchup</th><th>Report</th></tr></thead><tbody>';
+  let html='<thead><tr><th>Player</th><th>Prop</th><th class="r">Line</th><th class="r">Best '+(SIDE?'under':'over')+'</th><th class="r">Fair</th><th class="r">L5</th><th class="r">L10</th><th class="r">'+IDX.season+'</th><th class="r" title="vs defenses in the same tier (top-8 / mid / bottom-8) as this week\'s opponent, 2025 by final rank">Similar D</th><th class="r">Last</th><th class="r">Avg5</th><th class="r">Matchup</th><th>Report</th></tr></thead><tbody>';
   let lastM=null;
   for(const r of rows){
     const best=r.pr?(SIDE?r.pr.bestUnder:r.pr.bestOver):null; const fair=r.pr&&r.pr.fairOver!=null?(SIDE?1-r.pr.fairOver:r.pr.fairOver):null;
@@ -720,7 +725,7 @@ function renderTable(){
       +'<td class="r mono">'+side+r.line+'</td>'
       +'<td class="r mono'+(ev!=null&&ev>0?' good':'')+'">'+(best?fmtOdds(best[1])+' <span class="bk">'+esc(bookName(best[0]))+'</span>':'—')+'</td>'
       +'<td class="r mono thin" title="'+(r.pr?r.pr.nTwo+' two-sided books':'')+'">'+(fair!=null?fromProb(fair):'—')+'</td>'
-      +(r.hasHist?cell(r.l5)+cell(r.l10)+cell(r.sea):'<td class="r thin" colspan="3">no history in our DB</td>')
+      +(r.hasHist?cell(r.l5)+cell(r.l10)+cell(r.sea)+(r.vt?cell(r.vt).replace('<td class="r hitc','<td title="vs '+r.tier+' defenses" class="r hitc'):'<td class="r thin">—</td>'):'<td class="r thin" colspan="4">no history in our DB</td>')
       +'<td class="r mono">'+(r.last!=null?r.last:'—')+'</td><td class="r mono thin">'+(r.avg5!=null?r.avg5.toFixed(1):'—')+'</td>'
       +'<td class="r mono '+muc+'" title="'+(r.mu?esc(r.opp)+' allows '+r.mu[0]+'/g to '+r.pos+'s (league avg '+r.mu[2]+')':'')+'">'+(r.mu?ord(r.mu[1]):'—')+'</td>'
       +'<td>'+(st?'<span class="inj-badge '+esc(st.replace(/\s/g,''))+'">'+esc(st)+'</span>'+(r.inj[2]?' <span class="thin">'+esc(r.inj[2])+'</span>':''):'<span class="thin">—</span>')+'</td></tr>';

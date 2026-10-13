@@ -226,8 +226,8 @@ def main():
         sys.exit(1)
 
     print("  play-by-play for longest plays…")
-    LONGEST_CUR = longest_plays(SEASON)
-    cur_rows, prev_rows = week_rows(cur, LONGEST_CUR), week_rows(prev, longest_plays(PREV))
+    LONGEST_CUR, LONGEST_PREV = longest_plays(SEASON), longest_plays(PREV)
+    cur_rows, prev_rows = week_rows(cur, LONGEST_CUR), week_rows(prev, LONGEST_PREV)
     meta = {p["gsis_id"]: p for p in players if p.get("gsis_id")}
 
     shards = []
@@ -294,6 +294,8 @@ def main():
         json.dump({"generatedAt": generated_at, **index_body}, f, separators=(",", ":"))
 
     mu = build_matchups(cur, LONGEST_CUR)
+    mu_prev = build_matchups(prev, LONGEST_PREV)          # last season's FINAL ranks: the tier of a 2025 opponent
+    mu["prev"] = {"season": PREV, "n": mu_prev["n"], "ranks": mu_prev["ranks"]}
     with open(MATCHUP_PATH, "w") as f:
         json.dump({"generatedAt": generated_at, **mu}, f, separators=(",", ":"))
     inj = build_injuries()
