@@ -733,7 +733,7 @@ function renderTable(){
   for(const r of rows){
     const best=r.pr?(SIDE?r.pr.bestUnder:r.pr.bestOver):null; const fair=r.pr&&r.pr.fairOver!=null?(SIDE?1-r.pr.fairOver:r.pr.fairOver):null;
     const ev=(fair!=null&&best)?fair*toDec(best[1])-1:null;
-    const link=r.p.idx?'/nfl-player.html?id='+r.p.idx[0]:null;
+    const link=r.p.idx?'/nfl-player.html?id='+r.p.idx[0]+'&p='+encodeURIComponent(r.key)+(SIDE?'&side=u':''):null;
     const muc=r.mu?(r.mu[1]>=23?'good':r.mu[1]<=10?'bad':'mid'):'';
     const st=r.inj?(r.inj[0]||r.inj[1]):'';
     const dim=st==='Out'||st==='Doubtful'?' dim':'';

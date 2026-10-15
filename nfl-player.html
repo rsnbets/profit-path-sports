@@ -836,6 +836,7 @@ function wireSearch(inputId,dropId){
   inp.addEventListener('blur',()=>setTimeout(close,150));
 }
 function go(id){ history.pushState({},'', '/nfl-player.html?id='+id); loadPlayer(id); }
+function syncURL(){ if(!SHARD||!PROP) return; const u='/nfl-player.html?id='+SHARD.id+'&p='+encodeURIComponent(PROP.key)+(SIDE?'&side=u':''); history.replaceState({},'',u); }
 
 async function loadPlayer(id){
   document.getElementById('landingCard').style.display='none';
@@ -873,7 +874,10 @@ async function loadPlayer(id){
   status.className='status-bar ok';
   renderPropChips();
   const defs=propsFor(SHARD.pos);
-  selectProp(defs[0]);
+  const q=new URLSearchParams(location.search);
+  if(q.get('side')==='u'||q.get('side')==='1'){ SIDE=1; document.querySelectorAll('#sideSeg button').forEach(b=>b.classList.toggle('active',b.dataset.side==='1')); }
+  const want=q.get('p');                                   // deep link from the slate: open on that prop
+  selectProp((want&&defs.find(d=>d[0]===want))||defs[0]);
 }
 
 function renderPropChips(){
@@ -892,6 +896,7 @@ function renderPropChips(){
 function selectProp(def){
   PROP={key:def[0],label:def[1]}; LINE=def[2]; STEP=def[3]; GAMESEL=null;
   const lad=ladderFor(def[0]); const ml=lad?mainLine(lad,MKT[def[0]]):null; if(ml!=null) LINE=ml;
+  syncURL();
   document.querySelectorAll('#propChips .chip').forEach(c=>
     c.classList.toggle('active',c.dataset.key===def[0]));
   render();
@@ -1102,7 +1107,7 @@ document.getElementById('stepUp').addEventListener('click',()=>{ LINE=Math.round
 document.querySelectorAll('#sideSeg button').forEach(b=>b.addEventListener('click',()=>{
   SIDE=+b.dataset.side;
   document.querySelectorAll('#sideSeg button').forEach(x=>x.classList.toggle('active',x===b));
-  render();
+  render(); syncURL();
 }));
 document.getElementById('backBtn').addEventListener('click',e=>{
   e.preventDefault();
@@ -1111,7 +1116,7 @@ document.getElementById('backBtn').addEventListener('click',e=>{
 });
 window.addEventListener('popstate',()=>{
   const id=new URLSearchParams(location.search).get('id');
-  if(id) loadPlayer(id); else renderLanding();
+  if(id) loadPlayer(id); else renderLanding();      // loadPlayer re-reads ?p= / ?side=
 });
 
 async function boot(){
