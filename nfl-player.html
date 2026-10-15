@@ -346,6 +346,16 @@
   .cb-sgp input:focus { border-color:var(--green-border); }
   .cb-sgpout { font-size:12.5px;color:var(--muted); } .cb-sgpout strong { color:var(--text);font-family:'DM Mono',monospace; }
   .cb-foot { font-size:11px;color:var(--muted);line-height:1.5; }
+
+  .cb-section { position:relative;background:linear-gradient(180deg,rgba(74,222,128,.05),transparent 55%);
+    border:1px solid var(--green-border);border-radius:14px;padding:1.3rem 1.5rem 1.5rem !important;margin:1.4rem 0; }
+  .cb-head { margin-bottom:1rem; }
+  .cb-badge { display:inline-block;font-size:9.5px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;
+    color:#0b0d10;background:var(--green);border-radius:999px;padding:3px 10px;margin-bottom:.55rem; }
+  .cb-title { font-family:'DM Serif Display',serif;font-style:italic;font-size:30px;font-weight:400;letter-spacing:-.01em;
+    color:var(--text);margin:0 0 .45rem;line-height:1.1;text-transform:none; }
+  .cb-lede { font-size:13.5px;line-height:1.6;color:var(--muted);margin:0;max-width:74ch; } .cb-lede strong { color:var(--text); }
+  @media(max-width:700px){ .cb-title { font-size:24px; } .cb-section { padding:1rem 1rem 1.2rem !important; } }
 </style>
 <link rel="stylesheet" href="/styles/sidebar.css">
 <link rel="stylesheet" href="/styles/topbar.css">
@@ -673,8 +683,12 @@
     <div class="det-note">Computed over the same span as the chart source — 2025 (playoffs included) plus every 2026 week as it lands.</div>
   </div>
 
-  <div class="section">
-    <div class="section-label">Same-game combo <span class="win-hint">· how often two or more of his props land in the <em>same</em> game — the thing an SGP price hides</span></div>
+  <div class="section cb-section">
+    <div class="cb-head">
+      <div class="cb-badge">SGP X-Ray</div>
+      <h3 class="cb-title">Same-game combo</h3>
+      <p class="cb-lede">Two props on one player are <strong>not</strong> independent — 100 yards and 8 catches happen in the same kind of game. Pick his legs below and we count the games where <strong>all of them actually landed</strong>, then show what your book's parlay price is really charging for that correlation.</p>
+    </div>
     <div id="comboBox"></div>
   </div>
   <div class="section" style="text-align:center;">
