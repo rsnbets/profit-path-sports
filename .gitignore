@@ -29,3 +29,4 @@ library/source-pdfs/*
 # real picks fixtures. Neither is ever committed (the site repo is public).
 pickem-handoff/
 pickem/private/
+HANDOFF-pickem.md
