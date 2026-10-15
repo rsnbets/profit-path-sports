@@ -1,0 +1,70 @@
+name: pickem-data
+
+# Builds pickem/data/<season>-w<week>.json: games, kickoff and lock times, and
+# the frozen de-vigged home win % per game (last odds-store snapshot before
+# kickoff, nflverse fallback). No picks ever touch this file.
+#
+# The odds store is the private rsnbets/nfl-ev repo. NFL_EV_TOKEN is a
+# fine-grained PAT with read access to that one repo. Without it the build
+# still runs and tags every game "nflverse".
+
+on:
+  workflow_dispatch:
+    inputs:
+      week:
+        description: 'Week number (blank = auto)'
+        required: false
+        default: ''
+  schedule:
+    # UTC. Thursday night, Sunday around each kickoff window, and Monday night.
+    - cron: '30 0 * * 5'    # Fri 00:30 (after TNF kickoff)
+    - cron: '0 14 * * 0'    # Sun 14:00 (after London kickoff)
+    - cron: '20 17 * * 0'   # Sun 17:20 (after 1 PM ET kickoffs)
+    - cron: '45 20 * * 0'   # Sun 20:45 (after 4 PM ET kickoffs)
+    - cron: '40 0 * * 1'    # Mon 00:40 (after SNF kickoff)
+    - cron: '40 0 * * 2'    # Tue 00:40 (after MNF kickoff)
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pickem-data
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Clone the odds store (optional)
+        env:
+          NFL_EV_TOKEN: ${{ secrets.NFL_EV_TOKEN }}
+        run: |
+          if [ -z "$NFL_EV_TOKEN" ]; then
+            echo "NFL_EV_TOKEN not set: building with nflverse moneylines only"; exit 0
+          fi
+          git clone -q "https://x-access-token:${NFL_EV_TOKEN}@github.com/rsnbets/nfl-ev.git" /tmp/nfl-ev
+          echo "store cloned: $(git -C /tmp/nfl-ev rev-list --count HEAD) commits"
+
+      - name: Build week data
+        run: |
+          WEEK="${{ github.event.inputs.week }}"
+          python3 pickem/build.py --week "${WEEK:-auto}" --store /tmp/nfl-ev
+
+      - name: Commit (author = repo owner so Vercel deploys it)
+        run: |
+          git config user.name "RSN"
+          git config user.email "rsnbets@gmail.com"
+          git add pickem/data/
+          if git diff --cached --quiet; then echo "no change"; exit 0; fi
+          git commit -q -m "pickem data: $(date -u '+%Y-%m-%dT%H:%MZ')"
+          for attempt in 1 2 3; do
+            git pull -q --rebase origin main || true
+            if git push -q origin HEAD:main; then echo "pushed (attempt $attempt)"; break; fi
+            sleep 5
+          done

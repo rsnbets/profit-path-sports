@@ -1,0 +1,571 @@
+{
+ "name": "mock-week (Oct 2026 mockup, handles anonymized)",
+ "note": "Mock data. Team codes are nflverse (LA = Rams). Picks: H = home, A = away. Player handles replaced with Player01..Player15 (TallRobLC kept).",
+ "params": {
+  "mu": 46.5,
+  "sd": 13.5
+ },
+ "games": [
+  {
+   "id": 0,
+   "away": "TEN",
+   "home": "IND",
+   "status": "final",
+   "away_score": 20,
+   "home_score": 27,
+   "p_home": 0.58,
+   "final_order": 1
+  },
+  {
+   "id": 1,
+   "away": "NYJ",
+   "home": "NE",
+   "status": "final",
+   "away_score": 13,
+   "home_score": 23,
+   "p_home": 0.64,
+   "final_order": 3
+  },
+  {
+   "id": 2,
+   "away": "NO",
+   "home": "NYG",
+   "status": "final",
+   "away_score": 24,
+   "home_score": 21,
+   "p_home": 0.53,
+   "final_order": 4
+  },
+  {
+   "id": 3,
+   "away": "CAR",
+   "home": "PHI",
+   "status": "final",
+   "away_score": 17,
+   "home_score": 31,
+   "p_home": 0.76,
+   "final_order": 2
+  },
+  {
+   "id": 4,
+   "away": "PIT",
+   "home": "TB",
+   "status": "final",
+   "away_score": 20,
+   "home_score": 19,
+   "p_home": 0.56,
+   "final_order": 5
+  },
+  {
+   "id": 5,
+   "away": "ARI",
+   "home": "LA",
+   "status": "live",
+   "away_score": 10,
+   "home_score": 13,
+   "p_home": 0.68
+  },
+  {
+   "id": 6,
+   "away": "LAC",
+   "home": "KC",
+   "status": "live",
+   "away_score": 14,
+   "home_score": 10,
+   "p_home": 0.62
+  },
+  {
+   "id": 7,
+   "away": "BUF",
+   "home": "LV",
+   "status": "live",
+   "away_score": 17,
+   "home_score": 13,
+   "p_home": 0.29
+  },
+  {
+   "id": 8,
+   "away": "DAL",
+   "home": "GB",
+   "status": "pre",
+   "away_score": null,
+   "home_score": null,
+   "p_home": 0.64
+  },
+  {
+   "id": 9,
+   "away": "WAS",
+   "home": "SF",
+   "status": "pre",
+   "away_score": null,
+   "home_score": null,
+   "p_home": 0.66
+  }
+ ],
+ "players": [
+  {
+   "name": "Player01",
+   "tb": 46,
+   "picks": "HHAHAHHAHA"
+  },
+  {
+   "name": "Player02",
+   "tb": 44,
+   "picks": "HHHHAHAAHH"
+  },
+  {
+   "name": "Player03",
+   "tb": 51,
+   "picks": "AHAHAAHAHH"
+  },
+  {
+   "name": "TallRobLC",
+   "tb": 50,
+   "picks": "HHAHHHHAAH"
+  },
+  {
+   "name": "Player05",
+   "tb": 43,
+   "picks": "HAAHAHHHAH"
+  },
+  {
+   "name": "Player06",
+   "tb": 48,
+   "picks": "HHHHAHHAHH"
+  },
+  {
+   "name": "Player07",
+   "tb": 41,
+   "picks": "HHAHHAAAHH"
+  },
+  {
+   "name": "Player08",
+   "tb": 47,
+   "picks": "HHHHHAAAAH"
+  },
+  {
+   "name": "Player09",
+   "tb": 49,
+   "picks": "AHHHAHAHHA"
+  },
+  {
+   "name": "Player10",
+   "tb": 52,
+   "picks": "HAHHAHHAHH"
+  },
+  {
+   "name": "Player11",
+   "tb": 47,
+   "picks": "AHAHHAHHHA"
+  },
+  {
+   "name": "Player12",
+   "tb": 45,
+   "picks": "HHHHHHHAHH"
+  },
+  {
+   "name": "Player13",
+   "tb": 40,
+   "picks": "AHHHHAAHAA"
+  },
+  {
+   "name": "Player14",
+   "tb": 38,
+   "picks": "AAHHAHHAHH"
+  },
+  {
+   "name": "Player15",
+   "tb": 55,
+   "picks": "AAHHHHHAHH"
+  }
+ ],
+ "expected": {
+  "endings": 32,
+  "players": {
+   "Player01": {
+    "points": 5,
+    "max": 10,
+    "status": "Alive",
+    "win_pct": 34.47,
+    "must": [],
+    "exact": false,
+    "likeliest_path": [
+     "LA",
+     "KC",
+     "BUF",
+     "GB",
+     "SF"
+    ],
+    "endings_alive": 17,
+    "likeliest_tie": {
+     "with": [
+      "Player06"
+     ],
+     "mnf_range": [
+      0,
+      47
+     ]
+    }
+   },
+   "Player02": {
+    "points": 4,
+    "max": 9,
+    "status": "Alive",
+    "win_pct": 13.16,
+    "must": [
+     "LA",
+     "LAC",
+     "SF"
+    ],
+    "exact": true,
+    "plus": {
+     "k": 1,
+     "of": [
+      "BUF",
+      "GB"
+     ]
+    },
+    "endings_alive": 3,
+    "likeliest_tie": {
+     "with": [
+      "TallRobLC"
+     ],
+     "mnf_range": [
+      0,
+      47
+     ]
+    }
+   },
+   "Player03": {
+    "points": 4,
+    "max": 9,
+    "status": "Alive",
+    "win_pct": 9.66,
+    "must": [
+     "ARI",
+     "KC",
+     "SF"
+    ],
+    "exact": true,
+    "plus": {
+     "k": 1,
+     "of": [
+      "BUF",
+      "GB"
+     ]
+    },
+    "endings_alive": 3,
+    "likeliest_tie": {
+     "with": [
+      "TallRobLC"
+     ],
+     "mnf_range": [
+      51,
+      120
+     ]
+    }
+   },
+   "TallRobLC": {
+    "points": 4,
+    "max": 9,
+    "status": "Alive",
+    "win_pct": 11.29,
+    "must": [
+     "BUF",
+     "DAL",
+     "SF"
+    ],
+    "exact": true,
+    "plus": {
+     "k": 1,
+     "of": [
+      "LA",
+      "KC"
+     ]
+    },
+    "endings_alive": 3,
+    "likeliest_tie": {
+     "with": [
+      "Player02"
+     ],
+     "mnf_range": [
+      47,
+      120
+     ]
+    }
+   },
+   "Player05": {
+    "points": 4,
+    "max": 9,
+    "status": "Alive",
+    "win_pct": 9.78,
+    "must": [
+     "LV"
+    ],
+    "exact": false,
+    "likeliest_path": [
+     "LA",
+     "KC",
+     "GB",
+     "SF"
+    ],
+    "endings_alive": 8,
+    "likeliest_tie": {
+     "with": [
+      "Player01",
+      "Player06"
+     ],
+     "mnf_range": [
+      0,
+      44
+     ]
+    }
+   },
+   "Player06": {
+    "points": 4,
+    "max": 9,
+    "status": "Tiebreak only",
+    "win_pct": 8.64,
+    "must": [
+     "LA",
+     "KC",
+     "GB",
+     "SF"
+    ],
+    "exact": true,
+    "endings_alive": 2,
+    "likeliest_tie": {
+     "with": [
+      "Player01"
+     ],
+     "mnf_range": [
+      47,
+      120
+     ]
+    }
+   },
+   "Player07": {
+    "points": 4,
+    "max": 9,
+    "status": "Alive",
+    "win_pct": 7.85,
+    "must": [
+     "ARI",
+     "LAC"
+    ],
+    "exact": true,
+    "plus": {
+     "k": 1,
+     "of": [
+      "BUF",
+      "GB",
+      "SF"
+     ]
+    },
+    "endings_alive": 7,
+    "likeliest_tie": {
+     "with": [
+      "Player08"
+     ],
+     "mnf_range": [
+      0,
+      44
+     ]
+    }
+   },
+   "Player08": {
+    "points": 3,
+    "max": 8,
+    "status": "Tiebreak only",
+    "win_pct": 2.16,
+    "must": [
+     "ARI",
+     "LAC",
+     "DAL"
+    ],
+    "exact": true,
+    "plus": {
+     "k": 1,
+     "of": [
+      "BUF",
+      "SF"
+     ]
+    },
+    "endings_alive": 3,
+    "likeliest_tie": {
+     "with": [
+      "Player07"
+     ],
+     "mnf_range": [
+      44,
+      120
+     ]
+    }
+   },
+   "Player09": {
+    "points": 3,
+    "max": 8,
+    "status": "Tiebreak only",
+    "win_pct": 1.55,
+    "must": [
+     "LAC",
+     "LV",
+     "WAS"
+    ],
+    "exact": true,
+    "plus": {
+     "k": 1,
+     "of": [
+      "LA",
+      "GB"
+     ]
+    },
+    "endings_alive": 3,
+    "likeliest_tie": {
+     "with": [
+      "Player01"
+     ],
+     "mnf_range": [
+      48,
+      120
+     ]
+    }
+   },
+   "Player10": {
+    "points": 3,
+    "max": 8,
+    "status": "Out",
+    "win_pct": 0
+   },
+   "Player11": {
+    "points": 3,
+    "max": 8,
+    "status": "Tiebreak only",
+    "win_pct": 1.01,
+    "must": [
+     "ARI",
+     "LV",
+     "WAS"
+    ],
+    "exact": true,
+    "plus": {
+     "k": 1,
+     "of": [
+      "KC",
+      "GB"
+     ]
+    },
+    "endings_alive": 3,
+    "likeliest_tie": {
+     "with": [
+      "Player01"
+     ],
+     "mnf_range": [
+      47,
+      120
+     ]
+    }
+   },
+   "Player12": {
+    "points": 3,
+    "max": 8,
+    "status": "Out",
+    "win_pct": 0
+   },
+   "Player13": {
+    "points": 2,
+    "max": 7,
+    "status": "Alive",
+    "win_pct": 0.43,
+    "must": [
+     "ARI",
+     "LAC",
+     "LV",
+     "DAL",
+     "WAS"
+    ],
+    "exact": true,
+    "endings_alive": 1,
+    "likeliest_tie": null
+   },
+   "Player14": {
+    "points": 2,
+    "max": 7,
+    "status": "Out",
+    "win_pct": 0
+   },
+   "Player15": {
+    "points": 1,
+    "max": 6,
+    "status": "Out",
+    "win_pct": 0
+   }
+  },
+  "root_for_TallRobLC": [
+   {
+    "team": "DAL",
+    "win_pct_if": 31.36,
+    "swing_pts": 31.36
+   },
+   {
+    "team": "SF",
+    "win_pct_if": 17.11,
+    "swing_pts": 17.11
+   },
+   {
+    "team": "BUF",
+    "win_pct_if": 15.9,
+    "swing_pts": 15.9
+   },
+   {
+    "team": "KC",
+    "win_pct_if": 14.8,
+    "swing_pts": 9.23
+   },
+   {
+    "team": "LA",
+    "win_pct_if": 13.57,
+    "swing_pts": 7.12
+   }
+  ],
+  "biggest_game": {
+   "game": "WAS@SF",
+   "players_moved_10plus": 5,
+   "total_swing": 1.5896
+  },
+  "elimination_feed": [
+   {
+    "final": "TEN@IND",
+    "eliminated": [
+     "Player14"
+    ]
+   },
+   {
+    "final": "CAR@PHI",
+    "eliminated": []
+   },
+   {
+    "final": "NYJ@NE",
+    "eliminated": [
+     "Player10",
+     "Player15"
+    ]
+   },
+   {
+    "final": "NO@NYG",
+    "eliminated": []
+   },
+   {
+    "final": "PIT@TB",
+    "eliminated": [
+     "Player12"
+    ]
+   }
+  ],
+  "what_if_DAL_wins": {
+   "endings": 16,
+   "TallRobLC_win_pct": 31.36,
+   "TallRobLC_status": "Alive"
+  }
+ }
+}
