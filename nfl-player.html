@@ -298,6 +298,23 @@
   .gd-grid { display:grid;grid-template-columns:repeat(auto-fill,minmax(84px,1fr));gap:6px; }
   .gd-cell { background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:6px 8px; } .gd-cell.hi { border-color:var(--green-border); }
   .gd-k { font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted); } .gd-v { font-family:'DM Mono',monospace;font-size:15px;font-weight:600; }
+
+  .pg-cmp { text-align:left;font:inherit;cursor:pointer;width:100%; } .pg-cmp:hover { border-color:var(--green-border); }
+  .pg-more { float:right;font-size:9.5px;letter-spacing:.06em;color:var(--green);text-transform:none; }
+  .cmp { margin-top:8px;background:var(--inset);border:1px solid var(--border);border-radius:10px;padding:8px 12px 10px; }
+  .cmp-t { width:100%;border-collapse:collapse;font-size:12.5px; }
+  .cmp-t th { font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:500;text-align:left;padding:4px 8px 6px;border-bottom:1px solid var(--border); }
+  .cmp-t th.r,.cmp-t td.r { text-align:right; }
+  .cmp-t td { padding:4px 8px;border-bottom:1px solid rgba(255,255,255,.04); } .cmp-t tr:last-child td { border-bottom:0; }
+  .cmp-t tr.dimrow { opacity:.42; } .cmp-t tr.best td { background:rgba(74,222,128,.06); } .cmp-t tr.yours td { background:rgba(74,222,128,.04); }
+  .cmp-star.yours { color:var(--green);font-size:10px; } .cmp-off.yours { color:var(--green);opacity:.9; }
+  .cmp-b { white-space:nowrap; } .cmp-star { color:var(--green); }
+  .cmp-off { font-size:10px;color:var(--muted); }
+  .cmp-o { font-family:'DM Mono',monospace;font-weight:600; } .cmp-o.good { color:var(--green); }
+  .cmp-g { font-family:'DM Mono',monospace;font-size:11.5px;color:var(--muted);white-space:nowrap; }
+  .cmp-bar { width:34%;padding-left:10px !important; } .cmp-bar i { display:block;height:6px;border-radius:3px;background:linear-gradient(90deg,var(--green),rgba(74,222,128,.35)); }
+  .cmp-t tr.dimrow .cmp-bar i { background:var(--border); }
+  .cmp-foot { font-size:10.5px;color:var(--muted);margin-top:8px;line-height:1.5; }
 </style>
 <link rel="stylesheet" href="/styles/sidebar.css">
 <link rel="stylesheet" href="/styles/topbar.css">
@@ -742,7 +759,7 @@ const DEFPOS=new Set(["DE","DT","NT","DL","EDGE","LB","OLB","ILB","MLB","CB","S"
 const propsFor=pos=>PROPS[pos]||(DEFPOS.has(pos)?PROPS.DEF:PROPS.WR);
 PROPS.TE=PROPS.WR; PROPS.FB=PROPS.RB;
 
-let IDX=null,F={},SHARD=null,PROP=null,LINE=0.5,STEP=1,SIDE=0,WINSEL='l10',WINDOWS_MAP={},GAMESEL=null;
+let IDX=null,F={},SHARD=null,PROP=null,LINE=0.5,STEP=1,SIDE=0,WINSEL='l10',WINDOWS_MAP={},GAMESEL=null,CMPOPEN=false;
 // full stat line for a tapped bar, by position
 const LINE_FIELDS={
   QB:[['cmp','Comp'],['att','Att'],['pyd','Pass yds'],['ptd','Pass TD'],['int','INT'],['lcmp','Long comp'],['car','Carries'],['ryd','Rush yds'],['rtd','Rush TD'],['lrush','Long rush']],
@@ -924,6 +941,31 @@ function renderMatchup(){
 }
 function render(){ renderClearRates(); renderChart(); renderSplits(); renderLines(); renderMatchup(); renderGameDetail();
   document.getElementById('stepVal').textContent=(SIDE?'U':'O')+LINE; }
+function cmpTable(lad,line,fairMine){
+  const bk=lad[String(line)]||{}; const i=SIDE?1:0;
+  const rows=Object.entries(bk).map(([b,pr])=>({b,o:pr[i],d:toDec(pr[i]),p:toProb(pr[i])})).filter(r=>r.d);
+  if(!rows.length) return '<div class="det-note">No book posts the '+(SIDE?'under':'over')+' at this line.</div>';
+  rows.sort((a,b)=>b.d-a.d);
+  const top=rows[0], hi=Math.max(...rows.map(r=>r.p)), lo=Math.min(...rows.map(r=>r.p));
+  const yourBest=rows.find(r=>bookOK(r.b));                       // best price among the books you actually have
+  const body=rows.map((r,n)=>{
+    const mine=bookOK(r.b), gapPct=100*(r.p-top.p);               // extra implied % you give up vs the best
+    const stake=100, pay=(r.d-1)*stake, bestPay=(top.d-1)*stake, dollars=bestPay-pay;
+    const w=hi===lo?100:Math.round(100*(hi-r.p)/(hi-lo));          // bar: longer = better price
+    const isYours=yourBest&&r===yourBest&&MYBOOKS.size&&n!==0;
+    return '<tr class="'+(mine?'':'dimrow')+(n===0?' best':'')+(isYours?' yours':'')+'">'
+      +'<td class="cmp-b">'+(n===0?'<span class="cmp-star">\u2605</span> ':isYours?'<span class="cmp-star yours">\u25cf</span> ':'')+esc(bookName(r.b))+(mine?'':' <span class="cmp-off">not in my books</span>')+(isYours?' <span class="cmp-off yours">your best</span>':'')+'</td>'
+      +'<td class="r cmp-o'+(n===0?' good':'')+'">'+fmtOdds(r.o)+'</td>'
+      +'<td class="r cmp-g">'+(n===0?'<span class="muted">best</span>':'+'+gapPct.toFixed(1)+' pts')+'</td>'
+      +'<td class="r cmp-g">'+(n===0?'<span class="muted">—</span>':'\u2212$'+dollars.toFixed(2))+'</td>'
+      +'<td class="cmp-bar"><i style="width:'+Math.max(4,w)+'%"></i></td></tr>';
+  }).join('');
+  const spread=Math.abs(100*(rows[rows.length-1].p-top.p));
+  return '<div class="cmp"><table class="cmp-t"><thead><tr><th>Book</th><th class="r">'+(SIDE?'Under ':'Over ')+line+'</th><th class="r">vs best</th><th class="r">per $100</th><th></th></tr></thead><tbody>'+body+'</tbody></table>'
+    +'<div class="cmp-foot">'+rows.length+' book'+(rows.length===1?'':'s')+' on this side · '+spread.toFixed(1)+' pts of implied probability between the best and worst price'
+    +(fairMine!=null?' · fair is '+fromProb(fairMine)+', so the best price '+(top.p<fairMine?'still costs you '+(100*(fairMine-top.p)).toFixed(1)+' pts of vig':'beats fair by '+(100*(top.p-fairMine)).toFixed(1)+' pts'):'')
+    +' · \u201cper $100\u201d is the profit you give up on a winner by taking that book instead of the best.</div></div>';
+}
 function renderLines(){
   const box=document.getElementById('linesBox'),note=document.getElementById('lnNote');
   const lad=ladderFor(PROP.key);
@@ -944,11 +986,12 @@ function renderLines(){
     const fair=p.fairOver!=null?(SIDE?1-p.fairOver:p.fairOver):null;
     const ev=(fair!=null&&mine)?fair*toDec(mine[1])-1:null;
     price='<div class="price-grid">'
-      +'<div class="pg"><div class="pg-k">Best '+(SIDE?'under':'over')+' '+LINE+'</div><div class="pg-v '+(mine?'good':'')+'">'+(mine?fmtOdds(mine[1])+' <span class="pg-b">'+esc(bookName(mine[0]))+'</span>':'—')+'</div></div>'
+      +'<button type="button" class="pg pg-cmp'+(CMPOPEN?' open':'')+'" id="cmpBtn"><div class="pg-k">Best '+(SIDE?'under':'over')+' '+LINE+' <span class="pg-more">'+(CMPOPEN?'hide books':'compare '+p.n+' book'+(p.n===1?'':'s'))+' '+(CMPOPEN?'\u25b2':'\u25bc')+'</span></div><div class="pg-v '+(mine?'good':'')+'">'+(mine?fmtOdds(mine[1])+' <span class="pg-b">'+esc(bookName(mine[0]))+'</span>':'—')+'</div></button>'
       +'<div class="pg"><div class="pg-k">Fair (no vig)</div><div class="pg-v">'+(fair!=null?fromProb(fair)+' <span class="pg-b">'+Math.round(fair*100)+'% · '+p.nTwo+' two-sided</span>':'<span class="pg-b">needs a two-sided book</span>')+'</div></div>'
       +'<div class="pg"><div class="pg-k">EV at best</div><div class="pg-v '+(ev!=null?(ev>0?'good':'bad'):'')+'">'+(ev!=null?((ev>0?'+':'')+(100*ev).toFixed(1)+'%'):'—')+'</div></div>'
       +'<div class="pg"><div class="pg-k">Other side</div><div class="pg-v">'+(other?fmtOdds(other[1])+' <span class="pg-b">'+esc(bookName(other[0]))+'</span>':'—')+'</div></div>'
       +'</div>';
+    if(CMPOPEN) price+=cmpTable(lad,LINE,fair);
   } else price='<div class="det-note">No book quotes '+(SIDE?'U':'O')+LINE+' — tap a posted line above, or keep stepping to test his history.</div>';
   const prevStrip=box.querySelector('.ln-strip'), keepScroll=prevStrip&&prevStrip.dataset.m===MKT[PROP.key]?prevStrip.scrollLeft:null;
   box.innerHTML='<div class="ln-strip" data-m="'+MKT[PROP.key]+'">'+strip+'</div>'+price;
@@ -956,6 +999,7 @@ function renderLines(){
   if(keepScroll!=null) ns.scrollLeft=keepScroll;                       // same market re-rendered: stay where the user was
   else { const sel=ns.querySelector('.ln.sel'); if(sel) ns.scrollLeft=Math.max(0,sel.offsetLeft-ns.clientWidth/2+sel.offsetWidth/2); }   // new market: center the main line
   box.querySelectorAll('.ln').forEach(b=>b.addEventListener('click',()=>{ LINE=parseFloat(b.dataset.l); render(); }));
+  const cb=box.querySelector('#cmpBtn'); if(cb) cb.addEventListener('click',()=>{ CMPOPEN=!CMPOPEN; renderLines(); });
 }
 
 function clearRate(rows){
