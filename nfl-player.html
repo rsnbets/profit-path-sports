@@ -581,7 +581,7 @@
 <div class="card" id="playerCard" style="display:none;">
   <div class="p-header">
     <div class="p-topline">
-      <a class="back-btn" href="/nfl-player.html" id="backBtn">← NFL Prop Finder</a>
+      <a class="back-btn" href="/nfl-slate.html" id="backBtn">← NFL Prop Slate</a>
       <div class="search-wrap slim">
         <input type="text" id="searchIn2" class="search-in" placeholder="Search another player…" autocomplete="off" spellcheck="false">
         <div class="search-drop" id="searchDrop2"></div>
@@ -644,7 +644,7 @@
   </div>
 
   <div class="section" style="text-align:center;">
-    <div class="det-note">Want the MLB version? → <a href="/player.html">MLB Prop Finder</a> · math tools → <a href="/devig_calculator.html">devig</a> · <a href="/kelly-calculator.html">Kelly</a></div>
+    <div class="det-note">← <a href="/nfl-slate.html">NFL Prop Slate</a> · 🔥 <a href="/nfl-hot-streaks.html">Streak Scanner</a> · ⚾ <a href="/player.html">MLB Prop Finder</a> · math tools → <a href="/devig_calculator.html">devig</a> · <a href="/kelly-calculator.html">Kelly</a></div>
   </div>
 </div>
 
@@ -1096,10 +1096,8 @@ function renderSplits(){
 }
 
 function renderLanding(){
-  document.getElementById('playerCard').style.display='none';
-  document.getElementById('landingCard').style.display='block';
-  document.title='🏈 NFL Prop Finder — Profit Path Sports';
-  document.getElementById('searchIn').focus();
+  // the NFL landing page is the Prop Slate now — it carries the player search
+  location.replace('/nfl-slate.html');
 }
 
 document.getElementById('stepDn').addEventListener('click',()=>{ if(LINE-STEP>=0.5){ LINE=Math.round((LINE-STEP)*2)/2; render(); }});
@@ -1110,9 +1108,7 @@ document.querySelectorAll('#sideSeg button').forEach(b=>b.addEventListener('clic
   render(); syncURL();
 }));
 document.getElementById('backBtn').addEventListener('click',e=>{
-  e.preventDefault();
-  history.pushState({},'','/nfl-player.html');
-  renderLanding();
+  e.preventDefault(); location.href='/nfl-slate.html';
 });
 window.addEventListener('popstate',()=>{
   const id=new URLSearchParams(location.search).get('id');
@@ -1126,11 +1122,9 @@ async function boot(){
     IDX=await r.json();
     IDX.fields.forEach((f,i)=>F[f]=i);
   }catch(e){
-    document.getElementById('landingCard').style.display='block';
-    document.getElementById('searchIn').placeholder='Player index unavailable — refresh to retry';
+    document.body.insertAdjacentHTML('afterbegin','<div class="status-bar err" style="margin:1rem">Player index unavailable — refresh to retry.</div>');
     return;
   }
-  wireSearch('searchIn','searchDrop');
   wireSearch('searchIn2','searchDrop2');
   const id=new URLSearchParams(location.search).get('id');
   if(id) loadPlayer(id); else renderLanding();

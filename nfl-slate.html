@@ -275,6 +275,25 @@
   .mb-panel[hidden] { display:none; }
   .mb-row { display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-bottom:4px; } .mb-row a { color:var(--green); }
   .mb-panel label { font-size:12.5px;display:flex;gap:8px;align-items:center;cursor:pointer; }
+
+  .hdr-tools { margin-left:auto;display:flex;gap:6px;flex-wrap:wrap; }
+  .hdr-btn { display:inline-flex;align-items:center;gap:4px;white-space:nowrap;font-size:10.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--muted);text-decoration:none;background:var(--inset);border:1px solid var(--border);border-radius:8px;padding:.5rem .8rem;transition:all .18s; }
+  .hdr-btn:hover { color:var(--green);border-color:var(--green-border); }
+  .hdr-search { display:flex;align-items:center;gap:12px;margin-top:1rem;flex-wrap:wrap; }
+  .hdr-search .search-wrap { flex:1;min-width:260px;max-width:460px; }
+  .hdr-hint { font-size:11.5px;color:var(--muted); }
+  .search-wrap { position:relative; }
+  .search-in { width:100%;background:var(--inset);border:1px solid var(--border-2);border-radius:10px;color:var(--text);
+    font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;padding:.7rem .95rem;outline:none;transition:border-color .18s; }
+  .search-in:focus { border-color:var(--green-border); } .search-in::placeholder { color:var(--dim); }
+  .search-drop { display:none;position:absolute;top:calc(100% + 6px);left:0;right:0;z-index:60;background:var(--raised);
+    border:1px solid var(--border-2);border-radius:10px;overflow:hidden;box-shadow:0 16px 40px rgba(0,0,0,.6); }
+  .s-item { display:flex;align-items:center;gap:.7rem;padding:.55rem .85rem;cursor:pointer;transition:background .12s; }
+  .s-item:hover,.s-item.hover { background:var(--inset); }
+  .s-name { font-weight:600;font-size:14px;color:var(--text); }
+  .s-meta { margin-left:auto;font-family:'DM Mono',monospace;font-size:10.5px;color:var(--dim); }
+  .s-empty { padding:.8rem 1rem;font-size:13px;color:var(--muted); }
 </style>
 <link rel="stylesheet" href="/styles/sidebar.css">
 <link rel="stylesheet" href="/styles/topbar.css">
@@ -517,13 +536,24 @@
 <div class="card" id="slateCard">
   <div class="p-header">
     <div class="p-topline">
-      <a class="back-btn" href="/nfl-player.html">← NFL Prop Finder</a>
+      <a class="back-btn" href="/prop-shop.html">← The Prop Shop</a>
+      <span class="hdr-tools">
+        <a class="hdr-btn" href="/nfl-hot-streaks.html">🔥 Streak Scanner</a>
+        <a class="hdr-btn" href="/nfl-slate.html#gradedSec">📊 Graded</a>
+      </span>
     </div>
     <div class="p-hero">
       <div class="p-id">
         <div class="p-title">NFL Prop Slate</div>
-        <div class="p-meta">Open a game. Every prop on it, by market — <strong>how often he's cleared the live line</strong> over L5 / L10 / season, the best price, the fair price, the matchup, and the injury report. Tap a name for his full page.</div>
+        <div class="p-meta">Every prop on every game — <strong>how often he's cleared the live line</strong> over L5 / L10 / L15 / season, the best price and the fair price, the matchup, and the injury report.</div>
       </div>
+    </div>
+    <div class="hdr-search">
+      <div class="search-wrap" id="searchWrap">
+        <input type="text" id="searchIn" class="search-in" placeholder="Jump to any player — try &ldquo;Nacua&rdquo;…" autocomplete="off" spellcheck="false">
+        <div class="search-drop" id="searchDrop"></div>
+      </div>
+      <span class="hdr-hint">or pick a game below</span>
     </div>
   </div>
   <div class="status-bar" id="statusBar">Loading…</div>
@@ -554,7 +584,7 @@
     <div class="det-note" id="gradedNote"></div>
   </div>
   <div class="section" style="text-align:center;">
-    <div class="det-note">Player pages → <a href="/nfl-player.html">NFL Prop Finder</a> · sides &amp; totals → <a href="https://pps-gridiron.vercel.app" target="_blank" rel="noopener">Gridiron Board ↗</a></div>
+    <div class="det-note">🔥 <a href="/nfl-hot-streaks.html">Streak Scanner</a> · ⚾🏀 <a href="/prop-shop.html">The Prop Shop</a> · sides &amp; totals → <a href="https://pps-gridiron.vercel.app" target="_blank" rel="noopener">Gridiron Board ↗</a> · math → <a href="/devig_calculator.html">devig</a> · <a href="/kelly-calculator.html">Kelly</a></div>
   </div>
 </div>
 <div class="how-to-use" id="how-to-use">
@@ -634,6 +664,38 @@ function mountMyBooks(){
   label();
 }
 
+function wireSearch(){
+  const inp=document.getElementById('searchIn'),drop=document.getElementById('searchDrop');
+  let items=[],sel=-1;
+  const close=()=>{ drop.style.display='none'; drop.innerHTML=''; items=[]; sel=-1; };
+  const go=id=>{ location.href='/nfl-player.html?id='+id; };
+  inp.addEventListener('input',()=>{
+    const q=normName(inp.value);
+    if(q.length<2){ close(); return; }
+    const starts=[],subs=[];
+    for(const p of IDX.players){
+      const nn=normName(p[1]);
+      if(nn.split(' ').some(w=>w.startsWith(q))||nn.startsWith(q)) starts.push(p);
+      else if(nn.includes(q)) subs.push(p);
+      if(starts.length>=8) break;
+    }
+    items=starts.concat(subs).slice(0,8); sel=-1;
+    drop.innerHTML=items.map((p,i)=>'<div class="s-item" data-i="'+i+'"><span class="s-name">'+esc(p[1])+'</span>'
+      +'<span class="s-meta">'+esc(p[2])+' · '+esc(p[3])+(p[4]?'':' · not active')+'</span></div>').join('')
+      ||'<div class="s-empty">No match — we cover QBs, RBs, WRs, TEs, kickers and defenders with a game logged.</div>';
+    drop.style.display='block';
+    drop.querySelectorAll('.s-item').forEach(el=>el.addEventListener('mousedown',e=>{ e.preventDefault(); go(items[+el.dataset.i][0]); }));
+  });
+  inp.addEventListener('keydown',e=>{
+    if(!items.length) return;
+    if(e.key==='ArrowDown'){ e.preventDefault(); sel=Math.min(sel+1,items.length-1); }
+    else if(e.key==='ArrowUp'){ e.preventDefault(); sel=Math.max(sel-1,0); }
+    else if(e.key==='Enter'){ e.preventDefault(); go(items[Math.max(sel,0)][0]); return; }
+    else return;
+    drop.querySelectorAll('.s-item').forEach((el,i)=>el.classList.toggle('hover',i===sel));
+  });
+  inp.addEventListener('blur',()=>setTimeout(close,150));
+}
 async function getJSON(u){ const r=await fetch(u,{cache:'no-store'}); if(!r.ok) throw new Error(u+' '+r.status); return r.json(); }
 async function boot(){
   const st=document.getElementById('statusBar');
@@ -647,7 +709,7 @@ async function boot(){
   const od=new Date(ODDS.generatedAt).toLocaleString(undefined,{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'});
   const sd=new Date(IDX.generatedAt).toLocaleDateString(undefined,{month:'short',day:'numeric'});
   st.className='status-bar ok'; st.textContent='Lines as of '+od+' · stats through '+sd+(INJ?' · injury report week '+INJ.week:'');
-  renderGameChips(); renderGraded(); mountMyBooks();
+  renderGameChips(); renderGraded(); mountMyBooks(); wireSearch();
   document.querySelectorAll('#sideSeg button').forEach(b=>b.addEventListener('click',()=>{ SIDE=+b.dataset.side; document.querySelectorAll('#sideSeg button').forEach(x=>x.classList.toggle('active',x===b)); renderTable(); }));
   const want=new URLSearchParams(location.search).get('g');
   const games=ODDS.games; const now=Date.now();

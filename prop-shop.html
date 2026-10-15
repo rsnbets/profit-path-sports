@@ -519,8 +519,8 @@
     <div class="shop-grid">
       <div class="shop-sport">
         <div class="shop-head"><span class="shop-ico">🏈</span><span class="shop-name">NFL</span><span class="shop-status live">Live</span></div>
-        <a class="shop-tool" href="/nfl-slate.html"><b>Prop Slate</b><span>Open a game, see every prop by market: L5 / L10 / season vs the live line, best price, fair, matchup, report.</span></a>
-        <a class="shop-tool" href="/nfl-player.html"><b>Prop Finder</b><span>Any skill player or kicker: clear rates at any line, the alt-line ladder with prices, game-by-game chart, splits.</span></a>
+        <a class="shop-tool main" href="/nfl-slate.html"><b>Prop Slate <span class="shop-main">start here</span></b><span>Every prop on every game by market: L5 / L10 / L15 / season vs the live line, best price, fair, matchup, report — plus player search.</span></a>
+        <a class="shop-tool" href="/nfl-slate.html"><b>Prop Finder</b><span>Any player: clear rates at any line, the alt-line ladder with every book's price, game-by-game chart, splits. Search from the slate or tap any row.</span></a>
         <a class="shop-tool" href="/nfl-hot-streaks.html"><b>Streak Scanner</b><span>Who has cleared a number the most games running.</span></a>
         <a class="shop-tool" href="/nfl-slate.html#gradedSec"><b>Graded</b><span>Every tracked prop against its closing line, by week and by read.</span></a>
         <div class="shop-note">Lines refresh four times a day on game days · stats nightly from official league data.</div>
@@ -560,6 +560,8 @@
   .shop-tool { display:flex;flex-direction:column;gap:2px;padding:10px 12px;border:1px solid var(--border);border-radius:10px;background:var(--panel);color:var(--text);text-decoration:none;transition:border-color .12s; }
   .shop-tool:hover { border-color:var(--green-border); } .shop-tool b { font-size:14px; } .shop-tool span { font-size:12px;color:var(--muted);line-height:1.4; }
   .shop-tool.soon { opacity:.55;cursor:default; }
+  .shop-tool.main { border-color:var(--green-border);background:var(--green-faint); }
+  .shop-main { font-size:9.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--green);border:1px solid currentColor;border-radius:999px;padding:1px 6px;margin-left:6px;vertical-align:middle; }
   .shop-note { font-size:11.5px;color:var(--muted);line-height:1.45;margin-top:4px; }
   .shop-steps { margin:0;padding-left:20px;color:var(--muted);font-size:13px;line-height:1.6; } .shop-steps strong { color:var(--text); }
 </style>
