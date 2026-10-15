@@ -80,7 +80,7 @@ Not available yet. Picks do not go public in the pool until the Sunday deadline,
 ## Open questions, status
 
 1. PoolHost export format: waits for Sunday.
-2. Pool rules: not known. Defaults in v1: ties score nobody, a missed pick counts wrong, tiebreak is closest absolute with equal distance split evenly. A real tie already happened this season (Week 5).
+2. Pool rules: ties score nobody (confirmed by Jackie, Oct 15). Still defaults pending confirmation: a missed pick counts wrong, tiebreak is closest absolute with equal distance split evenly, two-Monday-game weeks use the later game. A real tie already happened this season (Week 5).
 3. Real deadline times: placeholder 10:50 AM America/Denver Sunday stays until Jackie confirms.
 4. Store snapshot gap: measured above. Early window is about 10 hours stale, later windows 1 to 3 hours.
 5. ESPN live win probability: not on the scoreboard endpoint, likely on the summary endpoint. Phase 2.

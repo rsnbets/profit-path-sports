@@ -1,8 +1,16 @@
 {
-  "_note": "Pool settings used by the data build. No picks, no names. The deadline is a placeholder until the real pool rules are confirmed (open question 3).",
+  "_note": "Pool settings used by the data build. No picks, no names. Settled: a tied game scores nobody (confirmed Oct 15 2026). Still placeholders: the deadline time, missed-pick scoring, tiebreak split (open questions 2 and 3).",
   "name": "PPS Pick'em (shadow)",
   "timezone": "America/Denver",
-  "deadline": { "weekday": "Sunday", "time": "10:50" },
-  "rules": { "tie": "nobody", "missed_pick": "wrong", "tiebreak": "closest", "tiebreak_split": "even" },
+  "deadline": {
+    "weekday": "Sunday",
+    "time": "10:50"
+  },
+  "rules": {
+    "tie": "nobody",
+    "missed_pick": "wrong",
+    "tiebreak": "closest",
+    "tiebreak_split": "even"
+  },
   "tiebreak_sd": 13.1
 }
