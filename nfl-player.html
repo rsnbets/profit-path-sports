@@ -316,6 +316,33 @@
   .cmp-bar { width:30%;padding-left:10px !important; } .cmp-bar i { display:block;height:6px;border-radius:3px;background:linear-gradient(90deg,rgba(224,108,108,.45),#e06c6c); }
   .cmp-t tr.dimrow .cmp-bar i { background:var(--border); }
   .cmp-foot { font-size:10.5px;color:var(--muted);margin-top:8px;line-height:1.5; }
+
+  .cb-picker { display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px; }
+  .cb-pick { font:inherit;font-size:12px;padding:5px 10px;border:1px solid var(--border);border-radius:999px;background:var(--inset);color:var(--muted);cursor:pointer; }
+  .cb-pick:hover { border-color:var(--green-border);color:var(--text); }
+  .cb-pick.on { background:var(--green-faint);border-color:var(--green);color:var(--green);font-weight:600; }
+  .cb-pick.noline { opacity:.5; } .cb-nl { font-size:9.5px;opacity:.75; }
+  .cb-empty { background:var(--inset);border:1px dashed var(--border-2);border-radius:10px;padding:14px 16px;font-size:13px;color:var(--muted); }
+  .cb-t { width:100%;border-collapse:collapse;font-size:12.5px;margin-bottom:10px; }
+  .cb-t th { font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:500;text-align:left;padding:4px 8px 6px;border-bottom:1px solid var(--border); }
+  .cb-t th.r,.cb-t td.r { text-align:right; } .cb-t td { padding:5px 8px;border-bottom:1px solid rgba(255,255,255,.04); }
+  .cb-x { width:22px; } .cb-del { background:none;border:0;color:var(--muted);font-size:15px;cursor:pointer;line-height:1; } .cb-del:hover { color:#e06c6c; }
+  .cb-side { font:inherit;font-size:11px;padding:2px 8px;border:1px solid var(--border);border-radius:6px;background:var(--inset);color:var(--text);cursor:pointer; }
+  .cb-step { white-space:nowrap; } .cb-step button { font:inherit;width:20px;height:20px;line-height:1;border:1px solid var(--border);border-radius:5px;background:var(--inset);color:var(--text);cursor:pointer;margin:0 4px; }
+  .cb-pc { font-size:10.5px;color:var(--muted); }
+  .cb-grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px;margin-bottom:10px; }
+  .cb-card { background:var(--inset);border:1px solid var(--border);border-radius:10px;padding:9px 12px; }
+  .cb-card.hit { border-color:var(--green-border); }
+  .cb-k { font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted); }
+  .cb-v { font-family:'DM Mono',monospace;font-size:21px;font-weight:700;margin:3px 0 2px; } .cb-v.good { color:var(--green); } .cb-v.bad { color:#e06c6c; }
+  .cb-of { font-size:13px;font-weight:500;color:var(--muted); }
+  .cb-s { font-size:11px;color:var(--muted);line-height:1.45; } .cb-warn { color:#e6c35a; }
+  .cb-sgp { display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:var(--inset);border:1px solid var(--border);border-radius:10px;padding:9px 12px;margin-bottom:8px; }
+  .cb-sgp label { font-size:12px;color:var(--muted);display:flex;align-items:center;gap:8px; }
+  .cb-sgp input { font-family:'DM Mono',monospace;font-size:14px;padding:5px 9px;border:1px solid var(--border-2);border-radius:8px;background:var(--panel);color:var(--text);outline:none; }
+  .cb-sgp input:focus { border-color:var(--green-border); }
+  .cb-sgpout { font-size:12.5px;color:var(--muted); } .cb-sgpout strong { color:var(--text);font-family:'DM Mono',monospace; }
+  .cb-foot { font-size:11px;color:var(--muted);line-height:1.5; }
 </style>
 <link rel="stylesheet" href="/styles/sidebar.css">
 <link rel="stylesheet" href="/styles/topbar.css">
@@ -643,6 +670,10 @@
     <div class="det-note">Computed over the same span as the chart source — 2025 (playoffs included) plus every 2026 week as it lands.</div>
   </div>
 
+  <div class="section">
+    <div class="section-label">Same-game combo <span class="win-hint">· how often two or more of his props land in the <em>same</em> game — the thing an SGP price hides</span></div>
+    <div id="comboBox"></div>
+  </div>
   <div class="section" style="text-align:center;">
     <div class="det-note">← <a href="/nfl-slate.html">NFL Prop Slate</a> · 🔥 <a href="/nfl-hot-streaks.html">Streak Scanner</a> · ⚾ <a href="/player.html">MLB Prop Finder</a> · math tools → <a href="/devig_calculator.html">devig</a> · <a href="/kelly-calculator.html">Kelly</a></div>
   </div>
@@ -656,6 +687,7 @@
     <li><strong>Read the matchup and the report.</strong> The matchup line is what this week&rsquo;s opponent has allowed per game to his position, ranked against all 32 (green = soft). The badge on his name is the official injury report; questionable players are the ones JD skips.</li>
     <li><strong>Read the clear rates.</strong> L10/L5/L3 show form; "vs" his upcoming opponent shows the head-to-head — with the sample printed on it, because two meetings is trivia, not a trend.</li>
     <li><strong>Flip Over/Under</strong> — every panel follows the side you're actually betting.</li>
+    <li><strong>Build the combo before you take an SGP.</strong> Pick two or more of his props and the panel counts the games where <em>all</em> of them landed. Two props on one player move together, so the real chance is usually higher than multiplying the prices — paste your book's parlay price to see how much of that correlation it's keeping.</li>
     <li><strong>Mind the season boundary.</strong> Until 2026 weeks pile up, most of what you're reading is 2025 — same player, new defensive coordinators everywhere.</li>
   </ol>
   <div class="lock-in">
@@ -761,6 +793,8 @@ const propsFor=pos=>PROPS[pos]||(DEFPOS.has(pos)?PROPS.DEF:PROPS.WR);
 PROPS.TE=PROPS.WR; PROPS.FB=PROPS.RB;
 
 let IDX=null,F={},SHARD=null,PROP=null,LINE=0.5,STEP=1,SIDE=0,WINSEL='l10',WINDOWS_MAP={},GAMESEL=null,CMPOPEN=false;
+let COMBO=[];      // same-game combo legs: [{key,label,line,side}]
+let SGPIN='';      // the book's SGP price, typed by the user
 // full stat line for a tapped bar, by position
 const LINE_FIELDS={
   QB:[['cmp','Comp'],['att','Att'],['pyd','Pass yds'],['ptd','Pass TD'],['int','INT'],['lcmp','Long comp'],['car','Carries'],['ryd','Rush yds'],['rtd','Rush TD'],['lrush','Long rush']],
@@ -853,6 +887,7 @@ async function loadPlayer(id){
     return;
   }
   document.title='🏈 '+SHARD.name+' — NFL Prop Finder';
+  COMBO=[]; SGPIN='';
   const hs=document.getElementById('headshot');
   hs.style.visibility='visible'; hs.src=SHARD.headshot||'';
   document.getElementById('pName').textContent=SHARD.name;
@@ -945,8 +980,84 @@ function renderMatchup(){
   }
   el.style.display='grid'; el.innerHTML=cards+foot;
 }
-function render(){ renderClearRates(); renderChart(); renderSplits(); renderLines(); renderMatchup(); renderGameDetail();
+function render(){ renderClearRates(); renderChart(); renderSplits(); renderLines(); renderMatchup(); renderGameDetail(); renderCombo();
   document.getElementById('stepVal').textContent=(SIDE?'U':'O')+LINE; }
+/* ---------- same-game combo ----------
+   Two props on the same player are NOT independent: 100 receiving yards and 8 catches
+   happen in the same kind of game. Multiplying their prices (what a naive parlay does)
+   understates the real chance. Counting his own games where BOTH landed is the honest
+   number, and the gap between the two is the correlation the book is selling you. */
+function comboHas(k){ return COMBO.some(l=>l.key===k); }
+function comboToggle(k,label){
+  const i=COMBO.findIndex(l=>l.key===k);
+  if(i>=0){ COMBO.splice(i,1); }
+  else { const lad=ladderFor(k), ml=lad?mainLine(lad,MKT[k]):null; COMBO.push({key:k,label,line:ml!=null?ml:(propsFor(SHARD.pos).find(d=>d[0]===k)||[0,0,0.5])[2],side:SIDE}); }
+  renderCombo();
+}
+function legHit(r,leg){ const v=valOf(r,leg.key); return leg.side?v<leg.line:v>leg.line; }
+function comboJoint(legs,rows){
+  if(!legs.length) return null;
+  const hits=rows.filter(r=>legs.every(l=>legHit(r,l))).length;
+  return {hits,n:rows.length,p:rows.length?hits/rows.length:null};
+}
+function legFair(leg){                                   // vig-free P(leg) from the two-sided books
+  const lad=ladderFor(leg.key); if(!lad) return null;
+  const pr=priceAt(lad,leg.line); if(!pr||pr.fairOver==null) return null;
+  return leg.side?1-pr.fairOver:pr.fairOver;
+}
+function legBest(leg){ const lad=ladderFor(leg.key); if(!lad) return null; const pr=priceAt(lad,leg.line); if(!pr) return null; return leg.side?pr.bestUnder:pr.bestOver; }
+function renderCombo(){
+  const box=document.getElementById('comboBox'); if(!box) return;
+  const defs=propsFor(SHARD.pos);
+  const picker=defs.map(d=>{ const lad=ladderFor(d[0]); return '<button type="button" class="cb-pick'+(comboHas(d[0])?' on':'')+(lad?'':' noline')+'" data-k="'+d[0]+'" data-l="'+esc(d[1])+'">'+esc(d[1])+(lad?'':' <span class="cb-nl">no line</span>')+'</button>'; }).join('');
+  let body='';
+  if(COMBO.length<2){
+    body='<div class="cb-empty">Pick <strong>two or more</strong> of his props above. We\'ll count the games where <em>all</em> of them landed — the number a same-game parlay is really worth.</div>';
+  } else {
+    const all=combined(), l10=all.slice(-10), cur=SHARD.g;
+    const legRows=COMBO.map(l=>{
+      const f=legFair(l), b=legBest(l), one=comboJoint([l],all);
+      return '<tr><td class="cb-x"><button type="button" class="cb-del" data-k="'+l.key+'">\u00d7</button></td>'
+        +'<td><strong>'+esc(l.label)+'</strong></td>'
+        +'<td class="r"><button type="button" class="cb-side" data-k="'+l.key+'">'+(l.side?'Under':'Over')+'</button></td>'
+        +'<td class="r cb-step"><button type="button" class="cb-m" data-k="'+l.key+'">\u2212</button><span class="mono">'+l.line+'</span><button type="button" class="cb-p" data-k="'+l.key+'">+</button></td>'
+        +'<td class="r mono">'+(b?fmtOdds(b[1]):'\u2014')+'</td>'
+        +'<td class="r mono thin">'+(f!=null?fromProb(f)+' <span class="cb-pc">'+Math.round(100*f)+'%</span>':'\u2014')+'</td>'
+        +'<td class="r mono">'+(one?one.hits+'/'+one.n:'\u2014')+'</td></tr>';
+    }).join('');
+    const fairs=COMBO.map(legFair), haveAll=fairs.every(f=>f!=null);
+    const indep=haveAll?fairs.reduce((a,b)=>a*b,1):null;
+    const jAll=comboJoint(COMBO,all), j10=comboJoint(COMBO,l10), jCur=comboJoint(COMBO,cur);
+    const lift=(indep!=null&&jAll&&jAll.p!=null&&indep>0)?jAll.p/indep:null;
+    const sgpP=SGPIN?toProb(SGPIN):null;
+    const evEmp=(sgpP!=null&&jAll&&jAll.p!=null)?(jAll.p*toDec(SGPIN)-1):null;
+    const evInd=(sgpP!=null&&indep!=null)?(indep*toDec(SGPIN)-1):null;
+    const n=jAll?jAll.n:0, small=n<12;
+    body='<table class="cb-t"><thead><tr><th></th><th>Leg</th><th class="r">Side</th><th class="r">Line</th><th class="r">Best</th><th class="r">Fair</th><th class="r" title="his games where this leg alone landed">Alone</th></tr></thead><tbody>'+legRows+'</tbody></table>'
+      +'<div class="cb-grid">'
+      +'<div class="cb-card"><div class="cb-k">If the legs were independent</div><div class="cb-v">'+(indep!=null?fromProb(indep)+' <span class="cb-pc">'+(100*indep).toFixed(1)+'%</span>':'\u2014')+'</div><div class="cb-s">'+(indep!=null?'multiply the fair prices — what a parlay of different games would pay':'needs a two-sided price on every leg')+'</div></div>'
+      +'<div class="cb-card hit"><div class="cb-k">His games where all '+COMBO.length+' landed</div><div class="cb-v">'+(jAll&&jAll.p!=null?jAll.hits+'<span class="cb-of">/'+jAll.n+'</span> <span class="cb-pc">'+(100*jAll.p).toFixed(0)+'%</span>':'\u2014')+'</div><div class="cb-s">L10 '+(j10?j10.hits+'/'+j10.n:'\u2014')+' \u00b7 '+IDX.season+' '+(jCur?jCur.hits+'/'+jCur.n:'\u2014')+(small?' \u00b7 <span class="cb-warn">small sample</span>':'')+'</div></div>'
+      +'<div class="cb-card"><div class="cb-k">Correlation</div><div class="cb-v '+(lift!=null?(lift>1.15?'good':lift<0.9?'bad':''):'')+'">'+(lift!=null?(lift>=1?'\u00d7'+lift.toFixed(2):'\u00d7'+lift.toFixed(2)):'\u2014')+'</div><div class="cb-s">'+(lift==null?'needs both numbers':lift>1.15?'these legs travel together — the combo is worth MORE than the multiplication':lift<0.9?'these legs fight each other — worth LESS than the multiplication':'roughly independent in his games')+'</div></div>'
+      +'<div class="cb-card"><div class="cb-k">Fair price from his games</div><div class="cb-v">'+(jAll&&jAll.p?fromProb(jAll.p):'\u2014')+'</div><div class="cb-s">what the combo should pay if his rate is the truth</div></div>'
+      +'</div>'
+      +'<div class="cb-sgp"><label>Book\'s SGP price <input type="text" id="sgpIn" value="'+esc(SGPIN)+'" placeholder="+450" inputmode="text" size="7"></label>'
+      +(sgpP!=null?'<span class="cb-sgpout">pays '+fmtOdds(SGPIN)+' \u00b7 implies <strong>'+(100*sgpP).toFixed(1)+'%</strong>'
+        +(jAll&&jAll.p!=null?' \u00b7 vs his <strong>'+(100*jAll.p).toFixed(0)+'%</strong> \u2192 EV <strong class="'+(evEmp>0?'ev-pos':'ev-neg')+'">'+(evEmp>0?'+':'')+(100*evEmp).toFixed(1)+'%</strong>':'')
+        +(evInd!=null?' <span class="thin">(against the independent price: '+(evInd>0?'+':'')+(100*evInd).toFixed(1)+'%)</span>':'')+'</span>'
+        :'<span class="cb-sgpout thin">paste the parlay price your book shows to see what it is really charging</span>')+'</div>'
+      +'<div class="cb-foot">Counted over '+n+' of his games ('+IDX.prevSeason+' plus '+IDX.season+'), graded at the lines above. '
+      +'A book builds correlation into an SGP and then takes its cut on top; the gap between <em>his games</em> and what the book implies is that cut. '
+      +(small?'With '+n+' games this is a hint, not a hit rate — two or three games either way swings it double digits.':'')+'</div>';
+  }
+  box.innerHTML='<div class="cb-picker">'+picker+'</div>'+body;
+  box.querySelectorAll('.cb-pick').forEach(b=>b.addEventListener('click',()=>comboToggle(b.dataset.k,b.dataset.l)));
+  box.querySelectorAll('.cb-del').forEach(b=>b.addEventListener('click',()=>comboToggle(b.dataset.k)));
+  box.querySelectorAll('.cb-side').forEach(b=>b.addEventListener('click',()=>{ const l=COMBO.find(x=>x.key===b.dataset.k); l.side=l.side?0:1; renderCombo(); }));
+  box.querySelectorAll('.cb-m').forEach(b=>b.addEventListener('click',()=>{ const l=COMBO.find(x=>x.key===b.dataset.k); const st=(propsFor(SHARD.pos).find(d=>d[0]===l.key)||[0,0,0,1])[3]; l.line=Math.max(0.5,Math.round((l.line-st)*2)/2); renderCombo(); }));
+  box.querySelectorAll('.cb-p').forEach(b=>b.addEventListener('click',()=>{ const l=COMBO.find(x=>x.key===b.dataset.k); const st=(propsFor(SHARD.pos).find(d=>d[0]===l.key)||[0,0,0,1])[3]; l.line=Math.round((l.line+st)*2)/2; renderCombo(); }));
+  const si=box.querySelector('#sgpIn');
+  if(si) si.addEventListener('input',()=>{ SGPIN=si.value.trim(); const pos=si.selectionStart; renderCombo(); const n2=document.getElementById('sgpIn'); if(n2){ n2.focus(); n2.setSelectionRange(pos,pos); } });
+}
 function cmpTable(lad,line,fairMine){
   const bk=lad[String(line)]||{}; const i=SIDE?1:0;
   const rows=Object.entries(bk).map(([b,pr])=>({b,o:pr[i],d:toDec(pr[i]),p:toProb(pr[i])})).filter(r=>r.d);
