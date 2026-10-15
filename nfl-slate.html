@@ -294,6 +294,15 @@
   .s-name { font-weight:600;font-size:14px;color:var(--text); }
   .s-meta { margin-left:auto;font-family:'DM Mono',monospace;font-size:10.5px;color:var(--dim); }
   .s-empty { padding:.8rem 1rem;font-size:13px;color:var(--muted); }
+
+  .g-head { display:flex;align-items:flex-start;gap:12px;margin-bottom:10px; } .g-head .hdr-btn { margin-left:auto; }
+  .g-sub { font-size:12px;color:var(--muted);margin-top:4px; } .g-sub strong { color:var(--text);font-family:'DM Mono',monospace; }
+  .g-explain { max-width:78ch;margin-bottom:14px; }
+  .g-explain p { font-size:13px;line-height:1.6;color:var(--muted);margin:0 0 9px; } .g-explain strong { color:var(--text); }
+  .g-explain .g-warn { background:var(--inset);border-left:3px solid #e6c35a;border-radius:0 8px 8px 0;padding:8px 12px; }
+  .g-explain .g-fine { font-size:11.5px;opacity:.8; }
+  table.slate tr.g-wk td { border-top:1px solid var(--border-2);padding-top:10px; }
+  table.slate tr.g-mkt td { opacity:.65; }
 </style>
 <link rel="stylesheet" href="/styles/sidebar.css">
 <link rel="stylesheet" href="/styles/topbar.css">
@@ -539,7 +548,7 @@
       <a class="back-btn" href="/prop-shop.html">← The Prop Shop</a>
       <span class="hdr-tools">
         <a class="hdr-btn" href="/nfl-hot-streaks.html">🔥 Streak Scanner</a>
-        <a class="hdr-btn" href="/nfl-slate.html#gradedSec">📊 Graded</a>
+        <a class="hdr-btn" href="/nfl-slate.html?view=graded" id="gradedBtn">📊 Graded</a>
       </span>
     </div>
     <div class="p-hero">
@@ -557,6 +566,7 @@
     </div>
   </div>
   <div class="status-bar" id="statusBar">Loading…</div>
+  <div id="slateView">
   <div class="section">
     <div class="section-label">Pick a game</div>
     <div class="chip-row" id="gameChips"></div>
@@ -578,8 +588,16 @@
     <div class="tbl-wrap"><table class="mini slate" id="slateTbl"></table></div>
     <div class="det-note" id="slateNote"></div>
   </div>
+  </div><!-- /slateView -->
   <div class="section" id="gradedSec" style="display:none">
-    <div class="section-label">Graded — every prop we tracked, against the close</div>
+    <div class="g-head">
+      <div>
+        <div class="section-label" style="margin:0">Graded — every tracked prop against its closing line</div>
+        <div class="g-sub" id="gradedCoverage"></div>
+      </div>
+      <a class="hdr-btn" href="/nfl-slate.html" id="backToSlate">← Back to the slate</a>
+    </div>
+    <div class="g-explain" id="gradedExplain"></div>
     <div class="tbl-wrap"><table class="mini slate" id="gradedTbl"></table></div>
     <div class="det-note" id="gradedNote"></div>
   </div>
@@ -711,25 +729,53 @@ async function boot(){
   st.className='status-bar ok'; st.textContent='Lines as of '+od+' · stats through '+sd+(INJ?' · injury report week '+INJ.week:'');
   renderGameChips(); renderGraded(); mountMyBooks(); wireSearch();
   document.querySelectorAll('#sideSeg button').forEach(b=>b.addEventListener('click',()=>{ SIDE=+b.dataset.side; document.querySelectorAll('#sideSeg button').forEach(x=>x.classList.toggle('active',x===b)); renderTable(); }));
+  if(new URLSearchParams(location.search).get('view')==='graded') showGraded(true);
   const want=new URLSearchParams(location.search).get('g');
   const games=ODDS.games; const now=Date.now();
   let g=games.find(x=>x.eventID===want||(x.away+'-'+x.home)===want)||games.find(x=>new Date(x.startsAt).getTime()>now-4*3600e3)||games[0];
   if(g) selectGame(g);
 }
+let GRADED=null;
+function showGraded(on){
+  document.getElementById('slateView').style.display=on?'none':'';
+  document.getElementById('gradedSec').style.display=on?'':'none';
+  document.title=on?'🏈 NFL Props — Graded':'🏈 NFL Prop Slate';
+  if(on) window.scrollTo(0,0);
+}
 async function renderGraded(){
-  let R=null; try{ R=await getJSON('/data/nfl/prop_results.json?_='+Math.floor(Date.now()/3600000)); }catch(e){ return; }
-  const weeks=Object.keys(R.summary||{}).sort((a,b)=>b-a); if(!weeks.length) return;
-  const sec=document.getElementById('gradedSec'); sec.style.display='block';
-  let html='<thead><tr><th>Week</th><th>Read at the open (L10 vs the line)</th><th class="r">Props</th><th class="r">Over hit at close</th><th class="r">Line moved up</th><th class="r">Line moved down</th></tr></thead><tbody>';
-  for(const w of weeks){ const S=R.summary[w]; const order=['hot >=70%','50-70%','30-50%','cold <30%'];
-    html+='<tr><td class="mono">'+w+'</td><td class="thin">all props · '+S.games+' game'+(S.games===1?'':'s')+'</td><td class="r mono">'+S.props+'</td><td class="r mono">'+(Object.values(S.byMarket).reduce((a,m)=>a+m.n*m.overHit/100,0)/Math.max(1,S.props)*100).toFixed(0)+'%</td><td class="r thin">—</td><td class="r thin">—</td></tr>';
+  try{ GRADED=await getJSON('/data/nfl/prop_results.json?_='+Math.floor(Date.now()/3600000)); }catch(e){ GRADED=false; }
+  const R=GRADED; if(!R){ document.getElementById('gradedExplain').innerHTML='<p>Nothing graded yet — the ledger fills in as tracked games finish.</p>'; return; }
+  const weeks=Object.keys(R.summary||{}).sort((a,b)=>b-a);
+  const rows=R.rows||[];
+  const games=[...new Set(rows.map(r=>r.away+' @ '+r.home+' (wk '+r.week+')'))];
+  const multi=rows.filter(r=>r.pulls>1).length, moved=rows.filter(r=>r.move!==0).length;
+  const since=rows.length?null:null;
+  document.getElementById('gradedCoverage').innerHTML=rows.length
+    ? '<strong>'+rows.length+'</strong> props graded across <strong>'+games.length+'</strong> finished game'+(games.length===1?'':'s')+' — '+esc(games.join(' · '))
+      +' · tracking '+R.events_tracked+' upcoming game'+(R.events_tracked===1?'':'s')+' · updated '+new Date(R.generatedAt).toLocaleDateString(undefined,{month:'short',day:'numeric'})
+    : 'No finished games tracked yet.';
+  document.getElementById('gradedExplain').innerHTML=
+    '<p><strong>What this is.</strong> Four times a day the odds feed records every player prop on the board — the main line, the best price and the vig-free fair price. When a game finishes, each of those props is scored against the actual box score. Nobody logs a pick; this is the whole board, graded, so the hit rates can\'t be cherry-picked after the fact.</p>'
+    +'<p><strong>Over hit at close</strong> is the share of props where the player went <em>over</em> the line the market closed at. A well-priced market sits near 50%: if it ran at 65% the books would be hanging lines too low. It is a check on the market, not a strategy — "bet every over" is not a bet, it just pays vig.</p>'
+    +'<p><strong>The read test</strong> is the part that matters. For every prop we also compute what the sheet said <em>before</em> the game: his hit rate over the last 10 games against that line, using only games played before that week. If props that looked hot then clear the close more often than props that looked cold, the read is worth something. If both land near 50%, reading hit rates is entertainment.</p>'
+    +(games.length<3?'<p class="g-warn"><strong>Far too early to read anything into the numbers below.</strong> Tracking started 12 October, so only '+games.length+' game'+(games.length===1?' has':'s have')+' both been tracked and finished. A single game is one afternoon of variance. Come back after a few Sundays.</p>':'')
+    +(multi===0?'<p class="g-warn"><strong>Line movement isn\'t measurable yet.</strong> Every prop here was seen on only one pull before kickoff, so its "open" and "close" are the same number and the movement columns are empty. They fill in once props are on the board for more than one refresh, which is now the norm — the feed was only fixed on 15 October to pull the whole week.</p>':'')
+    +'<p class="g-fine">Main lines only. The alt ladders you see on the slate are live quotes; they aren\'t stored, so a prop is graded at the number the market settled on, not at whatever rung you might have taken.</p>';
+  if(!rows.length){ document.getElementById('gradedTbl').innerHTML=''; document.getElementById('gradedNote').textContent=''; return; }
+  const order=['hot >=70%','50-70%','30-50%','cold <30%'];
+  let html='<thead><tr><th>Week</th><th>Group</th><th class="r">Props</th><th class="r">Over hit at close</th>'+(moved?'<th class="r">Line up</th><th class="r">Line down</th>':'')+'</tr></thead><tbody>';
+  for(const w of weeks){ const S=R.summary[w];
+    const allOver=Object.values(S.byMarket).reduce((a,m)=>a+m.n*m.overHit/100,0)/Math.max(1,S.props)*100;
+    html+='<tr class="g-wk"><td class="mono">wk '+w+'</td><td><strong>All props</strong> <span class="thin">'+S.games+' game'+(S.games===1?'':'s')+'</span></td><td class="r mono">'+S.props+'</td><td class="r mono">'+allOver.toFixed(0)+'%</td>'+(moved?'<td class="r thin">—</td><td class="r thin">—</td>':'')+'</tr>';
     for(const b of order){ const v=S.read[b]; if(!v||!v.n) continue; const c=b.startsWith('hot')?'good':b.startsWith('cold')?'bad':'';
-      html+='<tr><td></td><td class="'+c+'">L10 '+esc(b)+'</td><td class="r mono">'+v.n+'</td><td class="r mono '+c+'">'+v.overHit+'%</td><td class="r mono">'+v.lineUp+'</td><td class="r mono">'+v.lineDown+'</td></tr>'; }
+      html+='<tr><td></td><td class="'+c+'">L10 read '+esc(b)+'</td><td class="r mono">'+v.n+'</td><td class="r mono '+c+'">'+v.overHit+'%</td>'+(moved?'<td class="r mono">'+v.lineUp+'</td><td class="r mono">'+v.lineDown+'</td>':'')+'</tr>'; }
     for(const b of order){ const v=S.readTier&&S.readTier[b]; if(!v||!v.n) continue; const c=b.startsWith('hot')?'good':b.startsWith('cold')?'bad':'';
-      html+='<tr><td></td><td class="'+c+'">Similar-D '+esc(b)+' <span class="thin">(≥3 games)</span></td><td class="r mono">'+v.n+'</td><td class="r mono '+c+'">'+v.overHit+'%</td><td class="r mono">'+v.lineUp+'</td><td class="r mono">'+v.lineDown+'</td></tr>'; }
+      html+='<tr><td></td><td class="'+c+'">Similar-D read '+esc(b)+' <span class="thin">(≥3 games)</span></td><td class="r mono">'+v.n+'</td><td class="r mono '+c+'">'+v.overHit+'%</td>'+(moved?'<td class="r mono">'+v.lineUp+'</td><td class="r mono">'+v.lineDown+'</td>':'')+'</tr>'; }
+    const mk=Object.entries(S.byMarket).sort((a,b)=>b[1].n-a[1].n);
+    for(const [m,v] of mk) html+='<tr class="g-mkt"><td></td><td class="thin">'+esc(MLABEL[m]||m)+'</td><td class="r mono thin">'+v.n+'</td><td class="r mono thin">'+v.overHit+'%</td>'+(moved?'<td class="r thin">—</td><td class="r thin">—</td>':'')+'</tr>';
   }
   html+='</tbody>'; document.getElementById('gradedTbl').innerHTML=html;
-  document.getElementById('gradedNote').textContent='Every prop the feed saw before kickoff, graded against its closing line from nflverse box scores — no picks logged by anyone. "Read" = the player\'s L10 over-rate against the OPENING line, using only games before that week. "Similar-D" = his over-rate vs defenses in the same tier as that game\'s opponent. If hot reads don\'t clear the close more often than cold ones, the read has no edge. '+R.events_tracked+' events tracked so far · graded '+new Date(R.generatedAt).toLocaleDateString(undefined,{month:'short',day:'numeric'})+'.';
+  document.getElementById('gradedNote').textContent='Rows with “≥3 games” need at least that much history before they count. Pushes are excluded from the percentages.';
 }
 function gameTime(g){ const d=new Date(g.startsAt); return d.toLocaleDateString(undefined,{weekday:'short'})+' '+d.toLocaleTimeString(undefined,{hour:'numeric',minute:'2-digit'}); }
 function renderGameChips(){
