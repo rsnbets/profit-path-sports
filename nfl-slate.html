@@ -611,6 +611,13 @@ const ord=k=>k+(k===1?'st':k===2?'nd':k===3?'rd':'th');
 
 let ODDS=null,IDX=null,F={},MU=null,INJ=null,GAME=null,TAB=0,SIDE=0,SHARDS={},NAMEIDX={};
 let MYBOOKS=new Set(); try{ MYBOOKS=new Set(JSON.parse(localStorage.getItem('ppz_mybooks')||'[]')); }catch(e){}
+let SORT=null;   // {k, dir} — null = default (market order, then L10)
+// sortable columns: key -> value getter (null/undefined sinks to the bottom in either direction)
+const SORTV={player:r=>r.p.name.toLowerCase(),prop:r=>MLABEL[r.m]||r.m,line:r=>r.line,
+  best:r=>{const b=SIDE?r.pr&&r.pr.bestUnder:r.pr&&r.pr.bestOver; return b?toDec(b[1]):null;},
+  fair:r=>{const f=r.pr&&r.pr.fairOver!=null?(SIDE?1-r.pr.fairOver:r.pr.fairOver):null; return f;},
+  l5:r=>r.l5&&r.l5.p,l10:r=>r.l10&&r.l10.p,l15:r=>r.l15&&r.l15.p,sea:r=>r.sea&&r.sea.p,prev:r=>r.prev&&r.prev.p,
+  vt:r=>r.vt&&r.vt.p,last:r=>r.last,avg5:r=>r.avg5,mu:r=>r.mu&&r.mu[1],rep:r=>r.inj?(r.inj[0]||r.inj[1]||''):''};
 const bookOK=b=>!MYBOOKS.size||MYBOOKS.has(b);
 function mountMyBooks(){
   const wrap=document.getElementById('mybooksWrap'); if(!wrap||!ODDS) return;
@@ -676,7 +683,7 @@ function playersInGame(g){ // -> [{key, name, team, ladders, idx:[id,name,team,p
   return out;
 }
 async function selectGame(g){
-  GAME=g; history.replaceState({},'','/nfl-slate.html?g='+g.away+'-'+g.home);
+  GAME=g; SORT=null; history.replaceState({},'','/nfl-slate.html?g='+g.away+'-'+g.home);
   document.querySelectorAll('#gameChips .chip').forEach(c=>c.classList.toggle('active',c.dataset.id===g.eventID));
   const ps=playersInGame(g);
   // fetch the shards we don't have yet (history), in parallel
@@ -687,7 +694,7 @@ function renderTabs(){
   const w=document.getElementById('mktChips'); w.innerHTML='';
   const ps=playersInGame(GAME);
   TABS.forEach(([lbl,mkts],i)=>{ const n=ps.filter(p=>mkts.some(m=>p.ladders[m])).length; if(!n) return;
-    const b=document.createElement('button'); b.className='chip'+(i===TAB?' active':''); b.innerHTML=esc(lbl)+' <span class="thin">'+n+'</span>'; b.onclick=()=>{TAB=i;renderTabs();renderTable();}; w.appendChild(b); });
+    const b=document.createElement('button'); b.className='chip'+(i===TAB?' active':''); b.innerHTML=esc(lbl)+' <span class="thin">'+n+'</span>'; b.onclick=()=>{TAB=i;SORT=null;renderTabs();renderTable();}; w.appendChild(b); });
   if(!TABS[TAB][1].some(m=>ps.some(p=>p.ladders[m]))){ TAB=TABS.findIndex(([l,mk])=>ps.some(p=>mk.some(m=>p.ladders[m]))); if(TAB<0)TAB=0; renderTabs(); }
 }
 function tierOf(opp,b,key,season){ const R=(season===IDX.prevSeason?(MU&&MU.prev&&MU.prev.ranks):(MU&&MU.ranks))||null; const m=R&&R[opp]&&R[opp][b]&&R[opp][b][key]; if(!m) return null; const n=Object.keys(R).length; return m[1]<=8?'top-8':m[1]>n-8?'bottom-8':'mid'; }
@@ -705,12 +712,23 @@ function renderTable(){
     const inj=INJ&&p.idx&&INJ.players[p.idx[0]];
     const b=pos&&POSB[pos]; const tier=b?tierOf(opp,b,key,IDX.season):null;
     const trows=tier&&sh?sh.prev.filter(r=>tierOf(r[F.opp],b,key,IDX.prevSeason)===tier).concat(sh.g.filter(r=>tierOf(r[F.opp],b,key,IDX.season)===tier)):[];
-    rows.push({m,p,line,pr,key,pos,opp,mu,inj,tier,vt:tier?hit(trows,key,line):null,l5:hit(all.slice(-5),key,line),l10:hit(all.slice(-10),key,line),sea:hit(cur,key,line),
+    rows.push({m,p,line,pr,key,pos,opp,mu,inj,tier,vt:tier?hit(trows,key,line):null,l5:hit(all.slice(-5),key,line),l10:hit(all.slice(-10),key,line),l15:hit(all.slice(-15),key,line),sea:hit(cur,key,line),prev:hit(sh?sh.prev:[],key,line),
       last:all.length?valOf(all[all.length-1],key):null,avg5:all.length?all.slice(-5).reduce((s,r)=>s+valOf(r,key),0)/Math.min(5,all.length):null,hasHist:!!sh});
   }
-  rows.sort((a,b)=>(mkts.indexOf(a.m)-mkts.indexOf(b.m))||((b.l10?b.l10.p:-1)-(a.l10?a.l10.p:-1))||((b.l5?b.l5.p:-1)-(a.l5?a.l5.p:-1)));
+  if(SORT&&SORTV[SORT.k]){ const f=SORTV[SORT.k], d=SORT.dir;
+    rows.sort((a,b)=>{ const x=f(a),y=f(b);
+      if(x==null&&y==null) return 0; if(x==null) return 1; if(y==null) return -1;   // missing always sinks
+      if(typeof x==='string') return d*x.localeCompare(y);
+      return d*(y-x); });
+  } else rows.sort((a,b)=>(mkts.indexOf(a.m)-mkts.indexOf(b.m))||((b.l10?b.l10.p:-1)-(a.l10?a.l10.p:-1))||((b.l5?b.l5.p:-1)-(a.l5?a.l5.p:-1)));
   const side=SIDE?'U':'O';
-  let html='<thead><tr><th>Player</th><th>Prop</th><th class="r">Line</th><th class="r">Best '+(SIDE?'under':'over')+'</th><th class="r">Fair</th><th class="r">L5</th><th class="r">L10</th><th class="r">'+IDX.season+'</th><th class="r" title="vs defenses in the same tier (top-8 / mid / bottom-8) as this week\'s opponent, 2025 by final rank">Similar D</th><th class="r">Last</th><th class="r">Avg5</th><th class="r">Matchup</th><th>Report</th></tr></thead><tbody>';
+  const COLS=[['player','Player','',''],['prop','Prop','',''],['line','Line','r',''],['best','Best '+(SIDE?'under':'over'),'r','best available price for this side'],
+    ['fair','Fair','r','vig-free price from the two-sided books'],['l5','L5','r','last 5 games'],['l10','L10','r','last 10 games'],['l15','L15','r','last 15 games'],
+    ['sea',String(IDX.season),'r','this season'],['prev',String(IDX.prevSeason),'r','last season, playoffs included'],
+    ['vt','Similar D','r','vs defenses in the same tier (top-8 / mid / bottom-8) as this week\'s opponent; 2025 by final rank'],
+    ['last','Last','r','most recent game'],['avg5','Avg5','r','average over his last 5'],['mu','Matchup','r','opponent rank vs his position for this stat (1 = stingiest)'],['rep','Report','','official injury report']];
+  const arrow=k=>SORT&&SORT.k===k?(SORT.dir===1?' \u25bc':' \u25b2'):'';
+  let html='<thead><tr>'+COLS.map(([k,l,cls,t])=>'<th class="'+cls+' sortable'+(SORT&&SORT.k===k?' sorted':'')+'" data-k="'+k+'" title="'+esc(t?t+' — click to sort':'click to sort')+'">'+esc(l)+arrow(k)+'</th>').join('')+'</tr></thead><tbody>';
   let lastM=null;
   for(const r of rows){
     const best=r.pr?(SIDE?r.pr.bestUnder:r.pr.bestOver):null; const fair=r.pr&&r.pr.fairOver!=null?(SIDE?1-r.pr.fairOver:r.pr.fairOver):null;
@@ -725,7 +743,7 @@ function renderTable(){
       +'<td class="r mono">'+side+r.line+'</td>'
       +'<td class="r mono'+(ev!=null&&ev>0?' good':'')+'">'+(best?fmtOdds(best[1])+' <span class="bk">'+esc(bookName(best[0]))+'</span>':'—')+'</td>'
       +'<td class="r mono thin" title="'+(r.pr?r.pr.nTwo+' two-sided books':'')+'">'+(fair!=null?fromProb(fair):'—')+'</td>'
-      +(r.hasHist?cell(r.l5)+cell(r.l10)+cell(r.sea)+(r.vt?cell(r.vt).replace('<td class="r hitc','<td title="vs '+r.tier+' defenses" class="r hitc'):'<td class="r thin">—</td>'):'<td class="r thin" colspan="4">no history in our DB</td>')
+      +(r.hasHist?cell(r.l5)+cell(r.l10)+cell(r.l15)+cell(r.sea)+cell(r.prev)+(r.vt?cell(r.vt).replace('<td class="r hitc','<td title="vs '+r.tier+' defenses" class="r hitc'):'<td class="r thin">—</td>'):'<td class="r thin" colspan="6">no history in our DB</td>')
       +'<td class="r mono">'+(r.last!=null?r.last:'—')+'</td><td class="r mono thin">'+(r.avg5!=null?r.avg5.toFixed(1):'—')+'</td>'
       +'<td class="r mono '+muc+'" title="'+(r.mu?esc(r.opp)+' allows '+r.mu[0]+'/g to '+r.pos+'s (league avg '+r.mu[2]+')':'')+'">'+(r.mu?ord(r.mu[1]):'—')+'</td>'
       +'<td>'+(st?'<span class="inj-badge '+esc(st.replace(/\s/g,''))+'">'+esc(st)+'</span>'+(r.inj[2]?' <span class="thin">'+esc(r.inj[2])+'</span>':''):'<span class="thin">—</span>')+'</td></tr>';
@@ -733,7 +751,15 @@ function renderTable(){
   html+='</tbody>';
   document.getElementById('slateTbl').innerHTML=html;
   document.querySelectorAll('#slateTbl tr.go').forEach(tr=>tr.addEventListener('click',e=>{ if(e.target.closest('a')) return; const h=tr.dataset.href; if(e.metaKey||e.ctrlKey) window.open(h,'_blank'); else location.href=h; }));
-  document.getElementById('slateNote').textContent=rows.length?rows.length+' props · sorted by L10 then L5 · '+(SIDE?'graded as unders':'graded as overs')+' against each player\'s main line · hit rates span the 2025 season boundary':'No '+lbl.toLowerCase()+' props posted on this game yet.';
+  document.querySelectorAll('#slateTbl th.sortable').forEach(th=>th.addEventListener('click',()=>{
+    const k=th.dataset.k;
+    if(!SORT||SORT.k!==k) SORT={k,dir:1};              // first click = best first (highest % / best price)
+    else if(SORT.dir===1) SORT={k,dir:-1};             // second = worst first
+    else SORT=null;                                     // third = back to the default order
+    renderTable();
+  }));
+  const SNAME={player:'player',prop:'prop',line:'line',best:'best price',fair:'fair price',l5:'L5',l10:'L10',l15:'L15',sea:String(IDX.season),prev:String(IDX.prevSeason),vt:'similar-D',last:'last game',avg5:'avg5',mu:'matchup rank',rep:'report'};
+  document.getElementById('slateNote').textContent=rows.length?rows.length+' props · '+(SORT?'sorted by '+SNAME[SORT.k]+(SORT.dir===1?' (best first)':' (worst first)')+' — click again to flip, a third time to reset':'sorted by L10 then L5 · click any column to sort')+' · '+(SIDE?'graded as unders':'graded as overs')+' against each player\'s main line · hit rates span the 2025 season boundary':'No '+lbl.toLowerCase()+' props posted on this game yet.';
 }
 (function(){ var loadedAt=Date.now(); document.addEventListener('visibilitychange',function(){ if(document.visibilityState==='visible'&&Date.now()-loadedAt>60*60*1000) location.reload(); }); })();
 boot();
@@ -746,6 +772,9 @@ boot();
   table.slate .hitc.good { color:var(--green); } table.slate .hitc.bad { color:#e06c6c; } table.slate .hitc.tiny { opacity:.6; }
   table.slate .good { color:var(--green); } table.slate .bad { color:#e06c6c; } table.slate .mid { color:#e6c35a; }
   table.slate tr.dim { opacity:.45; }
+  table.slate th.sortable { cursor:pointer;user-select:none;white-space:nowrap; }
+  table.slate th.sortable:hover { color:var(--green); }
+  table.slate th.sorted { color:var(--green); }
   table.slate tbody tr.go { cursor:pointer; } table.slate tbody tr.go:hover { background:var(--green-faint); }
   table.slate tbody tr.go:hover td.pl a { color:var(--green); }
   .inj-badge { font-size:10.5px;font-weight:700;letter-spacing:.04em;padding:1px 6px;border-radius:999px;border:1px solid currentColor; }
