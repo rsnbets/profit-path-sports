@@ -106,7 +106,8 @@ def week_rows(rows, longest=None):
 
 def longest_plays(season):
     """play-by-play -> {(game_id, player_id): {lrec, lrush, lcmp}}: the longest single reception /
-    rush / completion in each game. Streams the gz; ~1 min per season."""
+    rush / completion in each game, regular season AND playoffs (the shards include playoff weeks).
+    Streams the gz; ~1 min per season."""
     import gzip
     url = f"{REL}/pbp/play_by_play_{season}.csv.gz"
     out = {}
@@ -115,19 +116,21 @@ def longest_plays(season):
         with urllib.request.urlopen(req, timeout=300) as r:
             with gzip.open(r, "rt", newline="") as f:
                 for p in csv.DictReader(f):
-                    if p.get("season_type") != "REG":
-                        continue
+                    # REG *and* POST: the shards carry playoff weeks (19-22), so skipping POST here
+                    # left every playoff game with longest = 0 even when the player caught passes.
                     gid = p.get("game_id", "")
                     if p.get("complete_pass") == "1":
                         y = _n(p.get("receiving_yards") or p.get("yards_gained"))
                         rid, qid = p.get("receiver_player_id"), p.get("passer_player_id")
+                        # first play seeds the value so a player whose only catch LOST yards
+                        # records -2, not a floored 0
                         if rid:
-                            d = out.setdefault((gid, rid), {}); d["lrec"] = max(d.get("lrec", 0), y)
+                            d = out.setdefault((gid, rid), {}); d["lrec"] = max(d["lrec"], y) if "lrec" in d else y
                         if qid:
-                            d = out.setdefault((gid, qid), {}); d["lcmp"] = max(d.get("lcmp", 0), y)
+                            d = out.setdefault((gid, qid), {}); d["lcmp"] = max(d["lcmp"], y) if "lcmp" in d else y
                     if p.get("rush_attempt") == "1" and p.get("rusher_player_id"):
                         y = _n(p.get("rushing_yards") or p.get("yards_gained"))
-                        d = out.setdefault((gid, p["rusher_player_id"]), {}); d["lrush"] = max(d.get("lrush", 0), y)
+                        d = out.setdefault((gid, p["rusher_player_id"]), {}); d["lrush"] = max(d["lrush"], y) if "lrush" in d else y
     except Exception as e:
         print(f"  (longest plays unavailable for {season}: {e})")
     return out
