@@ -114,7 +114,7 @@
     return '<span class="cell ' + cls + '">' + esc(abbr) + rare + '</span>';
   }
   function weekGrid(games, Pl, wkPts, total, mkt, mktWk, mktTotal, youI) {
-    var G = games.length, cols = '230px repeat(' + G + ', minmax(62px, 1fr)) 64px 64px 56px';
+    var G = games.length, cols = '230px repeat(' + G + ', minmax(62px, 1fr)) 64px 56px';
     var row = function (cls) { return '<div class="wgrid ' + cls + '" style="grid-template-columns:' + cols + '">'; };
     var heads = games.map(function (g) {
       var fin = g.status === 'final', pre = g.status === 'pre', w = fin ? winnerOf(g) : null;
@@ -122,22 +122,22 @@
     }).join('');
     var counts = games.map(function (g) { return { H: Pl.filter(function (p) { return p.picks[g.id] === 'H'; }).length, A: Pl.filter(function (p) { return p.picks[g.id] === 'A'; }).length }; });
     var cons = games.map(function (g, k) { var side = counts[k].H >= counts[k].A ? 'H' : 'A'; return '<span class="cc"><b>' + esc(teamOf(g, side)) + '</b><small>' + Math.round(100 * counts[k][side] / Pl.length) + '%</small></span>'; }).join('');
-    var key = st.sort === 'week' ? wkPts : total, alt = st.sort === 'week' ? total : wkPts;
-    var order = Pl.map(function (p, i) { return i; }).sort(function (a, b) { return key[b] - key[a] || alt[b] - alt[a] || Pl[a].name.localeCompare(Pl[b].name); });
+    var key = wkPts;
+    var order = Pl.map(function (p, i) { return i; }).sort(function (a, b) { return key[b] - key[a] || Pl[a].name.localeCompare(Pl[b].name); });
     var topWeek = Math.max.apply(null, wkPts);
     var rows = order.map(function (i) {
       var p = Pl[i];
       return row(i === youI ? 'you' : '') + '<span class="sticky"><span class="rk">' + rankOf(key, i) + '</span><span class="nm"' + (i === youI ? ' style="color:var(--cyan)"' : '') + '>' + esc(p.name) + '</span>' + (i === youI ? '<span class="you">YOU</span>' : '') + '</span>' +
         games.map(function (g, k) { return cell(g, p.picks[g.id], counts[k][p.picks[g.id]] || 0); }).join('') +
-        '<span class="ctr wk' + (wkPts[i] === topWeek ? ' top' : '') + '">' + wkPts[i] + '</span><span class="ctr tot">' + total[i] + '</span><span class="ctr mono" style="font-size:13px;color:rgba(240,238,232,0.7)">' + (p.tb == null ? '·' : p.tb) + '</span></div>';
+        '<span class="ctr wk' + (wkPts[i] === topWeek ? ' top' : '') + '">' + wkPts[i] + '</span><span class="ctr mono" style="font-size:13px;color:rgba(240,238,232,0.7)">' + (p.tb == null ? '·' : p.tb) + '</span></div>';
     }).join('');
     var mrow = row('mkt') + '<span class="sticky"><span class="rk">·</span><span style="display:flex;flex-direction:column;line-height:1.25"><span style="font-size:15px;font-weight:700;color:var(--yellow)">The Market</span><span style="font-size:11px;color:var(--dim)">Every favorite · not eligible</span></span></span>' +
-      games.map(function (g) { return cell(g, mkt[g.id], 99); }).join('') + '<span class="ctr wk" style="color:var(--yellow)">' + mktWk + '</span><span class="ctr tot">' + mktTotal + '</span><span class="ctr mono" style="font-size:13px;color:var(--dim)">' + (st.data.tiebreak.total == null ? '' : st.data.tiebreak.total) + '</span></div>';
+      games.map(function (g) { return cell(g, mkt[g.id], 99); }).join('') + '<span class="ctr wk" style="color:var(--yellow)">' + mktWk + '</span><span class="ctr mono" style="font-size:13px;color:var(--dim)">' + (st.data.tiebreak.total == null ? '' : st.data.tiebreak.total) + '</span></div>';
     return '<section class="card" aria-label="Week picks" style="overflow:hidden"><div class="standings head" style="padding:14px 18px;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px;border-bottom:1px solid var(--border-soft)"><h2 style="font-family:var(--head);font-size:20px;margin:0">Week ' + st.data.week + ' picks</h2>' +
       '<div class="keys"><span><i class="right"></i>Right</span><span><i class="wrong"></i>Wrong</span><span><i class="lead"></i>Leading now</span><span><i class="pre"></i>Not started</span><span><i class="rare"></i>2 or fewer took it</span></div></div>' +
-      '<div class="tscroll"><div style="min-width:' + (300 + 68 * G + 200) + 'px;padding-bottom:6px">' +
+      '<div class="tscroll"><div style="min-width:' + (300 + 68 * G + 140) + 'px;padding-bottom:6px">' +
       row('th') + '<span class="sticky th">Player</span>' + heads + '<button type="button" class="sortb' + (st.sort === 'week' ? ' on' : '') + '" id="sortWeek" aria-pressed="' + (st.sort === 'week') + '">Week' + (st.sort === 'week' ? ' ▾' : '') + '</button><button type="button" class="sortb' + (st.sort === 'total' ? ' on' : '') + '" id="sortTotal" aria-pressed="' + (st.sort === 'total') + '">Total' + (st.sort === 'total' ? ' ▾' : '') + '</button><span class="thl" style="padding-bottom:12px" title="Tiebreak guess: ' + esc(st.data.tiebreak.label) + ' total">' + esc(st.data.tiebreak.label.split('@')[1] === undefined ? 'TB' : 'TB') + '</span></div>' +
-      row('cons') + '<span class="sticky" style="font-size:13px;font-weight:700;color:rgba(240,238,232,0.75)">Pool consensus</span>' + cons + '<span></span><span></span><span></span></div>' +
+      row('cons') + '<span class="sticky" style="font-size:13px;font-weight:700;color:rgba(240,238,232,0.75)">Pool consensus</span>' + cons + '<span></span><span></span></div>' +
       rows + mrow + '</div></div></section>';
   }
   function seasonGrid(Pl, hist, weeksList, winners, wins, wkPts, prior, total, mktHist, mktWk, mktTotal, youI, usePrior, mktSeasonKnown) {
