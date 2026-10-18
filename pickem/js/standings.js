@@ -11,11 +11,14 @@
       : U.loadWeek().then(function (d) { st.data = d; });
     load.then(function () {
       st.key = S.weekKey(st.data.season, st.data.week) + (st.demo ? '-demo' : '');
-      if (!st.demo) { st.finals = S.get('finals:' + st.key, {}); U.importFromShareLink(st.data.games, st.key); var m = S.get('picks:' + st.key, null); st.players = m && m.players ? m.players : []; }
+      if (!st.demo) { st.finals = S.get('finals:' + st.key, {}); U.importFromShareLink(st.data.games, st.key); }
       st.you = S.get('you', '') || '';
+      return st.demo ? null : U.loadPublishedPicks(st.key).then(function (pub) { st.published = pub; });
+    }).then(function () {
+      if (!st.demo) { if (st.published) st.players = st.published.players; else { var m = S.get('picks:' + st.key, null); st.players = m && m.players ? m.players : []; } }
       renderShell(); render();
       if (!st.demo) poll();
-      window.addEventListener('hashchange', function () { if (st.demo) return; U.importFromShareLink(st.data.games, st.key); var m = S.get('picks:' + st.key, null); st.players = m && m.players ? m.players : []; var el = qs('#import'); if (el) el.removeAttribute('data-key'); render(); });
+      window.addEventListener('hashchange', function () { if (st.demo || st.published) return; U.importFromShareLink(st.data.games, st.key); var m = S.get('picks:' + st.key, null); st.players = m && m.players ? m.players : []; var el = qs('#import'); if (el) el.removeAttribute('data-key'); render(); });
     }).catch(function (e) { document.getElementById('app').innerHTML = '<main class="pk-main"><div class="notice err"><h2>Could not load this week</h2><div>' + esc(e.message) + '</div></div></main>'; });
   }
   function poll() {
@@ -97,7 +100,7 @@
     if (st.demo) { el.innerHTML = '<div class="ihead"><h2>Mock data</h2><span class="srcnote">Design fixture with anonymized handles.</span></div>'; return; }
     if (el.getAttribute('data-key') === st.key) return;
     el.setAttribute('data-key', st.key);
-    U.importPanel(el, { games: games, key: st.key, season: st.data.season, week: st.data.week }, function () { var m = S.get('picks:' + st.key, null); st.players = m && m.players ? m.players : []; render(); });
+    U.importPanel(el, { games: games, key: st.key, season: st.data.season, week: st.data.week, published: st.published }, function () { var m = S.get('picks:' + st.key, null); st.players = m && m.players ? m.players : []; render(); });
   }
   function renderFoot() {
     qs('#foot').innerHTML = '<span><b>Math, not picks. Win % from betting markets, frozen at kickoff.</b></span><span>Weekly winner is most correct picks, closest ' + esc(st.data.tiebreak.label) + ' total breaks ties. The Market row picks every de-vigged favorite as a benchmark and can’t win anything. A tied game scores nobody. A blank pick counts wrong.</span><span>Scores: ESPN scoreboard. Market favorites from the data build (' + esc(U.fmtDayTime(st.data.generated_at)) + '). Times shown in ' + esc(U.TZ || 'your local zone') + '.</span>';
