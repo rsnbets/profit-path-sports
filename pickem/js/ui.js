@@ -108,7 +108,7 @@
   // anywhere but the receiving browser. Compact: [name, tiebreak, picks string H/A/- in game order].
   function b64url(str) { return btoa(unescape(encodeURIComponent(str))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, ''); }
   function unb64url(str) { str = str.replace(/-/g, '+').replace(/_/g, '/'); while (str.length % 4) str += '='; return decodeURIComponent(escape(atob(str))); }
-  // v2 format: #p=2!<key>!<game count>!<row>!<row>... with row = name*tiebreak*picks. Picks are 2 bits per game
+  // v3 format: #p=3~<key>~<game count>~<row>~<row>... (v2 used ! and * which chat apps cut) with row = name*tiebreak*picks. Picks are 2 bits per game
   // (0 blank, 1 home, 2 away) packed into bytes and base64url'd: 14 games -> 5 characters.
   // v1 (JSON in base64url) still decodes.
   var B64 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_';
@@ -140,22 +140,25 @@
     games.forEach(function (g, j) { var v = (bytes[j >> 2] >> (6 - 2 * (j & 3))) & 3; picks[g.id] = v === 1 ? 'H' : v === 2 ? 'A' : ''; });
     return picks;
   }
-  function encName(n) { return encodeURIComponent(n).replace(/\*/g, '%2A').replace(/!/g, '%21'); }
+  // Only unreserved URL characters (letters, digits, - _ . ~ and %xx) so chat apps never cut the link short:
+  // rows joined by "~", fields by ".", names percent-encoded with "." and "~" escaped too.
+  function encName(n) { return encodeURIComponent(n).replace(/\./g, '%2E').replace(/~/g, '%7E').replace(/[!*'()]/g, function (c) { return '%' + c.charCodeAt(0).toString(16).toUpperCase(); }); }
   function encodeShare(players, games, key) {
-    return '2!' + key + '!' + games.length + '!' + players.map(function (p) { return encName(p.name) + '*' + (p.tb == null ? '' : p.tb) + '*' + packPicks(p, games); }).join('!');
+    return '3~' + key + '~' + games.length + '~' + players.map(function (p) { return encName(p.name) + '.' + (p.tb == null ? '' : String(p.tb).replace('.', '_')) + '.' + packPicks(p, games); }).join('~');
   }
   function decodeShare(frag, games, key) {
     try {
-      var m = /[#&]p=([^&]+)/.exec(frag || ''); if (!m) return null;
+      var m = /[#&]p=([^&\s]+)/.exec(frag || ''); if (!m) return null;
       var raw = m[1], players = [], i;
-      if (raw.indexOf('2!') === 0) {
-        var parts = raw.split('!');
+      var v3 = raw.indexOf('3~') === 0, v2 = raw.indexOf('2!') === 0;
+      if (v3 || v2) {
+        var parts = raw.split(v3 ? '~' : '!');
         if (parts[1] !== key) return { error: 'This share link is for ' + parts[1] + ', not ' + key + '.' };
         if (Number(parts[2]) !== games.length) return { error: 'Share link does not match this week\u2019s games.' };
         for (i = 3; i < parts.length; i++) {
-          var f = parts[i].split('*'); if (f.length !== 3) return { error: 'Share link could not be read.' };
-          var picks = unpackPicks(f[2], games); if (!picks) return { error: 'Share link does not match this week’s games.' };
-          var tb = f[1] === '' ? null : Number(f[1]);
+          var f = parts[i].split(v3 ? '.' : '*'); if (f.length !== 3) return { error: 'Share link looks cut off. Copy the whole link, including everything after the # sign.' };
+          var picks = unpackPicks(f[2], games); if (!picks) return { error: 'Share link looks cut off. Copy the whole link, including everything after the # sign.' };
+          var tb = f[1] === '' ? null : Number(f[1].replace('_', '.'));
           players.push({ name: decodeURIComponent(f[0]).slice(0, 60), tb: isFinite(tb) ? tb : null, picks: picks });
         }
       } else {
@@ -212,8 +215,8 @@
       '<div class="report" id="shareMsg"></div>' +
       '<div id="impBody"' + (ctx.open ? '' : ' class="hidden"') + '>' +
       '<div class="drop" id="drop">Drop the PoolHost download (allpicks.xls) or the picks CSV here, or <label style="color:var(--cyan);cursor:pointer"><input type="file" id="file" accept=".csv,.xls,.html,.htm,text/csv,text/html,.txt" class="sr"> choose a file</label>.<br><span class="srcnote">PoolHost: the All Picks page\u2019s download button. CSV template: player,tiebreak,AWAY@HOME,... with nflverse codes (LA = Rams, WAS).</span></div>' +
-      '<textarea id="paste" placeholder="Or paste CSV text here" aria-label="Paste CSV"></textarea>' +
-      '<div class="row"><button class="btn cyan" id="parseBtn">Load pasted CSV</button><button class="btn" id="tplBtn">Download blank template</button><button class="btn" id="exportBtn">Export week JSON</button><button class="btn danger" id="clearBtn">Clear pool data</button></div>' +
+      '<textarea id="paste" placeholder="Or paste a share link or CSV text here" aria-label="Paste share link or CSV"></textarea>' +
+      '<div class="row"><button class="btn cyan" id="parseBtn">Load pasted text</button><button class="btn" id="tplBtn">Download blank template</button><button class="btn" id="exportBtn">Export week JSON</button><button class="btn danger" id="clearBtn">Clear pool data</button></div>' +
       '<div class="report" id="report"></div>' +
       '<div class="srcnote">Picks stay in this browser only. Nothing is uploaded. The export holds the snapshot log (every player’s status and win % at picks-locked time and after each final) for checking calibration later.</div>' +
       '</div>';
@@ -235,6 +238,17 @@
       rep.innerHTML = lines.join('');
     }
     function handle(text) {
+      if (/#p=/.test(text)) {
+        var sl = decodeShare(text, games, key);
+        if (sl && sl.players) {
+          var meta2 = { players: sl.players, importedAt: new Date().toISOString(), format: 'share-link' };
+          S.set('picks:' + key, meta2);
+          rep.innerHTML = '<div class="ok">Loaded ' + sl.players.length + ' players from the share link.</div>';
+          var note3 = qs('.ihead .srcnote', el); if (note3) note3.textContent = sl.players.length + ' players imported ' + fmtDayTime(meta2.importedAt);
+          onChange('picks');
+        } else rep.innerHTML = '<div class="e">Error: ' + esc(sl && sl.error ? sl.error : 'Share link could not be read.') + '</div>';
+        return;
+      }
       var r = P.parseAny(text, games);
       if (r.ok) {
         var meta = { players: r.players, importedAt: new Date().toISOString(), format: r.report.format };
