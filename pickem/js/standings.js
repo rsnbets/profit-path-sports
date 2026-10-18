@@ -11,10 +11,11 @@
       : U.loadWeek().then(function (d) { st.data = d; });
     load.then(function () {
       st.key = S.weekKey(st.data.season, st.data.week) + (st.demo ? '-demo' : '');
-      if (!st.demo) { st.finals = S.get('finals:' + st.key, {}); var m = S.get('picks:' + st.key, null); st.players = m && m.players ? m.players : []; }
+      if (!st.demo) { st.finals = S.get('finals:' + st.key, {}); U.importFromShareLink(st.data.games, st.key); var m = S.get('picks:' + st.key, null); st.players = m && m.players ? m.players : []; }
       st.you = S.get('you', '') || '';
       renderShell(); render();
       if (!st.demo) poll();
+      window.addEventListener('hashchange', function () { if (st.demo) return; U.importFromShareLink(st.data.games, st.key); var m = S.get('picks:' + st.key, null); st.players = m && m.players ? m.players : []; var el = qs('#import'); if (el) el.removeAttribute('data-key'); render(); });
     }).catch(function (e) { document.getElementById('app').innerHTML = '<main class="pk-main"><div class="notice err"><h2>Could not load this week</h2><div>' + esc(e.message) + '</div></div></main>'; });
   }
   function poll() {
@@ -49,7 +50,7 @@
       '<p>' + esc(data.pool.name || 'Pool') + (N ? ' · ' + N + ' players' : '') + ' · ' + finals.length + ' of ' + games.length + ' Week ' + data.week + ' games final' + (st.lastFetch ? ' · scores ' + esc(U.fmtTime(st.lastFetch)) : '') + '</p></div>' +
       '<div class="pk-pills">' + (st.demo ? '<span class="badge">MOCK DATA</span>' : '') + '</div>';
 
-    if (!N) { qs('#body').innerHTML = '<div class="notice warn"><h2>No picks loaded in this browser</h2><div>Drop the PoolHost download (allpicks.xls) into the Pool data panel on the Live page or below.</div></div>'; renderImport(games); renderFoot(); return; }
+    if (!N) { qs('#body').innerHTML = '<div class="notice warn"><h2>No picks on this device</h2><div>Ask the commissioner for the share link, or drop the PoolHost download (allpicks.xls) into the Pool data panel below.</div></div>'; renderImport(games); renderFoot(); return; }
     if (!locked) { qs('#body').innerHTML = '<div class="notice"><h2>Picks show once every game’s picks are in</h2><div>Picks lock ' + esc(U.fmtDayTime(data.pool.deadline_utc)) + '.</div></div>'; renderImport(games); renderFoot(); return; }
 
     var youI = Pl.map(function (p) { return p.name; }).indexOf(st.you);

@@ -15,10 +15,13 @@
       st.key = S.weekKey(st.data.season, st.data.week) + (st.demo ? '-demo' : '');
       st.finals = st.demo ? st.finals : S.get('finals:' + st.key, {});
       st.you = S.get('you', '') || '';
+      if (!st.demo) { var sl = U.importFromShareLink(st.data.games, st.key); if (sl && sl.error) st.shareErr = sl.error; else if (sl) st.shareOk = sl.players.length; }
       loadPicks();
       renderShell();
       render();
       if (!st.demo) { poll(); }
+      // A share link opened while the page is already up only changes the hash: import it then too.
+      window.addEventListener('hashchange', function () { if (st.demo) return; var sl = U.importFromShareLink(st.data.games, st.key); if (sl && sl.error) st.shareErr = sl.error; else if (sl) { st.shareOk = sl.players.length; st.shareErr = null; } loadPicks(); st.forced = {}; st.sel = null; var el = qs('#import'); if (el) el.removeAttribute('data-key'); render(); });
       setInterval(function () { if (!st.engineOn) render(); }, 30000);   // keep the countdown fresh
     }).catch(function (e) {
       document.getElementById('app').innerHTML = '<main class="pk-main"><div class="notice err"><h2>Could not load this week</h2><div>' + esc(e.message) + '</div><div class="srcnote">The data build writes pickem/data/&lt;season&gt;-w&lt;week&gt;.json and latest.json.</div></div></main>';
@@ -103,7 +106,9 @@
 
     // Gate / notices
     var gate = '';
-    if (!hasPicks) gate += '<div class="notice warn"><h2>No picks loaded in this browser</h2><div>Drop the PoolHost download (allpicks.xls) into the Pool data panel. Picks stay in this browser only, so each device loads the file once.</div><div><button type="button" class="btn green" id="goImport">Go to import</button></div></div>';
+    if (st.shareErr) gate += '<div class="notice err"><h2>Share link problem</h2><div>' + esc(st.shareErr) + '</div></div>';
+    if (st.shareOk) gate += '<div class="notice"><div class="eyebrow cyan">Loaded from share link</div><div>' + st.shareOk + ' players\u2019 picks are now saved on this device.</div></div>';
+    if (!hasPicks) gate += '<div class="notice warn"><h2>No picks on this device</h2><div>Ask the commissioner for the share link, or drop the PoolHost download (allpicks.xls) into the Pool data panel below. Picks stay on the device that loads them.</div><div><button type="button" class="btn green" id="goImport">Go to import</button></div></div>';
     if (!locked) {
       var ms = lockAll - now, h = Math.floor(ms / 3600000), m = Math.floor((ms % 3600000) / 60000);
       gate += '<div class="notice"><h2>Board opens when every pick is in</h2><div class="countdown">' + (ms > 0 ? h + 'h ' + m + 'm' : 'now') + '</div><div>Picks lock ' + esc(U.fmtDayTime(data.pool.deadline_utc)) + '. Until then this page shows results so far. Picks that are not in yet are never used.</div></div>';
