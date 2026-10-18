@@ -51,6 +51,14 @@
     return resolveWeek().then(function (w) { return loadJSON('data/' + w.file); });
   }
 
+  // Published picks (option A): data/picks-<key>.json committed with the site. null when absent.
+  function loadPublishedPicks(key) {
+    return loadJSON('data/picks-' + key + '.json').then(function (d) {
+      if (!d || !Array.isArray(d.players)) return null;
+      return { players: d.players, importedAt: d.published_at, format: 'site', satOut: d.sat_out || [] };
+    }).catch(function () { return null; });
+  }
+
   // Demo mode: the anonymized mockup fixture becomes a fake Week with games, scores and picks.
   function loadDemo() {
     return loadJSON('tests/fixture-mock-week.json').then(function (fx) {
@@ -206,6 +214,12 @@
   // Renders into `el`. onChange(kind) fires after a successful import ('picks') or clear.
   function importPanel(el, ctx, onChange) {
     var games = ctx.games, key = ctx.key;
+    if (ctx.published) {
+      el.innerHTML = '<div class="ihead"><h2>Pool data</h2><span class="srcnote">' + ctx.published.players.length + ' players\u2019 picks published with the site ' + esc(fmtDayTime(ctx.published.importedAt)) + (ctx.published.satOut.length ? ' \u00b7 ' + ctx.published.satOut.length + ' accounts sat this week out' : '') + '. Nothing to import on this device.</span>' +
+        '<div class="row"><button class="btn small" id="exportBtn">Export week JSON</button></div></div>';
+      qs('#exportBtn', el).onclick = function () { var snaps = S.get('snapshots:' + key, []); download('pickem-' + key + '-snapshots.json', JSON.stringify({ week: key, exported_at: new Date().toISOString(), snapshots: snaps }, null, 1), 'application/json'); };
+      return;
+    }
     var picksMeta = S.get('picks:' + key, null);
     el.innerHTML =
       '<div class="ihead"><h2>Pool data</h2><div class="row">' +
@@ -298,7 +312,7 @@
   }
 
   root.PickemUI = { COLORS: COLORS, sw: sw, esc: esc, pct: pct, pct1: pct1, fmt: fmt, fmtTime: fmtTime, fmtKick: fmtKick, fmtDayTime: fmtDayTime, TZ: TZ, slotOf: slotOf, qs: qs, param: param,
-    loadJSON: loadJSON, resolveWeek: resolveWeek, loadWeek: loadWeek, loadDemo: loadDemo, assembleGames: assembleGames, finalOrder: finalOrder, sourceTitle: sourceTitle,
+    loadJSON: loadJSON, resolveWeek: resolveWeek, loadWeek: loadWeek, loadPublishedPicks: loadPublishedPicks, loadDemo: loadDemo, assembleGames: assembleGames, finalOrder: finalOrder, sourceTitle: sourceTitle,
     header: header, youSelect: youSelect, importPanel: importPanel, download: download, logSnapshot: logSnapshot,
     encodeShare: encodeShare, decodeShare: decodeShare, packPicks: packPicks, unpackPicks: unpackPicks, importFromShareLink: importFromShareLink, shareURL: shareURL };
 }(typeof self !== 'undefined' ? self : this));

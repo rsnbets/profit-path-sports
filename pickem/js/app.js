@@ -16,12 +16,14 @@
       st.finals = st.demo ? st.finals : S.get('finals:' + st.key, {});
       st.you = S.get('you', '') || '';
       if (!st.demo) { var sl = U.importFromShareLink(st.data.games, st.key); if (sl && sl.error) st.shareErr = sl.error; else if (sl) st.shareOk = sl.players.length; }
+      return st.demo ? null : U.loadPublishedPicks(st.key).then(function (pub) { st.published = pub; });
+    }).then(function () {
       loadPicks();
       renderShell();
       render();
       if (!st.demo) { poll(); }
       // A share link opened while the page is already up only changes the hash: import it then too.
-      window.addEventListener('hashchange', function () { if (st.demo) return; var sl = U.importFromShareLink(st.data.games, st.key); if (sl && sl.error) st.shareErr = sl.error; else if (sl) { st.shareOk = sl.players.length; st.shareErr = null; } loadPicks(); st.forced = {}; st.sel = null; var el = qs('#import'); if (el) el.removeAttribute('data-key'); render(); });
+      window.addEventListener('hashchange', function () { if (st.demo || st.published) return; var sl = U.importFromShareLink(st.data.games, st.key); if (sl && sl.error) st.shareErr = sl.error; else if (sl) { st.shareOk = sl.players.length; st.shareErr = null; } loadPicks(); st.forced = {}; st.sel = null; var el = qs('#import'); if (el) el.removeAttribute('data-key'); render(); });
       setInterval(function () { if (!st.engineOn) render(); }, 30000);   // keep the countdown fresh
     }).catch(function (e) {
       document.getElementById('app').innerHTML = '<main class="pk-main"><div class="notice err"><h2>Could not load this week</h2><div>' + esc(e.message) + '</div><div class="srcnote">The data build writes pickem/data/&lt;season&gt;-w&lt;week&gt;.json and latest.json.</div></div></main>';
@@ -29,6 +31,7 @@
   }
   function loadPicks() {
     if (st.demo) { st.players = st.demoPlayers; return; }
+    if (st.published) { st.players = st.published.players; return; }
     var m = S.get('picks:' + st.key, null);
     st.players = m && m.players ? m.players : [];
   }
@@ -107,7 +110,7 @@
     // Gate / notices
     var gate = '';
     if (st.shareErr) gate += '<div class="notice err"><h2>Share link problem</h2><div>' + esc(st.shareErr) + '</div></div>';
-    if (st.shareOk) gate += '<div class="notice"><div class="eyebrow cyan">Loaded from share link</div><div>' + st.shareOk + ' players\u2019 picks are now saved on this device.</div></div>';
+    if (st.shareOk && !st.published) gate += '<div class="notice"><div class="eyebrow cyan">Loaded from share link</div><div>' + st.shareOk + ' players\u2019 picks are now saved on this device.</div></div>';
     if (!hasPicks) gate += '<div class="notice warn"><h2>No picks on this device</h2><div>Ask the commissioner for the share link, or drop the PoolHost download (allpicks.xls) into the Pool data panel below. Picks stay on the device that loads them.</div><div><button type="button" class="btn green" id="goImport">Go to import</button></div></div>';
     if (!locked) {
       var ms = lockAll - now, h = Math.floor(ms / 3600000), m = Math.floor((ms % 3600000) / 60000);
@@ -303,7 +306,7 @@
     if (st.demo) { el.innerHTML = '<div class="ihead"><h2>Mock data</h2><span class="srcnote">This is the design fixture with anonymized handles. Real weeks load picks from a CSV you import; nothing is uploaded.</span></div>'; return; }
     if (el.getAttribute('data-key') === st.key) return;
     el.setAttribute('data-key', st.key);
-    U.importPanel(el, { games: games, key: st.key, season: st.data.season, week: st.data.week, open: st.players.length === 0 }, function () { loadPicks(); st.forced = {}; st.sel = null; render(); });
+    U.importPanel(el, { games: games, key: st.key, season: st.data.season, week: st.data.week, open: st.players.length === 0, published: st.published }, function () { loadPicks(); st.forced = {}; st.sel = null; render(); });
   }
 
   function renderFooter(games, res) {

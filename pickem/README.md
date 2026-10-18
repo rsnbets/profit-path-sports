@@ -1,13 +1,15 @@
 # PPS Pick'em v1 (shadow mode)
 
-Weekly NFL pick'em "who can still win" board. Unlisted, `noindex`, no accounts, no pick entry, no server writes. Pool picks are loaded in the browser and stay there.
+Weekly NFL pick'em "who can still win" board. Unlisted, `noindex`, no accounts, no pick entry, no server writes.
+
+Picks for the 2026 shadow season are published with the site as `pickem/data/picks-<season>-w<week>.json` (option A, decided Oct 18 2026: the pool owner accepted that handles and picks are visible in this public repo). Without a published file the page falls back to a browser import or a share link.
 
 Pages: `index.html` (live board) and `standings.html` (week grid). No season-long data: the pool is weekly. Add `?demo=1` to either for the anonymized design fixture.
 
 ## Sunday routine (shadow mode)
 
 1. Once PoolHost shows the picks (they are visible only after they lock, at the first Sunday kickoff), download the All Picks page (`allpicks.xls`).
-2. Open the live board, open "Pool data", drop the file. Read the validation report. "No Picks" accounts sat the week out and are left off the board. The CSV template still works as a fallback.
+2. Publish it: `node pickem/publish_picks.js ~/Downloads/allpicks.xls`, then commit and push `pickem/data/picks-<key>.json`. "No Picks" accounts sat the week out and are left off the board. Fallback without a push: drop the file into the page's "Pool data" panel on one device and use "Copy share link" for the others.
 3. The board runs on its own: ESPN scores every 60 seconds while games are live, exact enumeration of every ending, what-ifs by tapping teams.
 4. After MNF: "Export week JSON" saves the snapshot log (status + win % for every player at picks-locked time and after each final). Keep it in `pickem/private/` for calibration later. Never commit it.
 

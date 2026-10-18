@@ -1,0 +1,288 @@
+{
+ "key": "2026-w06",
+ "season": 2026,
+ "week": 6,
+ "source": "poolhost",
+ "published_at": "2026-10-18T17:12:24.271Z",
+ "players": [
+  {
+   "name": "wmgarvin09",
+   "tb": 39,
+   "picks": {
+    "2026_06_SEA_DEN": "A",
+    "2026_06_HOU_JAX": "A",
+    "2026_06_BAL_CLE": "A",
+    "2026_06_CAR_PHI": "H",
+    "2026_06_CHI_ATL": "H",
+    "2026_06_NO_NYG": "H",
+    "2026_06_NYJ_NE": "H",
+    "2026_06_PIT_TB": "A",
+    "2026_06_TEN_IND": "H",
+    "2026_06_ARI_LA": "H",
+    "2026_06_BUF_LV": "A",
+    "2026_06_LAC_KC": "H",
+    "2026_06_DAL_GB": "H",
+    "2026_06_WAS_SF": "H"
+   }
+  },
+  {
+   "name": "Keithpoe09",
+   "tb": 42,
+   "picks": {
+    "2026_06_SEA_DEN": "H",
+    "2026_06_HOU_JAX": "H",
+    "2026_06_BAL_CLE": "A",
+    "2026_06_CAR_PHI": "H",
+    "2026_06_CHI_ATL": "H",
+    "2026_06_NO_NYG": "A",
+    "2026_06_NYJ_NE": "H",
+    "2026_06_PIT_TB": "H",
+    "2026_06_TEN_IND": "A",
+    "2026_06_ARI_LA": "H",
+    "2026_06_BUF_LV": "A",
+    "2026_06_LAC_KC": "H",
+    "2026_06_DAL_GB": "A",
+    "2026_06_WAS_SF": "H"
+   }
+  },
+  {
+   "name": "Scrogdogy",
+   "tb": 44,
+   "picks": {
+    "2026_06_SEA_DEN": "H",
+    "2026_06_HOU_JAX": "H",
+    "2026_06_BAL_CLE": "A",
+    "2026_06_CAR_PHI": "A",
+    "2026_06_CHI_ATL": "H",
+    "2026_06_NO_NYG": "H",
+    "2026_06_NYJ_NE": "H",
+    "2026_06_PIT_TB": "A",
+    "2026_06_TEN_IND": "H",
+    "2026_06_ARI_LA": "H",
+    "2026_06_BUF_LV": "A",
+    "2026_06_LAC_KC": "H",
+    "2026_06_DAL_GB": "H",
+    "2026_06_WAS_SF": "H"
+   }
+  },
+  {
+   "name": "bonesmc",
+   "tb": 46,
+   "picks": {
+    "2026_06_SEA_DEN": "A",
+    "2026_06_HOU_JAX": "A",
+    "2026_06_BAL_CLE": "A",
+    "2026_06_CAR_PHI": "A",
+    "2026_06_CHI_ATL": "H",
+    "2026_06_NO_NYG": "H",
+    "2026_06_NYJ_NE": "H",
+    "2026_06_PIT_TB": "A",
+    "2026_06_TEN_IND": "H",
+    "2026_06_ARI_LA": "H",
+    "2026_06_BUF_LV": "A",
+    "2026_06_LAC_KC": "H",
+    "2026_06_DAL_GB": "A",
+    "2026_06_WAS_SF": "H"
+   }
+  },
+  {
+   "name": "Martinsilverio43",
+   "tb": 47,
+   "picks": {
+    "2026_06_SEA_DEN": "H",
+    "2026_06_HOU_JAX": "H",
+    "2026_06_BAL_CLE": "A",
+    "2026_06_CAR_PHI": "A",
+    "2026_06_CHI_ATL": "A",
+    "2026_06_NO_NYG": "A",
+    "2026_06_NYJ_NE": "H",
+    "2026_06_PIT_TB": "A",
+    "2026_06_TEN_IND": "H",
+    "2026_06_ARI_LA": "H",
+    "2026_06_BUF_LV": "A",
+    "2026_06_LAC_KC": "H",
+    "2026_06_DAL_GB": "H",
+    "2026_06_WAS_SF": "H"
+   }
+  },
+  {
+   "name": "Wildman79",
+   "tb": 48,
+   "picks": {
+    "2026_06_SEA_DEN": "H",
+    "2026_06_HOU_JAX": "H",
+    "2026_06_BAL_CLE": "A",
+    "2026_06_CAR_PHI": "H",
+    "2026_06_CHI_ATL": "A",
+    "2026_06_NO_NYG": "H",
+    "2026_06_NYJ_NE": "H",
+    "2026_06_PIT_TB": "H",
+    "2026_06_TEN_IND": "H",
+    "2026_06_ARI_LA": "H",
+    "2026_06_BUF_LV": "H",
+    "2026_06_LAC_KC": "H",
+    "2026_06_DAL_GB": "H",
+    "2026_06_WAS_SF": "H"
+   }
+  },
+  {
+   "name": "Hobos",
+   "tb": 48,
+   "picks": {
+    "2026_06_SEA_DEN": "H",
+    "2026_06_HOU_JAX": "H",
+    "2026_06_BAL_CLE": "H",
+    "2026_06_CAR_PHI": "H",
+    "2026_06_CHI_ATL": "A",
+    "2026_06_NO_NYG": "H",
+    "2026_06_NYJ_NE": "H",
+    "2026_06_PIT_TB": "A",
+    "2026_06_TEN_IND": "H",
+    "2026_06_ARI_LA": "A",
+    "2026_06_BUF_LV": "H",
+    "2026_06_LAC_KC": "H",
+    "2026_06_DAL_GB": "A",
+    "2026_06_WAS_SF": "H"
+   }
+  },
+  {
+   "name": "Wettsbacks",
+   "tb": 48,
+   "picks": {
+    "2026_06_SEA_DEN": "H",
+    "2026_06_HOU_JAX": "H",
+    "2026_06_BAL_CLE": "A",
+    "2026_06_CAR_PHI": "H",
+    "2026_06_CHI_ATL": "A",
+    "2026_06_NO_NYG": "A",
+    "2026_06_NYJ_NE": "H",
+    "2026_06_PIT_TB": "H",
+    "2026_06_TEN_IND": "H",
+    "2026_06_ARI_LA": "H",
+    "2026_06_BUF_LV": "A",
+    "2026_06_LAC_KC": "H",
+    "2026_06_DAL_GB": "H",
+    "2026_06_WAS_SF": "H"
+   }
+  },
+  {
+   "name": "Furiac13",
+   "tb": 44,
+   "picks": {
+    "2026_06_SEA_DEN": "A",
+    "2026_06_HOU_JAX": "H",
+    "2026_06_BAL_CLE": "H",
+    "2026_06_CAR_PHI": "H",
+    "2026_06_CHI_ATL": "H",
+    "2026_06_NO_NYG": "H",
+    "2026_06_NYJ_NE": "H",
+    "2026_06_PIT_TB": "A",
+    "2026_06_TEN_IND": "H",
+    "2026_06_ARI_LA": "A",
+    "2026_06_BUF_LV": "A",
+    "2026_06_LAC_KC": "H",
+    "2026_06_DAL_GB": "A",
+    "2026_06_WAS_SF": "A"
+   }
+  },
+  {
+   "name": "hgh97a",
+   "tb": 46,
+   "picks": {
+    "2026_06_SEA_DEN": "A",
+    "2026_06_HOU_JAX": "H",
+    "2026_06_BAL_CLE": "H",
+    "2026_06_CAR_PHI": "A",
+    "2026_06_CHI_ATL": "A",
+    "2026_06_NO_NYG": "A",
+    "2026_06_NYJ_NE": "H",
+    "2026_06_PIT_TB": "A",
+    "2026_06_TEN_IND": "H",
+    "2026_06_ARI_LA": "H",
+    "2026_06_BUF_LV": "A",
+    "2026_06_LAC_KC": "H",
+    "2026_06_DAL_GB": "H",
+    "2026_06_WAS_SF": "H"
+   }
+  },
+  {
+   "name": "PTkicksass",
+   "tb": 48,
+   "picks": {
+    "2026_06_SEA_DEN": "A",
+    "2026_06_HOU_JAX": "H",
+    "2026_06_BAL_CLE": "A",
+    "2026_06_CAR_PHI": "H",
+    "2026_06_CHI_ATL": "H",
+    "2026_06_NO_NYG": "H",
+    "2026_06_NYJ_NE": "H",
+    "2026_06_PIT_TB": "A",
+    "2026_06_TEN_IND": "H",
+    "2026_06_ARI_LA": "H",
+    "2026_06_BUF_LV": "A",
+    "2026_06_LAC_KC": "H",
+    "2026_06_DAL_GB": "A",
+    "2026_06_WAS_SF": "H"
+   }
+  },
+  {
+   "name": "TallRobLC",
+   "tb": 50,
+   "picks": {
+    "2026_06_SEA_DEN": "A",
+    "2026_06_HOU_JAX": "H",
+    "2026_06_BAL_CLE": "A",
+    "2026_06_CAR_PHI": "A",
+    "2026_06_CHI_ATL": "H",
+    "2026_06_NO_NYG": "H",
+    "2026_06_NYJ_NE": "H",
+    "2026_06_PIT_TB": "H",
+    "2026_06_TEN_IND": "H",
+    "2026_06_ARI_LA": "H",
+    "2026_06_BUF_LV": "A",
+    "2026_06_LAC_KC": "H",
+    "2026_06_DAL_GB": "H",
+    "2026_06_WAS_SF": "H"
+   }
+  },
+  {
+   "name": "SirMrTurner",
+   "tb": 55,
+   "picks": {
+    "2026_06_SEA_DEN": "A",
+    "2026_06_HOU_JAX": "H",
+    "2026_06_BAL_CLE": "A",
+    "2026_06_CAR_PHI": "H",
+    "2026_06_CHI_ATL": "A",
+    "2026_06_NO_NYG": "A",
+    "2026_06_NYJ_NE": "A",
+    "2026_06_PIT_TB": "H",
+    "2026_06_TEN_IND": "H",
+    "2026_06_ARI_LA": "H",
+    "2026_06_BUF_LV": "A",
+    "2026_06_LAC_KC": "H",
+    "2026_06_DAL_GB": "A",
+    "2026_06_WAS_SF": "H"
+   }
+  }
+ ],
+ "sat_out": [
+  "doy97j",
+  "Backseat",
+  "CerealKiller24",
+  "CrumpDaddy",
+  "FancyPug",
+  "Chris20denney",
+  "PapaTim23",
+  "Mfaja",
+  "D2Nice21",
+  "Johnnybbb",
+  "Lumberg1975",
+  "parkertuttle",
+  "wmlamar",
+  "Bmack93",
+  "Jvent",
+  "Dragonleo69",
+  "Cooksucker"
+ ]
+}
