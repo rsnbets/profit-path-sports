@@ -79,24 +79,24 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .sec-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 10px; }
 .sec-head h2 { font-family: var(--head); font-size: 20px; font-weight: 700; margin: 0; }
 .sec-head .hint { color: var(--muted); font-size: 14px; }
-.games { display: grid; grid-template-columns: repeat(auto-fill, minmax(228px, 1fr)); gap: 12px; }
-.game { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 12px; display: flex; flex-direction: column; gap: 6px; }
+.games { display: grid; grid-template-columns: repeat(auto-fill, minmax(164px, 1fr)); gap: 8px; }
+.game { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 8px; display: flex; flex-direction: column; gap: 3px; }
 .game.live { border-color: rgba(255,61,61,0.3); } .game.forced { border-color: rgba(0,212,255,0.55); }
-.game .top { display: flex; justify-content: space-between; align-items: center; font-family: var(--mono); font-size: 12px; }
+.game .top { display: flex; justify-content: space-between; align-items: center; font-family: var(--mono); font-size: 11px; padding: 0 2px 2px; }
 .game .st { display: flex; align-items: center; gap: 6px; color: var(--dim); } .game .st.live { color: #FF6B6B; } .game .st.pre { color: var(--yellow); }
 .game .st .dot { width: 6px; height: 6px; }
 .game .kick { color: var(--dim); }
-.team { width: 100%; min-height: 44px; display: grid; grid-template-columns: 12px minmax(0, 1fr) auto 34px; align-items: center; gap: 10px; padding: 6px 10px; border-radius: 8px; border: 1px solid transparent; background: transparent; text-align: left; color: var(--text); }
+.team { width: 100%; min-height: 34px; display: grid; grid-template-columns: 10px minmax(0, 1fr) auto 28px; align-items: center; gap: 7px; padding: 3px 7px; border-radius: 6px; border: 1px solid transparent; background: transparent; text-align: left; color: var(--text); }
 button.team { cursor: pointer; border-color: rgba(255,255,255,0.07); }
 button.team:hover { border-color: rgba(0,212,255,0.4); }
 .team.pressed { background: rgba(0,212,255,0.12); border-color: var(--cyan); }
 .team.lose { color: rgba(240,238,232,0.58); }
-.team .ab { display: flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 15px; font-weight: 500; } .team.win .ab, .team.pressed .ab { font-weight: 700; }
-.team .share { font-size: 12px; color: var(--dim); }
-.team .sc { font-family: var(--head); font-size: 18px; font-weight: 700; text-align: right; }
-.tag { font-family: var(--sans); font-size: 10px; font-weight: 800; letter-spacing: 0.08em; padding: 2px 6px; border-radius: 4px; background: rgba(77,255,120,0.16); color: var(--green); }
+.team .ab { display: flex; align-items: center; gap: 6px; font-family: var(--mono); font-size: 13px; font-weight: 500; } .team.win .ab, .team.pressed .ab { font-weight: 700; }
+.team .share { font-size: 11px; color: var(--dim); }
+.team .sc { font-family: var(--head); font-size: 15px; font-weight: 700; text-align: right; }
+.tag { font-family: var(--sans); font-size: 9px; font-weight: 800; letter-spacing: 0.06em; padding: 1px 5px; border-radius: 4px; background: rgba(77,255,120,0.16); color: var(--green); }
 .tag.wi { background: var(--cyan); color: var(--bg); }
-.game .foot { font-size: 12px; color: var(--dim); padding: 2px 2px 0; }
+.game .foot { font-size: 11px; color: var(--dim); padding: 2px 2px 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .legend { font-size: 12px; color: var(--dim); }
 
 /* two-column body */
@@ -234,6 +234,8 @@ button.team:hover { border-color: rgba(0,212,255,0.4); }
   .standings .tscroll { display: none; }
   .mlist { display: flex; }
   .banner .big { font-size: 22px; }
+  .games { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; }
+  .team .share { display: none; }
   .stats3 .stat .v { font-size: 22px; }
   .pk-header-in { gap: 10px 14px; }
   .pk-nav a { padding: 8px 10px; }
