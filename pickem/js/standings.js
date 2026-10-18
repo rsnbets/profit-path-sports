@@ -99,7 +99,7 @@
       (youI >= 0 ? '<div class="card c4 you"><span class="l">You</span><span class="v">' + ord(rankOf(total, youI)) + ' place</span><span class="s">' + (leaderTotal - total[youI]) + ' back of the lead · ' + (total[youI] - mktTotal >= 0 ? '+' : '−') + Math.abs(total[youI] - mktTotal) + ' vs the Market</span></div>' : '<div class="card c4"><span class="l">You</span><span class="v">Pick your name</span><span class="s">Use the You menu at the top.</span></div>') +
       '<div class="card c4 mkt"><span class="l">The Market (every favorite)</span><span class="v">' + mktTotal + ' pts</span><span class="s">' + beat + ' of ' + N + ' players are beating it</span></div>';
 
-    qs('#body').innerHTML = st.view === 'week' ? weekGrid(games, Pl, wkPts, total, mkt, mktWk, mktTotal, youI) : seasonGrid(Pl, hist, weeksList, winners, wins, wkPts, prior, total, mktHist, mktWk, mktTotal, youI);
+    qs('#body').innerHTML = st.view === 'week' ? weekGrid(games, Pl, wkPts, total, mkt, mktWk, mktTotal, youI) : seasonGrid(Pl, hist, weeksList, winners, wins, wkPts, prior, total, mktHist, mktWk, mktTotal, youI, usePrior);
     var sw = qs('#sortWeek'), stt = qs('#sortTotal'); if (sw) sw.onclick = function () { st.sort = 'week'; render(); }; if (stt) stt.onclick = function () { st.sort = 'total'; render(); };
     renderImport(games); renderFoot();
   }
@@ -139,7 +139,7 @@
       row('cons') + '<span class="sticky" style="font-size:13px;font-weight:700;color:rgba(240,238,232,0.75)">Pool consensus</span>' + cons + '<span></span><span></span><span></span></div>' +
       rows + mrow + '</div></div></section>';
   }
-  function seasonGrid(Pl, hist, weeksList, winners, wins, wkPts, prior, total, mktHist, mktWk, mktTotal, youI) {
+  function seasonGrid(Pl, hist, weeksList, winners, wins, wkPts, prior, total, mktHist, mktWk, mktTotal, youI, usePrior) {
     var W = weeksList.length + 1, cols = '230px 70px 70px repeat(' + W + ', minmax(46px, 1fr)) 64px 90px 72px 64px';
     var row = function (cls) { return '<div class="wgrid ' + cls + '" style="grid-template-columns:' + cols + '">'; };
     var leaderTotal = Math.max.apply(null, total);
