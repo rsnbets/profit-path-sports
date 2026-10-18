@@ -180,9 +180,17 @@
       var exact = count === W.length;
       var best = W[0];
       for (var b = 1; b < W.length; b++) if (W[b].w > best.w) best = W[b];
+      // Likeliest ending that also agrees with the player's own picks on the relevant games, when one exists.
+      // The raw "best" can route through a loss the player survives (a favorite beating their pick while
+      // their rivals share that pick), which reads wrong as a "way through".
+      var agree = function (m) { return (m & relH) === relH && ((~m & ALL) & relA) === relA; };
+      var bestPick = null;
+      for (var c = 0; c < W.length; c++) if (agree(W[c].m) && (!bestPick || W[c].w > bestPick.w)) bestPick = W[c];
+      var toPath = function (o) { return rel.map(function (gid) { return { gid: gid, side: res.side(o.m, U.indexOf(gid)), againstPick: !!pk[gid] && pk[gid] !== res.side(o.m, U.indexOf(gid)) }; }); };
       return {
         must: must, rel: rel, kmin: kmin, exact: exact, paths: W.length,
-        best: rel.map(function (gid) { return { gid: gid, side: res.side(best.m, U.indexOf(gid)) }; }),
+        best: toPath(best),
+        bestPick: bestPick ? toPath(bestPick) : null,
         W: W
       };
     }
