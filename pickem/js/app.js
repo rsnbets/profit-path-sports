@@ -81,7 +81,7 @@
 
     // You selector
     qs('#youSlot').innerHTML = hasPicks ? U.youSelect(st.players, st.you) : '';
-    var ys = qs('#youSel'); if (ys) ys.onchange = function () { st.you = this.value; S.set('you', st.you); if (!st.sel && st.you) st.sel = st.you; render(); };
+    var ys = qs('#youSel'); if (ys) ys.onchange = function () { st.you = this.value; S.set('you', st.you); if (st.you) st.sel = st.you; render(); };
 
     var res = null, eng = null, mkt = null;
     if (st.engineOn) {
