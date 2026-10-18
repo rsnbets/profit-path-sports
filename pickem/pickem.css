@@ -143,6 +143,7 @@ button.team:hover { border-color: rgba(0,212,255,0.4); }
 .chip { display: flex; align-items: center; gap: 8px; padding: 7px 12px; border-radius: 8px; border: 1px dashed rgba(240,238,232,0.4); }
 .chip.must { background: rgba(77,255,120,0.10); border: 1px solid rgba(77,255,120,0.45); }
 .chip .ab { font-family: var(--mono); font-size: 14px; font-weight: 500; } .chip .opp { font-size: 12px; color: var(--muted); }
+.chip.against { border-color: rgba(255,61,61,0.5); background: rgba(255,61,61,0.06); } .chip.against .opp { color: #FF8A8A; }
 .ptxt { font-size: 13px; color: var(--muted); }
 .tbbox { background: var(--surface-2); border-radius: 10px; padding: 12px 14px; display: flex; flex-direction: column; gap: 4px; }
 .tbbox .l { font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--yellow); }

@@ -255,7 +255,7 @@
     var P = st.players, di = P.map(function (p) { return p.name; }).indexOf(st.sel), p = P[di], s = res.status[di], sc = SC[s], nd = nds[di];
     var lead = P.map(function (q) { var a = 0; games.forEach(function (g) { if (g.status === 'live' && q.picks[g.id] && winnerOf(g) === q.picks[g.id]) a++; }); return a; });
     var isYou = p.name === st.you, anyForced = Object.keys(st.forced).length > 0;
-    var chip = function (gid, side, must) { var g = byId[gid], abbr = teamOf(g, side), opp = side === 'H' ? g.away : g.home; return '<span class="chip' + (must ? ' must' : '') + '">' + sw(abbr) + '<span class="ab">' + esc(abbr) + '</span><span class="opp">over ' + esc(opp) + '</span></span>'; };
+    var chip = function (gid, side, must, against) { var g = byId[gid], abbr = teamOf(g, side), opp = side === 'H' ? g.away : g.home; return '<span class="chip' + (must ? ' must' : '') + (against ? ' against' : '') + '"' + (against ? ' title="Goes against this pick, but the player still finishes tied or better in this ending"' : '') + '>' + sw(abbr) + '<span class="ab">' + esc(abbr) + '</span><span class="opp">over ' + esc(opp) + (against ? ' \u00b7 not the pick' : '') + '</span></span>'; };
     var body = '';
     if (s === 'Clinched') body = '<div class="clinch">Locked up. Every ending is an outright win.</div>';
     else if (s === 'Out') {
@@ -263,9 +263,11 @@
       feed.forEach(function (f) { if (f.eliminated.indexOf(p.name) >= 0) by = byId[f.gid]; });
       body = '<div class="outbox"><div class="t">Out for the week</div><div class="x">' + (by && !anyForced ? 'Eliminated by ' + esc(teamOf(by, winnerOf(by)) + ' ' + Math.max(by.home_score, by.away_score) + ', ' + teamOf(by, winnerOf(by) === 'H' ? 'A' : 'H') + ' ' + Math.min(by.home_score, by.away_score)) + (by.finalAt ? ' at ' + esc(U.fmtTime(by.finalAt)) : '') + '. Max of ' + res.max[di] + ' can’t reach the top in any ending.' : 'No ending gets them to the top' + (anyForced ? ' with these what-ifs.' : '.')) + '</div></div>';
     } else if (nd) {
-      var must = nd.must.map(function (x) { return chip(x.gid, x.side, true); }).join('');
+      var must = nd.must.map(function (x) { return chip(x.gid, x.side, true, !!p.picks[x.gid] && p.picks[x.gid] !== x.side); }).join('');
       var some = nd.exact && nd.kmin ? nd.rel.map(function (gid) { return chip(gid, p.picks[gid], false); }).join('') : '';
-      var path = !nd.exact ? nd.best.map(function (x) { return chip(x.gid, x.side, false); }).join('') : '';
+      var pathSrc = nd.bestPick || nd.best;
+      var path = !nd.exact ? pathSrc.map(function (x) { return chip(x.gid, x.side, false, x.againstPick); }).join('') : '';
+      var mustAgainst = nd.must.some(function (x) { return p.picks[x.gid] && p.picks[x.gid] !== x.side; });
       var tie = eng.likeliestTie(res, di, nd);
       var tbHead = 'No tiebreak needed', tbMain = 'Every ending that works is an outright win';
       if (tie) {
@@ -282,7 +284,7 @@
       }).join('');
       body = (must ? '<div class="block"><div class="t">Needs all of these</div><div class="chips">' + must + '</div></div>' : '') +
         (some ? '<div class="block"><div class="t">Plus ' + nd.kmin + ' of these</div><div class="chips">' + some + '</div></div>' : '') +
-        (path ? '<div class="block"><div class="t">Most likely way through</div><div class="chips">' + path + '</div></div>' : '') +
+        (path ? '<div class="block"><div class="t">Most likely way through</div><div class="chips">' + path + '</div>' + (!nd.bestPick ? '<div class="legend">No ending with all of ' + (isYou ? 'your' : 'their') + ' picks right still wins. This path survives a loss.</div>' : '') + '</div>' : '') +
         (!must && !some && !path ? '<div style="font-size:14px">Stays tied for first or better in every ending.</div>' : '') +
         '<div class="ptxt">Wins or ties for first in ' + nd.paths + ' of ' + res.N + ' possible endings' + (anyForced ? ', with your what-ifs.' : '.') + '</div>' +
         '<div class="tbbox"><div class="l">Tiebreak</div><div class="h">' + tbHead + '</div><div class="m">' + tbMain + '</div><div class="s">' + tbSub + '</div></div>' +

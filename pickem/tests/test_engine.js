@@ -31,6 +31,10 @@ module.exports = function (fixturePath) {
     } else if (e.exact) {
       H.check(nd.kmin === 0 || nd.rel.length === 0, pre + 'unexpected plus-k ' + nd.kmin + ' of ' + nd.rel.length);
     }
+    // bestPick: the likeliest alive ending that agrees with the player's own picks on the relevant games
+    var bp = nd.bestPick;
+    if (bp) { H.check(bp.every(function (x) { return !x.againstPick && (!p.picks[x.gid] || p.picks[x.gid] === x.side); }), pre + 'bestPick disagrees with own picks'); }
+    else { H.check(!res.outcomes.some(function (o) { return o.S.indexOf(i) >= 0 && nd.rel.every(function (gid) { return !p.picks[gid] || res.side(o.m, res.U.indexOf(gid)) === p.picks[gid]; }); }), pre + 'bestPick missing although a pick-consistent alive ending exists'); }
     if (e.likeliest_path) {
       var path = nd.best.map(function (x) { return H.teamOf(games, x.gid, x.side); });
       H.check(H.same(path, e.likeliest_path), pre + 'path ' + JSON.stringify(path) + ' != ' + JSON.stringify(e.likeliest_path));
