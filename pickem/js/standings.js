@@ -78,6 +78,7 @@
     var prior = Pl.map(function (p) { if (usePrior && st.season.prior[p.name] != null) return st.season.prior[p.name]; var h = hist[p.name] || {}; return weeksList.reduce(function (a, w) { return a + (h[w] || 0); }, 0); });
     var total = Pl.map(function (p, i) { return prior[i] + wkPts[i]; });
     var mktPrior = weeksList.reduce(function (a, w) { return a + (mktHist[w] || 0); }, 0), mktTotal = mktPrior + mktWk;
+    var mktSeasonKnown = !(usePrior && !weeksList.length);   // PoolHost totals carry no Market history
     var winners = {}; weeksList.forEach(function (w) { var best = -1, who = []; Pl.forEach(function (p) { var v = (hist[p.name] || {})[w]; if (v == null) return; if (v > best) { best = v; who = [p.name]; } else if (v === best) who.push(p.name); }); winners[w] = who; });
     var wins = Pl.map(function (p) { return weeksList.filter(function (w) { return winners[w].indexOf(p.name) >= 0; }).length; });
 
@@ -96,10 +97,10 @@
     qs('#cards').innerHTML =
       '<div class="card c4"><span class="l">Season leader</span><span class="v">' + leaders.map(esc).join(' & ') + '</span><span class="s">' + leaderTotal + ' correct picks</span></div>' +
       '<div class="card c4 wins"><span class="l">Most weeks won</span><span class="v">' + (maxWins ? winLeaders.map(esc).join(' & ') : 'No weeks done yet') + '</span><span class="s">' + (maxWins ? maxWins + ' weekly win' + (maxWins > 1 ? 's each' : '') : '') + '</span></div>' +
-      (youI >= 0 ? '<div class="card c4 you"><span class="l">You</span><span class="v">' + ord(rankOf(total, youI)) + ' place</span><span class="s">' + (leaderTotal - total[youI]) + ' back of the lead · ' + (total[youI] - mktTotal >= 0 ? '+' : '−') + Math.abs(total[youI] - mktTotal) + ' vs the Market</span></div>' : '<div class="card c4"><span class="l">You</span><span class="v">Pick your name</span><span class="s">Use the You menu at the top.</span></div>') +
-      '<div class="card c4 mkt"><span class="l">The Market (every favorite)</span><span class="v">' + mktTotal + ' pts</span><span class="s">' + beat + ' of ' + N + ' players are beating it</span></div>';
+      (youI >= 0 ? '<div class="card c4 you"><span class="l">You</span><span class="v">' + ord(rankOf(total, youI)) + ' place</span><span class="s">' + (leaderTotal - total[youI]) + ' back of the lead · ' + (total[youI] - mktTotal >= 0 ? '+' : '−') + Math.abs(total[youI] - mktTotal) + (mktSeasonKnown ? '' : ' this week') + ' vs the Market</span></div>' : '<div class="card c4"><span class="l">You</span><span class="v">Pick your name</span><span class="s">Use the You menu at the top.</span></div>') +
+      '<div class="card c4 mkt"><span class="l">The Market (every favorite)</span><span class="v">' + (mktSeasonKnown ? mktTotal + ' pts' : mktWk + ' this week') + '</span><span class="s">' + (mktSeasonKnown ? beat + ' of ' + N + ' players are beating it' : 'Season benchmark starts this week') + '</span></div>';
 
-    qs('#body').innerHTML = st.view === 'week' ? weekGrid(games, Pl, wkPts, total, mkt, mktWk, mktTotal, youI) : seasonGrid(Pl, hist, weeksList, winners, wins, wkPts, prior, total, mktHist, mktWk, mktTotal, youI, usePrior);
+    qs('#body').innerHTML = st.view === 'week' ? weekGrid(games, Pl, wkPts, total, mkt, mktWk, mktTotal, youI) : seasonGrid(Pl, hist, weeksList, winners, wins, wkPts, prior, total, mktHist, mktWk, mktTotal, youI, usePrior, mktSeasonKnown);
     var sw = qs('#sortWeek'), stt = qs('#sortTotal'); if (sw) sw.onclick = function () { st.sort = 'week'; render(); }; if (stt) stt.onclick = function () { st.sort = 'total'; render(); };
     renderImport(games); renderFoot();
   }
@@ -139,7 +140,7 @@
       row('cons') + '<span class="sticky" style="font-size:13px;font-weight:700;color:rgba(240,238,232,0.75)">Pool consensus</span>' + cons + '<span></span><span></span><span></span></div>' +
       rows + mrow + '</div></div></section>';
   }
-  function seasonGrid(Pl, hist, weeksList, winners, wins, wkPts, prior, total, mktHist, mktWk, mktTotal, youI, usePrior) {
+  function seasonGrid(Pl, hist, weeksList, winners, wins, wkPts, prior, total, mktHist, mktWk, mktTotal, youI, usePrior, mktSeasonKnown) {
     var W = weeksList.length + 1, cols = '230px 70px 70px repeat(' + W + ', minmax(46px, 1fr)) 64px 90px 72px 64px';
     var row = function (cls) { return '<div class="wgrid ' + cls + '" style="grid-template-columns:' + cols + '">'; };
     var leaderTotal = Math.max.apply(null, total);
@@ -158,11 +159,11 @@
         '<span class="ctr mono ' + (mv > 0 ? 'pos' : mv < 0 ? 'neg' : 'zero') + '" style="font-size:13px;font-weight:500">' + (mv > 0 ? '▲ ' + mv : mv < 0 ? '▼ ' + Math.abs(mv) : '–') + '</span></div>';
     }).join('');
     var mBest = -1, mBestW = null; weeksList.forEach(function (w) { if (mktHist[w] != null && mktHist[w] > mBest) { mBest = mktHist[w]; mBestW = w; } });
-    var mrow = row('mkt') + '<span class="sticky"><span class="rk">·</span><span style="font-size:15px;font-weight:700;color:var(--yellow)">The Market</span></span><span class="ctr num" style="font-size:20px;color:var(--yellow)">' + mktTotal + '</span><span class="ctr mono" style="font-size:13px;color:var(--dim)">' + (leaderTotal - mktTotal) + '</span>' +
+    var mrow = row('mkt') + '<span class="sticky"><span class="rk">·</span><span style="font-size:15px;font-weight:700;color:var(--yellow)">The Market</span></span><span class="ctr num" style="font-size:20px;color:var(--yellow)">' + (mktSeasonKnown ? mktTotal : '\u00b7') + '</span><span class="ctr mono" style="font-size:13px;color:var(--dim)">' + (mktSeasonKnown ? (leaderTotal - mktTotal) : '\u00b7') + '</span>' +
       weeksList.map(function (w) { return '<span class="scell" style="color:rgba(240,238,232,0.75)">' + (mktHist[w] == null ? '·' : mktHist[w]) + '</span>'; }).join('') + '<span class="scell cur">' + mktWk + '</span>' +
       '<span class="ctr" style="font-size:12px;color:var(--dim)">n/a</span><span class="ctr mono" style="font-size:13px;color:var(--dim)">' + (mBestW ? mBest + ' (W' + mBestW + ')' : '·') + '</span><span class="ctr mono" style="font-size:13px;color:var(--dim)">0</span><span></span></div>';
     return '<section class="card" aria-label="Season standings" style="overflow:hidden"><div style="padding:14px 18px;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px;border-bottom:1px solid var(--border-soft)"><h2 style="font-family:var(--head);font-size:20px;margin:0">Season</h2>' +
-      '<div class="keys"><span><i class="won"></i>Won the week</span><span><i class="cur"></i>Week ' + st.data.week + ' so far</span><span>Move = rank change since Week ' + (weeksList.length ? weeksList[weeksList.length - 1] : 0) + '</span></div></div>' +
+      '<div class="keys"><span><i class="won"></i>Won the week</span><span><i class="cur"></i>Week ' + st.data.week + ' so far</span><span>Move = rank change since ' + (weeksList.length ? 'Week ' + weeksList[weeksList.length - 1] : 'last week') + '</span></div></div>' +
       (weeksList.length ? '' : '<div class="notice" style="margin:12px 18px"><div>' + (usePrior ? 'Season totals before Week ' + st.data.week + ' come from the PoolHost import (Total minus Week). Per-week columns need a season.csv (player,W1,W2,...).' : 'No earlier weeks yet. Import a season.csv (player,W1,W2,...) on the Live page, or finished weeks get saved here on their own.') + '</div></div>') +
       '<div class="tscroll"><div style="min-width:' + (520 + 52 * W + 300) + 'px;padding-bottom:6px">' +
       row('th') + '<span class="sticky th">Player</span><span class="thl">Total</span><span class="thl">Back</span>' + weeksList.map(function (w) { return '<span class="thl">W' + w + '</span>'; }).join('') + '<span class="thl" style="color:var(--cyan)">W' + st.data.week + '</span><span class="thl">Wins</span><span class="thl">Best</span><span class="thl">vs Mkt</span><span class="thl">Move</span></div>' +
