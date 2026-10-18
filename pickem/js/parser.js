@@ -24,7 +24,7 @@
   };
   var CODES = Object.keys(POOLHOST);
   // Aliases seen in the wild -> nflverse code.
-  var ALIASES = { LAR: 'LA', WSH: 'WAS', JAC: 'JAX', OAK: 'LV', SD: 'LAC', STL: 'LA', ARZ: 'ARI', GNB: 'GB', KAN: 'KC', NWE: 'NE', NOR: 'NO', SFO: 'SF', TAM: 'TB', LVR: 'LV' };
+  var ALIASES = { LAR: 'LA', WSH: 'WAS', JAC: 'JAX', AZ: 'ARI', OAK: 'LV', SD: 'LAC', STL: 'LA', ARZ: 'ARI', GNB: 'GB', KAN: 'KC', NWE: 'NE', NOR: 'NO', SFO: 'SF', TAM: 'TB', LVR: 'LV' };
   var NAME_TO_CODE = {};
   CODES.forEach(function (c) { NAME_TO_CODE[POOLHOST[c].toUpperCase()] = c; });
 
@@ -65,6 +65,7 @@
   function gameLabel(g) { return g.away + '@' + g.home; }
 
   function detectFormat(text) {
+    if (/<table[\s>]/i.test(text) && /all-picks-table|Player Name/i.test(text)) return 'poolhost';
     var rows = readCSV(text);
     if (!rows.length) return 'empty';
     var h = rows[0].map(function (x) { return x.trim().toLowerCase(); });
@@ -144,14 +145,96 @@
     return lines.join('\n') + '\n';
   }
 
-  // PoolHost export adapter. Stub until the real export is in hand (Step 0.3):
-  // it recognizes that the file is not the template and says so.
+  // ---------- PoolHost "All Picks" export ----------
+  // The standings page's download button saves an HTML table named allpicks.xls.
+  // Layout (checked on the 2026 Week 6 file): header row = Rank, Status, "Score/Home/Away/Score/Status/Player Name",
+  // then one column per game as "score|HOME|AWAY|score|status" (home listed first; scores and status only once
+  // started), then Week, Total, and the tiebreak column ("SF/WAS|Total|(TBD)"). Player rows: rank, status
+  // ("Picked" / "No Picks"), name, one picked code per game (PoolHost codes: JAC, LAR, AZ), week points,
+  // season total, tiebreak guess. No DOM is used so the same code runs in Node for the tests.
+  function decodeEntities(t) {
+    return t.replace(/&#x([0-9a-f]+);/gi, function (_, h) { return String.fromCharCode(parseInt(h, 16)); })
+      .replace(/&#(\d+);/g, function (_, d) { return String.fromCharCode(Number(d)); })
+      .replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"');
+  }
+  function htmlTableRows(html) {
+    html = String(html || '').replace(/<style[\s\S]*?<\/style>/gi, '').replace(/<script[\s\S]*?<\/script>/gi, '');
+    var rows = [], tr = /<tr[^>]*>([\s\S]*?)<\/tr>/gi, m;
+    while ((m = tr.exec(html))) {
+      var cells = [], td = /<t([dh])[^>]*>([\s\S]*?)<\/t\1>/gi, c;
+      while ((c = td.exec(m[1]))) {
+        var t = c[2].replace(/<br\s*\/?>/gi, '|').replace(/<[^>]+>/g, '');
+        t = decodeEntities(t).replace(/\s+/g, ' ').replace(/\s*\|\s*/g, '|').replace(/^\|+|\|+$/g, '').trim();
+        cells.push(t);
+      }
+      if (cells.length) rows.push(cells);
+    }
+    return rows;
+  }
+  // Header cell -> { home, away } when it names two teams, else null.
+  function headerGame(cell) {
+    var toks = cell.split('|').map(function (x) { return x.trim(); }).filter(function (x) { return /^[A-Za-z]{2,3}$/.test(x); });
+    var teams = toks.map(normalizeTeam).filter(function (x) { return x; });
+    if (teams.length !== 2) return null;
+    return { home: teams[0], away: teams[1] };
+  }
   function parsePoolHostExport(text, games) {
     var report = { errors: [], warnings: [], rows: 0, format: 'poolhost' };
-    var rows = readCSV(text);
-    report.errors.push('PoolHost export format is not wired yet. Save the standings download, then fill the CSV template (player,tiebreak,AWAY@HOME,...).');
-    if (rows.length) report.warnings.push('Saw ' + rows.length + ' rows with header: ' + rows[0].slice(0, 6).join(', ') + (rows[0].length > 6 ? ', ...' : ''));
-    return { ok: false, players: [], report: report };
+    var players = [], season = { prior: {} };
+    var rows = htmlTableRows(text);
+    if (!rows.length) { report.errors.push('No table found in the PoolHost file.'); return { ok: false, players: players, report: report, season: season }; }
+    var header = rows[0];
+    var nameCol = -1;
+    header.forEach(function (h, k) { if (/player name/i.test(h)) nameCol = k; });
+    if (nameCol < 0) { report.errors.push('Could not find the "Player Name" column in the PoolHost table.'); return { ok: false, players: players, report: report, season: season }; }
+    var byLabel = {}; games.forEach(function (g) { byLabel[gameLabel(g)] = g; });
+    var colGame = {}, weekCol = -1, totalCol = -1, tbCol = -1;
+    header.forEach(function (h, k) {
+      if (k <= nameCol) return;
+      var hg = headerGame(h);
+      if (/^week$/i.test(h)) { weekCol = k; return; }
+      if (/^total$/i.test(h)) { totalCol = k; return; }
+      if (/total/i.test(h) && /tbd|\//i.test(h)) { tbCol = k; return; }
+      if (!hg) { report.warnings.push('Column ' + (k + 1) + ' "' + h + '" was not recognized and was skipped.'); return; }
+      var g = byLabel[hg.away + '@' + hg.home];
+      if (!g) { report.errors.push('PoolHost game ' + hg.away + '@' + hg.home + ' is not one of this week\'s games.'); return; }
+      if (Object.keys(colGame).some(function (c) { return colGame[c] === g; })) { report.errors.push('Game ' + gameLabel(g) + ' appears twice.'); return; }
+      colGame[k] = g;
+    });
+    games.forEach(function (g) { if (!Object.keys(colGame).some(function (c) { return colGame[c] === g; })) report.warnings.push('No PoolHost column for ' + gameLabel(g) + '. Everyone gets a blank pick there.'); });
+    if (tbCol < 0) report.warnings.push('No tiebreak column found. Nobody has a tiebreak guess.');
+    var seen = {};
+    rows.slice(1).forEach(function (r, ri) {
+      var line = ri + 2;
+      var name = String(r[nameCol] || '').trim();
+      if (!name) return;
+      if (seen[name.toLowerCase()]) { report.errors.push('Row ' + line + ': duplicate player "' + name + '".'); return; }
+      seen[name.toLowerCase()] = true;
+      var status = String(r[nameCol - 1] || '').trim();
+      var picks = {}; games.forEach(function (g) { picks[g.id] = ''; });
+      var blanks = 0;
+      Object.keys(colGame).forEach(function (k) {
+        var g = colGame[k], raw = r[k] == null ? '' : r[k];
+        var code = normalizeTeam(raw);
+        if (code === '') { blanks++; return; }
+        if (code === null) { report.errors.push('Row ' + line + ': ' + name + ' picked "' + raw + '" for ' + gameLabel(g) + '. Unknown team.'); return; }
+        if (code === g.home) picks[g.id] = 'H';
+        else if (code === g.away) picks[g.id] = 'A';
+        else report.errors.push('Row ' + line + ': ' + name + ' picked ' + code + ' for ' + gameLabel(g) + '. That team is not in the game.');
+      });
+      if (/no picks/i.test(status)) report.warnings.push(name + ' has no picks (PoolHost status "' + status + '"). Every game counts wrong.');
+      else if (blanks) report.warnings.push(name + ' has ' + blanks + ' blank pick' + (blanks > 1 ? 's' : '') + '. Blanks count wrong.');
+      var tbRaw = tbCol >= 0 ? String(r[tbCol] == null ? '' : r[tbCol]).trim() : '';
+      var tb = tbRaw === '' ? null : Number(tbRaw);
+      if (tbRaw !== '' && !isFinite(tb)) { report.errors.push('Row ' + line + ': ' + name + ' tiebreak "' + tbRaw + '" is not a number.'); tb = null; }
+      if (tb === null && !/no picks/i.test(status)) report.warnings.push(name + ' has no tiebreak guess. They lose every tiebreak.');
+      var tot = totalCol >= 0 ? Number(r[totalCol]) : NaN, wk = weekCol >= 0 ? Number(r[weekCol]) : NaN;
+      if (isFinite(tot) && isFinite(wk)) season.prior[name] = tot - wk;
+      players.push({ name: name, tb: tb, picks: picks });
+      report.rows++;
+    });
+    if (!players.length) report.errors.push('No player rows found in the PoolHost table.');
+    return { ok: report.errors.length === 0, players: players, report: report, season: season };
   }
 
   // season.csv: player,W1,W2,... weekly points. Returns { ok, season: { name: [pts...] }, weeks: [1,2,...], report }.
@@ -195,6 +278,6 @@
   return {
     POOLHOST: POOLHOST, CODES: CODES, toPoolHostName: toPoolHostName, fromPoolHostName: fromPoolHostName, normalizeTeam: normalizeTeam,
     readCSV: readCSV, detectFormat: detectFormat, parsePicksCSV: parsePicksCSV, toPicksCSV: toPicksCSV,
-    parsePoolHostExport: parsePoolHostExport, parseSeasonCSV: parseSeasonCSV, parseAny: parseAny, gameLabel: gameLabel
+    parsePoolHostExport: parsePoolHostExport, htmlTableRows: htmlTableRows, parseSeasonCSV: parseSeasonCSV, parseAny: parseAny, gameLabel: gameLabel
   };
 }));

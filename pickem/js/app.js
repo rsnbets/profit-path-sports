@@ -297,7 +297,7 @@
     if (st.demo) { el.innerHTML = '<div class="ihead"><h2>Mock data</h2><span class="srcnote">This is the design fixture with anonymized handles. Real weeks load picks from a CSV you import; nothing is uploaded.</span></div>'; return; }
     if (el.getAttribute('data-key') === st.key) return;
     el.setAttribute('data-key', st.key);
-    U.importPanel(el, { games: games, key: st.key, season: st.data.season }, function () { loadPicks(); st.forced = {}; st.sel = null; render(); });
+    U.importPanel(el, { games: games, key: st.key, season: st.data.season, week: st.data.week }, function () { loadPicks(); st.forced = {}; st.sel = null; render(); });
   }
 
   function renderFooter(games, res) {

@@ -68,7 +68,8 @@
       st.weeks[data.week] = { points: pts, market: mktWk, winners: Pl.filter(function (p, i) { return wkPts[i] === top; }).map(function (p) { return p.name; }), saved_at: new Date().toISOString() };
       S.set('weeks:' + data.season, st.weeks);
     }
-    var prior = Pl.map(function (p) { var h = hist[p.name] || {}; return weeksList.reduce(function (a, w) { return a + (h[w] || 0); }, 0); });
+    var usePrior = st.season && st.season.prior && st.season.priorAsOf === data.week;
+    var prior = Pl.map(function (p) { if (usePrior && st.season.prior[p.name] != null) return st.season.prior[p.name]; var h = hist[p.name] || {}; return weeksList.reduce(function (a, w) { return a + (h[w] || 0); }, 0); });
     var total = Pl.map(function (p, i) { return prior[i] + wkPts[i]; });
     var mktPrior = weeksList.reduce(function (a, w) { return a + (mktHist[w] || 0); }, 0), mktTotal = mktPrior + mktWk;
     var winners = {}; weeksList.forEach(function (w) { var best = -1, who = []; Pl.forEach(function (p) { var v = (hist[p.name] || {})[w]; if (v == null) return; if (v > best) { best = v; who = [p.name]; } else if (v === best) who.push(p.name); }); winners[w] = who; });
@@ -156,7 +157,7 @@
       '<span class="ctr" style="font-size:12px;color:var(--dim)">n/a</span><span class="ctr mono" style="font-size:13px;color:var(--dim)">' + (mBestW ? mBest + ' (W' + mBestW + ')' : '·') + '</span><span class="ctr mono" style="font-size:13px;color:var(--dim)">0</span><span></span></div>';
     return '<section class="card" aria-label="Season standings" style="overflow:hidden"><div style="padding:14px 18px;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px;border-bottom:1px solid var(--border-soft)"><h2 style="font-family:var(--head);font-size:20px;margin:0">Season</h2>' +
       '<div class="keys"><span><i class="won"></i>Won the week</span><span><i class="cur"></i>Week ' + st.data.week + ' so far</span><span>Move = rank change since Week ' + (weeksList.length ? weeksList[weeksList.length - 1] : 0) + '</span></div></div>' +
-      (weeksList.length ? '' : '<div class="notice" style="margin:12px 18px"><div>No earlier weeks yet. Import a season.csv (player,W1,W2,...) on the Live page, or finished weeks get saved here on their own.</div></div>') +
+      (weeksList.length ? '' : '<div class="notice" style="margin:12px 18px"><div>' + (usePrior ? 'Season totals before Week ' + data.week + ' come from the PoolHost import (Total minus Week). Per-week columns need a season.csv (player,W1,W2,...).' : 'No earlier weeks yet. Import a season.csv (player,W1,W2,...) on the Live page, or finished weeks get saved here on their own.') + '</div></div>') +
       '<div class="tscroll"><div style="min-width:' + (520 + 52 * W + 300) + 'px;padding-bottom:6px">' +
       row('th') + '<span class="sticky th">Player</span><span class="thl">Total</span><span class="thl">Back</span>' + weeksList.map(function (w) { return '<span class="thl">W' + w + '</span>'; }).join('') + '<span class="thl" style="color:var(--cyan)">W' + st.data.week + '</span><span class="thl">Wins</span><span class="thl">Best</span><span class="thl">vs Mkt</span><span class="thl">Move</span></div>' +
       rows + mrow + '</div></div></section>';
@@ -166,7 +167,7 @@
     if (st.demo) { el.innerHTML = '<div class="ihead"><h2>Mock data</h2><span class="srcnote">Design fixture with anonymized handles and made-up earlier weeks.</span></div>'; return; }
     if (el.getAttribute('data-key') === st.key) return;
     el.setAttribute('data-key', st.key);
-    U.importPanel(el, { games: games, key: st.key, season: st.data.season }, function () { var m = S.get('picks:' + st.key, null); st.players = m && m.players ? m.players : []; st.season = S.get('season:' + st.data.season, null); st.weeks = S.get('weeks:' + st.data.season, {}); render(); });
+    U.importPanel(el, { games: games, key: st.key, season: st.data.season, week: st.data.week }, function () { var m = S.get('picks:' + st.key, null); st.players = m && m.players ? m.players : []; st.season = S.get('season:' + st.data.season, null); st.weeks = S.get('weeks:' + st.data.season, {}); render(); });
   }
   function renderFoot() {
     qs('#foot').innerHTML = '<span><b>Math, not picks. Win % from betting markets, frozen at kickoff.</b></span><span>Weekly winner is most correct picks, closest ' + esc(st.data.tiebreak.label) + ' total breaks ties. Season is total correct picks. The Market row picks every de-vigged favorite as a benchmark and can’t win anything. A tied game scores nobody. A blank pick counts wrong.</span><span>Scores: ESPN scoreboard. Market favorites from the data build (' + esc(U.fmtDayTime(st.data.generated_at)) + '). Times shown in ' + esc(U.TZ || 'your local zone') + '.</span>';
