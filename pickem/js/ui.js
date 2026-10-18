@@ -103,6 +103,41 @@
     return 'No market number for this game. 50% placeholder.';
   }
 
+  // ---------- share link ----------
+  // Picks ride in the URL fragment (#p=...), which browsers never send to the server. Nothing is stored
+  // anywhere but the receiving browser. Compact: [name, tiebreak, picks string H/A/- in game order].
+  function b64url(str) { return btoa(unescape(encodeURIComponent(str))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, ''); }
+  function unb64url(str) { str = str.replace(/-/g, '+').replace(/_/g, '/'); while (str.length % 4) str += '='; return decodeURIComponent(escape(atob(str))); }
+  function encodeShare(players, games, key) {
+    var rows = players.map(function (p) { return [p.name, p.tb == null ? null : p.tb, games.map(function (g) { return p.picks[g.id] === 'H' ? 'H' : p.picks[g.id] === 'A' ? 'A' : '-'; }).join('')]; });
+    return b64url(JSON.stringify({ k: key, p: rows }));
+  }
+  function decodeShare(frag, games, key) {
+    try {
+      var m = /[#&]p=([A-Za-z0-9_-]+)/.exec(frag || ''); if (!m) return null;
+      var d = JSON.parse(unb64url(m[1]));
+      if (!d || d.k !== key || !Array.isArray(d.p)) return { error: 'This share link is for ' + (d && d.k ? d.k : 'another week') + ', not ' + key + '.' };
+      var players = [];
+      for (var i = 0; i < d.p.length; i++) {
+        var r = d.p[i]; if (!Array.isArray(r) || typeof r[0] !== 'string' || typeof r[2] !== 'string' || r[2].length !== games.length) return { error: 'Share link does not match this week\u2019s games.' };
+        var picks = {}; games.forEach(function (g, j) { picks[g.id] = r[2][j] === 'H' ? 'H' : r[2][j] === 'A' ? 'A' : ''; });
+        players.push({ name: r[0].slice(0, 60), tb: typeof r[1] === 'number' && isFinite(r[1]) ? r[1] : null, picks: picks });
+      }
+      return players.length ? { players: players } : { error: 'Share link holds no players.' };
+    } catch (e) { return { error: 'Share link could not be read.' }; }
+  }
+  // On page load: a share link in the URL imports its picks into this browser, then the fragment is dropped.
+  function importFromShareLink(games, key) {
+    if (!location.hash || location.hash.indexOf('p=') < 0) return null;
+    var r = decodeShare(location.hash, games, key);
+    if (r && r.players) S.set('picks:' + key, { players: r.players, importedAt: new Date().toISOString(), format: 'share-link' });
+    try { history.replaceState(null, '', location.pathname + location.search); } catch (e) { /* ignore */ }
+    return r;
+  }
+  function shareURL(players, games, key) {
+    return location.origin + location.pathname.replace(/standings\.html$/, 'index.html') + location.search + '#p=' + encodeShare(players, games, key);
+  }
+
   // ---------- header ----------
   function header(active, extra) {
     // Carry demo/season/week params across pages, never the view toggle.
@@ -128,7 +163,9 @@
     el.innerHTML =
       '<div class="ihead"><h2>Pool data</h2><div class="row">' +
       (picksMeta ? '<span class="srcnote">' + picksMeta.players.length + ' players imported ' + esc(fmtDayTime(picksMeta.importedAt)) + '</span>' : '<span class="srcnote">No picks loaded for this week.</span>') +
+      (picksMeta ? '<button class="btn small green" id="shareBtn">Copy share link</button>' : '') +
       '<button class="btn small" id="impToggle" aria-expanded="' + (ctx.open ? 'true' : 'false') + '">' + (picksMeta ? 'Replace or manage' : 'Import picks') + '</button></div></div>' +
+      '<div class="report" id="shareMsg"></div>' +
       '<div id="impBody"' + (ctx.open ? '' : ' class="hidden"') + '>' +
       '<div class="drop" id="drop">Drop the PoolHost download (allpicks.xls) or the picks CSV here, or <label style="color:var(--cyan);cursor:pointer"><input type="file" id="file" accept=".csv,.xls,.html,.htm,text/csv,text/html,.txt" class="sr"> choose a file</label>.<br><span class="srcnote">PoolHost: the All Picks page\u2019s download button. CSV template: player,tiebreak,AWAY@HOME,... with nflverse codes (LA = Rams, WAS).</span></div>' +
       '<textarea id="paste" placeholder="Or paste CSV text here" aria-label="Paste CSV"></textarea>' +
@@ -137,6 +174,13 @@
       '<div class="srcnote">Picks stay in this browser only. Nothing is uploaded. The export holds the snapshot log (every player’s status and win % at picks-locked time and after each final) for checking calibration later.</div>' +
       '</div>';
     var body = qs('#impBody', el), rep = qs('#report', el);
+    var sb = qs('#shareBtn', el);
+    if (sb) sb.onclick = function () {
+      var url = shareURL(picksMeta.players, games, key), msg = qs('#shareMsg', el);
+      var show = function (ok) { msg.innerHTML = (ok ? '<div class="ok">Link copied. Anyone who opens it gets this week\u2019s picks on their own device. Share it with pool members only.</div>' : '<div class="w">Copy this link:</div>') + '<textarea readonly style="min-height:60px" onclick="this.select()">' + esc(url) + '</textarea>'; };
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(url).then(function () { show(true); }, function () { show(false); });
+      else show(false);
+    };
     qs('#impToggle', el).onclick = function () { var open = body.classList.toggle('hidden'); this.setAttribute('aria-expanded', String(!open)); };
     function showReport(r, okMsg) {
       var lines = [];
@@ -197,5 +241,6 @@
 
   root.PickemUI = { COLORS: COLORS, sw: sw, esc: esc, pct: pct, pct1: pct1, fmt: fmt, fmtTime: fmtTime, fmtKick: fmtKick, fmtDayTime: fmtDayTime, TZ: TZ, slotOf: slotOf, qs: qs, param: param,
     loadJSON: loadJSON, resolveWeek: resolveWeek, loadWeek: loadWeek, loadDemo: loadDemo, assembleGames: assembleGames, finalOrder: finalOrder, sourceTitle: sourceTitle,
-    header: header, youSelect: youSelect, importPanel: importPanel, download: download, logSnapshot: logSnapshot };
+    header: header, youSelect: youSelect, importPanel: importPanel, download: download, logSnapshot: logSnapshot,
+    encodeShare: encodeShare, decodeShare: decodeShare, importFromShareLink: importFromShareLink, shareURL: shareURL };
 }(typeof self !== 'undefined' ? self : this));
