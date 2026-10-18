@@ -113,7 +113,6 @@
       '<nav class="pk-nav" aria-label="Pool sections">' +
       '<a href="index.html' + q + '"' + (active === 'live' ? ' class="on" aria-current="page"' : '') + '>Live</a>' +
       '<a href="standings.html' + q + '"' + (active === 'standings' ? ' class="on" aria-current="page"' : '') + '>Standings</a>' +
-      '<a href="standings.html' + (q ? q + '&' : '?') + 'view=season"' + (active === 'season' ? ' class="on" aria-current="page"' : '') + '>Season</a>' +
       '</nav>' + (extra || '') + '</div></header>';
   }
   function youSelect(players, you) {
@@ -122,16 +121,16 @@
   }
 
   // ---------- import panel ----------
-  // Renders into `el`. onChange(kind) fires after a successful import ('picks' or 'season') or clear.
+  // Renders into `el`. onChange(kind) fires after a successful import ('picks') or clear.
   function importPanel(el, ctx, onChange) {
-    var games = ctx.games, key = ctx.key, season = ctx.season;
+    var games = ctx.games, key = ctx.key;
     var picksMeta = S.get('picks:' + key, null);
     el.innerHTML =
       '<div class="ihead"><h2>Pool data</h2><div class="row">' +
       (picksMeta ? '<span class="srcnote">' + picksMeta.players.length + ' players imported ' + esc(fmtDayTime(picksMeta.importedAt)) + '</span>' : '<span class="srcnote">No picks loaded for this week.</span>') +
       '<button class="btn small" id="impToggle" aria-expanded="' + (ctx.open ? 'true' : 'false') + '">' + (picksMeta ? 'Replace or manage' : 'Import picks') + '</button></div></div>' +
       '<div id="impBody"' + (ctx.open ? '' : ' class="hidden"') + '>' +
-      '<div class="drop" id="drop">Drop the PoolHost download (allpicks.xls) or the picks CSV here, or <label style="color:var(--cyan);cursor:pointer"><input type="file" id="file" accept=".csv,.xls,.html,.htm,text/csv,text/html,.txt" class="sr"> choose a file</label>.<br><span class="srcnote">PoolHost: the All Picks page\u2019s download button. CSV template: player,tiebreak,AWAY@HOME,... with nflverse codes (LA = Rams, WAS). A season.csv (player,W1,W2,...) works too.</span></div>' +
+      '<div class="drop" id="drop">Drop the PoolHost download (allpicks.xls) or the picks CSV here, or <label style="color:var(--cyan);cursor:pointer"><input type="file" id="file" accept=".csv,.xls,.html,.htm,text/csv,text/html,.txt" class="sr"> choose a file</label>.<br><span class="srcnote">PoolHost: the All Picks page\u2019s download button. CSV template: player,tiebreak,AWAY@HOME,... with nflverse codes (LA = Rams, WAS).</span></div>' +
       '<textarea id="paste" placeholder="Or paste CSV text here" aria-label="Paste CSV"></textarea>' +
       '<div class="row"><button class="btn cyan" id="parseBtn">Load pasted CSV</button><button class="btn" id="tplBtn">Download blank template</button><button class="btn" id="exportBtn">Export week JSON</button><button class="btn danger" id="clearBtn">Clear pool data</button></div>' +
       '<div class="report" id="report"></div>' +
@@ -149,20 +148,9 @@
     }
     function handle(text) {
       var r = P.parseAny(text, games);
-      if (r.format === 'season' || (r.report && r.report.format === 'season')) {
-        if (r.ok) { S.set('season:' + season, { weeks: r.weeks, season: r.season, importedAt: new Date().toISOString() }); showReport(r, 'Season history loaded: ' + r.report.rows + ' players, weeks ' + r.weeks.join(', ') + '.'); onChange('season'); }
-        else showReport(r, '');
-        return;
-      }
       if (r.ok) {
         var meta = { players: r.players, importedAt: new Date().toISOString(), format: r.report.format };
         S.set('picks:' + key, meta);
-        if (r.season && r.season.prior && Object.keys(r.season.prior).length) {
-          // PoolHost's Total column minus its Week column = points before this week. Tagged with the week it came from.
-          var sz = S.get('season:' + season, null) || { weeks: [], season: {} };
-          sz.prior = r.season.prior; sz.priorAsOf = ctx.week; sz.priorImportedAt = meta.importedAt; sz.satOut = r.season.satOut || [];
-          S.set('season:' + season, sz);
-        }
         showReport(r, 'Loaded ' + r.players.length + ' players for ' + key + '.');
         var note = qs('.ihead .srcnote', el); if (note) note.textContent = meta.players.length + ' players imported ' + fmtDayTime(meta.importedAt);
         onChange('picks');
@@ -183,7 +171,7 @@
       download('pickem-' + key + '-snapshots.json', JSON.stringify({ week: key, exported_at: new Date().toISOString(), snapshots: snaps }, null, 1), 'application/json');
     };
     qs('#clearBtn', el).onclick = function () {
-      if (!confirm('Clear every pick’em item stored in this browser (picks, season history, snapshots)?')) return;
+      if (!confirm('Clear every pick’em item stored in this browser (picks, snapshots)?')) return;
       S.clearAll(); rep.innerHTML = '<div class="ok">Cleared.</div>'; var note2 = qs('.ihead .srcnote', el); if (note2) note2.textContent = 'No picks loaded for this week.'; onChange('clear');
     };
   }

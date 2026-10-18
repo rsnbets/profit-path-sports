@@ -271,7 +271,6 @@
   function parseAny(text, games) {
     var f = detectFormat(text);
     if (f === 'template') return parsePicksCSV(text, games);
-    if (f === 'season') { var s = parseSeasonCSV(text); s.format = 'season'; return s; }
     if (f === 'empty') return { ok: false, players: [], report: { errors: ['The file is empty.'], warnings: [], rows: 0, format: 'empty' } };
     return parsePoolHostExport(text, games);
   }

@@ -55,8 +55,6 @@ module.exports = function () {
   var rpBad = P.parseAny(ph.replace('<td>SEA</td>', '<td>KC</td>'), g3);
   H.check(!rpBad.ok && /KC for SEA@DEN/.test(rpBad.report.errors.join()), 'poolhost wrong-game pick reported: ' + rpBad.report.errors.join(' | '));
   // Season CSV
-  var rs = P.parseSeasonCSV('player,W1,W2,W3\nA,9,10,\nB,8,x,7\n');
-  H.check(!rs.ok && rs.season.A[2] === null && /not a number/.test(rs.report.errors.join()), 'season csv: ' + JSON.stringify(rs));
-  H.check(P.detectFormat('player,W1,W2\nA,1,2') === 'season' && P.detectFormat(tpl) === 'template', 'detectFormat');
+  H.check(P.detectFormat(tpl) === 'template', 'detectFormat');
   return H.report('parser: round trip, name map, validation report');
 };
