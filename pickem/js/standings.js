@@ -155,7 +155,7 @@
       return row(i === youI ? 'you' : '') + '<span class="sticky"><span class="rk">' + rankOf(total, i) + '</span><span class="nm"' + (i === youI ? ' style="color:var(--cyan)"' : '') + '>' + esc(p.name) + '</span>' + (i === youI ? '<span class="you">YOU</span>' : '') + '</span>' +
         '<span class="ctr num" style="font-size:20px">' + total[i] + '</span><span class="ctr mono" style="font-size:13px;color:rgba(240,238,232,0.7)">' + (total[i] === leaderTotal ? '·' : leaderTotal - total[i]) + '</span>' + cells +
         '<span class="ctr num" style="font-size:16px;color:' + (wins[i] ? 'var(--yellow)' : 'rgba(240,238,232,0.5)') + '">' + wins[i] + '</span><span class="ctr mono" style="font-size:13px">' + (bestW ? bestV + ' (W' + bestW + ')' : '·') + '</span>' +
-        '<span class="ctr mono ' + (diff > 0 ? 'pos' : diff < 0 ? 'neg' : 'zero') + '" style="font-size:13px">' + (diff > 0 ? '+' + diff : diff < 0 ? '−' + Math.abs(diff) : 'even') + '</span>' +
+        '<span class="ctr mono ' + (diff > 0 ? 'pos' : diff < 0 ? 'neg' : 'zero') + '" style="font-size:13px">' + (!mktSeasonKnown ? '\u00b7' : diff > 0 ? '+' + diff : diff < 0 ? '−' + Math.abs(diff) : 'even') + '</span>' +
         '<span class="ctr mono ' + (mv > 0 ? 'pos' : mv < 0 ? 'neg' : 'zero') + '" style="font-size:13px;font-weight:500">' + (mv > 0 ? '▲ ' + mv : mv < 0 ? '▼ ' + Math.abs(mv) : '–') + '</span></div>';
     }).join('');
     var mBest = -1, mBestW = null; weeksList.forEach(function (w) { if (mktHist[w] != null && mktHist[w] > mBest) { mBest = mktHist[w]; mBestW = w; } });
