@@ -310,6 +310,15 @@
   .g-block { margin-bottom:16px; }
   .g-blk { font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--text);font-weight:600;margin-bottom:6px;padding-bottom:5px;border-bottom:1px solid var(--border-2); }
   .g-blk .thin { letter-spacing:0;text-transform:none;font-weight:400; }
+
+  .hero-center { text-align:center;justify-content:center; }
+  .hero-center .p-id { margin:0 auto; } .hero-center .p-meta { margin-left:auto;margin-right:auto;max-width:70ch; }
+  .hdr-search.hero-center { flex-direction:column;gap:6px; } .hdr-search.hero-center .search-wrap { width:100%;max-width:520px; }
+  .gsel-wrap { position:relative; }
+  .gsel { font:inherit;font-size:11px;font-weight:600;letter-spacing:.04em;padding:6px 28px 6px 10px;border:1px solid var(--border);border-radius:8px;background:var(--inset);color:var(--text);cursor:pointer;-webkit-appearance:none;appearance:none;max-width:260px;
+    background-image:linear-gradient(45deg,transparent 50%,var(--muted) 50%),linear-gradient(135deg,var(--muted) 50%,transparent 50%);background-position:calc(100% - 14px) 50%,calc(100% - 9px) 50%;background-size:5px 5px,5px 5px;background-repeat:no-repeat; }
+  .gsel:hover,.gsel:focus { border-color:var(--green-border);outline:none; }
+  table.slate td.gcell { font-family:'DM Mono',monospace;font-size:11.5px;white-space:nowrap; } table.slate td.gcell .at { color:var(--muted);margin:0 2px; }
 </style>
 <link rel="stylesheet" href="/styles/sidebar.css">
 <link rel="stylesheet" href="/styles/topbar.css">
@@ -558,30 +567,27 @@
         <a class="hdr-btn" href="/nfl-slate.html?view=graded" id="gradedBtn">📊 Graded</a>
       </span>
     </div>
-    <div class="p-hero">
+    <div class="p-hero hero-center">
       <div class="p-id">
         <div class="p-title">NFL Prop Slate</div>
         <div class="p-meta">Every prop on every game — <strong>how often he's cleared the live line</strong> over L5 / L10 / L15 / season, the best price and the fair price, the matchup, and the injury report.</div>
       </div>
     </div>
-    <div class="hdr-search">
+    <div class="hdr-search hero-center">
       <div class="search-wrap" id="searchWrap">
         <input type="text" id="searchIn" class="search-in" placeholder="Jump to any player — try &ldquo;Nacua&rdquo;…" autocomplete="off" spellcheck="false">
         <div class="search-drop" id="searchDrop"></div>
       </div>
-      <span class="hdr-hint">or pick a game below</span>
+      <span class="hdr-hint">or browse the whole board below</span>
     </div>
   </div>
   <div class="status-bar" id="statusBar">Loading…</div>
   <div id="slateView">
   <div class="section">
-    <div class="section-label">Pick a game</div>
-    <div class="chip-row" id="gameChips"></div>
-  </div>
-  <div class="section">
     <div class="lines-head">
       <div class="section-label" id="mktLabel">Market</div>
       <div class="lines-head-right">
+        <div class="gsel-wrap"><select id="gameSel" class="gsel" title="Show one game or the whole board"></select></div>
         <div class="mb-wrap" id="mybooksWrap"><button type="button" class="mb-btn">My books: all ▾</button><div class="mb-panel" hidden></div></div>
         <div class="side-seg" id="sideSeg" title="Which side to grade the history against">
           <button type="button" data-side="0" class="active">Over</button>
@@ -629,12 +635,13 @@
 <script>
 const ODDS_URL='https://nfl-ev-sigma.vercel.app/props.json';
 // market tabs: [label, [sgo markets]]; market -> player-db key (history) ; markets with no history are not shown
-const TABS=[['Passing',['passing_yards','passing_touchdowns','passing_completions','passing_attempts','passing_interceptions']],
+const TABS=[['All props',null],['Passing',['passing_yards','passing_touchdowns','passing_completions','passing_attempts','passing_interceptions']],
   ['Rushing',['rushing_yards','rushing_attempts']],['Receiving',['receiving_yards','receiving_receptions']],
   ['Combos',['rushing+receiving_yards','passing+rushing_yards']],['Touchdowns',['touchdowns']],
   ['Longest',['receiving_longestReception','rushing_longestRush','passing_longestCompletion']],
   ['Defense',['defense_combinedTackles','defense_soloTackles','defense_assistedTackles','defense_sacks','defense_interceptions']],
   ['Kicking',['fieldGoals_made','kicking_totalPoints','extraPoints_kicksMade']]];
+TABS[0][1]=[...new Set(TABS.slice(1).flatMap(t=>t[1]))];
 const KEY={passing_yards:'pyd',passing_touchdowns:'ptd',passing_completions:'cmp',passing_attempts:'att',passing_interceptions:'int',
   rushing_yards:'ryd',rushing_attempts:'car',receiving_yards:'recyd',receiving_receptions:'rec',touchdowns:'anytd',
   'rushing+receiving_yards':'rr','passing+rushing_yards':'pr',fieldGoals_made:'fgm',kicking_totalPoints:'kpts',extraPoints_kicksMade:'xpm',
@@ -668,11 +675,13 @@ let ODDS=null,IDX=null,F={},MU=null,INJ=null,GAME=null,TAB=0,SIDE=0,SHARDS={},NA
 let MYBOOKS=new Set(); try{ MYBOOKS=new Set(JSON.parse(localStorage.getItem('ppz_mybooks')||'[]')); }catch(e){}
 let SORT=null;   // {k, dir} — null = default (market order, then L10)
 // sortable columns: key -> value getter (null/undefined sinks to the bottom in either direction)
-const SORTV={player:r=>r.p.name.toLowerCase(),prop:r=>MLABEL[r.m]||r.m,line:r=>r.line,
+const MIN_N={l5:3,l10:5,l15:5,sea:3,prev:5,vt:3};
+const rate=(h,minN)=>(h&&h.n>=minN)?h.p+h.n*1e-4:null;      // tiny samples sink; ties break on n
+const SORTV={player:r=>r.p.name.toLowerCase(),game:r=>new Date(r.p.g.startsAt).getTime()*-1,prop:r=>MLABEL[r.m]||r.m,line:r=>r.line,
   best:r=>{const b=SIDE?r.pr&&r.pr.bestUnder:r.pr&&r.pr.bestOver; return b?toDec(b[1]):null;},
   fair:r=>{const f=r.pr&&r.pr.fairOver!=null?(SIDE?1-r.pr.fairOver:r.pr.fairOver):null; return f;},
-  l5:r=>r.l5&&r.l5.p,l10:r=>r.l10&&r.l10.p,l15:r=>r.l15&&r.l15.p,sea:r=>r.sea&&r.sea.p,prev:r=>r.prev&&r.prev.p,
-  vt:r=>r.vt&&r.vt.p,last:r=>r.last,avg5:r=>r.avg5,mu:r=>r.mu&&r.mu[1],rep:r=>r.inj?(r.inj[0]||r.inj[1]||''):''};
+  l5:r=>rate(r.l5,3),l10:r=>rate(r.l10,5),l15:r=>rate(r.l15,5),sea:r=>rate(r.sea,3),prev:r=>rate(r.prev,5),
+  vt:r=>rate(r.vt,3),last:r=>r.last,avg5:r=>r.avg5,mu:r=>r.mu&&r.mu[1],rep:r=>r.inj?(r.inj[0]||r.inj[1]||''):''};
 const bookOK=b=>!MYBOOKS.size||MYBOOKS.has(b);
 function mountMyBooks(){
   const wrap=document.getElementById('mybooksWrap'); if(!wrap||!ODDS) return;
@@ -734,13 +743,11 @@ async function boot(){
   const od=new Date(ODDS.generatedAt).toLocaleString(undefined,{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'});
   const sd=new Date(IDX.generatedAt).toLocaleDateString(undefined,{month:'short',day:'numeric'});
   st.className='status-bar ok'; st.textContent='Lines as of '+od+' · stats through '+sd+(INJ?' · injury report week '+INJ.week:'');
-  renderGameChips(); renderGraded(); mountMyBooks(); wireSearch();
+  renderGameSelect(); renderGraded(); mountMyBooks(); wireSearch();
   document.querySelectorAll('#sideSeg button').forEach(b=>b.addEventListener('click',()=>{ SIDE=+b.dataset.side; document.querySelectorAll('#sideSeg button').forEach(x=>x.classList.toggle('active',x===b)); renderTable(); }));
   if(new URLSearchParams(location.search).get('view')==='graded') showGraded(true);
   const want=new URLSearchParams(location.search).get('g');
-  const games=ODDS.games; const now=Date.now();
-  let g=games.find(x=>x.eventID===want||(x.away+'-'+x.home)===want)||games.find(x=>new Date(x.startsAt).getTime()>now-4*3600e3)||games[0];
-  if(g) selectGame(g);
+  selectGame(want&&want!=='all'?(ODDS.games.find(x=>x.eventID===want||gameKey(x)===want)||null):null);
 }
 let GRADED=null;
 function showGraded(on){
@@ -838,29 +845,41 @@ function tzAbbr(d){ const p=new Intl.DateTimeFormat(undefined,{timeZoneName:'sho
 function fmtKick(dt,withDay){ return (withDay?dt.toLocaleDateString(undefined,{weekday:'short',month:'short',day:'numeric'})+' · ':'')
   +dt.toLocaleTimeString(undefined,{hour:'numeric',minute:'2-digit'})+' '+tzAbbr(dt); }
 function gameTime(g){ const d=new Date(g.startsAt); return d.toLocaleDateString(undefined,{weekday:'short'})+' '+d.toLocaleTimeString(undefined,{hour:'numeric',minute:'2-digit'})+' '+tzAbbr(d); }
-function renderGameChips(){
-  const w=document.getElementById('gameChips'); w.innerHTML='';
-  for(const g of ODDS.games){ const b=document.createElement('button'); b.className='chip'; b.dataset.id=g.eventID;
-    b.innerHTML=esc(g.away)+' @ '+esc(g.home)+' <span class="thin">· '+esc(gameTime(g))+'</span>'; b.onclick=()=>selectGame(g); w.appendChild(b); }
+// GAME === null means the whole board (every game). The <select> is the only game picker.
+const gamesSel=()=>GAME?[GAME]:ODDS.games;
+const gameKey=g=>g.away+'-'+g.home;
+function renderGameSelect(){
+  const sel=document.getElementById('gameSel'); if(!sel) return;
+  sel.innerHTML='<option value="all">All games · '+ODDS.games.length+'</option>'
+    +ODDS.games.map(g=>'<option value="'+esc(gameKey(g))+'">'+esc(g.away)+' @ '+esc(g.home)+' · '+esc(gameTime(g))+'</option>').join('');
+  sel.value=GAME?gameKey(GAME):'all';
+  sel.onchange=()=>{ const v=sel.value; selectGame(v==='all'?null:ODDS.games.find(g=>gameKey(g)===v)); };
 }
-function playersInGame(g){ // -> [{key, name, team, ladders, idx:[id,name,team,pos,active]|null}]
+function playersInGame(g){ // -> [{key, name, team, ladders, idx:[id,name,team,pos,active]|null, g}]
   const out=[];
   for(const [key,lad] of Object.entries(ODDS.players)){ const [nm,tm]=key.split('|'); if(tm!==g.away&&tm!==g.home) continue;
     const n=normName(nm); let c=NAMEIDX[n+'|'+tm]||NAMEIDX['last:'+n.split(' ').slice(-1)[0]+'|'+tm]||[];
-    out.push({key,name:nm,team:tm,ladders:lad,idx:c.length===1?c[0]:(c[0]||null)}); }
+    out.push({key,name:nm,team:tm,ladders:lad,idx:c.length===1?c[0]:(c[0]||null),g}); }
   return out;
 }
+const playersSel=()=>gamesSel().flatMap(playersInGame);
+async function fetchShards(ids){ // history files for ~600 players: a small pool, not 600 requests at once
+  const q=[...new Set(ids)].filter(id=>!(id in SHARDS)); let i=0;
+  await Promise.all(Array.from({length:Math.min(16,q.length)},async()=>{ while(i<q.length){ const id=q[i++]; try{ SHARDS[id]=await getJSON('/data/nfl/players/'+id+'.json'); }catch(e){ SHARDS[id]=false; } } }));
+}
 async function selectGame(g){
-  GAME=g; SORT=null; history.replaceState({},'','/nfl-slate.html?g='+g.away+'-'+g.home);
-  document.querySelectorAll('#gameChips .chip').forEach(c=>c.classList.toggle('active',c.dataset.id===g.eventID));
-  const ps=playersInGame(g);
-  // fetch the shards we don't have yet (history), in parallel
-  await Promise.all(ps.filter(p=>p.idx&&!SHARDS[p.idx[0]]).map(async p=>{ try{ SHARDS[p.idx[0]]=await getJSON('/data/nfl/players/'+p.idx[0]+'.json'); }catch(e){ SHARDS[p.idx[0]]=false; } }));
+  GAME=g||null; SORT=null; history.replaceState({},'','/nfl-slate.html'+(GAME?'?g='+gameKey(GAME):''));
+  const sel=document.getElementById('gameSel'); if(sel) sel.value=GAME?gameKey(GAME):'all';
+  const ps=playersSel(), need=ps.filter(p=>p.idx&&!(p.idx[0] in SHARDS)).map(p=>p.idx[0]);
+  const st=document.getElementById('statusBar'), was=st.textContent;
+  if(need.length>40){ st.textContent='Loading game logs for '+need.length+' players…'; }
+  await fetchShards(need);
+  st.textContent=was;
   renderTabs(); renderTable();
 }
 function renderTabs(){
   const w=document.getElementById('mktChips'); w.innerHTML='';
-  const ps=playersInGame(GAME);
+  const ps=playersSel();
   TABS.forEach(([lbl,mkts],i)=>{ const n=ps.filter(p=>mkts.some(m=>p.ladders[m])).length; if(!n) return;
     const b=document.createElement('button'); b.className='chip'+(i===TAB?' active':''); b.innerHTML=esc(lbl)+' <span class="thin">'+n+'</span>'; b.onclick=()=>{TAB=i;SORT=null;renderTabs();renderTable();}; w.appendChild(b); });
   if(!TABS[TAB][1].some(m=>ps.some(p=>p.ladders[m]))){ TAB=TABS.findIndex(([l,mk])=>ps.some(p=>mk.some(m=>p.ladders[m]))); if(TAB<0)TAB=0; renderTabs(); }
@@ -869,13 +888,13 @@ function tierOf(opp,b,key,season){ const R=(season===IDX.prevSeason?(MU&&MU.prev
 function hit(rows,key,line){ if(!rows.length) return null; const h=rows.filter(r=>SIDE?valOf(r,key)<line:valOf(r,key)>line).length; return {h,n:rows.length,p:h/rows.length}; }
 function cell(cr,tiny){ if(!cr) return '<td class="r thin">—</td>'; const c=cr.p>=0.7?'good':cr.p<=0.3?'bad':''; return '<td class="r hitc '+c+(cr.n<3?' tiny':'')+'" title="'+cr.h+'/'+cr.n+'">'+Math.round(cr.p*100)+'%<span class="hn">'+cr.h+'/'+cr.n+'</span></td>'; }
 function renderTable(){
-  const [lbl,mkts]=TABS[TAB]; const g=GAME; const ps=playersInGame(g);
-  document.getElementById('mktLabel').textContent=lbl+' — '+g.away+' @ '+g.home;
+  const [lbl,mkts]=TABS[TAB]; const ps=playersSel(), allGames=!GAME;
+  document.getElementById('mktLabel').textContent=lbl+' — '+(GAME?GAME.away+' @ '+GAME.home:'all '+ODDS.games.length+' games');
   const rows=[];
   for(const m of mkts) for(const p of ps){ const lad=p.ladders[m]; if(!lad) continue;
     const line=mainLine(lad,m); if(line==null) continue; const pr=priceAt(lad,line); const key=KEY[m];
     const sh=p.idx?SHARDS[p.idx[0]]:null; const all=sh?sh.prev.concat(sh.g):[]; const cur=sh?sh.g:[];
-    const opp=p.team===g.home?g.away:g.home; const pos=p.idx?p.idx[3]:null;
+    const g=p.g, opp=p.team===g.home?g.away:g.home; const pos=p.idx?p.idx[3]:null;
     const mu=MU&&pos&&MU.ranks[opp]&&MU.ranks[opp][POSB[pos]]&&MU.ranks[opp][POSB[pos]][key];
     const inj=INJ&&p.idx&&INJ.players[p.idx[0]];
     const b=pos&&POSB[pos]; const tier=b?tierOf(opp,b,key,IDX.season):null;
@@ -888,9 +907,10 @@ function renderTable(){
       if(x==null&&y==null) return 0; if(x==null) return 1; if(y==null) return -1;   // missing always sinks
       if(typeof x==='string') return d*x.localeCompare(y);
       return d*(y-x); });
-  } else rows.sort((a,b)=>(mkts.indexOf(a.m)-mkts.indexOf(b.m))||((b.l10?b.l10.p:-1)-(a.l10?a.l10.p:-1))||((b.l5?b.l5.p:-1)-(a.l5?a.l5.p:-1)));
+  } else { const k10=r=>rate(r.l10,5)??-1, k5=r=>rate(r.l5,3)??-1;
+    rows.sort((a,b)=>(TAB===0?0:(mkts.indexOf(a.m)-mkts.indexOf(b.m)))||(k10(b)-k10(a))||(k5(b)-k5(a))); }
   const side=SIDE?'U':'O';
-  const COLS=[['player','Player','',''],['prop','Prop','',''],['line','Line','r',''],['best','Best '+(SIDE?'under':'over'),'r','best available price for this side'],
+  const COLS=[['player','Player','',''],...(allGames?[['game','Game','','kickoff in your time zone']]:[]),['prop','Prop','',''],['line','Line','r',''],['best','Best '+(SIDE?'under':'over'),'r','best available price for this side'],
     ['fair','Fair','r','vig-free price from the two-sided books'],['l5','L5','r','last 5 games'],['l10','L10','r','last 10 games'],['l15','L15','r','last 15 games'],
     ['sea',String(IDX.season),'r','this season'],['prev',String(IDX.prevSeason),'r','last season, playoffs included'],
     ['vt','Similar D','r','vs defenses in the same tier (top-8 / mid / bottom-8) as this week\'s opponent; 2025 by final rank'],
@@ -907,6 +927,7 @@ function renderTable(){
     const dim=st==='Out'||st==='Doubtful'?' dim':'';
     html+='<tr class="'+dim+(link?' go':'')+'"'+(link?' data-href="'+link+'" title="Open '+esc(r.p.name)+'\'s page"':'')+'>'
       +'<td class="pl">'+(link?'<a href="'+link+'">'+esc(r.p.name)+'</a>':esc(r.p.name))+' <span class="thin">'+esc(r.p.team)+(r.pos?' · '+esc(r.pos):'')+'</span></td>'
+      +(allGames?'<td class="thin gcell" title="'+esc(gameTime(r.p.g))+'">'+esc(r.p.g.away)+'<span class="at">@</span>'+esc(r.p.g.home)+'</td>':'')
       +'<td class="thin">'+esc(MLABEL[r.m]||r.m)+'</td>'
       +'<td class="r mono">'+side+r.line+'</td>'
       +'<td class="r mono'+(ev!=null&&ev>0?' good':'')+'">'+(best?fmtOdds(best[1])+' <span class="bk">'+esc(bookName(best[0]))+'</span>':'—')+'</td>'
@@ -927,7 +948,7 @@ function renderTable(){
     renderTable();
   }));
   const SNAME={player:'player',prop:'prop',line:'line',best:'best price',fair:'fair price',l5:'L5',l10:'L10',l15:'L15',sea:String(IDX.season),prev:String(IDX.prevSeason),vt:'similar-D',last:'last game',avg5:'avg5',mu:'matchup rank',rep:'report'};
-  document.getElementById('slateNote').textContent=rows.length?rows.length+' props · '+(SORT?'sorted by '+SNAME[SORT.k]+(SORT.dir===1?' (best first)':' (worst first)')+' — click again to flip, a third time to reset':'sorted by L10 then L5 · click any column to sort')+' · '+(SIDE?'graded as unders':'graded as overs')+' against each player\'s main line · hit rates span the 2025 season boundary':'No '+lbl.toLowerCase()+' props posted on this game yet.';
+  document.getElementById('slateNote').textContent=rows.length?rows.length+' props'+(allGames?' across '+ODDS.games.length+' games':'')+' · '+(SORT?'sorted by '+SNAME[SORT.k]+(SORT.dir===1?' (best first)':' (worst first)')+' — click again to flip, a third time to reset':'sorted by L10 then L5 · click any column to sort')+' · '+(SIDE?'graded as unders':'graded as overs')+' against each player\'s main line · hit rates span the 2025 season boundary':'No '+lbl.toLowerCase()+' props posted on this game yet.';
 }
 (function(){ var loadedAt=Date.now(); document.addEventListener('visibilitychange',function(){ if(document.visibilityState==='visible'&&Date.now()-loadedAt>60*60*1000) location.reload(); }); })();
 boot();
@@ -947,7 +968,7 @@ boot();
   table.slate tbody tr.go:hover td.pl a { color:var(--green); }
   .inj-badge { font-size:10.5px;font-weight:700;letter-spacing:.04em;padding:1px 6px;border-radius:999px;border:1px solid currentColor; }
   .inj-badge.Out { color:#e06c6c; } .inj-badge.Doubtful { color:#f0945a; } .inj-badge.Questionable,.inj-badge.DNP,.inj-badge.Limited { color:#e6c35a; }
-  #gameChips .chip.active,#mktChips .chip.active { color:var(--green);border-color:var(--green-border);background:var(--green-faint); }
+  #mktChips .chip.active { color:var(--green);border-color:var(--green-border);background:var(--green-faint); }
 </style>
 </body>
 </html>
