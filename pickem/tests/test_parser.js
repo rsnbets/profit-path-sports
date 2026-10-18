@@ -36,7 +36,24 @@ module.exports = function () {
   H.check(/no tiebreak/.test(warns) && /no pick for ARI@LA/.test(warns), 'blank tiebreak and blank pick reported: ' + warns);
   // Unknown header routes to the PoolHost stub, never silently
   var ru = P.parseAny('Rank,Name,Week 6,Total\n1,Someone,9,55\n', g2);
-  H.check(!ru.ok && ru.report.format === 'poolhost' && ru.report.errors.length === 1, 'poolhost stub: ' + JSON.stringify(ru.report));
+  H.check(!ru.ok && ru.report.format === 'poolhost' && ru.report.errors.length >= 1, 'unknown format fails loudly: ' + JSON.stringify(ru.report));
+  // PoolHost export (synthetic table in the real layout: home listed first, PoolHost codes, No Picks row, Week/Total/tiebreak columns)
+  var ph = '<style>.x{}</style><div><table class="table all-picks-table"><thead><tr><th>Rank</th><th>Status</th><th>Score:<br />Home:<br />Away:<br />Score:<br />Status:<br /><div>Player Name</div></th>' +
+    '<th>17<br/>DEN<br/><br/>SEA<br/>14<br/>Final<br>OT</th><th>LAR<br/>AZ</th><th><span>JAC</span><br/>HOU</th><th>Week</th><th>Total</th><th>SF/WAS<br/>Total<br/>(TBD)</th></tr></thead><tbody>' +
+    '<tr><td>1.</td><td>Picked</td><td>TallRobLC</td><td class="game-won">DEN</td><td>AZ</td><td>HOU</td><td>1</td><td>51</td><td>47</td></tr>' +
+    '<tr><td>2.</td><td>Picked</td><td>Player02</td><td>SEA</td><td>LAR</td><td></td><td>0</td><td>40</td><td></td></tr>' +
+    '<tr><td>3.</td><td>No Picks</td><td>Player03</td><td></td><td></td><td></td><td>0</td><td>19</td><td></td></tr></tbody></table></div>';
+  var g3 = [{ id: 'd', away: 'SEA', home: 'DEN' }, { id: 'l', away: 'ARI', home: 'LA' }, { id: 'j', away: 'HOU', home: 'JAX' }];
+  H.check(P.detectFormat(ph) === 'poolhost', 'detect poolhost');
+  var rp = P.parseAny(ph, g3);
+  H.check(rp.ok, 'poolhost parse errors: ' + rp.report.errors.join(' | '));
+  H.check(rp.players.length === 3 && rp.players[0].name === 'TallRobLC' && rp.players[0].tb === 47, 'poolhost players: ' + JSON.stringify(rp.players.map(function (p) { return [p.name, p.tb]; })));
+  H.check(rp.players[0].picks.d === 'H' && rp.players[0].picks.l === 'A' && rp.players[0].picks.j === 'A', 'poolhost picks (AZ->ARI away, HOU away): ' + JSON.stringify(rp.players[0].picks));
+  H.check(rp.players[1].picks.d === 'A' && rp.players[1].picks.l === 'H' && rp.players[1].picks.j === '' && rp.players[1].tb === null, 'poolhost blanks: ' + JSON.stringify(rp.players[1]));
+  H.check(rp.players[2].picks.d === '' && /Player03 has no picks/.test(rp.report.warnings.join()), 'no-picks row: ' + rp.report.warnings.join(' | '));
+  H.check(rp.season.prior.TallRobLC === 50 && rp.season.prior.Player03 === 19, 'prior totals: ' + JSON.stringify(rp.season.prior));
+  var rpBad = P.parseAny(ph.replace('<td>SEA</td>', '<td>KC</td>'), g3);
+  H.check(!rpBad.ok && /KC for SEA@DEN/.test(rpBad.report.errors.join()), 'poolhost wrong-game pick reported: ' + rpBad.report.errors.join(' | '));
   // Season CSV
   var rs = P.parseSeasonCSV('player,W1,W2,W3\nA,9,10,\nB,8,x,7\n');
   H.check(!rs.ok && rs.season.A[2] === null && /not a number/.test(rs.report.errors.join()), 'season csv: ' + JSON.stringify(rs));
