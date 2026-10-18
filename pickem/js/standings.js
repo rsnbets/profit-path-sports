@@ -46,8 +46,10 @@
     var ys = qs('#youSel'); if (ys) ys.onchange = function () { st.you = this.value; S.set('you', st.you); render(); };
     var finals = games.filter(function (g) { return g.status === 'final'; });
     var mkt = {}; games.forEach(function (g) { mkt[g.id] = g.p_home >= 0.5 ? 'H' : 'A'; });
-    var wkPts = Pl.map(function (p) { return finals.filter(function (g) { return p.picks[g.id] === winnerOf(g); }).length; });
-    var mktWk = finals.filter(function (g) { return mkt[g.id] === winnerOf(g); }).length;
+    // PoolHost-style points: finals won plus live games currently being led.
+    var counting = games.filter(function (g) { return g.status === 'final' || g.status === 'live'; });
+    var wkPts = Pl.map(function (p) { return counting.filter(function (g) { return p.picks[g.id] && p.picks[g.id] === winnerOf(g); }).length; });
+    var mktWk = counting.filter(function (g) { return mkt[g.id] === winnerOf(g); }).length;
 
     qs('#title').innerHTML = '<div style="display:flex;flex-direction:column;gap:6px"><div class="eyebrow cyan">' + data.season + ' season · Week ' + data.week + (finals.length === games.length ? ' final' : ' in progress') + '</div><h1>Standings</h1>' +
       '<p>' + esc(data.pool.name || 'Pool') + (N ? ' · ' + N + ' players' : '') + ' · ' + finals.length + ' of ' + games.length + ' Week ' + data.week + ' games final' + (st.lastFetch ? ' · scores ' + esc(U.fmtTime(st.lastFetch)) : '') + '</p></div>' +

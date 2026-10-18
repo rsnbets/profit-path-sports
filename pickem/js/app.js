@@ -211,8 +211,13 @@
     var el = qs('#cols');
     if (!st.engineOn) { el.innerHTML = ''; return; }
     var P = st.players, N = P.length;
-    var actual = P.map(function (p) { var a = 0; games.forEach(function (g) { if (g.status === 'final' && p.picks[g.id] === winnerOf(g)) a++; }); return a; });
-    var mktPts = 0; games.forEach(function (g) { if (g.status === 'final' && mkt[g.id] === winnerOf(g)) mktPts++; });
+    // Points shown PoolHost-style: finals won plus live games currently being led (a tie in progress leads nobody).
+    var leading = function (g, side) { return g.status === 'live' && side && winnerOf(g) === side; };
+    var won = P.map(function (p) { var a = 0; games.forEach(function (g) { if (g.status === 'final' && p.picks[g.id] === winnerOf(g)) a++; }); return a; });
+    var lead = P.map(function (p) { var a = 0; games.forEach(function (g) { if (leading(g, p.picks[g.id])) a++; }); return a; });
+    var actual = won.map(function (w, i) { return w + lead[i]; });
+    var mktWon = 0, mktLead = 0; games.forEach(function (g) { if (g.status === 'final' && mkt[g.id] === winnerOf(g)) mktWon++; if (leading(g, mkt[g.id])) mktLead++; });
+    var mktPts = mktWon + mktLead;
     var nonFinal = games.filter(function (g) { return g.status !== 'final'; });
     var nds = P.map(function (_, i) { return res.status[i] === 'Out' ? null : eng.needs(res, i); });
     var order = P.map(function (p, i) { return i; }).sort(function (a, b) { return actual[b] - actual[a] || res.win[b] - res.win[a] || P[a].name.localeCompare(P[b].name); });
@@ -225,7 +230,7 @@
       return '<div class="trow' + (isSel ? ' sel' : '') + '">' +
         '<span class="rank">' + (same > 1 ? 'T' : '') + (ahead + 1) + '</span>' +
         '<span class="pname"><button type="button" data-sel="' + esc(p.name) + '" class="' + (isSel ? 'sel' : s === 'Out' ? 'out' : '') + '" aria-pressed="' + isSel + '">' + esc(p.name) + '</button>' + (isYou ? '<span class="you">YOU</span>' : '') + '</span>' +
-        '<span class="pts">' + actual[i] + '</span><span class="mx">' + res.max[i] + '</span>' +
+        '<span class="pts" title="' + won[i] + ' won' + (lead[i] ? ' + ' + lead[i] + ' leading now' : '') + '">' + actual[i] + (lead[i] ? '<small style="font-size:11px;color:var(--cyan);margin-left:3px">+' + lead[i] + '</small>' : '') + '</span><span class="mx">' + res.max[i] + '</span>' +
         '<span><span class="spill ' + sc[0] + '">' + s + '</span></span>' +
         '<span class="winc">' + bars(s === 'Out' ? 0 : res.win[i], sc[1], 20) + '<span class="wint" style="color:' + (s === 'Out' ? 'rgba(240,238,232,0.62)' : '#F0EEE8') + '" title="' + esc(U.pct1(res.win[i])) + '">' + (s === 'Out' ? '0%' : pct(res.win[i])) + '</span></span>' +
         '<span class="vs" title="Points vs The Market (every favorite)">' + (diff > 0 ? '+' + diff : diff < 0 ? '−' + Math.abs(diff) : 'even') + '</span>' +
@@ -236,10 +241,10 @@
       var ahead = actual.filter(function (v) { return v > actual[i]; }).length, same = actual.filter(function (v) { return v === actual[i]; }).length;
       return '<button type="button" class="mrow' + (isSel ? ' sel' : '') + '" data-sel="' + esc(p.name) + '" aria-pressed="' + isSel + '"><span class="rank">' + (same > 1 ? 'T' : '') + (ahead + 1) + '</span><span class="nm"' + (isSel ? ' style="color:var(--cyan)"' : '') + '>' + esc(p.name) + '</span><span class="pt">' + actual[i] + '</span><span><span class="spill ' + sc[0] + '">' + s + '</span></span><span class="wn">' + (s === 'Out' ? '0%' : pct(res.win[i])) + '</span></button>';
     }).join('');
-    var mktRow = '<div class="trow mkt"><span class="rank">·</span><span class="name"><b>The Market</b><small>Picks every favorite</small></span><span class="pts" style="color:var(--yellow)">' + mktPts + '</span><span class="mx">' + (mktPts + nonFinal.length) + '</span><span><span class="spill bench">Benchmark</span></span><span style="font-size:13px;color:var(--dim)">Not eligible to win</span><span class="vs" style="color:var(--dim)">0</span><span class="needs" style="color:var(--muted)">Still on ' + esc(nonFinal.map(function (g) { return teamOf(g, mkt[g.id]); }).join(', ') || 'nothing') + '</span></div>';
+    var mktRow = '<div class="trow mkt"><span class="rank">·</span><span class="name"><b>The Market</b><small>Picks every favorite</small></span><span class="pts" style="color:var(--yellow)" title="' + mktWon + ' won' + (mktLead ? ' + ' + mktLead + ' leading now' : '') + '">' + mktPts + '</span><span class="mx">' + (mktPts + nonFinal.length) + '</span><span><span class="spill bench">Benchmark</span></span><span style="font-size:13px;color:var(--dim)">Not eligible to win</span><span class="vs" style="color:var(--dim)">0</span><span class="needs" style="color:var(--muted)">Still on ' + esc(nonFinal.map(function (g) { return teamOf(g, mkt[g.id]); }).join(', ') || 'nothing') + '</span></div>';
 
-    var standings = '<section class="card standings" aria-label="Standings"><div class="head"><h2>Standings</h2><span class="hint">Tap a name to see what they need</span></div>' +
-      '<div class="tscroll"><div class="tmin"><div class="trow th"><span>Rank</span><span>Player</span><span>Pts</span><span>Max</span><span>Status</span><span>Win week</span><span title="Points vs The Market">vs Mkt</span><span>Needs</span></div>' + rows + mktRow + '</div></div>' +
+    var standings = '<section class="card standings" aria-label="Standings"><div class="head"><h2>Standings</h2><span class="hint">Pts counts games won plus games being led right now (+n). Tap a name to see what they need.</span></div>' +
+      '<div class="tscroll"><div class="tmin"><div class="trow th"><span>Rank</span><span>Player</span><span title="Games won plus games currently being led">Pts</span><span>Max</span><span>Status</span><span>Win week</span><span title="Points vs The Market">vs Mkt</span><span>Needs</span></div>' + rows + mktRow + '</div></div>' +
       '<div class="mlist">' + mrows + '</div></section>';
 
     el.innerHTML = standings + '<aside class="aside">' + renderPanel(games, eng, res, nds, actual, byId) + renderFeed(games, eng, byId) + '</aside>';
@@ -248,6 +253,7 @@
 
   function renderPanel(games, eng, res, nds, actual, byId) {
     var P = st.players, di = P.map(function (p) { return p.name; }).indexOf(st.sel), p = P[di], s = res.status[di], sc = SC[s], nd = nds[di];
+    var lead = P.map(function (q) { var a = 0; games.forEach(function (g) { if (g.status === 'live' && q.picks[g.id] && winnerOf(g) === q.picks[g.id]) a++; }); return a; });
     var isYou = p.name === st.you, anyForced = Object.keys(st.forced).length > 0;
     var chip = function (gid, side, must) { var g = byId[gid], abbr = teamOf(g, side), opp = side === 'H' ? g.away : g.home; return '<span class="chip' + (must ? ' must' : '') + '">' + sw(abbr) + '<span class="ab">' + esc(abbr) + '</span><span class="opp">over ' + esc(opp) + '</span></span>'; };
     var body = '';
@@ -283,7 +289,7 @@
         '<div class="block"><div class="rootl">Root for</div>' + root + '<div class="legend">Number = win-the-week chance if that team wins.</div></div>';
     }
     return '<section class="card panel" aria-label="Player detail"><div class="ph"><div><div class="lbl">' + (isYou ? 'Your week' : 'Viewing') + '</div><div class="nm">' + esc(p.name) + '</div></div><span class="spill ' + sc[0] + '">' + s + '</span></div>' +
-      '<div class="stats3"><div class="stat"><div class="l">Points</div><div class="v">' + actual[di] + '</div></div><div class="stat"><div class="l">Max possible</div><div class="v">' + res.max[di] + '</div></div><div class="stat"><div class="l">Win the week</div><div class="v" style="color:' + sc[1] + '" title="' + esc(U.pct1(res.win[di])) + '">' + (s === 'Out' ? '0%' : pct(res.win[di])) + '</div></div></div>' +
+      '<div class="stats3"><div class="stat"><div class="l">Points' + (lead[di] ? ' <small style="color:var(--cyan)">+' + lead[di] + ' leading</small>' : '') + '</div><div class="v">' + actual[di] + '</div></div><div class="stat"><div class="l">Max possible</div><div class="v">' + res.max[di] + '</div></div><div class="stat"><div class="l">Win the week</div><div class="v" style="color:' + sc[1] + '" title="' + esc(U.pct1(res.win[di])) + '">' + (s === 'Out' ? '0%' : pct(res.win[di])) + '</div></div></div>' +
       bars(s === 'Out' ? 0 : res.win[di], sc[1], 20, true) + body + '</section>';
   }
 
