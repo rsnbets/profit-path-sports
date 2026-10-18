@@ -105,13 +105,15 @@
 
   // ---------- header ----------
   function header(active, extra) {
+    // Carry demo/season/week params across pages, never the view toggle.
+    var q = ''; try { var sp = new URLSearchParams(location.search); sp.delete('view'); q = sp.toString() ? '?' + sp.toString() : ''; } catch (e) { q = ''; }
     return '<header class="pk-header"><div class="pk-header-in">' +
       '<a class="pk-brand" href="/" aria-label="PROFITPATH Sports home"><span class="w">PROFIT<b>PATH</b></span><span class="s">SPORTS</span></a>' +
       '<span class="pk-sep" aria-hidden="true"></span><span class="pk-app">Pick’em</span>' +
       '<nav class="pk-nav" aria-label="Pool sections">' +
-      '<a href="index.html' + location.search + '"' + (active === 'live' ? ' class="on" aria-current="page"' : '') + '>Live</a>' +
-      '<a href="standings.html' + location.search + '"' + (active === 'standings' ? ' class="on" aria-current="page"' : '') + '>Standings</a>' +
-      '<a href="standings.html' + (location.search ? location.search + '&' : '?') + 'view=season"' + (active === 'season' ? ' class="on" aria-current="page"' : '') + '>Season</a>' +
+      '<a href="index.html' + q + '"' + (active === 'live' ? ' class="on" aria-current="page"' : '') + '>Live</a>' +
+      '<a href="standings.html' + q + '"' + (active === 'standings' ? ' class="on" aria-current="page"' : '') + '>Standings</a>' +
+      '<a href="standings.html' + (q ? q + '&' : '?') + 'view=season"' + (active === 'season' ? ' class="on" aria-current="page"' : '') + '>Season</a>' +
       '</nav>' + (extra || '') + '</div></header>';
   }
   function youSelect(players, you) {
