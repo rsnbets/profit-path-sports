@@ -108,20 +108,64 @@
   // anywhere but the receiving browser. Compact: [name, tiebreak, picks string H/A/- in game order].
   function b64url(str) { return btoa(unescape(encodeURIComponent(str))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, ''); }
   function unb64url(str) { str = str.replace(/-/g, '+').replace(/_/g, '/'); while (str.length % 4) str += '='; return decodeURIComponent(escape(atob(str))); }
+  // v2 format: #p=2!<key>!<game count>!<row>!<row>... with row = name*tiebreak*picks. Picks are 2 bits per game
+  // (0 blank, 1 home, 2 away) packed into bytes and base64url'd: 14 games -> 5 characters.
+  // v1 (JSON in base64url) still decodes.
+  var B64 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_';
+  function packPicks(p, games) {
+    var bytes = [], acc = 0, nb = 0;
+    games.forEach(function (g) {
+      var v = p.picks[g.id] === 'H' ? 1 : p.picks[g.id] === 'A' ? 2 : 0;
+      acc = (acc << 2) | v; nb += 2;
+      if (nb === 8) { bytes.push(acc); acc = 0; nb = 0; }
+    });
+    if (nb) bytes.push(acc << (8 - nb));
+    var out = '', i;
+    for (i = 0; i < bytes.length; i += 3) {
+      var n = (bytes[i] << 16) | ((bytes[i + 1] || 0) << 8) | (bytes[i + 2] || 0);
+      out += B64[(n >> 18) & 63] + B64[(n >> 12) & 63] + (i + 1 < bytes.length ? B64[(n >> 6) & 63] : '') + (i + 2 < bytes.length ? B64[n & 63] : '');
+    }
+    return out;
+  }
+  function unpackPicks(str, games) {
+    var bytes = [], i;
+    for (i = 0; i < str.length; i += 4) {
+      var c = [0, 1, 2, 3].map(function (k) { var ch = str[i + k]; return ch === undefined ? -1 : B64.indexOf(ch); });
+      if (c[0] < 0 || c[1] < 0) return null;
+      var n = (c[0] << 18) | (c[1] << 12) | ((c[2] < 0 ? 0 : c[2]) << 6) | (c[3] < 0 ? 0 : c[3]);
+      bytes.push((n >> 16) & 255); if (c[2] >= 0) bytes.push((n >> 8) & 255); if (c[3] >= 0) bytes.push(n & 255);
+    }
+    if (bytes.length * 4 < games.length) return null;
+    var picks = {};
+    games.forEach(function (g, j) { var v = (bytes[j >> 2] >> (6 - 2 * (j & 3))) & 3; picks[g.id] = v === 1 ? 'H' : v === 2 ? 'A' : ''; });
+    return picks;
+  }
+  function encName(n) { return encodeURIComponent(n).replace(/\*/g, '%2A').replace(/!/g, '%21'); }
   function encodeShare(players, games, key) {
-    var rows = players.map(function (p) { return [p.name, p.tb == null ? null : p.tb, games.map(function (g) { return p.picks[g.id] === 'H' ? 'H' : p.picks[g.id] === 'A' ? 'A' : '-'; }).join('')]; });
-    return b64url(JSON.stringify({ k: key, p: rows }));
+    return '2!' + key + '!' + games.length + '!' + players.map(function (p) { return encName(p.name) + '*' + (p.tb == null ? '' : p.tb) + '*' + packPicks(p, games); }).join('!');
   }
   function decodeShare(frag, games, key) {
     try {
-      var m = /[#&]p=([A-Za-z0-9_-]+)/.exec(frag || ''); if (!m) return null;
-      var d = JSON.parse(unb64url(m[1]));
-      if (!d || d.k !== key || !Array.isArray(d.p)) return { error: 'This share link is for ' + (d && d.k ? d.k : 'another week') + ', not ' + key + '.' };
-      var players = [];
-      for (var i = 0; i < d.p.length; i++) {
-        var r = d.p[i]; if (!Array.isArray(r) || typeof r[0] !== 'string' || typeof r[2] !== 'string' || r[2].length !== games.length) return { error: 'Share link does not match this week\u2019s games.' };
-        var picks = {}; games.forEach(function (g, j) { picks[g.id] = r[2][j] === 'H' ? 'H' : r[2][j] === 'A' ? 'A' : ''; });
-        players.push({ name: r[0].slice(0, 60), tb: typeof r[1] === 'number' && isFinite(r[1]) ? r[1] : null, picks: picks });
+      var m = /[#&]p=([^&]+)/.exec(frag || ''); if (!m) return null;
+      var raw = m[1], players = [], i;
+      if (raw.indexOf('2!') === 0) {
+        var parts = raw.split('!');
+        if (parts[1] !== key) return { error: 'This share link is for ' + parts[1] + ', not ' + key + '.' };
+        if (Number(parts[2]) !== games.length) return { error: 'Share link does not match this week\u2019s games.' };
+        for (i = 3; i < parts.length; i++) {
+          var f = parts[i].split('*'); if (f.length !== 3) return { error: 'Share link could not be read.' };
+          var picks = unpackPicks(f[2], games); if (!picks) return { error: 'Share link does not match this week’s games.' };
+          var tb = f[1] === '' ? null : Number(f[1]);
+          players.push({ name: decodeURIComponent(f[0]).slice(0, 60), tb: isFinite(tb) ? tb : null, picks: picks });
+        }
+      } else {
+        var d = JSON.parse(unb64url(raw));
+        if (!d || d.k !== key || !Array.isArray(d.p)) return { error: 'This share link is for ' + (d && d.k ? d.k : 'another week') + ', not ' + key + '.' };
+        for (i = 0; i < d.p.length; i++) {
+          var r = d.p[i]; if (!Array.isArray(r) || typeof r[0] !== 'string' || typeof r[2] !== 'string' || r[2].length !== games.length) return { error: 'Share link does not match this week’s games.' };
+          var pk = {}; games.forEach(function (g, j) { pk[g.id] = r[2][j] === 'H' ? 'H' : r[2][j] === 'A' ? 'A' : ''; });
+          players.push({ name: r[0].slice(0, 60), tb: typeof r[1] === 'number' && isFinite(r[1]) ? r[1] : null, picks: pk });
+        }
       }
       return players.length ? { players: players } : { error: 'Share link holds no players.' };
     } catch (e) { return { error: 'Share link could not be read.' }; }
@@ -135,7 +179,7 @@
     return r;
   }
   function shareURL(players, games, key) {
-    return location.origin + location.pathname.replace(/standings\.html$/, 'index.html') + location.search + '#p=' + encodeShare(players, games, key);
+    return location.origin + location.pathname.replace(/(standings|index)\.html$/, '') + '#p=' + encodeShare(players, games, key);
   }
 
   // ---------- header ----------
@@ -242,5 +286,5 @@
   root.PickemUI = { COLORS: COLORS, sw: sw, esc: esc, pct: pct, pct1: pct1, fmt: fmt, fmtTime: fmtTime, fmtKick: fmtKick, fmtDayTime: fmtDayTime, TZ: TZ, slotOf: slotOf, qs: qs, param: param,
     loadJSON: loadJSON, resolveWeek: resolveWeek, loadWeek: loadWeek, loadDemo: loadDemo, assembleGames: assembleGames, finalOrder: finalOrder, sourceTitle: sourceTitle,
     header: header, youSelect: youSelect, importPanel: importPanel, download: download, logSnapshot: logSnapshot,
-    encodeShare: encodeShare, decodeShare: decodeShare, importFromShareLink: importFromShareLink, shareURL: shareURL };
+    encodeShare: encodeShare, decodeShare: decodeShare, packPicks: packPicks, unpackPicks: unpackPicks, importFromShareLink: importFromShareLink, shareURL: shareURL };
 }(typeof self !== 'undefined' ? self : this));

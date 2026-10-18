@@ -5,6 +5,7 @@ var testEngine = require('./test_engine.js');
 var M = require('./test_math.js');
 var testParser = require('./test_parser.js');
 var testCopy = require('./test_copy.js');
+var testShare = require('./test_share.js');
 var here = __dirname;
 var fixtures = [path.join(here, 'fixture-mock-week.json')];
 // The raw handoff fixture (real handles, gitignored) runs too when present, so both stay in step.
@@ -21,5 +22,6 @@ ok = M.testMonteCarlo(fixtures[0], 200000) && ok;
 ok = M.testPerformance() && ok;
 ok = testParser() && ok;
 ok = testCopy() && ok;
+ok = testShare() && ok;
 console.log(ok ? 'ALL PASS' : 'SOME FAILED');
 process.exitCode = ok ? 0 : 1;
