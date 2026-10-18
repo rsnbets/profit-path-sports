@@ -180,7 +180,7 @@
   }
   function parsePoolHostExport(text, games) {
     var report = { errors: [], warnings: [], rows: 0, format: 'poolhost' };
-    var players = [], season = { prior: {} };
+    var players = [], season = { prior: {}, satOut: [] };
     var rows = htmlTableRows(text);
     if (!rows.length) { report.errors.push('No table found in the PoolHost file.'); return { ok: false, players: players, report: report, season: season }; }
     var header = rows[0];
@@ -222,17 +222,18 @@
         else if (code === g.away) picks[g.id] = 'A';
         else report.errors.push('Row ' + line + ': ' + name + ' picked ' + code + ' for ' + gameLabel(g) + '. That team is not in the game.');
       });
-      if (/no picks/i.test(status)) report.warnings.push(name + ' has no picks (PoolHost status "' + status + '"). Every game counts wrong.');
-      else if (blanks) report.warnings.push(name + ' has ' + blanks + ' blank pick' + (blanks > 1 ? 's' : '') + '. Blanks count wrong.');
+      var tot = totalCol >= 0 ? Number(r[totalCol]) : NaN, wk = weekCol >= 0 ? Number(r[weekCol]) : NaN;
+      if (isFinite(tot) && isFinite(wk)) season.prior[name] = tot - wk;
+      if (/no picks/i.test(status)) { season.satOut.push(name); return; }   // has an account, did not enter this week
+      if (blanks) report.warnings.push(name + ' has ' + blanks + ' blank pick' + (blanks > 1 ? 's' : '') + '. Blanks count wrong.');
       var tbRaw = tbCol >= 0 ? String(r[tbCol] == null ? '' : r[tbCol]).trim() : '';
       var tb = tbRaw === '' ? null : Number(tbRaw);
       if (tbRaw !== '' && !isFinite(tb)) { report.errors.push('Row ' + line + ': ' + name + ' tiebreak "' + tbRaw + '" is not a number.'); tb = null; }
-      if (tb === null && !/no picks/i.test(status)) report.warnings.push(name + ' has no tiebreak guess. They lose every tiebreak.');
-      var tot = totalCol >= 0 ? Number(r[totalCol]) : NaN, wk = weekCol >= 0 ? Number(r[weekCol]) : NaN;
-      if (isFinite(tot) && isFinite(wk)) season.prior[name] = tot - wk;
+      if (tb === null) report.warnings.push(name + ' has no tiebreak guess. They lose every tiebreak.');
       players.push({ name: name, tb: tb, picks: picks });
       report.rows++;
     });
+    if (season.satOut.length) report.warnings.push(season.satOut.length + ' account' + (season.satOut.length > 1 ? 's' : '') + ' did not enter this week (PoolHost "No Picks"): ' + season.satOut.join(', ') + '. Not on the week board; season totals kept.');
     if (!players.length) report.errors.push('No player rows found in the PoolHost table.');
     return { ok: report.errors.length === 0, players: players, report: report, season: season };
   }

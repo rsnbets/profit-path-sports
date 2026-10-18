@@ -69,6 +69,12 @@
       S.set('weeks:' + data.season, st.weeks);
     }
     var usePrior = st.season && st.season.prior && st.season.priorAsOf === data.week;
+    // Accounts that sat this week out still belong in the season table (blank picks, zero this week).
+    if (usePrior && st.view === 'season' && st.season.satOut && st.season.satOut.length) {
+      var have = {}; Pl.forEach(function (p) { have[p.name] = true; });
+      Pl = Pl.concat(st.season.satOut.filter(function (n) { return !have[n]; }).map(function (n) { return { name: n, tb: null, picks: {}, satOut: true }; }));
+      N = Pl.length; wkPts = Pl.map(function (p) { return finals.filter(function (g) { return p.picks[g.id] === winnerOf(g); }).length; });
+    }
     var prior = Pl.map(function (p) { if (usePrior && st.season.prior[p.name] != null) return st.season.prior[p.name]; var h = hist[p.name] || {}; return weeksList.reduce(function (a, w) { return a + (h[w] || 0); }, 0); });
     var total = Pl.map(function (p, i) { return prior[i] + wkPts[i]; });
     var mktPrior = weeksList.reduce(function (a, w) { return a + (mktHist[w] || 0); }, 0), mktTotal = mktPrior + mktWk;

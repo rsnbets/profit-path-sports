@@ -158,7 +158,7 @@
         if (r.season && r.season.prior && Object.keys(r.season.prior).length) {
           // PoolHost's Total column minus its Week column = points before this week. Tagged with the week it came from.
           var sz = S.get('season:' + season, null) || { weeks: [], season: {} };
-          sz.prior = r.season.prior; sz.priorAsOf = ctx.week; sz.priorImportedAt = meta.importedAt;
+          sz.prior = r.season.prior; sz.priorAsOf = ctx.week; sz.priorImportedAt = meta.importedAt; sz.satOut = r.season.satOut || [];
           S.set('season:' + season, sz);
         }
         showReport(r, 'Loaded ' + r.players.length + ' players for ' + key + '.');

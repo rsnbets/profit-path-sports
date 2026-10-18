@@ -1,8 +1,9 @@
 {
-  "_note": "Pool settings used by the data build. No picks, no names. Settled: a tied game scores nobody (confirmed Oct 15 2026). Still placeholders: the deadline time, missed-pick scoring, tiebreak split (open questions 2 and 3).",
+  "_note": "Pool settings used by the data build. No picks, no names. Settled: a tied game scores nobody; picks lock at the first Sunday kickoff (PoolHost shows picks once locked, confirmed Oct 18 2026); accounts with no picks did not enter the week. Still open: missed-pick scoring inside an entry, tiebreak split.",
   "name": "PPS Pick'em (shadow)",
   "timezone": "America/Denver",
   "deadline": {
+    "mode": "first_sunday_kickoff",
     "weekday": "Sunday",
     "time": "10:50"
   },

@@ -131,6 +131,11 @@ def current_week(rows, season, now):
 def weekly_deadline_utc(kickoffs_utc, pool):
     """The pool's deadline for this week: first <weekday> on or after the earliest kickoff, in the pool's zone."""
     tz = ZoneInfo(pool['timezone'])
+    if pool['deadline'].get('mode') == 'first_sunday_kickoff':
+        # PoolHost behaviour (confirmed Oct 18 2026): every pick locks, and becomes visible, when the
+        # first Sunday game kicks off. Thursday games lock at their own kickoff via lock_at().
+        sundays = [k for k in kickoffs_utc if k.astimezone(tz).weekday() == 6]
+        return min(sundays) if sundays else min(kickoffs_utc)
     wd = WEEKDAYS[pool['deadline']['weekday'].lower()]
     hh, mm = (int(x) for x in pool['deadline']['time'].split(':'))
     first = min(kickoffs_utc).astimezone(tz)

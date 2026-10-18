@@ -47,10 +47,10 @@ module.exports = function () {
   H.check(P.detectFormat(ph) === 'poolhost', 'detect poolhost');
   var rp = P.parseAny(ph, g3);
   H.check(rp.ok, 'poolhost parse errors: ' + rp.report.errors.join(' | '));
-  H.check(rp.players.length === 3 && rp.players[0].name === 'TallRobLC' && rp.players[0].tb === 47, 'poolhost players: ' + JSON.stringify(rp.players.map(function (p) { return [p.name, p.tb]; })));
+  H.check(rp.players.length === 2 && rp.players[0].name === 'TallRobLC' && rp.players[0].tb === 47, 'poolhost players (No Picks row excluded): ' + JSON.stringify(rp.players.map(function (p) { return [p.name, p.tb]; })));
   H.check(rp.players[0].picks.d === 'H' && rp.players[0].picks.l === 'A' && rp.players[0].picks.j === 'A', 'poolhost picks (AZ->ARI away, HOU away): ' + JSON.stringify(rp.players[0].picks));
   H.check(rp.players[1].picks.d === 'A' && rp.players[1].picks.l === 'H' && rp.players[1].picks.j === '' && rp.players[1].tb === null, 'poolhost blanks: ' + JSON.stringify(rp.players[1]));
-  H.check(rp.players[2].picks.d === '' && /Player03 has no picks/.test(rp.report.warnings.join()), 'no-picks row: ' + rp.report.warnings.join(' | '));
+  H.check(H.same(rp.season.satOut, ['Player03']) && /did not enter this week.*Player03/.test(rp.report.warnings.join()), 'no-picks row kept as sat-out: ' + rp.report.warnings.join(' | '));
   H.check(rp.season.prior.TallRobLC === 50 && rp.season.prior.Player03 === 19, 'prior totals: ' + JSON.stringify(rp.season.prior));
   var rpBad = P.parseAny(ph.replace('<td>SEA</td>', '<td>KC</td>'), g3);
   H.check(!rpBad.ok && /KC for SEA@DEN/.test(rpBad.report.errors.join()), 'poolhost wrong-game pick reported: ' + rpBad.report.errors.join(' | '));
