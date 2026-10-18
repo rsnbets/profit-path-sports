@@ -127,8 +127,8 @@
     el.innerHTML =
       '<div class="ihead"><h2>Pool data</h2><div class="row">' +
       (picksMeta ? '<span class="srcnote">' + picksMeta.players.length + ' players imported ' + esc(fmtDayTime(picksMeta.importedAt)) + '</span>' : '<span class="srcnote">No picks loaded for this week.</span>') +
-      '<button class="btn small" id="impToggle" aria-expanded="false">' + (picksMeta ? 'Replace or manage' : 'Import picks') + '</button></div></div>' +
-      '<div id="impBody" class="hidden">' +
+      '<button class="btn small" id="impToggle" aria-expanded="' + (ctx.open ? 'true' : 'false') + '">' + (picksMeta ? 'Replace or manage' : 'Import picks') + '</button></div></div>' +
+      '<div id="impBody"' + (ctx.open ? '' : ' class="hidden"') + '>' +
       '<div class="drop" id="drop">Drop the PoolHost download (allpicks.xls) or the picks CSV here, or <label style="color:var(--cyan);cursor:pointer"><input type="file" id="file" accept=".csv,.xls,.html,.htm,text/csv,text/html,.txt" class="sr"> choose a file</label>.<br><span class="srcnote">PoolHost: the All Picks page\u2019s download button. CSV template: player,tiebreak,AWAY@HOME,... with nflverse codes (LA = Rams, WAS). A season.csv (player,W1,W2,...) works too.</span></div>' +
       '<textarea id="paste" placeholder="Or paste CSV text here" aria-label="Paste CSV"></textarea>' +
       '<div class="row"><button class="btn cyan" id="parseBtn">Load pasted CSV</button><button class="btn" id="tplBtn">Download blank template</button><button class="btn" id="exportBtn">Export week JSON</button><button class="btn danger" id="clearBtn">Clear pool data</button></div>' +
