@@ -314,10 +314,18 @@
   .hero-center { text-align:center;justify-content:center; }
   .hero-center .p-id { margin:0 auto; } .hero-center .p-meta { margin-left:auto;margin-right:auto;max-width:70ch; }
   .hdr-search.hero-center { flex-direction:column;gap:6px; } .hdr-search.hero-center .search-wrap { width:100%;max-width:520px; }
-  .gsel-wrap { position:relative; }
-  .gsel { font:inherit;font-size:11px;font-weight:600;letter-spacing:.04em;padding:6px 28px 6px 10px;border:1px solid var(--border);border-radius:8px;background:var(--inset);color:var(--text);cursor:pointer;-webkit-appearance:none;appearance:none;max-width:260px;
-    background-image:linear-gradient(45deg,transparent 50%,var(--muted) 50%),linear-gradient(135deg,var(--muted) 50%,transparent 50%);background-position:calc(100% - 14px) 50%,calc(100% - 9px) 50%;background-size:5px 5px,5px 5px;background-repeat:no-repeat; }
-  .gsel:hover,.gsel:focus { border-color:var(--green-border);outline:none; }
+  .gsel-section { padding-top:1rem !important;padding-bottom:1rem !important; }
+  .gsel-row { display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px; }   /* label above, so the select itself sits dead-centre */
+  .gsel-lbl { font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted); }
+  .gsel-wrap { position:relative;flex:1 1 auto;max-width:560px;min-width:280px; }
+  .gsel { width:100%;font:inherit;font-size:16px;font-weight:600;padding:13px 52px 13px 18px;border:1px solid var(--green-border);border-radius:12px;
+    background:var(--inset);color:var(--text);cursor:pointer;-webkit-appearance:none;appearance:none;
+    box-shadow:0 0 0 1px rgba(74,222,128,.08),0 8px 26px rgba(0,0,0,.35);transition:border-color .15s,box-shadow .15s;
+    background-image:linear-gradient(45deg,transparent 50%,var(--green) 50%),linear-gradient(135deg,var(--green) 50%,transparent 50%);
+    background-position:calc(100% - 24px) 50%,calc(100% - 17px) 50%;background-size:7px 7px,7px 7px;background-repeat:no-repeat; }
+  .gsel:hover,.gsel:focus { border-color:var(--green);box-shadow:0 0 0 3px rgba(74,222,128,.15),0 8px 26px rgba(0,0,0,.35);outline:none; }
+  .gsel option { font-size:14px;font-weight:500;background:var(--panel);color:var(--text); }
+  @media(max-width:600px){ .gsel { font-size:15px;padding:11px 46px 11px 14px; } .gsel-wrap { min-width:0;width:100%; } }
   table.slate td.gcell { font-family:'DM Mono',monospace;font-size:11.5px;white-space:nowrap; } table.slate td.gcell .at { color:var(--muted);margin:0 2px; }
 </style>
 <link rel="stylesheet" href="/styles/sidebar.css">
@@ -583,11 +591,16 @@
   </div>
   <div class="status-bar" id="statusBar">Loading…</div>
   <div id="slateView">
+  <div class="section gsel-section">
+    <div class="gsel-row">
+      <span class="gsel-lbl">Showing</span>
+      <div class="gsel-wrap"><select id="gameSel" class="gsel" title="Show one game or the whole board"></select></div>
+    </div>
+  </div>
   <div class="section">
     <div class="lines-head">
       <div class="section-label" id="mktLabel">Market</div>
       <div class="lines-head-right">
-        <div class="gsel-wrap"><select id="gameSel" class="gsel" title="Show one game or the whole board"></select></div>
         <div class="mb-wrap" id="mybooksWrap"><button type="button" class="mb-btn">My books: all ▾</button><div class="mb-panel" hidden></div></div>
         <div class="side-seg" id="sideSeg" title="Which side to grade the history against">
           <button type="button" data-side="0" class="active">Over</button>
