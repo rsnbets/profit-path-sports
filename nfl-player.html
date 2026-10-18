@@ -851,14 +851,23 @@ function normName(s){
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 function valOf(r,key){ if(key==='anytd')return r[F.rtd]+r[F.rectd]; if(key==='rr')return r[F.ryd]+r[F.recyd]; if(key==='pr')return r[F.pyd]+r[F.ryd]; if(key==='kpts')return 3*(r[F.fgm]||0)+(r[F.xpm]||0); return r[F[key]]||0; }
 function cashes(v){ return SIDE?v<LINE:v>LINE; }
+// Kickoffs: nflverse gives ET wall-clock, SGO gives a real UTC instant. Render BOTH in the
+// reader's own zone with the zone named, so no page silently disagrees with another.
+function etToDate(ds,ts){
+  const [Y,M,D]=ds.split('-').map(Number), [h,m]=(ts||'00:00').split(':').map(Number);
+  let guess=Date.UTC(Y,M-1,D,h,m);
+  for(let i=0;i<2;i++){ const d=new Date(guess);
+    const off=new Date(d.toLocaleString('en-US',{timeZone:'UTC'}))-new Date(d.toLocaleString('en-US',{timeZone:'America/New_York'}));
+    guess=Date.UTC(Y,M-1,D,h,m)+off; }
+  return new Date(guess);
+}
+function tzAbbr(d){ const p=new Intl.DateTimeFormat(undefined,{timeZoneName:'short'}).formatToParts(d||new Date()).find(x=>x.type==='timeZoneName'); return p?p.value:''; }
+function fmtKick(dt,withDay){ return (withDay?dt.toLocaleDateString(undefined,{weekday:'short',month:'short',day:'numeric'})+' · ':'')
+  +dt.toLocaleTimeString(undefined,{hour:'numeric',minute:'2-digit'})+' '+tzAbbr(dt); }
 function fmtGameDay(d,t){
   if(!d) return '';
-  const dt=new Date(d+'T12:00:00');
-  const day=dt.toLocaleDateString(undefined,{weekday:'short',month:'short',day:'numeric'});
-  let tm='';
-  if(t){ const[h,m]=t.split(':').map(Number); const dt2=new Date(); dt2.setHours(h,m);
-    tm=' · '+dt2.toLocaleTimeString(undefined,{hour:'numeric',minute:'2-digit'})+' ET'; }
-  return day+tm;
+  if(!t) return new Date(d+'T12:00:00').toLocaleDateString(undefined,{weekday:'short',month:'short',day:'numeric'});
+  return fmtKick(etToDate(d,t),true);
 }
 
 function wireSearch(inputId,dropId){

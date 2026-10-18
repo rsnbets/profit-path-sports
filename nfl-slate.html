@@ -824,7 +824,20 @@ async function renderGraded(){
   document.getElementById('gradedTbl').outerHTML='<div id="gradedTbl">'+html+'</div>';
   document.getElementById('gradedNote').textContent='Pushes are excluded from every percentage. Main lines only — the alt ladders on the slate are live quotes and aren\'t stored, so a prop is graded at the number the market settled on.';
 }
-function gameTime(g){ const d=new Date(g.startsAt); return d.toLocaleDateString(undefined,{weekday:'short'})+' '+d.toLocaleTimeString(undefined,{hour:'numeric',minute:'2-digit'}); }
+// Kickoffs: nflverse gives ET wall-clock, SGO gives a real UTC instant. Render BOTH in the
+// reader's own zone with the zone named, so no page silently disagrees with another.
+function etToDate(ds,ts){
+  const [Y,M,D]=ds.split('-').map(Number), [h,m]=(ts||'00:00').split(':').map(Number);
+  let guess=Date.UTC(Y,M-1,D,h,m);
+  for(let i=0;i<2;i++){ const d=new Date(guess);
+    const off=new Date(d.toLocaleString('en-US',{timeZone:'UTC'}))-new Date(d.toLocaleString('en-US',{timeZone:'America/New_York'}));
+    guess=Date.UTC(Y,M-1,D,h,m)+off; }
+  return new Date(guess);
+}
+function tzAbbr(d){ const p=new Intl.DateTimeFormat(undefined,{timeZoneName:'short'}).formatToParts(d||new Date()).find(x=>x.type==='timeZoneName'); return p?p.value:''; }
+function fmtKick(dt,withDay){ return (withDay?dt.toLocaleDateString(undefined,{weekday:'short',month:'short',day:'numeric'})+' · ':'')
+  +dt.toLocaleTimeString(undefined,{hour:'numeric',minute:'2-digit'})+' '+tzAbbr(dt); }
+function gameTime(g){ const d=new Date(g.startsAt); return d.toLocaleDateString(undefined,{weekday:'short'})+' '+d.toLocaleTimeString(undefined,{hour:'numeric',minute:'2-digit'})+' '+tzAbbr(d); }
 function renderGameChips(){
   const w=document.getElementById('gameChips'); w.innerHTML='';
   for(const g of ODDS.games){ const b=document.createElement('button'); b.className='chip'; b.dataset.id=g.eventID;
