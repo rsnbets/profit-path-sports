@@ -103,13 +103,14 @@
 
     // Gate / notices
     var gate = '';
-    if (!hasPicks) gate += '<div class="notice warn"><h2>No picks loaded</h2><div>Import the pool’s picks below once they are public. The scoreboard works without them.</div></div>';
+    if (!hasPicks) gate += '<div class="notice warn"><h2>No picks loaded in this browser</h2><div>Drop the PoolHost download (allpicks.xls) into the Pool data panel. Picks stay in this browser only, so each device loads the file once.</div><div><button type="button" class="btn green" id="goImport">Go to import</button></div></div>';
     if (!locked) {
       var ms = lockAll - now, h = Math.floor(ms / 3600000), m = Math.floor((ms % 3600000) / 60000);
       gate += '<div class="notice"><h2>Board opens when every pick is in</h2><div class="countdown">' + (ms > 0 ? h + 'h ' + m + 'm' : 'now') + '</div><div>Picks lock ' + esc(U.fmtDayTime(data.pool.deadline_utc)) + '. Until then this page shows results so far. Picks that are not in yet are never used.</div></div>';
     }
     if (locked && hasPicks && data.tiebreak.total == null) gate += '<div class="notice warn"><h2>No market total for the tiebreak game</h2><div>Tiebreak odds are off until the data build has one.</div></div>';
     qs('#gate').innerHTML = gate;
+    var gi = qs('#goImport'); if (gi) gi.onclick = function () { var el = qs('#import'); var b = qs('#impBody', el); if (b) b.classList.remove('hidden'); el.scrollIntoView({ behavior: 'smooth' }); };
 
     // Market row picks
     mkt = {}; games.forEach(function (g) { mkt[g.id] = g.p_home >= 0.5 ? 'H' : 'A'; });
@@ -297,7 +298,7 @@
     if (st.demo) { el.innerHTML = '<div class="ihead"><h2>Mock data</h2><span class="srcnote">This is the design fixture with anonymized handles. Real weeks load picks from a CSV you import; nothing is uploaded.</span></div>'; return; }
     if (el.getAttribute('data-key') === st.key) return;
     el.setAttribute('data-key', st.key);
-    U.importPanel(el, { games: games, key: st.key, season: st.data.season, week: st.data.week }, function () { loadPicks(); st.forced = {}; st.sel = null; render(); });
+    U.importPanel(el, { games: games, key: st.key, season: st.data.season, week: st.data.week, open: st.players.length === 0 }, function () { loadPicks(); st.forced = {}; st.sel = null; render(); });
   }
 
   function renderFooter(games, res) {
