@@ -876,7 +876,7 @@ function wireSearch(inputId,dropId){
   });
   inp.addEventListener('blur',()=>setTimeout(close,150));
 }
-function go(id){ history.pushState({},'', '/nba-player.html?id='+id); loadPlayer(id); }
+function go(id){ history.pushState({},'', '/nba-player.html?id='+id); window.scrollTo(0,0); loadPlayer(id); }   // the landing card collapses under the reader; start his page at the top
 function syncURL(){ if(!SHARD||!PROP) return; const u='/nba-player.html?id='+SHARD.id+'&p='+encodeURIComponent(PROP.key)+(SIDE?'&side=u':'')+(PO?'':'&po=0'); history.replaceState({},'',u); }
 function setPO(v){ PO=v?1:0; try{ localStorage.setItem('pps_nba_po',String(PO)); }catch(e){}
   document.querySelectorAll('#poSeg button').forEach(b=>b.classList.toggle('active',+b.dataset.po===PO)); }
@@ -884,6 +884,7 @@ function setPO(v){ PO=v?1:0; try{ localStorage.setItem('pps_nba_po',String(PO));
 async function loadPlayer(id){
   document.getElementById('landingCard').style.display='none';
   document.getElementById('playerCard').style.display='block';
+  window.scrollTo(0,0);
   const status=document.getElementById('statusBar');
   status.className='status-bar'; status.textContent='Loading player…';
   try{
