@@ -558,6 +558,7 @@
           <a href="/player.html">Player Prop Finder</a>
           <a href="/nfl-hot-streaks.html">NFL Streak Scanner</a>
           <a href="/nfl-player.html">NFL Prop Finder</a>
+          <a href="/nba-slate.html">NBA Prop Slate</a>
           <a href="/nba-hot-streaks.html">NBA Streak Scanner</a>
           <a href="/nba-player.html">NBA Prop Finder</a>
         </div>
@@ -625,6 +626,7 @@
   <div class="section landing-boards">
     <div class="section-label">Or start from a board</div>
     <div class="chip-row">
+      <a class="chip" href="/nba-slate.html">🏀 NBA Prop Slate: every prop, by game 🏀</a>
       <a class="chip" href="/nba-hot-streaks.html">🏀 NBA Streak Scanner 🏀</a>
       <a class="chip" href="/prop-shop.html">🛍 The Prop Shop</a>
       <a class="chip" href="/nfl-slate.html">🏈 NFL Prop Slate 🏈</a>
@@ -637,7 +639,7 @@
 <div class="card" id="playerCard" style="display:none;">
   <div class="p-header">
     <div class="p-topline">
-      <a class="back-btn" href="/nba-player.html" id="backBtn">← NBA Prop Finder</a>
+      <a class="back-btn" href="/nba-slate.html" id="backBtn">← NBA Prop Slate</a>
       <div class="search-wrap slim">
         <input type="text" id="searchIn2" class="search-in" placeholder="Search another player…" autocomplete="off" spellcheck="false">
         <div class="search-drop" id="searchDrop2"></div>
@@ -712,7 +714,7 @@
     <div id="comboBox"></div>
   </div>
   <div class="section" style="text-align:center;">
-    <div class="det-note">🔥 <a href="/nba-hot-streaks.html">NBA Streak Scanner</a> · 🛍 <a href="/prop-shop.html">The Prop Shop</a> · 🏈 <a href="/nfl-slate.html">NFL Prop Slate</a> · ⚾ <a href="/player.html">MLB Prop Finder</a> · math tools → <a href="/devig_calculator.html">devig</a> · <a href="/kelly-calculator.html">Kelly</a></div>
+    <div class="det-note">← <a href="/nba-slate.html">NBA Prop Slate</a> · 🔥 <a href="/nba-hot-streaks.html">NBA Streak Scanner</a> · 🛍 <a href="/prop-shop.html">The Prop Shop</a> · 🏈 <a href="/nfl-slate.html">NFL Prop Slate</a> · ⚾ <a href="/player.html">MLB Prop Finder</a> · math tools → <a href="/devig_calculator.html">devig</a> · <a href="/kelly-calculator.html">Kelly</a></div>
   </div>
 </div>
 
@@ -979,7 +981,7 @@ function renderMatchup(){
   let cards=lineCard(), foot='';
   if(m){
     const [pg,rank,lg]=m, n=Object.keys(live.R).length, soft=n-rank+1, forces=PROP.key==='tov';
-    const ord=k=>k+(k===1?'st':k===2?'nd':k===3?'rd':'th');
+    const ord=k=>k+((k%100>=11&&k%100<=13)?'th':k%10===1?'st':k%10===2?'nd':k%10===3?'rd':'th');
     const cls=rank>=n-9?'soft':rank<=10?'tough':'mid';
     const word=cls==='soft'?(soft===1?'softest in the league':ord(soft)+'-softest'):cls==='tough'?(rank===1?'stingiest in the league':ord(rank)+'-stingiest'):'middle of the pack';
     const verdict=cls==='soft'?'Soft spot':cls==='tough'?'Tough spot':'Neutral';
@@ -1243,10 +1245,8 @@ function renderSplits(){
 }
 
 function renderLanding(){
-  document.getElementById('playerCard').style.display='none';
-  document.getElementById('landingCard').style.display='block';
-  document.title='🏀 NBA Prop Finder — Profit Path Sports';
-  const inp=document.getElementById('searchIn'); if(inp) inp.focus();
+  // the NBA landing page is the Prop Slate now, same as NFL: it carries the player search
+  location.replace('/nba-slate.html');
 }
 
 document.getElementById('stepDn').addEventListener('click',()=>{ if(LINE-STEP>=0.5){ LINE=Math.round((LINE-STEP)*2)/2; render(); }});
@@ -1260,9 +1260,7 @@ document.querySelectorAll('#poSeg button').forEach(b=>b.addEventListener('click'
   setPO(+b.dataset.po); GAMESEL=null; render(); syncURL();
 }));
 document.getElementById('backBtn').addEventListener('click',e=>{
-  e.preventDefault();
-  history.pushState({},'','/nba-player.html');
-  renderLanding();
+  e.preventDefault(); location.href='/nba-slate.html';
 });
 window.addEventListener('popstate',()=>{
   const id=new URLSearchParams(location.search).get('id');
@@ -1276,8 +1274,7 @@ async function boot(){
     IDX=await r.json();
     IDX.fields.forEach((f,i)=>F[f]=i);
   }catch(e){
-    document.getElementById('landingCard').style.display='block';
-    document.getElementById('searchIn').placeholder='Player index unavailable. Refresh to retry.';
+    document.body.insertAdjacentHTML('afterbegin','<div class="status-bar err" style="margin:1rem">Player index unavailable. Refresh to retry.</div>');
     return;
   }
   wireSearch('searchIn','searchDrop');

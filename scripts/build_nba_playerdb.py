@@ -18,6 +18,7 @@ Writes:
                               bucket this season, with league rank (1 = allows
                               the least) and last season's final ranks
   data/nba/injuries.json      ESPN's current injury designation per player
+  data/nba/slate.json         every unplayed game in the next 8 days (the slate page)
 
 Same discipline as MLB and NFL: shards carry no timestamp (idle player =
 identical bytes = no git churn), unchanged snapshots keep their previous
@@ -46,6 +47,7 @@ SHARD_DIR = os.path.join(ROOT, "players")
 INDEX_PATH = os.path.join(ROOT, "players.json")
 MATCHUP_PATH = os.path.join(ROOT, "matchups.json")
 INJ_PATH = os.path.join(ROOT, "injuries.json")
+SLATE_PATH = os.path.join(ROOT, "slate.json")
 
 SITE = "https://site.api.espn.com/apis/site/v2/sports/basketball/nba"
 WEB = "https://site.web.api.espn.com/apis/common/v3/sports/basketball/nba"
@@ -185,9 +187,10 @@ def gamelog(pid, season):
 
 
 def next_games():
-    """team -> its next scheduled game {opp, home, utc}. Eight single-day
-    scoreboard calls (ESPN rejects date ranges on this endpoint)."""
-    out = {}
+    """-> (team -> its next scheduled game {opp, home, utc},
+           [every unplayed game in the next 8 days, for the slate page]).
+    Eight single-day scoreboard calls (ESPN rejects date ranges here)."""
+    out, games = {}, []
     today = datetime.now(ET).date()
     for d in range(0, 8):
         day = (today + timedelta(days=d)).strftime("%Y%m%d")
@@ -195,7 +198,7 @@ def next_games():
         for ev in sorted(sb.get("events") or [], key=lambda e: e.get("date", "")):
             comp = (ev.get("competitions") or [{}])[0]
             state = ((comp.get("status") or {}).get("type") or {}).get("state")
-            if state == "post":
+            if state == "post" or (ev.get("season") or {}).get("type") == 1:   # finished, or preseason
                 continue
             cs = comp.get("competitors") or []
             if len(cs) != 2:
@@ -205,10 +208,15 @@ def next_games():
             if not home or not away:
                 continue
             h, a = home["team"]["abbreviation"], away["team"]["abbreviation"]
+            utc = ev.get("date", "")
+            if not any(g["id"] == str(ev.get("id")) for g in games):
+                games.append({"id": str(ev.get("id")), "away": a, "home": h, "utc": utc,
+                              "date": et_date(utc) if utc else "", "state": state or ""})
             for team, opp, is_home in ((h, a, 1), (a, h, 0)):
                 if team not in out:
-                    out[team] = {"opp": opp, "home": is_home, "utc": ev.get("date", "")}
-    return out
+                    out[team] = {"opp": opp, "home": is_home, "utc": utc}
+    games.sort(key=lambda g: g["utc"])
+    return out, games
 
 
 def build_matchups(shards, which, eids_by_pid):
@@ -330,7 +338,7 @@ def main():
             pruned += 1
 
     generated_at = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
-    ng = next_games()
+    ng, games = next_games()
     index_body = {
         "season": SEASON, "prevSeason": PREV,
         "seasonLabel": f"{SEASON - 1}-{str(SEASON)[2:]}",
@@ -358,6 +366,9 @@ def main():
     mu["prev"] = {"season": PREV, "n": mu_prev["n"], "games": mu_prev["games"], "ranks": mu_prev["ranks"]}
     with open(MATCHUP_PATH, "w") as f:
         json.dump({"generatedAt": generated_at, **mu}, f, separators=(",", ":"))
+
+    with open(SLATE_PATH, "w") as f:                      # the slate page's game picker
+        json.dump({"generatedAt": generated_at, "season": SEASON, "games": games}, f, separators=(",", ":"))
 
     inj = {p["id"]: p["inj"] for p in players if p["inj"]}
     with open(INJ_PATH, "w") as f:

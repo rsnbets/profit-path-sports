@@ -999,7 +999,7 @@ function renderMatchup(){
   let cards=lineCard(), foot='';
   if(m){
     const [pg,rank,lg]=m, n=Object.keys(MU.ranks).length, soft=n-rank+1;
-    const ord=k=>k+(k===1?'st':k===2?'nd':k===3?'rd':'th');
+    const ord=k=>k+((k%100>=11&&k%100<=13)?'th':k%10===1?'st':k%10===2?'nd':k%10===3?'rd':'th');
     const cls=rank>=23?'soft':rank<=10?'tough':'mid';
     const word=cls==='soft'?(soft===1?'softest in the league':ord(soft)+'-softest'):cls==='tough'?(rank===1?'stingiest in the league':ord(rank)+'-stingiest'):'middle of the pack';
     const verdict=cls==='soft'?'Soft spot':cls==='tough'?'Tough spot':'Neutral';
