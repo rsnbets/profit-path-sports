@@ -682,7 +682,7 @@ function priceAt(lad,line){ const bk=lad[String(line)]||null; if(!bk) return nul
   return {bestOver:bo,bestUnder:bu,fairOver:median(fo),nTwo:fo.length,n:Object.keys(bk).length}; }
 function valOf(r,key){ if(key==='anytd')return r[F.rtd]+r[F.rectd]; if(key==='rr')return r[F.ryd]+r[F.recyd]; if(key==='pr')return r[F.pyd]+r[F.ryd]; if(key==='kpts')return 3*(r[F.fgm]||0)+(r[F.xpm]||0); return r[F[key]]||0; }
 const POSB={QB:'QB',RB:'RB',FB:'RB',WR:'WR',TE:'TE',K:'K'};   // defenders have no matchup bucket
-const ord=k=>k+(k===1?'st':k===2?'nd':k===3?'rd':'th');
+const ord=k=>k+((k%100>=11&&k%100<=13)?'th':k%10===1?'st':k%10===2?'nd':k%10===3?'rd':'th');
 
 let ODDS=null,IDX=null,F={},MU=null,INJ=null,GAME=null,TAB=0,SIDE=0,SHARDS={},NAMEIDX={};
 let MYBOOKS=new Set(); try{ MYBOOKS=new Set(JSON.parse(localStorage.getItem('ppz_mybooks')||'[]')); }catch(e){}
