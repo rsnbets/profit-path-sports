@@ -774,6 +774,7 @@ function go(id){
 async function loadPlayer(id){
   document.getElementById('landingCard').style.display='none';
   document.getElementById('playerCard').style.display='block';
+  window.scrollTo(0,0);   // the landing card collapses under the reader; start the page at the top
   const status=document.getElementById('statusBar');
   status.className='status-bar'; status.textContent='Loading player…';
   try{
