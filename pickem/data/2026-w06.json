@@ -1,7 +1,7 @@
 {
  "season": 2026,
  "week": 6,
- "generated_at": "2026-10-19T05:18:43.781645Z",
+ "generated_at": "2026-10-20T05:11:47.713550Z",
  "pool": {
   "timezone": "America/Denver",
   "deadline": {
@@ -20,7 +20,7 @@
  "tiebreak": {
   "game_id": "2026_06_WAS_SF",
   "label": "WAS@SF",
-  "total": 52.5,
+  "total": 51.5,
   "total_source": "nflverse",
   "total_books": 1,
   "sd": 13.1,
@@ -353,20 +353,20 @@
    "lock_at": "2026-10-18T13:30:00Z",
    "weekday": "Monday",
    "gametime_et": "20:15",
-   "p_home": 0.8055,
+   "p_home": 0.7831,
    "p_source": "nflverse",
    "n_books": 1,
    "snapshot_at": null,
    "gap_minutes": null,
-   "market_total": 52.5,
+   "market_total": 51.5,
    "market_total_books": 1,
    "market_total_source": "nflverse",
-   "frozen": false,
+   "frozen": true,
    "nflverse_moneyline": {
-    "away": 350.0,
-    "home": -455.0
+    "away": 310.0,
+    "home": -395.0
    },
-   "nflverse_total": 52.5
+   "nflverse_total": 51.5
   }
  ]
 }
