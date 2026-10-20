@@ -37,6 +37,8 @@ jobs:
         run: python scripts/build_nba_playerdb.py
       - name: Derive NBA streaks
         run: python scripts/build_nba_streaks.py
+      - name: Grade tracked NBA props (Prop Shop honesty loop)
+        run: python scripts/build_nba_prop_results.py || echo "NBA prop grading skipped"
       - name: Commit if changed
         run: |
           git config user.name "mlb-data-bot"
