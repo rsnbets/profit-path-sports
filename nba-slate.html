@@ -5,10 +5,10 @@
 <meta name="robots" content="noindex" data-docile-noindex="1">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>🏀 NBA Prop Slate</title>
-  <meta name="description" content="Every prop on every NBA game tonight: hit rates over L5 / L10 / L20 / season against each player's own number, last game, matchup rank by position and the injury designation, by market. Playoffs on or off. Free, no signup.">
+  <meta name="description" content="Every prop on every NBA game tonight: hit rates over L5 / L10 / L20 / season against the live line, best price, fair price, matchup rank by position and the injury designation, by market. Playoffs on or off. Free, no signup.">
   <meta property="og:type" content="article">
   <meta property="og:title" content="🏀 NBA Prop Slate">
-  <meta property="og:description" content="Open a game, see every player prop with hit rates, matchup rank and injury status.">
+  <meta property="og:description" content="Open a game, see every player prop with hit rates, live lines, fair prices, matchup rank and injury status.">
   <meta property="og:image" content="https://profitpathsports.com/images/og-default.png?v=3">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
@@ -16,7 +16,7 @@
   <meta property="og:site_name" content="Profit Path Sports">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="🏀 NBA Prop Slate">
-  <meta name="twitter:description" content="Open a game, see every player prop with hit rates, matchup rank and injury status.">
+  <meta name="twitter:description" content="Open a game, see every player prop with hit rates, live lines, fair prices, matchup rank and injury status.">
   <meta name="twitter:image" content="https://profitpathsports.com/images/og-default.png?v=3">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -583,7 +583,7 @@
     <div class="p-hero hero-center">
       <div class="p-id">
         <div class="p-title">NBA Prop Slate</div>
-        <div class="p-meta">Every prop on every game: <strong>how often he's cleared his number</strong> over L5 / L10 / L20 / season, his last game, the matchup by position, and the injury designation. Stats first: live lines and fair prices join when the NBA odds feed is live.</div>
+        <div class="p-meta">Every prop on every game: <strong>how often he's cleared his number</strong> over L5 / L10 / L20 / season, his last game, the matchup by position, and the injury designation. The best price and the vig-free price sit beside every line.</div>
       </div>
     </div>
     <div class="hdr-search hero-center">
@@ -632,7 +632,7 @@
   <h3>How to read the slate</h3>
   <ol class="how-to-steps">
     <li><strong>Pick the game, then the market.</strong> Points, rebounds, assists, threes, combos, defense, turnovers, minutes: the same tabs you would walk at a props site. "All games" shows the whole date.</li>
-    <li><strong>Line = his own number for now.</strong> With no NBA odds feed yet, each row is graded against the median of his last 20 games played, rounded to a half. Books usually hang close to it. When the feed is live the market's main number takes over, with the best price and the vig-free price beside it, the way the NFL slate works.</li>
+    <li><strong>Line = the market's main number</strong> on that player right now, and every hit rate is graded against <em>that</em> number, not a round one. Best is the top price for the side you're on; Fair is the vig-free price from the two-sided books. A line in blue means no book has posted one yet, so it is his own number: the median of his last 20 games played, on a half.</li>
     <li><strong>L5 / L10 / L20 / Season</strong> are how often he has cleared it (or stayed under, if you flip the side). Last is his most recent game. Rows sort by L10, so the streaks float up. Click any column to sort.</li>
     <li><strong>Matchup</strong> is what tonight's opponent allows per game to his position (guards, forwards, centers), ranked 1 to 30 (1 = stingiest; green = soft). Under five games this season it uses last season's final ranks. <strong>Report</strong> is ESPN's current injury designation.</li>
     <li><strong>+ Playoffs / Reg season</strong> switches postseason games in or out of every window and of his number.</li>
@@ -643,6 +643,29 @@
   </div>
 </div>
 <script>
+const ODDS_URL='https://nba-ev.vercel.app/props.json';   // NBA_EV, the one SGO pull for NBA props
+// player-db key -> SGO market in props.json. min has no market.
+const MKT={pts:'points',reb:'rebounds',ast:'assists',tpm:'threePointersMade',pra:'points+rebounds+assists',pr:'points+rebounds',
+  pa:'points+assists',ra:'rebounds+assists',stl:'steals',blk:'blocks',sb:'blocks+steals',tov:'turnovers'};
+const SGO_TEAM={NYK:'NY',SAS:'SA',GSW:'GS',NOP:'NO',UTA:'UTAH',WAS:'WSH',PHO:'PHX',BRK:'BKN',CHO:'CHA'};   // SGO codes -> ESPN codes
+const teamCode=t=>SGO_TEAM[t]||t;
+const BOOK_NAMES={draftkings:'DraftKings',fanduel:'FanDuel',betmgm:'BetMGM',caesars:'Caesars',espnbet:'ESPN BET',betrivers:'BetRivers',hardrockbet:'Hard Rock',bovada:'Bovada',mybookie:'MyBookie',ballybet:'Bally',fliff:'Fliff',betus:'BetUS',betanysports:'BetAnySports',fanatics:'Fanatics',pointsbet:'PointsBet',sugarhouse:'SugarHouse',thescorebet:'theScore',betonline:'BetOnline',pinnacle:'Pinnacle',novig:'Novig',prophetexchange:'ProphetX',lowvig:'LowVig',bookmakereu:'BookmakerEU',circa:'Circa',betfairexchange:'Betfair',matchbook:'Matchbook'};
+const bookName=b=>BOOK_NAMES[b]||b;
+const amerNum=o=>{if(o==null)return null;const n=parseFloat(String(o).replace('+',''));return isNaN(n)?null:n;};
+const toDec=o=>{const n=amerNum(o);if(!n)return null;return n>0?1+n/100:1+100/Math.abs(n);};
+const toProb=o=>{const n=amerNum(o);if(!n)return null;return n>0?100/(n+100):Math.abs(n)/(Math.abs(n)+100);};
+const fromProb=p=>{if(!p||p<=0||p>=1)return '—';const d=1/p;const a=d<2?-100/(d-1):(d-1)*100;return (a>0?'+':'')+Math.round(a);};
+const fmtOdds=o=>{const n=amerNum(o);return n==null?'—':(n>0?'+':'')+n;};
+function devigPower(pa,pb){ if(!pa||!pb)return null; let lo=0,hi=10; for(let i=0;i<60;i++){const k=(lo+hi)/2; if(Math.pow(pa,k)+Math.pow(pb,k)>1)lo=k;else hi=k;} const k=(lo+hi)/2; return [Math.pow(pa,k),Math.pow(pb,k)]; }
+function mainLine(lad){ let best=null,bs=-1; for(const [k,bk] of Object.entries(lad)){ const s=Object.values(bk).reduce((a,[o,u])=>a+(o?1:0)+(u?1:0),0); if(s>bs){bs=s;best=k;} } return best==null?null:parseFloat(best); }
+function priceAt(lad,line){ const bk=lad[String(line)]||null; if(!bk) return null; let bo=null,bu=null; const fo=[];
+  for(const [b,[o,u]] of Object.entries(bk)){ if(o&&(!bo||toDec(o)>toDec(bo[1]))) bo=[b,o]; if(u&&(!bu||toDec(u)>toDec(bu[1]))) bu=[b,u]; if(o&&u){ const f=devigPower(toProb(o),toProb(u)); if(f) fo.push(f[0]); } }
+  return {bestOver:bo,bestUnder:bu,fairOver:median(fo),nTwo:fo.length,n:Object.keys(bk).length}; }
+let ODDS=null,ODDS_IDX=null;
+function indexOdds(){ ODDS_IDX={}; if(!ODDS) return;
+  for(const k of Object.keys(ODDS.players)){ const [nm,tm0]=k.split('|'); const tm=teamCode(tm0); const n=normName(nm);
+    (ODDS_IDX[n+'|'+tm]=ODDS_IDX[n+'|'+tm]||[]).push(k); (ODDS_IDX['last:'+n.split(' ').slice(-1)[0]+'|'+tm]=ODDS_IDX['last:'+n.split(' ').slice(-1)[0]+'|'+tm]||[]).push(k); } }
+function laddersFor(p){ if(!ODDS) return null; const n=normName(p.name); const ks=ODDS_IDX[n+'|'+p.team]||ODDS_IDX['last:'+n.split(' ').slice(-1)[0]+'|'+p.team]||[]; return ks.length?ODDS.players[ks[0]]:null; }
 // market tabs: [label, [player-db keys]]
 const TABS=[['All props',null],['Points',['pts']],['Rebounds',['reb']],['Assists',['ast']],['Threes',['tpm']],
   ['Combos',['pra','pr','pa','ra']],['Defense',['stl','blk','sb']],['Turnovers',['tov']],['Minutes',['min']]];
@@ -663,6 +686,8 @@ let PO=1; try{ if(localStorage.getItem('pps_nba_po')==='0') PO=0; }catch(e){}
 let SORT=null;   // {k, dir}; null = default (market order, then L10)
 const rate=(h,minN)=>(h&&h.n>=minN)?h.p+h.n*1e-4:null;      // tiny samples sink; ties break on n
 const SORTV={player:r=>r.p.name.toLowerCase(),game:r=>new Date(r.g.utc).getTime()*-1,prop:r=>MLABEL[r.key]||r.key,line:r=>r.line,
+  best:r=>{const b=SIDE?r.pr&&r.pr.bestUnder:r.pr&&r.pr.bestOver; return b?toDec(b[1]):null;},
+  fair:r=>r.pr&&r.pr.fairOver!=null?(SIDE?1-r.pr.fairOver:r.pr.fairOver):null,
   l5:r=>rate(r.l5,3),l10:r=>rate(r.l10,5),l20:r=>rate(r.l20,5),sea:r=>rate(r.sea,3),prev:r=>rate(r.prev,5),
   vt:r=>rate(r.vt,3),last:r=>r.last,avg5:r=>r.avg5,mu:r=>r.mu&&r.mu[1],rep:r=>r.inj?(r.inj[0]||''):''};
 
@@ -705,12 +730,15 @@ async function boot(){
   const st=document.getElementById('statusBar');
   try{
     const t=Math.floor(Date.now()/300000);
-    [SLATE,IDX,MU,INJ]=await Promise.all([getJSON('/data/nba/slate.json?_='+t),getJSON('/data/nba/players.json?_='+t),
-      getJSON('/data/nba/matchups.json?_='+t).catch(()=>null),getJSON('/data/nba/injuries.json?_='+t).catch(()=>null)]);
+    [SLATE,IDX,MU,INJ,ODDS]=await Promise.all([getJSON('/data/nba/slate.json?_='+t),getJSON('/data/nba/players.json?_='+t),
+      getJSON('/data/nba/matchups.json?_='+t).catch(()=>null),getJSON('/data/nba/injuries.json?_='+t).catch(()=>null),
+      getJSON(ODDS_URL+'?_='+t).catch(()=>null)]);
+    indexOdds();
   }catch(e){ st.className='status-bar err'; st.textContent='Could not load the slate ('+e.message+'). Refresh to retry.'; return; }
   IDX.fields.forEach((f,i)=>F[f]=i);
   const sd=new Date(IDX.generatedAt).toLocaleDateString(undefined,{month:'short',day:'numeric'});
-  st.className='status-bar ok'; st.textContent='Stats through '+sd+' · '+SLATE.games.length+' game'+(SLATE.games.length===1?'':'s')+' in the next week · stats first, no NBA lines feed yet';
+  const od=ODDS&&ODDS.generatedAt?new Date(ODDS.generatedAt).toLocaleString(undefined,{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'}):null;
+  st.className='status-bar ok'; st.textContent=(od?'Lines as of '+od+' · ':'Lines feed unavailable right now · ')+'stats through '+sd+' · '+SLATE.games.length+' game'+(SLATE.games.length===1?'':'s')+' in the next week';
   setPO(PO); wireSearch();
   document.querySelectorAll('#sideSeg button').forEach(b=>b.addEventListener('click',()=>{ SIDE=+b.dataset.side; document.querySelectorAll('#sideSeg button').forEach(x=>x.classList.toggle('active',x===b)); renderTable(); }));
   document.querySelectorAll('#poSeg button').forEach(b=>b.addEventListener('click',()=>{ setPO(+b.dataset.po); renderTable(); }));
@@ -779,14 +807,16 @@ function renderTable(){
   const rows=[];
   for(const key of keys) for(const p of ps){
     const sh=SHARDS[p.id]; const all=playedRows(sh); const cur=all.filter(r=>sh.g.includes(r)), prevR=all.filter(r=>sh.prev.includes(r));
-    const line=lineFor(all,key); if(line==null) continue;
+    const lads=laddersFor(p), lad=lads&&MKT[key]?lads[MKT[key]]:null, ml=lad?mainLine(lad):null;
+    const mkt=ml!=null, line=mkt?ml:lineFor(all,key); if(line==null) continue;
+    const pr=mkt?priceAt(lad,line):null;
     const g=p.g, opp=p.team===g.home?g.away:g.home; const b=BUCKET[p.pos]||'F';
     const live=muLive(opp); const mu=live&&live.R[opp]&&live.R[opp][b]&&live.R[opp][b][key]||null;
     const inj=INJ&&INJ.players&&INJ.players[p.id]||null;
     const tier=live?tierOf(opp,b,key,live.R):null;
     const Rp=(MU&&MU.prev&&MU.prev.ranks)||{}, Rc=(MU&&MU.ranks&&Object.keys(MU.ranks).length)?MU.ranks:Rp;
     const trows=tier?prevR.filter(r=>tierOf(r[F.opp],b,key,Rp)===tier).concat(cur.filter(r=>tierOf(r[F.opp],b,key,Rc)===tier)):[];
-    rows.push({key,p,g,line,b,opp,mu,muPrev:live&&live.prev,muGames:live?(live.games[opp]||0):0,inj,tier,vt:tier?hit(trows,key,line):null,
+    rows.push({key,p,g,line,mkt,pr,b,opp,mu,muPrev:live&&live.prev,muGames:live?(live.games[opp]||0):0,inj,tier,vt:tier?hit(trows,key,line):null,
       l5:hit(all.slice(-5),key,line),l10:hit(all.slice(-10),key,line),l20:hit(all.slice(-20),key,line),sea:hit(cur,key,line),prev:hit(prevR,key,line),
       last:all.length?valOf(all[all.length-1],key):null,avg5:all.length?all.slice(-5).reduce((s,r)=>s+valOf(r,key),0)/Math.min(5,all.length):null});
   }
@@ -798,7 +828,8 @@ function renderTable(){
   } else { const k10=r=>rate(r.l10,5)??-1, k5=r=>rate(r.l5,3)??-1;
     rows.sort((a,b)=>(TAB===0?0:(keys.indexOf(a.key)-keys.indexOf(b.key)))||(k10(b)-k10(a))||(k5(b)-k5(a))); }
   const side=SIDE?'U':'O';
-  const COLS=[['player','Player','',''],...(allGames?[['game','Game','','tip-off in your time zone']]:[]),['prop','Prop','',''],['line','His #','r','median of his last 20 games played, on a half; the market line takes over when the feed is live'],
+  const COLS=[['player','Player','',''],...(allGames?[['game','Game','','tip-off in your time zone']]:[]),['prop','Prop','',''],['line','Line','r','the market\'s main number on him right now; when no book posts one, his own number (median of his last 20 played, on a half), shown in blue'],
+    ['best','Best '+(SIDE?'under':'over'),'r','best available price for this side'],['fair','Fair','r','vig-free price from the two-sided books'],
     ['l5','L5','r','last 5 games played'],['l10','L10','r','last 10 games played'],['l20','L20','r','last 20 games played'],
     ['sea',IDX.seasonLabel,'r','this season'],['prev',IDX.prevSeasonLabel,'r','last season'],
     ['vt','Similar D','r','vs defenses in the same tier (top-10 / mid / bottom-10) as tonight\'s opponent'],
@@ -806,6 +837,8 @@ function renderTable(){
   const arrow=k=>SORT&&SORT.k===k?(SORT.dir===1?' ▼':' ▲'):'';
   let html='<thead><tr>'+COLS.map(([k,l,cls,t])=>'<th class="'+cls+' sortable'+(SORT&&SORT.k===k?' sorted':'')+'" data-k="'+k+'" title="'+esc(t?t+' · click to sort':'click to sort')+'">'+esc(l)+arrow(k)+'</th>').join('')+'</tr></thead><tbody>';
   for(const r of rows){
+    const best=r.pr?(SIDE?r.pr.bestUnder:r.pr.bestOver):null; const fair=r.pr&&r.pr.fairOver!=null?(SIDE?1-r.pr.fairOver:r.pr.fairOver):null;
+    const ev=(fair!=null&&best)?fair*toDec(best[1])-1:null;
     const link='/nba-player.html?id='+r.p.id+'&p='+encodeURIComponent(r.key)+(SIDE?'&side=u':'')+(PO?'':'&po=0');
     const n=r.mu?Object.keys((r.muPrev?MU.prev.ranks:MU.ranks)).length:0;
     const muc=r.mu?(r.mu[1]>=n-9?'good':r.mu[1]<=10?'bad':'mid'):'';
@@ -815,7 +848,9 @@ function renderTable(){
       +'<td class="pl"><a href="'+link+'">'+esc(r.p.name)+'</a> <span class="thin">'+esc(r.p.team)+' · '+esc(r.p.pos)+'</span></td>'
       +(allGames?'<td class="thin gcell" title="'+esc(gameTime(r.g))+'">'+esc(r.g.away)+'<span class="at">@</span>'+esc(r.g.home)+'</td>':'')
       +'<td class="thin">'+esc(MLABEL[r.key]||r.key)+'</td>'
-      +'<td class="r mono hisn" title="his L20 median, not a book line">'+side+r.line+'</td>'
+      +(r.mkt?'<td class="r mono">'+side+r.line+'</td>':'<td class="r mono hisn" title="no book posts a line: his L20 median">'+side+r.line+'</td>')
+      +'<td class="r mono'+(ev!=null&&ev>0?' good':'')+'">'+(best?fmtOdds(best[1])+' <span class="bk">'+esc(bookName(best[0]))+'</span>':'—')+'</td>'
+      +'<td class="r mono thin" title="'+(r.pr?r.pr.nTwo+' two-sided books':'')+'">'+(fair!=null?fromProb(fair):'—')+'</td>'
       +cell(r.l5)+cell(r.l10)+cell(r.l20)+cell(r.sea)+cell(r.prev)+(r.vt?cell(r.vt,'vs '+r.tier+' defenses'):'<td class="r thin">—</td>')
       +'<td class="r mono">'+(r.last!=null?r.last:'—')+'</td><td class="r mono thin">'+(r.avg5!=null?r.avg5.toFixed(1):'—')+'</td>'
       +'<td class="r mono '+muc+'" title="'+(r.mu?esc(r.opp)+' '+(r.key==='tov'?'forces':'allows')+' '+r.mu[0]+'/g to '+esc(POS_LABEL[r.b])+' (league avg '+r.mu[2]+' · '+r.muGames+' games'+(r.muPrev?' · last season\'s final ranks':'')+')':'')+'">'+(r.mu?ord(r.mu[1])+(r.muPrev?'<span class="thin">*</span>':''):'—')+'</td>'
@@ -831,9 +866,9 @@ function renderTable(){
     else SORT=null;
     renderTable();
   }));
-  const SNAME={player:'player',game:'game',prop:'prop',line:'his number',l5:'L5',l10:'L10',l20:'L20',sea:IDX.seasonLabel,prev:IDX.prevSeasonLabel,vt:'similar-D',last:'last game',avg5:'avg5',mu:'matchup rank',rep:'report'};
+  const SNAME={player:'player',game:'game',prop:'prop',line:'line',best:'best price',fair:'fair price',l5:'L5',l10:'L10',l20:'L20',sea:IDX.seasonLabel,prev:IDX.prevSeasonLabel,vt:'similar-D',last:'last game',avg5:'avg5',mu:'matchup rank',rep:'report'};
   const anyPrevMu=rows.some(r=>r.muPrev);
-  document.getElementById('slateNote').textContent=rows.length?rows.length+' props'+(allGames?' across '+gamesOnDate(DATE).length+' games':'')+' · '+(SORT?'sorted by '+SNAME[SORT.k]+(SORT.dir===1?' (best first)':' (worst first)')+', click again to flip, a third time to reset':'sorted by L10 then L5 · click any column to sort')+' · '+(SIDE?'graded as unders':'graded as overs')+' against each player\'s own number (median of his last 20 played, no NBA lines feed yet) · players under '+MIN_AVG_MIN+' minutes a night are left off · '+(PO?'playoffs included':'regular season only')+(anyPrevMu?' · * matchup rank from last season\'s final table until the opponent has five games':''):'No eligible players for this game yet.';
+  document.getElementById('slateNote').textContent=rows.length?rows.length+' props'+(allGames?' across '+gamesOnDate(DATE).length+' games':'')+' · '+(SORT?'sorted by '+SNAME[SORT.k]+(SORT.dir===1?' (best first)':' (worst first)')+', click again to flip, a third time to reset':'sorted by L10 then L5 · click any column to sort')+' · '+(SIDE?'graded as unders':'graded as overs')+' against the market\'s main line, or his own number in blue (median of his last 20 played) where no book posts one'+(ODDS?' · '+rows.filter(r=>r.mkt).length+' with a live line':' · lines feed unavailable')+' · players under '+MIN_AVG_MIN+' minutes a night are left off · '+(PO?'playoffs included':'regular season only')+(anyPrevMu?' · * matchup rank from last season\'s final table until the opponent has five games':''):'No eligible players for this game yet.';
 }
 (function(){ var loadedAt=Date.now(); document.addEventListener('visibilitychange',function(){ if(document.visibilityState==='visible'&&Date.now()-loadedAt>60*60*1000) location.reload(); }); })();
 boot();
