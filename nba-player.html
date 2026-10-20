@@ -5,7 +5,7 @@
 <meta name="robots" content="noindex" data-docile-noindex="1">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>🏀 NBA Prop Finder</title>
-  <meta name="description" content="Search any NBA player and get every prop that matters: clear rates at any line over season/L20/L10/L5 and vs tonight's opponent, game-by-game charts, home/away splits, matchup rank and injury status. Playoffs on or off. Free, no signup.">
+  <meta name="description" content="Search any NBA player and get every prop that matters: clear rates at any line over season/L20/L10/L5 and vs tonight\'s opponent, live lines and fair prices from every book, game-by-game charts, splits, matchup rank and injury status. Free, no signup.">
   <meta property="og:type" content="article">
   <meta property="og:title" content="🏀 NBA Prop Finder">
   <meta property="og:description" content="Any NBA player, every prop: clear rates, charts, splits, matchup, tonight's game.">
@@ -615,7 +615,7 @@
   <div class="header">
     <div class="hero-eyebrow">NBA · Every Rostered Player · Every Prop</div>
     <div class="title">🏀 NBA Prop&nbsp;Finder&nbsp;🏀</div>
-    <p class="title-sub">Type any NBA player. Get <strong>every prop that matters on him</strong>: how often he clears any line over the <strong>season, last 20/10/5</strong> and <strong>against tonight's opponent</strong>, his game-by-game chart, home/away splits, what the opponent allows to his position, and the injury designation. Playoff games can be switched in or out. Lines and vig-free fair prices join when the NBA odds feed is live.</p>
+    <p class="title-sub">Type any NBA player. Get <strong>every prop that matters on him</strong>: how often he clears any line over the <strong>season, last 20/10/5</strong> and <strong>against tonight's opponent</strong>, his game-by-game chart, home/away splits, what the opponent allows to his position, and the injury designation. Playoff games can be switched in or out. Live lines, alt ladders and vig-free fair prices from every book sit right next to the history.</p>
   </div>
   <div class="section">
     <div class="search-wrap big">
@@ -683,7 +683,7 @@
     <div class="mu-line" id="matchupLine" style="display:none"></div>
     <div id="linesBox"></div>
     <div class="ln-note" id="lnNote">Stats load with the player.</div>
-    <div class="det-note">No NBA player-prop odds feed is wired yet, so this page is stats first: step to the number your book hangs and read his history against it. Live lines, alt ladders and the vig-free fair price (power de-vig per two-sided book, median across books) join when the feed is live.</div>
+    <div class="det-note">Lines from NBA_EV (every US book + Novig/ProphetX, live quotes only). The highlighted line is the market's main number; tap any alt line to price it. Fair = power de-vig per two-sided book, median across books.</div>
   </div>
 
   <div class="section">
@@ -722,7 +722,7 @@
   <div class="how-to-eyebrow">Profit Path Sports</div>
   <h3>How to use the NBA prop finder</h3>
   <ol class="how-to-steps">
-    <li><strong>Search a player, pick a prop.</strong> Step the line to the number your book hangs. Every panel recomputes against it.</li>
+    <li><strong>Search a player, pick a prop.</strong> The line snaps to the market's main number when one is posted; tap any alt line on the strip, or step to any threshold.</li>
     <li><strong>Read the matchup and the designation.</strong> The matchup card is what tonight's opponent allows per game to his position (guards, forwards or centers), ranked against all 30. Green = soft. The badge on his name is ESPN's current injury designation.</li>
     <li><strong>Read the clear rates.</strong> L20/L10/L5 show form. "vs" tonight's opponent shows the head-to-head with the sample printed on it, because two meetings is trivia, not a trend.</li>
     <li><strong>Choose your sample.</strong> "+ Playoffs" keeps postseason games in every window. "Reg season" drops them. Playoff minutes and rotations are a different sport, so check both before you trust a rate.</li>
@@ -732,7 +732,7 @@
   </ol>
   <div class="lock-in">
     <span class="lock-lbl">🔒 Lock this in</span>
-    Stats are snapshotted daily from ESPN's box scores. <strong>History finds the spot, the price makes the bet.</strong> This page has the history today. When the NBA odds feed is live it will show the price and the fair price beside it, the same way the NFL pages do.
+    Stats are snapshotted daily from ESPN's box scores; lines refresh five times a day around tip-off. <strong>History finds the spot, the price makes the bet</strong>, and the fair price tells you whether the book is charging for it.
   </div>
 </div>
 
@@ -753,9 +753,11 @@ async function loadSide(){
   if(MU===null){ try{ const r=await fetch('/data/nba/matchups.json?_='+Math.floor(Date.now()/3600000),{cache:'no-store'}); MU=r.ok?await r.json():false; }catch(e){ MU=false; } }
   if(INJ===null){ try{ const r=await fetch('/data/nba/injuries.json?_='+Math.floor(Date.now()/3600000),{cache:'no-store'}); INJ=r.ok?await r.json():false; }catch(e){ INJ=false; } }
 }
-// No NBA player-prop odds store exists yet (see brain/TOOLS.md). Point this at the feed when it does;
-// everything below already knows how to read a props.json in the NFL_EV shape.
-const ODDS_URL=null;
+// NBA_EV (products/ev-board/nba-ev) is the ONE SGO pull for NBA props; props.json is the same shape as NFL_EV's.
+const ODDS_URL='https://nba-ev.vercel.app/props.json';
+// SGO team codes -> ESPN codes used by the player DB
+const SGO_TEAM={NYK:'NY',SAS:'SA',GSW:'GS',NOP:'NO',UTA:'UTAH',WAS:'WSH',PHO:'PHX',BRK:'BKN',CHO:'CHA'};
+const teamCode=t=>SGO_TEAM[t]||t;
 let ODDS=null,ODDS_IDX=null,LAD=null;   // feed, name index, current player's ladders
 let MYBOOKS=new Set(); try{ MYBOOKS=new Set(JSON.parse(localStorage.getItem('ppz_mybooks')||'[]')); }catch(e){}
 const bookOK=b=>!MYBOOKS.size||MYBOOKS.has(b);
@@ -777,14 +779,14 @@ async function loadOdds(){
   try{ const r=await fetch(ODDS_URL+'?_='+Math.floor(Date.now()/300000),{cache:'no-store'}); if(!r.ok) throw new Error(r.status); ODDS=await r.json(); }
   catch(e){ ODDS=false; return; }
   ODDS_IDX={};
-  for(const k of Object.keys(ODDS.players)){ const [nm,tm]=k.split('|'); const n=normName(nm); (ODDS_IDX[n+'|'+tm]=ODDS_IDX[n+'|'+tm]||[]).push(k); (ODDS_IDX[n]=ODDS_IDX[n]||[]).push(k); }
+  for(const k of Object.keys(ODDS.players)){ const [nm,tm0]=k.split('|'); const tm=teamCode(tm0); const n=normName(nm); (ODDS_IDX[n+'|'+tm]=ODDS_IDX[n+'|'+tm]||[]).push(k); (ODDS_IDX[n]=ODDS_IDX[n]||[]).push(k); }
 }
 function findLadders(){
   if(!ODDS||!SHARD) return null;
   const n=normName(SHARD.name);
   let ks=ODDS_IDX[n+'|'+SHARD.team]||ODDS_IDX[n]||[];
   if(!ks.length){ const last=n.split(' ').slice(-1)[0];
-    ks=Object.keys(ODDS.players).filter(k=>k.endsWith('|'+SHARD.team)&&normName(k.split('|')[0]).split(' ').slice(-1)[0]===last); }
+    ks=Object.keys(ODDS.players).filter(k=>teamCode(k.split('|')[1])===SHARD.team&&normName(k.split('|')[0]).split(' ').slice(-1)[0]===last); }
   return ks.length?ODDS.players[ks[0]]:null;
 }
 function ladderFor(key){ const m=MKT[key]; return (LAD&&m&&LAD[m])||null; }
@@ -917,7 +919,8 @@ async function loadPlayer(id){
     document.getElementById('pMeta').innerHTML+=' · <span class="inj-badge '+esc(inj[0].replace(/[^A-Za-z]/g,''))+'" title="ESPN designation'+(asOf&&!isNaN(asOf)?' as of '+asOf.toLocaleDateString(undefined,{month:'short',day:'numeric'}):'')+'">'+esc(inj[0])+(inj[1]?' · '+esc(inj[1]):'')+'</span>'; }
   else if(INJ&&INJ.players){ document.getElementById('pMeta').innerHTML+=' · <span class="inj-ok" title="ESPN roster designations">no injury designation</span>'; }
   const nCur=SHARD.g.length, nPrev=SHARD.prev.length;
-  status.textContent='Stats through '+d+' · '+nCur+' game'+(nCur===1?'':'s')+' this season · '+nPrev+' last season · stats first, no NBA lines feed yet';
+  const od=ODDS&&ODDS.generatedAt?new Date(ODDS.generatedAt).toLocaleString(undefined,{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'}):null;
+  status.textContent='Stats through '+d+' · '+nCur+' game'+(nCur===1?'':'s')+' this season · '+nPrev+' last season · '+(LAD?'lines live as of '+od+' · '+Object.keys(LAD).length+' markets posted on him':(ODDS?'no lines posted on him yet (lines as of '+od+')':'lines feed unavailable right now'));
   status.className='status-bar ok';
   const q=new URLSearchParams(location.search);
   if(q.get('po')==='0') setPO(0); else if(q.get('po')==='1') setPO(1); else setPO(PO);
@@ -966,7 +969,7 @@ function tierWindow(){
 }
 function lineCard(){
   const lad=ladderFor(PROP.key); const p=lad?priceAt(lad,LINE):null; const sideTxt=(SIDE?'U':'O')+LINE;
-  if(!lad) return '<div class="mu-card off"><div class="mu-k">Line · '+esc(PROP.label)+'</div><div class="mu-big">'+sideTxt+'</div><div class="mu-sub">your number · no lines feed yet</div></div>';
+  if(!lad) return '<div class="mu-card off"><div class="mu-k">Line · '+esc(PROP.label)+'</div><div class="mu-big">'+sideTxt+'</div><div class="mu-sub">no line posted yet · stepper only</div></div>';
   const mine=p?(SIDE?p.bestUnder:p.bestOver):null; const fair=p&&p.fairOver!=null?(SIDE?1-p.fairOver:p.fairOver):null;
   const ev=(fair!=null&&mine)?fair*toDec(mine[1])-1:null; const ml=mainLine(lad);
   const cls=ev==null?'off':ev>0?'soft':ev<-0.04?'tough':'mid';
@@ -1043,7 +1046,7 @@ function legBest(leg){ const lad=ladderFor(leg.key); if(!lad) return null; const
 function renderCombo(){
   const box=document.getElementById('comboBox'); if(!box) return;
   const defs=propsFor(SHARD.pos);
-  const picker=defs.map(d=>{ const lad=ladderFor(d[0]); return '<button type="button" class="cb-pick'+(comboHas(d[0])?' on':'')+(lad?'':' noline')+'" data-k="'+d[0]+'" data-l="'+esc(d[1])+'">'+esc(d[1])+(lad||ODDS===false?'':' <span class="cb-nl">no line</span>')+'</button>'; }).join('');
+  const picker=defs.map(d=>{ const lad=ladderFor(d[0]); return '<button type="button" class="cb-pick'+(comboHas(d[0])?' on':'')+(lad?'':' noline')+'" data-k="'+d[0]+'" data-l="'+esc(d[1])+'">'+esc(d[1])+(lad?'':' <span class="cb-nl">no line</span>')+'</button>'; }).join('');
   let body='';
   if(COMBO.length<2){
     body='<div class="cb-empty">Pick <strong>two or more</strong> of his props above. We count the games where <em>all</em> of them landed: the number a same-game parlay is really worth.</div>';
@@ -1122,7 +1125,7 @@ function renderLines(){
   const box=document.getElementById('linesBox'),note=document.getElementById('lnNote');
   const lad=ladderFor(PROP.key);
   if(!lad){ box.innerHTML=''; note.style.display='block';
-    note.textContent=ODDS===false?'No NBA lines feed yet. Step to the number your book hangs; every panel recomputes against it.':
+    note.textContent=ODDS===false?'Lines feed unavailable right now. The stepper still works on his full history.':
       (LAD?'No '+PROP.label.toLowerCase()+' line posted on him yet. The stepper works on his full history.':'No lines posted on him tonight. The stepper works on his full history.');
     return; }
   note.style.display='none';
