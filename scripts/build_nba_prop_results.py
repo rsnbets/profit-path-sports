@@ -29,7 +29,8 @@ ET = ZoneInfo("America/New_York")
 # SGO market -> player-db key
 KEY = {"points": "pts", "rebounds": "reb", "assists": "ast", "threePointersMade": "tpm",
        "points+rebounds+assists": "pra", "points+rebounds": "pr", "points+assists": "pa",
-       "rebounds+assists": "ra", "steals": "stl", "blocks": "blk", "blocks+steals": "sb", "turnovers": "tov"}
+       "rebounds+assists": "ra", "steals": "stl", "blocks": "blk", "blocks+steals": "sb", "turnovers": "tov",
+       "doubleDouble": "dd"}      # yes/no market carried as a 0.5 line: result 1 = double-double
 PARTS = {"pra": ["pts", "reb", "ast"], "pr": ["pts", "reb"], "pa": ["pts", "ast"], "ra": ["reb", "ast"], "sb": ["stl", "blk"]}
 # SGO team codes -> ESPN codes (the player DB's codes)
 TEAM = {"NYK": "NY", "SAS": "SA", "GSW": "GS", "NOP": "NO", "UTA": "UTAH", "WAS": "WSH", "PHO": "PHX", "BRK": "BKN", "CHO": "CHA"}
@@ -60,6 +61,8 @@ def et_date(iso):
 
 def val(row, F, key):
     g = lambda k: row[F[k]] if k in F and F[k] < len(row) else 0
+    if key == "dd":
+        return 1 if sum(1 for k in ("pts", "reb", "ast", "stl", "blk") if g(k) >= 10) >= 2 else 0
     return sum(g(k) for k in PARTS[key]) if key in PARTS else g(key)
 
 

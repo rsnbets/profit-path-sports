@@ -659,7 +659,7 @@
 const ODDS_URL='https://nba-ev.vercel.app/props.json';   // NBA_EV, the one SGO pull for NBA props
 // player-db key -> SGO market in props.json. min has no market.
 const MKT={pts:'points',reb:'rebounds',ast:'assists',tpm:'threePointersMade',pra:'points+rebounds+assists',pr:'points+rebounds',
-  pa:'points+assists',ra:'rebounds+assists',stl:'steals',blk:'blocks',sb:'blocks+steals',tov:'turnovers'};
+  pa:'points+assists',ra:'rebounds+assists',stl:'steals',blk:'blocks',sb:'blocks+steals',dd:'doubleDouble',tov:'turnovers'};
 const SGO_TEAM={NYK:'NY',SAS:'SA',GSW:'GS',NOP:'NO',UTA:'UTAH',WAS:'WSH',PHO:'PHX',BRK:'BKN',CHO:'CHA'};   // SGO codes -> ESPN codes
 const teamCode=t=>SGO_TEAM[t]||t;
 const BOOK_NAMES={draftkings:'DraftKings',fanduel:'FanDuel',betmgm:'BetMGM',caesars:'Caesars',espnbet:'ESPN BET',betrivers:'BetRivers',hardrockbet:'Hard Rock',bovada:'Bovada',mybookie:'MyBookie',ballybet:'Bally',fliff:'Fliff',betus:'BetUS',betanysports:'BetAnySports',fanatics:'Fanatics',pointsbet:'PointsBet',sugarhouse:'SugarHouse',thescorebet:'theScore',betonline:'BetOnline',pinnacle:'Pinnacle',novig:'Novig',prophetexchange:'ProphetX',lowvig:'LowVig',bookmakereu:'BookmakerEU',circa:'Circa',betfairexchange:'Betfair',matchbook:'Matchbook'};
@@ -681,9 +681,9 @@ function indexOdds(){ ODDS_IDX={}; if(!ODDS) return;
 function laddersFor(p){ if(!ODDS) return null; const n=normName(p.name); const ks=ODDS_IDX[n+'|'+p.team]||ODDS_IDX['last:'+n.split(' ').slice(-1)[0]+'|'+p.team]||[]; return ks.length?ODDS.players[ks[0]]:null; }
 // market tabs: [label, [player-db keys]]
 const TABS=[['All props',null],['Points',['pts']],['Rebounds',['reb']],['Assists',['ast']],['Threes',['tpm']],
-  ['Combos',['pra','pr','pa','ra']],['Defense',['stl','blk','sb']],['Turnovers',['tov']],['Minutes',['min']]];
+  ['Combos',['pra','pr','pa','ra','dd']],['Defense',['stl','blk','sb']],['Turnovers',['tov']],['Minutes',['min']]];
 TABS[0][1]=[...new Set(TABS.slice(1).flatMap(t=>t[1]))];
-const MLABEL={pts:'Points',reb:'Rebounds',ast:'Assists',tpm:'Threes',pra:'Pts+Reb+Ast',pr:'Pts+Reb',pa:'Pts+Ast',ra:'Reb+Ast',stl:'Steals',blk:'Blocks',sb:'Stl+Blk',tov:'Turnovers',min:'Minutes'};
+const MLABEL={pts:'Points',reb:'Rebounds',ast:'Assists',tpm:'Threes',pra:'Pts+Reb+Ast',pr:'Pts+Reb',pa:'Pts+Ast',ra:'Reb+Ast',dd:'Double-Double',stl:'Steals',blk:'Blocks',sb:'Stl+Blk',tov:'Turnovers',min:'Minutes'};
 const COMBO_PARTS={pra:['pts','reb','ast'],pr:['pts','reb'],pa:['pts','ast'],ra:['reb','ast'],sb:['stl','blk']};
 const BUCKET={PG:'G',SG:'G',G:'G',SF:'F',PF:'F',F:'F',GF:'F',FC:'C',C:'C'};
 const POS_LABEL={G:'guards',F:'forwards',C:'centers'};
@@ -691,7 +691,8 @@ const MIN_AVG_MIN=10;          // a player under 10 minutes a night over his las
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 function normName(s){ return s.normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase().replace(/\b(jr|sr|ii|iii|iv)\b\.?/g,'').replace(/[^a-z ]/g,'').replace(/\s+/g,' ').trim(); }
 function median(a){ if(!a.length)return null; const s=[...a].sort((x,y)=>x-y),m=s.length>>1; return s.length%2?s[m]:(s[m-1]+s[m])/2; }
-function valOf(r,key){ const p=COMBO_PARTS[key]; if(p) return p.reduce((s,k)=>s+(r[F[k]]||0),0); return r[F[key]]||0; }
+const isDD=r=>[r[F.pts],r[F.reb],r[F.ast],r[F.stl],r[F.blk]].filter(v=>v>=10).length>=2?1:0;
+function valOf(r,key){ if(key==='dd') return isDD(r); const p=COMBO_PARTS[key]; if(p) return p.reduce((s,k)=>s+(r[F[k]]||0),0); return r[F[key]]||0; }
 const ord=k=>k+((k%100>=11&&k%100<=13)?'th':k%10===1?'st':k%10===2?'nd':k%10===3?'rd':'th');
 
 let SLATE=null,IDX=null,F={},MU=null,INJ=null,GAME=null,DATE=null,TAB=1,SIDE=0,SHARDS={};
@@ -825,7 +826,7 @@ async function renderGraded(){
      +readTable(tier,'The read test: vs similar defenses','at least 3 games vs that defensive tier');
   const mkts={}; for(const r of rows){ (mkts[r.market]=mkts[r.market]||[]).push(r); }
   const mkList=Object.entries(mkts).map(([m,rs])=>[m,tally(rs)]).sort((a,b)=>b[1].n-a[1].n);
-  const MK={points:'Points',rebounds:'Rebounds',assists:'Assists',threePointersMade:'Threes','points+rebounds+assists':'Pts+Reb+Ast','points+rebounds':'Pts+Reb','points+assists':'Pts+Ast','rebounds+assists':'Reb+Ast',steals:'Steals',blocks:'Blocks','blocks+steals':'Stl+Blk',turnovers:'Turnovers'};
+  const MK={points:'Points',rebounds:'Rebounds',assists:'Assists',threePointersMade:'Threes','points+rebounds+assists':'Pts+Reb+Ast','points+rebounds':'Pts+Reb','points+assists':'Pts+Ast','rebounds+assists':'Reb+Ast',doubleDouble:'Double-Double',steals:'Steals',blocks:'Blocks','blocks+steals':'Stl+Blk',turnovers:'Turnovers'};
   html+='<div class="g-block"><div class="g-blk">By market <span class="thin">all-time</span></div>'
     +'<table class="mini slate"><thead><tr><th>Market</th><th class="r">Props</th><th class="r">Over hit at close</th></tr></thead><tbody>'
     +mkList.map(([m,v])=>'<tr><td>'+esc(MK[m]||m)+'</td><td class="r mono">'+v.n+'</td><td class="r mono">'+(v.pct!=null?v.pct.toFixed(0)+'%':'—')+'</td></tr>').join('')
