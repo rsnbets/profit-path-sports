@@ -741,13 +741,13 @@
 // step is the increment the +/- buttons move by.
 const PROPS_ALL=[["pts","Points",19.5,1],["reb","Rebounds",7.5,1],["ast","Assists",5.5,1],["tpm","Threes",1.5,1],
   ["pra","Pts+Reb+Ast",29.5,1],["pr","Pts+Reb",24.5,1],["pa","Pts+Ast",24.5,1],["ra","Reb+Ast",12.5,1],
-  ["stl","Steals",0.5,1],["blk","Blocks",0.5,1],["sb","Stl+Blk",1.5,1],["tov","Turnovers",2.5,1],["min","Minutes",29.5,2]];
+  ["stl","Steals",0.5,1],["blk","Blocks",0.5,1],["sb","Stl+Blk",1.5,1],["dd","Double-Double",0.5,1],["tov","Turnovers",2.5,1],["min","Minutes",29.5,2]];
 const propsFor=()=>PROPS_ALL;
 // Prop Finder key -> SGO market name, for the day an NBA props feed exists. min has no market.
 const MKT={pts:'points',reb:'rebounds',ast:'assists',tpm:'threePointersMade',pra:'points+rebounds+assists',pr:'points+rebounds',
-  pa:'points+assists',ra:'rebounds+assists',stl:'steals',blk:'blocks',sb:'blocks+steals',tov:'turnovers'};
+  pa:'points+assists',ra:'rebounds+assists',stl:'steals',blk:'blocks',sb:'blocks+steals',dd:'doubleDouble',tov:'turnovers'};
 let MU=null,INJ=null;   // matchups.json, injuries.json
-const MU_LABEL={pts:'pts',reb:'reb',ast:'ast',tpm:'threes',pra:'pts+reb+ast',pr:'pts+reb',pa:'pts+ast',ra:'reb+ast',stl:'stl',blk:'blk',sb:'stl+blk',tov:'tov'};
+const MU_LABEL={pts:'pts',reb:'reb',ast:'ast',tpm:'threes',pra:'pts+reb+ast',pr:'pts+reb',pa:'pts+ast',ra:'reb+ast',stl:'stl',blk:'blk',sb:'stl+blk',tov:'tov',dd:'double-doubles'};
 const POS_LABEL={G:'guards',F:'forwards',C:'centers'};
 async function loadSide(){
   if(MU===null){ try{ const r=await fetch('/data/nba/matchups.json?_='+Math.floor(Date.now()/3600000),{cache:'no-store'}); MU=r.ok?await r.json():false; }catch(e){ MU=false; } }
@@ -811,7 +811,7 @@ let PO=1; try{ if(localStorage.getItem('pps_nba_po')==='0') PO=0; }catch(e){}   
 let COMBO=[];      // same-game combo legs: [{key,label,line,side}]
 let SGPIN='';      // the book's SGP price, typed by the user
 const LINE_FIELDS=[['min','Min'],['pts','Pts'],['reb','Reb'],['ast','Ast'],['tpm','3PM'],['tpa','3PA'],['fgm','FGM'],['fga','FGA'],['ftm','FTM'],['fta','FTA'],['stl','Stl'],['blk','Blk'],['tov','TO']];
-const COMBO_PARTS={pra:['pts','reb','ast'],pr:['pts','reb'],pa:['pts','ast'],ra:['reb','ast'],sb:['stl','blk']};
+const COMBO_PARTS={pra:['pts','reb','ast'],pr:['pts','reb'],pa:['pts','ast'],ra:['reb','ast'],sb:['stl','blk'],dd:['pts','reb','ast','stl','blk']};
 const seasonOf=r=>SHARD.prev.includes(r)?IDX.prevSeasonLabel:IDX.seasonLabel;
 const fmtDate=d=>{ const [Y,M,D]=d.split('-').map(Number); return new Date(Y,M-1,D,12).toLocaleDateString(undefined,{month:'short',day:'numeric'}); };
 const fmtShort=d=>{ const [Y,M,D]=d.split('-').map(Number); return M+'/'+D; };
@@ -832,7 +832,8 @@ function normName(s){
     .replace(/\b(jr|sr|ii|iii|iv)\b\.?/g,'').replace(/[^a-z ]/g,'').replace(/\s+/g,' ').trim();
 }
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-function valOf(r,key){ const p=COMBO_PARTS[key]; if(p) return p.reduce((s,k)=>s+(r[F[k]]||0),0); return r[F[key]]||0; }
+const isDD=r=>[r[F.pts],r[F.reb],r[F.ast],r[F.stl],r[F.blk]].filter(v=>v>=10).length>=2?1:0;
+function valOf(r,key){ if(key==='dd') return isDD(r); const p=COMBO_PARTS[key]; if(p) return p.reduce((s,k)=>s+(r[F[k]]||0),0); return r[F[key]]||0; }
 function cashes(v){ return SIDE?v<LINE:v>LINE; }
 // ESPN gives a real UTC instant. Render it in the reader's own zone and name the zone.
 function tzAbbr(d){ const p=new Intl.DateTimeFormat(undefined,{timeZoneName:'short'}).formatToParts(d||new Date()).find(x=>x.type==='timeZoneName'); return p?p.value:''; }
