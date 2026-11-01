@@ -1,7 +1,7 @@
 {
  "season": 2026,
  "week": 8,
- "generated_at": "2026-11-01T21:15:13.712676Z",
+ "generated_at": "2026-11-01T23:53:41.964616Z",
  "pool": {
   "timezone": "America/Denver",
   "deadline": {
@@ -289,7 +289,7 @@
    "market_total": 41.5,
    "market_total_books": 1,
    "market_total_source": "nflverse",
-   "frozen": false,
+   "frozen": true,
    "nflverse_moneyline": {
     "away": -108.0,
     "home": -112.0
@@ -313,7 +313,7 @@
    "market_total": 41.5,
    "market_total_books": 1,
    "market_total_source": "nflverse",
-   "frozen": false,
+   "frozen": true,
    "nflverse_moneyline": {
     "away": -345.0,
     "home": 275.0
@@ -329,7 +329,7 @@
    "lock_at": "2026-11-01T18:00:00Z",
    "weekday": "Sunday",
    "gametime_et": "20:20",
-   "p_home": 0.7131,
+   "p_home": 0.7186,
    "p_source": "nflverse",
    "n_books": 1,
    "snapshot_at": null,
@@ -339,8 +339,8 @@
    "market_total_source": "nflverse",
    "frozen": false,
    "nflverse_moneyline": {
-    "away": 220.0,
-    "home": -270.0
+    "away": 225.0,
+    "home": -278.0
    },
    "nflverse_total": 40.5
   },
