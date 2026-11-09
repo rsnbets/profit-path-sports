@@ -539,63 +539,12 @@
   }
 
   /* ── Donate section ── */
-  .donate-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 14px;
-  }
 
-  .donate-card {
-    background: var(--panel-deep);
-    border: 1px solid var(--border-soft);
-    border-radius: 12px;
-    padding: 22px 20px;
-    text-decoration: none;
-    color: var(--text);
-    transition: all 0.15s;
-    display: flex;
-    align-items: center;
-    gap: 14px;
-  }
 
-  .donate-card:hover {
-    border-color: var(--green);
-    background: var(--panel-inset);
-    transform: translateY(-1px);
-  }
 
-  .donate-icon {
-    width: 44px; height: 44px;
-    background: var(--panel-inset);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 22px;
-    flex-shrink: 0;
-  }
 
-  .donate-info { flex: 1; min-width: 0; }
 
-  .donate-name {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 13px;
-    font-weight: 800;
-    letter-spacing: 1.5px;
-    color: var(--green);
-    text-transform: uppercase;
-    margin-bottom: 3px;
-  }
 
-  .donate-handle {
-    font-family: 'DM Mono', monospace;
-    font-size: 12px;
-    color: var(--muted);
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
 
   /* ── Coming soon ── */
   .coming-grid {
@@ -1305,7 +1254,7 @@
     .exclusive-desc { font-size: 14.5px; }
     .section { padding: 24px 18px; }
     .section-title { font-size: 18px; }
-    .tool-name, .book-name, .donate-name, .coming-name { font-size: 12px; }
+    .tool-name, .book-name, .coming-name { font-size: 12px; }
     .path-step {
       grid-template-columns: 40px 1fr;
       align-items: start;
@@ -1498,14 +1447,13 @@
   }
 
   /* Donate / Coming Soon */
-  .donate-name, .coming-name {
+  .coming-name {
     font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 14px;
     letter-spacing: 0;
     text-transform: none;
     font-weight: 600;
   }
-  .donate-handle { font-family: 'DM Mono', monospace; font-size: 12px; }
   .coming-desc { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px; line-height: 1.55; }
   .coming-card .badge {
     font-family: 'Plus Jakarta Sans', sans-serif;
@@ -3246,22 +3194,22 @@
   <details class="section" id="books" data-docile-hidden="1" style="display:none" open>
     <summary class="section-head">
       <div class="section-eyebrow gold">Where to Bet</div>
-      <div class="section-title">Sportsbooks &amp; sign-up offers</div>
-      <div class="section-sub">Recommended books with affiliate offers, others worth claiming, and ones to avoid.</div>
+      <div class="section-title">Sportsbooks</div>
+      <div class="section-sub">The books we use, others worth a look, and the ones to avoid. PPS has no referral or affiliate relationship with any of them.</div>
     </summary>
 
     <div class="subsection">
       <div class="subsection-head">
         <div class="section-eyebrow gold">Sportsbook Offers</div>
         <div class="subsection-title">Books we recommend</div>
-        <div class="subsection-sub"><strong>Start with ProphetX</strong> — the sharp exchange is the hedge counterpart you'll need at every other book. Then claim the recreational offers in order. Sign up through these links to support the site — same offers, no extra cost to you.</div>
+        <div class="subsection-sub"><strong>Start with ProphetX</strong> — the sharp exchange is the hedge counterpart you'll need at every other book. Then claim the recreational offers in order. Sign up direct at each book. PPS earns nothing when you do.</div>
       </div>
       <div class="book-grid">
-      <a class="book-card anchor" href="book-prophetx.html" rel="sponsored">
+      <a class="book-card anchor" href="book-prophetx.html">
         <div class="book-badge">★ Start Here · Hedge Anchor</div>
         <div class="book-promo-flag">● Recommended first</div>
         <div class="book-name">ProphetX</div>
-        <div class="book-bonus">Code: QEO8QG · Exchange</div>
+        <div class="book-bonus">Betting exchange</div>
         <div class="book-tag">The hedge book · Read more →</div>
       </a>
       <a class="book-card featured" href="book-draftkings.html">
@@ -3271,65 +3219,65 @@
         <div class="book-bonus">Bet $5 → 4 × $25</div>
         <div class="book-tag">~$70 cash · Read more →</div>
       </a>
-      <a class="book-card featured" href="book-fanduel.html" rel="sponsored">
+      <a class="book-card featured" href="book-fanduel.html">
         <div class="book-badge">★ Starter Pick</div>
         <div class="book-promo-flag">● Live promo</div>
         <div class="book-name">FanDuel</div>
         <div class="book-bonus">Bet $5 → $150</div>
         <div class="book-tag">~$105 cash · Read more →</div>
       </a>
-      <a class="book-card endgame" href="book-betmgm.html" rel="sponsored">
+      <a class="book-card endgame" href="book-betmgm.html">
         <div class="book-badge">★ Endgame Pick</div>
         <div class="book-promo-flag">● Live promo</div>
         <div class="book-name">BetMGM</div>
         <div class="book-bonus">First bet up to $1,500</div>
         <div class="book-tag">~$700-$1,050 cash · Read more →</div>
       </a>
-      <a class="book-card featured" href="book-hardrock.html" rel="sponsored">
+      <a class="book-card featured" href="book-hardrock.html">
         <div class="book-badge">★ Win-Trigger</div>
         <div class="book-promo-flag">● Live promo</div>
         <div class="book-name">Hard Rock Bet</div>
         <div class="book-bonus">Bet $5, win → $150</div>
         <div class="book-tag">~$80 cash · Read more →</div>
       </a>
-      <a class="book-card" data-docile-stripped="1" target="_blank" rel="nofollow noopener sponsored" data-signup-hidden="1" style="display:none">
+      <div class="book-card" data-signup-hidden="1" style="display:none">
         <div class="book-name">Fanatics</div>
-        <div class="book-bonus">Code: NXB2IVISVN</div>
-        <div class="book-tag">Sign Up →</div>
-      </a>
-      <a class="book-card" data-docile-stripped="1" target="_blank" rel="nofollow noopener sponsored" data-signup-hidden="1" style="display:none">
+        <div class="book-bonus">Welcome Offer</div>
+        <div class="book-tag">Sign up direct</div>
+      </div>
+      <div class="book-card" data-signup-hidden="1" style="display:none">
         <div class="book-name">Caesars</div>
         <div class="book-bonus">Welcome Offer</div>
-        <div class="book-tag">Sign Up →</div>
-      </a>
-      <a class="book-card" data-docile-stripped="1" target="_blank" rel="nofollow noopener" data-signup-hidden="1" style="display:none">
+        <div class="book-tag">Sign up direct</div>
+      </div>
+      <div class="book-card" data-signup-hidden="1" style="display:none">
         <div class="book-name">Bet105</div>
         <div class="book-bonus">Reduced Juice</div>
-        <div class="book-tag">Sign Up →</div>
-      </a>
-      <a class="book-card" data-docile-stripped="1" target="_blank" rel="nofollow noopener" data-signup-hidden="1" style="display:none">
+        <div class="book-tag">Sign up direct</div>
+      </div>
+      <div class="book-card" data-signup-hidden="1" style="display:none">
         <div class="book-name">Bookmaker</div>
         <div class="book-bonus">Sharp Lines & Limits</div>
-        <div class="book-tag">Sign Up →</div>
-      </a>
-      <a class="book-card" data-docile-stripped="1" target="_blank" rel="nofollow noopener" data-signup-hidden="1" style="display:none">
+        <div class="book-tag">Sign up direct</div>
+      </div>
+      <div class="book-card" data-signup-hidden="1" style="display:none">
         <div class="book-name">Underdog</div>
-        <div class="book-bonus">Code: PROFITPATH</div>
-        <div class="book-tag">Sign Up →</div>
-      </a>
-      <a class="book-card" data-docile-stripped="1" target="_blank" rel="nofollow noopener sponsored" data-signup-hidden="1" style="display:none">
+        <div class="book-bonus">Pick'em</div>
+        <div class="book-tag">Sign up direct</div>
+      </div>
+      <div class="book-card" data-signup-hidden="1" style="display:none">
         <div class="book-name">PrizePicks</div>
-        <div class="book-bonus">Code: PR-7XTLOUF</div>
-        <div class="book-tag">Sign Up →</div>
-      </a>
+        <div class="book-bonus">Pick'em</div>
+        <div class="book-tag">Sign up direct</div>
+      </div>
       </div>
     </div>
 
     <div class="subsection">
       <div class="subsection-head">
-        <div class="section-eyebrow">No PPS Referral</div>
+        <div class="section-eyebrow">Also worth a look</div>
         <div class="subsection-title">Other books worth claiming</div>
-        <div class="subsection-sub">Welcome offers worth claiming, but we don't have referral links here — sign up direct, the bonus is the same.</div>
+        <div class="subsection-sub">Welcome offers worth claiming. Sign up direct, the bonus is the same.</div>
       </div>
       <div class="book-grid">
       <a class="book-card" data-docile-stripped="1" target="_blank" rel="nofollow noopener" data-signup-hidden="1" style="display:none">
@@ -3359,7 +3307,7 @@
       <div class="subsection-head">
         <div class="section-eyebrow red">Warning</div>
         <div class="subsection-title">Books to avoid</div>
-        <div class="subsection-sub">Some books have track records that aren't worth the risk — affiliate dollars or not. We don't link these because we don't recommend them.</div>
+        <div class="subsection-sub">Some books have track records that aren't worth the risk. We don't link these because we don't recommend them.</div>
       </div>
       <div class="warn-grid">
       <div class="warn-card">
@@ -3401,17 +3349,17 @@
     </summary>
 
     <div class="find-grid">
-      <!-- Tier 1: OddsJam (easiest, premium, affiliate) -->
-      <a class="find-card featured" data-docile-stripped="1" target="_blank" rel="nofollow noopener sponsored" data-docile-hidden="1" style="display:none">
+      <!-- Tier 1: OddsJam (easiest, premium) -->
+      <a class="find-card featured" href="https://oddsjam.com" target="_blank" rel="noopener" data-docile-hidden="1" style="display:none">
         <div class="find-badge">★ Best for bonus weekends</div>
         <div class="find-tier">Tier 1 · Easiest</div>
         <div class="find-name">OddsJam</div>
         <div class="find-tagline">7-day free trial · turn-key scanner</div>
         <div class="find-desc">The most polished bet scanner on the market. Real-time +EV, arbs, middles, and lows across the widest book coverage and the deepest sport list. <strong>The 7-day free trial fits an entire Path 02 bonus-churn weekend</strong> — claim the trial, churn fast, then decide if the monthly is worth keeping for ongoing +EV.</div>
-        <div class="find-cta">Start 7-day free trial →</div>
+        <div class="find-cta">Visit OddsJam →</div>
       </a>
 
-      <!-- Tier 2: PTO Premium (pretty easy, cheaper paid, no affiliate) -->
+      <!-- Tier 2: PTO Premium (pretty easy, cheaper paid) -->
       <a class="find-card" href="https://picktheodds.app" target="_blank" rel="noopener">
         <div class="find-tier">Tier 2 · Pretty easy</div>
         <div class="find-name">PTO Premium</div>
@@ -3544,41 +3492,21 @@
     <div class="section-head">
       <div class="section-eyebrow">Paid Tools</div>
       <div class="section-title">When the free toolbox isn't enough</div>
-      <div class="section-sub">Two paid platforms worth their subscription if you're betting seriously. Affiliate links — same price for you, helps keep this site free.</div>
+      <div class="section-sub">Two paid platforms worth their subscription if you're betting seriously. Plain links. PPS has no affiliate relationship with either.</div>
     </div>
 
     <div class="paid-grid">
-      <a class="paid-card" data-docile-stripped="1" target="_blank" rel="nofollow noopener sponsored" data-docile-hidden="1" style="display:none">
+      <a class="paid-card" href="https://pikkit.com" target="_blank" rel="noopener" data-docile-hidden="1" style="display:none">
         <div class="paid-name">Pikkit</div>
         <div class="paid-tagline">Automated bet tracking</div>
         <div class="paid-desc">Connects to your sportsbooks and pulls every bet automatically — no more spreadsheets. Tracks CLV, ROI, and edge across every book in one place. If you're betting at more than two books, this saves real time.</div>
-        <div class="paid-code">Use code <strong>TOUCHDOWN64990</strong> at signup</div>
-        <div class="paid-cta">Try Pikkit →</div>
+        <div class="paid-cta">Visit Pikkit →</div>
       </a>
-      <a class="paid-card" data-docile-stripped="1" target="_blank" rel="nofollow noopener sponsored" data-docile-hidden="1" style="display:none">
+      <a class="paid-card" href="https://oddsjam.com" target="_blank" rel="noopener" data-docile-hidden="1" style="display:none">
         <div class="paid-name">OddsJam</div>
         <div class="paid-tagline">+EV finder · arb finder · line shopping</div>
         <div class="paid-desc">Scans every market across every book in real time. Finds +EV plays, arbs, and middle opportunities faster than any human. Built for serious bettors hunting edge across many books at once.</div>
-        <div class="paid-cta">Try OddsJam →</div>
-      </a>
-    </div>
-  </div>
-
-  <!-- DONATE -->
-  <div class="section" id="support" data-docile-hidden="1" style="display:none">
-    <div class="section-head">
-      <div class="section-eyebrow green">Support the Site</div>
-      <div class="section-title">Tip the Bartender</div>
-      <div class="section-sub">If the tools made you money, tips help keep this stuff free and pay for new features.</div>
-    </div>
-
-    <div class="donate-grid">
-      <a class="donate-card" data-docile-stripped="1" target="_blank" rel="noopener">
-        <div class="donate-icon">💸</div>
-        <div class="donate-info">
-          <div class="donate-name">Venmo</div>
-          <div class="donate-handle" data-docile-scrubbed="1"></div>
-        </div>
+        <div class="paid-cta">Visit OddsJam →</div>
       </a>
     </div>
   </div>
