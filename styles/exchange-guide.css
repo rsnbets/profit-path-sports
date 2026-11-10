@@ -727,11 +727,16 @@ details.deeper > summary:hover { color: var(--cyan); }
 
 .prereq { margin: 28px 0 0; padding: 18px 20px; background: var(--surface-2); border: 1px solid var(--border-2); border-left: 3px solid var(--purple); border-radius: 10px; }
 .prereq-label { font-size: 11px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: var(--purple); margin-bottom: 8px; }
-.prereq p { font-size: 14.5px; line-height: 1.6; color: var(--muted); margin: 0 0 12px; }
-.prereq-chips { display: flex; flex-wrap: wrap; gap: 8px; }
-.prereq-chips a { font-size: 13px; font-weight: 700; color: var(--purple); border: 1px solid rgba(188,140,255,.4); border-radius: 999px; padding: 7px 14px; }
-.prereq-chips a::after { content: ' \2192'; }
-.prereq-chips a:hover { color: var(--text); border-color: var(--purple); }
+.prereq p { font-size: 14.5px; line-height: 1.6; color: var(--muted); margin: 0 0 14px; }
+.prereq-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+@media (max-width: 700px) { .prereq-cards { grid-template-columns: 1fr; } }
+.prereq-card { display: flex; flex-direction: column; background: var(--surface-3); border: 1px solid var(--border-2); border-radius: 12px; padding: 16px; transition: border-color .15s, transform .15s; }
+.prereq-card:hover { border-color: var(--purple); transform: translateY(-2px); }
+.prereq-card .pq-ex { font-family: 'Space Grotesk', system-ui, sans-serif; font-weight: 700; font-size: 26px; line-height: 1; color: var(--purple); margin-bottom: 10px; }
+.prereq-card .pq-title { font-family: 'Space Grotesk', system-ui, sans-serif; font-weight: 700; font-size: 16px; color: var(--text); margin-bottom: 6px; }
+.prereq-card .pq-desc { font-size: 13.5px; line-height: 1.55; color: var(--muted); flex: 1; }
+.prereq-card .pq-go { font-size: 12px; font-weight: 700; letter-spacing: .04em; color: var(--purple); margin-top: 12px; }
+.prereq-card:hover .pq-go { color: var(--text); }
 
 .new-to { display: flex; align-items: center; gap: 14px; margin: 18px 0; padding: 14px 16px; background: rgba(188,140,255,.06); border: 1px solid rgba(188,140,255,.3); border-radius: 12px; }
 .new-to .nt-label { flex: 0 0 auto; font-size: 10px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--purple); }
