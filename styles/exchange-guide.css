@@ -754,3 +754,14 @@ details.deeper > summary:hover { color: var(--cyan); }
 .pc-line { font-size: 15px; color: rgba(240,238,232,0.92); }
 .pc-tag { font-size: 10px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--dim); margin-top: 8px; }
 .pc-am { font-size: 12.5px; color: var(--muted); margin-top: 4px; }
+
+/* Same bet in both formats (hub section 1, step 1) */
+.same-bet { display: flex; align-items: stretch; gap: 10px; margin: 14px 0; }
+.same-bet .sb-side { flex: 1; background: var(--surface-2); border: 1px solid rgba(245,181,69,.4); border-radius: 10px; padding: 12px 10px; text-align: center; }
+.same-bet .sb-side.ex { border-color: rgba(188,140,255,.4); }
+.same-bet small { display: block; font-size: 10px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--yellow); margin-bottom: 4px; }
+.same-bet .sb-side.ex small { color: var(--purple); }
+.same-bet b { display: block; font-family: 'Space Grotesk', system-ui, sans-serif; font-size: 18px; color: var(--text); }
+.same-bet span { display: block; font-size: 13px; color: var(--muted); margin-top: 2px; }
+.same-bet .sb-eq { flex: 0 0 auto; align-self: center; font-family: 'Space Grotesk', system-ui, sans-serif; font-size: 22px; font-weight: 700; color: var(--dim); }
+@media (max-width: 480px) { .same-bet { flex-direction: column; } .same-bet .sb-eq { transform: rotate(90deg); } }
