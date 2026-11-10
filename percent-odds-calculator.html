@@ -1,0 +1,1523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Percent Odds Calculator — Prediction Market Odds, Decoded | PROFITPATH Sports</title>
+<meta name="description" content="ProphetX, Kalshi, Polymarket — prediction markets show odds as percentages. Enter both sides of a market — get the real American odds for takers, plus the maker's odds and the stake behind every available amount. Free.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Percent Odds Calculator — Prediction Market Odds, Decoded | PROFITPATH Sports">
+<meta property="og:description" content="Translate prediction-market percent odds into American odds — taker view and maker view, including the stake behind every offer.">
+<meta property="og:image" content="https://profitpathsports.com/images/og-default.png?v=3">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://profitpathsports.com/percent-odds-calculator.html">
+<meta property="og:site_name" content="PROFITPATH Sports">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Percent Odds Calculator — Prediction Market Odds, Decoded">
+<meta name="twitter:description" content="Translate prediction-market percent odds into American odds — taker view and maker view, including the stake behind every offer.">
+<meta name="twitter:image" content="https://profitpathsports.com/images/og-default.png?v=3">
+<meta name="theme-color" content="#090909">
+
+<link rel="icon" type="image/svg+xml" href="/logo.svg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --green: #4DFF78;
+    --green-dim: rgba(77,255,120,0.15);
+    --green-faint: rgba(77,255,120,0.06);
+    --green-border: rgba(77,255,120,0.22);
+    --cyan: #00D4FF;
+    --cyan-dim: rgba(0,212,255,0.12);
+    --cyan-faint: rgba(0,212,255,0.04);
+    --cyan-border: rgba(0,212,255,0.22);
+    --red: #FF3D3D;
+    --yellow: #F5B545;
+    --bg: #090909;
+    --surface: #0D0D0D;
+    --surface-2: #141414;
+    --surface-3: #1C1C1C;
+    --border: rgba(255,255,255,0.05);
+    --border-2: rgba(255,255,255,0.08);
+    --text: #F0EEE8;
+    --muted: rgba(255,255,255,0.62);
+    --dim: rgba(255,255,255,0.25);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    font-weight: 300;
+    min-height: 100vh;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  .out-value, .input-cell input, .oc-val { font-variant-numeric: tabular-nums; }
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 999;
+    opacity: 0.025;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  a { color: var(--cyan); text-decoration: none; }
+  a:hover { color: var(--green); }
+
+  /* ───────── CARD ───────── */
+  .card {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 32px 40px 80px;
+    position: relative;
+  }
+  @media (max-width: 640px) { .card { padding: 60px 20px 60px; } }
+
+  /* ───────── HEADER ───────── */
+  .header { margin-bottom: 36px; }
+  .header-meta {
+    display: flex; align-items: center; gap: 18px;
+    margin-bottom: 22px; flex-wrap: wrap;
+  }
+  .back-link {
+    font-size: 11px; font-weight: 500;
+    letter-spacing: .18em; text-transform: uppercase;
+    color: var(--dim); transition: color .15s;
+  }
+  .back-link:hover { color: var(--cyan); }
+  .header-eyebrow {
+    font-size: 10px; font-weight: 600;
+    letter-spacing: .28em; text-transform: uppercase;
+    color: var(--cyan);
+  }
+  .help-pill {
+    margin-left: auto;
+    background: transparent;
+    color: var(--cyan);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 10px; font-weight: 600;
+    letter-spacing: .14em; text-transform: uppercase;
+    padding: 7px 16px;
+    border: 1px solid var(--cyan-border);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all .18s;
+  }
+  .help-pill:hover { background: var(--cyan-dim); color: var(--green); border-color: var(--green-border); }
+
+  .title-row {
+    display: flex; align-items: flex-end; justify-content: center;
+    gap: 16px; margin-bottom: 14px; flex-wrap: wrap; position: relative;
+  }
+  .title-row::before {
+    content: '';
+    position: absolute;
+    left: 50%; top: 50%;
+    width: 620px; height: 220px;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(ellipse at center,
+                  rgba(77,255,120,0.18) 0%,
+                  rgba(0,212,255,0.10) 35%,
+                  rgba(77,255,120,0) 70%);
+    filter: blur(28px);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .title-row > * { position: relative; z-index: 1; }
+  .header h1 {
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    font-synthesis: none;
+    font-size: clamp(40px, 6vw, 66px);
+    line-height: 1.1;
+    letter-spacing: -.03em;
+    font-weight: 800;
+    margin: 0;
+    padding-bottom: 0.08em;
+    background: linear-gradient(95deg, #F0EEE8 0%, #F0EEE8 12%, var(--green) 55%, var(--green) 88%, #FF8C00 130%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+  .tagline {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: clamp(14px, 1.6vw, 17px);
+    color: var(--muted);
+    font-weight: 300;
+    line-height: 1.55;
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .tagline .mono { font-family: 'Space Grotesk', system-ui, sans-serif; color: var(--cyan); }
+  .tool-redirect {
+    text-align: center;
+    font-size: 12.5px;
+    font-weight: 300;
+    color: var(--muted);
+    line-height: 1.55;
+    max-width: 640px;
+    margin: 0 auto 28px;
+    padding: 11px 18px;
+    border: 1px dashed var(--border-2);
+    border-radius: 8px;
+  }
+  .tool-redirect strong { color: var(--text); font-weight: 600; }
+  .tool-redirect a { color: var(--cyan); font-weight: 600; }
+  .tool-redirect a:hover { color: var(--green); }
+
+  /* ───────── BODY ───────── */
+  .body { display: flex; flex-direction: column; gap: 24px; }
+
+  .step {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px 26px;
+    transition: border-color .25s;
+  }
+  .step:hover { border-color: var(--border-2); }
+  .step-head { margin-bottom: 20px; }
+  .step-num {
+    display: block;
+    font-size: 10px; font-weight: 600;
+    letter-spacing: .28em; text-transform: uppercase;
+    color: var(--cyan);
+    margin-bottom: 6px;
+  }
+  .step-title {
+    display: block;
+    font-weight: 700;
+    font-size: clamp(19px, 2.2vw, 23px);
+    color: var(--text);
+    line-height: 1.15;
+    margin-bottom: 4px;
+    letter-spacing: -.005em;
+  }
+  .step-sub {
+    display: block;
+    font-size: 13px; font-weight: 300;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  /* ───────── TOOLBAR / PILLS ───────── */
+  .sub-toolbar {
+    display: flex; align-items: center;
+    gap: 10px; flex-wrap: wrap;
+    margin-bottom: 16px;
+  }
+  .sub-label {
+    font-size: 10px; font-weight: 600;
+    letter-spacing: .22em; text-transform: uppercase;
+    color: var(--cyan);
+  }
+  .pill-group { display: inline-flex; gap: 5px; flex-wrap: wrap; }
+  .pill {
+    background: var(--surface-2);
+    color: var(--muted);
+    border: 1px solid var(--border-2);
+    border-radius: 6px;
+    padding: 8px 15px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 11px; font-weight: 600;
+    letter-spacing: .06em;
+    cursor: pointer;
+    transition: all .16s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .pill:hover { color: var(--cyan); border-color: var(--cyan-border); background: var(--cyan-faint); }
+  .pill:active { transform: translateY(1px); }
+  .pill.active {
+    background: var(--cyan-dim);
+    color: var(--cyan);
+    border-color: var(--cyan);
+    box-shadow: 0 0 0 1px var(--cyan-border), 0 2px 14px rgba(0,212,255,0.14);
+  }
+  .mode-note {
+    margin: -4px 0 18px;
+    font-size: 12.5px; font-weight: 300;
+    line-height: 1.6;
+    color: var(--muted);
+  }
+  .mode-note strong { color: var(--text); font-weight: 600; }
+
+  /* ───────── INPUTS ───────── */
+  .inputs-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
+  @media (max-width: 640px) { .inputs-grid { grid-template-columns: 1fr; } }
+  .custom-row {
+    margin-top: 14px;
+    max-width: 320px;
+  }
+  .input-cell label {
+    display: block;
+    font-size: 11px; font-weight: 600;
+    letter-spacing: .18em; text-transform: uppercase;
+    color: var(--cyan);
+    margin-bottom: 7px;
+  }
+  .input-cell input {
+    width: 100%;
+    text-align: center;
+    background: #161616;
+    border: 1px solid rgba(255,255,255,0.18);
+    border-bottom: 2px solid rgba(0,212,255,0.32);
+    border-radius: 8px;
+    color: var(--text);
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-size: 24px; font-weight: 600;
+    padding: 16px 12px;
+    transition: border-color .18s, background .18s, box-shadow .18s;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.03);
+  }
+  .input-cell input::placeholder { color: rgba(255,255,255,0.40); font-weight: 400; }
+  .input-cell input:hover {
+    border-color: rgba(0,212,255,0.45);
+    border-bottom-color: var(--cyan);
+    background: #1B1B1B;
+  }
+  .input-cell input:focus {
+    outline: none;
+    border-color: var(--cyan);
+    border-bottom-color: var(--cyan);
+    background: #1F1F1F;
+    box-shadow: 0 0 0 3px rgba(0,212,255,0.18), inset 0 1px 0 rgba(255,255,255,0.05);
+  }
+  .input-cell input.invalid {
+    border-color: rgba(255,61,61,0.55);
+    border-bottom-color: var(--red);
+    color: var(--red);
+  }
+  .input-hint {
+    font-size: 12px; font-weight: 300;
+    color: var(--dim);
+    margin-top: 12px;
+    letter-spacing: .02em;
+  }
+  .input-hint b { color: var(--muted); font-weight: 600; }
+
+  /* ───────── STATUS BANNER ───────── */
+  .status-banner {
+    margin-top: 16px;
+    padding: 14px 18px;
+    border-radius: 8px;
+    background: var(--surface-2);
+    border: 1px solid var(--border-2);
+    border-left: 3px solid var(--dim);
+    font-size: 13px; font-weight: 600;
+    letter-spacing: .02em;
+    color: var(--muted);
+    transition: all .25s;
+  }
+  .status-banner.positive { border-left-color: var(--green); background: var(--green-faint); color: var(--green); }
+  .status-banner.negative { border-left-color: var(--red); background: rgba(255,61,61,0.07); color: var(--red); }
+  .status-banner.neutral  { border-left-color: var(--yellow); background: rgba(245,181,69,0.06); color: var(--yellow); }
+
+  /* ───────── OUTPUT SECTIONS ───────── */
+  .output-section { margin-top: 26px; }
+  .output-section-head {
+    display: flex; align-items: baseline; gap: 12px;
+    margin-bottom: 14px;
+  }
+  .output-section-label {
+    font-size: 11px; font-weight: 700;
+    letter-spacing: .24em; text-transform: uppercase;
+    color: var(--cyan);
+  }
+  .output-section-sub { font-size: 11px; font-weight: 400; color: var(--dim); }
+  .output-section-rule {
+    flex: 1; height: 1px;
+    background: linear-gradient(to right, var(--cyan-border), transparent);
+  }
+
+  .outputs-grid { display: grid; gap: 10px; }
+  .outputs-grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+  @media (max-width: 560px) { .outputs-grid.cols-3 { grid-template-columns: 1fr; } }
+  .out-box {
+    background: var(--surface-2);
+    border: 1px solid var(--border-2);
+    border-radius: 8px;
+    padding: 16px 18px;
+    transition: border-color .2s;
+  }
+  .out-box:hover { border-color: rgba(0,212,255,0.22); }
+  .out-label {
+    font-size: 10px; font-weight: 600;
+    letter-spacing: .2em; text-transform: uppercase;
+    color: var(--cyan);
+    margin-bottom: 10px;
+  }
+  .out-value {
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-size: clamp(23px, 2.7vw, 29px);
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.05;
+  }
+  .out-value.hedge { color: var(--cyan); }
+  .out-value.profit { color: var(--green); }
+  .out-value.pos { color: var(--green); }
+  .out-value.neg { color: var(--red); }
+  .out-value.empty { color: var(--dim); font-weight: 400; }
+  .out-sub {
+    font-size: 11px; color: var(--muted);
+    margin-top: 6px; letter-spacing: .04em;
+  }
+
+  /* ───────── OUTCOME CARDS ───────── */
+  .outcome-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  @media (max-width: 560px) { .outcome-grid { grid-template-columns: 1fr; } }
+  .outcome-card {
+    background: var(--surface-2);
+    border: 1px solid var(--border-2);
+    border-left: 3px solid var(--cyan-border);
+    border-radius: 8px;
+    padding: 16px 20px;
+  }
+  .oc-title {
+    font-size: 11px; font-weight: 700;
+    letter-spacing: .14em; text-transform: uppercase;
+    color: var(--cyan);
+    margin-bottom: 10px;
+  }
+  .oc-row {
+    display: flex; justify-content: space-between; align-items: baseline;
+    font-size: 13px; padding: 6px 0;
+    color: var(--muted);
+  }
+  .oc-val {
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-weight: 600; color: var(--text);
+  }
+  .oc-row.net {
+    border-top: 1px solid var(--border-2);
+    margin-top: 4px; padding-top: 10px;
+  }
+  .oc-row.net .oc-label { color: var(--text); font-weight: 600; }
+  .oc-row.net .oc-val { font-size: 16px; }
+  .oc-val.pos { color: var(--green); }
+  .oc-val.neg { color: var(--red); }
+
+  /* ───────── CALLOUT ───────── */
+  .callout {
+    background: var(--surface-2);
+    border: 1px solid var(--border-2);
+    border-left: 3px solid var(--cyan);
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin-top: 24px;
+    font-size: 13.5px;
+    font-weight: 300;
+    line-height: 1.65;
+    color: rgba(240,238,232,0.82);
+  }
+  .callout-label {
+    font-size: 10px; font-weight: 700;
+    letter-spacing: .22em; text-transform: uppercase;
+    color: var(--cyan);
+    margin-bottom: 12px;
+  }
+  .callout p { margin-bottom: 11px; }
+  .callout p:last-child { margin-bottom: 0; }
+  .callout strong { color: var(--text); font-weight: 600; }
+  .callout ul { list-style: none; margin: 4px 0 11px; padding-left: 2px; }
+  .callout li { position: relative; padding-left: 20px; margin-bottom: 7px; }
+  .callout li::before {
+    content: '';
+    position: absolute;
+    left: 2px; top: 0.62em;
+    width: 6px; height: 6px;
+    background: var(--cyan);
+    transform: rotate(45deg);
+  }
+
+  /* ───────── PLAIN-ENGLISH INTRO ───────── */
+  .plain-intro {
+    display: flex;
+    gap: 13px;
+    align-items: flex-start;
+    margin: 22px 0 2px;
+    padding: 15px 18px;
+    background: var(--cyan-faint);
+    border: 1px solid var(--cyan-border);
+    border-radius: 10px;
+  }
+  .plain-intro-label {
+    flex-shrink: 0;
+    font-size: 9px; font-weight: 700;
+    letter-spacing: .14em; text-transform: uppercase;
+    color: var(--cyan);
+    background: var(--cyan-dim);
+    border: 1px solid var(--cyan-border);
+    border-radius: 5px;
+    padding: 5px 7px;
+    margin-top: 2px;
+  }
+  .plain-intro p {
+    margin: 0;
+    font-size: 14.5px;
+    font-weight: 400;
+    line-height: 1.6;
+    color: var(--text);
+  }
+  .plain-intro strong { color: var(--cyan); font-weight: 600; }
+  @media (max-width: 540px) {
+    .plain-intro { flex-direction: column; gap: 9px; }
+  }
+
+  /* ───────── GLOSSARY TERM ───────── */
+  .gloss {
+    position: relative;
+    border-bottom: 1px dashed var(--cyan);
+    color: inherit;
+    text-decoration: none;
+    cursor: help;
+    white-space: nowrap;
+  }
+  .gloss:focus { outline: none; }
+  .gloss:hover { color: var(--cyan); }
+  .gloss-pop {
+    position: absolute;
+    bottom: calc(100% + 9px);
+    left: 50%;
+    transform: translateX(-50%);
+    width: 232px;
+    max-width: 70vw;
+    background: var(--surface-3);
+    border: 1px solid var(--border-2);
+    border-radius: 9px;
+    padding: 11px 13px;
+    font-size: 12.5px;
+    font-weight: 400;
+    line-height: 1.5;
+    letter-spacing: 0;
+    text-transform: none;
+    white-space: normal;
+    color: rgba(240,238,232,0.9);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .14s ease;
+    z-index: 40;
+  }
+  .gloss-pop::after {
+    content: '';
+    position: absolute;
+    top: 100%; left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-top-color: var(--surface-3);
+  }
+  .gloss-pop b { color: var(--cyan); font-weight: 600; }
+  .gloss-pop .gloss-link {
+    display: block;
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid var(--border-2);
+    color: var(--cyan);
+    font-weight: 600;
+    font-size: 11.5px;
+  }
+  .gloss:hover .gloss-pop,
+  .gloss:focus .gloss-pop,
+  .gloss:focus-within .gloss-pop { opacity: 1; visibility: visible; }
+
+  /* ───────── KEY NOTE ───────── */
+  .key-note {
+    margin-top: 24px;
+    padding: 16px 20px 18px;
+    background: var(--green-dim);
+    border: 1px solid var(--green-border);
+    border-left: 3px solid var(--green);
+    border-radius: 10px;
+    box-shadow: 0 0 26px rgba(77,255,120,0.07);
+  }
+  .key-note-head {
+    display: flex; align-items: center; gap: 7px;
+    font-size: 11px; font-weight: 700;
+    letter-spacing: .2em; text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 9px;
+  }
+  .key-note-body {
+    font-size: 13.5px;
+    font-weight: 300;
+    line-height: 1.65;
+    color: rgba(240,238,232,0.80);
+  }
+  .key-note-body strong { color: var(--text); font-weight: 700; }
+  .key-note-body a { color: var(--green); font-weight: 600; }
+  .key-note-body a:hover { color: var(--cyan); }
+  .kn-list {
+    display: flex; flex-direction: column; gap: 10px;
+    margin: 12px 0 12px;
+  }
+  .kn-item { display: flex; gap: 12px; line-height: 1.55; align-items: baseline; }
+  .kn-tag {
+    flex-shrink: 0;
+    font-size: 9px; font-weight: 700;
+    letter-spacing: .08em; text-transform: uppercase;
+    padding: 4px 8px;
+    border-radius: 4px;
+    min-width: 84px; text-align: center;
+  }
+  .kn-tag.hedge { color: var(--cyan); background: var(--cyan-dim); border: 1px solid var(--cyan-border); }
+  .kn-tag.ride { color: var(--green); background: var(--green-dim); border: 1px solid var(--green-border); }
+
+  /* ───────── HOW TO ───────── */
+  .how-to {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    margin-top: 24px;
+    overflow: hidden;
+  }
+  .how-to summary {
+    cursor: pointer;
+    padding: 18px 26px;
+    font-size: 11px; font-weight: 600;
+    letter-spacing: .22em; text-transform: uppercase;
+    color: var(--cyan);
+    list-style: none;
+    user-select: none;
+    transition: background .18s;
+  }
+  .how-to summary::-webkit-details-marker { display: none; }
+  .how-to summary::after { content: ' ▾'; color: var(--dim); font-size: 10px; }
+  .how-to[open] summary { border-bottom: 1px solid var(--border); }
+  .how-to[open] summary::after { content: ' ▴'; }
+  .how-to summary:hover { background: var(--surface-2); }
+  .how-to-body {
+    padding: 28px;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 1.7;
+    color: var(--muted);
+  }
+  .how-to-body p { margin-bottom: 13px; }
+  .how-to-body p:has(> strong:first-child) { margin-top: 26px; }
+  .how-to-body p:first-child { margin-top: 0; }
+  .how-to-body strong { color: var(--text); font-weight: 700; }
+  .how-to-body em { color: var(--cyan); font-style: normal; font-weight: 600; }
+  .how-to-body ul { list-style: none; margin: 10px 0 16px; padding-left: 2px; }
+  .how-to-body li { position: relative; padding-left: 20px; margin-bottom: 9px; }
+  .how-to-body li::before {
+    content: '';
+    position: absolute;
+    left: 2px; top: 0.62em;
+    width: 6px; height: 6px;
+    background: var(--cyan);
+    transform: rotate(45deg);
+  }
+  .how-to-body a { color: var(--cyan); }
+  .how-to-body a:hover { color: var(--green); }
+
+  /* ───────── FOOTER ───────── */
+  .footer {
+    text-align: center;
+    margin-top: 60px;
+    padding: 28px 20px;
+    color: var(--dim);
+    font-size: 11px;
+    letter-spacing: .04em;
+    line-height: 1.7;
+    border-top: 1px solid var(--border);
+  }
+  .footer a { color: var(--muted); }
+  .footer a:hover { color: var(--cyan); }
+
+  /* ═══ SIDEBAR ═══ */
+  .pps-sidebar {
+    position: fixed; top: 0; left: 0; bottom: 0;
+    width: 240px; background: var(--surface);
+    border-right: 1px solid var(--border-2); z-index: 50;
+    transform: translateX(-100%);
+    transition: transform .3s cubic-bezier(.4,0,.2,1);
+    overflow-y: auto;
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  }
+  body.pps-sidebar-open .pps-sidebar { transform: translateX(0); }
+  body.pps-sidebar-open { padding-left: 240px; transition: padding-left .3s cubic-bezier(.4,0,.2,1); }
+  @media (max-width: 900px) {
+    body.pps-sidebar-open { padding-left: 0; }
+    .pps-sidebar { box-shadow: 4px 0 30px rgba(0,0,0,.7); width: 260px; }
+  }
+  .pps-sidebar-toggle {
+    position: fixed; top: 14px; left: 18px; z-index: 51;
+    background: var(--surface);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--border-2);
+    color: var(--text);
+    width: 38px; height: 38px;
+    border-radius: 6px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all .18s ease;
+  }
+  .pps-sidebar-toggle:hover { background: var(--surface-2); border-color: var(--cyan-border); color: var(--cyan); }
+  body.pps-sidebar-open .pps-sidebar-toggle { left: 256px; top: 14px; }
+  @media (max-width: 900px) { body.pps-sidebar-open .pps-sidebar-toggle { left: 276px; } }
+  .pps-sidebar-inner { padding: 22px 14px 30px; }
+  .pps-sidebar-brand {
+    display: flex; align-items: center; justify-content: center;
+    gap: 6px; color: var(--text); text-decoration: none;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 900; font-size: 13px;
+    letter-spacing: -.02em;
+    padding: 4px 0 16px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 14px;
+  }
+  .pps-sidebar-brand .accent { color: var(--green); }
+  .pps-sidebar-brand small { font-size: 8px; font-weight: 400; letter-spacing: .4em; text-transform: uppercase; color: var(--dim); margin-left: 6px; }
+  .pps-sidebar-brand:hover .accent { filter: brightness(1.1); }
+  .pps-sidebar-nav { display: flex; flex-direction: column; gap: 1px; }
+  .pps-nav-group-label {
+    font-size: 9px; text-transform: uppercase; letter-spacing: .22em;
+    color: var(--dim); padding: 14px 8px 6px;
+    margin-top: 2px; font-weight: 600;
+  }
+  .pps-nav-link {
+    display: flex; align-items: center; gap: 10px;
+    color: var(--muted); text-decoration: none;
+    padding: 7px 10px; border-radius: 4px;
+    font-size: 12px; font-weight: 400;
+    border-left: 2px solid transparent;
+    transition: all .15s ease;
+  }
+  .pps-nav-link:hover { background: var(--surface-2); color: var(--text); }
+  .pps-nav-link.active { background: var(--green-faint); color: var(--green); border-left-color: var(--green); font-weight: 500; }
+  .pps-nav-num { font-family: 'Space Grotesk', system-ui, sans-serif; font-size: 10px; color: var(--dim); font-weight: 500; min-width: 18px; }
+  .pps-nav-group { margin: 1px 0; }
+  .pps-nav-group summary {
+    list-style: none; cursor: pointer;
+    padding: 7px 10px; font-size: 12px;
+    color: var(--muted); border-radius: 4px;
+    display: flex; align-items: center; justify-content: space-between;
+    transition: all .15s ease; user-select: none;
+    font-weight: 500;
+  }
+  .pps-nav-group summary::-webkit-details-marker { display: none; }
+  .pps-nav-group summary::after { content: '▾'; font-size: 9px; color: var(--dim); transition: transform .2s ease; }
+  .pps-nav-group[open] summary::after { transform: rotate(180deg); }
+  .pps-nav-group summary:hover { background: var(--surface-2); color: var(--text); }
+  .pps-nav-group .pps-nav-link { padding: 5px 10px 5px 22px; font-size: 11px; }
+  .pps-path-group > summary { font-weight: 600; }
+  .pps-path-group .pps-path-label { display: inline-flex; align-items: center; gap: 10px; }
+  .pps-path-group.path-blue > summary .pps-nav-num { color: var(--cyan); }
+  .pps-path-group.path-green > summary .pps-nav-num { color: var(--green); }
+  .pps-path-group.path-gold > summary .pps-nav-num { color: var(--yellow); }
+  .pps-path-group.path-blue[open] > summary { color: var(--cyan); }
+  .pps-path-group.path-green[open] > summary { color: var(--green); }
+  .pps-path-group.path-gold[open] > summary { color: var(--yellow); }
+  .pps-sidebar::-webkit-scrollbar { width: 6px; }
+  .pps-sidebar::-webkit-scrollbar-track { background: transparent; }
+  .pps-sidebar::-webkit-scrollbar-thumb { background: var(--border-2); border-radius: 3px; }
+
+  @media (max-width: 640px) {
+    .card { padding-top: 60px; }
+  }
+  /* ── Calc-template: education pills + next steps ── */
+  .edu-pills {
+    width: 100%;
+    max-width: 640px;
+    margin: 22px auto 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .edu-pill {
+    border: 1px dashed rgba(0, 212, 255, 0.30);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .edu-pill summary {
+    list-style: none;
+    cursor: pointer;
+    user-select: none;
+    padding: 10px 16px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: rgba(240, 238, 232, 0.62);
+    transition: color .15s;
+  }
+  .edu-pill summary::-webkit-details-marker { display: none; }
+  .edu-pill summary::before { content: '\25b8 '; color: var(--cyan); }
+  .edu-pill[open] summary::before { content: '\25be '; }
+  .edu-pill summary:hover { color: var(--text); }
+  .edu-pill .edu-body {
+    padding: 4px 18px 16px;
+    font-size: 14px;
+    line-height: 1.65;
+    color: rgba(240, 238, 232, 0.78);
+  }
+  .edu-pill .edu-body strong { color: var(--text); font-weight: 600; }
+  .edu-pill .edu-body em { color: var(--cyan); font-style: normal; font-weight: 500; }
+  .edu-pill .edu-body ul { margin: 8px 0 4px; padding-left: 20px; }
+  .edu-pill .edu-body li { margin-bottom: 6px; }
+  .edu-pill .edu-body a { color: var(--cyan); }
+  .edu-pill .edu-body a:hover { color: var(--green); }
+
+  .next-steps {
+    width: 100%;
+    max-width: 640px;
+    margin: 36px auto 0;
+  }
+  .next-steps-label {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .26em;
+    text-transform: uppercase;
+    color: var(--dim);
+    text-align: center;
+    margin-bottom: 12px;
+  }
+  .next-steps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 10px;
+  }
+  .next-step {
+    display: block;
+    background: var(--surface);
+    border: 1px solid var(--border-2);
+    border-radius: 12px;
+    padding: 14px 16px;
+    text-decoration: none;
+    transition: border-color .18s, transform .18s;
+  }
+  .next-step:hover { border-color: var(--green-border); transform: translateY(-1px); }
+  .next-step .ns-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13.5px; font-weight: 600; color: var(--text); }
+  .next-step .ns-tool { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 11.5px; color: var(--muted); margin-top: 3px; }
+  .next-step.lesson { border-color: rgba(0, 212, 255, 0.22); }
+  .next-step.lesson .ns-title { color: var(--cyan); }
+
+  /* ── Percent-odds calc extras ── */
+  .inputs-grid.cols-2x2 { grid-template-columns: repeat(2, 1fr); }
+  .px-big { margin: 2px 0 12px; }
+  .px-big .out-value { font-size: clamp(26px, 3vw, 33px); }
+  .px-big-sub { display: block; font-size: 11px; color: var(--muted); margin-top: 5px; letter-spacing: .04em; }
+  .outcome-card.make { border-left-color: var(--green-border); }
+  .outcome-card.make .oc-title { color: var(--green); }
+  .px-pair { margin: 2px 0 4px; }
+  .px-pair .out-label { margin-bottom: 8px; }
+  .px-pair.make { border-top: 1px solid var(--border-2); margin-top: 16px; padding-top: 16px; }
+  .px-pair.make .out-label { color: var(--green); }
+  .qc-result { margin-top: 18px; display: flex; flex-wrap: wrap; gap: 8px 30px; align-items: baseline; }
+  .qc-result .qr-item { display: flex; align-items: baseline; gap: 9px; }
+  .qc-result .qr-label { font-size: 10px; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: var(--cyan); }
+  .qc-result .qr-val { font-family: 'Space Grotesk', system-ui, sans-serif; font-weight: 600; font-size: 22px; color: var(--text); font-variant-numeric: tabular-nums; }
+  .qc-result .qr-val.green { color: var(--green); }
+  .qc-result .qr-val.dim { color: var(--dim); font-weight: 400; }
+
+  /* venue fee picker (2026-10) */
+  .fee-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 14px; }
+  @media (max-width: 640px) { .fee-grid { grid-template-columns: 1fr; } }
+  .fee-grid select { width: 100%; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.12); border-radius: 8px; color: inherit; font: inherit; font-size: 15px; padding: 10px 12px; }
+  .fee-grid select:disabled { opacity: .45; }
+  .fee-note { font-size: 12px; color: rgba(255,255,255,0.45); margin-top: 8px; line-height: 1.5; }
+</style>
+<link rel="stylesheet" href="/styles/sidebar.css">
+<link rel="stylesheet" href="/styles/topbar.css">
+<script defer src="/_vercel/insights/script.js"></script>
+</head>
+<body>
+
+
+<!-- ═══ SIDEBAR NAVIGATION ═══ -->
+<button class="pps-sidebar-toggle" aria-label="Toggle navigation" id="ppsSidebarToggle">
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M2 4h12M2 8h12M2 12h12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+  </svg>
+</button>
+<aside class="pps-sidebar" id="ppsSidebar">
+  <div class="pps-sidebar-inner">
+    <a class="pps-sidebar-brand" href="/index.html" aria-label="PROFITPATH Sports — Home">
+      <img src="/images/profitpath-wordmark.svg" alt="PROFITPATH Sports" class="pps-sidebar-logo">
+    </a>
+    <nav class="pps-sidebar-nav">
+      <a class="pps-nav-link" href="/index.html">Home</a>
+      <a class="pps-nav-link" href="/glossary.html">Glossary</a>
+
+      <div class="pps-nav-group-label">Calculators</div>
+      <details class="pps-nav-group" id="ppsGroupCalcs">
+        <summary>Core tools</summary>
+        <a class="pps-nav-link" href="/bet-x-ray.html">Bet X-Ray</a>
+        <a class="pps-nav-link" href="/sharp-snapshot.html">Sharp Snapshot</a>
+        <a class="pps-nav-link" href="/prop-shop.html">The Prop Shop</a>
+        <a class="pps-nav-link" href="/hedge-calculator.html">Hedge</a>
+        <a class="pps-nav-link" href="/arb-calculator.html">Arbitrage</a>
+        <a class="pps-nav-link" href="/middle-calculator.html">Middle</a>
+        <a class="pps-nav-link" href="/devig_calculator.html">Devig</a>
+        <a class="pps-nav-link" href="/odds_calculator.html">Odds Converter</a>
+        <a class="pps-nav-link" href="/percent-odds-calculator.html">Percent Odds</a>
+      </details>
+      <details class="pps-nav-group">
+        <summary>More tools</summary>
+        <a class="pps-nav-link" href="/ev-calculator.html">EV Calculator</a>
+        <a class="pps-nav-link" href="/kelly-calculator.html">Kelly Sizer</a>
+        <a class="pps-nav-link" href="/consensus-calculator.html">Consensus Devig</a>
+        <a class="pps-nav-link" href="/edge-finder.html">Edge Finder</a>
+        <a class="pps-nav-link" href="/parlay-calculator.html">Parlay</a>
+        <a class="pps-nav-link" href="/dfs-slip-checker.html">DFS Slip Checker</a>
+        <a class="pps-nav-link" href="/bonus-converter.html">Bonus Converter</a>
+        <a class="pps-nav-link" href="/bet-tracker.html">Bet Tracker</a>
+        <a class="pps-nav-link" href="/long-run-simulator.html">Long-Run Sim</a>
+        <a class="pps-nav-link" data-docile-hidden="1" style="display:none" href="/roulette.html">Virtual Roulette</a>
+      </details>
+
+      <div class="pps-nav-group-label">Paths</div>
+      <details class="pps-nav-group path-01">
+        <summary><span class="pps-nav-num">01</span> Begin</summary>
+        <a class="pps-nav-link" href="/lane-new.html">Path Overview</a>
+        <a class="pps-nav-link" href="/learn-odds.html">Odds Formats</a>
+        <a class="pps-nav-link" href="/learn-implied.html">Implied Probability</a>
+        <a class="pps-nav-link" href="/learn-vig.html">The Vig</a>
+        <a class="pps-nav-link" href="/learn-ev.html">+EV</a>
+        <a class="pps-nav-link" href="/learn-clv.html">CLV</a>
+        <a class="pps-nav-link" href="/learn-kelly.html">Kelly Criterion</a>
+        <a class="pps-nav-link" href="/learn-parlays.html">Parlays</a>
+        <a class="pps-nav-link" href="/learn-props.html">Prop Bets</a>
+      </details>
+      <details class="pps-nav-group path-02">
+        <summary><span class="pps-nav-num">02</span> Convert</summary>
+        <a class="pps-nav-link" href="/lane-bonus.html">Path Overview</a>
+        <a class="pps-nav-link" href="/learn-bonus.html">Bonus Conversion</a>
+        <a class="pps-nav-link" href="/learn-bonus-types.html">Bonus Types</a>
+        <a class="pps-nav-link" href="/learn-bonus-traps.html">Bonus Traps</a>
+        <a class="pps-nav-link" href="/learn-bonus-walkthrough.html">Walkthrough</a>
+        <a class="pps-nav-link" href="/learn-finding-bonus-bets.html">Finding Bonus Bets</a>
+        <a class="pps-nav-link" href="/learn-bonus-step-by-step.html">Step-by-Step</a>
+        <a class="pps-nav-link" href="/learn-prop-void-rules.html">Prop Void Rules</a>
+        <a class="pps-nav-link" href="/learn-finding-bets.html">Finding +EV Bets</a>
+      </details>
+      <details class="pps-nav-group path-03">
+        <summary><span class="pps-nav-num">03</span> Maintain</summary>
+        <a class="pps-nav-link" href="/lane-maintain.html">Path Overview</a>
+        <a class="pps-nav-link" href="/learn-prob-gap-vs-ev.html">Prob Gap vs EV</a>
+        <a class="pps-nav-link" href="/learn-arbitrage.html">Arbitrage</a>
+        <a class="pps-nav-link" href="/learn-middles.html">Middles</a>
+        <a class="pps-nav-link" href="/learn-betting-vs-trading.html">Betting vs Trading</a>
+        <a class="pps-nav-link" href="/learn-alt-ladder.html">Alt Ladder</a>
+        <a class="pps-nav-link" href="/learn-alt-lines.html">Alt Lines</a>
+        <a class="pps-nav-link" href="/learn-cross-market-ev.html">Cross-Market EV</a>
+        <a class="pps-nav-link" href="/learn-exchange-liquidity.html">Exchange Liquidity</a>
+        <a class="pps-nav-link" href="/learn-futures.html">Futures</a>
+        <a class="pps-nav-link" href="/learn-manual-scan.html">Manual Scan</a>
+        <a class="pps-nav-link" href="/learn-top-down-bottom-up.html">Top-Down / Bottom-Up</a>
+        <a class="pps-nav-link" href="/learn-wide-markets.html">Wide Markets</a>
+      </details>
+
+      <div class="pps-nav-group-label">More</div>
+      <details class="pps-nav-group" data-docile-hidden="1">
+        <summary>Sportsbooks</summary>
+        <a class="pps-nav-link" href="/book-draftkings.html">DraftKings</a>
+        <a class="pps-nav-link" href="/book-fanduel.html">FanDuel</a>
+        <a class="pps-nav-link" href="/book-hardrock.html">Hard Rock</a>
+        <a class="pps-nav-link" href="/book-betmgm.html">BetMGM</a>
+        <a class="pps-nav-link" href="/book-prophetx.html">ProphetX</a>
+      </details>
+    </nav>
+  </div>
+</aside>
+<script>
+(function() {
+  var path = window.location.pathname.replace(/\/$/, '') || '/index.html';
+  var isHome = (path === '/index.html' || path === '' || path === '/');
+  document.querySelectorAll('.pps-sidebar .pps-nav-link').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href === path || (isHome && href === '/index.html')) {
+      link.classList.add('active');
+      var group = link.closest('details.pps-nav-group');
+      if (group) group.setAttribute('open', '');
+    }
+  });
+  var calcs = document.getElementById('ppsGroupCalcs');
+  if (calcs && !document.querySelector('.pps-sidebar details[open]')) calcs.setAttribute('open', '');
+})();
+</script>
+<!-- ═══ END SIDEBAR ═══ -->
+<!-- ═══ TOPBAR NAVIGATION ═══ -->
+<nav class="pps-topbar" id="ppsTopbar">
+  <div class="pps-topbar-inner">
+    <button class="tb-burger" aria-label="Open menu" onclick="document.body.classList.toggle('pps-sidebar-open')">
+      <svg width="15" height="15" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 4h12M2 8h12M2 12h12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+    </button>
+    <a class="tb-brand" href="/index.html"><img src="/images/profitpath-wordmark.svg" alt="PROFITPATH Sports"></a>
+    <div class="tb-links">
+      <div class="tb-item">
+        <button type="button" aria-haspopup="true">The Path <span class="car">▼</span></button>
+        <div class="tb-menu">
+          <a href="/index.html#paths">Follow The Path — overview</a>
+          <hr>
+          <a href="/lane-new.html"><span class="num">01</span>Begin — the basics</a>
+          <a href="/lane-bonus.html"><span class="num">02</span>Convert — welcome offers</a>
+          <a href="/lane-maintain.html"><span class="num">03</span>Maintain — the long game</a>
+        </div>
+      </div>
+      <div class="tb-item">
+        <button type="button" aria-haspopup="true">Exclusives <span class="car">▼</span></button>
+        <div class="tb-menu">
+          <div class="tb-menu-label">Built in-house — nowhere else</div>
+          <a href="/bet-x-ray.html">Bet X-Ray</a>
+          <a href="/sharp-snapshot.html">Sharp Snapshot</a>
+          <a href="/prop-shop.html">The Prop Shop</a>
+          <a href="/dfs-slip-checker.html">DFS Slip Checker</a>
+        </div>
+      </div>
+      <div class="tb-item">
+        <button type="button" aria-haspopup="true">Calculators <span class="car">▼</span></button>
+        <div class="tb-menu cols2">
+          <div class="tb-menu-label">Everyday tools</div>
+          <a href="/hedge-calculator.html">Hedge</a>
+          <a href="/arb-calculator.html">Arbitrage</a>
+          <a href="/middle-calculator.html">Middle</a>
+          <a href="/devig_calculator.html">Devig</a>
+          <a href="/odds_calculator.html">Odds Converter</a>
+          <a href="/percent-odds-calculator.html">Percent Odds</a>
+          <div class="tb-menu-label">More tools</div>
+          <a href="/ev-calculator.html">EV Calculator</a>
+          <a href="/kelly-calculator.html">Kelly Sizer</a>
+          <a href="/consensus-calculator.html">Consensus Devig</a>
+          <a href="/edge-finder.html">Edge Finder</a>
+          <a href="/parlay-calculator.html">Parlay</a>
+          <a href="/bonus-converter.html">Bonus Converter</a>
+          <a href="/bet-tracker.html">Bet Tracker</a>
+          <a href="/long-run-simulator.html">Long-Run Sim</a>
+        </div>
+      </div>
+      <div class="tb-item" data-docile-hidden="1" style="display:none">
+        <button type="button" aria-haspopup="true">Sportsbooks <span class="car">▼</span></button>
+        <div class="tb-menu">
+          <a href="/book-draftkings.html">DraftKings</a>
+          <a href="/book-fanduel.html">FanDuel</a>
+          <a href="/book-hardrock.html">Hard Rock</a>
+          <a href="/book-betmgm.html">BetMGM</a>
+          <a href="/book-prophetx.html">ProphetX</a>
+        </div>
+      </div>
+      <div class="tb-item" data-docile-hidden="1" style="display:none">
+        <button type="button" aria-haspopup="true">Tools <span class="car">▼</span></button>
+        <div class="tb-menu">
+          <div class="tb-menu-label">Live scanners</div>
+          <a href="/bonus-finder.html" data-docile-hidden="1">Bonus Bet Finder</a>
+          <a href="/hot-streaks.html" data-docile-hidden="1">Hot Streak Scanner</a>
+        </div>
+      </div>
+      <div class="tb-item">
+        <button type="button" aria-haspopup="true">Resources <span class="car">▼</span></button>
+        <div class="tb-menu">
+          <div class="tb-menu-label">Third-party — we use these</div>
+          <a href="https://picktheodds.app" target="_blank" rel="noopener">Pick the Odds ↗</a>
+          <a href="https://oddsjam.com" target="_blank" rel="noopener">OddsJam ↗</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<script>
+(function () {
+  var bar = document.getElementById('ppsTopbar');
+  if (!bar) return;
+  document.querySelectorAll('.tb-item > button').forEach(function (btn) {
+    btn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      var item = btn.parentElement;
+      var wasOpen = item.classList.contains('open');
+      document.querySelectorAll('.tb-item.open').forEach(function (o) { o.classList.remove('open'); });
+      if (!wasOpen) item.classList.add('open');
+    });
+  });
+  document.addEventListener('click', function () {
+    document.querySelectorAll('.tb-item.open').forEach(function (o) { o.classList.remove('open'); });
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') document.querySelectorAll('.tb-item.open').forEach(function (o) { o.classList.remove('open'); });
+  });
+  if (bar.hasAttribute('data-below-hero')) {
+    var logo = null;
+    var onScroll = function () {
+      if (!logo) logo = document.querySelector('.hero-logo');
+      var past = logo ? logo.getBoundingClientRect().bottom <= bar.offsetHeight
+                      : bar.getBoundingClientRect().top <= 0;
+      if (past) bar.classList.add('stuck');
+      else bar.classList.remove('stuck');
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', onScroll);
+    else onScroll();
+  }
+})();
+</script>
+<!-- ═══ END TOPBAR ═══ -->
+
+<div class="card">
+
+  <div class="header">
+    <div class="header-meta">
+      <a href="/index.html" class="back-link">← Back</a>
+      <span class="header-eyebrow">★ Free · No Signup ★</span>
+    </div>
+    <div class="title-row">
+      <h1>Percent Odds Calculator</h1>
+    </div>
+    <p class="tagline">
+      <span>ProphetX, Kalshi, Polymarket — prediction markets show odds as percentages. Type in both sides of a market — get the <span class="mono">real American odds</span>, and see the maker behind every offer.</span>
+    </p>
+  </div>
+
+  <p class="tool-redirect">Just converting one number? The <a href="/odds_calculator.html"><strong>Odds Converter</strong></a> handles single odds in every format. This tool decodes a full exchange market — both sides, takers <strong>and</strong> makers.</p>
+
+  <div class="body">
+
+    <div class="step" id="step1">
+      <div class="step-head">
+        <span class="step-num">The Market</span>
+        <span class="step-title">Enter both sides as the app shows them</span>
+        <span class="step-sub">Percentages straight off the screen. The available $ is optional — add it to see the stakes behind each offer.</span>
+      </div>
+
+      <div class="inputs-grid cols-2x2">
+        <div class="input-cell">
+          <label for="p1">Side 1 — percent</label>
+          <input type="text" id="p1" inputmode="decimal" spellcheck="false" autocomplete="off" value="45.05">
+        </div>
+        <div class="input-cell">
+          <label for="a1">Side 1 — available ($, optional)</label>
+          <input type="text" id="a1" inputmode="decimal" spellcheck="false" autocomplete="off" value="67">
+        </div>
+        <div class="input-cell">
+          <label for="p2">Side 2 — percent</label>
+          <input type="text" id="p2" inputmode="decimal" spellcheck="false" autocomplete="off" value="64.79">
+        </div>
+        <div class="input-cell">
+          <label for="a2">Side 2 — available ($, optional)</label>
+          <input type="text" id="a2" inputmode="decimal" spellcheck="false" autocomplete="off" value="96">
+        </div>
+      </div>
+      <div class="input-hint">
+        Type it exactly as the app shows it — <b>45.05</b> means a 45.05% implied chance. One side on its own works too.
+      </div>
+      <div class="status-banner neutral" id="statusBanner">Enter at least one side's percentage.</div>
+      <div class="fee-grid">
+        <div class="input-cell">
+          <label for="feeVenue">Venue fee</label>
+          <select id="feeVenue">
+            <option value="none">No fee (screen price)</option>
+            <option value="px">ProphetX</option>
+            <option value="nv">Novig</option>
+            <option value="ka">Kalshi</option>
+            <option value="pm">Polymarket US</option>
+          </select>
+        </div>
+        <div class="input-cell">
+          <label for="feeRole">You are the</label>
+          <select id="feeRole"><option value="taker">Taker (take a posted price)</option><option value="maker">Maker (post your own)</option></select>
+        </div>
+        <div class="input-cell">
+          <label for="feeWhen">Timing</label>
+          <select id="feeWhen"><option value="pre">Pregame</option><option value="live">Live</option></select>
+        </div>
+      </div>
+      <div class="fee-note" id="feeNote">Pick a venue to see your all-in price after its fee.</div>
+
+      <div class="output-section">
+        <div class="output-section-head">
+          <span class="output-section-label">Take or Make</span>
+          <span class="output-section-sub">the odds on what's available &mdash; and the maker behind it</span>
+          <span class="output-section-rule"></span>
+        </div>
+        <div class="outcome-grid">
+          <div class="outcome-card">
+            <div class="oc-title" id="s1Title">Side 1</div>
+            <div class="px-pair">
+              <div class="out-label">To take it</div>
+              <span class="out-value hedge empty" id="s1TakeAm">&mdash;</span>
+              <span class="px-big-sub" id="s1TakeSub">the American odds for what's available</span>
+            </div>
+            <div class="px-pair make">
+              <div class="out-label">The maker behind it</div>
+              <span class="out-value profit empty" id="s1MakeAm">&mdash;</span>
+              <span class="px-big-sub" id="s1MakeSub">their odds, and what they staked to post it</span>
+            </div>
+          </div>
+          <div class="outcome-card">
+            <div class="oc-title" id="s2Title">Side 2</div>
+            <div class="px-pair">
+              <div class="out-label">To take it</div>
+              <span class="out-value hedge empty" id="s2TakeAm">&mdash;</span>
+              <span class="px-big-sub" id="s2TakeSub">the American odds for what's available</span>
+            </div>
+            <div class="px-pair make">
+              <div class="out-label">The maker behind it</div>
+              <span class="out-value profit empty" id="s2MakeAm">&mdash;</span>
+              <span class="px-big-sub" id="s2MakeSub">their odds, and what they staked to post it</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="step" id="quickConvert">
+      <div class="step-head">
+        <span class="step-num">Quick Converter</span>
+        <span class="step-title">Percent &harr; American</span>
+        <span class="step-sub">Type in either box &mdash; the other converts instantly.</span>
+      </div>
+      <div class="inputs-grid">
+        <div class="input-cell">
+          <label for="qcPct">Percent</label>
+          <input type="text" id="qcPct" inputmode="decimal" spellcheck="false" autocomplete="off" placeholder="45.05">
+        </div>
+        <div class="input-cell">
+          <label for="qcAm">American</label>
+          <input type="text" id="qcAm" inputmode="text" spellcheck="false" autocomplete="off" placeholder="+122">
+        </div>
+        <div class="input-cell">
+          <label for="qcStake">Stake ($, optional)</label>
+          <input type="text" id="qcStake" inputmode="decimal" spellcheck="false" autocomplete="off" placeholder="50">
+        </div>
+      </div>
+      <div class="qc-result" id="qcDec"><span class="qr-item"><span class="qr-label">Decimal</span><span class="qr-val dim">&mdash;</span></span></div>
+    </div>
+
+    <!-- Education — collapsed, opt-in -->
+    <div class="edu-pills">
+      <details class="edu-pill">
+        <summary>What does the percentage actually mean?</summary>
+        <div class="edu-body">
+          <p>It's <strong>implied probability</strong> — the price of the bet expressed as a chance of winning. A side at <em>45.05%</em> costs you $45.05 of every $100 the ticket pays out, which is exactly <em>+122</em> in American odds.</p>
+          <ul>
+            <li><strong>Under 50%</strong> — underdog territory, plus odds. The lower the number, the bigger the payout.</li>
+            <li><strong>Over 50%</strong> — favorite territory, minus odds. The higher the number, the more you lay.</li>
+            <li><strong>Decimal odds</strong> = 100 ÷ the percentage. 45.05% → 2.22.</li>
+          </ul>
+          <p>Same math as our <a href="/learn-implied.html">Implied Probability lesson</a> — prediction markets just put it on the front of the ticket.</p>
+        </div>
+      </details>
+      <details class="edu-pill">
+        <summary>Why is the maker's stake different from the "available" amount?</summary>
+        <div class="edu-body">
+          <p>The dollar amount the exchange shows is what <strong>you</strong> can bet. But this is an exchange — your winnings don't come from a book, they come from the <strong>maker's pocket</strong>. The maker's stake is exactly the amount you'd win.</p>
+          <p>Example: $67 available on a side at 45.05%. Take it all and you'd win $81.72 — so the maker had to post <em>$81.72</em> to create that $67 of availability. On favorite sides it flips: the maker risks <strong>less</strong> than what's showing, because you're the one laying the bigger number.</p>
+        </div>
+      </details>
+      <details class="edu-pill">
+        <summary>Make, don't take — the whole point of an exchange</summary>
+        <div class="edu-body">
+          <p>The two sides of a percent market always add up to <strong>more than 100%</strong> — that gap is the spread. Takers pay it. Makers collect it.</p>
+          <p>Instead of tapping the price that's sitting there, post your own offer just inside the queue on the other side. You get the same bet at roughly the <strong>maker's odds shown in green</strong> — the entire spread between the two sides goes to whoever posts and waits.</p>
+          <p>The full workflow is in <a href="/learn-exchange-liquidity.html#taker-vs-maker">Exchanges 101, taker or maker</a>.</p>
+        </div>
+      </details>
+    </div>
+
+    <!-- Next steps -->
+    <div class="next-steps">
+      <div class="next-steps-label">Next Steps</div>
+      <div class="next-steps-grid">
+        <a class="next-step" href="/odds_calculator.html">
+          <div class="ns-title">Convert any single odds format →</div>
+          <div class="ns-tool">Odds Converter</div>
+        </a>
+        <a class="next-step" href="/devig_calculator.html">
+          <div class="ns-title">Strip the vig from a two-sided market →</div>
+          <div class="ns-tool">Devig Calculator</div>
+        </a>
+        <a class="next-step lesson" href="/learn-exchange-liquidity.html#taker-vs-maker">
+          <div class="ns-title">▸ Earn the spread instead of paying it</div>
+          <div class="ns-tool">Exchanges 101: taker or maker</div>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="footer">
+  © 2026 PROFITPATH Sports · <a href="/index.html">Home</a> · <a href="/sharp-snapshot.html">Sharp Snapshot</a> · <a href="/bet-x-ray.html">Bet X-Ray</a> · <a href="/hedge-calculator.html">Hedge</a> · <a href="/arb-calculator.html">Arbitrage</a> · <a href="/middle-calculator.html">Middle</a> · <a href="/devig_calculator.html">Devig</a> · <a href="/odds_calculator.html">Odds Converter</a> &middot; <a href="/privacy.html">Privacy</a> &middot; <a href="/disclaimer.html">Disclaimer</a> &middot; <a href="/affiliate-disclosure.html">Affiliate</a>
+</div>
+
+<script>
+  // ─── Element references ───
+  const $ = id => document.getElementById(id);
+  const p1El = $('p1'), a1El = $('a1'), p2El = $('p2'), a2El = $('a2');
+  const statusEl = $('statusBanner');
+
+  // ─── Parsers / formatters ───
+  function parsePct(str) {
+    if (!str) return null;
+    const s = String(str).trim().replace('%', '').replace(',', '.');
+    if (!s) return null;
+    const n = parseFloat(s);
+    return (isFinite(n) && n > 0 && n < 100) ? n : null;
+  }
+  function parseMoney(str) {
+    const s = String(str).replace(/[$,\s]/g, '');
+    if (!s) return null;
+    const n = parseFloat(s);
+    return (isFinite(n) && n > 0) ? n : null;
+  }
+  function amFromPct(p) {
+    if (Math.abs(p - 50) < 1e-9) return '+100';
+    if (p > 50) return '-' + Math.round(100 * p / (100 - p));
+    return '+' + Math.round(100 * (100 - p) / p);
+  }
+  function fmtDollar(n) {
+    return '$' + Math.abs(n).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  }
+  function setVal(id, text, cls) {
+    const el = $(id);
+    el.textContent = text;
+    if (el.classList.contains('out-value')) {
+      el.className = 'out-value' + (cls ? ' ' + cls : '');
+    }
+  }
+  function setStatus(text, type) {
+    statusEl.textContent = text;
+    statusEl.className = 'status-banner ' + type;
+  }
+
+  function clearSide(n) {
+    $('s' + n + 'Title').textContent = 'Side ' + n;
+    setVal('s' + n + 'TakeAm', '—', 'empty');
+    $('s' + n + 'TakeSub').textContent = "the American odds for what's available";
+    setVal('s' + n + 'MakeAm', '—', 'empty');
+    $('s' + n + 'MakeSub').textContent = 'their odds, and what they staked to post it';
+  }
+
+  // ─── Venue fees (rates checked 2026-10-24; confirm in each app) ───
+  // px: 2% of net winnings, maker or taker, pregame or live.
+  // nv: taker 0.06*P*(1-P) per contract live only; pregame takers and all makers pay 0.
+  // ka: taker 0.07*P*(1-P), maker 0.0175*P*(1-P) on sports game series; rounded up per order (ignored here).
+  // pm: taker theta*P*(1-P), theta 0.0695 for sports (Sept 17, 2026 review); makers pay 0.
+  const FEE_NAMES = { px: 'ProphetX', nv: 'Novig', ka: 'Kalshi', pm: 'Polymarket US' };
+  const feeVenue = $('feeVenue'), feeRole = $('feeRole'), feeWhen = $('feeWhen'), feeNote = $('feeNote');
+  function feeSel() { return { v: feeVenue.value, role: feeRole.value, when: feeWhen.value }; }
+  function allInPct(p) {                     // p in percent, returns all-in percent
+    const f = feeSel(), x = p / 100;
+    let coef = 0;
+    if (f.v === 'px') return 100 * x / (x + (1 - x) * 0.98);
+    if (f.v === 'nv') coef = (f.role === 'taker' && f.when === 'live') ? 0.06 : 0;
+    if (f.v === 'ka') coef = f.role === 'taker' ? 0.07 : 0.0175;
+    if (f.v === 'pm') coef = f.role === 'taker' ? 0.0695 : 0;
+    return 100 * (x + coef * x * (1 - x));
+  }
+  function feeLabel() {
+    const f = feeSel();
+    if (f.v === 'none') return '';
+    return FEE_NAMES[f.v] + ' ' + f.role + (f.v === 'nv' ? ', ' + (f.when === 'live' ? 'live' : 'pregame') : '');
+  }
+  function feeNoteText() {
+    const f = feeSel();
+    feeWhen.disabled = (f.v !== 'nv');
+    const notes = {
+      none: 'Pick a venue to see your all-in price after its fee.',
+      px: 'ProphetX: 2% of net winnings, charged only on winning bets. Same for makers and takers, pregame and live.',
+      nv: 'Novig: pregame takers and all makers pay nothing. Live takers pay 0.06 × P × (1 − P) per contract.',
+      ka: 'Kalshi: takers 0.07 × P × (1 − P), makers 0.0175 on sports game series. Kalshi rounds each order up to the cent, so small orders cost a bit more.',
+      pm: 'Polymarket US: takers about 0.0695 × P × (1 − P) on sports (as of mid-September). Makers pay nothing. Rates change by category, so check the app.'
+    };
+    feeNote.textContent = notes[f.v] + (f.v === 'none' ? '' : ' Rates checked Oct 24, 2026.');
+  }
+  try {
+    const saved = JSON.parse(localStorage.getItem('pps_pct_fee') || 'null');
+    if (saved) { feeVenue.value = saved.v || 'none'; feeRole.value = saved.role || 'taker'; feeWhen.value = saved.when || 'pre'; }
+  } catch (e) {}
+  [feeVenue, feeRole, feeWhen].forEach(el => el.addEventListener('change', () => {
+    try { localStorage.setItem('pps_pct_fee', JSON.stringify(feeSel())); } catch (e) {}
+    feeNoteText(); calc();
+  }));
+  feeNoteText();
+
+  function fillSide(n, p, a) {
+    const mp = 100 - p;                              // maker is the opposite side
+    const win = a !== null ? a * mp / p : null;      // taker's win = the maker's stake
+
+    $('s' + n + 'Title').textContent = 'Side ' + n + ' — ' + p.toFixed(2) + '%' +
+      (a !== null ? ' · ' + fmtDollar(a) + ' available' : '');
+
+    setVal('s' + n + 'TakeAm', amFromPct(p), 'hedge');
+    $('s' + n + 'TakeSub').textContent = a !== null
+      ? 'bet the ' + fmtDollar(a) + ' available → win ' + fmtDollar(win)
+      : 'decimal ' + (100 / p).toFixed(2);
+    if (feeSel().v !== 'none') {
+      const ai = allInPct(p);
+      $('s' + n + 'TakeSub').textContent += ' · all-in after ' + feeLabel() + ' fee: ' +
+        ai.toFixed(2) + '% (' + amFromPct(ai) + ')';
+    }
+
+    if (a !== null) {
+      setVal('s' + n + 'MakeAm', amFromPct(mp) + ' · staked ' + fmtDollar(win), 'profit');
+      $('s' + n + 'MakeSub').textContent = 'they bet ' + fmtDollar(win) + ' at ' + mp.toFixed(2) +
+        '% to create the ' + fmtDollar(a) + ' available';
+    } else {
+      setVal('s' + n + 'MakeAm', amFromPct(mp) + ' (' + mp.toFixed(2) + '%)', 'profit');
+      $('s' + n + 'MakeSub').textContent = 'the other side of your bet — enter the available $ to size their stake';
+    }
+  }
+
+  function calc() {
+    const p1 = parsePct(p1El.value), p2 = parsePct(p2El.value);
+    const a1 = parseMoney(a1El.value), a2 = parseMoney(a2El.value);
+
+    p1El.classList.toggle('invalid', p1 === null && p1El.value.trim() !== '');
+    p2El.classList.toggle('invalid', p2 === null && p2El.value.trim() !== '');
+    a1El.classList.toggle('invalid', a1 === null && a1El.value.trim() !== '');
+    a2El.classList.toggle('invalid', a2 === null && a2El.value.trim() !== '');
+
+    if (p1 !== null) fillSide(1, p1, a1); else clearSide(1);
+    if (p2 !== null) fillSide(2, p2, a2); else clearSide(2);
+
+    if (p1 !== null && p2 !== null) {
+      const hold = p1 + p2 - 100;
+      if (hold > 0.005) {
+        setStatus('The two sides add to ' + (100 + hold).toFixed(2) + '% — that ' + hold.toFixed(2) +
+          '-pt gap is the spread. Takers pay it; the makers in green collect it.', 'neutral');
+      } else if (hold >= -0.005) {
+        setStatus('A perfectly tight market — the two sides add to exactly 100%.', 'positive');
+      } else {
+        setStatus('These prices overlap by ' + Math.abs(hold).toFixed(2) +
+          ' pts — taking BOTH sides locks in a profit. Size it with the Arbitrage Calculator.', 'positive');
+      }
+    } else if (p1 !== null || p2 !== null) {
+      setStatus('Side ' + (p1 !== null ? '1' : '2') + ' decoded. Add the other side to check the spread.', 'neutral');
+    } else {
+      setStatus("Enter at least one side's percentage.", 'neutral');
+    }
+  }
+
+  // ─── Quick converter: percent ↔ American, with stake → payout ───
+  const qcPct = $('qcPct'), qcAm = $('qcAm'), qcStake = $('qcStake'), qcDec = $('qcDec');
+  function parseAm(str) {
+    const s = String(str).trim().replace(/[−–—]/g, '-').replace(/^\+/, '');
+    if (!s || !/^-?\d+(\.\d+)?$/.test(s)) return null;
+    const n = parseFloat(s);
+    return Math.abs(n) >= 100 ? n : null;
+  }
+  function pctFromAm(n) {
+    return n < 0 ? (-n) / ((-n) + 100) * 100 : 100 / (n + 100) * 100;
+  }
+  function qcItem(label, val, cls) {
+    return '<span class="qr-item"><span class="qr-label">' + label +
+           '</span><span class="qr-val' + (cls ? ' ' + cls : '') + '">' + val + '</span></span>';
+  }
+  function qcRender() {
+    const p = parsePct(qcPct.value);
+    if (p === null) { qcDec.innerHTML = qcItem('Decimal', '—', 'dim'); return; }
+    const s = parseMoney(qcStake.value);
+    let out = qcItem('Decimal', (100 / p).toFixed(2));
+    if (s !== null) {
+      const win = s * (100 - p) / p;
+      out += qcItem('Bet', fmtDollar(s)) +
+             qcItem('To win', fmtDollar(win), 'green') +
+             qcItem('Payout', fmtDollar(s + win), 'green');
+    }
+    qcDec.innerHTML = out;
+  }
+  qcPct.addEventListener('input', () => {
+    const p = parsePct(qcPct.value);
+    qcPct.classList.toggle('invalid', p === null && qcPct.value.trim() !== '');
+    if (p === null) { if (!qcPct.value.trim()) { qcAm.value = ''; qcAm.classList.remove('invalid'); } }
+    else { qcAm.value = amFromPct(p); qcAm.classList.remove('invalid'); }
+    qcRender();
+  });
+  qcAm.addEventListener('input', () => {
+    const n = parseAm(qcAm.value);
+    qcAm.classList.toggle('invalid', n === null && qcAm.value.trim() !== '');
+    if (n === null) { if (!qcAm.value.trim()) { qcPct.value = ''; qcPct.classList.remove('invalid'); } }
+    else { qcPct.value = pctFromAm(n).toFixed(2); qcPct.classList.remove('invalid'); }
+    qcRender();
+  });
+  qcStake.addEventListener('input', () => {
+    qcStake.classList.toggle('invalid', parseMoney(qcStake.value) === null && qcStake.value.trim() !== '');
+    qcRender();
+  });
+  [qcPct, qcAm, qcStake].forEach(el => el.addEventListener('focus', () => el.select()));
+
+  [p1El, a1El, p2El, a2El].forEach(el => {
+    el.addEventListener('input', calc);
+    el.addEventListener('focus', () => el.select());
+  });
+
+  calc();
+</script>
+
+<script>
+  /* Sidebar behavior */
+  (function() {
+    var body = document.body;
+    var toggle = document.getElementById('ppsSidebarToggle');
+    var path = window.location.pathname.replace(/\/$/, '') || '/index.html';
+    var isHome = (path === '/index.html' || path === '' || path === '/');
+
+    document.querySelectorAll('.pps-sidebar .pps-nav-link').forEach(function(link) {
+      var href = link.getAttribute('href');
+      if (href === path || (isHome && href === '/index.html')) {
+        link.classList.add('active');
+        var parent = link.closest('details');
+        if (parent) parent.open = true;
+      }
+    });
+
+    toggle.addEventListener('click', function() {
+      body.classList.toggle('pps-sidebar-open');
+    });
+
+    var isDesktop = window.matchMedia('(min-width: 901px)').matches;
+    if (isDesktop && !isHome) {
+      body.classList.add('pps-sidebar-open');
+    }
+
+    document.addEventListener('click', function(e) {
+      if (window.innerWidth >= 901) return;
+      if (!body.classList.contains('pps-sidebar-open')) return;
+      var sidebar = document.getElementById('ppsSidebar');
+      if (sidebar && !sidebar.contains(e.target) && e.target !== toggle && !toggle.contains(e.target)) {
+        body.classList.remove('pps-sidebar-open');
+      }
+    });
+  })();
+</script>
+
+<script>
+/* glossary popup edge-clamp — keeps tooltips inside the viewport */
+(function(){
+  document.querySelectorAll('.gloss').forEach(function(g){
+    var pop = g.querySelector('.gloss-pop');
+    if (!pop) return;
+    function place(){
+      pop.style.transform = 'translateX(-50%)';
+      var r = pop.getBoundingClientRect(), pad = 10, shift = 0;
+      if (r.left < pad) shift = pad - r.left;
+      else if (r.right > window.innerWidth - pad) shift = (window.innerWidth - pad) - r.right;
+      if (shift) pop.style.transform = 'translateX(calc(-50% + ' + Math.round(shift) + 'px))';
+    }
+    g.addEventListener('mouseenter', place);
+    g.addEventListener('focus', place);
+  });
+})();
+</script>
+</body>
+</html>
