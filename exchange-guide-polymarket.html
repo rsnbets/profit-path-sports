@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Polymarket US: Reading the Screen, Taking a Price, Posting Your Own | Profit Path Sports</title>
+<meta name="description" content="How Polymarket US shows odds, how to take a posted price, how to post your own, what it charges, and a first-trade checklist. Part of the Exchange Guide.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Polymarket US: Reading the Screen, Taking a Price, Posting Your Own">
+<meta property="og:description" content="How Polymarket US shows odds, how to take a posted price, how to post your own, what it charges, and a first-trade checklist. Part of the Exchange Guide.">
+<meta property="og:image" content="https://profitpathsports.com/images/og-default.png?v=3">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://profitpathsports.com/exchange-guide-polymarket.html">
+<meta property="og:site_name" content="Profit Path Sports">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Polymarket US: Reading the Screen, Taking a Price, Posting Your Own">
+<meta name="twitter:description" content="How Polymarket US shows odds, how to take a posted price, how to post your own, what it charges, and a first-trade checklist. Part of the Exchange Guide.">
+<meta name="twitter:image" content="https://profitpathsports.com/images/og-default.png?v=3">
+<meta name="theme-color" content="#090909">
+<meta name="robots" content="noindex,nofollow">
+
+<link rel="icon" type="image/svg+xml" href="/logo.svg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="/styles/exchange-guide.css">
+<link rel="stylesheet" href="/styles/sidebar.css">
+<link rel="stylesheet" href="/styles/topbar.css">
+<script defer src="/_vercel/insights/script.js"></script>
+</head>
+<body>
+
+
+<!-- ═══ SIDEBAR NAVIGATION ═══ -->
+<button class="pps-sidebar-toggle" aria-label="Toggle navigation" id="ppsSidebarToggle">
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M2 4h12M2 8h12M2 12h12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+  </svg>
+</button>
+<aside class="pps-sidebar" id="ppsSidebar">
+  <div class="pps-sidebar-inner">
+    <a class="pps-sidebar-brand" href="/index.html" aria-label="PROFITPATH Sports — Home">
+      <img src="/images/profitpath-wordmark.svg" alt="PROFITPATH Sports" class="pps-sidebar-logo">
+    </a>
+    <nav class="pps-sidebar-nav">
+      <a class="pps-nav-link" href="/index.html">Home</a>
+      <a class="pps-nav-link" href="/glossary.html">Glossary</a>
+
+      <div class="pps-nav-group-label">Calculators</div>
+      <details class="pps-nav-group" id="ppsGroupCalcs">
+        <summary>Core tools</summary>
+        <a class="pps-nav-link" href="/bet-x-ray.html">Bet X-Ray</a>
+        <a class="pps-nav-link" href="/sharp-snapshot.html">Sharp Snapshot</a>
+        <a class="pps-nav-link" href="/prop-shop.html">The Prop Shop</a>
+        <a class="pps-nav-link" href="/hedge-calculator.html">Hedge</a>
+        <a class="pps-nav-link" href="/arb-calculator.html">Arbitrage</a>
+        <a class="pps-nav-link" href="/middle-calculator.html">Middle</a>
+        <a class="pps-nav-link" href="/devig_calculator.html">Devig</a>
+        <a class="pps-nav-link" href="/odds_calculator.html">Odds Converter</a>
+      </details>
+      <details class="pps-nav-group">
+        <summary>More tools</summary>
+        <a class="pps-nav-link" href="/ev-calculator.html">EV Calculator</a>
+        <a class="pps-nav-link" href="/kelly-calculator.html">Kelly Sizer</a>
+        <a class="pps-nav-link" href="/consensus-calculator.html">Consensus Devig</a>
+        <a class="pps-nav-link" href="/edge-finder.html">Edge Finder</a>
+        <a class="pps-nav-link" href="/parlay-calculator.html">Parlay</a>
+        <a class="pps-nav-link" href="/dfs-slip-checker.html">DFS Slip Checker</a>
+        <a class="pps-nav-link" href="/bonus-converter.html">Bonus Converter</a>
+        <a class="pps-nav-link" href="/bet-tracker.html">Bet Tracker</a>
+        <a class="pps-nav-link" href="/long-run-simulator.html">Long-Run Sim</a>
+        <a class="pps-nav-link" data-docile-hidden="1" style="display:none" href="/roulette.html">Virtual Roulette</a>
+      </details>
+
+      <div class="pps-nav-group-label">Paths</div>
+      <details class="pps-nav-group path-01">
+        <summary><span class="pps-nav-num">01</span> Begin</summary>
+        <a class="pps-nav-link" href="/lane-new.html">Path Overview</a>
+        <a class="pps-nav-link" href="/learn-odds.html">Odds Formats</a>
+        <a class="pps-nav-link" href="/learn-implied.html">Implied Probability</a>
+        <a class="pps-nav-link" href="/learn-vig.html">The Vig</a>
+        <a class="pps-nav-link" href="/learn-ev.html">+EV</a>
+        <a class="pps-nav-link" href="/learn-clv.html">CLV</a>
+        <a class="pps-nav-link" href="/learn-kelly.html">Kelly Criterion</a>
+        <a class="pps-nav-link" href="/learn-parlays.html">Parlays</a>
+        <a class="pps-nav-link" href="/learn-props.html">Prop Bets</a>
+      </details>
+      <details class="pps-nav-group path-02">
+        <summary><span class="pps-nav-num">02</span> Convert</summary>
+        <a class="pps-nav-link" href="/lane-bonus.html">Path Overview</a>
+        <a class="pps-nav-link" href="/learn-bonus.html">Bonus Conversion</a>
+        <a class="pps-nav-link" href="/learn-bonus-types.html">Bonus Types</a>
+        <a class="pps-nav-link" href="/learn-bonus-traps.html">Bonus Traps</a>
+        <a class="pps-nav-link" href="/learn-bonus-walkthrough.html">Walkthrough</a>
+        <a class="pps-nav-link" href="/learn-finding-bonus-bets.html">Finding Bonus Bets</a>
+        <a class="pps-nav-link" href="/learn-bonus-step-by-step.html">Step-by-Step</a>
+        <a class="pps-nav-link" href="/learn-prop-void-rules.html">Prop Void Rules</a>
+        <a class="pps-nav-link" href="/learn-finding-bets.html">Finding +EV Bets</a>
+      </details>
+      <details class="pps-nav-group path-03">
+        <summary><span class="pps-nav-num">03</span> Maintain</summary>
+        <a class="pps-nav-link" href="/lane-maintain.html">Path Overview</a>
+        <a class="pps-nav-link" href="/learn-prob-gap-vs-ev.html">Prob Gap vs EV</a>
+        <a class="pps-nav-link" href="/learn-arbitrage.html">Arbitrage</a>
+        <a class="pps-nav-link" href="/learn-middles.html">Middles</a>
+        <a class="pps-nav-link" href="/learn-betting-vs-trading.html">Betting vs Trading</a>
+        <a class="pps-nav-link" href="/learn-alt-ladder.html">Alt Ladder</a>
+        <a class="pps-nav-link" href="/learn-alt-lines.html">Alt Lines</a>
+        <a class="pps-nav-link" href="/learn-cross-market-ev.html">Cross-Market EV</a>
+        <a class="pps-nav-link" href="/learn-exchange-liquidity.html">Exchange Liquidity</a>
+        <a class="pps-nav-link" href="/learn-futures.html">Futures</a>
+        <a class="pps-nav-link" href="/learn-manual-scan.html">Manual Scan</a>
+        <a class="pps-nav-link" href="/learn-top-down-bottom-up.html">Top-Down / Bottom-Up</a>
+        <a class="pps-nav-link" href="/learn-wide-markets.html">Wide Markets</a>
+      </details>
+
+      <div class="pps-nav-group-label">More</div>
+      <details class="pps-nav-group" data-docile-hidden="1">
+        <summary>Sportsbooks</summary>
+        <a class="pps-nav-link" href="/book-draftkings.html">DraftKings</a>
+        <a class="pps-nav-link" href="/book-fanduel.html">FanDuel</a>
+        <a class="pps-nav-link" href="/book-hardrock.html">Hard Rock</a>
+        <a class="pps-nav-link" href="/book-betmgm.html">BetMGM</a>
+        <a class="pps-nav-link" href="/book-prophetx.html">ProphetX</a>
+      </details>
+    </nav>
+  </div>
+</aside>
+<script>
+(function() {
+  var path = window.location.pathname.replace(/\/$/, '') || '/index.html';
+  var isHome = (path === '/index.html' || path === '' || path === '/');
+  document.querySelectorAll('.pps-sidebar .pps-nav-link').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href === path || (isHome && href === '/index.html')) {
+      link.classList.add('active');
+      var group = link.closest('details.pps-nav-group');
+      if (group) group.setAttribute('open', '');
+    }
+  });
+  var calcs = document.getElementById('ppsGroupCalcs');
+  if (calcs && !document.querySelector('.pps-sidebar details[open]')) calcs.setAttribute('open', '');
+})();
+</script>
+<!-- ═══ END SIDEBAR ═══ -->
+<!-- ═══ TOPBAR NAVIGATION ═══ -->
+<nav class="pps-topbar" id="ppsTopbar">
+  <div class="pps-topbar-inner">
+    <button class="tb-burger" aria-label="Open menu" onclick="document.body.classList.toggle('pps-sidebar-open')">
+      <svg width="15" height="15" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 4h12M2 8h12M2 12h12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+    </button>
+    <a class="tb-brand" href="/index.html"><img src="/images/profitpath-wordmark.svg" alt="PROFITPATH Sports"></a>
+    <div class="tb-links">
+      <div class="tb-item">
+        <button type="button" aria-haspopup="true">The Path <span class="car">▼</span></button>
+        <div class="tb-menu">
+          <a href="/index.html#paths">Follow The Path — overview</a>
+          <hr>
+          <a href="/lane-new.html"><span class="num">01</span>Begin — the basics</a>
+          <a href="/lane-bonus.html"><span class="num">02</span>Convert — welcome offers</a>
+          <a href="/lane-maintain.html"><span class="num">03</span>Maintain — the long game</a>
+        </div>
+      </div>
+      <div class="tb-item">
+        <button type="button" aria-haspopup="true">Exclusives <span class="car">▼</span></button>
+        <div class="tb-menu">
+          <div class="tb-menu-label">Built in-house — nowhere else</div>
+          <a href="/bet-x-ray.html">Bet X-Ray</a>
+          <a href="/sharp-snapshot.html">Sharp Snapshot</a>
+          <a href="/prop-shop.html">The Prop Shop</a>
+          <a href="/dfs-slip-checker.html">DFS Slip Checker</a>
+        </div>
+      </div>
+      <div class="tb-item">
+        <button type="button" aria-haspopup="true">Calculators <span class="car">▼</span></button>
+        <div class="tb-menu cols2">
+          <div class="tb-menu-label">Everyday tools</div>
+          <a href="/hedge-calculator.html">Hedge</a>
+          <a href="/arb-calculator.html">Arbitrage</a>
+          <a href="/middle-calculator.html">Middle</a>
+          <a href="/devig_calculator.html">Devig</a>
+          <a href="/odds_calculator.html">Odds Converter</a>
+          <div class="tb-menu-label">More tools</div>
+          <a href="/ev-calculator.html">EV Calculator</a>
+          <a href="/kelly-calculator.html">Kelly Sizer</a>
+          <a href="/consensus-calculator.html">Consensus Devig</a>
+          <a href="/edge-finder.html">Edge Finder</a>
+          <a href="/parlay-calculator.html">Parlay</a>
+          <a href="/bonus-converter.html">Bonus Converter</a>
+          <a href="/bet-tracker.html">Bet Tracker</a>
+          <a href="/long-run-simulator.html">Long-Run Sim</a>
+        </div>
+      </div>
+      <div class="tb-item" data-docile-hidden="1" style="display:none">
+        <button type="button" aria-haspopup="true">Sportsbooks <span class="car">▼</span></button>
+        <div class="tb-menu">
+          <a href="/book-draftkings.html">DraftKings</a>
+          <a href="/book-fanduel.html">FanDuel</a>
+          <a href="/book-hardrock.html">Hard Rock</a>
+          <a href="/book-betmgm.html">BetMGM</a>
+          <a href="/book-prophetx.html">ProphetX</a>
+        </div>
+      </div>
+      <div class="tb-item" data-docile-hidden="1" style="display:none">
+        <button type="button" aria-haspopup="true">Tools <span class="car">▼</span></button>
+        <div class="tb-menu">
+          <div class="tb-menu-label">Live scanners</div>
+          <a href="/bonus-finder.html" data-docile-hidden="1">Bonus Bet Finder</a>
+          <a href="/hot-streaks.html" data-docile-hidden="1">Hot Streak Scanner</a>
+        </div>
+      </div>
+      <div class="tb-item">
+        <button type="button" aria-haspopup="true">Resources <span class="car">▼</span></button>
+        <div class="tb-menu">
+          <div class="tb-menu-label">Third-party — we use these</div>
+          <a href="https://picktheodds.app" target="_blank" rel="noopener">Pick the Odds ↗</a>
+          <a href="https://oddsjam.com" target="_blank" rel="noopener">OddsJam ↗</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<script>
+(function () {
+  var bar = document.getElementById('ppsTopbar');
+  if (!bar) return;
+  document.querySelectorAll('.tb-item > button').forEach(function (btn) {
+    btn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      var item = btn.parentElement;
+      var wasOpen = item.classList.contains('open');
+      document.querySelectorAll('.tb-item.open').forEach(function (o) { o.classList.remove('open'); });
+      if (!wasOpen) item.classList.add('open');
+    });
+  });
+  document.addEventListener('click', function () {
+    document.querySelectorAll('.tb-item.open').forEach(function (o) { o.classList.remove('open'); });
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') document.querySelectorAll('.tb-item.open').forEach(function (o) { o.classList.remove('open'); });
+  });
+  if (bar.hasAttribute('data-below-hero')) {
+    var logo = null;
+    var onScroll = function () {
+      if (!logo) logo = document.querySelector('.hero-logo');
+      var past = logo ? logo.getBoundingClientRect().bottom <= bar.offsetHeight
+                      : bar.getBoundingClientRect().top <= 0;
+      if (past) bar.classList.add('stuck');
+      else bar.classList.remove('stuck');
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', onScroll);
+    else onScroll();
+  }
+})();
+</script>
+<!-- ═══ END TOPBAR ═══ -->
+
+<div class="card">
+
+  <div class="header">
+    <div class="header-meta">
+      <a href="/learn-exchange-liquidity.html" class="back-link">&larr; Exchanges 101</a>
+      <span class="header-eyebrow">Exchange Guide &middot; Venue walkthrough</span>
+    </div>
+    <div class="title-row">
+      <h1>Polymarket US</h1>
+    </div>
+    <p class="lesson-sub">
+      <span>A prediction market with sports next to everything else.</span>
+      <span class="accent">Reading the screen, taking a price, and posting your own.</span>
+    </p>
+  </div>
+
+  <div class="pb-body">
+    <p>Polymarket US is a separate US app, not the global crypto site. It runs a full ID check before you deposit.</p>
+    <p>This page assumes you have read <a href="/learn-exchange-liquidity.html">Exchanges 101</a>: percent odds, the order book, and the difference between taking a price and making one. Here is how those work on Polymarket US's own screens.</p>
+  </div>
+
+  <div class="gate-card" id="ppsGate" hidden>
+    <div class="gate-eyebrow">Free with email</div>
+    <h3>Unlock the rest of the Exchange Guide</h3>
+    <p>One email opens the four venue walkthroughs (ProphetX, Novig, Polymarket US and Kalshi) and Reading the book.</p>
+    <form class="gate-form" id="ppsGateForm" data-source="guide-polymarket">
+      <input type="email" required placeholder="you@email.com" aria-label="Email address" autocomplete="email">
+      <button type="submit">Unlock the guide</button>
+    </form>
+    <div class="gate-msg" aria-live="polite"></div>
+    <div class="gate-fine">No card. No spam. Unsubscribe any time.</div>
+  </div>
+
+  <!-- 01 -->
+  <section class="pb-section" id="odds-display" data-gated>
+    <div class="pb-eyebrow">01</div>
+    <h2>How Polymarket US shows odds</h2>
+    <div class="pb-body">
+      <p>Prices show in cents and percent. They are the same number: a 48&cent; contract is a 48% price. You pay 48 cents for a contract that pays $1.</p>
+      <div class="shot-missing"><strong>IMAGE PLACEHOLDER</strong> images/guides/polymarket-01-market-list.png<br>Alt text will say: how Polymarket US writes a price on the market list.</div>
+      <div class="todo-rob"><strong>TODO(Rob)</strong> Where the app shows cents and where it shows percent. If the market list and the order ticket differ, a second capture of the other view.</div>
+      <div class="todo-rob"><strong>TODO(Rob)</strong> How the order screen is laid out: where the best price sits, where the money available shows, how to open the full ladder. Written from shot 01 and your notes.</div>
+      <p>For what each number on a ladder means, see <a href="/learn-exchange-liquidity.html#reading-the-screen">the order book section of Exchanges 101</a>.</p>
+    </div>
+  </section>
+
+  <!-- 02 -->
+  <section class="pb-section" id="taker-order" data-gated>
+    <div class="pb-eyebrow">02</div>
+    <h2>Placing a taker order</h2>
+    <div class="pb-body">
+      <p>Take a posted price and the bet fills right away. You pay the spread and the taker fee.</p>
+      <div class="shot-missing"><strong>IMAGE PLACEHOLDER</strong> images/guides/polymarket-02-taker-ticket.png<br>Alt text will say: the price you are taking, the stake and the payout on the order ticket.</div>
+      <div class="todo-rob"><strong>TODO(Rob)</strong> The taps, in order, from the market list to a confirmed taker order. Written from shot 02 and your notes.</div>
+      <p>Check the money available at your price before you confirm. If your bet is bigger than the top level, part of it fills at worse prices.</p>
+    </div>
+  </section>
+
+  <!-- 03 -->
+  <section class="pb-section" id="maker-order" data-gated>
+    <div class="pb-eyebrow">03</div>
+    <h2>Posting a maker order</h2>
+    <div class="pb-body">
+      <p>Make by posting your own price, and you wait for someone to take it. It may never fill. Makers pay nothing on Polymarket US and can earn rebates.</p>
+      <div class="shot-missing"><strong>IMAGE PLACEHOLDER</strong> images/guides/polymarket-03-maker-ticket.png<br>Alt text will say: where you type your own price, and how the ticket differs from a taker order.</div>
+      <div class="todo-rob"><strong>TODO(Rob)</strong> The taps, in order, to post an order at your own price. Written from shot 03 and your notes.</div>
+      <h3>While it waits</h3>
+      <div class="shot-missing"><strong>IMAGE PLACEHOLDER</strong> images/guides/polymarket-04-open-orders.png<br>Alt text will say: where a posted order sits while it waits, and the cancel control.</div>
+      <div class="todo-rob"><strong>TODO(Rob)</strong> Where open orders live and how to cancel one. Written from shot 04.</div>
+      <h3>Partial fills</h3>
+      <div class="shot-missing"><strong>IMAGE PLACEHOLDER</strong> images/guides/polymarket-05-partial-fill.png<br>Alt text will say: the filled amount against the amount still waiting.</div>
+      <div class="todo-rob"><strong>TODO(Rob)</strong> How Polymarket US shows a partly filled order, and what happens to the rest when you cancel. Written from shot 05.</div>
+      <p>Cancel posted orders you no longer want. A resting order can fill hours later, after the news has changed.</p>
+    </div>
+  </section>
+
+  <!-- 04 -->
+  <section class="pb-section" id="fees" data-gated>
+    <div class="pb-eyebrow">04</div>
+    <h2>Fees</h2>
+    <div class="pb-body">
+      <!-- Source: brain/docs/compare-gaps-fees-pricing-oct-2026.md, section 1 (docs.polymarket.com/trading/fees, rivermarkets.com Polymarket US fees). -->
+      <ul>
+        <li><strong>Takers pay a fee on the price:</strong> &Theta; &times; contracts &times; P &times; (1 &minus; P). It is largest at 50% and shrinks toward the ends.</li>
+        <li><strong>Makers pay nothing</strong> and can earn rebates.</li>
+        <li><strong>The rate depends on the category.</strong> Sports has its own rate. Other categories run from 0.04 to 0.07.</li>
+      </ul>
+      <p>A maker at 55% (&minus;122) pays 55.00% all-in. The price on the screen is the price.</p>
+      <div class="todo-rob"><strong>TODO(Rob)</strong> The sports taker rate. The October rewrite says 0.05 this summer and about 0.07 by mid-September (a September 17 review). The fee doc and the board say 0.05. Shot 06 settles it. Until then this page gives no rate and no all-in taker price. At 0.05 a 55% take is 56.24%. At 0.0695 it is 56.72%.</div>
+      <div class="shot-missing"><strong>IMAGE PLACEHOLDER</strong> images/guides/polymarket-06-fee-line.png<br>Alt text will say: the price, the size and the fee on a taker receipt.</div>
+    </div>
+  </section>
+
+  <!-- 05 -->
+  <section class="pb-section" id="quirks" data-gated>
+    <div class="pb-eyebrow">05</div>
+    <h2>Quirks that trip people up</h2>
+    <div class="pb-body">
+      <ul>
+        <li><strong>It is not the global site.</strong> Polymarket US is a separate US app with a full ID check before you deposit.</li>
+        <li><strong>Fee rates change by category, and often.</strong> Check the app before you size up.</li>
+        <li><strong>Main lines are close to sportsbook prices.</strong> Props and parlays run thin.</li>
+      </ul>
+      <div class="todo-rob"><strong>TODO(Rob)</strong> Settlement: how and when bets settle, pushes, overtime.</div>
+      <div class="todo-rob"><strong>TODO(Rob)</strong> Funding: deposit and withdrawal methods, minimums, timing.</div>
+      <div class="todo-rob"><strong>TODO(Rob)</strong> Limits: any stake or position caps.</div>
+      <div class="todo-rob"><strong>TODO(Rob)</strong> Market naming: anything named differently from a sportsbook.</div>
+    </div>
+  </section>
+
+  <!-- 06 -->
+  <section class="pb-section" id="first-trade" data-gated>
+    <div class="pb-eyebrow">06</div>
+    <h2>First-trade checklist</h2>
+    <div class="pb-body">
+      <ul>
+        <li><strong>Check the venue is open in your state</strong> before you deposit. Age rules vary from 18 to 21 by venue and state.</li>
+        <li><strong>Convert the price</strong> to American odds if you are comparing with a sportsbook.</li>
+        <li><strong>Add the fee.</strong> On Polymarket US takers pay it and makers do not. Use the all-in price, not the screen price.</li>
+        <li><strong>Check the money available at your price.</strong> If your bet is bigger than the top level, part of it fills at worse prices.</li>
+        <li><strong>Read the settlement rules</strong> for props and overtime. Contracts settle on their written rules, and some have no push.</li>
+        <li><strong>Cancel posted orders you no longer want.</strong> A resting order can fill hours later, after the news has changed.</li>
+        <li><strong>Log the price you got and the closing price.</strong> Beating the close is the honest measure of whether you bet well.</li>
+      </ul>
+      <div class="todo-rob"><strong>TODO(Rob)</strong> Anything to check on Polymarket US only, before a first trade.</div>
+    </div>
+  </section>
+
+  <!-- Board block: one component, same copy on all six pages. Says what the board is, links it, stops. -->
+  <div class="board-block" id="board">
+    <div class="bb-eyebrow">The Exchange Liquidity Board</div>
+    <p>The board shows the resting money on both sides at every price, across ProphetX, Novig, Polymarket and Kalshi.</p>
+    <p>It is for anyone who wants to see the book before they bet.</p>
+    <p><a href="https://px-liquidity.vercel.app/" target="_blank" rel="noopener">Open the board &rarr;</a></p>
+  </div>
+
+  <section class="pb-section" id="guide">
+    <h2>The whole guide</h2>
+    <div class="pb-body">
+      <ul class="guide-toc">
+        <li><a href="/learn-exchange-liquidity.html">Exchanges 101</a>: how exchange betting works.</li>
+        <li><a href="/exchange-guide-prophetx.html">ProphetX</a>: venue walkthrough.<span class="tag">Free with email</span></li>
+        <li><a href="/exchange-guide-novig.html">Novig</a>: venue walkthrough.<span class="tag">Free with email</span></li>
+        <li><span class="here">Polymarket US</span>: venue walkthrough. You are here.</li>
+        <li><a href="/exchange-guide-kalshi.html">Kalshi</a>: venue walkthrough.<span class="tag">Free with email</span></li>
+        <li><a href="/exchange-playbook.html">Reading the book</a>: six reads and the cross-market check.<span class="tag">Free with email</span></li>
+      </ul>
+    </div>
+  </section>
+  <div class="prev-next">
+    <a class="prev" href="/exchange-guide-novig.html"><small>&larr; Previous</small>Novig</a>
+    <a class="next" href="/exchange-guide-kalshi.html"><small>Next &rarr;</small>Kalshi</a>
+  </div>
+
+  <div class="footer">
+    <div class="disclaimer">
+      Profit Path Sports is an educational resource. It is not a sportsbook or an exchange. Fees, rules and state access change often, so check each venue before you trade. Examples use illustrative numbers unless a source is named. Sports betting carries financial risk. Bet responsibly. If gambling is a problem for you, call <strong>1-800-GAMBLER</strong>. Age rules vary by venue and state. Math, not picks.
+    </div>
+    <div>&copy; 2026 Profit Path Sports &middot; <a href="/index.html">Home</a> &middot; <a href="/learn-exchange-liquidity.html">Exchanges 101</a> &middot; <a href="/exchange-playbook.html">Reading the book</a> &middot; <a href="/privacy.html">Privacy</a> &middot; <a href="/disclaimer.html">Disclaimer</a> &middot; <a href="/affiliate-disclosure.html">Affiliate</a></div>
+  </div>
+
+</div>
+
+<script>
+  /* Sidebar behavior */
+  (function() {
+    var body = document.body;
+    var toggle = document.getElementById('ppsSidebarToggle');
+    var path = window.location.pathname.replace(/\/$/, '') || '/index.html';
+    var isHome = (path === '/index.html' || path === '' || path === '/');
+
+    document.querySelectorAll('.pps-sidebar .pps-nav-link').forEach(function(link) {
+      var href = link.getAttribute('href');
+      if (href === path || (isHome && href === '/index.html')) {
+        link.classList.add('active');
+        var parent = link.closest('details');
+        if (parent) parent.open = true;
+      }
+    });
+
+    toggle.addEventListener('click', function() {
+      body.classList.toggle('pps-sidebar-open');
+    });
+
+    var isDesktop = window.matchMedia('(min-width: 901px)').matches;
+    if (isDesktop && !isHome) {
+      body.classList.add('pps-sidebar-open');
+    }
+
+    document.addEventListener('click', function(e) {
+      if (window.innerWidth >= 901) return;
+      if (!body.classList.contains('pps-sidebar-open')) return;
+      var sidebar = document.getElementById('ppsSidebar');
+      if (sidebar && !sidebar.contains(e.target) && e.target !== toggle && !toggle.contains(e.target)) {
+        body.classList.remove('pps-sidebar-open');
+      }
+    });
+  })();
+</script>
+
+<script src="/js/pps-gate.js"></script>
+
+</body>
+</html>
