@@ -765,3 +765,8 @@ details.deeper > summary:hover { color: var(--cyan); }
 .same-bet span { display: block; font-size: 13px; color: var(--muted); margin-top: 2px; }
 .same-bet .sb-eq { flex: 0 0 auto; align-self: center; font-family: 'Space Grotesk', system-ui, sans-serif; font-size: 22px; font-weight: 700; color: var(--dim); }
 @media (max-width: 480px) { .same-bet { flex-direction: column; } .same-bet .sb-eq { transform: rotate(90deg); } }
+.same-bet .sb-side.alex { border-color: rgba(188,140,255,.4); background: rgba(188,140,255,.08); } .same-bet .sb-side.alex small { color: var(--purple); }
+.same-bet .sb-side.you { border-color: var(--cyan-border); background: var(--cyan-dim); } .same-bet .sb-side.you small { color: var(--cyan); }
+.same-bet .sb-side.open { border: 2px dashed var(--cyan-border); background: transparent; } .same-bet .sb-side.open small { color: var(--cyan); }
+.same-bet .sb-eq { font-size: 14px; letter-spacing: .08em; text-transform: uppercase; }
+.pot-total { margin-bottom: 16px; }
