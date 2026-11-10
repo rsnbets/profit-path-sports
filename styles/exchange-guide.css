@@ -57,6 +57,8 @@ a:hover { color: var(--green); }
   position: relative;
 }
 @media (max-width: 640px) { .card { padding: 60px 20px 60px; } }
+/* The 620px title glow is wider than a phone. Clip it at the card so the page cannot scroll sideways. */
+.card { overflow-x: clip; }
 
 /* ───────── HEADER ───────── */
 .header { margin-bottom: 40px; }
@@ -655,3 +657,12 @@ body.pps-sidebar-open .pps-sidebar-toggle { left: 256px; top: 14px; }
 .prev-next a { flex: 1; min-width: 200px; background: var(--surface-2); border: 1px solid var(--border-2); border-radius: 12px; padding: 14px 16px; font-weight: 700; font-size: 14px; }
 .prev-next a.next { text-align: right; }
 .prev-next small { display: block; font-size: 10px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--dim); margin-bottom: 4px; }
+
+/* ───────── VENUE COMPARISON TABLE: one card per venue on a phone ───────── */
+@media (max-width: 640px) {
+  .venue-compare thead { display: none; }
+  .venue-compare, .venue-compare tbody { display: block; }
+  .venue-compare tr { display: block; background: var(--surface-2); border: 1px solid var(--border-2); border-radius: 12px; padding: 12px 14px; margin-bottom: 12px; }
+  .venue-compare td { display: block; border: 0; padding: 5px 0; }
+  .venue-compare td[data-label]::before { content: attr(data-label); display: block; font-size: 10px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--dim); margin-bottom: 2px; }
+}
