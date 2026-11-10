@@ -705,3 +705,4 @@ body.pps-sidebar-open .pps-sidebar-toggle { left: 256px; top: 14px; }
 .outcome strong { display: block; font-family: 'Space Grotesk', system-ui, sans-serif; font-size: 14px; margin-bottom: 4px; }
 .outcome.win { border-color: var(--cyan-border); } .outcome.win strong { color: var(--cyan); }
 .outcome.lose { border-color: rgba(188,140,255,.35); } .outcome.lose strong { color: var(--purple); }
+.pot-open { flex: 48; background: transparent; border: 2px dashed var(--cyan-border); border-right: 0; border-radius: 10px 0 0 10px; color: var(--cyan); padding: 11px 6px; }
