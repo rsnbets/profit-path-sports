@@ -283,7 +283,7 @@
         <li><strong>How to read percent odds</strong> without converting in your head every time.</li>
         <li><strong>How to read the order book</strong>: best price, money available, and who is on the other side.</li>
         <li><strong>Taker or maker</strong>: what each costs and when each makes sense.</li>
-        <li><strong>What every bet really costs</strong> once the spread and the fee are in.</li>
+        <li><strong>What every bet really costs</strong> once the vig and the fee are in.</li>
         <li><strong>The four venues side by side</strong>, each with its own walkthrough.</li>
       </ul>
     </div>
@@ -540,7 +540,7 @@
         </table>
         </div>
         <div class="tool-callout">
-          <div class="tc-body"><strong>Keep the Percent Odds Calculator open in a tab.</strong> Type both sides off the screen. It shows American odds, the spread, the maker behind each offer, and your all-in price after the fee for the venue you pick.</div>
+          <div class="tc-body"><strong>Keep the Percent Odds Calculator open in a tab.</strong> Type both sides off the screen. It shows American odds, the vig, the maker behind each offer, and your all-in price after the fee for the venue you pick.</div>
           <a class="tc-btn" href="/percent-odds-calculator.html">Open calculator &rarr;</a>
         </div>
         </div>
@@ -551,7 +551,7 @@
         <div class="deeper-body">
         <ul>
           <li><strong>Near 50%, one point is about 4 cents of American odds.</strong> 51% is &minus;104. 52% is about &minus;108. 52.4% is the classic &minus;110.</li>
-          <li><strong>The two sides add up to a little over 100%.</strong> The amount over 100 is your cost to trade, called the spread. A standard &minus;110 / &minus;110 sportsbook market adds to 104.8%. A busy exchange market is often 101% to 102%.</li>
+          <li><strong>The two sides add up to a little over 100%.</strong> The amount over 100 is your cost to trade, called the vig or the hold. A standard &minus;110 / &minus;110 sportsbook market adds to 104.8%. A busy exchange market is often 101% to 102%.</li>
           <li><strong>The displayed percent does not include fees.</strong> Fees are charged on top, and they differ by venue. Section 05 has the math.</li>
         </ul>
         </div>
@@ -607,8 +607,19 @@
       </div>
       <p>What happens to the other $25 depends on the app and on how you place the bet. It may sit at 20% as your own offer and wait for someone to take it. Or it may fill at the next price, 21%. Either way, you do not get all $50 at 20%. Each venue page says what that app does.</p>
 
-      <h3>The gap between the two sides</h3>
-      <p>Add the two top rows: 20% for the Chiefs and 81% for the Bills. That makes 101%, not 100%. The extra 1 is called the <strong>spread</strong>. It is the cost of betting right now instead of waiting for a better offer. A small spread means a busy market with fair prices.</p>
+      <h3>The vig is still here, just smaller</h3>
+      <p>Add the two top rows: 20% for the Chiefs and 81% for the Bills. That makes 101%, not 100%. The extra 1% is the <strong>vig</strong>, also called the hold.</p>
+      <div class="same-bet" role="img" aria-label="A sportsbook at minus 110 on both sides adds to 104.8 percent. This exchange market adds to 101 percent.">
+        <div class="sb-side"><small>Sportsbook</small><b>104.8%</b><span>&minus;110 on both sides</span></div>
+        <div class="sb-eq">vs</div>
+        <div class="sb-side you"><small>This exchange market</small><b>101%</b><span>20% + 81%</span></div>
+      </div>
+      <p>It is the same idea as at a sportsbook, only nobody set it on purpose. It is just the distance between the best offer on each team. The smaller it is, the fairer the prices.</p>
+      <a class="new-to" href="/learn-vig.html">
+        <span class="nt-label">New to this?</span>
+        <span class="nt-text">The vig is the cut built into a price. The Vig lesson shows where 104.8% comes from.</span>
+        <span class="nt-go">Open lesson &rarr;</span>
+      </a>
 
       <div class="key-point plain">
         <p><strong>Each row is somebody's offer.</strong> The lowest percent is your best price, and it sits on top.</p>
@@ -637,7 +648,7 @@
               <div class="lv"><span>55%</span><span>$900</span></div>
             </div>
           </div>
-          <div class="ladder-foot"><span>Spread: 48 + 53 = 101%</span><span>Matched: $212,400</span></div>
+          <div class="ladder-foot"><span>Vig: 48 + 53 = 101%</span><span>Matched: $212,400</span></div>
         </div>
 
         <div class="walk-block">
@@ -645,7 +656,7 @@
           <div class="row"><span class="src">Over 48% &middot; $16,240</span><span class="body">The best price to bet the Over right now. You can bet up to $16,240 there.</span></div>
           <div class="row"><span class="src">49%, 50%</span><span class="body">The next prices in line on the Over. They cost more, so you only reach them once the 48% money is gone. A bet bigger than $16,240 cannot all fill at 48%.</span></div>
           <div class="row"><span class="src">Under 53% &middot; $1,150</span><span class="body">The best price to bet the Under, with only $1,150 available there.</span></div>
-          <div class="row"><span class="src">Spread 101%</span><span class="body">48 + 53. The one point over 100 is what a taker pays to cross the market, before fees.</span></div>
+          <div class="row"><span class="src">Vig 101%</span><span class="body">48 + 53. The one point over 100 is what a taker pays to cross the market, before fees.</span></div>
           <div class="row"><span class="src">Matched $212,400</span><span class="body">Bets already filled on this market. It shows how active the market is. It is history, not an open offer.</span></div>
         </div>
 
@@ -686,7 +697,7 @@
         <ul>
           <li><strong>Ask</strong> (or offer): a posted price you can take. Over 48% with $16,240 available is the best ask on the Over.</li>
           <li><strong>Bid</strong>: a price someone has posted to buy a side. The makers behind that $16,240 are bidding 52% for the Under. One order, seen from each side.</li>
-          <li><strong>Spread</strong>: the gap between the two best prices. 48 + 53 = 101%, so the spread is one point.</li>
+          <li><strong>Spread</strong>: the trading word for the vig. 48 + 53 = 101%, so the spread is one point. This guide calls it the vig, because in sports betting "the spread" already means the point spread.</li>
           <li><strong>Depth</strong>: the money available at each price.</li>
         </ul>
         </div>
@@ -701,8 +712,8 @@
     <div class="pb-body">
       <p>Every exchange bet has two roles. One person posted the price. The other took it. You choose which one you are on every bet.</p>
       <ul>
-        <li><strong>Take</strong> a posted price and the bet fills right away. You pay the spread and any taker fee.</li>
-        <li><strong>Make</strong> by posting your own price, and you wait for someone to take it. It may never fill. If it does, you skip the spread and, on most venues, the fee.</li>
+        <li><strong>Take</strong> a posted price and the bet fills right away. You pay the vig and any taker fee.</li>
+        <li><strong>Make</strong> by posting your own price, and you wait for someone to take it. It may never fill. If it does, you skip the vig and, on most venues, the fee.</li>
       </ul>
 
       <div class="table-wrap">
@@ -711,7 +722,7 @@
         <tbody>
           <tr><td><strong>What you do</strong></td><td>Take a price already on the screen</td><td>Post your own price and wait</td></tr>
           <tr><td><strong>When it fills</strong></td><td>Now</td><td>Later, in part, or never</td></tr>
-          <tr><td><strong>Spread</strong></td><td>You pay it</td><td>You skip it</td></tr>
+          <tr><td><strong>Vig</strong></td><td>You pay it</td><td>You skip it</td></tr>
           <tr><td><strong>Fee</strong></td><td>The venue's taker fee</td><td>Nothing on Novig and Polymarket US. Small on Kalshi sports games. 2% of winnings on ProphetX either way</td></tr>
           <tr><td><strong>Main risk</strong></td><td>Paying too much for the bet</td><td>Not getting the bet, or getting it right when the news turns</td></tr>
         </tbody>
@@ -740,7 +751,7 @@
 
       <h3>When each makes sense</h3>
       <ul>
-        <li><strong>Take when the market is tight</strong> and the price is good right now. At 101% to 102% there is little spread left to save by waiting.</li>
+        <li><strong>Take when the market is tight</strong> and the price is good right now. At 101% to 102% there is little vig left to save by waiting.</li>
         <li><strong>Take when the fee is zero.</strong> Novig charges pregame takers nothing.</li>
         <li><strong>Make when the market is wide</strong>, about 106% or more, and you have a fair price from somewhere else.</li>
         <li><strong>Make only when you can watch the order.</strong> An order you can't cancel in time is a bet at a stale price.</li>
@@ -760,7 +771,7 @@
     <div class="pb-eyebrow">05</div>
     <h2>What a bet really costs</h2>
     <div class="pb-body">
-      <p>A bet costs you two things: the spread and the fee. The screen shows neither as a dollar figure.</p>
+      <p>A bet costs you two things: the vig and the fee. The screen shows neither as a dollar figure.</p>
 
       <h3>One bet, both ways</h3>
       <p>Take the Under 44.5 from the order book above, on Kalshi. The best price to take is 53%. Makers are already waiting on the Under at 52%.</p>
@@ -768,7 +779,7 @@
         <span class="label">Under 44.5 on Kalshi &middot; taker and maker</span>
         <div class="row"><span class="src">Taker</span><span class="body">Take the Under at 53%. Fee: 0.07 &times; 0.53 &times; 0.47 = 1.74 points. All-in <span class="accent">54.74%</span>, about &minus;121. Filled now.</span></div>
         <div class="row"><span class="src">Maker</span><span class="body">Post the Under at 52% and wait, in line behind the $16,240 already there. Fee: 0.0175 &times; 0.52 &times; 0.48 = 0.44 points. All-in <span class="accent">52.44%</span>, about &minus;110. Only if someone takes it.</span></div>
-        <div class="row"><span class="src">Difference</span><span class="body">2.3 points. One point is the spread. 1.3 points is the gap between the taker fee and the maker fee.</span></div>
+        <div class="row"><span class="src">Difference</span><span class="body">2.3 points. One point is the vig. 1.3 points is the gap between the taker fee and the maker fee.</span></div>
       </div>
       <p>The taker pays 2.3 points for a sure fill. The maker keeps them and takes the fill risk from section 04.</p>
 
@@ -798,7 +809,7 @@
       </div>
       <p class="table-note">Kalshi rounds each order's fee up to the cent, so small orders cost slightly more than shown.</p>
 
-      <p>The spread between the cheapest and the most expensive row is almost two points, or about nine cents of American odds. That is often bigger than the edge you are trying to capture. Fees decide which venue you bet at, and sometimes whether to bet at all.</p>
+      <p>The gap between the cheapest and the most expensive row is almost two points, or about nine cents of American odds. That is often bigger than the edge you are trying to capture. Fees decide which venue you bet at, and sometimes whether to bet at all.</p>
 
       <div class="tool-callout">
         <div class="tc-body"><strong>Do this math once per bet, not in your head.</strong> Pick the venue, maker or taker, and pregame or live. The calculator gives the all-in price.</div>
