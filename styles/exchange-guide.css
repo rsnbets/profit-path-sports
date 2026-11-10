@@ -706,3 +706,46 @@ body.pps-sidebar-open .pps-sidebar-toggle { left: 256px; top: 14px; }
 .outcome.win { border-color: var(--cyan-border); } .outcome.win strong { color: var(--cyan); }
 .outcome.lose { border-color: rgba(188,140,255,.35); } .outcome.lose strong { color: var(--purple); }
 .pot-open { flex: 48; background: transparent; border: 2px dashed var(--cyan-border); border-right: 0; border-radius: 10px 0 0 10px; color: var(--cyan); padding: 11px 6px; }
+
+/* ───────── HUB LAYOUT PATTERN: one line, a picture, plain terms, detail behind a click ───────── */
+.pb-body p.one-line { font-size: clamp(17px, 2.2vw, 20px); line-height: 1.5; color: var(--text); font-weight: 500; margin-bottom: 20px; }
+.key-point.plain::before { content: 'In plain terms'; }
+.key-point.plain { margin: 26px 0; }
+
+details.deeper { background: var(--surface-2); border: 1px solid var(--border-2); border-radius: 12px; margin: 12px 0; }
+details.deeper > summary { cursor: pointer; list-style: none; padding: 14px 18px; font-family: 'Space Grotesk', system-ui, sans-serif; font-weight: 700; font-size: 15px; color: var(--text); display: flex; align-items: center; gap: 12px; }
+details.deeper > summary::-webkit-details-marker { display: none; }
+details.deeper > summary::before { content: 'Want the detail?'; flex: 0 0 auto; font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-size: 10px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--cyan); order: 2; margin-left: auto; }
+details.deeper > summary::after { content: '+'; order: 3; flex: 0 0 auto; color: var(--cyan); font-size: 20px; line-height: 1; width: 14px; text-align: center; }
+details.deeper[open] > summary::after { content: '\2212'; }
+details.deeper > summary:hover { color: var(--cyan); }
+.deeper-body { padding: 4px 18px 18px; border-top: 1px solid var(--border-2); }
+.deeper-body > :first-child { margin-top: 16px; }
+.pb-section .deeper-body h4 { margin-top: 20px; }
+@media (max-width: 560px) { details.deeper > summary::before { display: none; } }
+@media (max-width: 560px) { details.deeper > summary::after { margin-left: auto; } }
+
+.prereq { margin: 28px 0 0; padding: 18px 20px; background: var(--surface-2); border: 1px solid var(--border-2); border-left: 3px solid var(--purple); border-radius: 10px; }
+.prereq-label { font-size: 11px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: var(--purple); margin-bottom: 8px; }
+.prereq p { font-size: 14.5px; line-height: 1.6; color: var(--muted); margin: 0 0 12px; }
+.prereq-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.prereq-chips a { font-size: 13px; font-weight: 700; color: var(--purple); border: 1px solid rgba(188,140,255,.4); border-radius: 999px; padding: 7px 14px; }
+.prereq-chips a::after { content: ' \2192'; }
+.prereq-chips a:hover { color: var(--text); border-color: var(--purple); }
+
+.new-to { display: flex; align-items: center; gap: 14px; margin: 18px 0; padding: 14px 16px; background: rgba(188,140,255,.06); border: 1px solid rgba(188,140,255,.3); border-radius: 12px; }
+.new-to .nt-label { flex: 0 0 auto; font-size: 10px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--purple); }
+.new-to .nt-text { flex: 1; font-size: 14px; line-height: 1.5; color: var(--muted); }
+.new-to .nt-go { flex: 0 0 auto; font-size: 13px; font-weight: 700; color: var(--purple); white-space: nowrap; }
+.new-to:hover .nt-go { color: var(--text); }
+@media (max-width: 560px) { .new-to { flex-direction: column; align-items: flex-start; gap: 6px; } }
+
+.price-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 16px 0 18px; }
+@media (max-width: 640px) { .price-cards { grid-template-columns: 1fr; } }
+.price-card { background: var(--surface-2); border: 1px solid var(--border-2); border-radius: 12px; padding: 16px; text-align: center; }
+.pc-pct { font-family: 'Space Grotesk', system-ui, sans-serif; font-weight: 700; font-size: 30px; color: var(--cyan); line-height: 1; }
+.pc-bar { display: flex; height: 10px; border-radius: 999px; overflow: hidden; margin: 12px 0; background: var(--surface-3); }
+.pc-bar span { background: var(--cyan); } .pc-bar i { background: rgba(188,140,255,.35); }
+.pc-line { font-size: 15px; color: rgba(240,238,232,0.92); }
+.pc-tag { font-size: 10px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--dim); margin-top: 8px; }
+.pc-am { font-size: 12.5px; color: var(--muted); margin-top: 4px; }
