@@ -3,260 +3,661 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>How to Read a Betting Exchange — From Your First Bet to Reading the Sharp Money | Profit Path Sports</title>
-<meta name="description" content="On a betting exchange, the offers themselves are a sharp signal. Where money sits, how deep they go, which side is imbalanced, when liquidity dries up — all of it tells you what the smart money thinks before any line moves.">
-  <meta property="og:type" content="article">
-  <meta property="og:title" content="How to Read a Betting Exchange — From Your First Bet to Reading the Sharp Money | Profit Path Sports">
-  <meta property="og:description" content="On a betting exchange, the offers themselves are a sharp signal. Where money sits, how deep they go, which side is imbalanced, when liquidity dries up — all of it tells you what the smart money thinks before any line moves.">
-  <meta property="og:image" content="https://profitpathsports.com/images/og-default.png?v=3">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta property="og:url" content="https://profitpathsports.com/learn-exchange-liquidity.html">
-  <meta property="og:site_name" content="Profit Path Sports">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="How to Read a Betting Exchange — From Your First Bet to Reading the Sharp Money | Profit Path Sports">
-  <meta name="twitter:description" content="On a betting exchange, the offers themselves are a sharp signal. Where money sits, how deep they go, which side is imbalanced, when liquidity dries up — all of it tells you what the smart money thinks before any line moves.">
-  <meta name="twitter:image" content="https://profitpathsports.com/images/og-default.png?v=3">
+<title>Exchanges 101: Percent Odds, Fees and the Four US Exchanges | Profit Path Sports</title>
+<meta name="description" content="ProphetX, Novig, Kalshi and Polymarket US explained from zero. How to read percent odds, what each venue charges, and how to read the order screen.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Exchanges 101: Percent Odds, Fees and the Four US Exchanges">
+<meta property="og:description" content="ProphetX, Novig, Kalshi and Polymarket US explained from zero. How to read percent odds, what each venue charges, and how to read the order screen.">
+<meta property="og:image" content="https://profitpathsports.com/images/og-default.png?v=3">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://profitpathsports.com/learn-exchange-liquidity.html">
+<meta property="og:site_name" content="Profit Path Sports">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Exchanges 101: Percent Odds, Fees and the Four US Exchanges">
+<meta name="twitter:description" content="ProphetX, Novig, Kalshi and Polymarket US explained from zero. How to read percent odds, what each venue charges, and how to read the order screen.">
+<meta name="twitter:image" content="https://profitpathsports.com/images/og-default.png?v=3">
+<meta name="theme-color" content="#090909">
 <meta name="robots" content="noindex,nofollow">
 
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230a0f1c'/%3E%3Cpolyline points='5,24 12,16 16,19 22,9 27,5' fill='none' stroke='%234ade80' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
-
-<meta property="og:type" content="article">
-<meta property="og:title" content="How to Read a Betting Exchange — From Your First Bet to Reading the Sharp Money">
-<meta property="og:description" content="The depth, the imbalance, the spread, the time-of-day patterns. The book is the signal — if you know what to look for.">
-<meta property="og:site_name" content="Profit Path Sports">
-<meta name="theme-color" content="#0a0f1c">
+<link rel="icon" type="image/svg+xml" href="/logo.svg">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;800;900&family=JetBrains+Mono:wght@400;500;700&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
-  :root { --bg: #0a0f1c; --panel: #0f1524; --panel-inset: #141a2b; --panel-deep: #0c1120; --border: #1e2638; --border-soft: #141c30; --text: #e5e7eb; --muted: #8b94a8; --dim: #6b7689; --blue: #3d8bff; --blue-glow: rgba(61, 139, 255, 0.18); --yellow: #f5b545; --green: #4ade80; --red: #f87171; --purple: #BC8CFF; }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { background: radial-gradient(ellipse at top, #111a2e 0%, var(--bg) 60%); color: var(--text); font-family: 'JetBrains Mono', ui-monospace, monospace; min-height: 100vh; line-height: 1.5; }
-  .topnav { display: none !important; border-bottom: 1px solid var(--border-soft); background: rgba(10, 15, 28, 0.85); backdrop-filter: blur(8px); position: sticky; top: 0; z-index: 10; }
-  .topnav-inner { max-width: 1100px; margin: 0 auto; padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
-  .nav-brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; color: var(--blue); font-family: 'Orbitron', sans-serif; font-size: 13px; letter-spacing: 2.5px; font-weight: 800; text-transform: uppercase; }
-  .nav-brand-chart { display: inline-flex; width: 22px; height: 18px; color: #4ade80; filter: drop-shadow(0 0 6px rgba(74, 222, 128, 0.55)); }
-  .nav-brand-chart svg { width: 100%; height: 100%; }
-  .nav-back { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--muted); text-decoration: none; letter-spacing: 0.5px; transition: color 0.15s; }
-  .nav-back:hover { color: var(--purple); }
-  .wrap { max-width: 760px; margin: 0 auto; padding: 32px 20px 80px; }
-  .lesson-hero { margin-bottom: 36px; }
-  .lesson-eyebrow { font-family: 'Orbitron', sans-serif; font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--purple); font-weight: 700; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
-  .lesson-eyebrow::before { content: '▸'; color: var(--purple); font-size: 10px; }
-  .lesson-title { font-family: 'Orbitron', sans-serif; font-size: 40px; font-weight: 900; letter-spacing: 2px; color: var(--text); text-transform: uppercase; line-height: 1.05; margin-bottom: 14px; }
-  .lesson-sub { font-family: 'Rajdhani', sans-serif; font-size: 22px; color: var(--muted); font-weight: 500; letter-spacing: 0.4px; line-height: 1.4; }
-  .lesson-section { margin-bottom: 36px; }
-  .lesson-section h3 { font-family: 'Orbitron', sans-serif; font-size: 18px; letter-spacing: 2px; text-transform: uppercase; color: var(--text); font-weight: 800; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--border-soft); }
-  .lesson-section h4 { font-family: 'Orbitron', sans-serif; font-size: 13px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text); font-weight: 700; margin: 20px 0 10px; }
-  .lesson-body { font-family: 'Rajdhani', sans-serif; font-size: 18px; line-height: 1.7; color: var(--text); letter-spacing: 0.2px; }
-  .lesson-body p { margin-bottom: 16px; }
-  .lesson-body p:last-child { margin-bottom: 0; }
-  .lesson-body strong { color: var(--text); font-weight: 700; }
-  .lesson-body em { color: var(--purple); font-style: normal; font-weight: 600; }
-  .lesson-body a { color: var(--purple); text-decoration: none; border-bottom: 1px dashed transparent; transition: border-color 0.15s; }
-  .lesson-body a:hover { border-bottom-color: var(--purple); }
-  .lesson-body ul, .lesson-body ol { margin: 12px 0 18px; padding-left: 22px; }
-  .lesson-body ul li, .lesson-body ol li { margin-bottom: 8px; }
+  :root {
+    --green: #4DFF78;
+    --green-dim: rgba(77,255,120,0.15);
+    --green-faint: rgba(77,255,120,0.06);
+    --green-border: rgba(77,255,120,0.22);
+    --cyan: #00D4FF;
+    --cyan-dim: rgba(0,212,255,0.12);
+    --cyan-faint: rgba(0,212,255,0.04);
+    --cyan-border: rgba(0,212,255,0.22);
+    --red: #FF3D3D;
+    --yellow: #F5B545;
+    --purple: #BC8CFF;
+    --bg: #090909;
+    --surface: #0D0D0D;
+    --surface-2: #141414;
+    --surface-3: #1C1C1C;
+    --border: rgba(255,255,255,0.05);
+    --border-2: rgba(255,255,255,0.08);
+    --text: #F0EEE8;
+    --muted: rgba(255,255,255,0.62);
+    --dim: rgba(255,255,255,0.25);
+  }
 
-  /* Offers visualization */
-  .book-viz {
-    background: var(--panel-deep);
-    border: 1px solid var(--border-soft);
-    border-radius: 12px;
-    padding: 22px 26px;
-    margin: 22px 0;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 14px;
-  }
-  .book-viz .viz-label {
-    font-family: 'Orbitron', sans-serif;
-    color: var(--purple);
-    font-size: 11px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    display: block;
-    margin-bottom: 14px;
-    font-weight: 700;
-  }
-  .book-viz .book-table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
-  .book-viz .book-table th {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 9px;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: var(--dim);
-    text-align: left;
-    padding: 4px 8px 8px;
-    font-weight: 700;
-  }
-  .book-viz .book-table td { padding: 5px 8px; }
-  .book-viz .book-table .price { color: var(--text); font-weight: 700; }
-  .book-viz .book-table .liq-bar {
-    display: inline-block;
-    height: 14px;
-    background: linear-gradient(90deg, var(--purple), rgba(188,140,255,0.2));
-    border-radius: 2px;
-    vertical-align: middle;
-    margin-right: 6px;
-  }
-  .book-viz .book-table .liq-bar.thin { background: linear-gradient(90deg, var(--dim), rgba(107,118,137,0.2)); }
-  .book-viz .book-table .amount { color: var(--muted); font-size: 13px; }
-  .book-viz .book-table .label-row td {
-    background: rgba(188,140,255,0.06);
-    color: var(--purple);
-    font-family: 'Orbitron', sans-serif;
-    font-size: 10px;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    padding: 8px;
-    font-weight: 700;
-  }
-  .book-viz .book-table .interpret {
-    background: var(--panel-inset);
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
     color: var(--text);
-    font-family: 'Rajdhani', sans-serif;
-    font-size: 15px;
-    padding: 12px;
-    font-style: italic;
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    font-weight: 300;
+    min-height: 100vh;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
   }
-  .book-viz .book-table .interpret strong { color: var(--purple); font-style: normal; font-weight: 700; }
+  .math-block, .lesson-table { font-variant-numeric: tabular-nums; }
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 999;
+    opacity: 0.025;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
 
-  .example-block { background: var(--panel-deep); border: 1px solid var(--border-soft); border-left: 3px solid var(--purple); border-radius: 12px; padding: 22px 26px; font-family: 'Rajdhani', sans-serif; font-size: 17px; color: var(--text); margin: 22px 0; line-height: 1.7; letter-spacing: 0.2px; font-variant-numeric: tabular-nums; }
-  .example-block .label { font-family: 'Orbitron', sans-serif; color: var(--purple); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; display: block; margin-bottom: 16px; font-weight: 700; }
-  .example-block .row { display: flex; flex-wrap: wrap; gap: 6px 12px; align-items: baseline; padding: 4px 0; }
-  .example-block .row .src { min-width: 150px; color: var(--muted); font-weight: 600; }
-  .example-block .row .body { flex: 1; }
-  .example-block .row .note { color: var(--dim); font-size: 15px; font-style: italic; }
-  .example-block hr { border: none; border-top: 1px solid var(--border-soft); margin: 12px 0; }
-  .example-block .conclusion { margin-top: 4px; color: var(--text); }
-  .example-block .accent { color: var(--purple); font-weight: 700; }
-  .example-block .pos { color: var(--green); font-weight: 700; }
-  .example-block .neg { color: var(--red); font-weight: 700; }
-  .example-block .yel { color: var(--yellow); font-weight: 700; }
+  a { color: var(--cyan); text-decoration: none; }
+  a:hover { color: var(--green); }
 
-  .compare-table { width: 100%; border-collapse: collapse; margin: 22px 0; font-family: 'Rajdhani', sans-serif; font-size: 16px; font-variant-numeric: tabular-nums; }
-  .compare-table caption { font-family: 'Orbitron', sans-serif; color: var(--purple); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; font-weight: 700; padding-bottom: 14px; text-align: left; }
-  .compare-table th, .compare-table td { padding: 11px 14px; text-align: left; border-bottom: 1px solid var(--border-soft); vertical-align: top; }
-  .compare-table th { font-family: 'Orbitron', sans-serif; font-size: 10px; letter-spacing: 1.8px; text-transform: uppercase; color: var(--dim); font-weight: 700; background: var(--panel-deep); }
-  .compare-table tr:last-child td { border-bottom: none; }
-  .compare-table .topic { color: var(--text); font-weight: 600; }
-  .compare-table .pos { color: var(--green); font-weight: 700; }
-  .compare-table .neg { color: var(--red); font-weight: 700; }
-  .compare-table .yel { color: var(--yellow); font-weight: 700; }
+  /* ───────── CARD ───────── */
+  .card {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 32px 48px 80px;
+    position: relative;
+  }
+  @media (max-width: 640px) { .card { padding: 60px 20px 60px; } }
 
-  .warn-block { background: var(--panel-deep); border: 1px solid var(--border-soft); border-left: 3px solid var(--red); border-radius: 10px; padding: 18px 22px; font-family: 'Rajdhani', sans-serif; font-size: 17px; color: var(--text); margin: 18px 0; line-height: 1.6; }
-  .warn-block strong { color: var(--red); }
-  .tip-block { background: var(--panel-deep); border: 1px solid var(--border-soft); border-left: 3px solid var(--green); border-radius: 10px; padding: 18px 22px; font-family: 'Rajdhani', sans-serif; font-size: 17px; color: var(--text); margin: 18px 0; line-height: 1.6; }
-  .tip-block strong { color: var(--green); }
-  .pull-quote { font-family: 'Rajdhani', sans-serif; font-size: 20px; font-style: italic; color: var(--text); border-left: 3px solid var(--yellow); padding: 4px 0 4px 22px; margin: 24px 0; line-height: 1.5; }
+  /* ───────── HEADER ───────── */
+  .header { margin-bottom: 40px; }
+  .header-meta {
+    display: flex; align-items: center; gap: 18px;
+    margin-bottom: 22px; flex-wrap: wrap;
+  }
+  .back-link {
+    font-size: 11px; font-weight: 500;
+    letter-spacing: .18em; text-transform: uppercase;
+    color: var(--dim); transition: color .15s;
+  }
+  .back-link:hover { color: var(--cyan); }
+  .header-eyebrow {
+    font-size: 10px; font-weight: 700;
+    letter-spacing: .28em; text-transform: uppercase;
+    color: var(--green);
+  }
 
+  .title-row {
+    display: flex; align-items: flex-end; justify-content: center;
+    gap: 16px; margin-bottom: 18px; flex-wrap: wrap; position: relative;
+  }
+  .title-row::before {
+    content: '';
+    position: absolute;
+    left: 50%; top: 50%;
+    width: 620px; height: 240px;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(ellipse at center,
+                  rgba(77,255,120,0.22) 0%,
+                  rgba(0,212,255,0.12) 35%,
+                  rgba(77,255,120,0) 70%);
+    filter: blur(34px);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .title-row > * { position: relative; z-index: 1; }
+  .header h1 {
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-size: clamp(40px, 6.4vw, 68px);
+    line-height: 1.05;
+    letter-spacing: -.025em;
+    font-weight: 700;
+    margin: 0;
+    padding-bottom: 0.08em;
+    background: linear-gradient(95deg, var(--green) 0%, var(--cyan) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    text-align: center;
+  }
+  .lesson-sub {
+    font-size: clamp(15px, 1.8vw, 19px);
+    color: rgba(240,238,232,0.78);
+    font-weight: 300;
+    line-height: 1.5;
+    max-width: 720px;
+    margin: 0 auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .lesson-sub .accent { color: var(--cyan); font-weight: 400; }
+  .lesson-sub strong { color: var(--text); font-weight: 600; }
+
+  /* Hero meta — authority + scope */
+  .hero-authority {
+    margin: 32px 0 0;
+    padding: 18px 22px;
+    background: var(--surface-2);
+    border: 1px solid var(--border-2);
+    border-left: 3px solid var(--green);
+    border-radius: 10px;
+    font-size: 14.5px;
+    line-height: 1.6;
+    color: rgba(240,238,232,0.85);
+  }
+  .hero-authority strong { color: var(--text); font-weight: 600; }
+  .hero-authority em { color: var(--cyan); font-style: normal; font-weight: 500; }
+
+  /* "What you'll have when you're done" */
+  .what-you-get {
+    margin: 32px 0 0;
+    padding: 22px 24px;
+    background: var(--cyan-faint);
+    border: 1px solid var(--cyan-border);
+    border-radius: 12px;
+  }
+  .what-you-get h4 {
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--cyan);
+    margin: 0 0 14px;
+  }
+  .what-you-get ul { list-style: none; padding: 0; margin: 0; }
+  .what-you-get li {
+    position: relative;
+    padding-left: 22px;
+    margin-bottom: 9px;
+    font-size: 14.5px;
+    line-height: 1.55;
+    color: rgba(240,238,232,0.88);
+  }
+  .what-you-get li:last-child { margin-bottom: 0; }
+  .what-you-get li::before {
+    content: '';
+    position: absolute;
+    left: 2px; top: 0.55em;
+    width: 7px; height: 7px;
+    background: var(--cyan);
+    transform: rotate(45deg);
+  }
+  .what-you-get strong { color: var(--text); font-weight: 600; }
+  .what-you-get .authority-note {
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid var(--cyan-border);
+    font-size: 13px;
+    line-height: 1.55;
+    color: var(--muted);
+  }
+  .what-you-get .authority-note strong { color: var(--text); }
+  .what-you-get .authority-note em { color: var(--cyan); font-style: italic; }
+
+  /* ★ Lock-this-in foundational callout */
+  .lock-in {
+    margin: 32px 0;
+    padding: 24px 28px;
+    background: var(--green-faint);
+    border: 1px solid var(--green-border);
+    border-left: 4px solid var(--green);
+    border-radius: 10px;
+  }
+  .lock-in::before {
+    content: '★ Lock this in';
+    display: block;
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .26em;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 14px;
+  }
+  .lock-in p {
+    margin: 0;
+    font-size: 17px;
+    line-height: 1.55;
+    color: var(--text);
+    font-weight: 500;
+  }
+  .lock-in p + p { margin-top: 12px; }
+  .lock-in strong { color: var(--text); font-weight: 700; }
+  .lock-in em { color: var(--green); font-style: italic; font-weight: 500; }
+
+  /* ★ End-of-section Main Takeaways summary */
+  .main-takeaways {
+    margin: 44px 0 0;
+    padding: 24px 28px;
+    background: var(--cyan-faint);
+    border: 1px solid var(--cyan-border);
+    border-left: 4px solid var(--cyan);
+    border-radius: 10px;
+  }
+  .main-takeaways::before {
+    content: '★ Main Takeaways';
+    display: block;
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .26em;
+    text-transform: uppercase;
+    color: var(--cyan);
+    margin-bottom: 14px;
+  }
+  .main-takeaways ul { list-style: none; padding: 0; margin: 0; }
+  .main-takeaways li {
+    position: relative;
+    padding-left: 22px;
+    margin-bottom: 10px;
+    font-size: 14.5px;
+    line-height: 1.55;
+    color: rgba(240,238,232,0.92);
+  }
+  .main-takeaways li:last-child { margin-bottom: 0; }
+  .main-takeaways li::before {
+    content: '';
+    position: absolute;
+    left: 2px; top: 0.55em;
+    width: 7px; height: 7px;
+    background: var(--cyan);
+    transform: rotate(45deg);
+  }
+  .main-takeaways strong { color: var(--text); font-weight: 600; }
+  .main-takeaways em { color: var(--cyan); font-style: italic; }
+
+  /* Bridge between hero and first section */
+  .section-bridge {
+    margin: 48px auto 0;
+    text-align: center;
+    font-size: 19px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--cyan);
+    font-weight: 600;
+  }
+
+  /* ───────── PLAYBOOK SECTIONS (h2 majors) ───────── */
+  .pb-section {
+    margin-top: 60px;
+    padding-top: 28px;
+    border-top: 1px solid var(--border);
+  }
+  .pb-section h2 {
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-size: clamp(24px, 3.4vw, 32px);
+    line-height: 1.15;
+    letter-spacing: -.02em;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 8px;
+    padding-bottom: 4px;
+  }
+  .pb-section .pb-eyebrow {
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 12px;
+  }
+  .pb-section .pb-eyebrow::before {
+    content: 'Section ';
+  }
+  .pb-section h3 {
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-size: clamp(18px, 2.1vw, 22px);
+    font-weight: 700;
+    letter-spacing: -.01em;
+    color: var(--text);
+    margin-top: 32px;
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border-2);
+  }
+  .pb-section h4 {
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--cyan);
+    margin-top: 26px;
+    margin-bottom: 10px;
+    letter-spacing: -.005em;
+  }
+  .pb-body { font-size: 15.5px; line-height: 1.75; color: rgba(240,238,232,0.92); }
+  .pb-body p { margin-bottom: 15px; }
+  .pb-body p:last-child { margin-bottom: 0; }
+  .pb-body strong { color: var(--text); font-weight: 600; }
+  .pb-body em { color: var(--cyan); font-style: normal; font-weight: 500; }
+  .pb-body ul { list-style: none; margin: 12px 0 16px; padding-left: 2px; }
+  .pb-body li { position: relative; padding-left: 22px; margin-bottom: 10px; }
+  .pb-body li::before {
+    content: '';
+    position: absolute;
+    left: 2px; top: 0.6em;
+    width: 6px; height: 6px;
+    background: var(--cyan);
+    transform: rotate(45deg);
+  }
+  .pb-body a { color: var(--cyan); }
+  .pb-body a:hover { color: var(--green); }
+
+  /* ───────── WARN BLOCK ───────── */
+  .warn-block {
+    background: var(--surface-2);
+    border: 1px solid var(--border-2);
+    border-left: 3px solid var(--red);
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin: 18px 0;
+    font-size: 14.5px;
+    line-height: 1.65;
+    color: rgba(240,238,232,0.86);
+  }
+  .warn-block strong { color: var(--red); font-weight: 700; }
+
+  /* ───────── PULL QUOTE ───────── */
+  .pull-quote {
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-size: clamp(16px, 2vw, 19px);
+    font-weight: 500;
+    font-style: italic;
+    color: var(--text);
+    line-height: 1.5;
+    border-left: 3px solid var(--cyan);
+    padding: 6px 0 6px 22px;
+    margin: 24px 0;
+  }
+
+  /* ───────── EXAMPLE / WALKTHROUGH BLOCK ───────── */
+  .walk-block {
+    background: var(--surface-2);
+    border: 1px solid var(--border-2);
+    border-radius: 10px;
+    padding: 18px 22px;
+    margin: 18px 0;
+  }
+  .walk-block .label {
+    color: var(--dim);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 10px; font-weight: 600;
+    letter-spacing: .2em; text-transform: uppercase;
+    display: block; margin-bottom: 12px;
+  }
+  .walk-block .row {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    padding: 6px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 14.5px;
+    line-height: 1.55;
+  }
+  .walk-block .row:last-child { border-bottom: none; }
+  .walk-block .src {
+    flex: 0 0 38%;
+    color: rgba(240,238,232,0.72);
+    font-weight: 500;
+  }
+  .walk-block .body {
+    flex: 1;
+    color: rgba(240,238,232,0.92);
+  }
+  .walk-block .body strong { color: var(--text); font-weight: 600; }
+  .walk-block .body em { color: var(--cyan); font-style: normal; font-weight: 500; }
+  .walk-block .accent { color: var(--cyan); font-weight: 600; }
+
+  /* ───────── TIP BLOCK ───────── */
+  .tip-block {
+    background: var(--green-dim);
+    border: 1px solid var(--green-border);
+    border-left: 3px solid var(--green);
+    border-radius: 10px;
+    padding: 14px 20px;
+    margin: 18px 0;
+    font-size: 14.5px;
+    line-height: 1.65;
+    color: rgba(240,238,232,0.92);
+  }
+  .tip-block strong { color: var(--green); font-weight: 700; }
+
+  /* ───────── IMAGE BLOCK ───────── */
   .real-example-img {
     width: 100%;
-    max-width: 760px;
     height: auto;
     border-radius: 12px;
-    border: 1px solid var(--border);
-    box-shadow: 0 14px 44px rgba(0,0,0,0.45), 0 0 30px rgba(188,140,255,0.06);
-    display: block;
-    margin: 22px auto 8px;
+    margin: 18px 0 6px;
+    border: 1px solid var(--border-2);
   }
-  .real-example-caption {
-    font-family: 'Rajdhani', sans-serif;
-    font-size: 13px;
-    color: var(--dim);
+
+  /* ───────── STUB PLACEHOLDERS ───────── */
+  .stub {
+    background: var(--surface-2);
+    border: 1px dashed var(--border-2);
+    border-radius: 10px;
+    padding: 18px 22px;
+    margin: 14px 0;
+    font-size: 13.5px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+  .stub strong { color: var(--yellow); font-weight: 700; }
+
+  /* ───────── CTA CARD ───────── */
+  .cta-card {
+    background: linear-gradient(135deg, var(--green-dim), transparent);
+    border: 1px solid var(--green-border);
+    border-radius: 14px;
+    padding: 36px 30px;
+    margin: 60px 0 24px;
     text-align: center;
-    font-style: italic;
-    margin-bottom: 22px;
-    letter-spacing: 0.3px;
   }
-  .cta-card { background: linear-gradient(135deg, rgba(188, 140, 255, 0.08), rgba(188, 140, 255, 0.02)); border: 1px solid var(--purple); border-radius: 16px; padding: 32px 28px; margin: 44px 0 32px; text-align: center; box-shadow: 0 0 40px rgba(188, 140, 255, 0.08), 0 20px 60px rgba(0, 0, 0, 0.3); }
-  .cta-eyebrow { font-family: 'Orbitron', sans-serif; font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--purple); font-weight: 700; margin-bottom: 10px; }
-  .cta-title { font-family: 'Rajdhani', sans-serif; font-size: 26px; font-weight: 700; color: var(--text); margin-bottom: 8px; letter-spacing: 0.3px; }
-  .cta-blurb { font-family: 'Rajdhani', sans-serif; font-size: 16px; color: var(--muted); line-height: 1.55; max-width: 480px; margin: 0 auto 22px; }
-  .cta-btn { display: inline-flex; align-items: center; gap: 10px; font-family: 'Orbitron', sans-serif; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; font-weight: 800; text-decoration: none; padding: 14px 26px; border-radius: 10px; background: var(--purple); color: #1a0f2a; box-shadow: 0 0 20px rgba(188,140,255,0.18); transition: all 0.15s; }
-  .cta-btn:hover { background: #cea6ff; transform: translateY(-1px); box-shadow: 0 0 28px rgba(188,140,255,0.35); }
-  .footer { text-align: center; margin-top: 60px; padding: 28px 20px 0; color: var(--dim); font-size: 11px; letter-spacing: 1px; line-height: 1.7; border-top: 1px solid var(--border-soft); }
-  .footer .disclaimer { max-width: 720px; margin: 0 auto 14px; color: var(--dim); font-family: 'Rajdhani', sans-serif; font-size: 13px; letter-spacing: 0.3px; }
-  .footer a { color: var(--muted); text-decoration: none; }
-  .footer a:hover { color: var(--purple); }
-  @media (max-width: 600px) {
-    .topnav-inner { padding: 12px 16px; }
-    .nav-brand { font-size: 11px; letter-spacing: 2px; }
-    .wrap { padding: 24px 16px 60px; }
-    .lesson-title { font-size: 26px; letter-spacing: 1.5px; }
-    .lesson-sub { font-size: 18px; }
-    .lesson-body { font-size: 16px; }
-    .lesson-section h3 { font-size: 15px; }
-    .cta-card { padding: 26px 20px; }
-    .cta-title { font-size: 22px; }
-    .pull-quote { font-size: 17px; padding-left: 16px; }
-    .compare-table th, .compare-table td { padding: 9px 8px; font-size: 14px; }
-    .book-viz { padding: 16px; font-size: 12px; }
-    .book-viz .book-table td { padding: 4px 6px; }
+  .cta-eyebrow {
+    font-size: 10px; font-weight: 700;
+    letter-spacing: .26em; text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 10px;
   }
-  /* ═══ SIDEBAR NAVIGATION (prototype) ═══ */
-  .pps-sidebar { position: fixed; top: 0; left: 0; bottom: 0; width: 240px; background: linear-gradient(180deg, #0c1120 0%, #080d18 100%); border-right: 1px solid var(--border); z-index: 50; transform: translateX(-100%); transition: transform .3s cubic-bezier(.4,0,.2,1); overflow-y: auto; font-family: 'IBM Plex Sans', system-ui, sans-serif; }
+  .cta-title {
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-size: 28px; font-weight: 700;
+    letter-spacing: -.02em;
+    color: var(--text);
+    margin-bottom: 10px;
+  }
+  .cta-blurb {
+    font-size: 14.5px; color: rgba(240,238,232,0.78);
+    line-height: 1.6; max-width: 520px;
+    margin: 0 auto 18px;
+  }
+  .cta-code {
+    display: inline-block;
+    background: var(--surface-3);
+    border: 1px solid var(--border-2);
+    border-radius: 8px;
+    padding: 9px 14px;
+    margin-bottom: 16px;
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-size: 13.5px;
+    color: rgba(240,238,232,0.8);
+    letter-spacing: .04em;
+  }
+  .cta-code strong { color: var(--green); font-weight: 700; letter-spacing: .12em; }
+  .cta-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 12px; font-weight: 700;
+    letter-spacing: .14em; text-transform: uppercase;
+    text-decoration: none;
+    padding: 14px 28px;
+    border-radius: 8px;
+    background: var(--green);
+    color: #06220f;
+    transition: all .16s;
+  }
+  .cta-btn:hover { background: var(--cyan); color: #06222a; transform: translateY(-1px); }
+
+  /* ───────── FOOTER ───────── */
+  .footer {
+    text-align: center;
+    margin-top: 60px;
+    padding: 28px 20px 0;
+    color: var(--dim);
+    font-size: 11px;
+    letter-spacing: .04em;
+    line-height: 1.7;
+    border-top: 1px solid var(--border);
+  }
+  .footer .disclaimer { max-width: 680px; margin: 0 auto 12px; }
+  .footer a { color: var(--muted); }
+  .footer a:hover { color: var(--cyan); }
+
+  /* ═══ SIDEBAR ═══ */
+  .pps-sidebar {
+    position: fixed; top: 0; left: 0; bottom: 0;
+    width: 240px; background: var(--surface);
+    border-right: 1px solid var(--border-2); z-index: 50;
+    transform: translateX(-100%);
+    transition: transform .3s cubic-bezier(.4,0,.2,1);
+    overflow-y: auto;
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  }
   body.pps-sidebar-open .pps-sidebar { transform: translateX(0); }
   body.pps-sidebar-open { padding-left: 240px; transition: padding-left .3s cubic-bezier(.4,0,.2,1); }
   @media (max-width: 900px) {
     body.pps-sidebar-open { padding-left: 0; }
     .pps-sidebar { box-shadow: 4px 0 30px rgba(0,0,0,.7); width: 260px; }
   }
-  .pps-sidebar-toggle { position: fixed; top: 14px; left: 18px; z-index: 51; background: rgba(15, 21, 36, 0.92); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid var(--border); color: var(--text); width: 38px; height: 38px; border-radius: 9px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all .2s ease; }
-  .pps-sidebar-toggle:hover { background: var(--panel-inset); border-color: var(--green); color: var(--green); }
+  .pps-sidebar-toggle {
+    position: fixed; top: 14px; left: 18px; z-index: 51;
+    background: var(--surface);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--border-2);
+    color: var(--text);
+    width: 38px; height: 38px;
+    border-radius: 6px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all .18s ease;
+  }
+  .pps-sidebar-toggle:hover { background: var(--surface-2); border-color: var(--cyan-border); color: var(--cyan); }
   body.pps-sidebar-open .pps-sidebar-toggle { left: 256px; top: 14px; }
   @media (max-width: 900px) { body.pps-sidebar-open .pps-sidebar-toggle { left: 276px; } }
   .pps-sidebar-inner { padding: 22px 14px 30px; }
-  .pps-sidebar-brand { display: flex; align-items: center; justify-content: center; gap: 8px; color: var(--blue); text-decoration: none; font-family: 'Orbitron', sans-serif; font-weight: 800; font-size: 11px; letter-spacing: 1.6px; padding: 4px 0 16px; border-bottom: 1px solid var(--border-soft); margin-bottom: 14px; text-transform: uppercase; }
-  .pps-sidebar-brand svg { width: 18px; height: 14px; flex-shrink: 0; color: var(--green); filter: drop-shadow(0 0 6px rgba(74, 222, 128, 0.55)); }
-  .pps-sidebar-brand span { white-space: nowrap; }
-  .pps-sidebar-brand:hover { color: #5fa1ff; }
-  .pps-sidebar-nav { display: flex; flex-direction: column; gap: 1px; }
-  .pps-nav-group-label { font-size: 9.5px; text-transform: uppercase; letter-spacing: 1.8px; color: var(--dim); padding: 14px 8px 6px; margin-top: 2px; font-weight: 600; }
-  .pps-nav-link { display: flex; align-items: center; gap: 10px; color: #b8c0d0; text-decoration: none; padding: 8px 10px; border-radius: 7px; font-size: 13px; border-left: 2px solid transparent; transition: all .15s ease; }
-  .pps-nav-link:hover { background: var(--panel-inset); color: #fff; }
-  .pps-nav-link.active { background: rgba(74, 222, 128, 0.09); color: var(--green); border-left-color: var(--green); }
-  .pps-nav-num { font-family: 'JetBrains Mono', monospace; font-size: 10.5px; color: var(--dim); font-weight: 700; min-width: 18px; }
-  .pps-nav-link.path-blue .pps-nav-num { color: var(--blue); }
-  .pps-nav-link.path-green .pps-nav-num { color: var(--green); }
-  .pps-nav-link.path-gold .pps-nav-num { color: var(--yellow); }
-  .pps-nav-group { margin: 1px 0; }
-  .pps-nav-group summary { list-style: none; cursor: pointer; padding: 8px 10px; font-size: 13px; color: #b8c0d0; border-radius: 7px; display: flex; align-items: center; justify-content: space-between; transition: all .15s ease; user-select: none; }
-  .pps-nav-group summary::-webkit-details-marker { display: none; }
-  .pps-nav-group summary::after { content: '▾'; font-size: 9px; color: var(--dim); transition: transform .2s ease; }
-  .pps-nav-group[open] summary::after { transform: rotate(180deg); }
-  .pps-nav-group summary:hover { background: var(--panel-inset); color: #fff; }
-  .pps-nav-group .pps-nav-link { padding: 6px 10px 6px 22px; font-size: 12px; color: #8b94a8; }
-  .pps-nav-group .pps-nav-link:hover { color: #fff; }
-  .pps-path-group > summary { font-weight: 600; }
-  .pps-path-group .pps-path-label { display: inline-flex; align-items: center; gap: 10px; }
-  .pps-path-group.path-blue > summary .pps-nav-num { color: var(--blue); }
-  .pps-path-group.path-green > summary .pps-nav-num { color: var(--green); }
-  .pps-path-group.path-gold > summary .pps-nav-num { color: var(--yellow); }
-  .pps-path-group.path-blue[open] > summary { color: var(--blue); }
-  .pps-path-group.path-green[open] > summary { color: var(--green); }
-  .pps-path-group.path-gold[open] > summary { color: var(--yellow); }
-  .pps-nav-playbook { margin-top: 16px; padding: 10px 12px; background: linear-gradient(135deg, rgba(188,140,255,.10), rgba(74,222,128,.05)); border: 1px solid rgba(188,140,255,.25); border-left-width: 2px; color: var(--purple); font-weight: 600; border-radius: 7px; }
-  .pps-nav-playbook:hover { background: linear-gradient(135deg, rgba(188,140,255,.2), rgba(74,222,128,.1)); color: #fff; }
-  .pps-sidebar::-webkit-scrollbar { width: 6px; }
-  .pps-sidebar::-webkit-scrollbar-track { background: transparent; }
-  .pps-sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
-
-
-  /* PPS-MOBILE-TOPNAV-CLEARANCE */
-  @media (max-width: 640px) {
-    .topnav-inner { padding-left: 60px !important; padding-right: 12px !important; gap: 10px !important; }
-    .nav-brand { font-size: 10px !important; letter-spacing: 1.5px !important; gap: 6px !important; flex-shrink: 1; min-width: 0; }
-    .nav-brand-chart { display: none !important; }
-    .nav-back { font-size: 11px !important; white-space: nowrap; }
+  .pps-sidebar-brand {
+    display: flex; align-items: center; justify-content: center;
+    gap: 6px; color: var(--text); text-decoration: none;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 900; font-size: 13px;
+    letter-spacing: -.02em;
+    padding: 4px 0 16px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 14px;
   }
+  .pps-sidebar-brand .accent { color: var(--green); }
+  .pps-sidebar-brand small { font-size: 8px; font-weight: 400; letter-spacing: .4em; text-transform: uppercase; color: var(--dim); margin-left: 6px; }
+  .pps-sidebar-nav { display: flex; flex-direction: column; gap: 1px; }
+  .pps-nav-group-label {
+    font-size: 9px; text-transform: uppercase; letter-spacing: .22em;
+    color: var(--dim); padding: 14px 8px 6px;
+    margin-top: 2px; font-weight: 600;
+  }
+  .pps-nav-link {
+    display: flex; align-items: center; gap: 10px;
+    color: var(--muted); text-decoration: none;
+    padding: 7px 10px; border-radius: 4px;
+    font-size: 12px; font-weight: 400;
+    border-left: 2px solid transparent;
+    transition: all .15s ease;
+  }
+  .pps-nav-link:hover { background: var(--surface-2); color: var(--text); }
+  .pps-nav-link.active { background: var(--green-faint); color: var(--green); border-left-color: var(--green); font-weight: 500; }
+
+  @media (max-width: 640px) {
+    .card { padding-top: 60px; }
+  }
+
+  /* ───────── 2026-10 revamp additions ───────── */
+  .lesson-table { width: 100%; border-collapse: collapse; margin: 18px 0 22px; font-size: 14px; }
+  .lesson-table th, .lesson-table td { text-align: left; padding: 9px 10px; border-bottom: 1px solid var(--border-2); vertical-align: top; }
+  .lesson-table th { font-size: 10px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--dim); }
+  .lesson-table td { color: var(--muted); }
+  .lesson-table td strong { color: var(--text); font-weight: 600; }
+  .lesson-table .num { font-family: 'Space Grotesk', monospace; color: var(--text); white-space: nowrap; }
+  .lesson-table .good { color: var(--green); }
+  .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .table-note { font-size: 12px; color: var(--dim); margin: -10px 0 20px; }
+
+  .venue-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 20px 0 24px; }
+  @media (max-width: 700px) { .venue-grid { grid-template-columns: 1fr; } }
+  .venue-card { background: var(--surface-2); border: 1px solid var(--border-2); border-radius: 12px; padding: 18px 18px 14px; }
+  .venue-card h4 { margin: 0 0 4px; font-size: 17px; color: var(--text); letter-spacing: 0; text-transform: none; }
+  .venue-card .venue-tag { font-size: 10px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--cyan); display: block; margin-bottom: 10px; }
+  .venue-card p { font-size: 14px; margin-bottom: 8px; }
+  .venue-card dl { display: grid; grid-template-columns: 74px 1fr; gap: 6px 10px; font-size: 13px; margin-top: 10px; }
+  .venue-card dt { color: var(--dim); font-weight: 600; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; padding-top: 2px; }
+  .venue-card dd { color: var(--muted); }
+
+  .ladder { background: var(--surface-2); border: 1px solid var(--border-2); border-radius: 12px; padding: 16px 18px; margin: 20px 0; font-family: 'Space Grotesk', monospace; font-size: 14px; }
+  .ladder .ladder-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--dim); margin-bottom: 12px; }
+  .ladder .ladder-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  @media (max-width: 560px) { .ladder .ladder-cols { grid-template-columns: 1fr; } }
+  .ladder .side-name { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; color: var(--text); margin-bottom: 6px; font-size: 13px; }
+  .ladder .lv { display: flex; justify-content: space-between; padding: 5px 8px; border-radius: 6px; color: var(--muted); }
+  .ladder .lv.best { background: var(--green-faint); color: var(--green); border: 1px solid var(--green-border); }
+  .ladder .ladder-foot { margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--border-2); display: flex; flex-wrap: wrap; gap: 6px 20px; font-size: 13px; color: var(--muted); }
+
+  .tool-callout { display: flex; gap: 16px; align-items: center; background: var(--cyan-faint); border: 1px solid var(--cyan-border); border-radius: 12px; padding: 16px 18px; margin: 22px 0; }
+  .tool-callout .tc-body { flex: 1; font-size: 14px; color: var(--muted); }
+  .tool-callout .tc-body strong { color: var(--text); }
+  .tool-callout .tc-btn { white-space: nowrap; font-weight: 700; font-size: 13px; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--cyan-border); color: var(--cyan); }
+  .tool-callout .tc-btn:hover { color: var(--green); border-color: var(--green-border); }
+  @media (max-width: 560px) { .tool-callout { flex-direction: column; align-items: stretch; text-align: left; } }
+
+  .checked-note { font-size: 12px; color: var(--dim); margin: 6px 0 18px; }
+
+  .gate-card { background: var(--surface-2); border: 1px solid var(--green-border); border-radius: 14px; padding: 28px 26px; margin: 34px 0; text-align: center; }
+  .gate-card .gate-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: .28em; text-transform: uppercase; color: var(--green); margin-bottom: 10px; }
+  .gate-card h3 { font-size: 22px; margin: 0 0 8px; color: var(--text); }
+  .gate-card p { color: var(--muted); font-size: 14px; max-width: 520px; margin: 0 auto 16px; }
+  .gate-form { display: flex; gap: 10px; max-width: 460px; margin: 0 auto; flex-wrap: wrap; }
+  .gate-form input { flex: 1; min-width: 200px; background: var(--bg); border: 1px solid var(--border-2); border-radius: 8px; padding: 12px 14px; color: var(--text); font: inherit; font-size: 15px; }
+  .gate-form button { background: var(--green); color: #050505; border: 0; border-radius: 8px; padding: 12px 18px; font: inherit; font-weight: 800; font-size: 14px; cursor: pointer; }
+  .gate-form button:disabled { opacity: .6; cursor: default; }
+  .gate-msg { font-size: 12px; color: var(--dim); margin-top: 10px; min-height: 16px; }
+  .gate-fine { font-size: 11px; color: var(--dim); margin-top: 8px; }
+  [data-gated].gate-hidden { display: none !important; }
+  .gate-card[hidden] { display: none; }
+
+  .next-guide { display: block; background: var(--surface-2); border: 1px solid var(--border-2); border-radius: 12px; padding: 18px 20px; margin: 26px 0; }
+  .next-guide .ng-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: var(--cyan); }
+  .next-guide .ng-title { font-size: 18px; font-weight: 700; color: var(--text); margin: 4px 0 4px; }
+  .next-guide .ng-sub { font-size: 14px; color: var(--muted); }
+  .next-guide:hover .ng-title { color: var(--green); }
+
+  .lock-in::before { content: '\2605  Key point'; }
 </style>
 <link rel="stylesheet" href="/styles/sidebar.css">
 <link rel="stylesheet" href="/styles/topbar.css">
-<script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>
 
@@ -281,7 +682,6 @@
         <summary>Core tools</summary>
         <a class="pps-nav-link" href="/bet-x-ray.html">Bet X-Ray</a>
         <a class="pps-nav-link" href="/sharp-snapshot.html">Sharp Snapshot</a>
-        <a class="pps-nav-link" href="/prop-shop.html">The Prop Shop</a>
         <a class="pps-nav-link" href="/hedge-calculator.html">Hedge</a>
         <a class="pps-nav-link" href="/arb-calculator.html">Arbitrage</a>
         <a class="pps-nav-link" href="/middle-calculator.html">Middle</a>
@@ -397,7 +797,6 @@
           <div class="tb-menu-label">Built in-house — nowhere else</div>
           <a href="/bet-x-ray.html">Bet X-Ray</a>
           <a href="/sharp-snapshot.html">Sharp Snapshot</a>
-          <a href="/prop-shop.html">The Prop Shop</a>
           <a href="/dfs-slip-checker.html">DFS Slip Checker</a>
         </div>
       </div>
@@ -486,626 +885,326 @@
 </script>
 <!-- ═══ END TOPBAR ═══ -->
 
-<nav class="topnav">
-  <div class="topnav-inner">
-    <a class="nav-brand" href="/index.html">
-      <span class="nav-brand-chart" aria-hidden="true">
-        <svg viewBox="0 0 28 22" xmlns="http://www.w3.org/2000/svg" fill="none">
-          <polyline points="2,18 8,12 12,15 18,7 26,3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </span>
-      Profit Path Sports
-      <span class="nav-brand-chart" aria-hidden="true">
-        <svg viewBox="0 0 28 22" xmlns="http://www.w3.org/2000/svg" fill="none">
-          <polyline points="2,18 8,12 12,15 18,7 26,3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </span>
-    </a>
-    <a class="nav-back" href="/index.html#guides">← Strategy Guides</a>
-  </div>
-</nav>
+<div class="card">
 
-<div class="wrap">
-
-  <div class="lesson-hero">
-    <div class="lesson-eyebrow">Beginner's Guide · Betting Exchanges</div>
-    <h1 class="lesson-title">How to Read a Betting Exchange</h1>
-    <p class="lesson-sub">A complete beginner's walkthrough — what a betting exchange is, why regular bettors <em>and</em> sharps both use them, and how to read the offers like the smart money. No experience required; we'll go all the way.</p>
+  <div class="header">
+    <div class="header-meta">
+      <a href="/index.html" class="back-link">&larr; Back to Home</a>
+      <span class="header-eyebrow">Free Guide &middot; Part 1 of 2</span>
+    </div>
+    <div class="title-row">
+      <h1>Exchanges 101</h1>
+    </div>
+    <p class="lesson-sub">
+      <span>ProphetX, Novig, Kalshi and Polymarket, explained from zero.</span>
+      <span class="accent">Percent odds, fees, and how to read the screen.</span>
+    </p>
   </div>
 
-  <section class="lesson-section">
-    <h3>What a betting exchange is — and why it matters</h3>
-    <div class="lesson-body">
+  <div class="pb-body">
+    <div class="what-you-get">
+      <h4>What you'll have when you're done</h4>
+      <ul>
+        <li><strong>How to read percent odds</strong> without converting in your head every time.</li>
+        <li><strong>What each of the four exchanges is</strong>, and how they differ.</li>
+        <li><strong>What every bet really costs</strong> once fees are in. They are not all the same.</li>
+        <li><strong>How to read the order screen</strong>: best price, money available, and who is on the other side.</li>
+        <li><strong>A first-trade checklist</strong> so your first bet goes the way you meant it to.</li>
+      </ul>
+    </div>
+  </div>
 
-      <p><strong>A betting exchange — like <a href="/book-prophetx.html">ProphetX</a> or Novig — is a peer-to-peer market.</strong> Instead of betting against a sportsbook, you're betting against another user. The platform just matches the two sides and takes a small commission. Nobody is the "house."</p>
-
-      <p><strong>One thing to lock in before anything else: every bet you see listed on an exchange has been <em>created</em> by one or more other users — it doesn't exist until somebody writes it.</strong> When you click "bet the Lakers at +130," you're not buying a bet from the platform; you're saying yes to a wager somebody (or a stack of somebodies) already posted at that price. The bigger the dollar amount sitting there, the more people stacked up making that same offer. That's what makes exchanges fundamentally different from a sportsbook — and it's what makes the offers worth reading.</p>
-
-      <p>That single difference makes exchanges valuable for two very different kinds of bettor.</p>
-
-      <h4>For regular bettors: cheaper bets</h4>
-      <p>Exchanges almost always have <strong>lower <a href="/learn-vig.html">vig</a></strong> than traditional sportsbooks. There's no house position to protect and no marketing budget baked into the price — the market just has to find a clearing price between two users. So the exchange line is usually a few percent closer to the true odds than what FanDuel or DraftKings is offering. Even if you never learn to read the offers, just placing your everyday bets at an exchange tends to save you money per ticket — same wagers, smaller cut.</p>
-
-      <h4>For sharp bettors: no limits, no flagging</h4>
-      <p>For winning bettors, the bigger draw is what exchanges <em>don't</em> do. They don't cut your limits when you win, and they don't flag your account for being profitable. At a traditional sportsbook, the better you do, the smaller they let you bet — until eventually you're capped at $5 a game or closed entirely. On an exchange, the platform doesn't care whether you win or lose; they make money on commission either way. So sharp bettors can size up properly without their accounts dying.</p>
-
-      <h4>For anyone: the book is the signal</h4>
-      <p>That second part — sharps can actually bet at full size — is what makes the offers valuable to <em>everyone</em>, including bettors who never trade on the exchange themselves. The sharpest money in the US market gravitates to exchanges precisely because nobody can stop it from getting down. So the offers sitting on the book aren't anonymous noise — they're the closest thing to <strong>seeing the sharp market in real time</strong>, denominated in dollars. The rest of this lesson teaches you how to read it.</p>
-
-      <p class="pull-quote">A traditional sportsbook line is a guess about what the market thinks. The offers on an exchange are what the market <em>actually</em> thinks, denominated in dollars.</p>
-
-      <p style="font-size: 14px; color: var(--muted); border-top: 1px solid var(--border-soft); padding-top: 14px; margin-top: 22px;"><strong>One quick jargon note before we go further.</strong> You'll see two terms a lot: a <strong>maker</strong> is someone who <em>posts</em> a price (offers a bet to other users), and a <strong>taker</strong> is someone who <em>accepts</em> a posted price. We'll only lean on these when the signal logic needs them. If you remember nothing else: the depth on your screen was put there by makers — mostly sharps. That's the signal.</p>
+  <!-- 01 -->
+  <section class="pb-section" id="what-changed">
+    <div class="pb-eyebrow">01</div>
+    <h2>What changed in 2026</h2>
+    <div class="pb-body">
+      <p>A year ago, most US exchanges ran as sweepstakes apps or state-licensed books. That is over. ProphetX and Novig are now federally regulated exchanges, the same kind of license Kalshi and Polymarket US hold. The regulator is the CFTC, the agency that oversees futures markets.</p>
+      <p>That license came with a rule most bettors noticed right away. In August 2026 the CFTC told regulated exchanges to stop showing American odds. Its staff wrote that plus and minus odds were "likely to mislead market participants about the nature of the transaction." By September the apps had switched. You now see percentages.</p>
+      <div class="lock-in">
+        <p><strong>Every exchange price is now a percentage.</strong> 48% is the price. It is not a confidence rating and it is not a prediction from the app.</p>
+        <p>If you only learn one thing from this guide, learn to read that number fast.</p>
+      </div>
+      <p>Two other changes matter. Fees moved around this fall, and state access is in flux. Several states have sued or ordered exchanges out. This guide names fees and dates. It does not list states, because that list changes week to week. Check the app before you deposit.</p>
+      <p class="checked-note">Facts on this page checked October 24, 2026.</p>
     </div>
   </section>
 
-  <section class="lesson-section">
-    <h3>Two things you might see — only one matters here</h3>
-    <div class="lesson-body">
-      <p>One quick distinction before the signals. Now that you know every bet on an exchange has to be <em>created</em> by someone before anyone can take it, two different things can show up on the screen.</p>
-
+  <!-- 02 -->
+  <section class="pb-section" id="percent-odds">
+    <div class="pb-eyebrow">02</div>
+    <h2>Percent odds, first</h2>
+    <div class="pb-body">
+      <p>An exchange position is a contract. It pays a fixed amount if your side wins and nothing if it loses. The percentage is the share of that payout you pay up front.</p>
       <ul>
-        <li><strong>Bets still waiting to be taken.</strong> Someone posted "I'll lay the Jays at −115 for $5,000" and nobody has taken them up on it yet, so the offer is sitting there in line. <em>This is the main exchange screen</em> — the price ladder you see on ProphetX, Novig, or in Pick the Odds. (Traders sometimes call this the <strong>order book</strong> — same thing.)</li>
-        <li><strong>Bets that already happened.</strong> Two users met at a price and the bet went through. This is just history — usually shown on a separate "trade history" or "volume" tab. (You'll hear this called <em>matched volume</em>.)</li>
+        <li><strong>48%</strong> means you pay 48 cents for a contract that pays $1. You profit 52 cents if it wins.</li>
+        <li><strong>Lower percent, bigger payout.</strong> Under 50% is an underdog. Over 50% is a favorite.</li>
+        <li><strong>50% is even money.</strong> +100 in the old format.</li>
       </ul>
 
-      <p><strong>The rest of this lesson is about the first one — bets still waiting.</strong> Those tell you what sharps are willing to do <em>right now</em>, with their money posted and waiting for someone to take it. Completed bets are old news; sharp money may have already moved on. When you're deciding whether to make a bet, you want live opinion — not last hour's history.</p>
+      <div class="table-wrap">
+      <table class="lesson-table">
+        <thead><tr><th>Percent</th><th>American</th><th>$100 bet profits</th></tr></thead>
+        <tbody>
+          <tr><td class="num">20%</td><td class="num">+400</td><td class="num">$400</td></tr>
+          <tr><td class="num">25%</td><td class="num">+300</td><td class="num">$300</td></tr>
+          <tr><td class="num">33.3%</td><td class="num">+200</td><td class="num">$200</td></tr>
+          <tr><td class="num">40%</td><td class="num">+150</td><td class="num">$150</td></tr>
+          <tr><td class="num">45%</td><td class="num">+122</td><td class="num">$122</td></tr>
+          <tr><td class="num">47.6%</td><td class="num">+110</td><td class="num">$110</td></tr>
+          <tr><td class="num">50%</td><td class="num">+100</td><td class="num">$100</td></tr>
+          <tr><td class="num">52.4%</td><td class="num">&minus;110</td><td class="num">$90.91</td></tr>
+          <tr><td class="num">55%</td><td class="num">&minus;122</td><td class="num">$81.82</td></tr>
+          <tr><td class="num">60%</td><td class="num">&minus;150</td><td class="num">$66.67</td></tr>
+          <tr><td class="num">66.7%</td><td class="num">&minus;200</td><td class="num">$50</td></tr>
+          <tr><td class="num">75%</td><td class="num">&minus;300</td><td class="num">$33.33</td></tr>
+        </tbody>
+      </table>
+      </div>
 
-      <p class="pull-quote">The mental model: the offers stack up at each price — a wall of bets waiting for somebody to take them. Each offer is somebody waiting for you to hit it. The shape of that wall — where it's thick, where it's thin, where it suddenly collapses — is the signal.</p>
+      <h3>Three shortcuts</h3>
+      <ul>
+        <li><strong>Near 50%, one point is about 4 cents of American odds.</strong> 51% is &minus;104. 52% is about &minus;108. 52.4% is the classic &minus;110.</li>
+        <li><strong>The two sides add up to a little over 100%.</strong> The amount over 100 is your cost to trade, called the spread. A standard &minus;110 / &minus;110 sportsbook market adds to 104.8%. A busy exchange market is often 101% to 102%.</li>
+        <li><strong>The displayed percent does not include fees.</strong> Fees are charged on top, and they differ by venue. Section 04 has the math.</li>
+      </ul>
+
+      <div class="tool-callout">
+        <div class="tc-body"><strong>Keep the Percent Odds Calculator open in a tab.</strong> Type both sides off the screen. It shows American odds, the spread, the maker behind each offer, and your all-in price after the fee for the venue you pick.</div>
+        <a class="tc-btn" href="/percent-odds-calculator.html">Open calculator &rarr;</a>
+      </div>
+
+      <p>Sportsbooks still post American odds. So any comparison between an exchange and FanDuel or DraftKings means converting one side. Do it the same way every time. Most mistakes on exchanges are conversion mistakes.</p>
     </div>
   </section>
 
-  <section class="lesson-section">
-    <h3>A real one — let's break down a ProphetX bet</h3>
-    <div class="lesson-body">
-      <p>Here's what the screen looks like when you tap a market on ProphetX. Colorado Rockies at LA Dodgers, moneyline:</p>
+  <div class="gate-card" id="ppsGate" hidden>
+    <div class="gate-eyebrow">Free with email</div>
+    <h3>Read the rest of Exchanges 101</h3>
+    <p>The four venues side by side, the real fee math, reading the order screen, and a first-trade checklist. Your email also unlocks Part 2, the Sharp Exchange Playbook.</p>
+    <form class="gate-form" id="ppsGateForm" data-source="exchanges-101">
+      <input type="email" required placeholder="you@email.com" aria-label="Email address" autocomplete="email">
+      <button type="submit">Unlock both guides</button>
+    </form>
+    <div class="gate-msg" aria-live="polite"></div>
+    <div class="gate-fine">No card. No spam. Unsubscribe any time.</div>
+  </div>
 
-      <img src="/images/prophetx-col-lad-moneyline.png"
-           alt="ProphetX moneyline offers for COL vs LAD. Best back-COL price highlighted in green at +345 with $118 of depth; best bet-LAD price highlighted in blue at -360 with $2,260 of depth. Other rows on the COL side: +335 with $1,871 and +330 with $344. Other rows on the LAD side: -365 with $156 and -370 with $2,584. Last Match +335 on the COL side, -335 on the LAD side. Total implied probability across both best prices reads 100.73%. Total matched volume traded on this market: $271,237.48."
-           class="real-example-img">
+  <!-- 03 -->
+  <section class="pb-section" id="venues" data-gated>
+    <div class="pb-eyebrow">03</div>
+    <h2>The four venues</h2>
+    <div class="pb-body">
+      <p>All four are CFTC-regulated and all four show percent prices. They differ in who is on the other side, what they charge, and how deep the markets run.</p>
 
-      <p>It's a lot of numbers on one screen — but each one is telling you something specific. Walking through them one at a time:</p>
-
-      <div class="example-block">
-        <span class="label">The two highlighted tiles — the current best prices</span>
-        <div class="row"><span class="src">COL <span class="accent">+345</span> · green tile</span><span class="body">The current best price to bet the Rockies. The <strong>$118</strong> below it is how much of that bet is actually available right now — written by other users (mostly sharps).</span></div>
-        <div class="row"><span class="src">LAD <span class="accent">−360</span> · blue tile</span><span class="body">The current best price to bet the Dodgers. <strong>$2,260</strong> of that bet is available.</span></div>
+      <div class="venue-grid">
+        <div class="venue-card">
+          <h4>ProphetX</h4>
+          <span class="venue-tag">Sports exchange</span>
+          <p>A peer-to-peer order book built for sports. Approved as an exchange June 11, 2026 and live nationwide June 18. Independent market makers add depth on the big markets.</p>
+          <dl>
+            <dt>Fee</dt><dd>2% of net winnings on straight bets. Nothing on losses. 0% on parlays.</dd>
+            <dt>Depth</dt><dd>Real on headline games. Thin on niche props. Weekly volume ran far below Novig's in October.</dd>
+            <dt>Know</dt><dd>The fee is on profit, so you pay nothing on a losing bet.</dd>
+          </dl>
+        </div>
+        <div class="venue-card">
+          <h4>Novig</h4>
+          <span class="venue-tag">Sports exchange</span>
+          <p>Operates through Ludlow Exchange, approved June 16, 2026. Dropped its sweepstakes product and relaunched with real money August 4.</p>
+          <dl>
+            <dt>Fee</dt><dd>Pregame takers pay nothing. Live takers pay 0.06 &times; P &times; (1 &minus; P) per contract since October 15. Makers pay nothing and earn credits.</dd>
+            <dt>Depth</dt><dd>About ten times ProphetX's weekly volume in early October, and much more money on the screen in our own pulls.</dd>
+            <dt>Know</dt><dd>Novig adds its own liquidity when a market is thin. Some of the money on the screen is the venue, not outside bettors.</dd>
+          </dl>
+        </div>
+        <div class="venue-card">
+          <h4>Kalshi</h4>
+          <span class="venue-tag">Prediction market</span>
+          <p>The best-known prediction market. Sports sit next to politics, economics and weather. Prices run from 1&cent; to 99&cent; per contract.</p>
+          <dl>
+            <dt>Fee</dt><dd>Takers: 0.07 &times; contracts &times; P &times; (1 &minus; P), rounded up to the cent. Makers on sports game series: 0.0175 on the same formula.</dd>
+            <dt>Depth</dt><dd>Deep on major game lines. Varies a lot on props.</dd>
+            <dt>Know</dt><dd>Kalshi is the main target of state lawsuits. Access in your state can change on short notice.</dd>
+          </dl>
+        </div>
+        <div class="venue-card">
+          <h4>Polymarket US</h4>
+          <span class="venue-tag">Prediction market</span>
+          <p>A separate US app, not the global crypto site. Full ID check before you deposit. Prices show in cents and percent.</p>
+          <dl>
+            <dt>Fee</dt><dd>Takers: &Theta; &times; contracts &times; P &times; (1 &minus; P). &Theta; was 0.05 for sports this summer and about 0.07 by mid-September. Makers pay nothing and can earn rebates.</dd>
+            <dt>Depth</dt><dd>Close to sportsbook prices on main lines. Props and parlays run thin.</dd>
+            <dt>Know</dt><dd>Polymarket changes fee rates by category often. Check the app before you size up.</dd>
+          </dl>
+        </div>
       </div>
 
-      <div class="example-block">
-        <span class="label">The other rows — worse prices, more depth</span>
-        <div class="row"><span class="src">+335 · $1,871</span><span class="body">A <em>worse</em> price for betting COL (smaller payout). It's sitting behind the +345 best price <em>in line</em>: if the $118 at +345 gets fully taken, the next person who wants COL hits this row.</span></div>
-        <div class="row"><span class="src">+330 · $344</span><span class="body">Even further back in line. Worse price still, smaller depth.</span></div>
-        <div class="row"><span class="src">−365 · $156</span><span class="body">A worse price for betting LAD (you'd have to risk more for the same $100 payout). Thin depth — only a $156 maker behind the best price.</span></div>
-        <div class="row"><span class="src">−370 · $2,584</span><span class="body">Worse still — but with the biggest wall on the entire screen. Sharps stacked a lot of offers here as a deeper backstop.</span></div>
-      </div>
-
-      <div class="example-block">
-        <span class="label">The smaller numbers at the bottom</span>
-        <div class="row"><span class="src">Last Match +335 / −335</span><span class="body">The most recent completed bet went off at this number — the market's <em>actual</em> consensus price right now.</span></div>
-        <div class="row"><span class="src">100.73%</span><span class="body">Add the two best implied probabilities — bet COL at +345 is 22.47%, bet LAD at −360 is 78.26% — and you get 100.73%. <strong>That 0.73% above 100% is the entire <a href="/learn-vig.html">vig</a>.</strong> A traditional sportsbook on this same game would be 104–110%. Exchanges are <em>that</em> much closer to a fair price.</span></div>
-        <div class="row"><span class="src">Traded $271,237.48</span><span class="body">Total dollars that have <em>already</em> changed hands on this market — completed bets, not waiting offers. A big number means a mature, deep market, which means the signals on the book are more reliable.</span></div>
-      </div>
-
-      <div class="tip-block">
-        <strong>Don't worry if some of this doesn't click yet.</strong> Every section below is teaching you how to read one piece of what you just saw — the inversion that turns the displayed prices into the sharps' real position, why heavy depth on one side means they want the other, why one row deep in the book matters more than another. Come back to this screenshot at the end and it'll read instantly.
-      </div>
+      <h3>The short version</h3>
+      <ul>
+        <li><strong>Betting pregame and taking a posted price?</strong> Novig costs nothing extra.</li>
+        <li><strong>Betting live?</strong> ProphetX's 2% of winnings is the cheapest of the four for a taker.</li>
+        <li><strong>Want to post your own price?</strong> Novig and Polymarket US charge makers nothing. Kalshi charges makers a small fee on sports games.</li>
+        <li><strong>Want the most money to bet into?</strong> Between the two sports exchanges, Novig usually has more. Kalshi and Polymarket US can be deep on main lines. Check market by market.</li>
+      </ul>
+      <p class="checked-note">Fee rates from each venue's published schedule or help center, as reported through October 2026. ProphetX's rate comes from its help center as reprinted October 2. Polymarket US's current sports rate comes from a September 17 review. Confirm both in the app.</p>
     </div>
   </section>
 
-  <section class="lesson-section">
-    <h3>What you're actually looking at (the most important inversion)</h3>
-    <div class="lesson-body">
-      <p>Most people see a price on an exchange and read it like a sportsbook: "the line is X, here's what I'd pay." That reading is <em>wrong</em> on an exchange. Flip it, and every other signal in this lesson makes sense.</p>
+  <!-- 04 -->
+  <section class="pb-section" id="fees" data-gated>
+    <div class="pb-eyebrow">04</div>
+    <h2>What a bet really costs</h2>
+    <div class="pb-body">
+      <p>Fees come in two shapes.</p>
+      <ul>
+        <li><strong>A cut of your profit (ProphetX).</strong> You pay 2% of what you win. A losing bet costs nothing extra.</li>
+        <li><strong>A fee on the price (Novig live, Kalshi, Polymarket US).</strong> The formula is a rate &times; P &times; (1 &minus; P). That is largest at 50% and shrinks toward the ends. You pay it when the trade fills, win or lose.</li>
+      </ul>
+      <p>Here is the same bet at 55% (&minus;122) on every venue, with the fee folded in. The all-in percent is the number to compare with a sportsbook.</p>
+
+      <div class="table-wrap">
+      <table class="lesson-table">
+        <thead><tr><th>Venue and role</th><th>All-in percent</th><th>All-in American</th></tr></thead>
+        <tbody>
+          <tr><td>No fee (what the screen shows)</td><td class="num">55.00%</td><td class="num">&minus;122</td></tr>
+          <tr><td><strong>Novig</strong> pregame taker, any maker</td><td class="num good">55.00%</td><td class="num good">&minus;122</td></tr>
+          <tr><td><strong>Polymarket US</strong> maker</td><td class="num good">55.00%</td><td class="num good">&minus;122</td></tr>
+          <tr><td><strong>Kalshi</strong> maker, sports game</td><td class="num">55.43%</td><td class="num">&minus;124</td></tr>
+          <tr><td><strong>ProphetX</strong>, 2% of net winnings</td><td class="num">55.50%</td><td class="num">&minus;125</td></tr>
+          <tr><td><strong>Novig</strong> live taker</td><td class="num">56.49%</td><td class="num">&minus;130</td></tr>
+          <tr><td><strong>Polymarket US</strong> taker (&Theta; 0.0695)</td><td class="num">56.72%</td><td class="num">&minus;131</td></tr>
+          <tr><td><strong>Kalshi</strong> taker</td><td class="num">56.73%</td><td class="num">&minus;131</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <p class="table-note">Kalshi rounds each order's fee up to the cent, so small orders cost slightly more than shown.</p>
+
+      <p>The spread between the cheapest and the most expensive row is almost two points, or about nine cents of American odds. That is often bigger than the edge you are trying to capture. Fees decide which venue you bet at, and sometimes whether to bet at all.</p>
 
       <div class="warn-block">
-        <strong>The rule, in one sentence:</strong> every offered price on the exchange is a bet the sharps are <em>trying to trick you into taking</em>. To post it, they had to lock themselves into the opposite side, at the opposite sign of the same magnitude.
+        <strong>Rule of thumb:</strong> on a fee-on-price venue, taking a near 50/50 price costs you about 1.5 to 1.75 points. Posting your own price on Novig or Polymarket US costs nothing. That is the main reason sharp bettors make instead of take.
       </div>
 
-      <h4>The translation rule — flip the side, flip the sign</h4>
-      <p>Every displayed price gets two operations, run together:</p>
-      <ul>
-        <li><strong>Flip the side</strong> — if the display says back <em>Eagles</em>, the sharp is on the <em>49ers</em>.</li>
-        <li><strong>Flip the sign of the price</strong> — if the display says <strong>−115</strong>, the sharp got <strong>+115</strong>. Same magnitude, opposite sign. (Not +100. Not +110. Exactly +115.)</li>
-      </ul>
-
-      <div class="example-block">
-        <span class="label">Flip the side, flip the sign — worked</span>
-        <div class="row"><span class="src">Display</span><span class="body">Jays <span class="accent">−115</span> · $5,000 available</span></div>
-        <div class="row"><span class="src">Sharp's position</span><span class="body">Rays <span class="accent">+115</span> · $5,000 at risk</span></div>
-        <hr>
-        <div class="row"><span class="src">Display</span><span class="body">Pistons <span class="accent">−110</span> · $5,800 available</span></div>
-        <div class="row"><span class="src">Sharp's position</span><span class="body">Cavs <span class="accent">+110</span> · $5,800 at risk</span></div>
-        <hr>
-        <div class="row"><span class="src">Display</span><span class="body">Eagles <span class="accent">+125</span> · $1,200 available</span></div>
-        <div class="row"><span class="src">Sharp's position</span><span class="body">49ers <span class="accent">−125</span> · $1,200 at risk</span></div>
-      </div>
-
-      <h4>Why the rule works</h4>
-      <p>When a sharp posts $5,800 of depth offering Pistons at −110, they didn't post it because they like the Pistons. They posted it <em>because they want it filled</em> — they think Cavs are the better side, and they need a bettor to take the Pistons bait so they can collect on Cavs. <strong>The deeper the offer, the harder the sharps are trying to get someone to take that side.</strong></p>
-
-      <p>So when you see "Pistons −110 · $5,800 available," translate it instantly: <em>"a sharp is sitting on Cavs +110 with $5,800 of conviction, hoping I take the Pistons bait."</em> Now compare to what FanDuel is offering you for Cavs. That gap is where the cross-market EV lives.</p>
-
-      <p class="pull-quote">The displayed price is what the sharps are <em>daring you to take</em>. Their real bet is the mirror image — and that's the number that matters.</p>
-
-      <p>Here's that stylized book again, now read the right way:</p>
-
-      <div class="book-viz">
-        <span class="viz-label">Eagles vs. 49ers · betting Eagles · the offers</span>
-        <table class="book-table">
-          <thead>
-            <tr><th>Price (bet Eagles)</th><th>Available to take</th><th>$ Available</th></tr>
-          </thead>
-          <tbody>
-            <tr><td colspan="3" class="label-row">Offers posted by makers (the sharps laying Eagles)</td></tr>
-            <tr><td class="price">+115</td><td><span class="liq-bar" style="width:180px;"></span></td><td class="amount">$4,200</td></tr>
-            <tr><td class="price">+118</td><td><span class="liq-bar" style="width:90px;"></span></td><td class="amount">$2,100</td></tr>
-            <tr><td class="price">+120</td><td><span class="liq-bar" style="width:50px;"></span></td><td class="amount">$1,150</td></tr>
-            <tr><td class="price">+125</td><td><span class="liq-bar thin" style="width:18px;"></span></td><td class="amount">$420</td></tr>
-            <tr><td colspan="3" class="interpret"><strong>Read:</strong> Sharps have posted $7,870 of capacity laying Eagles across +115 to +125. They want bettors to bet Eagles at those prices because they think Eagles' true win probability is <strong>lower</strong> than 46.5% (+115 implied). Sharps want <span style="color: var(--purple); font-weight: 700;">49ers</span>, not Eagles. The depth shows their conviction is heaviest at +115 — that's the price they really want filled.</td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <p>Two key concepts:</p>
-      <ul>
-        <li><strong>Depth</strong> — how much money makers have offered at each price. Deep books mean lots of conviction against the side that's offered.</li>
-        <li><strong>Spread</strong> — the gap between the best offer on each side. Tight spreads mean a mature, agreed-upon market. Wide spreads mean disagreement or a new market.</li>
-      </ul>
-      <p>Most exchanges show you the top 3-5 levels of depth. Some let you toggle a deeper view. Always look past the best price — and always remember: <strong>the depth IS the sharps' position, but on the other side.</strong></p>
-    </div>
-  </section>
-
-  <section class="lesson-section">
-    <h3>Signal #1 — Heavy depth on side A = sharps want side B</h3>
-    <div class="lesson-body">
-      <p>This is the single most useful read on an exchange, and the one most newcomers get backwards. The bigger the block of money offered on a side, the more makers (sharps) are willing to take the opposite side at that price.</p>
-
-      <div class="book-viz">
-        <span class="viz-label">Pitcher Ks · Strikeouts Over 6.5 · the offers</span>
-        <table class="book-table">
-          <thead>
-            <tr><th>Price (bet Over)</th><th>Available to take</th><th>$ Available</th></tr>
-          </thead>
-          <tbody>
-            <tr><td class="price">−110</td><td><span class="liq-bar" style="width:200px;"></span></td><td class="amount">$5,800</td></tr>
-            <tr><td class="price">−108</td><td><span class="liq-bar" style="width:60px;"></span></td><td class="amount">$1,400</td></tr>
-            <tr><td class="price">−105</td><td><span class="liq-bar thin" style="width:20px;"></span></td><td class="amount">$380</td></tr>
-            <tr><td colspan="3" class="interpret"><strong>Read:</strong> Sharps have $5,800 of capacity offered for Over 6.5 at −110. They are <strong>laying the Over</strong> — they think the pitcher will go Under more than 52.4% of the time (the implied prob of −110). If a traditional book is offering <span style="color: var(--green); font-weight: 700;">Under 6.5 at +100 or +105</span>, that's the +EV bet — you'd be on the same side as the smart money.</td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <p>The intuition: nobody puts $5,800 of risk on the table for a price they consider fair — they post that capacity because they're confident the offered side will lose more often than the price implies. If the market truly believed −110 was a coin flip on Over 6.5, you wouldn't see lopsided maker depth — you'd see balanced books.</p>
-
-      <p><strong>The bet to make is the side <em>without</em> the heavy maker depth.</strong> If you can find that side priced softly at a traditional sportsbook, you're betting alongside the sharps.</p>
-
-      <div class="tip-block">
-        <strong>Use exchange depth-imbalance as your directional signal.</strong> The side with the bigger maker offers is the side sharps think is overpriced. The fair line is somewhere closer to where the lighter (less-offered) side becomes attractive. Combined with traditional-book prices, this is a powerful tool for finding +EV — especially on player props where Pinnacle doesn't even price the market.
-      </div>
-
-      <p>Caveat: very thin books distort this signal. If side A has $80 offered and side B has $40 offered, that's not a real signal — those are single recreational bettors. Sharp depth signals require deep books on mainstream markets.</p>
-    </div>
-  </section>
-
-  <section class="lesson-section">
-    <h3>Signal #2 — Outsized depth on thin markets = trapped sharp money</h3>
-    <div class="lesson-body">
-      <p>Not all $4,000 of available liquidity carries the same weight. A $4,000 offer on a Sunday-night NFL moneyline is unremarkable — that market trades enormous volume and a $4k posting is small relative to the size of the players involved. A $4,000 offer on a Tuesday-night NHL save prop is something else entirely.</p>
-
-      <p>Why the difference? Sharp books — <strong>Pinnacle, Circa, Bookmaker</strong> — post explicit limits per market. Mainstream NFL spreads and totals might accept $25k+ per bet from anyone. Niche markets — backup-goalie saves, midweek MLB strikeout lines, a college baseball total — are typically capped at $500 or $1,000 even for proven sharp clients.</p>
-
-      <p>When you see $2,000+ of maker depth on an exchange for a market where Pinnacle would only take $500, that's not "a maker." That's almost certainly <strong>sharp money that hit its limit at the sharp books and came to the exchange to deploy more size</strong>. The conviction behind that depth is much higher than the same $2,000 on a mainstream game where it's noise.</p>
-
-      <div class="example-block">
-        <span class="label">Comparing depth to sharp-book limits</span>
-        <div class="row"><span class="src">Market</span><span class="body">Tuesday NHL backup-goalie saves Over</span></div>
-        <div class="row"><span class="src">Pinnacle limit</span><span class="body">~$500 per bet</span></div>
-        <div class="row"><span class="src">ProphetX maker depth</span><span class="body"><span class="accent">$2,400</span> offered for betting the Over</span></div>
-        <hr>
-        <div class="conclusion"><strong>Ratio: ~5×.</strong> Somebody with serious conviction is laying the Over and couldn't get full size at sharp books. They came to PX to fit the rest of their position. Apply Signal #1 inversion: <strong>bet Under at a soft traditional book.</strong> The signal is much stronger than the same $2,400 on a big-game ML where it would just be noise.</div>
-      </div>
-
-      <p>How to use this in practice:</p>
-      <ul>
-        <li><strong>Know your sharp-book limits.</strong> Look up typical Pinnacle / Circa max bets for the market type you're playing. NFL spreads = high. Player props on small leagues = low. International markets = very low.</li>
-        <li><strong>Calculate the ratio</strong> of exchange-offered depth to typical sharp-book limit. 3× and above is meaningfully strong; 5×+ is rare and worth paying close attention to.</li>
-        <li><strong>Combine with imbalance (next signal).</strong> If outsized depth is concentrated on one side AND the other side is thin, both signals are pointing the same direction.</li>
-        <li><strong>Move fast.</strong> Outsized exchange depth in a thin market often precedes the soft traditional books pulling or shifting their lines. The window is shorter than on mainstream markets.</li>
-      </ul>
-
-      <div class="tip-block">
-        <strong>The intuition:</strong> sharps don't post $2k of risk on small markets for fun. They post it because they have edge — and the edge has to be big enough to justify both the platform fee and the lower probability of getting a full fill in a thin book. The bet that triggers this kind of size is one they've worked on.
-      </div>
-
-      <p style="margin-top: 24px;"><strong>The faster version of this signal: peer-set comparison.</strong></p>
-      <p>You don't always know Pinnacle's typical limit for the specific market you're looking at. There's a quicker move that doesn't require it — <strong>compare the line against its peers in the same category</strong>.</p>
-      <p>Pull up tonight's full board of <em>assist props</em>. Eyeball the depth column. If most lines have a few hundred dollars of depth — the normal background level for that market — and one line has <strong>$1,000+ on a single side</strong>, that asymmetric outlier is sharp money. Someone knows something about that specific player tonight, and the exchange is showing it.</p>
-      <p>What makes this work: the <em>normal</em> depth for a market category is set by the same population of makers across all the lines in that category. When one line breaks that pattern, the only explanation is concentrated conviction — an injury leak, a late role change, a model edge — that doesn't apply to the other lines in the set.</p>
-
-      <div class="example-block">
-        <span class="label">Peer-set scan — tonight's NBA assist props</span>
-        <div class="row"><span class="src">Player A · O 5.5</span><span class="body">$240 / $310 depth</span></div>
-        <div class="row"><span class="src">Player B · O 6.5</span><span class="body">$180 / $200 depth</span></div>
-        <div class="row"><span class="src">Player C · O 7.5</span><span class="body"><span class="accent">$1,400</span> / $220 depth</span></div>
-        <div class="row"><span class="src">Player D · O 4.5</span><span class="body">$210 / $260 depth</span></div>
-        <hr>
-        <div class="conclusion">Peer baseline: ~$200–$300 per side. <strong>Player C's $1,400 on one side breaks the pattern by ~5×.</strong> Apply Signal #1 (translation): the $1,400 is offered to <em>back</em> the Over — so sharp money is laying the Over and wants the <strong>Under</strong>. That's the bet to look for at a soft book.</div>
-      </div>
-
-      <p>How to run it in practice:</p>
-      <ul>
-        <li><strong>Scan the full board</strong> for a category — assist props, strikeout props, alt-spread ladders, first-half totals.</li>
-        <li><strong>Note the baseline.</strong> The depth most lines share is the "normal" — a few hundred dollars on niche markets, a few thousand on mainstream ones.</li>
-        <li><strong>Flag the outlier.</strong> Any line where one side runs 3–5×+ the baseline.</li>
-        <li><strong>Translate (Signal #1).</strong> Heavy depth offered to back A → sharps want B.</li>
-      </ul>
-
-      <p><strong>Peer-set vs. Pinnacle-limit — same signal, two read methods.</strong> Peer-set is the faster visual scan when you have a board in front of you. The Pinnacle-limit ratio is the deeper read when you can look up the typical sharp-book cap. Use both when they're available; either one alone is meaningfully strong.</p>
-    </div>
-  </section>
-
-  <section class="lesson-section">
-    <h3>Signal #3 — Imbalance: which side has more available to take</h3>
-    <div class="lesson-body">
-      <p>Sum the available liquidity on each side of the market. The side with substantially more money <em>available to back</em> is the side sharps are <strong>laying</strong> — meaning sharps want the OTHER side. <strong>Imbalance is direction, but inverted.</strong></p>
-
-      <div class="example-block">
-        <span class="label">Reading imbalance — Lakers vs. Warriors moneyline</span>
-        <div class="row"><span class="src">Available to bet Lakers</span><span class="body">$11,400 stacked across all visible prices</span></div>
-        <div class="row"><span class="src">Available to bet Warriors</span><span class="body">$2,800 stacked across all visible prices</span></div>
-        <hr>
-        <div class="conclusion"><strong>4-to-1 imbalance of offered liquidity on the Lakers side.</strong> That means makers are heavily laying Lakers — they want bettors to take Lakers because they're confident <span class="accent">Warriors</span> is the better side. If the traditional-book consensus has Lakers as a slight favorite, the exchange is whispering that Warriors are sharper than the consensus implies. <strong>The bet to look for is Warriors at a traditional book.</strong></div>
-      </div>
-
-      <p>Why it works: the exchange has no incentive to balance both sides (there's no house position to protect). The book is "imbalanced" only when one side has many makers willing to lay it — i.e., when the smart money disagrees with the implied probability of that side winning. A 4-to-1 offered-liquidity imbalance toward Lakers means roughly 4× as much sharp capital is willing to bet <em>against</em> Lakers at the offered prices than against Warriors at theirs.</p>
-
-      <p>Caveat: imbalance is a snapshot. A book that's heavily imbalanced now might fill in over the next hour as more participants arrive. Read it as a directional clue, not a guarantee.</p>
-    </div>
-  </section>
-
-  <section class="lesson-section">
-    <h3>Signal #4 — Spread tightness: market maturity</h3>
-    <div class="lesson-body">
-      <p>The spread between the best offer on side A and the best offer on side B tells you how confident the market is in fair price.</p>
-
-      <table class="compare-table">
-        <caption>Spread tightness → market confidence</caption>
-        <thead>
-          <tr><th>Spread</th><th>What it means</th><th>Implication</th></tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="topic">2-5 cents</td>
-            <td>Mature market, lots of participants, agreed-upon fair</td>
-            <td class="pos">Treat the midpoint as fair</td>
-          </tr>
-          <tr>
-            <td class="topic">5-10 cents</td>
-            <td>Normal exchange spread; some uncertainty</td>
-            <td>Midpoint is approximately fair, but careful</td>
-          </tr>
-          <tr>
-            <td class="topic">10-20 cents</td>
-            <td>Thin market or recent news; participants disagree</td>
-            <td class="yel">Don't trust either side as fair — wait or shop traditional books</td>
-          </tr>
-          <tr>
-            <td class="topic">20+ cents or "no bid / no offer"</td>
-            <td>Brand new market, suspended, or no one cares about it</td>
-            <td class="neg">Avoid. The price you see could be anywhere from fair to garbage.</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <p>The trick is that <strong>tight spreads with deep books are the gold standard</strong>. If you see 3-cent spreads with $5,000+ on each side, you're looking at a fully-priced sharp market. Take the midpoint as fair and shop traditional books against it.</p>
-    </div>
-  </section>
-
-  <section class="lesson-section">
-    <h3>Signal #5 — Liquidity disappearing = something happened</h3>
-    <div class="lesson-body">
-      <p>One of the most actionable patterns: a book that was deep five minutes ago is suddenly thin or empty.</p>
-
-      <div class="example-block">
-        <span class="label">A book pulled</span>
-        <div class="row"><span class="src">10:42 AM</span><span class="body">Pitcher Ks O/U 6.5 — $4,200 available to bet Over at −110 (makers laying Over)</span></div>
-        <div class="row"><span class="src">10:43 AM</span><span class="body">Same market — <span class="yel">$0 available to bet Over</span>. Makers pulled their lay offers.</span></div>
-        <hr>
-        <div class="conclusion"><strong>Something just happened.</strong> Makers who were happy to lay Over at −110 a minute ago suddenly aren't. Translation: <strong>they now think Over is more likely</strong> than the price implies — they don't want to be short Over anymore. Whatever news arrived has made Over the sharper side. If you can find Over at the old generous price anywhere (or close to it) at a traditional book, that's the bet.</div>
-      </div>
-
-      <p>Common causes for sudden liquidity flight:</p>
-      <ul>
-        <li><strong>Lineup change posted</strong> — the pitcher got scratched, a star is out, the offense looks more strikeout-friendly</li>
-        <li><strong>Weather report</strong> — wind, rain, snow update changes the model</li>
-        <li><strong>Late-breaking injury news</strong> — official report drops, the market hasn't caught up</li>
-        <li><strong>Steam from a syndicate</strong> — a group of sharps just hit the market hard on one side, scaring off the makers offering it</li>
-      </ul>
-
-      <div class="tip-block">
-        <strong>The rule:</strong> when liquidity disappears on a side, the side that was being offered is the one that just became sharper. The smart money won't lay it anymore at the old price. Check news/weather/lineup pages first, then look for the same side (the one that lost its lay liquidity) still available at a soft traditional book — that's the +EV grab.
+      <div class="tool-callout">
+        <div class="tc-body"><strong>Do this math once per bet, not in your head.</strong> Pick the venue, maker or taker, and pregame or live. The calculator gives the all-in price.</div>
+        <a class="tc-btn" href="/percent-odds-calculator.html">Percent Odds Calculator &rarr;</a>
       </div>
     </div>
   </section>
 
-  <section class="lesson-section">
-    <h3>Signal #6 — Liquidity rushing in = consensus formed</h3>
-    <div class="lesson-body">
-      <p>The mirror image. A market that was thin all day suddenly has $10,000 of fresh depth on both sides 30 minutes before kickoff. That means <strong>the sharps have finished pricing the market</strong> and are now willing to back their numbers with real money.</p>
+  <!-- 05 -->
+  <section class="pb-section" id="reading-the-screen" data-gated>
+    <div class="pb-eyebrow">05</div>
+    <h2>Reading the order screen</h2>
+    <div class="pb-body">
+      <p>Every bet on an exchange was posted by another user before you could take it. The screen is a queue of those posted bets, best price first. Here is a typical total, laid out the way most apps show it:</p>
 
-      <p>When this happens:</p>
-      <ul>
-        <li>The spread tightens fast (from ~15 cents to ~5 cents)</li>
-        <li>Big blocks appear at specific price levels — those levels become consensus</li>
-        <li>Traditional sportsbooks lag the exchange's new pricing by 5-30 minutes</li>
-      </ul>
-
-      <p>That lag is the window. If the exchange's deep-book consensus has Over 6.5 Ks at −110 and FanDuel still has it at +100, you have ~10-20 minutes to grab the soft side before FanDuel's traders catch up.</p>
-
-      <div class="tip-block">
-        <strong>Workflow:</strong> watch the offers on the exchange for the "tightening event" (spread narrowing + depth flooding in). That's the moment traditional book prices become stale relative to consensus. Move fast.
-      </div>
-    </div>
-  </section>
-
-  <section class="lesson-section">
-    <h3>Signal #7 — Walls in the offers (and what they mean)</h3>
-    <div class="lesson-body">
-      <p>Sometimes you'll see a disproportionately large offer at one specific price — much bigger than anything else in the book. Traders call these "walls."</p>
-
-      <div class="book-viz">
-        <span class="viz-label">Spread market with a wall at favorite −2.5</span>
-        <table class="book-table">
-          <thead>
-            <tr><th>Line (bet the favorite)</th><th>Available to take</th><th>$ Available</th></tr>
-          </thead>
-          <tbody>
-            <tr><td class="price">Favorite −3</td><td><span class="liq-bar" style="width:50px;"></span></td><td class="amount">$1,100</td></tr>
-            <tr><td class="price">Favorite −2.5</td><td><span class="liq-bar" style="width:240px;"></span></td><td class="amount">$8,400</td></tr>
-            <tr><td class="price">Favorite −2</td><td><span class="liq-bar" style="width:55px;"></span></td><td class="amount">$1,250</td></tr>
-            <tr><td colspan="3" class="interpret"><strong>The wall at −2.5</strong> is sharps offering $8,400 of capacity for bettors to bet the favorite −2.5. They're <strong>laying −2.5</strong> — they think the true line should be smaller (the dog is undervalued), and they're confident enough to put $8,400 of risk behind that belief. The signal: the underdog side is where the smart money wants to be.</td></tr>
-          </tbody>
-        </table>
+      <div class="ladder">
+        <div class="ladder-title">Total 44.5 &middot; money available to bet each side</div>
+        <div class="ladder-cols">
+          <div>
+            <div class="side-name">Over 44.5</div>
+            <div class="lv best"><span>48%</span><span>$16,240</span></div>
+            <div class="lv"><span>49%</span><span>$4,100</span></div>
+            <div class="lv"><span>50%</span><span>$2,500</span></div>
+          </div>
+          <div>
+            <div class="side-name">Under 44.5</div>
+            <div class="lv best"><span>53%</span><span>$1,150</span></div>
+            <div class="lv"><span>54%</span><span>$3,300</span></div>
+            <div class="lv"><span>55%</span><span>$900</span></div>
+          </div>
+        </div>
+        <div class="ladder-foot"><span>Spread: 48 + 53 = 101%</span><span>Matched: $212,400</span></div>
       </div>
 
-      <p>Walls are a signal that the price level is a <em>consensus pivot</em> — and that the sharp money is on the OTHER side of the wall. They also create tactical opportunities:</p>
-      <ul>
-        <li><strong>Bet the dog at a traditional book.</strong> If the wall says sharps are confident the favorite −2.5 is too generous, find the dog +2.5 at FanDuel/DraftKings/etc. and grab it before they catch up.</li>
-        <li><strong>Post your own offer behind the wall.</strong> Want to bet the dog? Post your offer at +2 (a price you'd be happy to bet the dog at). If a recreational bettor comes in wanting the favorite, you get matched and pick up the side the smart money is on.</li>
-        <li><strong>Don't chase the wall.</strong> Taking the −2.5 favorite at the wall means you're betting against $8,400 of sharp conviction. Possible to be right, but you're on the recreational side by definition.</li>
-      </ul>
-    </div>
-  </section>
-
-  <section class="lesson-section">
-    <h3>Signal #8 — Time-of-day patterns</h3>
-    <div class="lesson-body">
-      <p>Exchange liquidity has predictable rhythms within a betting day. Knowing them helps you time your reads.</p>
-
-      <table class="compare-table">
-        <caption>Typical exchange-liquidity rhythm</caption>
-        <thead>
-          <tr><th>Window</th><th>What the book looks like</th><th>Best use</th></tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="topic">Lines open (overnight / early morning)</td>
-            <td>Thin, wide spreads, few participants</td>
-            <td>Bad data; ignore the book for signal at this stage</td>
-          </tr>
-          <tr>
-            <td class="topic">Mid-day (3-8 hours before kickoff)</td>
-            <td>Builds gradually; sharps start posting; spreads tighten</td>
-            <td class="pos">Best window to see emerging consensus</td>
-          </tr>
-          <tr>
-            <td class="topic">Pre-game lock (30-60 min before kickoff)</td>
-            <td>Deepest, tightest, most participants</td>
-            <td class="pos">Strongest sharp signal; consensus fully formed</td>
-          </tr>
-          <tr>
-            <td class="topic">Final 5 min</td>
-            <td>Liquidity can spike or evaporate based on late news</td>
-            <td class="yel">Watch for late-breaking news; volatile</td>
-          </tr>
-          <tr>
-            <td class="topic">In-play / live</td>
-            <td>Variable — depth depends on event and book</td>
-            <td>Different game entirely; in-play strategy guide TBD</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <p>The strongest readings come from the <strong>3-8 hours before kickoff</strong> window, when sharps are actively pricing the market but haven't yet hit it with full force. That's when the book is most "honest" — you can see the structure forming without it being so deep that the signal is just "yes, the market is mature."</p>
-    </div>
-  </section>
-
-  <section class="lesson-section">
-    <h3>Signal #9 — Cumulative cross-exchange depth = the consensus fair price</h3>
-    <div class="lesson-body">
-      <p>Every signal above reads <em>one</em> exchange's offers in isolation. The strongest version of the same skill: read the <strong>cumulative depth across every exchange at once.</strong></p>
-
-      <p>Tools like Pick the Odds aggregate liquidity from across the entire exchange network — ProphetX, Sporttrade, Novig, Circa, STX, Kalshi, 3Bet, and more — and stack it at each price point. With <em>"Make Cumulative"</em> toggled on, every bar shows the total dollars sitting at that price <strong>or worse</strong> across the whole network. Each color stripe inside the bar = one exchange's contribution to the total at that price.</p>
-
-      <p>Reading this view is a single-screen consensus poll of every sharp trader who put up actual cash. Far more honest than any pundit.</p>
-
-      <!-- Image placeholder — save as /images/pto-cumulative-sabres-canadiens.png -->
-      <img src="/images/pto-cumulative-sabres-canadiens.png" alt="Pick the Odds cumulative cross-exchange depth — Sabres @ Canadiens moneyline, showing concentrated liquidity at certain price levels and collapses where sharps stop participating" class="real-example-img" onerror="this.style.display='none'">
-      <p class="real-example-caption">PTO cumulative cross-exchange depth — Sabres @ Canadiens moneyline. Top half = Sabres back-side depth; bottom half = Canadiens back-side depth. Colored stripes = different exchanges. "Make Cumulative" is on.</p>
-
-      <h4>Walking a real one — Sabres @ Canadiens moneyline</h4>
-      <p>The shape on the <strong>Sabres side</strong> (visiting underdog):</p>
-
-      <div class="example-block">
-        <span class="label">Cumulative depth — Sabres back side</span>
-        <div class="row"><span class="src">−105</span><span class="body"><span class="accent">$633k</span> cumulative</span></div>
-        <div class="row"><span class="src">+105 to +115</span><span class="body"><span class="accent">$589k–$596k</span> (basically flat)</span></div>
-        <div class="row"><span class="src">+120</span><span class="body"><span class="accent">$515k</span></span></div>
-        <div class="row"><span class="src">+125</span><span class="body"><span class="accent">$375k</span></span></div>
-        <div class="row"><span class="src">+130</span><span class="body"><span class="accent">$105k</span> — wall collapses</span></div>
-        <div class="row"><span class="src">+135 and beyond</span><span class="body"><span class="accent">~$0</span> — sharps refuse to participate</span></div>
-        <div class="conclusion"><strong>Read it:</strong> deep wall of money willing to fill Sabres-backers anywhere from −105 through about +125. Past +125 the wall collapses. <em>Sharps refuse to give better than +125 on Sabres — that's the consensus ceiling.</em></div>
-      </div>
-
-      <p>The shape on the <strong>Canadiens side</strong> (home favorite):</p>
-
-      <div class="example-block">
-        <span class="label">Cumulative depth — Canadiens back side</span>
-        <div class="row"><span class="src">−140</span><span class="body"><span class="accent">$37k</span> — almost nothing</span></div>
-        <div class="row"><span class="src">−145</span><span class="body"><span class="accent">$134k</span></span></div>
-        <div class="row"><span class="src">−150</span><span class="body"><span class="accent">$230k</span></span></div>
-        <div class="row"><span class="src">−160</span><span class="body"><span class="accent">$378k</span></span></div>
-        <div class="row"><span class="src">−170 to −185</span><span class="body"><span class="accent">$393k</span> — plateaus</span></div>
-        <div class="conclusion"><strong>Read it:</strong> very little money sits at −140 (sharps won't lay Canadiens that cheap — they think the dog is worth less than +140). Money ramps in hard at −150 to −160, then plateaus around $393k. <em>Sharps think Canadiens are worth at least −150, probably closer to −160.</em></div>
-      </div>
-
-      <h4>The two sides cross-check each other</h4>
-      <p>Sabres consensus ceiling ≈ +125. Canadiens consensus floor ≈ −150. Implied probabilities: +125 = 44.4%, −150 = 60%. <strong>Sum = 104.4%</strong> — that's the consensus hold across the entire exchange network. Much tighter than the 10–12% you'd see on a recreational book — which is exactly what you'd expect from a venue made of sharps trading against each other.</p>
-
-      <h4>The trigger — where to act</h4>
-      <p>Now go shop the soft books. Anywhere you see <strong>Sabres at +130 or better</strong>, or <strong>Canadiens at −145 or better</strong>, you're getting paid for a side sharps consider mispriced. That's the +EV bet.</p>
-
-      <p>The cumulative-depth view tells you exactly how far the soft book has to drift before it becomes actionable, and exactly which side. Single-exchange views can be noisy — one big trader, one wide market — but the cumulative cross-exchange view averages across the network. When you see the same shape across 6+ venues, it's not one trader's opinion. It's the entire sharp market saying "we agree."</p>
-    </div>
-  </section>
-
-  <section class="lesson-section">
-    <h3>Putting it together — a real workflow</h3>
-    <div class="lesson-body">
-      <p>What this looks like as an actual betting routine:</p>
-      <ol>
-        <li><strong>Pull up the exchange book</strong> for the market you're interested in. Look at how much is available to bet on each side, and the spread between them.</li>
-        <li><strong>Identify the imbalance.</strong> Which side has more money offered for betting? That's the side sharps are <em>laying</em> — meaning they want the OTHER side.</li>
-        <li><strong>Identify the implied consensus fair price.</strong> Look at where the heaviest depth sits. That's the price at which makers will trade size against the offered side; the consensus probability for the side <em>you'd want to bet</em> is at least slightly better than the layer price implies.</li>
-        <li><strong>Compare to traditional books.</strong> Pull up the same market at FanDuel, DraftKings, BetMGM, Caesars. The bet to find is the side sharps want (the side with <em>less</em> maker depth offered against it on the exchange), priced softly at a traditional book.</li>
-        <li><strong>Decide your move.</strong>
-          <ul>
-            <li>Traditional book offering the sharps' side at a soft price → take it</li>
-            <li>If the gap is wide enough → consider an arb (soft side at the trad book, hedge on the exchange by laying the other side)</li>
-            <li>If the exchange is balanced and traditional books match → no edge, move on</li>
-          </ul>
-        </li>
-        <li><strong>Watch the book over time.</strong> If lay-offer liquidity on a side suddenly disappears, the smart money just lost confidence in laying that side — meaning they now think that side is more likely to win. Hunt for that side at a stale traditional book.</li>
-      </ol>
-
-      <p>This is closer to how a stock or crypto trader operates than how a recreational sports bettor thinks. The book is the data; your job is to extract the signal from it before others do.</p>
-    </div>
-  </section>
-
-  <section class="lesson-section">
-    <h3>Real example — Blue Jays moneyline on Pick the Odds</h3>
-    <div class="lesson-body">
-      <p>Here's what reading liquidity looks like in practice. Below is a snapshot from <a href="https://picktheodds.app" target="_blank" rel="noopener">Pick the Odds</a> with the view filtered to four sharp sources: Pinnacle (P), ProphetX (X), Circa, and Novig (N). Each cell shows the line and the dollar liquidity available at that price.</p>
-
-      <img src="/images/picktheodds-jays.png" alt="Pick the Odds screenshot showing MLB moneylines for Today across Pinnacle, ProphetX, Circa, and Novig with line prices and dollar liquidity for each" class="real-example-img">
-      <p class="real-example-caption">Pick the Odds — MLB moneylines, sharp sources only, with depth shown beneath each price</p>
-
-      <p>Focus on the Rays @ Blue Jays game (5:07pm row). Here's what each cell tells us:</p>
-
-      <div class="example-block">
-        <span class="label">The Jays row across sharp sources</span>
-        <div class="row"><span class="src">Pinnacle <em style="color: var(--blue); font-style: normal;">(book limit)</em></span><span class="body">Rays +111 / Jays −120 · $15k each side</span><span class="note">they'll book $15k at this price</span></div>
-        <div class="row"><span class="src">ProphetX <em style="color: var(--purple); font-style: normal;">(exchange depth)</em></span><span class="body">Rays +109 ($1.7k) · Jays −116 ($340)</span><span class="note">5× more user money posted on Rays-back side</span></div>
-        <div class="row"><span class="src">Circa <em style="color: var(--blue); font-style: normal;">(book limit)</em></span><span class="body">Rays +103 / Jays −115 · $10-11k each side</span><span class="note">balanced limits, agrees with Pinnacle</span></div>
-        <div class="row"><span class="src">Novig <em style="color: var(--purple); font-style: normal;">(exchange depth)</em></span><span class="body">Rays +112 ($3.6k) · Jays −113 ($176)</span><span class="note">20× more user money posted on Rays-back side</span></div>
-        <hr>
-        <div class="conclusion"><strong>Three reads from one snapshot, in order of importance:</strong></div>
+      <div class="walk-block">
+        <span class="label">What each number means</span>
+        <div class="row"><span class="src">Over 48% &middot; $16,240</span><span class="body">The best price to bet the Over right now. You can bet up to $16,240 there.</span></div>
+        <div class="row"><span class="src">49%, 50%</span><span class="body">The next prices in line on the Over. They cost more, so you only reach them once the 48% money is gone. A bet bigger than $16,240 walks up the queue to worse prices.</span></div>
+        <div class="row"><span class="src">Under 53% &middot; $1,150</span><span class="body">The best price to bet the Under, with only $1,150 available there.</span></div>
+        <div class="row"><span class="src">Spread 101%</span><span class="body">48 + 53. The one point over 100 is what a taker pays to cross the market, before fees.</span></div>
+        <div class="row"><span class="src">Matched $212,400</span><span class="body">Bets already filled on this market. It shows how active the market is. It is history, not an open offer.</span></div>
       </div>
 
       <div class="tip-block">
-        <strong>Two kinds of numbers on this row.</strong> Pinnacle and Circa are traditional sportsbooks — the dollar figures under their prices are <em>book limits</em> (what they'll accept at that line). They tell you the market is trusted and deep, but not which side sharps are betting. ProphetX and Novig are <em>exchanges</em> — the dollar figures are real user-posted offer depth. <strong>That's where the sharp directional signal lives.</strong> The Pinnacle / Circa numbers are confidence indicators; the ProphetX / Novig numbers are the sharp's position.
+        <strong>Which is the best price?</strong> For you as a bettor, a lower percent is always better. The app lists the best available price first on each side. Everything below it in the queue costs more.
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 -->
+  <section class="pb-section" id="flip-rule" data-gated>
+    <div class="pb-eyebrow">06</div>
+    <h2>Who is on the other side</h2>
+    <div class="pb-body">
+      <p>The $16,240 available on the Over did not come from the app. Someone posted it. To offer you the Over, they had to bet the Under. So:</p>
+      <div class="lock-in">
+        <p><strong>Money available on one side means makers are on the other side.</strong></p>
+        <p>$16,240 available on the Over at 48% means makers are on the Under for that amount, at 52%.</p>
+      </div>
+      <p>Percent odds made this easier. The old rule was "flip the side, flip the sign." The new rule is <strong>flip the side, subtract from 100.</strong></p>
+
+      <div class="walk-block">
+        <span class="label">Flip the side, subtract from 100</span>
+        <div class="row"><span class="src">Screen</span><span class="body">Over <span class="accent">48%</span> &middot; $16,240 available</span></div>
+        <div class="row"><span class="src">Makers</span><span class="body">On the Under at <span class="accent">52%</span></span></div>
+        <div class="row"><span class="src">Screen</span><span class="body">Under <span class="accent">53%</span> &middot; $1,150 available</span></div>
+        <div class="row"><span class="src">Makers</span><span class="body">On the Over at <span class="accent">47%</span></span></div>
       </div>
 
-      <h4>Read 1 — apply the translation rule (exchanges only)</h4>
-      <p>Don't look at the depth on the Rays side and ask "what are the sharps doing at +109?" Translate it. The depth on Rays +109 means the sharp on the other side is <strong>on Jays at −109</strong> with that capacity. Run the translation on every cell:</p>
+      <p>This screen has a lot more maker money on the Under than on the Over. That lopsided book is the first thing Part 2 teaches you to read. It is a clue about where informed money sits. It is not proof, and Part 2 covers why.</p>
+      <p>One more use of the flip: the makers' price is a ceiling. If a sportsbook offers the Under below 52% (better than &minus;108), it is paying more than the people who posted $16,240 were willing to accept. That comparison is the core of cross-market betting.</p>
+    </div>
+  </section>
 
-      <div class="example-block">
-        <span class="label">Translated to sharp positions</span>
-        <div class="row"><span class="src">ProphetX</span><span class="body">$1,700 offered for betting Rays at +109 → <strong>sharp is on Jays at −109 with $1,700</strong></span></div>
-        <div class="row"><span class="src">ProphetX</span><span class="body">$340 offered for betting Jays at −116 → sharp is on Rays at +116 with $340</span></div>
-        <div class="row"><span class="src">Novig</span><span class="body">$3,600 offered for betting Rays at +112 → <strong>sharp is on Jays at −112 with $3,600</strong></span></div>
-        <div class="row"><span class="src">Novig</span><span class="body">$176 offered for betting Jays at −113 → sharp is on Rays at +113 with $176</span></div>
-        <hr>
-        <div class="conclusion">Sharp capital on Jays: <span class="pos">$5,300 (at −109 to −112)</span>. Sharp capital on Rays: <span class="neg">$516</span>. <strong>Sharps want the Jays — and the cheapest price they got was −109.</strong> That's the number you need to beat at a soft book.</div>
-      </div>
-
-      <p>Notice how the translation makes the read instant: instead of squinting at the "Rays +109 with $1.7k" cell and reasoning backwards, you immediately see "sharp got Jays at −109 with $1.7k." The huge depth on the Rays-back side IS the sharp money on Jays — just denominated in the opposite-team / opposite-sign format that the display shows you.</p>
-
-      <h4>Read 2 — devig Pinnacle to get a clean fair price</h4>
-      <p>Pinnacle's $15k-each-side market is the gold standard reference. Devig the +111 / −120:</p>
-
-      <div class="example-block">
-        <span class="label">Devig Pinnacle</span>
-        <div class="row"><span class="src">Rays +111 raw implied</span><span class="body">47.39%</span></div>
-        <div class="row"><span class="src">Jays −120 raw implied</span><span class="body">54.55%</span></div>
-        <div class="row"><span class="src">Sum (vig)</span><span class="body">101.94% · vig 1.94%</span></div>
-        <hr>
-        <div class="row"><span class="src">No-vig Jays prob</span><span class="body"><span class="accent">53.51%</span></span></div>
-        <div class="row"><span class="src">Fair Jays American</span><span class="body"><span class="accent">~−115</span></span></div>
-      </div>
-
-      <p>Circa and the exchanges all cluster around the same number. Consensus fair on Jays: somewhere in the <strong>−113 to −116</strong> range. The Pinnacle limit of $15k says this is a high-confidence market — sharps will trade it at size.</p>
-
-      <h4>Read 3 — now go find the soft side</h4>
-      <p>The sharp's locked-in Jays price (from Read 1's translation) is <strong>−109</strong> at PX and <strong>−112</strong> at Novig. That's the number we need to beat. Open the soft books — FanDuel, DraftKings, BetMGM, Caesars, Hard Rock, ESPN BET — and check Jays moneyline.</p>
+  <!-- 07 -->
+  <section class="pb-section" id="first-trade" data-gated>
+    <div class="pb-eyebrow">07</div>
+    <h2>Your first trade</h2>
+    <div class="pb-body">
+      <h3>Take or make</h3>
       <ul>
-        <li><strong>Jays at −108 or better at any soft book → take it.</strong> You're getting Jays at a price <em>better</em> than the sharps managed to lock in. Cross-market EV.</li>
-        <li><strong>Jays at +xxx</strong> (rare — would be a stale line or a boost) → grab it immediately, that's a big edge.</li>
-        <li><strong>Jays at −109 to −112</strong> → roughly matches what sharps got; small edge; size accordingly.</li>
-        <li><strong>Jays at −113 to −120</strong> → soft book matches consensus, no edge.</li>
-        <li><strong>Jays at −125 or worse</strong> → soft book is sharper than consensus on this one; pass.</li>
+        <li><strong>Take</strong> a posted price and the bet fills right away. You pay the spread and any taker fee.</li>
+        <li><strong>Make</strong> by posting your own price, and you wait for someone to take it. It may never fill. If it does, you skip the spread and, on most venues, the fee.</li>
       </ul>
-
-      <div class="tip-block">
-        <strong>The whole cross-market EV play in one game:</strong> Four sharp sources tell you the fair price. Exchange imbalance confirms the direction (sharps want Jays). You go shopping for that price at a soft book. If anyone is offering Jays cheaper than consensus, that's the bet — and you've used the screenshot above as your devig + direction + liquidity-confidence check, all in one screen. See <a href="/learn-cross-market-ev.html">Cross-Market EV</a> for the full strategy.
-      </div>
-
-      <h4>One more nuance — the limit ratio</h4>
-      <p>Pinnacle's $15k limit each side tells us this is a mainstream market with deep institutional confidence. Compare to the exchange depth: ProphetX has $1.7k and Novig has $3.6k on the Rays-back side. Those are smaller than Pinnacle but still real.</p>
-      <p>Per Signal #2 (outsized depth on thin markets): the ratio of exchange depth to Pinnacle limit here is roughly 12-25%, which is normal for an MLB ML. If this had been a niche prop where Pinnacle limit was $500 and ProphetX had $3.6k posted (7× the sharp-book limit), the signal would be much stronger — that's the case where you'd want to be especially aggressive. Here, the signal is solid but standard.</p>
-    </div>
-  </section>
-
-  <section class="lesson-section">
-    <h3>Common mistakes</h3>
-    <div class="lesson-body">
+      <h3>The checklist</h3>
       <ul>
-        <li><strong>Reading the depth as endorsement of the offered side.</strong> The single most common error. Heavy depth available on side A doesn't mean sharps love side A — it means sharps are <em>laying</em> side A and want side B. The bet goes on the side with <em>less</em> maker depth posted against it. Re-read the "most important inversion" section if this hasn't clicked yet.</li>
-        <li><strong>Treating one side of the book as fair.</strong> If you only look at the side you want to bet, you miss the imbalance signal. Always check both sides.</li>
-        <li><strong>Ignoring the fee impact.</strong> Exchanges charge 1-3% on net winnings, which changes the effective breakeven price. A −110 on PX with a 3% fee on wins is closer to −115 in true cost. Factor it in.</li>
-        <li><strong>Betting into thin liquidity for size.</strong> A $2,000 stake taking $1,500 of available liquidity will fill partially and walk up the book — your average price will be worse than the top-of-book number. Check depth before placing big.</li>
-        <li><strong>Trusting depth on illiquid markets.</strong> A $300 "wall" on a college basketball spread isn't a sharp signal — it's a single recreational bettor. Sharp depth signals require sharp markets (mainstream sports, mainline markets, decent volume).</li>
-        <li><strong>Reading too much into a single snapshot.</strong> The book is dynamic. A skewed imbalance now might balance out in 10 minutes. Use multiple snapshots, especially as kickoff approaches.</li>
-        <li><strong>Front-running yourself.</strong> If you take an exchange price and the same depth was about to move into a traditional book, you've eaten your own edge. The exchange leads — that's the signal you wait for, not the action you create.</li>
+        <li><strong>Check the venue is open in your state</strong> before you deposit. Age rules vary from 18 to 21 by venue and state.</li>
+        <li><strong>Convert the price</strong> to American odds if you are comparing with a sportsbook.</li>
+        <li><strong>Add the fee</strong> for your venue, role and timing. Use the all-in price, not the screen price.</li>
+        <li><strong>Check the money available at your price.</strong> If your bet is bigger than the top level, part of it fills at worse prices.</li>
+        <li><strong>Read the settlement rules</strong> for props and overtime. Contracts settle on their written rules, and some have no push.</li>
+        <li><strong>Cancel posted orders you no longer want.</strong> A resting order can fill hours later, after the news has changed.</li>
+        <li><strong>Log the price you got and the closing price.</strong> Beating the close is the honest measure of whether you bet well.</li>
       </ul>
+      <div class="main-takeaways">
+        <ul>
+          <li>Exchange prices are percentages. <strong>Lower is better for you.</strong></li>
+          <li>The screen price leaves out the fee. <strong>Compare all-in prices.</strong></li>
+          <li>Money available on one side means <strong>makers are on the other side</strong>. Flip the side, subtract from 100.</li>
+          <li>Novig pregame is free to take. ProphetX's 2% of winnings is the cheapest live take. <strong>Making is free on Novig and Polymarket US.</strong></li>
+        </ul>
+      </div>
     </div>
   </section>
 
-  <section class="lesson-section">
-    <h3>The frontier — why this is still a real edge</h3>
-    <div class="lesson-body">
-      <p>This entire skill set is borrowed from financial markets. Equity, futures, and crypto traders have spent decades developing techniques for reading market microstructure. In sports betting, exchanges are new enough that almost no recreational bettors have done this work — most aren't even aware exchanges exist.</p>
-      <p>The signals available in exchange liquidity will eventually be priced in as more participants learn to read them. The edge will narrow over the next 5-10 years as exchange volume grows and tools mature.</p>
-      <p>For now: you're in the early innings. The information is there, in the book, free to see. Almost no one's looking.</p>
-      <p class="pull-quote">Five years from now, every sharp will be reading the offers. Right now, almost no one is. That's the window.</p>
-    </div>
-  </section>
-
-  <div class="cta-card">
-    <div class="cta-eyebrow">Get an account on an exchange</div>
-    <div class="cta-title">Open the book. Start watching.</div>
-    <p class="cta-blurb">The skills described here only become real after you've spent a week staring at actual offers and watching prices and depth move. ProphetX is the easiest US-licensed venue to start with.</p>
-    <a href="/book-prophetx.html" class="cta-btn">Open ProphetX Info →</a>
-  </div>
+  <a class="next-guide" href="/exchange-playbook.html" data-gated>
+    <div class="ng-eyebrow">Part 2</div>
+    <div class="ng-title">The Sharp Exchange Playbook &rarr;</div>
+    <div class="ng-sub">Reading lopsided books, stacking exchanges, finding soft sportsbook prices that cross the exchange, and posting your own price in wide markets.</div>
+  </a>
 
   <div class="footer">
     <div class="disclaimer">
-      Profit Path Sports is an educational resource. Exchange liquidity patterns described here reflect typical structure but vary by platform, market, and time. Sports betting carries financial risk. Bet responsibly. If gambling is a problem for you, call <strong>1-800-GAMBLER</strong>. Must be 21+ where legal.
+      Profit Path Sports is an educational resource. It is not a sportsbook or an exchange. Fees, rules and state access change often, so check each venue before you trade. Examples use illustrative numbers unless a source is named. Sports betting carries financial risk. Bet responsibly. If gambling is a problem for you, call <strong>1-800-GAMBLER</strong>. Age rules vary by venue and state. Math, not picks.
     </div>
-    <div>© 2026 Profit Path Sports · <a href="/index.html">Home</a> · <a href="/learn-arbitrage.html">Arbitrage Guide</a> · <a href="/book-prophetx.html">ProphetX Info</a> &middot; <a href="/privacy.html">Privacy</a> &middot; <a href="/disclaimer.html">Disclaimer</a> &middot; <a href="/affiliate-disclosure.html">Affiliate</a></div>
+    <div>&copy; 2026 Profit Path Sports &middot; <a href="/index.html">Home</a> &middot; <a href="/learn-exchange-liquidity.html">Exchanges 101</a> &middot; <a href="/exchange-playbook.html">Sharp Exchange Playbook</a> &middot; <a href="/percent-odds-calculator.html">Percent Odds Calculator</a> &middot; <a href="/privacy.html">Privacy</a> &middot; <a href="/disclaimer.html">Disclaimer</a> &middot; <a href="/affiliate-disclosure.html">Affiliate</a></div>
   </div>
 
 </div>
+
 <script>
   /* Sidebar behavior */
   (function() {
@@ -1127,39 +1226,11 @@
       body.classList.toggle('pps-sidebar-open');
     });
 
-    document.querySelectorAll('.pps-sidebar summary[data-anchor]').forEach(function(s) {
-      s.addEventListener('click', function() {
-        if (!isHome) return;
-        var anchor = s.getAttribute('data-anchor');
-        var target = document.getElementById(anchor);
-        if (target) {
-          setTimeout(function() {
-            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          }, 60);
-        }
-      });
-    });
-
-    // Only auto-open the sidebar on desktop-class viewports. On mobile/tablet
-    // (< 900px) it stays closed until the user taps the hamburger so it
-    // doesn't cover the content on first paint.
     var isDesktop = window.matchMedia('(min-width: 901px)').matches;
-
-    if (isDesktop) {
-      if (isHome) {
-        var autoOpened = false;
-        window.addEventListener('scroll', function() {
-          if (!autoOpened && window.scrollY > 600) {
-            body.classList.add('pps-sidebar-open');
-            autoOpened = true;
-          }
-        }, { passive: true });
-      } else {
-        body.classList.add('pps-sidebar-open');
-      }
+    if (isDesktop && !isHome) {
+      body.classList.add('pps-sidebar-open');
     }
 
-    // Mobile: tap outside the open sidebar to dismiss it
     document.addEventListener('click', function(e) {
       if (window.innerWidth >= 901) return;
       if (!body.classList.contains('pps-sidebar-open')) return;
@@ -1171,6 +1242,78 @@
   })();
 </script>
 
+<script>
+/* Email gate for the exchange guides.
+   PPS_GATE.endpoint is the email signup form's POST URL (MailerLite or similar).
+   While it is empty the gate is OFF and every section shows, so nobody hands over
+   an email that goes nowhere. One unlock covers both guides (shared storage key). */
+(function () {
+  var PPS_GATE = {
+    endpoint: '',
+    emailField: 'fields[email]',
+    key: 'pps_exchange_guides_unlocked',
+    fallbackMail: 'dr.rob@profitpathsports.com'
+  };
+
+  function read() { try { return localStorage.getItem(PPS_GATE.key) === '1'; } catch (e) { return false; } }
+  function write() { try { localStorage.setItem(PPS_GATE.key, '1'); } catch (e) {} }
+  function validEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+
+  var gated = document.querySelectorAll('[data-gated]');
+  var card = document.getElementById('ppsGate');
+
+  function reveal() {
+    gated.forEach(function (el) { el.classList.remove('gate-hidden'); });
+    if (card) card.hidden = true;
+  }
+
+  function send(email, source) {
+    if (!PPS_GATE.endpoint) {
+      window.location.href = 'mailto:' + PPS_GATE.fallbackMail +
+        '?subject=' + encodeURIComponent('Founding list') +
+        '&body=' + encodeURIComponent('Add me to the founding list: ' + email + ' (from ' + source + ')');
+      return Promise.resolve();
+    }
+    var fd = new FormData();
+    fd.append(PPS_GATE.emailField, email);
+    fd.append('fields[source]', source);
+    fd.append('ml-submit', '1');
+    fd.append('anticsrf', 'true');
+    return fetch(PPS_GATE.endpoint, { method: 'POST', mode: 'no-cors', body: fd });
+  }
+
+  function wire(form, onDone) {
+    if (!form) return;
+    var input = form.querySelector('input[type=email]');
+    var btn = form.querySelector('button');
+    var msg = form.parentElement.querySelector('.gate-msg');
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var v = (input.value || '').trim();
+      if (!validEmail(v)) { if (msg) msg.textContent = 'That email does not look right.'; return; }
+      btn.disabled = true;
+      if (msg) msg.textContent = 'Sending...';
+      send(v, form.getAttribute('data-source') || location.pathname).then(function () {
+        if (msg) msg.textContent = 'You are on the list.';
+        onDone();
+      }).catch(function () {
+        btn.disabled = false;
+        if (msg) msg.textContent = 'Something went wrong. Try again.';
+      });
+    });
+  }
+
+  if (PPS_GATE.endpoint && !read()) {
+    gated.forEach(function (el) { el.classList.add('gate-hidden'); });
+    if (card) card.hidden = false;
+  } else {
+    reveal();
+  }
+
+  wire(document.getElementById('ppsGateForm'), function () { write(); reveal(); });
+  wire(document.getElementById('ppsFoundingForm'), function () { write(); });
+})();
+</script>
 
 </body>
 </html>
