@@ -1,7 +1,7 @@
 {
  "season": 2026,
  "week": 9,
- "generated_at": "2026-11-09T07:10:30.003115Z",
+ "generated_at": "2026-11-10T07:40:58.686475Z",
  "pool": {
   "timezone": "America/Denver",
   "deadline": {
@@ -20,7 +20,7 @@
  "tiebreak": {
   "game_id": "2026_09_BUF_MIN",
   "label": "BUF@MIN",
-  "total": 43.5,
+  "total": 45.5,
   "total_source": "nflverse",
   "total_books": 1,
   "sd": 13.1,
@@ -377,20 +377,20 @@
    "lock_at": "2026-11-08T14:30:00Z",
    "weekday": "Monday",
    "gametime_et": "20:15",
-   "p_home": 0.3834,
+   "p_home": 0.3696,
    "p_source": "nflverse",
    "n_books": 1,
    "snapshot_at": null,
    "gap_minutes": null,
-   "market_total": 43.5,
+   "market_total": 45.5,
    "market_total_books": 1,
    "market_total_source": "nflverse",
-   "frozen": false,
+   "frozen": true,
    "nflverse_moneyline": {
-    "away": -175.0,
-    "home": 145.0
+    "away": -185.0,
+    "home": 154.0
    },
-   "nflverse_total": 43.5
+   "nflverse_total": 45.5
   }
  ]
 }
