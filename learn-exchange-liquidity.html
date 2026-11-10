@@ -294,8 +294,118 @@
     <div class="pb-eyebrow">01</div>
     <h2>You bet against other people, not the house</h2>
     <div class="pb-body">
-      <p>At a sportsbook, the book sets the price and takes the other side of your bet. On an exchange, every bet was posted by another user before you could take it. The exchange matches the two of you and holds the money until the game settles.</p>
-      <p>The exchange earns a fee on the trade. It does not win when you lose. Exchanges do not limit winning bettors. They earn fees either way.</p>
+      <p>At a sportsbook, you bet against the book. On an exchange, you bet against another person. That one difference explains almost everything else in this guide.</p>
+
+      <div class="vs-grid">
+        <div class="vs-card">
+          <div class="vs-tag">Sportsbook</div>
+          <div class="vs-flow">
+            <div class="vs-node">You</div>
+            <div class="vs-link">bet against</div>
+            <div class="vs-node house">The sportsbook</div>
+          </div>
+          <p>The book sets the price and takes the other side of your bet. When you lose, the book keeps your money.</p>
+        </div>
+        <div class="vs-card ex">
+          <div class="vs-tag">Exchange</div>
+          <div class="vs-flow">
+            <div class="vs-node">You</div>
+            <div class="vs-link">bet against</div>
+            <div class="vs-node other">Another bettor</div>
+          </div>
+          <div class="vs-mid">The exchange sits in the middle. It holds the money and takes a small fee.</div>
+          <p>Another bettor sets the price and takes the other side. When you lose, that bettor gets your money. The exchange gets its fee either way.</p>
+        </div>
+      </div>
+
+      <h3>One exchange bet, start to finish</h3>
+      <p>Chiefs against Bills. You like the Chiefs. Alex, a stranger on the same app, likes the Bills.</p>
+
+      <div class="bet-steps">
+        <div class="bet-step">
+          <div class="bs-num">1</div>
+          <div class="bs-body"><strong>Alex makes an offer.</strong> "I will put up $52 on the Bills. Who wants to put up $48 on the Chiefs?" The offer sits on the app for anyone to take.</div>
+        </div>
+        <div class="bet-step">
+          <div class="bs-num">2</div>
+          <div class="bs-body"><strong>You take it.</strong> You put up $48 on the Chiefs. The bet is on.</div>
+        </div>
+        <div class="bet-step">
+          <div class="bs-num">3</div>
+          <div class="bs-body"><strong>The exchange holds both stakes.</strong> $48 from you and $52 from Alex make a $100 pot.
+            <div class="pot" role="img" aria-label="A $100 pot: $48 from you on the Chiefs and $52 from Alex on the Bills">
+              <div class="pot-you">Your $48<small>Chiefs</small></div>
+              <div class="pot-them">Alex's $52<small>Bills</small></div>
+            </div>
+            <div class="pot-total">$100 pot, held by the exchange</div>
+          </div>
+        </div>
+        <div class="bet-step">
+          <div class="bs-num">4</div>
+          <div class="bs-body"><strong>The game ends and the winner gets the pot.</strong>
+            <div class="outcomes">
+              <div class="outcome win"><strong>Chiefs win</strong>You get the $100. That is your $48 back plus $52 profit, minus a small fee.</div>
+              <div class="outcome lose"><strong>Bills win</strong>Alex gets the $100. You lose your $48. Nothing more.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p>The exchange never picked a side. It matched two people, held the pot, and took a small fee.</p>
+      <p>On the app, Alex's offer shows up as <strong>Chiefs 48%</strong>. You pay $48 of a $100 pot, so the price is 48%. Section 02 covers that number.</p>
+
+      <div class="key-point">
+        <p><strong>On an exchange, the other side of your bet is a person, not the house.</strong></p>
+        <p>The exchange holds the money and takes a fee. It does not win when you lose.</p>
+      </div>
+
+      <h3>Sportsbook or exchange, side by side</h3>
+      <div class="table-wrap">
+      <table class="lesson-table venue-compare">
+        <thead><tr><th></th><th>Sportsbook</th><th>Exchange</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Who is on the other side</strong></td><td data-label="Sportsbook">The book</td><td data-label="Exchange">Another bettor</td></tr>
+          <tr><td><strong>Who sets the price</strong></td><td data-label="Sportsbook">The book</td><td data-label="Exchange">Bettors. You can take someone's price or set your own.</td></tr>
+          <tr><td><strong>How it makes money</strong></td><td data-label="Sportsbook">A cut built into every price, plus your losses</td><td data-label="Exchange">A fee on the bet</td></tr>
+          <tr><td><strong>If you keep winning</strong></td><td data-label="Sportsbook">The book can cut your bet size</td><td data-label="Exchange">Nothing changes. Exchanges do not limit winning bettors. They earn fees either way.</td></tr>
+          <tr><td><strong>Can you always get the bet</strong></td><td data-label="Sportsbook">Yes, up to the book's limit</td><td data-label="Exchange">Only if someone is on the other side</td></tr>
+          <tr><td><strong>How odds are shown</strong></td><td data-label="Sportsbook">American odds, like &minus;110 or +150</td><td data-label="Exchange">A percent, like 48%</td></tr>
+        </tbody>
+      </table>
+      </div>
+
+      <h3>What each one is good and bad at</h3>
+      <div class="vs-grid">
+        <div class="vs-card">
+          <div class="vs-tag">Sportsbook</div>
+          <ul class="pros">
+            <li>There is always someone to take your bet.</li>
+            <li>Almost every game, prop and parlay is on the menu.</li>
+            <li>Simple. Tap a price and you are done.</li>
+          </ul>
+          <ul class="cons">
+            <li>Every price has the book's cut built in.</li>
+            <li>Winning bettors get their bet size cut.</li>
+            <li>The book makes money when you lose.</li>
+          </ul>
+        </div>
+        <div class="vs-card ex">
+          <div class="vs-tag">Exchange</div>
+          <ul class="pros">
+            <li>Prices on busy games are usually closer to fair.</li>
+            <li>No limits for winning.</li>
+            <li>You can name your own price and wait for a taker.</li>
+          </ul>
+          <ul class="cons">
+            <li>No one on the other side means no bet. Small markets can be empty.</li>
+            <li>Fees come on top of the price, and each exchange charges differently.</li>
+            <li>A new screen and a new odds format to learn.</li>
+          </ul>
+        </div>
+      </div>
+      <p>Most people who use exchanges keep their sportsbook accounts too. The rest of this guide is about knowing which one has the better deal on a given bet.</p>
+
+      <h3>Are these legal?</h3>
       <p>A year ago, most US exchanges ran as sweepstakes apps or state-licensed books. That is over. ProphetX and Novig are now federally regulated exchanges, the same kind of license Kalshi and Polymarket US hold. The regulator is the CFTC, the agency that oversees futures markets.</p>
     </div>
   </section>
