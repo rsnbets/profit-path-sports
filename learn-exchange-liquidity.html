@@ -569,69 +569,128 @@
   <!-- 03 -->
   <section class="pb-section" id="reading-the-screen">
     <div class="pb-eyebrow">03</div>
-    <h2>The order book</h2>
+    <h2>The screen is a list of offers</h2>
     <div class="pb-body">
-      <p>Every bet on an exchange was posted by another user before you could take it. The screen is a queue of those posted bets, best price first. Here is a typical total, laid out the way most apps show it:</p>
+      <p class="one-line">Alex is not the only one. The app lines up everyone's offers, best price first.</p>
 
       <div class="ladder">
-        <div class="ladder-title">Total 44.5 &middot; money available to bet each side</div>
+        <div class="ladder-title">Chiefs vs Bills &middot; what you can bet right now</div>
         <div class="ladder-cols">
           <div>
-            <div class="side-name">Over 44.5</div>
-            <div class="lv best"><span>48%</span><span>$16,240</span></div>
-            <div class="lv"><span>49%</span><span>$4,100</span></div>
-            <div class="lv"><span>50%</span><span>$2,500</span></div>
+            <div class="side-name">Bet the Chiefs</div>
+            <div class="lv best"><span>20% <em class="lv-note">Alex's offer</em></span><span>$25</span></div>
+            <div class="lv"><span>21%</span><span>$60</span></div>
+            <div class="lv"><span>22%</span><span>$140</span></div>
           </div>
           <div>
-            <div class="side-name">Under 44.5</div>
-            <div class="lv best"><span>53%</span><span>$1,150</span></div>
-            <div class="lv"><span>54%</span><span>$3,300</span></div>
-            <div class="lv"><span>55%</span><span>$900</span></div>
+            <div class="side-name">Bet the Bills</div>
+            <div class="lv best"><span>81%</span><span>$400</span></div>
+            <div class="lv"><span>82%</span><span>$900</span></div>
+            <div class="lv"><span>83%</span><span>$300</span></div>
           </div>
         </div>
-        <div class="ladder-foot"><span>Spread: 48 + 53 = 101%</span><span>Matched: $212,400</span></div>
       </div>
 
       <div class="walk-block">
-        <span class="label">What each number means</span>
-        <div class="row"><span class="src">Over 48% &middot; $16,240</span><span class="body">The best price to bet the Over right now. You can bet up to $16,240 there.</span></div>
-        <div class="row"><span class="src">49%, 50%</span><span class="body">The next prices in line on the Over. They cost more, so you only reach them once the 48% money is gone. A bet bigger than $16,240 walks up the queue to worse prices.</span></div>
-        <div class="row"><span class="src">Under 53% &middot; $1,150</span><span class="body">The best price to bet the Under, with only $1,150 available there.</span></div>
-        <div class="row"><span class="src">Spread 101%</span><span class="body">48 + 53. The one point over 100 is what a taker pays to cross the market, before fees.</span></div>
-        <div class="row"><span class="src">Matched $212,400</span><span class="body">Bets already filled on this market. It shows how active the market is. It is history, not an open offer.</span></div>
+        <span class="label">How to read it</span>
+        <div class="row"><span class="src">Each row</span><span class="body">One price, and the money you can bet at that price. Every dollar there was put up by someone betting the other team.</span></div>
+        <div class="row"><span class="src">The top row</span><span class="body">The best price for you. On an exchange the lowest percent is always the best deal, so it is listed first.</span></div>
+        <div class="row"><span class="src">The rows under it</span><span class="body">Worse prices. You only reach them when the money above is used up.</span></div>
       </div>
 
-      <div class="tip-block">
-        <strong>Which is the best price?</strong> For you as a bettor, a lower percent is always better. The app lists the best available price first on each side. Everything below it in the queue costs more.
+      <h3>What happens when you bet more than the top row</h3>
+      <p>Section 01 said you cannot bet $50 at 20%, because only $25 is there. Here is what the app really does with a $50 bet on the Chiefs:</p>
+      <div class="same-bet" role="img" aria-label="A 50 dollar bet on the Chiefs fills 25 dollars at 20 percent and 25 dollars at 21 percent">
+        <div class="sb-side you"><small>First $25</small><b>at 20%</b><span>Uses up Alex's offer</span></div>
+        <div class="sb-eq">+</div>
+        <div class="sb-side you"><small>Next $25</small><b>at 21%</b><span>From the second row</span></div>
+      </div>
+      <p>You got your whole bet, but half of it cost more. The bigger the bet, the further down the list you go.</p>
+
+      <h3>The gap between the two sides</h3>
+      <p>Add the two top rows: 20% for the Chiefs and 81% for the Bills. That makes 101%, not 100%. The extra 1 is called the <strong>spread</strong>. It is the cost of betting right now instead of waiting for a better offer. A small spread means a busy market with fair prices.</p>
+
+      <div class="key-point plain">
+        <p><strong>Each row is somebody's offer.</strong> The lowest percent is your best price, and it sits on top.</p>
+        <p><strong>The dollar amount is how much you can bet there.</strong> Bet more and the rest spills to the next row at a worse price.</p>
+        <p><strong>Money on one team means someone is betting the other team.</strong> The $25 on the Chiefs exists because Alex wants the Bills.</p>
       </div>
 
-      <h3 id="flip-rule">Who is on the other side</h3>
-      <p>The $16,240 available on the Over did not come from the app. Someone posted it. To offer you the Over, they had to bet the Under. So:</p>
-      <div class="key-point">
-        <p><strong>Money available on one side means makers are on the other side.</strong></p>
-        <p>$16,240 available on the Over at 48% means makers are on the Under for that amount, at 52%.</p>
-      </div>
-      <p>Percent odds made this easier. The old rule was "flip the side, flip the sign." The new rule is <strong>flip the side, subtract from 100.</strong></p>
+      <details class="deeper">
+        <summary>A second example, on a total</summary>
+        <div class="deeper-body">
+        <p>Every bet on an exchange was posted by another user before you could take it. The screen is a queue of those posted bets, best price first. Here is a typical total, laid out the way most apps show it:</p>
 
-      <div class="walk-block">
-        <span class="label">Flip the side, subtract from 100</span>
-        <div class="row"><span class="src">Screen</span><span class="body">Over <span class="accent">48%</span> &middot; $16,240 available</span></div>
-        <div class="row"><span class="src">Makers</span><span class="body">On the Under at <span class="accent">52%</span></span></div>
-        <div class="row"><span class="src">Screen</span><span class="body">Under <span class="accent">53%</span> &middot; $1,150 available</span></div>
-        <div class="row"><span class="src">Makers</span><span class="body">On the Over at <span class="accent">47%</span></span></div>
-      </div>
+        <div class="ladder">
+          <div class="ladder-title">Total 44.5 &middot; money available to bet each side</div>
+          <div class="ladder-cols">
+            <div>
+              <div class="side-name">Over 44.5</div>
+              <div class="lv best"><span>48%</span><span>$16,240</span></div>
+              <div class="lv"><span>49%</span><span>$4,100</span></div>
+              <div class="lv"><span>50%</span><span>$2,500</span></div>
+            </div>
+            <div>
+              <div class="side-name">Under 44.5</div>
+              <div class="lv best"><span>53%</span><span>$1,150</span></div>
+              <div class="lv"><span>54%</span><span>$3,300</span></div>
+              <div class="lv"><span>55%</span><span>$900</span></div>
+            </div>
+          </div>
+          <div class="ladder-foot"><span>Spread: 48 + 53 = 101%</span><span>Matched: $212,400</span></div>
+        </div>
 
-      <p>This screen has a lot more maker money on the Under than on the Over. That lopsided book is the first thing <a href="/exchange-playbook.html">Reading the book</a> teaches you to read. It is a clue about where informed money sits. It is not proof, and that page covers why.</p>
-      <p>One more use of the flip: the makers' price is a ceiling. If a sportsbook offers the Under below 52% (better than &minus;108), it is paying more than the people who posted $16,240 were willing to accept. That comparison is the core of cross-market betting.</p>
+        <div class="walk-block">
+          <span class="label">What each number means</span>
+          <div class="row"><span class="src">Over 48% &middot; $16,240</span><span class="body">The best price to bet the Over right now. You can bet up to $16,240 there.</span></div>
+          <div class="row"><span class="src">49%, 50%</span><span class="body">The next prices in line on the Over. They cost more, so you only reach them once the 48% money is gone. A bet bigger than $16,240 walks up the queue to worse prices.</span></div>
+          <div class="row"><span class="src">Under 53% &middot; $1,150</span><span class="body">The best price to bet the Under, with only $1,150 available there.</span></div>
+          <div class="row"><span class="src">Spread 101%</span><span class="body">48 + 53. The one point over 100 is what a taker pays to cross the market, before fees.</span></div>
+          <div class="row"><span class="src">Matched $212,400</span><span class="body">Bets already filled on this market. It shows how active the market is. It is history, not an open offer.</span></div>
+        </div>
 
-      <h3>The trading words</h3>
-      <p>Some apps and most articles use trading words for the same screen.</p>
-      <ul>
-        <li><strong>Ask</strong> (or offer): a posted price you can take. Over 48% with $16,240 available is the best ask on the Over.</li>
-        <li><strong>Bid</strong>: a price someone has posted to buy a side. The makers behind that $16,240 are bidding 52% for the Under. One order, seen from each side.</li>
-        <li><strong>Spread</strong>: the gap between the two best prices. 48 + 53 = 101%, so the spread is one point.</li>
-        <li><strong>Depth</strong>: the money available at each price.</li>
-      </ul>
+        <div class="tip-block">
+          <strong>Which is the best price?</strong> For you as a bettor, a lower percent is always better. The app lists the best available price first on each side. Everything below it in the queue costs more.
+        </div>
+        </div>
+      </details>
+
+      <details class="deeper" id="flip-rule">
+        <summary>Finding the other side's price: flip and subtract from 100</summary>
+        <div class="deeper-body">
+          <p>This uses the total from the second example above.</p>
+        <p>The $16,240 available on the Over did not come from the app. Someone posted it. To offer you the Over, they had to bet the Under. So:</p>
+        <div class="key-point">
+          <p><strong>Money available on one side means makers are on the other side.</strong></p>
+          <p>$16,240 available on the Over at 48% means makers are on the Under for that amount, at 52%.</p>
+        </div>
+        <p>Percent odds made this easier. The old rule was "flip the side, flip the sign." The new rule is <strong>flip the side, subtract from 100.</strong></p>
+
+        <div class="walk-block">
+          <span class="label">Flip the side, subtract from 100</span>
+          <div class="row"><span class="src">Screen</span><span class="body">Over <span class="accent">48%</span> &middot; $16,240 available</span></div>
+          <div class="row"><span class="src">Makers</span><span class="body">On the Under at <span class="accent">52%</span></span></div>
+          <div class="row"><span class="src">Screen</span><span class="body">Under <span class="accent">53%</span> &middot; $1,150 available</span></div>
+          <div class="row"><span class="src">Makers</span><span class="body">On the Over at <span class="accent">47%</span></span></div>
+        </div>
+
+        <p>This screen has a lot more maker money on the Under than on the Over. That lopsided book is the first thing <a href="/exchange-playbook.html">Reading the book</a> teaches you to read. It is a clue about where informed money sits. It is not proof, and that page covers why.</p>
+        <p>One more use of the flip: the makers' price is a ceiling. If a sportsbook offers the Under below 52% (better than &minus;108), it is paying more than the people who posted $16,240 were willing to accept. That comparison is the core of cross-market betting.</p>
+        </div>
+      </details>
+
+      <details class="deeper">
+        <summary>The trading words: ask, bid, spread, depth</summary>
+        <div class="deeper-body">
+        <p>Some apps and most articles use trading words for the same screen.</p>
+        <ul>
+          <li><strong>Ask</strong> (or offer): a posted price you can take. Over 48% with $16,240 available is the best ask on the Over.</li>
+          <li><strong>Bid</strong>: a price someone has posted to buy a side. The makers behind that $16,240 are bidding 52% for the Under. One order, seen from each side.</li>
+          <li><strong>Spread</strong>: the gap between the two best prices. 48 + 53 = 101%, so the spread is one point.</li>
+          <li><strong>Depth</strong>: the money available at each price.</li>
+        </ul>
+        </div>
+      </details>
     </div>
   </section>
 

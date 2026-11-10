@@ -783,3 +783,4 @@ details.deeper > summary:hover { color: var(--cyan); }
 .liq-card.ok { border-color: var(--green-border); } .liq-card.ok .liq-mark { color: var(--green); background: var(--green-dim); }
 .liq-card.no { border-color: rgba(255,61,61,.35); } .liq-card.no .liq-mark { color: var(--red); background: rgba(255,61,61,.12); }
 .key-point.plain p + p { margin-top: 14px; }
+.ladder .lv-note { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-style: normal; font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; opacity: .8; margin-left: 6px; }
