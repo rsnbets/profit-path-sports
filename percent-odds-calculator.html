@@ -1307,11 +1307,11 @@
     $('s' + n + 'MakeSub').textContent = 'their odds, and what they staked to post it';
   }
 
-  // ─── Venue fees (rates checked 2026-10-24; confirm in each app) ───
+  // ─── Venue fees (rates checked 2026-11-10 against brain/docs/compare-gaps-fees-pricing-oct-2026.md; confirm in each app) ───
   // px: 2% of net winnings, maker or taker, pregame or live.
   // nv: taker 0.06*P*(1-P) per contract live only; pregame takers and all makers pay 0.
   // ka: taker 0.07*P*(1-P), maker 0.0175*P*(1-P) on sports game series; rounded up per order (ignored here).
-  // pm: taker theta*P*(1-P), theta 0.0695 for sports (Sept 17, 2026 review); makers pay 0.
+  // pm: taker 0.05*P*(1-P) for sports (docs.polymarket.com/trading/fees, read 2026-11-10); makers pay 0.
   const FEE_NAMES = { px: 'ProphetX', nv: 'Novig', ka: 'Kalshi', pm: 'Polymarket US' };
   const feeVenue = $('feeVenue'), feeRole = $('feeRole'), feeWhen = $('feeWhen'), feeNote = $('feeNote');
   function feeSel() { return { v: feeVenue.value, role: feeRole.value, when: feeWhen.value }; }
@@ -1321,7 +1321,7 @@
     if (f.v === 'px') return 100 * x / (x + (1 - x) * 0.98);
     if (f.v === 'nv') coef = (f.role === 'taker' && f.when === 'live') ? 0.06 : 0;
     if (f.v === 'ka') coef = f.role === 'taker' ? 0.07 : 0.0175;
-    if (f.v === 'pm') coef = f.role === 'taker' ? 0.0695 : 0;
+    if (f.v === 'pm') coef = f.role === 'taker' ? 0.05 : 0;
     return 100 * (x + coef * x * (1 - x));
   }
   function feeLabel() {
@@ -1337,9 +1337,9 @@
       px: 'ProphetX: 2% of net winnings, charged only on winning bets. Same for makers and takers, pregame and live.',
       nv: 'Novig: pregame takers and all makers pay nothing. Live takers pay 0.06 × P × (1 − P) per contract.',
       ka: 'Kalshi: takers 0.07 × P × (1 − P), makers 0.0175 on sports game series. Kalshi rounds each order up to the cent, so small orders cost a bit more.',
-      pm: 'Polymarket US: takers about 0.0695 × P × (1 − P) on sports (as of mid-September). Makers pay nothing. Rates change by category, so check the app.'
+      pm: 'Polymarket US: takers 0.05 × P × (1 − P) on sports. Makers pay nothing. Rates change by category, so check the app.'
     };
-    feeNote.textContent = notes[f.v] + (f.v === 'none' ? '' : ' Rates checked Oct 24, 2026.');
+    feeNote.textContent = notes[f.v] + (f.v === 'none' ? '' : ' Rates checked Nov 10, 2026.');
   }
   try {
     const saved = JSON.parse(localStorage.getItem('pps_pct_fee') || 'null');

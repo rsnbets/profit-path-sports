@@ -475,7 +475,7 @@
       </ul>
 
       <div class="warn-block">
-        <strong>Rule of thumb:</strong> on a fee-on-price venue, taking a near 50/50 price costs you about 1.5 to 1.75 points. Posting your own price on Novig or Polymarket US costs nothing. That is the main reason sharp bettors make instead of take.
+        <strong>Rule of thumb:</strong> on a fee-on-price venue, taking a near 50/50 price costs you about 1.25 to 1.75 points. Posting your own price on Novig or Polymarket US costs nothing. That is the main reason sharp bettors make instead of take.
       </div>
 
 
@@ -517,8 +517,9 @@
           <tr><td><strong>Polymarket US</strong> maker</td><td class="num good">55.00%</td><td class="num good">&minus;122</td></tr>
           <tr><td><strong>Kalshi</strong> maker, sports game</td><td class="num">55.43%</td><td class="num">&minus;124</td></tr>
           <tr><td><strong>ProphetX</strong>, 2% of net winnings</td><td class="num">55.50%</td><td class="num">&minus;125</td></tr>
+          <!-- Polymarket: 0.05 x 0.55 x 0.45 = 1.24 points. docs.polymarket.com/trading/fees, read 2026-11-10: Sports taker 0.05, maker 0, maker rebate 15%. Polymarket US uses the same formula since Jul 1, 2026 per brain/docs/compare-gaps-fees-pricing-oct-2026.md. -->
+          <tr><td><strong>Polymarket US</strong> taker, sports</td><td class="num">56.24%</td><td class="num">&minus;129</td></tr>
           <tr><td><strong>Novig</strong> live taker</td><td class="num">56.49%</td><td class="num">&minus;130</td></tr>
-          <tr><td><strong>Polymarket US</strong> taker (&Theta; 0.0695)</td><td class="num">56.72%</td><td class="num">&minus;131</td></tr>
           <tr><td><strong>Kalshi</strong> taker</td><td class="num">56.73%</td><td class="num">&minus;131</td></tr>
         </tbody>
       </table>
@@ -541,7 +542,7 @@
     <div class="pb-body">
       <p>All four are CFTC-regulated and all four show percent prices. They differ in who is on the other side, what they charge, and how deep the markets run.</p>
 
-      <!-- TODO(Rob): Polymarket US taker rate. Text below carries the rewrite's wording (0.05 this summer, about 0.07 by mid-September). The fee doc and the board say 0.05. Fixed in build step 8 once confirmed. -->
+      <!-- Fee sources, all four rows: brain/docs/compare-gaps-fees-pricing-oct-2026.md section 1. ProphetX: third-party reviews only. Novig: docs.novig.com Maker Credit Program. Kalshi: fee schedule PDF effective Jul 7, 2026. Polymarket: docs.polymarket.com/trading/fees, read 2026-11-10: Sports taker 0.05, maker 0, maker rebate 15%. Polymarket US uses the same formula since Jul 1, 2026 per brain/docs/compare-gaps-fees-pricing-oct-2026.md. -->
       <!-- TODO(Rob): "Who can use it" column. The guide does not list states. Cells below reuse existing text only. -->
       <div class="table-wrap">
       <table class="lesson-table venue-compare">
@@ -549,7 +550,7 @@
         <tbody>
           <tr><td><strong><a href="/exchange-guide-prophetx.html">ProphetX</a></strong><br>Sports exchange</td><td data-label="Odds display">Percent</td><td data-label="Taker fee">2% of net winnings on straight bets. Nothing on losses. 0% on parlays.</td><td data-label="Maker cost">Same 2% of winnings</td><td data-label="Who can use it">Check the app for your state</td></tr>
           <tr><td><strong><a href="/exchange-guide-novig.html">Novig</a></strong><br>Sports exchange</td><td data-label="Odds display">Percent</td><td data-label="Taker fee">Pregame: nothing. Live: 0.06 &times; P &times; (1 &minus; P) per contract since October 15.</td><td data-label="Maker cost">Nothing. Makers earn credits.</td><td data-label="Who can use it">Check the app for your state</td></tr>
-          <tr><td><strong><a href="/exchange-guide-polymarket.html">Polymarket US</a></strong><br>Prediction market</td><td data-label="Odds display">Cents and percent</td><td data-label="Taker fee">&Theta; &times; contracts &times; P &times; (1 &minus; P). &Theta; was 0.05 for sports this summer and about 0.07 by mid-September.</td><td data-label="Maker cost">Nothing. Makers can earn rebates.</td><td data-label="Who can use it">A separate US app, not the global crypto site. Full ID check before you deposit.</td></tr>
+          <tr><td><strong><a href="/exchange-guide-polymarket.html">Polymarket US</a></strong><br>Prediction market</td><td data-label="Odds display">Cents and percent</td><td data-label="Taker fee">0.05 &times; contracts &times; P &times; (1 &minus; P) on sports.</td><td data-label="Maker cost">Nothing. Makers can earn rebates.</td><td data-label="Who can use it">A separate US app, not the global crypto site. Full ID check before you deposit.</td></tr>
           <tr><td><strong><a href="/exchange-guide-kalshi.html">Kalshi</a></strong><br>Prediction market</td><td data-label="Odds display">Cents, 1&cent; to 99&cent; per contract</td><td data-label="Taker fee">0.07 &times; contracts &times; P &times; (1 &minus; P), rounded up to the cent.</td><td data-label="Maker cost">0.0175 on the same formula, on sports game series.</td><td data-label="Who can use it">The main target of state lawsuits. Access in your state can change on short notice.</td></tr>
         </tbody>
       </table>
@@ -563,9 +564,9 @@
         <li><strong>Want to post your own price?</strong> Novig and Polymarket US charge makers nothing. Kalshi charges makers a small fee on sports games.</li>
         <li><strong>Want the most money to bet into?</strong> Between the two sports exchanges, Novig usually has more. Kalshi and Polymarket US can be deep on main lines. Check market by market.</li>
       </ul>
-      <p class="checked-note">Fee rates from each venue's published schedule or help center, as reported through October 2026. ProphetX's rate comes from its help center as reprinted October 2. Polymarket US's current sports rate comes from a September 17 review. Confirm both in the app.</p>
+      <p class="checked-note">Fee rates from each venue's published schedule or help center, as reported through October 2026. ProphetX's rate comes from third-party reviews dated August to October 2026. It is not confirmed on a ProphetX page. Polymarket's sports rate is from its published fee page, read November 10, 2026. Confirm both in the app.</p>
       <p>Fees moved around this fall, and state access is in flux. Several states have sued or ordered exchanges out. This guide names fees and dates. It does not list states, because that list changes week to week. Check the app before you deposit.</p>
-      <p class="checked-note">Facts on this page checked October 24, 2026.</p>
+      <p class="checked-note">Fees on this page checked November 10, 2026. Other facts checked October 24, 2026.</p>
 
       <div class="main-takeaways">
         <ul>

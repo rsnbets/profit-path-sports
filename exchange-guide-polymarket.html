@@ -340,14 +340,21 @@
     <div class="pb-eyebrow">04</div>
     <h2>Fees</h2>
     <div class="pb-body">
-      <!-- Source: brain/docs/compare-gaps-fees-pricing-oct-2026.md, section 1 (docs.polymarket.com/trading/fees, rivermarkets.com Polymarket US fees). -->
+      <!-- Source: docs.polymarket.com/trading/fees, read 2026-11-10: Sports taker 0.05, maker 0, maker rebate 15%. Polymarket US uses the same formula since Jul 1, 2026 per brain/docs/compare-gaps-fees-pricing-oct-2026.md. -->
+      <div class="table-wrap">
+      <table class="lesson-table">
+        <thead><tr><th>You are</th><th>Fee</th><th>A 55% bet costs</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Taker</strong>, sports</td><td>0.05 &times; contracts &times; P &times; (1 &minus; P)</td><td class="num">56.24% (&minus;129)</td></tr>
+          <tr><td><strong>Maker</strong></td><td>Nothing. Makers can earn rebates.</td><td class="num good">55.00% (&minus;122)</td></tr>
+        </tbody>
+      </table>
+      </div>
       <ul>
-        <li><strong>Takers pay a fee on the price:</strong> &Theta; &times; contracts &times; P &times; (1 &minus; P). It is largest at 50% and shrinks toward the ends.</li>
-        <li><strong>Makers pay nothing</strong> and can earn rebates.</li>
-        <li><strong>The rate depends on the category.</strong> Sports has its own rate. Other categories run from 0.04 to 0.07.</li>
+        <li><strong>The fee is largest at 50%</strong> and shrinks toward the ends. You pay it when the trade fills, win or lose.</li>
+        <li><strong>The rate depends on the category.</strong> Sports is 0.05. Other categories run from 0 to 0.07.</li>
       </ul>
-      <p>A maker at 55% (&minus;122) pays 55.00% all-in. The price on the screen is the price.</p>
-      <div class="todo-rob"><strong>TODO(Rob)</strong> The sports taker rate. The October rewrite says 0.05 this summer and about 0.07 by mid-September (a September 17 review). The fee doc and the board say 0.05. Shot 06 settles it. Until then this page gives no rate and no all-in taker price. At 0.05 a 55% take is 56.24%. At 0.0695 it is 56.72%.</div>
+      <p class="checked-note">Rates from Polymarket's published fee page, read November 10, 2026. Confirm them in the app.</p>
       <div class="shot-missing"><strong>IMAGE PLACEHOLDER</strong> images/guides/polymarket-06-fee-line.png<br>Alt text will say: the price, the size and the fee on a taker receipt.</div>
     </div>
   </section>
