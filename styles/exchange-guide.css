@@ -770,3 +770,16 @@ details.deeper > summary:hover { color: var(--cyan); }
 .same-bet .sb-side.open { border: 2px dashed var(--cyan-border); background: transparent; } .same-bet .sb-side.open small { color: var(--cyan); }
 .same-bet .sb-eq { font-size: 14px; letter-spacing: .08em; text-transform: uppercase; }
 .pot-total { margin-bottom: 16px; }
+
+/* Liquidity: how much you can bet (hub section 1) */
+.liq-line { display: flex; justify-content: space-between; align-items: center; gap: 12px; background: var(--green-faint); border: 1px solid var(--green-border); border-radius: 10px; padding: 12px 16px; margin: 14px 0; font-family: 'Space Grotesk', system-ui, sans-serif; font-weight: 700; }
+.liq-line .liq-price { color: var(--text); font-size: 17px; }
+.liq-line .liq-amt { color: var(--green); font-size: 17px; }
+.liq-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 14px 0 18px; }
+@media (max-width: 640px) { .liq-cards { grid-template-columns: 1fr; } }
+.liq-card { position: relative; background: var(--surface-2); border: 1px solid var(--border-2); border-radius: 12px; padding: 14px 16px; font-size: 13.5px; line-height: 1.55; color: var(--muted); }
+.liq-card b { display: block; font-family: 'Space Grotesk', system-ui, sans-serif; font-size: 18px; color: var(--text); margin-bottom: 6px; }
+.liq-card .liq-mark { position: absolute; top: 14px; right: 14px; font-size: 10px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; border-radius: 999px; padding: 3px 9px; }
+.liq-card.ok { border-color: var(--green-border); } .liq-card.ok .liq-mark { color: var(--green); background: var(--green-dim); }
+.liq-card.no { border-color: rgba(255,61,61,.35); } .liq-card.no .liq-mark { color: var(--red); background: rgba(255,61,61,.12); }
+.key-point.plain p + p { margin-top: 14px; }
