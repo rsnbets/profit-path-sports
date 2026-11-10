@@ -75,6 +75,4 @@
   }
 
   wire(document.getElementById('ppsGateForm'), function () { write(); reveal(); });
-  /* The playbook's founding form. Goes away when Reading the book is trimmed (build step 6). */
-  wire(document.getElementById('ppsFoundingForm'), function () { write(); });
 })();
