@@ -1,7 +1,7 @@
 {
  "season": 2026,
  "week": 10,
- "generated_at": "2026-11-16T07:15:34.639371Z",
+ "generated_at": "2026-11-17T08:24:35.602850Z",
  "pool": {
   "timezone": "America/Denver",
   "deadline": {
@@ -20,7 +20,7 @@
  "tiebreak": {
   "game_id": "2026_10_LAC_BAL",
   "label": "LAC@BAL",
-  "total": 38.5,
+  "total": 39.5,
   "total_source": "nflverse",
   "total_books": 1,
   "sd": 13.1,
@@ -358,15 +358,15 @@
    "n_books": 1,
    "snapshot_at": null,
    "gap_minutes": null,
-   "market_total": 38.5,
+   "market_total": 39.5,
    "market_total_books": 1,
    "market_total_source": "nflverse",
-   "frozen": false,
+   "frozen": true,
    "nflverse_moneyline": {
     "away": 185.0,
     "home": -225.0
    },
-   "nflverse_total": 38.5
+   "nflverse_total": 39.5
   }
  ]
 }
