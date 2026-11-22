@@ -1,7 +1,7 @@
 {
  "season": 2026,
  "week": 11,
- "generated_at": "2026-11-20T07:32:13.450956Z",
+ "generated_at": "2026-11-22T20:33:32.953652Z",
  "pool": {
   "timezone": "America/Denver",
   "deadline": {
@@ -20,7 +20,7 @@
  "tiebreak": {
   "game_id": "2026_11_CIN_WAS",
   "label": "CIN@WAS",
-  "total": 53.5,
+  "total": 54.5,
   "total_source": "nflverse",
   "total_books": 1,
   "sd": 13.1,
@@ -65,7 +65,7 @@
    "lock_at": "2026-11-22T18:00:00Z",
    "weekday": "Sunday",
    "gametime_et": "13:00",
-   "p_home": 0.9245,
+   "p_home": 0.9262,
    "p_source": "nflverse",
    "n_books": 1,
    "snapshot_at": null,
@@ -73,10 +73,10 @@
    "market_total": 40.5,
    "market_total_books": 1,
    "market_total_source": "nflverse",
-   "frozen": false,
+   "frozen": true,
    "nflverse_moneyline": {
-    "away": 840.0,
-    "home": -1420.0
+    "away": 850.0,
+    "home": -1460.0
    },
    "nflverse_total": 40.5
   },
@@ -89,44 +89,20 @@
    "lock_at": "2026-11-22T18:00:00Z",
    "weekday": "Sunday",
    "gametime_et": "13:00",
-   "p_home": 0.574,
+   "p_home": 0.5655,
    "p_source": "nflverse",
    "n_books": 1,
    "snapshot_at": null,
    "gap_minutes": null,
-   "market_total": 43.5,
+   "market_total": 44.5,
    "market_total_books": 1,
    "market_total_source": "nflverse",
-   "frozen": false,
+   "frozen": true,
    "nflverse_moneyline": {
-    "away": 123.0,
-    "home": -146.0
+    "away": 119.0,
+    "home": -141.0
    },
-   "nflverse_total": 43.5
-  },
-  {
-   "id": "2026_11_JAX_NYG",
-   "espn": "401873069",
-   "away": "JAX",
-   "home": "NYG",
-   "kickoff": "2026-11-22T18:00:00Z",
-   "lock_at": "2026-11-22T18:00:00Z",
-   "weekday": "Sunday",
-   "gametime_et": "13:00",
-   "p_home": 0.2963,
-   "p_source": "nflverse",
-   "n_books": 1,
-   "snapshot_at": null,
-   "gap_minutes": null,
-   "market_total": 46.5,
-   "market_total_books": 1,
-   "market_total_source": "nflverse",
-   "frozen": false,
-   "nflverse_moneyline": {
-    "away": -257.0,
-    "home": 212.0
-   },
-   "nflverse_total": 46.5
+   "nflverse_total": 44.5
   },
   {
    "id": "2026_11_MIA_BUF",
@@ -137,20 +113,20 @@
    "lock_at": "2026-11-22T18:00:00Z",
    "weekday": "Sunday",
    "gametime_et": "13:00",
-   "p_home": 0.9333,
+   "p_home": 0.939,
    "p_source": "nflverse",
    "n_books": 1,
    "snapshot_at": null,
    "gap_minutes": null,
-   "market_total": 44.5,
+   "market_total": 45.5,
    "market_total_books": 1,
    "market_total_source": "nflverse",
-   "frozen": false,
+   "frozen": true,
    "nflverse_moneyline": {
-    "away": 920.0,
-    "home": -1640.0
+    "away": 980.0,
+    "home": -1820.0
    },
-   "nflverse_total": 44.5
+   "nflverse_total": 45.5
   },
   {
    "id": "2026_11_NO_CHI",
@@ -161,20 +137,44 @@
    "lock_at": "2026-11-22T18:00:00Z",
    "weekday": "Sunday",
    "gametime_et": "13:00",
-   "p_home": 0.8432,
+   "p_home": 0.8579,
    "p_source": "nflverse",
    "n_books": 1,
    "snapshot_at": null,
    "gap_minutes": null,
-   "market_total": 48.5,
+   "market_total": 47.5,
    "market_total_books": 1,
    "market_total_source": "nflverse",
-   "frozen": false,
+   "frozen": true,
    "nflverse_moneyline": {
-    "away": 442.0,
-    "home": -594.0
+    "away": 488.0,
+    "home": -670.0
    },
-   "nflverse_total": 48.5
+   "nflverse_total": 47.5
+  },
+  {
+   "id": "2026_11_PIT_PHI",
+   "espn": "401873076",
+   "away": "PIT",
+   "home": "PHI",
+   "kickoff": "2026-11-22T18:00:00Z",
+   "lock_at": "2026-11-22T18:00:00Z",
+   "weekday": "Sunday",
+   "gametime_et": "13:00",
+   "p_home": 0.3555,
+   "p_source": "nflverse",
+   "n_books": 1,
+   "snapshot_at": null,
+   "gap_minutes": null,
+   "market_total": 37.5,
+   "market_total_books": 1,
+   "market_total_source": "nflverse",
+   "frozen": true,
+   "nflverse_moneyline": {
+    "away": -196.0,
+    "home": 164.0
+   },
+   "nflverse_total": 37.5
   },
   {
    "id": "2026_11_TB_DET",
@@ -185,20 +185,20 @@
    "lock_at": "2026-11-22T18:00:00Z",
    "weekday": "Sunday",
    "gametime_et": "13:00",
-   "p_home": 0.7046,
+   "p_home": 0.6716,
    "p_source": "nflverse",
    "n_books": 1,
    "snapshot_at": null,
    "gap_minutes": null,
-   "market_total": 45.5,
+   "market_total": 48.5,
    "market_total_books": 1,
    "market_total_source": "nflverse",
-   "frozen": false,
+   "frozen": true,
    "nflverse_moneyline": {
-    "away": 213.0,
-    "home": -258.0
+    "away": 184.0,
+    "home": -221.0
    },
-   "nflverse_total": 45.5
+   "nflverse_total": 48.5
   },
   {
    "id": "2026_11_TEN_DAL",
@@ -209,20 +209,20 @@
    "lock_at": "2026-11-22T18:00:00Z",
    "weekday": "Sunday",
    "gametime_et": "13:00",
-   "p_home": 0.7753,
+   "p_home": 0.7676,
    "p_source": "nflverse",
    "n_books": 1,
    "snapshot_at": null,
    "gap_minutes": null,
-   "market_total": 54.5,
+   "market_total": 55.5,
    "market_total_books": 1,
    "market_total_source": "nflverse",
-   "frozen": false,
+   "frozen": true,
    "nflverse_moneyline": {
-    "away": 299.0,
-    "home": -376.0
+    "away": 288.0,
+    "home": -359.0
    },
-   "nflverse_total": 54.5
+   "nflverse_total": 55.5
   },
   {
    "id": "2026_11_NYJ_LAC",
@@ -233,20 +233,44 @@
    "lock_at": "2026-11-22T18:00:00Z",
    "weekday": "Sunday",
    "gametime_et": "16:05",
-   "p_home": 0.6065,
+   "p_home": 0.624,
    "p_source": "nflverse",
    "n_books": 1,
    "snapshot_at": null,
    "gap_minutes": null,
-   "market_total": 41.5,
+   "market_total": 43.5,
    "market_total_books": 1,
    "market_total_source": "nflverse",
    "frozen": false,
    "nflverse_moneyline": {
-    "away": 140.0,
-    "home": -167.0
+    "away": 151.0,
+    "home": -179.0
    },
-   "nflverse_total": 41.5
+   "nflverse_total": 43.5
+  },
+  {
+   "id": "2026_11_JAX_NYG",
+   "espn": "401873069",
+   "away": "JAX",
+   "home": "NYG",
+   "kickoff": "2026-11-22T21:25:00Z",
+   "lock_at": "2026-11-22T18:00:00Z",
+   "weekday": "Sunday",
+   "gametime_et": "16:25",
+   "p_home": 0.287,
+   "p_source": "nflverse",
+   "n_books": 1,
+   "snapshot_at": null,
+   "gap_minutes": null,
+   "market_total": 45.5,
+   "market_total_books": 1,
+   "market_total_source": "nflverse",
+   "frozen": false,
+   "nflverse_moneyline": {
+    "away": -269.0,
+    "home": 221.0
+   },
+   "nflverse_total": 45.5
   },
   {
    "id": "2026_11_LV_DEN",
@@ -257,7 +281,7 @@
    "lock_at": "2026-11-22T18:00:00Z",
    "weekday": "Sunday",
    "gametime_et": "16:25",
-   "p_home": 0.8483,
+   "p_home": 0.8422,
    "p_source": "nflverse",
    "n_books": 1,
    "snapshot_at": null,
@@ -267,34 +291,10 @@
    "market_total_source": "nflverse",
    "frozen": false,
    "nflverse_moneyline": {
-    "away": 455.0,
-    "home": -620.0
+    "away": 440.0,
+    "home": -589.0
    },
    "nflverse_total": 40.5
-  },
-  {
-   "id": "2026_11_PIT_PHI",
-   "espn": "401873076",
-   "away": "PIT",
-   "home": "PHI",
-   "kickoff": "2026-11-22T21:25:00Z",
-   "lock_at": "2026-11-22T18:00:00Z",
-   "weekday": "Sunday",
-   "gametime_et": "16:25",
-   "p_home": 0.3472,
-   "p_source": "nflverse",
-   "n_books": 1,
-   "snapshot_at": null,
-   "gap_minutes": null,
-   "market_total": 38.5,
-   "market_total_books": 1,
-   "market_total_source": "nflverse",
-   "frozen": false,
-   "nflverse_moneyline": {
-    "away": -203.0,
-    "home": 170.0
-   },
-   "nflverse_total": 38.5
   },
   {
    "id": "2026_11_MIN_SF",
@@ -305,7 +305,7 @@
    "lock_at": "2026-11-22T18:00:00Z",
    "weekday": "Sunday",
    "gametime_et": "20:20",
-   "p_home": 0.6143,
+   "p_home": 0.6373,
    "p_source": "nflverse",
    "n_books": 1,
    "snapshot_at": null,
@@ -315,8 +315,8 @@
    "market_total_source": "nflverse",
    "frozen": false,
    "nflverse_moneyline": {
-    "away": 145.0,
-    "home": -172.0
+    "away": 159.0,
+    "home": -190.0
    },
    "nflverse_total": 46.5
   },
@@ -329,20 +329,20 @@
    "lock_at": "2026-11-22T18:00:00Z",
    "weekday": "Monday",
    "gametime_et": "20:15",
-   "p_home": 0.2771,
+   "p_home": 0.2682,
    "p_source": "nflverse",
    "n_books": 1,
    "snapshot_at": null,
    "gap_minutes": null,
-   "market_total": 53.5,
+   "market_total": 54.5,
    "market_total_books": 1,
    "market_total_source": "nflverse",
    "frozen": false,
    "nflverse_moneyline": {
-    "away": -283.0,
-    "home": 231.0
+    "away": -296.0,
+    "home": 241.0
    },
-   "nflverse_total": 53.5
+   "nflverse_total": 54.5
   }
  ]
 }
