@@ -1,7 +1,7 @@
 {
  "season": 2026,
  "week": 11,
- "generated_at": "2026-11-22T22:32:12.606730Z",
+ "generated_at": "2026-11-23T01:07:41.151999Z",
  "pool": {
   "timezone": "America/Denver",
   "deadline": {
@@ -305,20 +305,20 @@
    "lock_at": "2026-11-22T18:00:00Z",
    "weekday": "Sunday",
    "gametime_et": "20:20",
-   "p_home": 0.6373,
+   "p_home": 0.6583,
    "p_source": "nflverse",
    "n_books": 1,
    "snapshot_at": null,
    "gap_minutes": null,
-   "market_total": 46.5,
+   "market_total": 44.5,
    "market_total_books": 1,
    "market_total_source": "nflverse",
    "frozen": false,
    "nflverse_moneyline": {
-    "away": 159.0,
-    "home": -190.0
+    "away": 174.0,
+    "home": -208.0
    },
-   "nflverse_total": 46.5
+   "nflverse_total": 44.5
   },
   {
    "id": "2026_11_CIN_WAS",
